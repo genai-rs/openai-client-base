@@ -13,6 +13,19 @@ pub struct ResponseContent<T> {
     pub headers: timvw_rust_runtime::header::HeaderMap,
 }
 
+impl<T> ResponseContent<T> {
+    /// The headers the spec declares for the operation's error responses, typed: `H` is the operation's
+    /// `<Operation>ErrorHeaders` struct in its API module, which the documentation of `T` (`<Operation>Error`)
+    /// names. Every field is an `Option`: `None` when the header is missing or does not parse. The same as
+    /// `H::from(&content.headers)`.
+    pub fn typed_headers<H>(&self) -> H
+    where
+        H: for<'h> From<&'h timvw_rust_runtime::header::HeaderMap>,
+    {
+        H::from(&self.headers)
+    }
+}
+
 #[derive(Debug)]
 pub enum Error<T> {
     /// Building the request, sending it through the client's service, or reading the response body failed.
@@ -208,7 +221,9 @@ pub mod vector_stores_api;
 #[cfg(feature = "video")]
 pub mod videos_api;
 
+pub mod api_response;
 pub mod configuration;
+pub use api_response::ApiResponse;
 
 // Internal helper module for multipart file handling
 #[allow(dead_code)] // the API features enabled may not use every helper

@@ -16,6 +16,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 use timvw_rust_runtime;
 
 /// struct for typed errors of method [`add_project_group`]
+///
+/// The headers its error responses declare are typed: [`AddProjectGroupErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<AddProjectGroupErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AddProjectGroupError {
@@ -27,7 +30,39 @@ pub enum AddProjectGroupError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`add_project_group`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<AddProjectGroupErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct AddProjectGroupErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl AddProjectGroupErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        AddProjectGroupErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for AddProjectGroupErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`list_project_groups`]
+///
+/// The headers its error responses declare are typed: [`ListProjectGroupsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListProjectGroupsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListProjectGroupsError {
@@ -38,7 +73,39 @@ pub enum ListProjectGroupsError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`list_project_groups`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListProjectGroupsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListProjectGroupsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListProjectGroupsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListProjectGroupsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListProjectGroupsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`remove_project_group`]
+///
+/// The headers its error responses declare are typed: [`RemoveProjectGroupErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<RemoveProjectGroupErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RemoveProjectGroupError {
@@ -49,7 +116,39 @@ pub enum RemoveProjectGroupError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`remove_project_group`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<RemoveProjectGroupErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct RemoveProjectGroupErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl RemoveProjectGroupErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        RemoveProjectGroupErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for RemoveProjectGroupErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`retrieve_project_group`]
+///
+/// The headers its error responses declare are typed: [`RetrieveProjectGroupErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<RetrieveProjectGroupErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveProjectGroupError {
@@ -58,6 +157,35 @@ pub enum RetrieveProjectGroupError {
     Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// The headers the error responses of [`retrieve_project_group`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<RetrieveProjectGroupErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct RetrieveProjectGroupErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl RetrieveProjectGroupErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        RetrieveProjectGroupErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for RetrieveProjectGroupErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 /// Grants a group access to a project.
@@ -113,6 +241,90 @@ pub async fn add_project_group(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectGroup`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectGroup`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<AddProjectGroupError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(AddProjectGroupError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(AddProjectGroupError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(AddProjectGroupError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(AddProjectGroupError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(AddProjectGroupError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(AddProjectGroupError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Grants a group access to a project.
+///
+/// Sends the same request as [`add_project_group`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProjectGroup` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn add_project_group_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    invite_project_group_body: &models::InviteProjectGroupBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ProjectGroup>, Error<AddProjectGroupError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_body_invite_project_group_body = invite_project_group_body;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/groups",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_invite_project_group_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -245,6 +457,99 @@ pub async fn list_project_groups(
     }
 }
 
+/// Lists the groups that have access to a project.
+///
+/// Sends the same request as [`list_project_groups`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProjectGroupListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_project_groups_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    limit: Option<i64>,
+    after: Option<&str>,
+    order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ProjectGroupListResource>, Error<ListProjectGroupsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_query_limit = limit;
+    let p_query_after = after;
+    let p_query_order = order;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/groups",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListProjectGroupsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListProjectGroupsError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListProjectGroupsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListProjectGroupsError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListProjectGroupsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListProjectGroupsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Revokes a group's access to a project.
 #[bon::builder]
 pub async fn remove_project_group(
@@ -298,6 +603,88 @@ pub async fn remove_project_group(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectGroupDeletedResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectGroupDeletedResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RemoveProjectGroupError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RemoveProjectGroupError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RemoveProjectGroupError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RemoveProjectGroupError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RemoveProjectGroupError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RemoveProjectGroupError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Revokes a group's access to a project.
+///
+/// Sends the same request as [`remove_project_group`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProjectGroupDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn remove_project_group_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    group_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ProjectGroupDeletedResource>, Error<RemoveProjectGroupError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_path_group_id = group_id;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/groups/{group_id}",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id),
+        group_id = crate::apis::urlencode(p_path_group_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -388,6 +775,92 @@ pub async fn retrieve_project_group(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectGroup`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectGroup`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveProjectGroupError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveProjectGroupError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveProjectGroupError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveProjectGroupError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveProjectGroupError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveProjectGroupError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves a project's group.
+///
+/// Sends the same request as [`retrieve_project_group`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProjectGroup` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_project_group_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    group_id: &str,
+    group_type: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ProjectGroup>, Error<RetrieveProjectGroupError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_path_group_id = group_id;
+    let p_query_group_type = group_type;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/groups/{group_id}",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id),
+        group_id = crate::apis::urlencode(p_path_group_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_group_type {
+        req_builder = req_builder.query(&[("group_type", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

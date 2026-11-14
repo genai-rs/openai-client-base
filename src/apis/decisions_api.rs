@@ -83,3 +83,61 @@ pub async fn create_decision(
         })))
     }
 }
+
+/// Use this endpoint to quickly answer classification or scoring questions about some input. You can ask multiple questions in one request.
+///
+/// Sends the same request as [`create_decision`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DecisionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_decision_response(
+    configuration: &configuration::Configuration,
+    decision_request: &models::DecisionRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DecisionResponse>, Error<CreateDecisionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_decision_request = decision_request;
+
+    let uri_str = format!("{}/decisions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_decision_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateDecisionError> = serde_json::from_str(&content)
+            .ok()
+            .map(CreateDecisionError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}

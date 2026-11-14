@@ -32,6 +32,35 @@ pub enum CreateRealtimeCallError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the success responses of [`create_realtime_call`] declare (`201`), typed. Read them from the
+/// [`ApiResponse`](super::ApiResponse) of a `_response` function with
+/// `response.typed_headers::<CreateRealtimeCallResponseHeaders>()`, or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateRealtimeCallResponseHeaders {
+    /// `Location`: Relative URL containing the call ID for subsequent control requests.
+    pub location: Option<String>,
+}
+
+impl CreateRealtimeCallResponseHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateRealtimeCallResponseHeaders {
+            location: super::api_response::header_value(headers, "location", |v| {
+                Some(v.to_owned())
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateRealtimeCallResponseHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_realtime_client_secret`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -162,6 +191,82 @@ pub async fn accept_realtime_call(
     }
 }
 
+/// Accept an incoming SIP call and configure the realtime session that will handle it.
+///
+/// Sends the same request as [`accept_realtime_call`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn accept_realtime_call_response(
+    configuration: &configuration::Configuration,
+    call_id: &str,
+    realtime_session_create_request_ga: &models::RealtimeSessionCreateRequestGa,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<()>, Error<AcceptRealtimeCallError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_call_id = call_id;
+    let p_body_realtime_session_create_request_ga = realtime_session_create_request_ga;
+
+    let uri_str = format!(
+        "{}/realtime/calls/{call_id}/accept",
+        configuration.base_path,
+        call_id = crate::apis::urlencode(p_path_call_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_realtime_session_create_request_ga);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<AcceptRealtimeCallError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(AcceptRealtimeCallError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(AcceptRealtimeCallError::Status409),
+            500 => Some(AcceptRealtimeCallError::Status500(content.clone())),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(AcceptRealtimeCallError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Create a new Realtime API call over WebRTC and receive the SDP answer needed to complete the peer connection.
 #[bon::builder]
 pub async fn create_realtime_call(
@@ -243,6 +348,82 @@ pub async fn create_realtime_call(
 
 /// Create a new Realtime API call over WebRTC and receive the SDP answer needed to complete the peer connection.
 ///
+/// Sends the same request as [`create_realtime_call`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `String` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+/// The headers the spec declares are typed: `typed_headers::<CreateRealtimeCallResponseHeaders>()` ([`CreateRealtimeCallResponseHeaders`]).
+#[bon::builder]
+pub async fn create_realtime_call_response(
+    configuration: &configuration::Configuration,
+    sdp: &str,
+    session: Option<models::RealtimeSessionCreateRequestGa>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<String>, Error<CreateRealtimeCallError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_sdp = sdp;
+    let p_form_session = session;
+
+    let uri_str = format!("{}/realtime/calls", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    multipart_form = multipart_helper::add_schema_value_to_form(
+        multipart_form,
+        "sdp",
+        serde_json::Value::String(p_form_sdp.to_string()),
+        Some("application/sdp"),
+    )?;
+    if let Some(param_value) = p_form_session {
+        multipart_form = multipart_helper::add_schema_value_to_form(
+            multipart_form,
+            "session",
+            serde_json::to_value(param_value)?,
+            Some("application/json"),
+        )?;
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateRealtimeCallError> = serde_json::from_str(&content)
+            .ok()
+            .map(CreateRealtimeCallError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a new Realtime API call over WebRTC and receive the SDP answer needed to complete the peer connection.
+///
 /// Sends the request body as `application/sdp`; `create_realtime_call` sends it as `multipart/form-data`.
 #[bon::builder]
 pub async fn create_realtime_call_sdp(
@@ -292,6 +473,69 @@ pub async fn create_realtime_call_sdp(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `String`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `String`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateRealtimeCallError> = serde_json::from_str(&content)
+            .ok()
+            .map(CreateRealtimeCallError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a new Realtime API call over WebRTC and receive the SDP answer needed to complete the peer connection.
+///
+/// Sends the request body as `application/sdp`; `create_realtime_call` sends it as `multipart/form-data`.
+///
+/// Sends the same request as [`create_realtime_call_sdp`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `String` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+/// The headers the spec declares are typed: `typed_headers::<CreateRealtimeCallResponseHeaders>()` ([`CreateRealtimeCallResponseHeaders`]).
+#[bon::builder]
+pub async fn create_realtime_call_sdp_response(
+    configuration: &configuration::Configuration,
+    body: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<String>, Error<CreateRealtimeCallError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_body = body;
+
+    let uri_str = format!("{}/realtime/calls", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder
+        .header(timvw_rust_runtime::header::CONTENT_TYPE, "application/sdp")
+        .body(p_body_body.to_owned());
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -383,6 +627,81 @@ pub async fn create_realtime_client_secret(
     }
 }
 
+/// Create a Realtime client secret with an associated session configuration.  Client secrets are short-lived tokens that can be passed to a client app, such as a web frontend or mobile client, which grants access to the Realtime API without leaking your main API key. You can configure a custom TTL for each client secret.  You can also attach session configuration options to the client secret, which will be applied to any sessions created using that client secret, but these can also be overridden by the client connection.  [Learn more about authentication with client secrets over WebRTC](https://developers.openai.com/api/docs/guides/realtime-webrtc).  Returns the created client secret and the effective session object. The client secret is a string that looks like `ek_1234`.
+///
+/// Sends the same request as [`create_realtime_client_secret`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::RealtimeCreateClientSecretResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_realtime_client_secret_response(
+    configuration: &configuration::Configuration,
+    realtime_create_client_secret_request: &models::RealtimeCreateClientSecretRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::RealtimeCreateClientSecretResponse>,
+    Error<CreateRealtimeClientSecretError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_realtime_create_client_secret_request = realtime_create_client_secret_request;
+
+    let uri_str = format!("{}/realtime/client_secrets", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_realtime_create_client_secret_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateRealtimeClientSecretError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateRealtimeClientSecretError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateRealtimeClientSecretError::Status404),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateRealtimeClientSecretError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateRealtimeClientSecretError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Create an ephemeral API token for use in client-side applications with the Realtime API. Can be configured with the same session parameters as the `session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API.  Returns the created Realtime session object, plus an ephemeral key.
 #[bon::builder]
 pub async fn create_realtime_session(
@@ -430,6 +749,67 @@ pub async fn create_realtime_session(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RealtimeSessionCreateResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RealtimeSessionCreateResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateRealtimeSessionError> = serde_json::from_str(&content)
+            .ok()
+            .map(CreateRealtimeSessionError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create an ephemeral API token for use in client-side applications with the Realtime API. Can be configured with the same session parameters as the `session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API.  Returns the created Realtime session object, plus an ephemeral key.
+///
+/// Sends the same request as [`create_realtime_session`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::RealtimeSessionCreateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_realtime_session_response(
+    configuration: &configuration::Configuration,
+    realtime_session_create_request: &models::RealtimeSessionCreateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::RealtimeSessionCreateResponse>,
+    Error<CreateRealtimeSessionError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_realtime_session_create_request = realtime_session_create_request;
+
+    let uri_str = format!("{}/realtime/sessions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_realtime_session_create_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -499,6 +879,72 @@ pub async fn create_realtime_transcription_session(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RealtimeTranscriptionSessionCreateResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RealtimeTranscriptionSessionCreateResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateRealtimeTranscriptionSessionError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateRealtimeTranscriptionSessionError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create an ephemeral API token for use in client-side applications with the Realtime API specifically for realtime transcriptions.  Can be configured with the same session parameters as the `transcription_session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API.  Returns the created Realtime transcription session object, plus an ephemeral key.
+///
+/// Sends the same request as [`create_realtime_transcription_session`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::RealtimeTranscriptionSessionCreateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_realtime_transcription_session_response(
+    configuration: &configuration::Configuration,
+    realtime_transcription_session_create_request: &models::RealtimeTranscriptionSessionCreateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::RealtimeTranscriptionSessionCreateResponse>,
+    Error<CreateRealtimeTranscriptionSessionError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_realtime_transcription_session_create_request =
+        realtime_transcription_session_create_request;
+
+    let uri_str = format!(
+        "{}/realtime/transcription_sessions",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_realtime_transcription_session_create_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -598,6 +1044,85 @@ pub async fn create_realtime_translation_client_secret(
     }
 }
 
+/// Create a Realtime translation client secret with an associated translation session configuration.  Client secrets are short-lived tokens that can be passed to a client app, such as a web frontend or mobile client, which grants access to the Realtime Translation API without leaking your main API key. You can configure a custom TTL for each client secret.  Returns the created client secret and the effective translation session object. The client secret is a string that looks like `ek_1234`.
+///
+/// Sends the same request as [`create_realtime_translation_client_secret`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::RealtimeTranslationClientSecretCreateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_realtime_translation_client_secret_response(
+    configuration: &configuration::Configuration,
+    realtime_translation_client_secret_create_request: &models::RealtimeTranslationClientSecretCreateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::RealtimeTranslationClientSecretCreateResponse>,
+    Error<CreateRealtimeTranslationClientSecretError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_realtime_translation_client_secret_create_request =
+        realtime_translation_client_secret_create_request;
+
+    let uri_str = format!(
+        "{}/realtime/translations/client_secrets",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_realtime_translation_client_secret_create_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateRealtimeTranslationClientSecretError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateRealtimeTranslationClientSecretError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateRealtimeTranslationClientSecretError::Status404),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateRealtimeTranslationClientSecretError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateRealtimeTranslationClientSecretError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// End an active Realtime API call, whether it was initiated over SIP or WebRTC.
 #[bon::builder]
 pub async fn hangup_realtime_call(
@@ -637,6 +1162,75 @@ pub async fn hangup_realtime_call(
 
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<HangupRealtimeCallError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(HangupRealtimeCallError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(HangupRealtimeCallError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// End an active Realtime API call, whether it was initiated over SIP or WebRTC.
+///
+/// Sends the same request as [`hangup_realtime_call`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn hangup_realtime_call_response(
+    configuration: &configuration::Configuration,
+    call_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<()>, Error<HangupRealtimeCallError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_call_id = call_id;
+
+    let uri_str = format!(
+        "{}/realtime/calls/{call_id}/hangup",
+        configuration.base_path,
+        call_id = crate::apis::urlencode(p_path_call_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -726,6 +1320,79 @@ pub async fn refer_realtime_call(
     }
 }
 
+/// Transfer an active SIP call to a new destination using the SIP REFER verb.
+///
+/// Sends the same request as [`refer_realtime_call`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn refer_realtime_call_response(
+    configuration: &configuration::Configuration,
+    call_id: &str,
+    realtime_call_refer_request: &models::RealtimeCallReferRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<()>, Error<ReferRealtimeCallError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_call_id = call_id;
+    let p_body_realtime_call_refer_request = realtime_call_refer_request;
+
+    let uri_str = format!(
+        "{}/realtime/calls/{call_id}/refer",
+        configuration.base_path,
+        call_id = crate::apis::urlencode(p_path_call_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_realtime_call_refer_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ReferRealtimeCallError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ReferRealtimeCallError::Status404),
+            500 => Some(ReferRealtimeCallError::Status500(content.clone())),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ReferRealtimeCallError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Decline an incoming SIP call by returning a SIP status code to the caller.
 #[bon::builder]
 pub async fn reject_realtime_call(
@@ -768,6 +1435,82 @@ pub async fn reject_realtime_call(
 
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RejectRealtimeCallError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RejectRealtimeCallError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(RejectRealtimeCallError::Status409),
+            500 => Some(RejectRealtimeCallError::Status500(content.clone())),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RejectRealtimeCallError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Decline an incoming SIP call by returning a SIP status code to the caller.
+///
+/// Sends the same request as [`reject_realtime_call`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn reject_realtime_call_response(
+    configuration: &configuration::Configuration,
+    call_id: &str,
+    realtime_call_reject_request: Option<&models::RealtimeCallRejectRequest>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<()>, Error<RejectRealtimeCallError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_call_id = call_id;
+    let p_body_realtime_call_reject_request = realtime_call_reject_request;
+
+    let uri_str = format!(
+        "{}/realtime/calls/{call_id}/reject",
+        configuration.base_path,
+        call_id = crate::apis::urlencode(p_path_call_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_realtime_call_reject_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

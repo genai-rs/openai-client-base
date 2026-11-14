@@ -185,6 +185,78 @@ pub async fn create_organization_spend_alert(
     }
 }
 
+/// Creates an organization spend alert.
+///
+/// Sends the same request as [`create_organization_spend_alert`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::OrganizationSpendAlert` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_organization_spend_alert_response(
+    configuration: &configuration::Configuration,
+    create_spend_alert_body: &models::CreateSpendAlertBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::OrganizationSpendAlert>,
+    Error<CreateOrganizationSpendAlertError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_spend_alert_body = create_spend_alert_body;
+
+    let uri_str = format!("{}/organization/spend_alerts", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_spend_alert_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateOrganizationSpendAlertError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateOrganizationSpendAlertError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateOrganizationSpendAlertError::Status403),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateOrganizationSpendAlertError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Creates a project spend alert.
 #[bon::builder]
 pub async fn create_project_spend_alert(
@@ -267,6 +339,84 @@ pub async fn create_project_spend_alert(
     }
 }
 
+/// Creates a project spend alert.
+///
+/// Sends the same request as [`create_project_spend_alert`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProjectSpendAlert` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_project_spend_alert_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    create_spend_alert_body: &models::CreateSpendAlertBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ProjectSpendAlert>, Error<CreateProjectSpendAlertError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_body_create_spend_alert_body = create_spend_alert_body;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/spend_alerts",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_spend_alert_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateProjectSpendAlertError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateProjectSpendAlertError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateProjectSpendAlertError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateProjectSpendAlertError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateProjectSpendAlertError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Deletes an organization spend alert.
 #[bon::builder]
 pub async fn delete_organization_spend_alert(
@@ -318,6 +468,81 @@ pub async fn delete_organization_spend_alert(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationSpendAlertDeletedResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationSpendAlertDeletedResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteOrganizationSpendAlertError> = match status.as_u16() {
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteOrganizationSpendAlertError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteOrganizationSpendAlertError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteOrganizationSpendAlertError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Deletes an organization spend alert.
+///
+/// Sends the same request as [`delete_organization_spend_alert`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::OrganizationSpendAlertDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_organization_spend_alert_response(
+    configuration: &configuration::Configuration,
+    alert_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::OrganizationSpendAlertDeletedResource>,
+    Error<DeleteOrganizationSpendAlertError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_alert_id = alert_id;
+
+    let uri_str = format!(
+        "{}/organization/spend_alerts/{alert_id}",
+        configuration.base_path,
+        alert_id = crate::apis::urlencode(p_path_alert_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -426,6 +651,87 @@ pub async fn delete_project_spend_alert(
     }
 }
 
+/// Deletes a project spend alert.
+///
+/// Sends the same request as [`delete_project_spend_alert`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProjectSpendAlertDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_project_spend_alert_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    alert_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ProjectSpendAlertDeletedResource>,
+    Error<DeleteProjectSpendAlertError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_path_alert_id = alert_id;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/spend_alerts/{alert_id}",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id),
+        alert_id = crate::apis::urlencode(p_path_alert_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteProjectSpendAlertError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteProjectSpendAlertError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteProjectSpendAlertError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteProjectSpendAlertError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteProjectSpendAlertError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Lists organization spend alerts.
 #[bon::builder]
 pub async fn list_organization_spend_alerts(
@@ -490,6 +796,98 @@ pub async fn list_organization_spend_alerts(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationSpendAlertListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationSpendAlertListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListOrganizationSpendAlertsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListOrganizationSpendAlertsError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListOrganizationSpendAlertsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListOrganizationSpendAlertsError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListOrganizationSpendAlertsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Lists organization spend alerts.
+///
+/// Sends the same request as [`list_organization_spend_alerts`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::OrganizationSpendAlertListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_organization_spend_alerts_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<&str>,
+    after: Option<&str>,
+    before: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::OrganizationSpendAlertListResource>,
+    Error<ListOrganizationSpendAlertsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_before = before;
+
+    let uri_str = format!("{}/organization/spend_alerts", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -618,6 +1016,104 @@ pub async fn list_project_spend_alerts(
     }
 }
 
+/// Lists project spend alerts.
+///
+/// Sends the same request as [`list_project_spend_alerts`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProjectSpendAlertListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_project_spend_alerts_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    limit: Option<i64>,
+    order: Option<&str>,
+    after: Option<&str>,
+    before: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ProjectSpendAlertListResource>,
+    Error<ListProjectSpendAlertsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_before = before;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/spend_alerts",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListProjectSpendAlertsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListProjectSpendAlertsError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListProjectSpendAlertsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListProjectSpendAlertsError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListProjectSpendAlertsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Retrieves an organization spend alert.
 #[bon::builder]
 pub async fn retrieve_organization_spend_alert(
@@ -668,6 +1164,81 @@ pub async fn retrieve_organization_spend_alert(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationSpendAlert`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationSpendAlert`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveOrganizationSpendAlertError> = match status.as_u16() {
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveOrganizationSpendAlertError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveOrganizationSpendAlertError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveOrganizationSpendAlertError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves an organization spend alert.
+///
+/// Sends the same request as [`retrieve_organization_spend_alert`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::OrganizationSpendAlert` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_organization_spend_alert_response(
+    configuration: &configuration::Configuration,
+    alert_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::OrganizationSpendAlert>,
+    Error<RetrieveOrganizationSpendAlertError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_alert_id = alert_id;
+
+    let uri_str = format!(
+        "{}/organization/spend_alerts/{alert_id}",
+        configuration.base_path,
+        alert_id = crate::apis::urlencode(p_path_alert_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -747,6 +1318,84 @@ pub async fn retrieve_project_spend_alert(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectSpendAlert`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectSpendAlert`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveProjectSpendAlertError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveProjectSpendAlertError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveProjectSpendAlertError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveProjectSpendAlertError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveProjectSpendAlertError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves a project spend alert.
+///
+/// Sends the same request as [`retrieve_project_spend_alert`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProjectSpendAlert` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_project_spend_alert_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    alert_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ProjectSpendAlert>, Error<RetrieveProjectSpendAlertError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_path_alert_id = alert_id;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/spend_alerts/{alert_id}",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id),
+        alert_id = crate::apis::urlencode(p_path_alert_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -858,6 +1507,87 @@ pub async fn update_organization_spend_alert(
     }
 }
 
+/// Updates an organization spend alert.
+///
+/// Sends the same request as [`update_organization_spend_alert`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::OrganizationSpendAlert` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn update_organization_spend_alert_response(
+    configuration: &configuration::Configuration,
+    alert_id: &str,
+    create_spend_alert_body: &models::CreateSpendAlertBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::OrganizationSpendAlert>,
+    Error<UpdateOrganizationSpendAlertError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_alert_id = alert_id;
+    let p_body_create_spend_alert_body = create_spend_alert_body;
+
+    let uri_str = format!(
+        "{}/organization/spend_alerts/{alert_id}",
+        configuration.base_path,
+        alert_id = crate::apis::urlencode(p_path_alert_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_spend_alert_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateOrganizationSpendAlertError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateOrganizationSpendAlertError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateOrganizationSpendAlertError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateOrganizationSpendAlertError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateOrganizationSpendAlertError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Updates a project spend alert.
 #[bon::builder]
 pub async fn update_project_spend_alert(
@@ -914,6 +1644,87 @@ pub async fn update_project_spend_alert(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectSpendAlert`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectSpendAlert`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateProjectSpendAlertError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateProjectSpendAlertError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateProjectSpendAlertError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateProjectSpendAlertError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateProjectSpendAlertError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Updates a project spend alert.
+///
+/// Sends the same request as [`update_project_spend_alert`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProjectSpendAlert` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn update_project_spend_alert_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    alert_id: &str,
+    create_spend_alert_body: &models::CreateSpendAlertBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ProjectSpendAlert>, Error<UpdateProjectSpendAlertError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_path_alert_id = alert_id;
+    let p_body_create_spend_alert_body = create_spend_alert_body;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/spend_alerts/{alert_id}",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id),
+        alert_id = crate::apis::urlencode(p_path_alert_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_spend_alert_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

@@ -139,6 +139,84 @@ pub async fn cancel_batch(
     }
 }
 
+/// Cancels an in-progress batch. The batch will be in status `cancelling` for up to 10 minutes, before changing to `cancelled`, where it will have partial results (if any) available in the output file.
+///
+/// Sends the same request as [`cancel_batch`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::Batch` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn cancel_batch_response(
+    configuration: &configuration::Configuration,
+    batch_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::Batch>, Error<CancelBatchError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_batch_id = batch_id;
+
+    let uri_str = format!(
+        "{}/batches/{batch_id}/cancel",
+        configuration.base_path,
+        batch_id = crate::apis::urlencode(p_path_batch_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CancelBatchError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelBatchError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelBatchError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelBatchError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelBatchError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CancelBatchError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Creates and executes a batch from an uploaded file of requests
 #[bon::builder]
 pub async fn create_batch(
@@ -186,6 +264,81 @@ pub async fn create_batch(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::Batch`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::Batch`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateBatchError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateBatchError::Status400),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateBatchError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateBatchError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateBatchError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateBatchError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Creates and executes a batch from an uploaded file of requests
+///
+/// Sends the same request as [`create_batch`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::Batch` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_batch_response(
+    configuration: &configuration::Configuration,
+    create_batch_request: &models::CreateBatchRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::Batch>, Error<CreateBatchError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_batch_request = create_batch_request;
+
+    let uri_str = format!("{}/batches", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_batch_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -301,6 +454,85 @@ pub async fn list_batches(
     }
 }
 
+/// List your organization's batches.
+///
+/// Sends the same request as [`list_batches`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListBatchesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_batches_response(
+    configuration: &configuration::Configuration,
+    after: Option<&str>,
+    limit: Option<i64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ListBatchesResponse>, Error<ListBatchesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_after = after;
+    let p_query_limit = limit;
+
+    let uri_str = format!("{}/batches", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListBatchesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListBatchesError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListBatchesError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListBatchesError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListBatchesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Retrieves a batch.
 #[bon::builder]
 pub async fn retrieve_batch(
@@ -351,6 +583,81 @@ pub async fn retrieve_batch(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::Batch`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::Batch`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveBatchError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveBatchError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveBatchError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveBatchError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveBatchError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves a batch.
+///
+/// Sends the same request as [`retrieve_batch`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::Batch` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_batch_response(
+    configuration: &configuration::Configuration,
+    batch_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::Batch>, Error<RetrieveBatchError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_batch_id = batch_id;
+
+    let uri_str = format!(
+        "{}/batches/{batch_id}",
+        configuration.base_path,
+        batch_id = crate::apis::urlencode(p_path_batch_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

@@ -241,6 +241,27 @@ class OperationCoverageTests(unittest.TestCase):
         self.assertEqual(["read_item_stream", "read_item_json"],
                          [entry["function"] for entry in item["content_type_methods"]])
 
+    def test_response_functions_of_an_operation_with_an_apostrophe_match_it(self):
+        # The generator escapes the apostrophe as _quote_; with responseFunctions the operation has two functions.
+        self.spec["paths"]["/keys"] = {"get": {"operationId": "Listthekeysoftheuser'sorganization"}}
+
+        def function(name, path):
+            return (f'pub async fn {name}() {{ let uri_str = format!("{{}}{path}", base); '
+                    'client.request(reqwest::Method::GET, &uri_str); }\n')
+        name = "listthekeysoftheuser_quote_sorganization"
+        result = self.run_audit({
+            "default_api.rs": function("read_item", "/items/{id}") + function("read_item_response", "/items/{id}")
+            + function(name, "/keys") + function(name + "_response", "/keys"),
+            "probe_api.rs": function("read_tagged", "/tagged"),
+            "webhooks_api.rs": (
+                'pub async fn event_received() { let uri_str = format!("{}/event", base); '
+                'client.request(reqwest::Method::POST, &uri_str); }\n'
+            ),
+        })
+        self.assertEqual("pass", result["status"], result)
+        item = [m for m in result["matched_normal_operations"] if m["operation"]["path"] == "/keys"][0]
+        self.assertEqual(name, item["generated"]["function"])
+
     def test_a_suffixed_function_in_another_module_is_ambiguous(self):
         def function(name):
             return (f'pub async fn {name}() {{ let uri_str = format!("{{}}/items/{{id}}", base); '

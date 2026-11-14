@@ -25,8 +25,11 @@ def normalize_path(path: str) -> str:
 
 
 def rust_operation_name(operation_id: str) -> str:
-    """Match the Rust generator's usual snake-case operation naming."""
-    value = operation_id.replace("-", "_").replace(".", "_")
+    """Match the Rust generator's usual snake-case operation naming.
+
+    openapi-generator escapes an apostrophe in an operationId as ``_quote_`` (``user's`` -> ``user_quote_s``).
+    """
+    value = operation_id.replace("'", "_quote_").replace("-", "_").replace(".", "_")
     value = re.sub(r"(.)([A-Z][a-z]+)", r"\1_\2", value)
     value = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", value)
     return re.sub(r"_+", "_", value).strip("_").lower()

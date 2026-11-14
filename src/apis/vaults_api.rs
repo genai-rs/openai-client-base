@@ -243,6 +243,90 @@ pub async fn create_vault(
     }
 }
 
+/// Creates a vault for the current project. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
+///
+/// Sends the same request as [`create_vault`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VaultResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_vault_response(
+    configuration: &configuration::Configuration,
+    create_vault_params: Option<&models::CreateVaultParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VaultResource>, Error<CreateVaultError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_vault_params = create_vault_params;
+
+    let uri_str = format!("{}/vaults", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_vault_params);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVaultError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Creates a vault credential. Secret values are write-only and are never returned. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 #[bon::builder]
 pub async fn create_vault_credential(
@@ -296,6 +380,97 @@ pub async fn create_vault_credential(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VaultCredentialResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VaultCredentialResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVaultCredentialError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultCredentialError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultCredentialError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultCredentialError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultCredentialError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultCredentialError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultCredentialError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultCredentialError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultCredentialError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Creates a vault credential. Secret values are write-only and are never returned. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
+///
+/// Sends the same request as [`create_vault_credential`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VaultCredentialResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_vault_credential_response(
+    configuration: &configuration::Configuration,
+    vault_id: &str,
+    create_vault_credential_params: Option<&models::CreateVaultCredentialParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VaultCredentialResource>, Error<CreateVaultCredentialError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vault_id = vault_id;
+    let p_body_create_vault_credential_params = create_vault_credential_params;
+
+    let uri_str = format!(
+        "{}/vaults/{vault_id}/credentials",
+        configuration.base_path,
+        vault_id = crate::apis::urlencode(p_path_vault_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_vault_credential_params);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -428,6 +603,93 @@ pub async fn delete_vault(
     }
 }
 
+/// Deletes a vault and all its credentials. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
+///
+/// Sends the same request as [`delete_vault`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeletedVaultResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_vault_response(
+    configuration: &configuration::Configuration,
+    vault_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DeletedVaultResource>, Error<DeleteVaultError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vault_id = vault_id;
+
+    let uri_str = format!(
+        "{}/vaults/{vault_id}",
+        configuration.base_path,
+        vault_id = crate::apis::urlencode(p_path_vault_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteVaultError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Deletes a vault credential. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 #[bon::builder]
 pub async fn delete_vault_credential(
@@ -481,6 +743,99 @@ pub async fn delete_vault_credential(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeletedVaultCredentialResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeletedVaultCredentialResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteVaultCredentialError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultCredentialError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultCredentialError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultCredentialError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultCredentialError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultCredentialError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultCredentialError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultCredentialError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultCredentialError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Deletes a vault credential. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
+///
+/// Sends the same request as [`delete_vault_credential`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeletedVaultCredentialResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_vault_credential_response(
+    configuration: &configuration::Configuration,
+    vault_id: &str,
+    credential_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::DeletedVaultCredentialResource>,
+    Error<DeleteVaultCredentialError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vault_id = vault_id;
+    let p_path_credential_id = credential_id;
+
+    let uri_str = format!(
+        "{}/vaults/{vault_id}/credentials/{credential_id}",
+        configuration.base_path,
+        vault_id = crate::apis::urlencode(p_path_vault_id),
+        credential_id = crate::apis::urlencode(p_path_credential_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -642,6 +997,123 @@ pub async fn list_vault_credentials(
     }
 }
 
+/// Lists a vault's credentials using ID-based pagination without returning secret values. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
+///
+/// Sends the same request as [`list_vault_credentials`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VaultCredentialListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_vault_credentials_response(
+    configuration: &configuration::Configuration,
+    vault_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    metadata: Option<std::collections::HashMap<String, String>>,
+    status: Option<models::VaultStatusFilterParam>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VaultCredentialListResource>, Error<ListVaultCredentialsError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vault_id = vault_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_metadata = metadata;
+    let p_query_status = status;
+
+    let uri_str = format!(
+        "{}/vaults/{vault_id}/credentials",
+        configuration.base_path,
+        vault_id = crate::apis::urlencode(p_path_vault_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_metadata {
+        req_builder = req_builder.query(&crate::apis::parse_deep_object(
+            "metadata",
+            &serde_json::to_value(param_value)?,
+        ));
+    }
+    if let Some(ref param_value) = p_query_status {
+        // a union's Display: a scalar variant as its plain text, any other as its JSON
+        req_builder = req_builder.query(&[("status", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListVaultCredentialsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultCredentialsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultCredentialsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultCredentialsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultCredentialsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultCredentialsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultCredentialsError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultCredentialsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultCredentialsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Lists vaults using ID-based pagination. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 #[bon::builder]
 pub async fn list_vaults(
@@ -715,6 +1187,116 @@ pub async fn list_vaults(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VaultListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VaultListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListVaultsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultsError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Lists vaults using ID-based pagination. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
+///
+/// Sends the same request as [`list_vaults`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VaultListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_vaults_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    metadata: Option<std::collections::HashMap<String, String>>,
+    status: Option<models::VaultStatusFilterParam>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VaultListResource>, Error<ListVaultsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_metadata = metadata;
+    let p_query_status = status;
+
+    let uri_str = format!("{}/vaults", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_metadata {
+        req_builder = req_builder.query(&crate::apis::parse_deep_object(
+            "metadata",
+            &serde_json::to_value(param_value)?,
+        ));
+    }
+    if let Some(ref param_value) = p_query_status {
+        // a union's Display: a scalar variant as its plain text, any other as its JSON
+        req_builder = req_builder.query(&[("status", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -847,6 +1429,93 @@ pub async fn retrieve_vault(
     }
 }
 
+/// Retrieves a vault by its ID. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
+///
+/// Sends the same request as [`retrieve_vault`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VaultResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_vault_response(
+    configuration: &configuration::Configuration,
+    vault_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VaultResource>, Error<RetrieveVaultError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vault_id = vault_id;
+
+    let uri_str = format!(
+        "{}/vaults/{vault_id}",
+        configuration.base_path,
+        vault_id = crate::apis::urlencode(p_path_vault_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveVaultError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Retrieves vault credential metadata without returning secret values. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 #[bon::builder]
 pub async fn retrieve_vault_credential(
@@ -900,6 +1569,97 @@ pub async fn retrieve_vault_credential(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VaultCredentialResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VaultCredentialResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveVaultCredentialError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultCredentialError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultCredentialError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultCredentialError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultCredentialError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultCredentialError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultCredentialError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultCredentialError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultCredentialError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves vault credential metadata without returning secret values. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
+///
+/// Sends the same request as [`retrieve_vault_credential`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VaultCredentialResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_vault_credential_response(
+    configuration: &configuration::Configuration,
+    vault_id: &str,
+    credential_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VaultCredentialResource>, Error<RetrieveVaultCredentialError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vault_id = vault_id;
+    let p_path_credential_id = credential_id;
+
+    let uri_str = format!(
+        "{}/vaults/{vault_id}/credentials/{credential_id}",
+        configuration.base_path,
+        vault_id = crate::apis::urlencode(p_path_vault_id),
+        credential_id = crate::apis::urlencode(p_path_credential_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1038,6 +1798,100 @@ pub async fn rotate_vault_credential(
     }
 }
 
+/// Updates credential metadata or rotates its write-only secret. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
+///
+/// Sends the same request as [`rotate_vault_credential`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VaultCredentialResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn rotate_vault_credential_response(
+    configuration: &configuration::Configuration,
+    vault_id: &str,
+    credential_id: &str,
+    rotate_vault_credential_params: &models::RotateVaultCredentialParams,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VaultCredentialResource>, Error<RotateVaultCredentialError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vault_id = vault_id;
+    let p_path_credential_id = credential_id;
+    let p_body_rotate_vault_credential_params = rotate_vault_credential_params;
+
+    let uri_str = format!(
+        "{}/vaults/{vault_id}/credentials/{credential_id}",
+        configuration.base_path,
+        vault_id = crate::apis::urlencode(p_path_vault_id),
+        credential_id = crate::apis::urlencode(p_path_credential_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_rotate_vault_credential_params);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RotateVaultCredentialError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RotateVaultCredentialError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(RotateVaultCredentialError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RotateVaultCredentialError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RotateVaultCredentialError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(RotateVaultCredentialError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(RotateVaultCredentialError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(RotateVaultCredentialError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RotateVaultCredentialError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Updates the name or metadata of an active vault. Omitted fields remain unchanged. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 #[bon::builder]
 pub async fn update_vault(
@@ -1091,6 +1945,96 @@ pub async fn update_vault(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VaultResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VaultResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateVaultError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVaultError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVaultError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVaultError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVaultError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVaultError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVaultError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVaultError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVaultError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Updates the name or metadata of an active vault. Omitted fields remain unchanged. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
+///
+/// Sends the same request as [`update_vault`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VaultResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn update_vault_response(
+    configuration: &configuration::Configuration,
+    vault_id: &str,
+    update_vault_params: &models::UpdateVaultParams,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VaultResource>, Error<UpdateVaultError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vault_id = vault_id;
+    let p_body_update_vault_params = update_vault_params;
+
+    let uri_str = format!(
+        "{}/vaults/{vault_id}",
+        configuration.base_path,
+        vault_id = crate::apis::urlencode(p_path_vault_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_update_vault_params);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

@@ -16,6 +16,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 use timvw_rust_runtime;
 
 /// struct for typed errors of method [`cancel_run`]
+///
+/// The headers its error responses declare are typed: [`CancelRunErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CancelRunErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CancelRunError {
@@ -23,7 +26,39 @@ pub enum CancelRunError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`cancel_run`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CancelRunErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CancelRunErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl CancelRunErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CancelRunErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CancelRunErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_assistant`]
+///
+/// The headers its error responses declare are typed: [`CreateAssistantErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateAssistantErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateAssistantError {
@@ -31,7 +66,39 @@ pub enum CreateAssistantError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_assistant`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateAssistantErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateAssistantErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateAssistantErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateAssistantErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateAssistantErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_message`]
+///
+/// The headers its error responses declare are typed: [`CreateMessageErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateMessageErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateMessageError {
@@ -39,7 +106,39 @@ pub enum CreateMessageError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_message`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateMessageErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateMessageErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateMessageErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateMessageErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateMessageErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_run`]
+///
+/// The headers its error responses declare are typed: [`CreateRunErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateRunErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateRunError {
@@ -47,7 +146,39 @@ pub enum CreateRunError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_run`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateRunErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateRunErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateRunErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateRunErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateRunErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_thread`]
+///
+/// The headers its error responses declare are typed: [`CreateThreadErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateThreadErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateThreadError {
@@ -55,7 +186,39 @@ pub enum CreateThreadError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_thread`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateThreadErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateThreadErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateThreadErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateThreadErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateThreadErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_thread_and_run`]
+///
+/// The headers its error responses declare are typed: [`CreateThreadAndRunErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateThreadAndRunErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateThreadAndRunError {
@@ -63,7 +226,39 @@ pub enum CreateThreadAndRunError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_thread_and_run`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateThreadAndRunErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateThreadAndRunErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateThreadAndRunErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateThreadAndRunErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateThreadAndRunErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`delete_assistant`]
+///
+/// The headers its error responses declare are typed: [`DeleteAssistantErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<DeleteAssistantErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteAssistantError {
@@ -71,7 +266,39 @@ pub enum DeleteAssistantError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`delete_assistant`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeleteAssistantErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct DeleteAssistantErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl DeleteAssistantErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        DeleteAssistantErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for DeleteAssistantErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`delete_message`]
+///
+/// The headers its error responses declare are typed: [`DeleteMessageErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<DeleteMessageErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteMessageError {
@@ -79,7 +306,39 @@ pub enum DeleteMessageError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`delete_message`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeleteMessageErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct DeleteMessageErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl DeleteMessageErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        DeleteMessageErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for DeleteMessageErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`delete_thread`]
+///
+/// The headers its error responses declare are typed: [`DeleteThreadErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<DeleteThreadErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteThreadError {
@@ -87,7 +346,39 @@ pub enum DeleteThreadError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`delete_thread`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeleteThreadErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct DeleteThreadErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl DeleteThreadErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        DeleteThreadErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for DeleteThreadErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_assistant`]
+///
+/// The headers its error responses declare are typed: [`GetAssistantErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetAssistantErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAssistantError {
@@ -95,7 +386,39 @@ pub enum GetAssistantError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_assistant`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetAssistantErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetAssistantErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetAssistantErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetAssistantErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetAssistantErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_message`]
+///
+/// The headers its error responses declare are typed: [`GetMessageErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetMessageErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetMessageError {
@@ -103,7 +426,39 @@ pub enum GetMessageError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_message`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetMessageErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetMessageErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetMessageErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetMessageErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetMessageErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_run`]
+///
+/// The headers its error responses declare are typed: [`GetRunErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetRunErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetRunError {
@@ -111,7 +466,39 @@ pub enum GetRunError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_run`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetRunErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetRunErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetRunErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetRunErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetRunErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_run_step`]
+///
+/// The headers its error responses declare are typed: [`GetRunStepErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetRunStepErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetRunStepError {
@@ -119,7 +506,39 @@ pub enum GetRunStepError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_run_step`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetRunStepErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetRunStepErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetRunStepErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetRunStepErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetRunStepErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_thread`]
+///
+/// The headers its error responses declare are typed: [`GetThreadErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetThreadErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetThreadError {
@@ -127,7 +546,39 @@ pub enum GetThreadError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_thread`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetThreadErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetThreadErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetThreadErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetThreadErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetThreadErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`list_assistants`]
+///
+/// The headers its error responses declare are typed: [`ListAssistantsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListAssistantsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAssistantsError {
@@ -135,7 +586,39 @@ pub enum ListAssistantsError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`list_assistants`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListAssistantsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListAssistantsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListAssistantsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListAssistantsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListAssistantsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`list_messages`]
+///
+/// The headers its error responses declare are typed: [`ListMessagesErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListMessagesErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListMessagesError {
@@ -143,7 +626,39 @@ pub enum ListMessagesError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`list_messages`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListMessagesErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListMessagesErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListMessagesErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListMessagesErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListMessagesErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`list_run_steps`]
+///
+/// The headers its error responses declare are typed: [`ListRunStepsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListRunStepsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListRunStepsError {
@@ -151,7 +666,39 @@ pub enum ListRunStepsError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`list_run_steps`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListRunStepsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListRunStepsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListRunStepsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListRunStepsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListRunStepsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`list_runs`]
+///
+/// The headers its error responses declare are typed: [`ListRunsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListRunsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListRunsError {
@@ -159,7 +706,39 @@ pub enum ListRunsError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`list_runs`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListRunsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListRunsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListRunsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListRunsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListRunsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`modify_assistant`]
+///
+/// The headers its error responses declare are typed: [`ModifyAssistantErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ModifyAssistantErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ModifyAssistantError {
@@ -167,7 +746,39 @@ pub enum ModifyAssistantError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`modify_assistant`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ModifyAssistantErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ModifyAssistantErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ModifyAssistantErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ModifyAssistantErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ModifyAssistantErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`modify_message`]
+///
+/// The headers its error responses declare are typed: [`ModifyMessageErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ModifyMessageErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ModifyMessageError {
@@ -175,7 +786,39 @@ pub enum ModifyMessageError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`modify_message`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ModifyMessageErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ModifyMessageErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ModifyMessageErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ModifyMessageErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ModifyMessageErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`modify_run`]
+///
+/// The headers its error responses declare are typed: [`ModifyRunErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ModifyRunErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ModifyRunError {
@@ -183,7 +826,39 @@ pub enum ModifyRunError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`modify_run`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ModifyRunErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ModifyRunErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ModifyRunErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ModifyRunErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ModifyRunErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`modify_thread`]
+///
+/// The headers its error responses declare are typed: [`ModifyThreadErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ModifyThreadErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ModifyThreadError {
@@ -191,12 +866,73 @@ pub enum ModifyThreadError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`modify_thread`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ModifyThreadErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ModifyThreadErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ModifyThreadErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ModifyThreadErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ModifyThreadErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`submit_tool_ouputs_to_run`]
+///
+/// The headers its error responses declare are typed: [`SubmitToolOuputsToRunErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<SubmitToolOuputsToRunErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SubmitToolOuputsToRunError {
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// The headers the error responses of [`submit_tool_ouputs_to_run`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<SubmitToolOuputsToRunErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct SubmitToolOuputsToRunErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl SubmitToolOuputsToRunErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        SubmitToolOuputsToRunErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for SubmitToolOuputsToRunErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 /// Cancels a run that is `in_progress`.
@@ -252,6 +988,78 @@ pub async fn cancel_run(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RunObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RunObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CancelRunError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelRunError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CancelRunError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Cancels a run that is `in_progress`.
+///
+/// Sends the same request as [`cancel_run`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::RunObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn cancel_run_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    run_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::RunObject>, Error<CancelRunError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_path_run_id = run_id;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}/runs/{run_id}/cancel",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id),
+        run_id = crate::apis::urlencode(p_path_run_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -346,6 +1154,73 @@ pub async fn create_assistant(
     }
 }
 
+/// Create an assistant with a model and instructions.
+///
+/// Sends the same request as [`create_assistant`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AssistantObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn create_assistant_response(
+    configuration: &configuration::Configuration,
+    create_assistant_request: &models::CreateAssistantRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AssistantObject>, Error<CreateAssistantError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_assistant_request = create_assistant_request;
+
+    let uri_str = format!("{}/assistants", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_assistant_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateAssistantError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAssistantError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateAssistantError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Create a message.
 #[bon::builder]
 pub async fn create_message(
@@ -399,6 +1274,78 @@ pub async fn create_message(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::MessageObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::MessageObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateMessageError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateMessageError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateMessageError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a message.
+///
+/// Sends the same request as [`create_message`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::MessageObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_message_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    create_message_request: &models::CreateMessageRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::MessageObject>, Error<CreateMessageError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_body_create_message_request = create_message_request;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}/messages",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_message_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -507,6 +1454,87 @@ pub async fn create_run(
     }
 }
 
+/// Create a run.
+///
+/// Sends the same request as [`create_run`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::RunObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_run_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    create_run_request: &models::CreateRunRequest,
+    include_left_square_bracket_right_square_bracket: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::RunObject>, Error<CreateRunError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_body_create_run_request = create_run_request;
+    let p_query_include_left_square_bracket_right_square_bracket =
+        include_left_square_bracket_right_square_bracket;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}/runs",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref param_value) = p_query_include_left_square_bracket_right_square_bracket {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("include[]", item)]);
+        }
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_run_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateRunError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateRunError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateRunError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Create a thread.
 #[bon::builder]
 pub async fn create_thread(
@@ -554,6 +1582,72 @@ pub async fn create_thread(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ThreadObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ThreadObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateThreadError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateThreadError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateThreadError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a thread.
+///
+/// Sends the same request as [`create_thread`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ThreadObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_thread_response(
+    configuration: &configuration::Configuration,
+    create_thread_request: Option<&models::CreateThreadRequest>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ThreadObject>, Error<CreateThreadError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_thread_request = create_thread_request;
+
+    let uri_str = format!("{}/threads", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_thread_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -647,6 +1741,72 @@ pub async fn create_thread_and_run(
     }
 }
 
+/// Create a thread and run it in one request.
+///
+/// Sends the same request as [`create_thread_and_run`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::RunObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_thread_and_run_response(
+    configuration: &configuration::Configuration,
+    create_thread_and_run_request: &models::CreateThreadAndRunRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::RunObject>, Error<CreateThreadAndRunError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_thread_and_run_request = create_thread_and_run_request;
+
+    let uri_str = format!("{}/threads/runs", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_thread_and_run_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateThreadAndRunError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateThreadAndRunError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateThreadAndRunError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Delete an assistant.
 #[deprecated]
 #[bon::builder]
@@ -698,6 +1858,76 @@ pub async fn delete_assistant(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteAssistantResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteAssistantResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteAssistantError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAssistantError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAssistantError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Delete an assistant.
+///
+/// Sends the same request as [`delete_assistant`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeleteAssistantResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn delete_assistant_response(
+    configuration: &configuration::Configuration,
+    assistant_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DeleteAssistantResponse>, Error<DeleteAssistantError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_assistant_id = assistant_id;
+
+    let uri_str = format!(
+        "{}/assistants/{assistant_id}",
+        configuration.base_path,
+        assistant_id = crate::apis::urlencode(p_path_assistant_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -797,6 +2027,78 @@ pub async fn delete_message(
     }
 }
 
+/// Deletes a message.
+///
+/// Sends the same request as [`delete_message`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeleteMessageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_message_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    message_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DeleteMessageResponse>, Error<DeleteMessageError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_path_message_id = message_id;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}/messages/{message_id}",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id),
+        message_id = crate::apis::urlencode(p_path_message_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteMessageError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteMessageError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteMessageError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Delete a thread.
 #[bon::builder]
 pub async fn delete_thread(
@@ -847,6 +2149,75 @@ pub async fn delete_thread(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteThreadResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteThreadResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteThreadError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteThreadError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteThreadError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Delete a thread.
+///
+/// Sends the same request as [`delete_thread`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeleteThreadResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_thread_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DeleteThreadResponse>, Error<DeleteThreadError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -921,6 +2292,76 @@ pub async fn get_assistant(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AssistantObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AssistantObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetAssistantError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAssistantError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetAssistantError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves an assistant.
+///
+/// Sends the same request as [`get_assistant`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AssistantObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn get_assistant_response(
+    configuration: &configuration::Configuration,
+    assistant_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AssistantObject>, Error<GetAssistantError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_assistant_id = assistant_id;
+
+    let uri_str = format!(
+        "{}/assistants/{assistant_id}",
+        configuration.base_path,
+        assistant_id = crate::apis::urlencode(p_path_assistant_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1020,6 +2461,78 @@ pub async fn get_message(
     }
 }
 
+/// Retrieve a message.
+///
+/// Sends the same request as [`get_message`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::MessageObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_message_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    message_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::MessageObject>, Error<GetMessageError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_path_message_id = message_id;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}/messages/{message_id}",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id),
+        message_id = crate::apis::urlencode(p_path_message_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetMessageError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetMessageError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetMessageError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Retrieves a run.
 #[bon::builder]
 pub async fn get_run(
@@ -1073,6 +2586,78 @@ pub async fn get_run(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RunObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RunObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetRunError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetRunError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetRunError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves a run.
+///
+/// Sends the same request as [`get_run`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::RunObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_run_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    run_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::RunObject>, Error<GetRunError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_path_run_id = run_id;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}/runs/{run_id}",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id),
+        run_id = crate::apis::urlencode(p_path_run_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1184,6 +2769,90 @@ pub async fn get_run_step(
     }
 }
 
+/// Retrieves a run step.
+///
+/// Sends the same request as [`get_run_step`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::RunStepObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_run_step_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    run_id: &str,
+    step_id: &str,
+    include_left_square_bracket_right_square_bracket: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::RunStepObject>, Error<GetRunStepError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_path_run_id = run_id;
+    let p_path_step_id = step_id;
+    let p_query_include_left_square_bracket_right_square_bracket =
+        include_left_square_bracket_right_square_bracket;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}/runs/{run_id}/steps/{step_id}",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id),
+        run_id = crate::apis::urlencode(p_path_run_id),
+        step_id = crate::apis::urlencode(p_path_step_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_include_left_square_bracket_right_square_bracket {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("include[]", item)]);
+        }
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetRunStepError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetRunStepError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetRunStepError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Retrieves a thread.
 #[bon::builder]
 pub async fn get_thread(
@@ -1234,6 +2903,75 @@ pub async fn get_thread(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ThreadObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ThreadObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetThreadError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetThreadError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetThreadError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves a thread.
+///
+/// Sends the same request as [`get_thread`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ThreadObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_thread_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ThreadObject>, Error<GetThreadError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1345,6 +3083,90 @@ pub async fn list_assistants(
     }
 }
 
+/// Returns a list of assistants.
+///
+/// Sends the same request as [`list_assistants`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListAssistantsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn list_assistants_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<&str>,
+    after: Option<&str>,
+    before: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ListAssistantsResponse>, Error<ListAssistantsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_before = before;
+
+    let uri_str = format!("{}/assistants", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAssistantsError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAssistantsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAssistantsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Returns a list of messages for a given thread.
 #[bon::builder]
 pub async fn list_messages(
@@ -1420,6 +3242,100 @@ pub async fn list_messages(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListMessagesResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListMessagesResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListMessagesError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListMessagesError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListMessagesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Returns a list of messages for a given thread.
+///
+/// Sends the same request as [`list_messages`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListMessagesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_messages_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    limit: Option<i64>,
+    order: Option<&str>,
+    after: Option<&str>,
+    before: Option<&str>,
+    run_id: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ListMessagesResponse>, Error<ListMessagesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_before = before;
+    let p_query_run_id = run_id;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}/messages",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_run_id {
+        req_builder = req_builder.query(&[("run_id", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1548,6 +3464,107 @@ pub async fn list_run_steps(
     }
 }
 
+/// Returns a list of run steps belonging to a run.
+///
+/// Sends the same request as [`list_run_steps`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListRunStepsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_run_steps_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    run_id: &str,
+    limit: Option<i64>,
+    order: Option<&str>,
+    after: Option<&str>,
+    before: Option<&str>,
+    include_left_square_bracket_right_square_bracket: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ListRunStepsResponse>, Error<ListRunStepsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_path_run_id = run_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_before = before;
+    let p_query_include_left_square_bracket_right_square_bracket =
+        include_left_square_bracket_right_square_bracket;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}/runs/{run_id}/steps",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id),
+        run_id = crate::apis::urlencode(p_path_run_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_include_left_square_bracket_right_square_bracket {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("include[]", item)]);
+        }
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListRunStepsError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListRunStepsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListRunStepsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Returns a list of runs belonging to a thread.
 #[bon::builder]
 pub async fn list_runs(
@@ -1641,6 +3658,95 @@ pub async fn list_runs(
     }
 }
 
+/// Returns a list of runs belonging to a thread.
+///
+/// Sends the same request as [`list_runs`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListRunsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_runs_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    limit: Option<i64>,
+    order: Option<&str>,
+    after: Option<&str>,
+    before: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ListRunsResponse>, Error<ListRunsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_before = before;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}/runs",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListRunsError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListRunsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListRunsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Modifies an assistant.
 #[deprecated]
 #[bon::builder]
@@ -1695,6 +3801,79 @@ pub async fn modify_assistant(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AssistantObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AssistantObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ModifyAssistantError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ModifyAssistantError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ModifyAssistantError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Modifies an assistant.
+///
+/// Sends the same request as [`modify_assistant`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AssistantObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn modify_assistant_response(
+    configuration: &configuration::Configuration,
+    assistant_id: &str,
+    modify_assistant_request: &models::ModifyAssistantRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AssistantObject>, Error<ModifyAssistantError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_assistant_id = assistant_id;
+    let p_body_modify_assistant_request = modify_assistant_request;
+
+    let uri_str = format!(
+        "{}/assistants/{assistant_id}",
+        configuration.base_path,
+        assistant_id = crate::apis::urlencode(p_path_assistant_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_modify_assistant_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1797,6 +3976,81 @@ pub async fn modify_message(
     }
 }
 
+/// Modifies a message.
+///
+/// Sends the same request as [`modify_message`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::MessageObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn modify_message_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    message_id: &str,
+    modify_message_request: &models::ModifyMessageRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::MessageObject>, Error<ModifyMessageError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_path_message_id = message_id;
+    let p_body_modify_message_request = modify_message_request;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}/messages/{message_id}",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id),
+        message_id = crate::apis::urlencode(p_path_message_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_modify_message_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ModifyMessageError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ModifyMessageError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ModifyMessageError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Modifies a run.
 #[bon::builder]
 pub async fn modify_run(
@@ -1853,6 +4107,81 @@ pub async fn modify_run(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RunObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RunObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ModifyRunError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ModifyRunError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ModifyRunError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Modifies a run.
+///
+/// Sends the same request as [`modify_run`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::RunObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn modify_run_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    run_id: &str,
+    modify_run_request: &models::ModifyRunRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::RunObject>, Error<ModifyRunError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_path_run_id = run_id;
+    let p_body_modify_run_request = modify_run_request;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}/runs/{run_id}",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id),
+        run_id = crate::apis::urlencode(p_path_run_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_modify_run_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1952,6 +4281,78 @@ pub async fn modify_thread(
     }
 }
 
+/// Modifies a thread.
+///
+/// Sends the same request as [`modify_thread`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ThreadObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn modify_thread_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    modify_thread_request: &models::ModifyThreadRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ThreadObject>, Error<ModifyThreadError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_body_modify_thread_request = modify_thread_request;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_modify_thread_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ModifyThreadError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ModifyThreadError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ModifyThreadError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// When a run has the `status: \"requires_action\"` and `required_action.type` is `submit_tool_outputs`, this endpoint can be used to submit the outputs from the tool calls once they're all completed. All outputs must be submitted in a single request.
 #[bon::builder]
 pub async fn submit_tool_ouputs_to_run(
@@ -2008,6 +4409,81 @@ pub async fn submit_tool_ouputs_to_run(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RunObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RunObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<SubmitToolOuputsToRunError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(SubmitToolOuputsToRunError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(SubmitToolOuputsToRunError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// When a run has the `status: \"requires_action\"` and `required_action.type` is `submit_tool_outputs`, this endpoint can be used to submit the outputs from the tool calls once they're all completed. All outputs must be submitted in a single request.
+///
+/// Sends the same request as [`submit_tool_ouputs_to_run`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::RunObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn submit_tool_ouputs_to_run_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    run_id: &str,
+    submit_tool_outputs_run_request: &models::SubmitToolOutputsRunRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::RunObject>, Error<SubmitToolOuputsToRunError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_path_run_id = run_id;
+    let p_body_submit_tool_outputs_run_request = submit_tool_outputs_run_request;
+
+    let uri_str = format!(
+        "{}/threads/{thread_id}/runs/{run_id}/submit_tool_outputs",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id),
+        run_id = crate::apis::urlencode(p_path_run_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_submit_tool_outputs_run_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

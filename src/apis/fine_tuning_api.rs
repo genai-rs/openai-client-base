@@ -218,6 +218,81 @@ pub async fn cancel_fine_tuning_job(
     }
 }
 
+/// Immediately cancel a fine-tune job.
+///
+/// Sends the same request as [`cancel_fine_tuning_job`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::FineTuningJob` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn cancel_fine_tuning_job_response(
+    configuration: &configuration::Configuration,
+    fine_tuning_job_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::FineTuningJob>, Error<CancelFineTuningJobError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_fine_tuning_job_id = fine_tuning_job_id;
+
+    let uri_str = format!(
+        "{}/fine_tuning/jobs/{fine_tuning_job_id}/cancel",
+        configuration.base_path,
+        fine_tuning_job_id = crate::apis::urlencode(p_path_fine_tuning_job_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CancelFineTuningJobError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelFineTuningJobError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelFineTuningJobError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelFineTuningJobError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CancelFineTuningJobError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// **NOTE:** Calling this endpoint requires an [admin API key](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/admin_api_keys).  This enables organization owners to share fine-tuned models with other projects in their organization.
 #[bon::builder]
 pub async fn create_fine_tuning_checkpoint_permission(
@@ -275,6 +350,88 @@ pub async fn create_fine_tuning_checkpoint_permission(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListFineTuningCheckpointPermissionResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListFineTuningCheckpointPermissionResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateFineTuningCheckpointPermissionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateFineTuningCheckpointPermissionError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateFineTuningCheckpointPermissionError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateFineTuningCheckpointPermissionError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateFineTuningCheckpointPermissionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// **NOTE:** Calling this endpoint requires an [admin API key](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/admin_api_keys).  This enables organization owners to share fine-tuned models with other projects in their organization.
+///
+/// Sends the same request as [`create_fine_tuning_checkpoint_permission`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListFineTuningCheckpointPermissionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_fine_tuning_checkpoint_permission_response(
+    configuration: &configuration::Configuration,
+    fine_tuned_model_checkpoint: &str,
+    create_fine_tuning_checkpoint_permission_request: &models::CreateFineTuningCheckpointPermissionRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ListFineTuningCheckpointPermissionResponse>,
+    Error<CreateFineTuningCheckpointPermissionError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_fine_tuned_model_checkpoint = fine_tuned_model_checkpoint;
+    let p_body_create_fine_tuning_checkpoint_permission_request =
+        create_fine_tuning_checkpoint_permission_request;
+
+    let uri_str = format!(
+        "{}/fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions",
+        configuration.base_path,
+        fine_tuned_model_checkpoint = crate::apis::urlencode(p_path_fine_tuned_model_checkpoint)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_fine_tuning_checkpoint_permission_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -377,6 +534,75 @@ pub async fn create_fine_tuning_job(
     }
 }
 
+/// Creates a fine-tuning job which begins the process of creating a new model from a given dataset.  Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.  [Learn more about fine-tuning](https://developers.openai.com/api/docs/guides/model-optimization)
+///
+/// Sends the same request as [`create_fine_tuning_job`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::FineTuningJob` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_fine_tuning_job_response(
+    configuration: &configuration::Configuration,
+    create_fine_tuning_job_request: &models::CreateFineTuningJobRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::FineTuningJob>, Error<CreateFineTuningJobError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_fine_tuning_job_request = create_fine_tuning_job_request;
+
+    let uri_str = format!("{}/fine_tuning/jobs", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_fine_tuning_job_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateFineTuningJobError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateFineTuningJobError::Status400),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateFineTuningJobError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateFineTuningJobError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// **NOTE:** This endpoint requires an [admin API key](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/admin_api_keys).  Organization owners can use this endpoint to delete a permission for a fine-tuned model checkpoint.
 #[bon::builder]
 pub async fn delete_fine_tuning_checkpoint_permission(
@@ -433,6 +659,87 @@ pub async fn delete_fine_tuning_checkpoint_permission(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteFineTuningCheckpointPermissionResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteFineTuningCheckpointPermissionResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteFineTuningCheckpointPermissionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteFineTuningCheckpointPermissionError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteFineTuningCheckpointPermissionError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteFineTuningCheckpointPermissionError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteFineTuningCheckpointPermissionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// **NOTE:** This endpoint requires an [admin API key](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/admin_api_keys).  Organization owners can use this endpoint to delete a permission for a fine-tuned model checkpoint.
+///
+/// Sends the same request as [`delete_fine_tuning_checkpoint_permission`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeleteFineTuningCheckpointPermissionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_fine_tuning_checkpoint_permission_response(
+    configuration: &configuration::Configuration,
+    fine_tuned_model_checkpoint: &str,
+    permission_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::DeleteFineTuningCheckpointPermissionResponse>,
+    Error<DeleteFineTuningCheckpointPermissionError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_fine_tuned_model_checkpoint = fine_tuned_model_checkpoint;
+    let p_path_permission_id = permission_id;
+
+    let uri_str = format!(
+        "{}/fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions/{permission_id}",
+        configuration.base_path,
+        fine_tuned_model_checkpoint = crate::apis::urlencode(p_path_fine_tuned_model_checkpoint),
+        permission_id = crate::apis::urlencode(p_path_permission_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -561,6 +868,101 @@ pub async fn list_fine_tuning_checkpoint_permissions(
     }
 }
 
+/// **NOTE:** This endpoint requires an [admin API key](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/admin_api_keys).  Organization owners can use this endpoint to view all permissions for a fine-tuned model checkpoint.
+///
+/// Sends the same request as [`list_fine_tuning_checkpoint_permissions`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListFineTuningCheckpointPermissionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_fine_tuning_checkpoint_permissions_response(
+    configuration: &configuration::Configuration,
+    fine_tuned_model_checkpoint: &str,
+    project_id: Option<&str>,
+    after: Option<&str>,
+    limit: Option<i64>,
+    order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ListFineTuningCheckpointPermissionResponse>,
+    Error<ListFineTuningCheckpointPermissionsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_fine_tuned_model_checkpoint = fine_tuned_model_checkpoint;
+    let p_query_project_id = project_id;
+    let p_query_after = after;
+    let p_query_limit = limit;
+    let p_query_order = order;
+
+    let uri_str = format!(
+        "{}/fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions",
+        configuration.base_path,
+        fine_tuned_model_checkpoint = crate::apis::urlencode(p_path_fine_tuned_model_checkpoint)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_project_id {
+        req_builder = req_builder.query(&[("project_id", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListFineTuningCheckpointPermissionsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListFineTuningCheckpointPermissionsError::Status400),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListFineTuningCheckpointPermissionsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListFineTuningCheckpointPermissionsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Get status updates for a fine-tuning job.
 #[bon::builder]
 pub async fn list_fine_tuning_events(
@@ -621,6 +1023,94 @@ pub async fn list_fine_tuning_events(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListFineTuningJobEventsResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListFineTuningJobEventsResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListFineTuningEventsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListFineTuningEventsError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListFineTuningEventsError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListFineTuningEventsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListFineTuningEventsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Get status updates for a fine-tuning job.
+///
+/// Sends the same request as [`list_fine_tuning_events`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListFineTuningJobEventsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_fine_tuning_events_response(
+    configuration: &configuration::Configuration,
+    fine_tuning_job_id: &str,
+    after: Option<&str>,
+    limit: Option<i64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ListFineTuningJobEventsResponse>,
+    Error<ListFineTuningEventsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_fine_tuning_job_id = fine_tuning_job_id;
+    let p_query_after = after;
+    let p_query_limit = limit;
+
+    let uri_str = format!(
+        "{}/fine_tuning/jobs/{fine_tuning_job_id}/events",
+        configuration.base_path,
+        fine_tuning_job_id = crate::apis::urlencode(p_path_fine_tuning_job_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -740,6 +1230,94 @@ pub async fn list_fine_tuning_job_checkpoints(
     }
 }
 
+/// List checkpoints for a fine-tuning job.
+///
+/// Sends the same request as [`list_fine_tuning_job_checkpoints`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListFineTuningJobCheckpointsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_fine_tuning_job_checkpoints_response(
+    configuration: &configuration::Configuration,
+    fine_tuning_job_id: &str,
+    after: Option<&str>,
+    limit: Option<i64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ListFineTuningJobCheckpointsResponse>,
+    Error<ListFineTuningJobCheckpointsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_fine_tuning_job_id = fine_tuning_job_id;
+    let p_query_after = after;
+    let p_query_limit = limit;
+
+    let uri_str = format!(
+        "{}/fine_tuning/jobs/{fine_tuning_job_id}/checkpoints",
+        configuration.base_path,
+        fine_tuning_job_id = crate::apis::urlencode(p_path_fine_tuning_job_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListFineTuningJobCheckpointsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListFineTuningJobCheckpointsError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListFineTuningJobCheckpointsError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListFineTuningJobCheckpointsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListFineTuningJobCheckpointsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// List your organization's fine-tuning jobs
 #[bon::builder]
 pub async fn list_paginated_fine_tuning_jobs(
@@ -828,6 +1406,93 @@ pub async fn list_paginated_fine_tuning_jobs(
     }
 }
 
+/// List your organization's fine-tuning jobs
+///
+/// Sends the same request as [`list_paginated_fine_tuning_jobs`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListPaginatedFineTuningJobsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_paginated_fine_tuning_jobs_response(
+    configuration: &configuration::Configuration,
+    after: Option<&str>,
+    limit: Option<i64>,
+    metadata: Option<std::collections::HashMap<String, String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ListPaginatedFineTuningJobsResponse>,
+    Error<ListPaginatedFineTuningJobsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_after = after;
+    let p_query_limit = limit;
+    let p_query_metadata = metadata;
+
+    let uri_str = format!("{}/fine_tuning/jobs", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_metadata {
+        req_builder = req_builder.query(&crate::apis::parse_deep_object(
+            "metadata",
+            &serde_json::to_value(param_value)?,
+        ));
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListPaginatedFineTuningJobsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListPaginatedFineTuningJobsError::Status400),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListPaginatedFineTuningJobsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListPaginatedFineTuningJobsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Pause a fine-tune job.
 #[bon::builder]
 pub async fn pause_fine_tuning_job(
@@ -878,6 +1543,81 @@ pub async fn pause_fine_tuning_job(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::FineTuningJob`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::FineTuningJob`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<PauseFineTuningJobError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseFineTuningJobError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseFineTuningJobError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseFineTuningJobError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(PauseFineTuningJobError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Pause a fine-tune job.
+///
+/// Sends the same request as [`pause_fine_tuning_job`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::FineTuningJob` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn pause_fine_tuning_job_response(
+    configuration: &configuration::Configuration,
+    fine_tuning_job_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::FineTuningJob>, Error<PauseFineTuningJobError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_fine_tuning_job_id = fine_tuning_job_id;
+
+    let uri_str = format!(
+        "{}/fine_tuning/jobs/{fine_tuning_job_id}/pause",
+        configuration.base_path,
+        fine_tuning_job_id = crate::apis::urlencode(p_path_fine_tuning_job_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -986,6 +1726,81 @@ pub async fn resume_fine_tuning_job(
     }
 }
 
+/// Resume a fine-tune job.
+///
+/// Sends the same request as [`resume_fine_tuning_job`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::FineTuningJob` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn resume_fine_tuning_job_response(
+    configuration: &configuration::Configuration,
+    fine_tuning_job_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::FineTuningJob>, Error<ResumeFineTuningJobError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_fine_tuning_job_id = fine_tuning_job_id;
+
+    let uri_str = format!(
+        "{}/fine_tuning/jobs/{fine_tuning_job_id}/resume",
+        configuration.base_path,
+        fine_tuning_job_id = crate::apis::urlencode(p_path_fine_tuning_job_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ResumeFineTuningJobError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeFineTuningJobError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeFineTuningJobError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeFineTuningJobError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ResumeFineTuningJobError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Get info about a fine-tuning job.  [Learn more about fine-tuning](https://developers.openai.com/api/docs/guides/model-optimization)
 #[bon::builder]
 pub async fn retrieve_fine_tuning_job(
@@ -1036,6 +1851,78 @@ pub async fn retrieve_fine_tuning_job(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::FineTuningJob`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::FineTuningJob`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveFineTuningJobError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveFineTuningJobError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveFineTuningJobError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveFineTuningJobError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Get info about a fine-tuning job.  [Learn more about fine-tuning](https://developers.openai.com/api/docs/guides/model-optimization)
+///
+/// Sends the same request as [`retrieve_fine_tuning_job`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::FineTuningJob` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_fine_tuning_job_response(
+    configuration: &configuration::Configuration,
+    fine_tuning_job_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::FineTuningJob>, Error<RetrieveFineTuningJobError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_fine_tuning_job_id = fine_tuning_job_id;
+
+    let uri_str = format!(
+        "{}/fine_tuning/jobs/{fine_tuning_job_id}",
+        configuration.base_path,
+        fine_tuning_job_id = crate::apis::urlencode(p_path_fine_tuning_job_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1135,6 +2022,75 @@ pub async fn run_grader(
     }
 }
 
+/// Run a grader.
+///
+/// Sends the same request as [`run_grader`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::RunGraderResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn run_grader_response(
+    configuration: &configuration::Configuration,
+    run_grader_request: &models::RunGraderRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::RunGraderResponse>, Error<RunGraderError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_run_grader_request = run_grader_request;
+
+    let uri_str = format!("{}/fine_tuning/alpha/graders/run", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_run_grader_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RunGraderError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RunGraderError::Status400),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RunGraderError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RunGraderError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Validate a grader.
 #[bon::builder]
 pub async fn validate_grader(
@@ -1185,6 +2141,78 @@ pub async fn validate_grader(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ValidateGraderResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ValidateGraderResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ValidateGraderError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ValidateGraderError::Status400),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ValidateGraderError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ValidateGraderError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Validate a grader.
+///
+/// Sends the same request as [`validate_grader`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ValidateGraderResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn validate_grader_response(
+    configuration: &configuration::Configuration,
+    validate_grader_request: &models::ValidateGraderRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ValidateGraderResponse>, Error<ValidateGraderError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_validate_grader_request = validate_grader_request;
+
+    let uri_str = format!(
+        "{}/fine_tuning/alpha/graders/validate",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_validate_grader_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

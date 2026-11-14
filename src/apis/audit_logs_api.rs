@@ -16,6 +16,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 use timvw_rust_runtime;
 
 /// struct for typed errors of method [`list_audit_logs`]
+///
+/// The headers its error responses declare are typed: [`ListAuditLogsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListAuditLogsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAuditLogsError {
@@ -23,6 +26,35 @@ pub enum ListAuditLogsError {
     Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// The headers the error responses of [`list_audit_logs`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListAuditLogsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListAuditLogsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListAuditLogsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListAuditLogsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListAuditLogsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 /// List user actions and configuration changes within this organization.
@@ -142,6 +174,148 @@ pub async fn list_audit_logs(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAuditLogsResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAuditLogsResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAuditLogsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAuditLogsError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAuditLogsError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAuditLogsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAuditLogsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// List user actions and configuration changes within this organization.
+///
+/// Sends the same request as [`list_audit_logs`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListAuditLogsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_audit_logs_response(
+    configuration: &configuration::Configuration,
+    effective_at: Option<models::ListAuditLogsEffectiveAtParameter>,
+    project_ids_left_square_bracket_right_square_bracket: Option<Vec<String>>,
+    event_types_left_square_bracket_right_square_bracket: Option<Vec<models::AuditLogEventType>>,
+    actor_ids_left_square_bracket_right_square_bracket: Option<Vec<String>>,
+    actor_emails_left_square_bracket_right_square_bracket: Option<Vec<String>>,
+    resource_ids_left_square_bracket_right_square_bracket: Option<Vec<String>>,
+    tenant_only: Option<bool>,
+    limit: Option<i64>,
+    after: Option<&str>,
+    before: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ListAuditLogsResponse>, Error<ListAuditLogsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_effective_at = effective_at;
+    let p_query_project_ids_left_square_bracket_right_square_bracket =
+        project_ids_left_square_bracket_right_square_bracket;
+    let p_query_event_types_left_square_bracket_right_square_bracket =
+        event_types_left_square_bracket_right_square_bracket;
+    let p_query_actor_ids_left_square_bracket_right_square_bracket =
+        actor_ids_left_square_bracket_right_square_bracket;
+    let p_query_actor_emails_left_square_bracket_right_square_bracket =
+        actor_emails_left_square_bracket_right_square_bracket;
+    let p_query_resource_ids_left_square_bracket_right_square_bracket =
+        resource_ids_left_square_bracket_right_square_bracket;
+    let p_query_tenant_only = tenant_only;
+    let p_query_limit = limit;
+    let p_query_after = after;
+    let p_query_before = before;
+
+    let uri_str = format!("{}/organization/audit_logs", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_effective_at {
+        req_builder = req_builder.query(&crate::apis::parse_deep_object(
+            "effective_at",
+            &serde_json::to_value(param_value)?,
+        ));
+    }
+    if let Some(ref param_value) = p_query_project_ids_left_square_bracket_right_square_bracket {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("project_ids[]", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_event_types_left_square_bracket_right_square_bracket {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("event_types[]", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_actor_ids_left_square_bracket_right_square_bracket {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("actor_ids[]", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_actor_emails_left_square_bracket_right_square_bracket {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("actor_emails[]", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_resource_ids_left_square_bracket_right_square_bracket {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("resource_ids[]", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_tenant_only {
+        req_builder = req_builder.query(&[("tenant_only", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

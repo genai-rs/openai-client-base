@@ -16,6 +16,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 use timvw_rust_runtime;
 
 /// struct for typed errors of method [`create_skill`]
+///
+/// The headers its error responses declare are typed: [`CreateSkillErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateSkillErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateSkillError {
@@ -25,7 +28,39 @@ pub enum CreateSkillError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_skill`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateSkillErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateSkillErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateSkillErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateSkillErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateSkillErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_skill_version`]
+///
+/// The headers its error responses declare are typed: [`CreateSkillVersionErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateSkillVersionErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateSkillVersionError {
@@ -36,7 +71,39 @@ pub enum CreateSkillVersionError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_skill_version`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateSkillVersionErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateSkillVersionErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateSkillVersionErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateSkillVersionErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateSkillVersionErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`delete_skill`]
+///
+/// The headers its error responses declare are typed: [`DeleteSkillErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<DeleteSkillErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteSkillError {
@@ -45,7 +112,39 @@ pub enum DeleteSkillError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`delete_skill`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeleteSkillErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct DeleteSkillErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl DeleteSkillErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        DeleteSkillErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for DeleteSkillErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`delete_skill_version`]
+///
+/// The headers its error responses declare are typed: [`DeleteSkillVersionErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<DeleteSkillVersionErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteSkillVersionError {
@@ -55,7 +154,39 @@ pub enum DeleteSkillVersionError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`delete_skill_version`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeleteSkillVersionErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct DeleteSkillVersionErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl DeleteSkillVersionErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        DeleteSkillVersionErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for DeleteSkillVersionErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_skill`]
+///
+/// The headers its error responses declare are typed: [`GetSkillErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetSkillErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetSkillError {
@@ -64,7 +195,39 @@ pub enum GetSkillError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_skill`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetSkillErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetSkillErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetSkillErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetSkillErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetSkillErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_skill_content`]
+///
+/// The headers its error responses declare are typed: [`GetSkillContentErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetSkillContentErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetSkillContentError {
@@ -73,7 +236,39 @@ pub enum GetSkillContentError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_skill_content`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetSkillContentErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetSkillContentErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetSkillContentErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetSkillContentErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetSkillContentErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_skill_version`]
+///
+/// The headers its error responses declare are typed: [`GetSkillVersionErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetSkillVersionErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetSkillVersionError {
@@ -83,7 +278,39 @@ pub enum GetSkillVersionError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_skill_version`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetSkillVersionErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetSkillVersionErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetSkillVersionErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetSkillVersionErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetSkillVersionErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_skill_version_content`]
+///
+/// The headers its error responses declare are typed: [`GetSkillVersionContentErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetSkillVersionContentErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetSkillVersionContentError {
@@ -93,7 +320,39 @@ pub enum GetSkillVersionContentError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_skill_version_content`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetSkillVersionContentErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetSkillVersionContentErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetSkillVersionContentErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetSkillVersionContentErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetSkillVersionContentErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`list_skill_versions`]
+///
+/// The headers its error responses declare are typed: [`ListSkillVersionsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListSkillVersionsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListSkillVersionsError {
@@ -103,7 +362,39 @@ pub enum ListSkillVersionsError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`list_skill_versions`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListSkillVersionsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListSkillVersionsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListSkillVersionsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListSkillVersionsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListSkillVersionsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`list_skills`]
+///
+/// The headers its error responses declare are typed: [`ListSkillsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListSkillsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListSkillsError {
@@ -112,7 +403,39 @@ pub enum ListSkillsError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`list_skills`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListSkillsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListSkillsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListSkillsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListSkillsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListSkillsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`update_skill_default_version`]
+///
+/// The headers its error responses declare are typed: [`UpdateSkillDefaultVersionErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UpdateSkillDefaultVersionErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateSkillDefaultVersionError {
@@ -120,6 +443,35 @@ pub enum UpdateSkillDefaultVersionError {
     Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// The headers the error responses of [`update_skill_default_version`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UpdateSkillDefaultVersionErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UpdateSkillDefaultVersionErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl UpdateSkillDefaultVersionErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UpdateSkillDefaultVersionErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UpdateSkillDefaultVersionErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 /// Create a new skill.
@@ -213,6 +565,91 @@ pub async fn create_skill(
 
 /// Create a new skill.
 ///
+/// Sends the same request as [`create_skill`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SkillResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_skill_response(
+    configuration: &configuration::Configuration,
+    #[builder(into)] files: models::CreateSkillBodyFiles,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SkillResource>, Error<CreateSkillError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_files = files;
+
+    let uri_str = format!("{}/skills", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    match &p_form_files {
+        models::CreateSkillBodyFiles::ArrayOfStrings(value) => {
+            for path in value {
+                multipart_form =
+                    multipart_helper::add_file_to_form(multipart_form, path, "files[]").await?;
+            }
+        }
+        models::CreateSkillBodyFiles::Text(value) => {
+            multipart_form =
+                multipart_helper::add_file_to_form(multipart_form, value, "files").await?;
+        }
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateSkillError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillError::Status400),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a new skill.
+///
 /// Sends the request body as `application/json`; `create_skill` sends it as `multipart/form-data`.
 #[bon::builder]
 pub async fn create_skill_json(
@@ -260,6 +697,80 @@ pub async fn create_skill_json(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SkillResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SkillResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateSkillError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillError::Status400),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a new skill.
+///
+/// Sends the request body as `application/json`; `create_skill` sends it as `multipart/form-data`.
+///
+/// Sends the same request as [`create_skill_json`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SkillResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_skill_json_response(
+    configuration: &configuration::Configuration,
+    create_skill_body: Option<&models::CreateSkillBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SkillResource>, Error<CreateSkillError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_skill_body = create_skill_body;
+
+    let uri_str = format!("{}/skills", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_skill_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -394,6 +905,105 @@ pub async fn create_skill_version(
 
 /// Create a new immutable skill version.
 ///
+/// Sends the same request as [`create_skill_version`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SkillVersionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_skill_version_response(
+    configuration: &configuration::Configuration,
+    skill_id: &str,
+    #[builder(into)] files: models::CreateSkillVersionBodyFiles,
+    default: Option<bool>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SkillVersionResource>, Error<CreateSkillVersionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_skill_id = skill_id;
+    let p_form_files = files;
+    let p_form_default = default;
+
+    let uri_str = format!(
+        "{}/skills/{skill_id}/versions",
+        configuration.base_path,
+        skill_id = crate::apis::urlencode(p_path_skill_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    match &p_form_files {
+        models::CreateSkillVersionBodyFiles::ArrayOfStrings(value) => {
+            for path in value {
+                multipart_form =
+                    multipart_helper::add_file_to_form(multipart_form, path, "files").await?;
+            }
+        }
+        models::CreateSkillVersionBodyFiles::Text(value) => {
+            multipart_form =
+                multipart_helper::add_file_to_form(multipart_form, value, "files").await?;
+        }
+    }
+    if let Some(param_value) = p_form_default {
+        multipart_form = multipart_form.text("default", param_value.to_string());
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateSkillVersionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillVersionError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillVersionError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillVersionError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillVersionError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillVersionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a new immutable skill version.
+///
 /// Sends the request body as `application/json`; `create_skill_version` sends it as `multipart/form-data`.
 #[bon::builder]
 pub async fn create_skill_version_json(
@@ -447,6 +1057,89 @@ pub async fn create_skill_version_json(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SkillVersionResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SkillVersionResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateSkillVersionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillVersionError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillVersionError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillVersionError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillVersionError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateSkillVersionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a new immutable skill version.
+///
+/// Sends the request body as `application/json`; `create_skill_version` sends it as `multipart/form-data`.
+///
+/// Sends the same request as [`create_skill_version_json`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SkillVersionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_skill_version_json_response(
+    configuration: &configuration::Configuration,
+    skill_id: &str,
+    create_skill_version_body: Option<&models::CreateSkillVersionBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SkillVersionResource>, Error<CreateSkillVersionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_skill_id = skill_id;
+    let p_body_create_skill_version_body = create_skill_version_body;
+
+    let uri_str = format!(
+        "{}/skills/{skill_id}/versions",
+        configuration.base_path,
+        skill_id = crate::apis::urlencode(p_path_skill_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_skill_version_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -555,6 +1248,78 @@ pub async fn delete_skill(
     }
 }
 
+/// Delete a skill by its ID.
+///
+/// Sends the same request as [`delete_skill`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeletedSkillResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_skill_response(
+    configuration: &configuration::Configuration,
+    skill_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DeletedSkillResource>, Error<DeleteSkillError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_skill_id = skill_id;
+
+    let uri_str = format!(
+        "{}/skills/{skill_id}",
+        configuration.base_path,
+        skill_id = crate::apis::urlencode(p_path_skill_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteSkillError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteSkillError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteSkillError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteSkillError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Delete a skill version.
 #[bon::builder]
 pub async fn delete_skill_version(
@@ -637,6 +1402,85 @@ pub async fn delete_skill_version(
     }
 }
 
+/// Delete a skill version.
+///
+/// Sends the same request as [`delete_skill_version`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeletedSkillVersionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_skill_version_response(
+    configuration: &configuration::Configuration,
+    skill_id: &str,
+    version: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DeletedSkillVersionResource>, Error<DeleteSkillVersionError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_skill_id = skill_id;
+    let p_path_version = version;
+
+    let uri_str = format!(
+        "{}/skills/{skill_id}/versions/{version}",
+        configuration.base_path,
+        skill_id = crate::apis::urlencode(p_path_skill_id),
+        version = crate::apis::urlencode(p_path_version)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteSkillVersionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteSkillVersionError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteSkillVersionError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteSkillVersionError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteSkillVersionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Get a skill by its ID.
 #[bon::builder]
 pub async fn get_skill(
@@ -687,6 +1531,78 @@ pub async fn get_skill(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SkillResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SkillResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetSkillError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetSkillError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetSkillError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetSkillError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Get a skill by its ID.
+///
+/// Sends the same request as [`get_skill`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SkillResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_skill_response(
+    configuration: &configuration::Configuration,
+    skill_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SkillResource>, Error<GetSkillError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_skill_id = skill_id;
+
+    let uri_str = format!(
+        "{}/skills/{skill_id}",
+        configuration.base_path,
+        skill_id = crate::apis::urlencode(p_path_skill_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -856,6 +1772,80 @@ pub async fn get_skill_content_json(
     }
 }
 
+/// Download a skill zip bundle by its ID.
+///
+/// Decodes the `application/json` form of the response; `get_skill_content` decodes `application/zip`.
+///
+/// Sends the same request as [`get_skill_content_json`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `String` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_skill_content_json_response(
+    configuration: &configuration::Configuration,
+    skill_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<String>, Error<GetSkillContentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_skill_id = skill_id;
+
+    let uri_str = format!(
+        "{}/skills/{skill_id}/content",
+        configuration.base_path,
+        skill_id = crate::apis::urlencode(p_path_skill_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetSkillContentError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetSkillContentError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetSkillContentError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetSkillContentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Get a specific skill version.
 #[bon::builder]
 pub async fn get_skill_version(
@@ -909,6 +1899,84 @@ pub async fn get_skill_version(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SkillVersionResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SkillVersionResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetSkillVersionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetSkillVersionError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetSkillVersionError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetSkillVersionError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetSkillVersionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Get a specific skill version.
+///
+/// Sends the same request as [`get_skill_version`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SkillVersionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_skill_version_response(
+    configuration: &configuration::Configuration,
+    skill_id: &str,
+    version: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SkillVersionResource>, Error<GetSkillVersionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_skill_id = skill_id;
+    let p_path_version = version;
+
+    let uri_str = format!(
+        "{}/skills/{skill_id}/versions/{version}",
+        configuration.base_path,
+        skill_id = crate::apis::urlencode(p_path_skill_id),
+        version = crate::apis::urlencode(p_path_version)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1093,6 +2161,86 @@ pub async fn get_skill_version_content_json(
     }
 }
 
+/// Download a skill version zip bundle.
+///
+/// Decodes the `application/json` form of the response; `get_skill_version_content` decodes `application/zip`.
+///
+/// Sends the same request as [`get_skill_version_content_json`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `String` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_skill_version_content_json_response(
+    configuration: &configuration::Configuration,
+    skill_id: &str,
+    version: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<String>, Error<GetSkillVersionContentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_skill_id = skill_id;
+    let p_path_version = version;
+
+    let uri_str = format!(
+        "{}/skills/{skill_id}/versions/{version}/content",
+        configuration.base_path,
+        skill_id = crate::apis::urlencode(p_path_skill_id),
+        version = crate::apis::urlencode(p_path_version)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetSkillVersionContentError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetSkillVersionContentError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetSkillVersionContentError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetSkillVersionContentError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetSkillVersionContentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// List skill versions for a skill.
 #[bon::builder]
 pub async fn list_skill_versions(
@@ -1158,6 +2306,96 @@ pub async fn list_skill_versions(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SkillVersionListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SkillVersionListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListSkillVersionsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListSkillVersionsError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListSkillVersionsError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListSkillVersionsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListSkillVersionsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// List skill versions for a skill.
+///
+/// Sends the same request as [`list_skill_versions`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SkillVersionListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_skill_versions_response(
+    configuration: &configuration::Configuration,
+    skill_id: &str,
+    limit: Option<i64>,
+    order: Option<models::OrderEnum>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SkillVersionListResource>, Error<ListSkillVersionsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_skill_id = skill_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/skills/{skill_id}/versions",
+        configuration.base_path,
+        skill_id = crate::apis::urlencode(p_path_skill_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1272,6 +2510,87 @@ pub async fn list_skills(
     }
 }
 
+/// List all skills for the current project.
+///
+/// Sends the same request as [`list_skills`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SkillListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_skills_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::OrderEnum>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SkillListResource>, Error<ListSkillsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/skills", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListSkillsError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListSkillsError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListSkillsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListSkillsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Update the default version pointer for a skill.
 #[bon::builder]
 pub async fn update_skill_default_version(
@@ -1325,6 +2644,84 @@ pub async fn update_skill_default_version(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SkillResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SkillResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateSkillDefaultVersionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateSkillDefaultVersionError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateSkillDefaultVersionError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateSkillDefaultVersionError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateSkillDefaultVersionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Update the default version pointer for a skill.
+///
+/// Sends the same request as [`update_skill_default_version`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SkillResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn update_skill_default_version_response(
+    configuration: &configuration::Configuration,
+    skill_id: &str,
+    set_default_skill_version_body: Option<&models::SetDefaultSkillVersionBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SkillResource>, Error<UpdateSkillDefaultVersionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_skill_id = skill_id;
+    let p_body_set_default_skill_version_body = set_default_skill_version_body;
+
+    let uri_str = format!(
+        "{}/skills/{skill_id}",
+        configuration.base_path,
+        skill_id = crate::apis::urlencode(p_path_skill_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_set_default_skill_version_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

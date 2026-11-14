@@ -16,6 +16,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 use timvw_rust_runtime;
 
 /// struct for typed errors of method [`add_group_user`]
+///
+/// The headers its error responses declare are typed: [`AddGroupUserErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<AddGroupUserErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AddGroupUserError {
@@ -27,7 +30,39 @@ pub enum AddGroupUserError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`add_group_user`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<AddGroupUserErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct AddGroupUserErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl AddGroupUserErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        AddGroupUserErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for AddGroupUserErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`list_group_users`]
+///
+/// The headers its error responses declare are typed: [`ListGroupUsersErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListGroupUsersErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListGroupUsersError {
@@ -39,7 +74,39 @@ pub enum ListGroupUsersError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`list_group_users`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListGroupUsersErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListGroupUsersErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListGroupUsersErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListGroupUsersErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListGroupUsersErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`remove_group_user`]
+///
+/// The headers its error responses declare are typed: [`RemoveGroupUserErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<RemoveGroupUserErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RemoveGroupUserError {
@@ -51,7 +118,39 @@ pub enum RemoveGroupUserError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`remove_group_user`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<RemoveGroupUserErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct RemoveGroupUserErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl RemoveGroupUserErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        RemoveGroupUserErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for RemoveGroupUserErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`retrieve_group_user`]
+///
+/// The headers its error responses declare are typed: [`RetrieveGroupUserErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<RetrieveGroupUserErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveGroupUserError {
@@ -60,6 +159,35 @@ pub enum RetrieveGroupUserError {
     Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// The headers the error responses of [`retrieve_group_user`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<RetrieveGroupUserErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct RetrieveGroupUserErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl RetrieveGroupUserErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        RetrieveGroupUserErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for RetrieveGroupUserErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 /// Adds a user to a group.
@@ -115,6 +243,90 @@ pub async fn add_group_user(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GroupUserAssignment`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GroupUserAssignment`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<AddGroupUserError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(AddGroupUserError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(AddGroupUserError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(AddGroupUserError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(AddGroupUserError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(AddGroupUserError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(AddGroupUserError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Adds a user to a group.
+///
+/// Sends the same request as [`add_group_user`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::GroupUserAssignment` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn add_group_user_response(
+    configuration: &configuration::Configuration,
+    group_id: &str,
+    create_group_user_body: &models::CreateGroupUserBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::GroupUserAssignment>, Error<AddGroupUserError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_group_id = group_id;
+    let p_body_create_group_user_body = create_group_user_body;
+
+    let uri_str = format!(
+        "{}/organization/groups/{group_id}/users",
+        configuration.base_path,
+        group_id = crate::apis::urlencode(p_path_group_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_group_user_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -250,6 +462,102 @@ pub async fn list_group_users(
     }
 }
 
+/// Lists the users assigned to a group.
+///
+/// Sends the same request as [`list_group_users`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::UserListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_group_users_response(
+    configuration: &configuration::Configuration,
+    group_id: &str,
+    limit: Option<i64>,
+    after: Option<&str>,
+    order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::UserListResource>, Error<ListGroupUsersError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_group_id = group_id;
+    let p_query_limit = limit;
+    let p_query_after = after;
+    let p_query_order = order;
+
+    let uri_str = format!(
+        "{}/organization/groups/{group_id}/users",
+        configuration.base_path,
+        group_id = crate::apis::urlencode(p_path_group_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListGroupUsersError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListGroupUsersError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListGroupUsersError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListGroupUsersError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListGroupUsersError::Status429),
+            502 => serde_json::from_str(&content)
+                .ok()
+                .map(ListGroupUsersError::Status502),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListGroupUsersError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Removes a user from a group.
 #[bon::builder]
 pub async fn remove_group_user(
@@ -338,6 +646,90 @@ pub async fn remove_group_user(
     }
 }
 
+/// Removes a user from a group.
+///
+/// Sends the same request as [`remove_group_user`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::GroupUserDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn remove_group_user_response(
+    configuration: &configuration::Configuration,
+    group_id: &str,
+    user_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::GroupUserDeletedResource>, Error<RemoveGroupUserError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_group_id = group_id;
+    let p_path_user_id = user_id;
+
+    let uri_str = format!(
+        "{}/organization/groups/{group_id}/users/{user_id}",
+        configuration.base_path,
+        group_id = crate::apis::urlencode(p_path_group_id),
+        user_id = crate::apis::urlencode(p_path_user_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RemoveGroupUserError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RemoveGroupUserError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RemoveGroupUserError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RemoveGroupUserError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(RemoveGroupUserError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RemoveGroupUserError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RemoveGroupUserError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Retrieves a user in a group.
 #[bon::builder]
 pub async fn retrieve_group_user(
@@ -391,6 +783,87 @@ pub async fn retrieve_group_user(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GroupMemberUser`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GroupMemberUser`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveGroupUserError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveGroupUserError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveGroupUserError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveGroupUserError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveGroupUserError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveGroupUserError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves a user in a group.
+///
+/// Sends the same request as [`retrieve_group_user`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::GroupMemberUser` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_group_user_response(
+    configuration: &configuration::Configuration,
+    group_id: &str,
+    user_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::GroupMemberUser>, Error<RetrieveGroupUserError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_group_id = group_id;
+    let p_path_user_id = user_id;
+
+    let uri_str = format!(
+        "{}/organization/groups/{group_id}/users/{user_id}",
+        configuration.base_path,
+        group_id = crate::apis::urlencode(p_path_group_id),
+        user_id = crate::apis::urlencode(p_path_user_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

@@ -16,6 +16,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 use timvw_rust_runtime;
 
 /// struct for typed errors of method [`create_chat_completion`]
+///
+/// The headers its error responses declare are typed: [`CreateChatCompletionErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateChatCompletionErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateChatCompletionError {
@@ -29,7 +32,39 @@ pub enum CreateChatCompletionError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_chat_completion`] declare (`429`, `503`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateChatCompletionErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateChatCompletionErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateChatCompletionErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateChatCompletionErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateChatCompletionErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`delete_chat_completion`]
+///
+/// The headers its error responses declare are typed: [`DeleteChatCompletionErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<DeleteChatCompletionErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteChatCompletionError {
@@ -39,7 +74,39 @@ pub enum DeleteChatCompletionError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`delete_chat_completion`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeleteChatCompletionErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct DeleteChatCompletionErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl DeleteChatCompletionErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        DeleteChatCompletionErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for DeleteChatCompletionErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_chat_completion`]
+///
+/// The headers its error responses declare are typed: [`GetChatCompletionErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetChatCompletionErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetChatCompletionError {
@@ -49,7 +116,39 @@ pub enum GetChatCompletionError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_chat_completion`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetChatCompletionErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetChatCompletionErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetChatCompletionErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetChatCompletionErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetChatCompletionErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_chat_completion_messages`]
+///
+/// The headers its error responses declare are typed: [`GetChatCompletionMessagesErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetChatCompletionMessagesErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetChatCompletionMessagesError {
@@ -60,7 +159,39 @@ pub enum GetChatCompletionMessagesError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_chat_completion_messages`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetChatCompletionMessagesErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetChatCompletionMessagesErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetChatCompletionMessagesErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetChatCompletionMessagesErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetChatCompletionMessagesErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`list_chat_completions`]
+///
+/// The headers its error responses declare are typed: [`ListChatCompletionsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListChatCompletionsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListChatCompletionsError {
@@ -70,7 +201,39 @@ pub enum ListChatCompletionsError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`list_chat_completions`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListChatCompletionsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListChatCompletionsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListChatCompletionsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListChatCompletionsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListChatCompletionsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`update_chat_completion`]
+///
+/// The headers its error responses declare are typed: [`UpdateChatCompletionErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UpdateChatCompletionErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateChatCompletionError {
@@ -79,6 +242,35 @@ pub enum UpdateChatCompletionError {
     Status429(models::ErrorResponse),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// The headers the error responses of [`update_chat_completion`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UpdateChatCompletionErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UpdateChatCompletionErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl UpdateChatCompletionErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UpdateChatCompletionErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UpdateChatCompletionErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 /// **Starting a new project?** We recommend trying [Responses](https://developers.openai.com/api/reference/resources/responses) to take advantage of the latest OpenAI platform features. Compare [Chat Completions with Responses](https://developers.openai.com/api/docs/guides/migrate-to-responses?api-mode=responses).  ---  Creates a model response for the given chat conversation. Learn more in the [text generation](https://developers.openai.com/api/docs/guides/text), [vision](https://developers.openai.com/api/docs/guides/images-vision), and [audio](https://developers.openai.com/api/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of unsupported parameters in reasoning models, [refer to the reasoning guide](https://developers.openai.com/api/docs/guides/reasoning).  Returns a chat completion object, or a streamed sequence of chat completion chunk objects if the request is streamed.
@@ -128,6 +320,91 @@ pub async fn create_chat_completion(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateChatCompletionResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateChatCompletionResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateChatCompletionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateChatCompletionError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateChatCompletionError::Status401),
+            403 => Some(CreateChatCompletionError::Status403(content.clone())),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateChatCompletionError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateChatCompletionError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateChatCompletionError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateChatCompletionError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateChatCompletionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// **Starting a new project?** We recommend trying [Responses](https://developers.openai.com/api/reference/resources/responses) to take advantage of the latest OpenAI platform features. Compare [Chat Completions with Responses](https://developers.openai.com/api/docs/guides/migrate-to-responses?api-mode=responses).  ---  Creates a model response for the given chat conversation. Learn more in the [text generation](https://developers.openai.com/api/docs/guides/text), [vision](https://developers.openai.com/api/docs/guides/images-vision), and [audio](https://developers.openai.com/api/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of unsupported parameters in reasoning models, [refer to the reasoning guide](https://developers.openai.com/api/docs/guides/reasoning).  Returns a chat completion object, or a streamed sequence of chat completion chunk objects if the request is streamed.
+///
+/// Sends the same request as [`create_chat_completion`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::CreateChatCompletionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_chat_completion_response(
+    configuration: &configuration::Configuration,
+    create_chat_completion_request: &models::CreateChatCompletionRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::CreateChatCompletionResponse>,
+    Error<CreateChatCompletionError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_chat_completion_request = create_chat_completion_request;
+
+    let uri_str = format!("{}/chat/completions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_chat_completion_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -333,6 +610,81 @@ pub async fn delete_chat_completion(
     }
 }
 
+/// Delete a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` can be deleted.
+///
+/// Sends the same request as [`delete_chat_completion`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ChatCompletionDeleted` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_chat_completion_response(
+    configuration: &configuration::Configuration,
+    completion_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ChatCompletionDeleted>, Error<DeleteChatCompletionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_completion_id = completion_id;
+
+    let uri_str = format!(
+        "{}/chat/completions/{completion_id}",
+        configuration.base_path,
+        completion_id = crate::apis::urlencode(p_path_completion_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteChatCompletionError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteChatCompletionError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteChatCompletionError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteChatCompletionError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteChatCompletionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Get a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` will be returned.
 #[bon::builder]
 pub async fn get_chat_completion(
@@ -383,6 +735,82 @@ pub async fn get_chat_completion(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateChatCompletionResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateChatCompletionResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetChatCompletionError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetChatCompletionError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetChatCompletionError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(GetChatCompletionError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetChatCompletionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Get a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` will be returned.
+///
+/// Sends the same request as [`get_chat_completion`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::CreateChatCompletionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_chat_completion_response(
+    configuration: &configuration::Configuration,
+    completion_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::CreateChatCompletionResponse>, Error<GetChatCompletionError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_completion_id = completion_id;
+
+    let uri_str = format!(
+        "{}/chat/completions/{completion_id}",
+        configuration.base_path,
+        completion_id = crate::apis::urlencode(p_path_completion_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -477,6 +905,102 @@ pub async fn get_chat_completion_messages(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ChatCompletionMessageList`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ChatCompletionMessageList`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetChatCompletionMessagesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetChatCompletionMessagesError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetChatCompletionMessagesError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetChatCompletionMessagesError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(GetChatCompletionMessagesError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetChatCompletionMessagesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Get the messages in a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` will be returned.
+///
+/// Sends the same request as [`get_chat_completion_messages`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ChatCompletionMessageList` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_chat_completion_messages_response(
+    configuration: &configuration::Configuration,
+    completion_id: &str,
+    after: Option<&str>,
+    limit: Option<i64>,
+    order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ChatCompletionMessageList>,
+    Error<GetChatCompletionMessagesError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_completion_id = completion_id;
+    let p_query_after = after;
+    let p_query_limit = limit;
+    let p_query_order = order;
+
+    let uri_str = format!(
+        "{}/chat/completions/{completion_id}/messages",
+        configuration.base_path,
+        completion_id = crate::apis::urlencode(p_path_completion_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -607,6 +1131,100 @@ pub async fn list_chat_completions(
     }
 }
 
+/// List stored Chat Completions. Only Chat Completions that have been stored with the `store` parameter set to `true` will be returned.
+///
+/// Sends the same request as [`list_chat_completions`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ChatCompletionList` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_chat_completions_response(
+    configuration: &configuration::Configuration,
+    model: Option<&str>,
+    metadata: Option<&str>,
+    after: Option<&str>,
+    limit: Option<i64>,
+    order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ChatCompletionList>, Error<ListChatCompletionsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_model = model;
+    let p_query_metadata = metadata;
+    let p_query_after = after;
+    let p_query_limit = limit;
+    let p_query_order = order;
+
+    let uri_str = format!("{}/chat/completions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_model {
+        req_builder = req_builder.query(&[("model", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_metadata {
+        req_builder = req_builder.query(&[("metadata", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListChatCompletionsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListChatCompletionsError::Status400),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListChatCompletionsError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListChatCompletionsError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListChatCompletionsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Modify a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` can be modified. Currently, the only supported modification is to update the `metadata` field.
 #[bon::builder]
 pub async fn update_chat_completion(
@@ -660,6 +1278,90 @@ pub async fn update_chat_completion(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateChatCompletionResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateChatCompletionResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateChatCompletionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateChatCompletionError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateChatCompletionError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateChatCompletionError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateChatCompletionError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateChatCompletionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Modify a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` can be modified. Currently, the only supported modification is to update the `metadata` field.
+///
+/// Sends the same request as [`update_chat_completion`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::CreateChatCompletionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn update_chat_completion_response(
+    configuration: &configuration::Configuration,
+    completion_id: &str,
+    update_chat_completion_request: &models::UpdateChatCompletionRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::CreateChatCompletionResponse>,
+    Error<UpdateChatCompletionError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_completion_id = completion_id;
+    let p_body_update_chat_completion_request = update_chat_completion_request;
+
+    let uri_str = format!(
+        "{}/chat/completions/{completion_id}",
+        configuration.base_path,
+        completion_id = crate::apis::urlencode(p_path_completion_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_update_chat_completion_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

@@ -16,6 +16,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 use timvw_rust_runtime;
 
 /// struct for typed errors of method [`usage_audio_speeches`]
+///
+/// The headers its error responses declare are typed: [`UsageAudioSpeechesErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UsageAudioSpeechesErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageAudioSpeechesError {
@@ -25,7 +28,39 @@ pub enum UsageAudioSpeechesError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`usage_audio_speeches`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UsageAudioSpeechesErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UsageAudioSpeechesErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl UsageAudioSpeechesErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UsageAudioSpeechesErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UsageAudioSpeechesErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`usage_audio_transcriptions`]
+///
+/// The headers its error responses declare are typed: [`UsageAudioTranscriptionsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UsageAudioTranscriptionsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageAudioTranscriptionsError {
@@ -35,7 +70,39 @@ pub enum UsageAudioTranscriptionsError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`usage_audio_transcriptions`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UsageAudioTranscriptionsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UsageAudioTranscriptionsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl UsageAudioTranscriptionsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UsageAudioTranscriptionsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UsageAudioTranscriptionsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`usage_code_interpreter_sessions`]
+///
+/// The headers its error responses declare are typed: [`UsageCodeInterpreterSessionsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UsageCodeInterpreterSessionsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageCodeInterpreterSessionsError {
@@ -45,7 +112,39 @@ pub enum UsageCodeInterpreterSessionsError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`usage_code_interpreter_sessions`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UsageCodeInterpreterSessionsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UsageCodeInterpreterSessionsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl UsageCodeInterpreterSessionsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UsageCodeInterpreterSessionsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UsageCodeInterpreterSessionsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`usage_completions`]
+///
+/// The headers its error responses declare are typed: [`UsageCompletionsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UsageCompletionsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageCompletionsError {
@@ -55,7 +154,39 @@ pub enum UsageCompletionsError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`usage_completions`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UsageCompletionsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UsageCompletionsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl UsageCompletionsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UsageCompletionsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UsageCompletionsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`usage_costs`]
+///
+/// The headers its error responses declare are typed: [`UsageCostsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UsageCostsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageCostsError {
@@ -65,7 +196,39 @@ pub enum UsageCostsError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`usage_costs`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UsageCostsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UsageCostsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl UsageCostsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UsageCostsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UsageCostsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`usage_embeddings`]
+///
+/// The headers its error responses declare are typed: [`UsageEmbeddingsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UsageEmbeddingsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageEmbeddingsError {
@@ -75,7 +238,39 @@ pub enum UsageEmbeddingsError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`usage_embeddings`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UsageEmbeddingsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UsageEmbeddingsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl UsageEmbeddingsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UsageEmbeddingsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UsageEmbeddingsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`usage_file_search_calls`]
+///
+/// The headers its error responses declare are typed: [`UsageFileSearchCallsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UsageFileSearchCallsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageFileSearchCallsError {
@@ -85,7 +280,39 @@ pub enum UsageFileSearchCallsError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`usage_file_search_calls`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UsageFileSearchCallsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UsageFileSearchCallsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl UsageFileSearchCallsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UsageFileSearchCallsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UsageFileSearchCallsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`usage_images`]
+///
+/// The headers its error responses declare are typed: [`UsageImagesErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UsageImagesErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageImagesError {
@@ -95,7 +322,39 @@ pub enum UsageImagesError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`usage_images`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UsageImagesErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UsageImagesErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl UsageImagesErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UsageImagesErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UsageImagesErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`usage_moderations`]
+///
+/// The headers its error responses declare are typed: [`UsageModerationsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UsageModerationsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageModerationsError {
@@ -105,7 +364,39 @@ pub enum UsageModerationsError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`usage_moderations`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UsageModerationsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UsageModerationsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl UsageModerationsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UsageModerationsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UsageModerationsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`usage_vector_stores`]
+///
+/// The headers its error responses declare are typed: [`UsageVectorStoresErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UsageVectorStoresErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageVectorStoresError {
@@ -115,7 +406,39 @@ pub enum UsageVectorStoresError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`usage_vector_stores`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UsageVectorStoresErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UsageVectorStoresErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl UsageVectorStoresErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UsageVectorStoresErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UsageVectorStoresErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`usage_web_search_calls`]
+///
+/// The headers its error responses declare are typed: [`UsageWebSearchCallsErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UsageWebSearchCallsErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageWebSearchCallsError {
@@ -123,6 +446,35 @@ pub enum UsageWebSearchCallsError {
     Status403(models::PermissionErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// The headers the error responses of [`usage_web_search_calls`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UsageWebSearchCallsErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UsageWebSearchCallsErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl UsageWebSearchCallsErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UsageWebSearchCallsErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UsageWebSearchCallsErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 /// Get audio speeches usage details for the organization.
@@ -235,6 +587,141 @@ pub async fn usage_audio_speeches(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UsageResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UsageResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UsageAudioSpeechesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageAudioSpeechesError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageAudioSpeechesError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageAudioSpeechesError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UsageAudioSpeechesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Get audio speeches usage details for the organization.
+///
+/// Sends the same request as [`usage_audio_speeches`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn usage_audio_speeches_response(
+    configuration: &configuration::Configuration,
+    start_time: i64,
+    end_time: Option<i64>,
+    bucket_width: Option<&str>,
+    project_ids: Option<Vec<String>>,
+    user_ids: Option<Vec<String>>,
+    api_key_ids: Option<Vec<String>>,
+    models: Option<Vec<String>>,
+    group_by: Option<Vec<String>>,
+    limit: Option<i64>,
+    page: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageAudioSpeechesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_project_ids = project_ids;
+    let p_query_user_ids = user_ids;
+    let p_query_api_key_ids = api_key_ids;
+    let p_query_models = models;
+    let p_query_group_by = group_by;
+    let p_query_limit = limit;
+    let p_query_page = page;
+
+    let uri_str = format!(
+        "{}/organization/usage/audio_speeches",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("project_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_user_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("user_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_api_key_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("api_key_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_models {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("models", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("group_by", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -403,6 +890,141 @@ pub async fn usage_audio_transcriptions(
     }
 }
 
+/// Get audio transcriptions usage details for the organization.
+///
+/// Sends the same request as [`usage_audio_transcriptions`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn usage_audio_transcriptions_response(
+    configuration: &configuration::Configuration,
+    start_time: i64,
+    end_time: Option<i64>,
+    bucket_width: Option<&str>,
+    project_ids: Option<Vec<String>>,
+    user_ids: Option<Vec<String>>,
+    api_key_ids: Option<Vec<String>>,
+    models: Option<Vec<String>>,
+    group_by: Option<Vec<String>>,
+    limit: Option<i64>,
+    page: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageAudioTranscriptionsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_project_ids = project_ids;
+    let p_query_user_ids = user_ids;
+    let p_query_api_key_ids = api_key_ids;
+    let p_query_models = models;
+    let p_query_group_by = group_by;
+    let p_query_limit = limit;
+    let p_query_page = page;
+
+    let uri_str = format!(
+        "{}/organization/usage/audio_transcriptions",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("project_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_user_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("user_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_api_key_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("api_key_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_models {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("models", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("group_by", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UsageAudioTranscriptionsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageAudioTranscriptionsError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageAudioTranscriptionsError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageAudioTranscriptionsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UsageAudioTranscriptionsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Get code interpreter sessions usage details for the organization.
 #[bon::builder]
 pub async fn usage_code_interpreter_sessions(
@@ -489,6 +1111,117 @@ pub async fn usage_code_interpreter_sessions(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UsageResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UsageResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UsageCodeInterpreterSessionsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageCodeInterpreterSessionsError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageCodeInterpreterSessionsError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageCodeInterpreterSessionsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UsageCodeInterpreterSessionsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Get code interpreter sessions usage details for the organization.
+///
+/// Sends the same request as [`usage_code_interpreter_sessions`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn usage_code_interpreter_sessions_response(
+    configuration: &configuration::Configuration,
+    start_time: i64,
+    end_time: Option<i64>,
+    bucket_width: Option<&str>,
+    project_ids: Option<Vec<String>>,
+    group_by: Option<Vec<String>>,
+    limit: Option<i64>,
+    page: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageCodeInterpreterSessionsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_project_ids = project_ids;
+    let p_query_group_by = group_by;
+    let p_query_limit = limit;
+    let p_query_page = page;
+
+    let uri_str = format!(
+        "{}/organization/usage/code_interpreter_sessions",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("project_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("group_by", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -659,6 +1392,143 @@ pub async fn usage_completions(
     }
 }
 
+/// Get completions usage details for the organization.
+///
+/// Sends the same request as [`usage_completions`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn usage_completions_response(
+    configuration: &configuration::Configuration,
+    start_time: i64,
+    end_time: Option<i64>,
+    bucket_width: Option<&str>,
+    project_ids: Option<Vec<String>>,
+    user_ids: Option<Vec<String>>,
+    api_key_ids: Option<Vec<String>>,
+    models: Option<Vec<String>>,
+    batch: Option<bool>,
+    group_by: Option<Vec<String>>,
+    limit: Option<i64>,
+    page: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageCompletionsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_project_ids = project_ids;
+    let p_query_user_ids = user_ids;
+    let p_query_api_key_ids = api_key_ids;
+    let p_query_models = models;
+    let p_query_batch = batch;
+    let p_query_group_by = group_by;
+    let p_query_limit = limit;
+    let p_query_page = page;
+
+    let uri_str = format!("{}/organization/usage/completions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("project_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_user_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("user_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_api_key_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("api_key_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_models {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("models", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_batch {
+        req_builder = req_builder.query(&[("batch", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("group_by", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UsageCompletionsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageCompletionsError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageCompletionsError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageCompletionsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UsageCompletionsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Get costs details for the organization.
 #[bon::builder]
 pub async fn usage_costs(
@@ -758,6 +1628,130 @@ pub async fn usage_costs(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UsageResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UsageResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UsageCostsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageCostsError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageCostsError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageCostsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UsageCostsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Get costs details for the organization.
+///
+/// Sends the same request as [`usage_costs`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn usage_costs_response(
+    configuration: &configuration::Configuration,
+    start_time: i64,
+    end_time: Option<i64>,
+    bucket_width: Option<&str>,
+    project_ids: Option<Vec<String>>,
+    api_key_ids: Option<Vec<String>>,
+    line_items: Option<Vec<String>>,
+    group_by: Option<Vec<String>>,
+    limit: Option<i64>,
+    page: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageCostsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_project_ids = project_ids;
+    let p_query_api_key_ids = api_key_ids;
+    let p_query_line_items = line_items;
+    let p_query_group_by = group_by;
+    let p_query_limit = limit;
+    let p_query_page = page;
+
+    let uri_str = format!("{}/organization/costs", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("project_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_api_key_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("api_key_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_line_items {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("line_items", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("group_by", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -923,6 +1917,138 @@ pub async fn usage_embeddings(
     }
 }
 
+/// Get embeddings usage details for the organization.
+///
+/// Sends the same request as [`usage_embeddings`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn usage_embeddings_response(
+    configuration: &configuration::Configuration,
+    start_time: i64,
+    end_time: Option<i64>,
+    bucket_width: Option<&str>,
+    project_ids: Option<Vec<String>>,
+    user_ids: Option<Vec<String>>,
+    api_key_ids: Option<Vec<String>>,
+    models: Option<Vec<String>>,
+    group_by: Option<Vec<String>>,
+    limit: Option<i64>,
+    page: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageEmbeddingsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_project_ids = project_ids;
+    let p_query_user_ids = user_ids;
+    let p_query_api_key_ids = api_key_ids;
+    let p_query_models = models;
+    let p_query_group_by = group_by;
+    let p_query_limit = limit;
+    let p_query_page = page;
+
+    let uri_str = format!("{}/organization/usage/embeddings", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("project_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_user_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("user_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_api_key_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("api_key_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_models {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("models", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("group_by", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UsageEmbeddingsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageEmbeddingsError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageEmbeddingsError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageEmbeddingsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UsageEmbeddingsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Get file search calls usage details for the organization.
 #[bon::builder]
 pub async fn usage_file_search_calls(
@@ -1033,6 +2159,141 @@ pub async fn usage_file_search_calls(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UsageResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UsageResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UsageFileSearchCallsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageFileSearchCallsError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageFileSearchCallsError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageFileSearchCallsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UsageFileSearchCallsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Get file search calls usage details for the organization.
+///
+/// Sends the same request as [`usage_file_search_calls`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn usage_file_search_calls_response(
+    configuration: &configuration::Configuration,
+    start_time: i64,
+    end_time: Option<i64>,
+    bucket_width: Option<&str>,
+    project_ids: Option<Vec<String>>,
+    user_ids: Option<Vec<String>>,
+    api_key_ids: Option<Vec<String>>,
+    vector_store_ids: Option<Vec<String>>,
+    group_by: Option<Vec<String>>,
+    limit: Option<i64>,
+    page: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageFileSearchCallsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_project_ids = project_ids;
+    let p_query_user_ids = user_ids;
+    let p_query_api_key_ids = api_key_ids;
+    let p_query_vector_store_ids = vector_store_ids;
+    let p_query_group_by = group_by;
+    let p_query_limit = limit;
+    let p_query_page = page;
+
+    let uri_str = format!(
+        "{}/organization/usage/file_search_calls",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("project_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_user_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("user_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_api_key_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("api_key_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_vector_store_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("vector_store_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("group_by", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1214,6 +2475,154 @@ pub async fn usage_images(
     }
 }
 
+/// Get images usage details for the organization.
+///
+/// Sends the same request as [`usage_images`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn usage_images_response(
+    configuration: &configuration::Configuration,
+    start_time: i64,
+    end_time: Option<i64>,
+    bucket_width: Option<&str>,
+    sources: Option<Vec<String>>,
+    sizes: Option<Vec<String>>,
+    project_ids: Option<Vec<String>>,
+    user_ids: Option<Vec<String>>,
+    api_key_ids: Option<Vec<String>>,
+    models: Option<Vec<String>>,
+    group_by: Option<Vec<String>>,
+    limit: Option<i64>,
+    page: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageImagesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_sources = sources;
+    let p_query_sizes = sizes;
+    let p_query_project_ids = project_ids;
+    let p_query_user_ids = user_ids;
+    let p_query_api_key_ids = api_key_ids;
+    let p_query_models = models;
+    let p_query_group_by = group_by;
+    let p_query_limit = limit;
+    let p_query_page = page;
+
+    let uri_str = format!("{}/organization/usage/images", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_sources {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("sources", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_sizes {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("sizes", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("project_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_user_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("user_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_api_key_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("api_key_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_models {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("models", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("group_by", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UsageImagesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageImagesError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageImagesError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageImagesError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UsageImagesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Get moderations usage details for the organization.
 #[bon::builder]
 pub async fn usage_moderations(
@@ -1350,6 +2759,138 @@ pub async fn usage_moderations(
     }
 }
 
+/// Get moderations usage details for the organization.
+///
+/// Sends the same request as [`usage_moderations`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn usage_moderations_response(
+    configuration: &configuration::Configuration,
+    start_time: i64,
+    end_time: Option<i64>,
+    bucket_width: Option<&str>,
+    project_ids: Option<Vec<String>>,
+    user_ids: Option<Vec<String>>,
+    api_key_ids: Option<Vec<String>>,
+    models: Option<Vec<String>>,
+    group_by: Option<Vec<String>>,
+    limit: Option<i64>,
+    page: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageModerationsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_project_ids = project_ids;
+    let p_query_user_ids = user_ids;
+    let p_query_api_key_ids = api_key_ids;
+    let p_query_models = models;
+    let p_query_group_by = group_by;
+    let p_query_limit = limit;
+    let p_query_page = page;
+
+    let uri_str = format!("{}/organization/usage/moderations", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("project_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_user_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("user_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_api_key_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("api_key_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_models {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("models", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("group_by", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UsageModerationsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageModerationsError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageModerationsError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageModerationsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UsageModerationsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Get vector stores usage details for the organization.
 #[bon::builder]
 pub async fn usage_vector_stores(
@@ -1436,6 +2977,117 @@ pub async fn usage_vector_stores(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UsageResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UsageResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UsageVectorStoresError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageVectorStoresError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageVectorStoresError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageVectorStoresError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UsageVectorStoresError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Get vector stores usage details for the organization.
+///
+/// Sends the same request as [`usage_vector_stores`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn usage_vector_stores_response(
+    configuration: &configuration::Configuration,
+    start_time: i64,
+    end_time: Option<i64>,
+    bucket_width: Option<&str>,
+    project_ids: Option<Vec<String>>,
+    group_by: Option<Vec<String>>,
+    limit: Option<i64>,
+    page: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageVectorStoresError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_project_ids = project_ids;
+    let p_query_group_by = group_by;
+    let p_query_limit = limit;
+    let p_query_page = page;
+
+    let uri_str = format!(
+        "{}/organization/usage/vector_stores",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("project_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("group_by", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1583,6 +3235,149 @@ pub async fn usage_web_search_calls(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UsageResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UsageResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UsageWebSearchCallsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageWebSearchCallsError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageWebSearchCallsError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UsageWebSearchCallsError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UsageWebSearchCallsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Get web search calls usage details for the organization.
+///
+/// Sends the same request as [`usage_web_search_calls`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn usage_web_search_calls_response(
+    configuration: &configuration::Configuration,
+    start_time: i64,
+    end_time: Option<i64>,
+    bucket_width: Option<&str>,
+    project_ids: Option<Vec<String>>,
+    user_ids: Option<Vec<String>>,
+    api_key_ids: Option<Vec<String>>,
+    models: Option<Vec<String>>,
+    context_levels: Option<Vec<String>>,
+    group_by: Option<Vec<String>>,
+    limit: Option<i64>,
+    page: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageWebSearchCallsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_project_ids = project_ids;
+    let p_query_user_ids = user_ids;
+    let p_query_api_key_ids = api_key_ids;
+    let p_query_models = models;
+    let p_query_context_levels = context_levels;
+    let p_query_group_by = group_by;
+    let p_query_limit = limit;
+    let p_query_page = page;
+
+    let uri_str = format!(
+        "{}/organization/usage/web_search_calls",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("project_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_user_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("user_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_api_key_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("api_key_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_models {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("models", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_context_levels {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("context_levels", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("group_by", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

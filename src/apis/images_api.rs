@@ -16,6 +16,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 use timvw_rust_runtime;
 
 /// struct for typed errors of method [`create_image`]
+///
+/// The headers its error responses declare are typed: [`CreateImageErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateImageErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateImageError {
@@ -28,7 +31,39 @@ pub enum CreateImageError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_image`] declare (`429`, `503`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateImageErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateImageErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateImageErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateImageErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateImageErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_image_edit`]
+///
+/// The headers its error responses declare are typed: [`CreateImageEditErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateImageEditErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateImageEditError {
@@ -41,7 +76,39 @@ pub enum CreateImageEditError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_image_edit`] declare (`429`, `503`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateImageEditErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateImageEditErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateImageEditErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateImageEditErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateImageEditErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_image_variation`]
+///
+/// The headers its error responses declare are typed: [`CreateImageVariationErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateImageVariationErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateImageVariationError {
@@ -51,6 +118,51 @@ pub enum CreateImageVariationError {
     Status429(models::ErrorResponse),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// The headers the error responses of [`create_image_variation`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateImageVariationErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateImageVariationErrorHeaders {
+    /// `X-RateLimit-Limit-Images`: The image limit for the rate-limit window.
+    pub x_ratelimit_limit_images: Option<f64>,
+    /// `X-RateLimit-Remaining-Images`: The number of images remaining in the rate-limit window.
+    pub x_ratelimit_remaining_images: Option<f64>,
+    /// `X-RateLimit-Reset-Images`: The number of seconds until the rate-limit window resets.
+    pub x_ratelimit_reset_images: Option<i64>,
+}
+
+impl CreateImageVariationErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateImageVariationErrorHeaders {
+            x_ratelimit_limit_images: super::api_response::header_value(
+                headers,
+                "x-ratelimit-limit-images",
+                |v| v.parse::<f64>().ok(),
+            ),
+            x_ratelimit_remaining_images: super::api_response::header_value(
+                headers,
+                "x-ratelimit-remaining-images",
+                |v| v.parse::<f64>().ok(),
+            ),
+            x_ratelimit_reset_images: super::api_response::header_value(
+                headers,
+                "x-ratelimit-reset-images",
+                |v| v.parse::<i64>().ok(),
+            ),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateImageVariationErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 /// Creates an image given a prompt using a GPT Image model. [Learn more](https://developers.openai.com/api/docs/guides/images-vision).
@@ -100,6 +212,87 @@ pub async fn create_image(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ImagesResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ImagesResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateImageError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageError::Status403),
+            410 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageError::Status410),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Creates an image given a prompt using a GPT Image model. [Learn more](https://developers.openai.com/api/docs/guides/images-vision).
+///
+/// Sends the same request as [`create_image`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ImagesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_image_response(
+    configuration: &configuration::Configuration,
+    create_image_request: &models::CreateImageRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ImagesResponse>, Error<CreateImageError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_image_request = create_image_request;
+
+    let uri_str = format!("{}/images/generations", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_image_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -334,6 +527,196 @@ pub async fn create_image_edit(
 
 /// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
 ///
+/// Sends the same request as [`create_image_edit`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ImagesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_image_edit_response(
+    configuration: &configuration::Configuration,
+    #[builder(into)] image: timvw_rust_runtime::Upload,
+    prompt: &str,
+    model: &str,
+    frame_count: Option<i64>,
+    frame_duration_ms: Option<i64>,
+    complexity: Option<models::Complexity>,
+    #[builder(into)] mask: Option<timvw_rust_runtime::Upload>,
+    #[builder(into)] markup: Option<timvw_rust_runtime::Upload>,
+    background: Option<&str>,
+    n: Option<i64>,
+    size: Option<models::CreateImageEditRequestSize>,
+    response_format: Option<&str>,
+    output_format: Option<models::ImagesApiOutputFormat>,
+    svg: Option<models::SvgParam>,
+    output_compression: Option<i64>,
+    safety_identifier: Option<&str>,
+    user: Option<&str>,
+    input_fidelity: Option<models::InputFidelity>,
+    stream: Option<bool>,
+    partial_images: Option<i64>,
+    quality: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ImagesResponse>, Error<CreateImageEditError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_image = image;
+    let p_form_prompt = prompt;
+    let p_form_model = model;
+    let p_form_frame_count = frame_count;
+    let p_form_frame_duration_ms = frame_duration_ms;
+    let p_form_complexity = complexity;
+    let p_form_mask = mask;
+    let p_form_markup = markup;
+    let p_form_background = background;
+    let p_form_n = n;
+    let p_form_size = size;
+    let p_form_response_format = response_format;
+    let p_form_output_format = output_format;
+    let p_form_svg = svg;
+    let p_form_output_compression = output_compression;
+    let p_form_safety_identifier = safety_identifier;
+    let p_form_user = user;
+    let p_form_input_fidelity = input_fidelity;
+    let p_form_stream = stream;
+    let p_form_partial_images = partial_images;
+    let p_form_quality = quality;
+
+    let uri_str = format!("{}/images/edits", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    if let Some(param_value) = p_form_frame_count {
+        multipart_form = multipart_form.text("frame_count", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_frame_duration_ms {
+        multipart_form = multipart_form.text("frame_duration_ms", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_complexity {
+        multipart_form = multipart_form.text("complexity", param_value.to_string());
+    }
+    // Add file to multipart form
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_image, "image").await?;
+    multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
+    if let Some(ref param_value) = p_form_mask {
+        // Add file to multipart form
+        multipart_form =
+            multipart_helper::add_file_to_form(multipart_form, param_value, "mask").await?;
+    }
+    if let Some(ref param_value) = p_form_markup {
+        // Add file to multipart form
+        multipart_form =
+            multipart_helper::add_file_to_form(multipart_form, param_value, "markup").await?;
+    }
+    if let Some(param_value) = p_form_background {
+        multipart_form = multipart_form.text("background", param_value.to_string());
+    }
+    multipart_form = multipart_form.text("model", p_form_model.to_string());
+    if let Some(param_value) = p_form_n {
+        multipart_form = multipart_form.text("n", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_size {
+        multipart_form = multipart_form.text("size", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_response_format {
+        multipart_form = multipart_form.text("response_format", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_output_format {
+        multipart_form = multipart_form.text("output_format", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_svg {
+        multipart_form = multipart_helper::add_schema_value_to_form(
+            multipart_form,
+            "svg",
+            serde_json::to_value(param_value)?,
+            None,
+        )?;
+    }
+    if let Some(param_value) = p_form_output_compression {
+        multipart_form = multipart_form.text("output_compression", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_safety_identifier {
+        multipart_form = multipart_form.text("safety_identifier", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_user {
+        multipart_form = multipart_form.text("user", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_input_fidelity {
+        multipart_form = multipart_form.text("input_fidelity", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_stream {
+        multipart_form = multipart_form.text("stream", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_partial_images {
+        multipart_form = multipart_form.text("partial_images", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_quality {
+        multipart_form = multipart_form.text("quality", param_value.to_string());
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateImageEditError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageEditError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageEditError::Status403),
+            410 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageEditError::Status410),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageEditError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageEditError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageEditError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageEditError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
+///
 /// Sends the request body as `application/json`; `create_image_edit` sends it as `multipart/form-data`.
 #[bon::builder]
 pub async fn create_image_edit_json(
@@ -381,6 +764,89 @@ pub async fn create_image_edit_json(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ImagesResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ImagesResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateImageEditError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageEditError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageEditError::Status403),
+            410 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageEditError::Status410),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageEditError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageEditError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageEditError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageEditError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
+///
+/// Sends the request body as `application/json`; `create_image_edit` sends it as `multipart/form-data`.
+///
+/// Sends the same request as [`create_image_edit_json`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ImagesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_image_edit_json_response(
+    configuration: &configuration::Configuration,
+    edit_image_body_json_param: &models::EditImageBodyJsonParam,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ImagesResponse>, Error<CreateImageEditError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_edit_image_body_json_param = edit_image_body_json_param;
+
+    let uri_str = format!("{}/images/edits", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_edit_image_body_json_param);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -865,6 +1331,114 @@ pub async fn create_image_variation(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ImagesResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ImagesResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateImageVariationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageVariationError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageVariationError::Status403),
+            410 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageVariationError::Status410),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageVariationError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageVariationError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateImageVariationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// This endpoint is retired and no longer available. Use the image edits endpoint with a GPT Image model and a prompt to create a variation of an image. The request and response schemas below describe the legacy contract.
+///
+/// Sends the same request as [`create_image_variation`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ImagesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn create_image_variation_response(
+    configuration: &configuration::Configuration,
+    #[builder(into)] image: timvw_rust_runtime::Upload,
+    model: Option<&str>,
+    n: Option<i64>,
+    response_format: Option<&str>,
+    size: Option<&str>,
+    user: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ImagesResponse>, Error<CreateImageVariationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_image = image;
+    let p_form_model = model;
+    let p_form_n = n;
+    let p_form_response_format = response_format;
+    let p_form_size = size;
+    let p_form_user = user;
+
+    let uri_str = format!("{}/images/variations", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    // Add file to multipart form
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_image, "image").await?;
+    if let Some(param_value) = p_form_model {
+        multipart_form = multipart_form.text("model", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_n {
+        multipart_form = multipart_form.text("n", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_response_format {
+        multipart_form = multipart_form.text("response_format", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_size {
+        multipart_form = multipart_form.text("size", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_user {
+        multipart_form = multipart_form.text("user", param_value.to_string());
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

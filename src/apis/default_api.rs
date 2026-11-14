@@ -90,6 +90,9 @@ pub enum CreateChatSessionMethodError {
 
 #[cfg(feature = "container")]
 /// struct for typed errors of method [`create_container`]
+///
+/// The headers its error responses declare are typed: [`CreateContainerErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateContainerErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateContainerError {
@@ -99,7 +102,40 @@ pub enum CreateContainerError {
 }
 
 #[cfg(feature = "container")]
+/// The headers the error responses of [`create_container`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateContainerErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateContainerErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateContainerErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateContainerErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateContainerErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
+#[cfg(feature = "container")]
 /// struct for typed errors of method [`create_container_file`]
+///
+/// The headers its error responses declare are typed: [`CreateContainerFileErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateContainerFileErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateContainerFileError {
@@ -107,6 +143,36 @@ pub enum CreateContainerFileError {
     Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+#[cfg(feature = "container")]
+/// The headers the error responses of [`create_container_file`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateContainerFileErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateContainerFileErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateContainerFileErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateContainerFileErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateContainerFileErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 #[cfg(feature = "administration")]
@@ -160,6 +226,9 @@ pub enum CreateanexternalstorageconfigurationError {
 
 #[cfg(feature = "content-provenance-checks")]
 /// struct for typed errors of method [`createcontentprovenancecheck`]
+///
+/// The headers its error responses declare are typed: [`CreatecontentprovenancecheckErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreatecontentprovenancecheckErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreatecontentprovenancecheckError {
@@ -171,8 +240,41 @@ pub enum CreatecontentprovenancecheckError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "content-provenance-checks")]
+/// The headers the error responses of [`createcontentprovenancecheck`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreatecontentprovenancecheckErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreatecontentprovenancecheckErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl CreatecontentprovenancecheckErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreatecontentprovenancecheckErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreatecontentprovenancecheckErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 #[cfg(feature = "container")]
 /// struct for typed errors of method [`delete_container`]
+///
+/// The headers its error responses declare are typed: [`DeleteContainerErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<DeleteContainerErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteContainerError {
@@ -182,13 +284,76 @@ pub enum DeleteContainerError {
 }
 
 #[cfg(feature = "container")]
+/// The headers the error responses of [`delete_container`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeleteContainerErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct DeleteContainerErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl DeleteContainerErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        DeleteContainerErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for DeleteContainerErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
+#[cfg(feature = "container")]
 /// struct for typed errors of method [`delete_container_file`]
+///
+/// The headers its error responses declare are typed: [`DeleteContainerFileErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<DeleteContainerFileErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteContainerFileError {
     Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+#[cfg(feature = "container")]
+/// The headers the error responses of [`delete_container_file`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeleteContainerFileErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct DeleteContainerFileErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl DeleteContainerFileErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        DeleteContainerFileErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for DeleteContainerFileErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 #[cfg(feature = "administration")]
@@ -302,6 +467,9 @@ pub enum GetorganizationspendlimitError {
 
 #[cfg(feature = "safety")]
 /// struct for typed errors of method [`getprojectsafetyalert`]
+///
+/// The headers its error responses declare are typed: [`GetprojectsafetyalertErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetprojectsafetyalertErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetprojectsafetyalertError {
@@ -310,6 +478,36 @@ pub enum GetprojectsafetyalertError {
     Status429(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+#[cfg(feature = "safety")]
+/// The headers the error responses of [`getprojectsafetyalert`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetprojectsafetyalertErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetprojectsafetyalertErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetprojectsafetyalertErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetprojectsafetyalertErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetprojectsafetyalertErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 #[cfg(feature = "administration")]
@@ -325,6 +523,9 @@ pub enum GetprojectspendlimitError {
 
 #[cfg(feature = "safety")]
 /// struct for typed errors of method [`getsafetycase`]
+///
+/// The headers its error responses declare are typed: [`GetsafetycaseErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetsafetycaseErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetsafetycaseError {
@@ -336,8 +537,41 @@ pub enum GetsafetycaseError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "safety")]
+/// The headers the error responses of [`getsafetycase`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetsafetycaseErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetsafetycaseErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetsafetycaseErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetsafetycaseErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetsafetycaseErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 #[cfg(feature = "container")]
 /// struct for typed errors of method [`list_container_files`]
+///
+/// The headers its error responses declare are typed: [`ListContainerFilesErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListContainerFilesErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListContainerFilesError {
@@ -347,13 +581,76 @@ pub enum ListContainerFilesError {
 }
 
 #[cfg(feature = "container")]
+/// The headers the error responses of [`list_container_files`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListContainerFilesErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListContainerFilesErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListContainerFilesErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListContainerFilesErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListContainerFilesErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
+#[cfg(feature = "container")]
 /// struct for typed errors of method [`list_containers`]
+///
+/// The headers its error responses declare are typed: [`ListContainersErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListContainersErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListContainersError {
     Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+#[cfg(feature = "container")]
+/// The headers the error responses of [`list_containers`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListContainersErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListContainersErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListContainersErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListContainersErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListContainersErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 #[cfg(feature = "administration")]
@@ -406,11 +703,44 @@ pub enum ListWebhookEndpointsError {
 
 #[cfg(feature = "webhook")]
 /// struct for typed errors of method [`list_webhook_event_types`]
+///
+/// The headers its error responses declare are typed: [`ListWebhookEventTypesErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListWebhookEventTypesErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListWebhookEventTypesError {
     Status401(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+#[cfg(feature = "webhook")]
+/// The headers the error responses of [`list_webhook_event_types`] declare (`401`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListWebhookEventTypesErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListWebhookEventTypesErrorHeaders {
+    /// `WWW-Authenticate`: The bearer authentication challenge returned by the service.
+    pub www_authenticate: Option<String>,
+}
+
+impl ListWebhookEventTypesErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListWebhookEventTypesErrorHeaders {
+            www_authenticate: super::api_response::header_value(headers, "www-authenticate", |v| {
+                Some(v.to_owned())
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListWebhookEventTypesErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 #[cfg(feature = "administration")]
@@ -434,6 +764,9 @@ pub enum ListtheexternalkeyconfigsregisteredontheuserQuoteSorganizationError {
 
 #[cfg(feature = "administration")]
 /// struct for typed errors of method [`organization_decisionsusage`]
+///
+/// The headers its error responses declare are typed: [`OrganizationDecisionsusageErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<OrganizationDecisionsusageErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum OrganizationDecisionsusageError {
@@ -443,8 +776,41 @@ pub enum OrganizationDecisionsusageError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
+/// The headers the error responses of [`organization_decisionsusage`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<OrganizationDecisionsusageErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct OrganizationDecisionsusageErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl OrganizationDecisionsusageErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        OrganizationDecisionsusageErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for OrganizationDecisionsusageErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 #[cfg(feature = "container")]
 /// struct for typed errors of method [`retrieve_container`]
+///
+/// The headers its error responses declare are typed: [`RetrieveContainerErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<RetrieveContainerErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveContainerError {
@@ -454,7 +820,40 @@ pub enum RetrieveContainerError {
 }
 
 #[cfg(feature = "container")]
+/// The headers the error responses of [`retrieve_container`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<RetrieveContainerErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct RetrieveContainerErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl RetrieveContainerErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        RetrieveContainerErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for RetrieveContainerErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
+#[cfg(feature = "container")]
 /// struct for typed errors of method [`retrieve_container_file`]
+///
+/// The headers its error responses declare are typed: [`RetrieveContainerFileErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<RetrieveContainerFileErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveContainerFileError {
@@ -464,13 +863,76 @@ pub enum RetrieveContainerFileError {
 }
 
 #[cfg(feature = "container")]
+/// The headers the error responses of [`retrieve_container_file`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<RetrieveContainerFileErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct RetrieveContainerFileErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl RetrieveContainerFileErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        RetrieveContainerFileErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for RetrieveContainerFileErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
+#[cfg(feature = "container")]
 /// struct for typed errors of method [`retrieve_container_file_content`]
+///
+/// The headers its error responses declare are typed: [`RetrieveContainerFileContentErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<RetrieveContainerFileContentErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveContainerFileContentError {
     Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+#[cfg(feature = "container")]
+/// The headers the error responses of [`retrieve_container_file_content`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<RetrieveContainerFileContentErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct RetrieveContainerFileContentErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl RetrieveContainerFileContentErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        RetrieveContainerFileContentErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for RetrieveContainerFileContentErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 #[cfg(feature = "administration")]
@@ -677,6 +1139,70 @@ pub async fn addanexternalkeyconfigforanorganization(
 }
 
 #[cfg(feature = "administration")]
+/// Add an external key config for an organization
+///
+/// Sends the same request as [`addanexternalkeyconfigforanorganization`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ExternalKeyResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn addanexternalkeyconfigforanorganization_response(
+    configuration: &configuration::Configuration,
+    v1_organization_external_keys_post_request: &models::V1OrganizationExternalKeysPostRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ExternalKeyResource>,
+    Error<AddanexternalkeyconfigforanorganizationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_v1_organization_external_keys_post_request =
+        v1_organization_external_keys_post_request;
+
+    let uri_str = format!("{}/organization/external_keys", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_v1_organization_external_keys_post_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<AddanexternalkeyconfigforanorganizationError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(AddanexternalkeyconfigforanorganizationError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Create an organization admin API key
 #[bon::builder]
 pub async fn admin_api_keys_create(
@@ -724,6 +1250,79 @@ pub async fn admin_api_keys_create(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AdminApiKeyCreateResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AdminApiKeyCreateResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<AdminApiKeysCreateError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(AdminApiKeysCreateError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(AdminApiKeysCreateError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(AdminApiKeysCreateError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(AdminApiKeysCreateError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// Create an organization admin API key
+///
+/// Sends the same request as [`admin_api_keys_create`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AdminApiKeyCreateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn admin_api_keys_create_response(
+    configuration: &configuration::Configuration,
+    admin_api_keys_create_request: &models::AdminApiKeysCreateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AdminApiKeyCreateResponse>, Error<AdminApiKeysCreateError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_admin_api_keys_create_request = admin_api_keys_create_request;
+
+    let uri_str = format!("{}/organization/admin_api_keys", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_admin_api_keys_create_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -831,6 +1430,80 @@ pub async fn admin_api_keys_delete(
 }
 
 #[cfg(feature = "administration")]
+/// Delete an organization admin API key
+///
+/// Sends the same request as [`admin_api_keys_delete`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AdminApiKeysDelete200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn admin_api_keys_delete_response(
+    configuration: &configuration::Configuration,
+    key_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AdminApiKeysDelete200Response>, Error<AdminApiKeysDeleteError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_key_id = key_id;
+
+    let uri_str = format!(
+        "{}/organization/admin_api_keys/{key_id}",
+        configuration.base_path,
+        key_id = crate::apis::urlencode(p_path_key_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<AdminApiKeysDeleteError> = match status.as_u16() {
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(AdminApiKeysDeleteError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(AdminApiKeysDeleteError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(AdminApiKeysDeleteError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Retrieve a single organization API key
 #[bon::builder]
 pub async fn admin_api_keys_get(
@@ -881,6 +1554,79 @@ pub async fn admin_api_keys_get(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AdminApiKey`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AdminApiKey`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<AdminApiKeysGetError> = match status.as_u16() {
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(AdminApiKeysGetError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(AdminApiKeysGetError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(AdminApiKeysGetError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// Retrieve a single organization API key
+///
+/// Sends the same request as [`admin_api_keys_get`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AdminApiKey` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn admin_api_keys_get_response(
+    configuration: &configuration::Configuration,
+    key_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AdminApiKey>, Error<AdminApiKeysGetError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_key_id = key_id;
+
+    let uri_str = format!(
+        "{}/organization/admin_api_keys/{key_id}",
+        configuration.base_path,
+        key_id = crate::apis::urlencode(p_path_key_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -993,6 +1739,88 @@ pub async fn admin_api_keys_list(
     }
 }
 
+#[cfg(feature = "administration")]
+/// List organization API keys
+///
+/// Sends the same request as [`admin_api_keys_list`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ApiKeyList` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn admin_api_keys_list_response(
+    configuration: &configuration::Configuration,
+    after: Option<&str>,
+    order: Option<&str>,
+    limit: Option<i64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ApiKeyList>, Error<AdminApiKeysListError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_after = after;
+    let p_query_order = order;
+    let p_query_limit = limit;
+
+    let uri_str = format!("{}/organization/admin_api_keys", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<AdminApiKeysListError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(AdminApiKeysListError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(AdminApiKeysListError::Status403),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(AdminApiKeysListError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "chatkit")]
 /// Cancel an active ChatKit session and return its most recent metadata.  Cancelling prevents new requests from using the issued client secret.
 #[bon::builder]
@@ -1044,6 +1872,82 @@ pub async fn cancel_chat_session_method(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ChatSessionResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ChatSessionResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CancelChatSessionMethodError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelChatSessionMethodError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelChatSessionMethodError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelChatSessionMethodError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CancelChatSessionMethodError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "chatkit")]
+/// Cancel an active ChatKit session and return its most recent metadata.  Cancelling prevents new requests from using the issued client secret.
+///
+/// Sends the same request as [`cancel_chat_session_method`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ChatSessionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn cancel_chat_session_method_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ChatSessionResource>, Error<CancelChatSessionMethodError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+
+    let uri_str = format!(
+        "{}/chatkit/sessions/{session_id}/cancel",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1150,6 +2054,79 @@ pub async fn create_chat_session_method(
     }
 }
 
+#[cfg(feature = "chatkit")]
+/// Create a ChatKit session.
+///
+/// Sends the same request as [`create_chat_session_method`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ChatSessionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_chat_session_method_response(
+    configuration: &configuration::Configuration,
+    create_chat_session_body: Option<&models::CreateChatSessionBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ChatSessionResource>, Error<CreateChatSessionMethodError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_chat_session_body = create_chat_session_body;
+
+    let uri_str = format!("{}/chatkit/sessions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_chat_session_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateChatSessionMethodError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateChatSessionMethodError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateChatSessionMethodError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateChatSessionMethodError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateChatSessionMethodError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "container")]
 /// Create Container
 #[bon::builder]
@@ -1198,6 +2175,76 @@ pub async fn create_container(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ContainerResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ContainerResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateContainerError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateContainerError::Status400),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateContainerError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateContainerError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "container")]
+/// Create Container
+///
+/// Sends the same request as [`create_container`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ContainerResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_container_response(
+    configuration: &configuration::Configuration,
+    create_container_body: Option<&models::CreateContainerBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ContainerResource>, Error<CreateContainerError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_container_body = create_container_body;
+
+    let uri_str = format!("{}/containers", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_container_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1278,6 +2325,85 @@ pub async fn create_container_file(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ContainerFileResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ContainerFileResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateContainerFileError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateContainerFileError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateContainerFileError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateContainerFileError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateContainerFileError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "container")]
+/// Create a Container File  You can send either a multipart/form-data request with the raw file content, or a JSON request with a file ID.
+///
+/// Sends the same request as [`create_container_file`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ContainerFileResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_container_file_response(
+    configuration: &configuration::Configuration,
+    container_id: &str,
+    create_container_file_body: &models::CreateContainerFileBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ContainerFileResource>, Error<CreateContainerFileError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_container_id = container_id;
+    let p_body_create_container_file_body = create_container_file_body;
+
+    let uri_str = format!(
+        "{}/containers/{container_id}/files",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_container_file_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1403,6 +2529,98 @@ pub async fn create_container_file_multipart(
     }
 }
 
+#[cfg(feature = "container")]
+/// Create a Container File  You can send either a multipart/form-data request with the raw file content, or a JSON request with a file ID.
+///
+/// Sends the request body as `multipart/form-data`; `create_container_file` sends it as `application/json`.
+///
+/// Sends the same request as [`create_container_file_multipart`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ContainerFileResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_container_file_multipart_response(
+    configuration: &configuration::Configuration,
+    container_id: &str,
+    file_id: Option<&str>,
+    #[builder(into)] file: Option<timvw_rust_runtime::Upload>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ContainerFileResource>, Error<CreateContainerFileError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_container_id = container_id;
+    let p_form_file_id = file_id;
+    let p_form_file = file;
+
+    let uri_str = format!(
+        "{}/containers/{container_id}/files",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    if let Some(param_value) = p_form_file_id {
+        multipart_form = multipart_form.text("file_id", param_value.to_string());
+    }
+    if let Some(ref param_value) = p_form_file {
+        // Add file to multipart form
+        multipart_form =
+            multipart_helper::add_file_to_form(multipart_form, param_value, "file").await?;
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateContainerFileError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateContainerFileError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateContainerFileError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateContainerFileError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateContainerFileError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Bind verified token attributes to an existing project service account.
 #[bon::builder]
@@ -1457,6 +2675,74 @@ pub async fn create_platformworkloadidentityfederationrule(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformFederationRule`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformFederationRule`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreatePlatformworkloadidentityfederationruleError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreatePlatformworkloadidentityfederationruleError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// Bind verified token attributes to an existing project service account.
+///
+/// Sends the same request as [`create_platformworkloadidentityfederationrule`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::PlatformFederationRule` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_platformworkloadidentityfederationrule_response(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+    create_platform_workload_identity_federation_rule_body: Option<
+        &models::CreatePlatformWorkloadIdentityFederationRuleBody,
+    >,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::PlatformFederationRule>,
+    Error<CreatePlatformworkloadidentityfederationruleError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+    let p_body_create_platform_workload_identity_federation_rule_body =
+        create_platform_workload_identity_federation_rule_body;
+
+    let uri_str = format!("{}/organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules", configuration.base_path, workload_identity_provider_id=crate::apis::urlencode(p_path_workload_identity_provider_id));
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_platform_workload_identity_federation_rule_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1543,6 +2829,75 @@ pub async fn create_platformworkloadidentityprovider(
     }
 }
 
+#[cfg(feature = "administration")]
+/// Register an OIDC provider for keyless project service-account authentication.
+///
+/// Sends the same request as [`create_platformworkloadidentityprovider`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::PlatformProvider` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_platformworkloadidentityprovider_response(
+    configuration: &configuration::Configuration,
+    create_platform_workload_identity_provider_body: Option<
+        &models::CreatePlatformWorkloadIdentityProviderBody,
+    >,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::PlatformProvider>,
+    Error<CreatePlatformworkloadidentityproviderError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_platform_workload_identity_provider_body =
+        create_platform_workload_identity_provider_body;
+
+    let uri_str = format!(
+        "{}/organization/workload_identity_providers",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_platform_workload_identity_provider_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreatePlatformworkloadidentityproviderError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreatePlatformworkloadidentityproviderError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "webhook")]
 /// Creates a webhook endpoint for the authenticated project.
 #[bon::builder]
@@ -1591,6 +2946,76 @@ pub async fn create_webhook_endpoint(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::WebhookEndpointWithSecretResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::WebhookEndpointWithSecretResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateWebhookEndpointError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateWebhookEndpointError::Status400),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateWebhookEndpointError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "webhook")]
+/// Creates a webhook endpoint for the authenticated project.
+///
+/// Sends the same request as [`create_webhook_endpoint`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::WebhookEndpointWithSecretResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_webhook_endpoint_response(
+    configuration: &configuration::Configuration,
+    public_create_endpoint_body: Option<&models::PublicCreateEndpointBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::WebhookEndpointWithSecretResource>,
+    Error<CreateWebhookEndpointError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_public_create_endpoint_body = public_create_endpoint_body;
+
+    let uri_str = format!("{}/webhook_endpoints", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_public_create_endpoint_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1707,6 +3132,97 @@ pub async fn createan_ap_ikeyforaserviceaccount(
 }
 
 #[cfg(feature = "administration")]
+/// Creates an API key for a service account in the project.
+///
+/// Sends the same request as [`createan_ap_ikeyforaserviceaccount`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ServiceAccountApiKeyBody` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn createan_ap_ikeyforaserviceaccount_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    service_account_id: &str,
+    create_project_service_account_api_key_body: Option<
+        &models::CreateProjectServiceAccountApiKeyBody,
+    >,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ServiceAccountApiKeyBody>,
+    Error<CreateanApIkeyforaserviceaccountError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_path_service_account_id = service_account_id;
+    let p_body_create_project_service_account_api_key_body =
+        create_project_service_account_api_key_body;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/service_accounts/{service_account_id}/api_keys",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id),
+        service_account_id = crate::apis::urlencode(p_path_service_account_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_project_service_account_api_key_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateanApIkeyforaserviceaccountError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateanApIkeyforaserviceaccountError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateanApIkeyforaserviceaccountError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateanApIkeyforaserviceaccountError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateanApIkeyforaserviceaccountError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateanApIkeyforaserviceaccountError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Register one customer-managed external storage configuration.
 #[bon::builder]
 pub async fn createanexternalstorageconfiguration(
@@ -1754,6 +3270,85 @@ pub async fn createanexternalstorageconfiguration(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ExternalStorageResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ExternalStorageResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateanexternalstorageconfigurationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateanexternalstorageconfigurationError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateanexternalstorageconfigurationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateanexternalstorageconfigurationError::Status404),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateanexternalstorageconfigurationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateanexternalstorageconfigurationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// Register one customer-managed external storage configuration.
+///
+/// Sends the same request as [`createanexternalstorageconfiguration`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ExternalStorageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn createanexternalstorageconfiguration_response(
+    configuration: &configuration::Configuration,
+    create_external_storage_body: &models::CreateExternalStorageBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ExternalStorageResponse>,
+    Error<CreateanexternalstorageconfigurationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_external_storage_body = create_external_storage_body;
+
+    let uri_str = format!("{}/organization/external_storage", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_external_storage_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1873,6 +3468,90 @@ pub async fn createcontentprovenancecheck(
     }
 }
 
+#[cfg(feature = "content-provenance-checks")]
+/// Check whether an image or audio file contains known OpenAI provenance signals. [Learn more about content provenance](https://developers.openai.com/api/docs/guides/content-provenance).  If `not_detected`, it means the tool did not find supported signals in the uploaded file. The content could still have been generated by OpenAI if the metadata was stripped or has evidence of tampering, the watermark was degraded, it comes from a legacy generation model, or it was created before provenance signals were available. Content could also still be AI-generated by another company's model, which the tool currently does not detect.
+///
+/// Sends the same request as [`createcontentprovenancecheck`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProvenanceResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn createcontentprovenancecheck_response(
+    configuration: &configuration::Configuration,
+    #[builder(into)] file: timvw_rust_runtime::Upload,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ProvenanceResource>, Error<CreatecontentprovenancecheckError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_file = file;
+
+    let uri_str = format!("{}/content_provenance_checks", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    // Add file to multipart form
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file").await?;
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreatecontentprovenancecheckError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreatecontentprovenancecheckError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreatecontentprovenancecheckError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreatecontentprovenancecheckError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreatecontentprovenancecheckError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreatecontentprovenancecheckError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreatecontentprovenancecheckError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "container")]
 /// Delete Container
 #[bon::builder]
@@ -1924,6 +3603,79 @@ pub async fn delete_container(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteContainer200Response`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteContainer200Response`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteContainerError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteContainerError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteContainerError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteContainerError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "container")]
+/// Delete Container
+///
+/// Sends the same request as [`delete_container`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeleteContainer200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_container_response(
+    configuration: &configuration::Configuration,
+    container_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DeleteContainer200Response>, Error<DeleteContainerError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_container_id = container_id;
+
+    let uri_str = format!(
+        "{}/containers/{container_id}",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -2030,6 +3782,85 @@ pub async fn delete_container_file(
     }
 }
 
+#[cfg(feature = "container")]
+/// Delete Container File
+///
+/// Sends the same request as [`delete_container_file`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeleteContainerFile200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_container_file_response(
+    configuration: &configuration::Configuration,
+    container_id: &str,
+    file_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::DeleteContainerFile200Response>,
+    Error<DeleteContainerFileError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_container_id = container_id;
+    let p_path_file_id = file_id;
+
+    let uri_str = format!(
+        "{}/containers/{container_id}/files/{file_id}",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id),
+        file_id = crate::apis::urlencode(p_path_file_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteContainerFileError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteContainerFileError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteContainerFileError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteContainerFileError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Delete a federation rule to a project service account.
 #[bon::builder]
@@ -2082,6 +3913,70 @@ pub async fn delete_platformworkloadidentityfederationrule(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformFederationRuleDeletedResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformFederationRuleDeletedResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeletePlatformworkloadidentityfederationruleError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeletePlatformworkloadidentityfederationruleError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// Delete a federation rule to a project service account.
+///
+/// Sends the same request as [`delete_platformworkloadidentityfederationrule`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::PlatformFederationRuleDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_platformworkloadidentityfederationrule_response(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+    workload_identity_federation_rule_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::PlatformFederationRuleDeletedResource>,
+    Error<DeletePlatformworkloadidentityfederationruleError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+    let p_path_workload_identity_federation_rule_id = workload_identity_federation_rule_id;
+
+    let uri_str = format!("{}/organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules/{workload_identity_federation_rule_id}", configuration.base_path, workload_identity_provider_id=crate::apis::urlencode(p_path_workload_identity_provider_id), workload_identity_federation_rule_id=crate::apis::urlencode(p_path_workload_identity_federation_rule_id));
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -2169,6 +4064,73 @@ pub async fn delete_platformworkloadidentityprovider(
     }
 }
 
+#[cfg(feature = "administration")]
+/// Delete a provider after deleting all its federation rules.
+///
+/// Sends the same request as [`delete_platformworkloadidentityprovider`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::PlatformProviderDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_platformworkloadidentityprovider_response(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::PlatformProviderDeletedResource>,
+    Error<DeletePlatformworkloadidentityproviderError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+
+    let uri_str = format!(
+        "{}/organization/workload_identity_providers/{workload_identity_provider_id}",
+        configuration.base_path,
+        workload_identity_provider_id =
+            crate::apis::urlencode(p_path_workload_identity_provider_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeletePlatformworkloadidentityproviderError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeletePlatformworkloadidentityproviderError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "chatkit")]
 /// Delete a ChatKit thread along with its items and stored attachments.
 #[bon::builder]
@@ -2220,6 +4182,82 @@ pub async fn delete_thread_method(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeletedThreadResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeletedThreadResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteThreadMethodError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteThreadMethodError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteThreadMethodError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteThreadMethodError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteThreadMethodError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "chatkit")]
+/// Delete a ChatKit thread along with its items and stored attachments.
+///
+/// Sends the same request as [`delete_thread_method`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeletedThreadResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_thread_method_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DeletedThreadResource>, Error<DeleteThreadMethodError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+
+    let uri_str = format!(
+        "{}/chatkit/threads/{thread_id}",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -2326,6 +4364,82 @@ pub async fn delete_webhook_endpoint(
     }
 }
 
+#[cfg(feature = "webhook")]
+/// Deletes a webhook endpoint for the authenticated project.
+///
+/// Sends the same request as [`delete_webhook_endpoint`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeletedWebhookEndpointResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_webhook_endpoint_response(
+    configuration: &configuration::Configuration,
+    webhook_endpoint_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::DeletedWebhookEndpointResource>,
+    Error<DeleteWebhookEndpointError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_webhook_endpoint_id = webhook_endpoint_id;
+
+    let uri_str = format!(
+        "{}/webhook_endpoints/{webhook_endpoint_id}",
+        configuration.base_path,
+        webhook_endpoint_id = crate::apis::urlencode(p_path_webhook_endpoint_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteWebhookEndpointError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteWebhookEndpointError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteWebhookEndpointError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteWebhookEndpointError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Delete an external key config for the user's organization
 #[bon::builder]
@@ -2380,6 +4494,72 @@ pub async fn deleteanexternalkeyconfigfortheuser_quote_sorganization(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ExternalKeyResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ExternalKeyResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteanexternalkeyconfigfortheuserQuoteSorganizationError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteanexternalkeyconfigfortheuserQuoteSorganizationError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// Delete an external key config for the user's organization
+///
+/// Sends the same request as [`deleteanexternalkeyconfigfortheuser_quote_sorganization`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ExternalKeyResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn deleteanexternalkeyconfigfortheuser_quote_sorganization_response(
+    configuration: &configuration::Configuration,
+    external_key_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ExternalKeyResource>,
+    Error<DeleteanexternalkeyconfigfortheuserQuoteSorganizationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_external_key_id = external_key_id;
+
+    let uri_str = format!(
+        "{}/organization/external_keys/{external_key_id}",
+        configuration.base_path,
+        external_key_id = crate::apis::urlencode(p_path_external_key_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -2478,6 +4658,85 @@ pub async fn deleteanexternalstorageconfiguration(
 }
 
 #[cfg(feature = "administration")]
+/// Disconnect a customer-managed external storage configuration. Removing the project's last configuration restores organization-default retention if customer-managed retention was active. Repeating a deletion also completes any interrupted retention update. Cloud storage is unchanged.
+///
+/// Sends the same request as [`deleteanexternalstorageconfiguration`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ExternalStorageDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn deleteanexternalstorageconfiguration_response(
+    configuration: &configuration::Configuration,
+    external_storage_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ExternalStorageDeletedResource>,
+    Error<DeleteanexternalstorageconfigurationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_external_storage_id = external_storage_id;
+
+    let uri_str = format!(
+        "{}/organization/external_storage/{external_storage_id}",
+        configuration.base_path,
+        external_storage_id = crate::apis::urlencode(p_path_external_storage_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteanexternalstorageconfigurationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteanexternalstorageconfigurationError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteanexternalstorageconfigurationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteanexternalstorageconfigurationError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteanexternalstorageconfigurationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Delete the organization's hard spend limit.
 #[bon::builder]
 pub async fn deleteorganizationspendlimit(
@@ -2521,6 +4780,74 @@ pub async fn deleteorganizationspendlimit(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationSpendLimitDeletedResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationSpendLimitDeletedResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteorganizationspendlimitError> = match status.as_u16() {
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteorganizationspendlimitError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteorganizationspendlimitError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteorganizationspendlimitError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// Delete the organization's hard spend limit.
+///
+/// Sends the same request as [`deleteorganizationspendlimit`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::OrganizationSpendLimitDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn deleteorganizationspendlimit_response(
+    configuration: &configuration::Configuration,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::OrganizationSpendLimitDeletedResource>,
+    Error<DeleteorganizationspendlimitError>,
+> {
+    let uri_str = format!("{}/organization/spend_limit", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -2627,6 +4954,85 @@ pub async fn deleteprojectspendlimit(
     }
 }
 
+#[cfg(feature = "administration")]
+/// Delete a project's hard spend limit.
+///
+/// Sends the same request as [`deleteprojectspendlimit`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProjectSpendLimitDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn deleteprojectspendlimit_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ProjectSpendLimitDeletedResource>,
+    Error<DeleteprojectspendlimitError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/spend_limit",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteprojectspendlimitError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteprojectspendlimitError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteprojectspendlimitError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteprojectspendlimitError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteprojectspendlimitError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "chatkit")]
 /// Retrieve a ChatKit thread by its identifier.
 #[bon::builder]
@@ -2678,6 +5084,82 @@ pub async fn get_thread_method(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ThreadResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ThreadResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetThreadMethodError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetThreadMethodError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetThreadMethodError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetThreadMethodError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetThreadMethodError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "chatkit")]
+/// Retrieve a ChatKit thread by its identifier.
+///
+/// Sends the same request as [`get_thread_method`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ThreadResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_thread_method_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ThreadResource>, Error<GetThreadMethodError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+
+    let uri_str = format!(
+        "{}/chatkit/threads/{thread_id}",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -2788,6 +5270,85 @@ pub async fn getanexternalstorageconfiguration(
 }
 
 #[cfg(feature = "administration")]
+/// Get one customer-managed external storage configuration.
+///
+/// Sends the same request as [`getanexternalstorageconfiguration`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ExternalStorageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn getanexternalstorageconfiguration_response(
+    configuration: &configuration::Configuration,
+    external_storage_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ExternalStorageResponse>,
+    Error<GetanexternalstorageconfigurationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_external_storage_id = external_storage_id;
+
+    let uri_str = format!(
+        "{}/organization/external_storage/{external_storage_id}",
+        configuration.base_path,
+        external_storage_id = crate::apis::urlencode(p_path_external_storage_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetanexternalstorageconfigurationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetanexternalstorageconfigurationError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(GetanexternalstorageconfigurationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetanexternalstorageconfigurationError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetanexternalstorageconfigurationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Get the organization's hard spend limit.
 #[bon::builder]
 pub async fn getorganizationspendlimit(
@@ -2830,6 +5391,74 @@ pub async fn getorganizationspendlimit(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationSpendLimitResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationSpendLimitResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetorganizationspendlimitError> = match status.as_u16() {
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(GetorganizationspendlimitError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetorganizationspendlimitError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetorganizationspendlimitError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// Get the organization's hard spend limit.
+///
+/// Sends the same request as [`getorganizationspendlimit`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::OrganizationSpendLimitResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn getorganizationspendlimit_response(
+    configuration: &configuration::Configuration,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::OrganizationSpendLimitResource>,
+    Error<GetorganizationspendlimitError>,
+> {
+    let uri_str = format!("{}/organization/spend_limit", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -2907,6 +5536,85 @@ pub async fn getprojectsafetyalert(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SafetyAlertResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SafetyAlertResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetprojectsafetyalertError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetprojectsafetyalertError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetprojectsafetyalertError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetprojectsafetyalertError::Status429),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(GetprojectsafetyalertError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetprojectsafetyalertError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "safety")]
+/// Get a safety alert belonging to the authenticated API project.
+///
+/// Sends the same request as [`getprojectsafetyalert`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SafetyAlertResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn getprojectsafetyalert_response(
+    configuration: &configuration::Configuration,
+    id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SafetyAlertResource>, Error<GetprojectsafetyalertError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+
+    let uri_str = format!(
+        "{}/safety/alerts/{id}",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -3019,6 +5727,83 @@ pub async fn getprojectspendlimit(
     }
 }
 
+#[cfg(feature = "administration")]
+/// Get a project's hard spend limit.
+///
+/// Sends the same request as [`getprojectspendlimit`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProjectSpendLimitResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn getprojectspendlimit_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ProjectSpendLimitResource>, Error<GetprojectspendlimitError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/spend_limit",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetprojectspendlimitError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetprojectspendlimitError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(GetprojectspendlimitError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetprojectspendlimitError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetprojectspendlimitError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "safety")]
 /// Get a safety case by ID.
 #[bon::builder]
@@ -3070,6 +5855,88 @@ pub async fn getsafetycase(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SafetyCaseResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SafetyCaseResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetsafetycaseError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetsafetycaseError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetsafetycaseError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetsafetycaseError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(GetsafetycaseError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(GetsafetycaseError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetsafetycaseError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "safety")]
+/// Get a safety case by ID.
+///
+/// Sends the same request as [`getsafetycase`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SafetyCaseResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn getsafetycase_response(
+    configuration: &configuration::Configuration,
+    id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SafetyCaseResource>, Error<GetsafetycaseError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+
+    let uri_str = format!(
+        "{}/safety/cases/{id}",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -3198,6 +6065,94 @@ pub async fn list_container_files(
 }
 
 #[cfg(feature = "container")]
+/// List Container files
+///
+/// Sends the same request as [`list_container_files`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ContainerFileListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_container_files_response(
+    configuration: &configuration::Configuration,
+    container_id: &str,
+    limit: Option<i64>,
+    order: Option<&str>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ContainerFileListResource>, Error<ListContainerFilesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_container_id = container_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/containers/{container_id}/files",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListContainerFilesError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListContainerFilesError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListContainerFilesError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListContainerFilesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "container")]
 /// List Containers
 #[bon::builder]
 pub async fn list_containers(
@@ -3262,6 +6217,93 @@ pub async fn list_containers(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ContainerListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ContainerListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListContainersError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListContainersError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListContainersError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListContainersError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "container")]
+/// List Containers
+///
+/// Sends the same request as [`list_containers`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ContainerListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_containers_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<&str>,
+    after: Option<&str>,
+    name: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ContainerListResource>, Error<ListContainersError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_name = name;
+
+    let uri_str = format!("{}/containers", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_name {
+        req_builder = req_builder.query(&[("name", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -3376,6 +6418,89 @@ pub async fn list_platformworkloadidentityfederationrules(
 }
 
 #[cfg(feature = "administration")]
+/// List the provider's federation rules to project service accounts.
+///
+/// Sends the same request as [`list_platformworkloadidentityfederationrules`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::PlatformFederationRuleListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_platformworkloadidentityfederationrules_response(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListPlatformworkloadidentityfederationrulesOrderParameter>,
+    after: Option<&str>,
+    service_account_id: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::PlatformFederationRuleListResource>,
+    Error<ListPlatformworkloadidentityfederationrulesError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_service_account_id = service_account_id;
+
+    let uri_str = format!("{}/organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules", configuration.base_path, workload_identity_provider_id=crate::apis::urlencode(p_path_workload_identity_provider_id));
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        // a union's Display: a scalar variant as its plain text, any other as its JSON
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_service_account_id {
+        req_builder = req_builder.query(&[("service_account_id", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListPlatformworkloadidentityfederationrulesError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListPlatformworkloadidentityfederationrulesError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
 /// List OIDC providers in the authenticated Admin API key's organization.
 #[bon::builder]
 pub async fn list_platformworkloadidentityproviders(
@@ -3440,6 +6565,85 @@ pub async fn list_platformworkloadidentityproviders(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformProviderListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformProviderListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListPlatformworkloadidentityprovidersError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListPlatformworkloadidentityprovidersError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// List OIDC providers in the authenticated Admin API key's organization.
+///
+/// Sends the same request as [`list_platformworkloadidentityproviders`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::PlatformProviderListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_platformworkloadidentityproviders_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::ListPlatformworkloadidentityprovidersOrderParameter>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::PlatformProviderListResource>,
+    Error<ListPlatformworkloadidentityprovidersError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/organization/workload_identity_providers",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        // a union's Display: a scalar variant as its plain text, any other as its JSON
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -3527,6 +6731,102 @@ pub async fn list_thread_items_method(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ThreadItemListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ThreadItemListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListThreadItemsMethodError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListThreadItemsMethodError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListThreadItemsMethodError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListThreadItemsMethodError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListThreadItemsMethodError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "chatkit")]
+/// List items that belong to a ChatKit thread.
+///
+/// Sends the same request as [`list_thread_items_method`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ThreadItemListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_thread_items_method_response(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    limit: Option<i64>,
+    order: Option<models::OrderEnum>,
+    after: Option<&str>,
+    before: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ThreadItemListResource>, Error<ListThreadItemsMethodError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_before = before;
+
+    let uri_str = format!(
+        "{}/chatkit/threads/{thread_id}/items",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -3655,6 +6955,101 @@ pub async fn list_threads_method(
     }
 }
 
+#[cfg(feature = "chatkit")]
+/// List ChatKit threads with optional pagination and user filters.
+///
+/// Sends the same request as [`list_threads_method`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ThreadListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_threads_method_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::OrderEnum>,
+    after: Option<&str>,
+    before: Option<&str>,
+    user: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ThreadListResource>, Error<ListThreadsMethodError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_before = before;
+    let p_query_user = user;
+
+    let uri_str = format!("{}/chatkit/threads", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_user {
+        req_builder = req_builder.query(&[("user", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListThreadsMethodError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListThreadsMethodError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListThreadsMethodError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListThreadsMethodError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListThreadsMethodError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "webhook")]
 /// Returns webhook endpoints for the authenticated project in newest-first order.
 #[bon::builder]
@@ -3737,6 +7132,84 @@ pub async fn list_webhook_endpoints(
 }
 
 #[cfg(feature = "webhook")]
+/// Returns webhook endpoints for the authenticated project in newest-first order.
+///
+/// Sends the same request as [`list_webhook_endpoints`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::WebhookEndpointListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_webhook_endpoints_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::WebhookEndpointListResource>, Error<ListWebhookEndpointsError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/webhook_endpoints", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListWebhookEndpointsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListWebhookEndpointsError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListWebhookEndpointsError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListWebhookEndpointsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "webhook")]
 /// Returns webhook event types visible to the authenticated project.
 #[bon::builder]
 pub async fn list_webhook_event_types(
@@ -3779,6 +7252,71 @@ pub async fn list_webhook_event_types(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::WebhookEventTypeListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::WebhookEventTypeListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListWebhookEventTypesError> = match status.as_u16() {
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListWebhookEventTypesError::Status401),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListWebhookEventTypesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "webhook")]
+/// Returns webhook event types visible to the authenticated project.
+///
+/// Sends the same request as [`list_webhook_event_types`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::WebhookEventTypeListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_webhook_event_types_response(
+    configuration: &configuration::Configuration,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::WebhookEventTypeListResource>,
+    Error<ListWebhookEventTypesError>,
+> {
+    let uri_str = format!("{}/webhook_event_types", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -3897,6 +7435,99 @@ pub async fn listexternalstorageconfigurations(
 }
 
 #[cfg(feature = "administration")]
+/// List the organization's customer-managed external storage configurations.
+///
+/// Sends the same request as [`listexternalstorageconfigurations`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ExternalStorageListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn listexternalstorageconfigurations_response(
+    configuration: &configuration::Configuration,
+    project_id: Option<&str>,
+    after: Option<&str>,
+    order: Option<models::ExternalStorageOrder>,
+    limit: Option<i64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ExternalStorageListResource>,
+    Error<ListexternalstorageconfigurationsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_project_id = project_id;
+    let p_query_after = after;
+    let p_query_order = order;
+    let p_query_limit = limit;
+
+    let uri_str = format!("{}/organization/external_storage", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_project_id {
+        req_builder = req_builder.query(&[("project_id", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListexternalstorageconfigurationsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListexternalstorageconfigurationsError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListexternalstorageconfigurationsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListexternalstorageconfigurationsError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListexternalstorageconfigurationsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
 /// List the external key configs registered on the user's organization
 #[bon::builder]
 pub async fn listtheexternalkeyconfigsregisteredontheuser_quote_sorganization(
@@ -3964,6 +7595,86 @@ pub async fn listtheexternalkeyconfigsregisteredontheuser_quote_sorganization(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListExternalKeysResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListExternalKeysResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListtheexternalkeyconfigsregisteredontheuserQuoteSorganizationError> =
+            serde_json::from_str(&content).ok().map(
+                ListtheexternalkeyconfigsregisteredontheuserQuoteSorganizationError::UnknownValue,
+            );
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// List the external key configs registered on the user's organization
+///
+/// Sends the same request as [`listtheexternalkeyconfigsregisteredontheuser_quote_sorganization`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListExternalKeysResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn listtheexternalkeyconfigsregisteredontheuser_quote_sorganization_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::OrderEnum>,
+    after: Option<&str>,
+    purpose: Option<models::ExternalKeyPurpose>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ListExternalKeysResource>,
+    Error<ListtheexternalkeyconfigsregisteredontheuserQuoteSorganizationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_purpose = purpose;
+
+    let uri_str = format!("{}/organization/external_keys", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_purpose {
+        req_builder = req_builder.query(&[("purpose", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -4122,6 +7833,147 @@ pub async fn organization_decisionsusage(
     }
 }
 
+#[cfg(feature = "administration")]
+/// Get Decisions API usage details for the organization.
+///
+/// Sends the same request as [`organization_decisionsusage`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::PublicDecisionsUsageResponseResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn organization_decisionsusage_response(
+    configuration: &configuration::Configuration,
+    start_time: i64,
+    end_time: Option<i64>,
+    bucket_width: Option<models::DecisionsUsageBucketWidth>,
+    limit: Option<i64>,
+    page: Option<&str>,
+    project_ids: Option<Vec<String>>,
+    group_by: Option<Vec<models::DecisionsUsageGroupBy>>,
+    user_ids: Option<Vec<String>>,
+    api_key_ids: Option<Vec<String>>,
+    models: Option<Vec<String>>,
+    batch: Option<bool>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::PublicDecisionsUsageResponseResource>,
+    Error<OrganizationDecisionsusageError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_limit = limit;
+    let p_query_page = page;
+    let p_query_project_ids = project_ids;
+    let p_query_group_by = group_by;
+    let p_query_user_ids = user_ids;
+    let p_query_api_key_ids = api_key_ids;
+    let p_query_models = models;
+    let p_query_batch = batch;
+
+    let uri_str = format!("{}/organization/usage/decisions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("project_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("group_by", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_user_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("user_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_api_key_ids {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("api_key_ids", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_models {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("models", item)]);
+        }
+    }
+    if let Some(ref param_value) = p_query_batch {
+        req_builder = req_builder.query(&[("batch", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<OrganizationDecisionsusageError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(OrganizationDecisionsusageError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(OrganizationDecisionsusageError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(OrganizationDecisionsusageError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(OrganizationDecisionsusageError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "container")]
 /// Retrieve Container
 #[bon::builder]
@@ -4173,6 +8025,79 @@ pub async fn retrieve_container(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ContainerResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ContainerResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveContainerError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveContainerError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveContainerError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveContainerError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "container")]
+/// Retrieve Container
+///
+/// Sends the same request as [`retrieve_container`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ContainerResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_container_response(
+    configuration: &configuration::Configuration,
+    container_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ContainerResource>, Error<RetrieveContainerError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_container_id = container_id;
+
+    let uri_str = format!(
+        "{}/containers/{container_id}",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -4253,6 +8178,82 @@ pub async fn retrieve_container_file(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ContainerFileResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ContainerFileResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveContainerFileError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveContainerFileError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveContainerFileError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveContainerFileError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "container")]
+/// Retrieve Container File
+///
+/// Sends the same request as [`retrieve_container_file`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ContainerFileResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_container_file_response(
+    configuration: &configuration::Configuration,
+    container_id: &str,
+    file_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ContainerFileResource>, Error<RetrieveContainerFileError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_container_id = container_id;
+    let p_path_file_id = file_id;
+
+    let uri_str = format!(
+        "{}/containers/{container_id}/files/{file_id}",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id),
+        file_id = crate::apis::urlencode(p_path_file_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -4417,6 +8418,70 @@ pub async fn retrieve_platformworkloadidentityfederationrule(
 }
 
 #[cfg(feature = "administration")]
+/// Retrieve a federation rule owned by the authenticated organization and provider.
+///
+/// Sends the same request as [`retrieve_platformworkloadidentityfederationrule`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::PlatformFederationRule` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_platformworkloadidentityfederationrule_response(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+    workload_identity_federation_rule_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::PlatformFederationRule>,
+    Error<RetrievePlatformworkloadidentityfederationruleError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+    let p_path_workload_identity_federation_rule_id = workload_identity_federation_rule_id;
+
+    let uri_str = format!("{}/organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules/{workload_identity_federation_rule_id}", configuration.base_path, workload_identity_provider_id=crate::apis::urlencode(p_path_workload_identity_provider_id), workload_identity_federation_rule_id=crate::apis::urlencode(p_path_workload_identity_federation_rule_id));
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrievePlatformworkloadidentityfederationruleError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrievePlatformworkloadidentityfederationruleError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Retrieve an OIDC provider in the authenticated organization.
 #[bon::builder]
 pub async fn retrieve_platformworkloadidentityprovider(
@@ -4468,6 +8533,73 @@ pub async fn retrieve_platformworkloadidentityprovider(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformProvider`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformProvider`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrievePlatformworkloadidentityproviderError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrievePlatformworkloadidentityproviderError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// Retrieve an OIDC provider in the authenticated organization.
+///
+/// Sends the same request as [`retrieve_platformworkloadidentityprovider`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::PlatformProvider` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_platformworkloadidentityprovider_response(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::PlatformProvider>,
+    Error<RetrievePlatformworkloadidentityproviderError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+
+    let uri_str = format!(
+        "{}/organization/workload_identity_providers/{workload_identity_provider_id}",
+        configuration.base_path,
+        workload_identity_provider_id =
+            crate::apis::urlencode(p_path_workload_identity_provider_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -4561,6 +8693,79 @@ pub async fn retrieve_webhook_endpoint(
     }
 }
 
+#[cfg(feature = "webhook")]
+/// Retrieves a webhook endpoint for the authenticated project.
+///
+/// Sends the same request as [`retrieve_webhook_endpoint`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::WebhookEndpointBody` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_webhook_endpoint_response(
+    configuration: &configuration::Configuration,
+    webhook_endpoint_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::WebhookEndpointBody>, Error<RetrieveWebhookEndpointError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_webhook_endpoint_id = webhook_endpoint_id;
+
+    let uri_str = format!(
+        "{}/webhook_endpoints/{webhook_endpoint_id}",
+        configuration.base_path,
+        webhook_endpoint_id = crate::apis::urlencode(p_path_webhook_endpoint_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveWebhookEndpointError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveWebhookEndpointError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveWebhookEndpointError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveWebhookEndpointError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Retrieve a stored external key registration for the user's organization.
 #[bon::builder]
@@ -4612,6 +8817,71 @@ pub async fn retrieveanexternalkeyregistration(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ExternalKeyResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ExternalKeyResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveanexternalkeyregistrationError> = serde_json::from_str(&content)
+            .ok()
+            .map(RetrieveanexternalkeyregistrationError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// Retrieve a stored external key registration for the user's organization.
+///
+/// Sends the same request as [`retrieveanexternalkeyregistration`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ExternalKeyResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieveanexternalkeyregistration_response(
+    configuration: &configuration::Configuration,
+    external_key_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ExternalKeyResource>,
+    Error<RetrieveanexternalkeyregistrationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_external_key_id = external_key_id;
+
+    let uri_str = format!(
+        "{}/organization/external_keys/{external_key_id}",
+        configuration.base_path,
+        external_key_id = crate::apis::urlencode(p_path_external_key_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -4697,6 +8967,72 @@ pub async fn retrieveprojectservicetiersettings(
     }
 }
 
+#[cfg(feature = "administration")]
+/// Retrieve the configured default and enabled service tiers for a project.
+///
+/// Sends the same request as [`retrieveprojectservicetiersettings`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProjectServiceTierSettingsResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieveprojectservicetiersettings_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ProjectServiceTierSettingsResource>,
+    Error<RetrieveprojectservicetiersettingsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/service_tier_settings",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveprojectservicetiersettingsError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveprojectservicetiersettingsError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "webhook")]
 /// Rotates the signing secret for a webhook endpoint in the authenticated project.
 #[bon::builder]
@@ -4752,6 +9088,85 @@ pub async fn rotate_webhook_endpoint_signing_secret(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::WebhookEndpointWithSecretResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::WebhookEndpointWithSecretResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RotateWebhookEndpointSigningSecretError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RotateWebhookEndpointSigningSecretError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RotateWebhookEndpointSigningSecretError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RotateWebhookEndpointSigningSecretError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "webhook")]
+/// Rotates the signing secret for a webhook endpoint in the authenticated project.
+///
+/// Sends the same request as [`rotate_webhook_endpoint_signing_secret`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::WebhookEndpointWithSecretResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn rotate_webhook_endpoint_signing_secret_response(
+    configuration: &configuration::Configuration,
+    webhook_endpoint_id: &str,
+    public_rotate_secret_body: Option<&models::PublicRotateSecretBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::WebhookEndpointWithSecretResource>,
+    Error<RotateWebhookEndpointSigningSecretError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_webhook_endpoint_id = webhook_endpoint_id;
+    let p_body_public_rotate_secret_body = public_rotate_secret_body;
+
+    let uri_str = format!(
+        "{}/webhook_endpoints/{webhook_endpoint_id}/rotate_secret",
+        configuration.base_path,
+        webhook_endpoint_id = crate::apis::urlencode(p_path_webhook_endpoint_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_public_rotate_secret_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -4861,6 +9276,88 @@ pub async fn test_webhook_endpoint(
     }
 }
 
+#[cfg(feature = "webhook")]
+/// Sends a sample event to a webhook endpoint for the authenticated project.
+///
+/// Sends the same request as [`test_webhook_endpoint`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::WebhookEndpointTestResultResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn test_webhook_endpoint_response(
+    configuration: &configuration::Configuration,
+    webhook_endpoint_id: &str,
+    public_test_endpoint_body: Option<&models::PublicTestEndpointBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::WebhookEndpointTestResultResource>,
+    Error<TestWebhookEndpointError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_webhook_endpoint_id = webhook_endpoint_id;
+    let p_body_public_test_endpoint_body = public_test_endpoint_body;
+
+    let uri_str = format!(
+        "{}/webhook_endpoints/{webhook_endpoint_id}/test",
+        configuration.base_path,
+        webhook_endpoint_id = crate::apis::urlencode(p_path_webhook_endpoint_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_public_test_endpoint_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<TestWebhookEndpointError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(TestWebhookEndpointError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(TestWebhookEndpointError::Status404),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(TestWebhookEndpointError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(TestWebhookEndpointError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Update supplied matcher, permission, metadata, or enabled fields.
 #[bon::builder]
@@ -4917,6 +9414,76 @@ pub async fn update_platformworkloadidentityfederationrule(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformFederationRule`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformFederationRule`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdatePlatformworkloadidentityfederationruleError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdatePlatformworkloadidentityfederationruleError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// Update supplied matcher, permission, metadata, or enabled fields.
+///
+/// Sends the same request as [`update_platformworkloadidentityfederationrule`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::PlatformFederationRule` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn update_platformworkloadidentityfederationrule_response(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+    workload_identity_federation_rule_id: &str,
+    update_platform_workload_identity_federation_rule_body: Option<
+        &models::UpdatePlatformWorkloadIdentityFederationRuleBody,
+    >,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::PlatformFederationRule>,
+    Error<UpdatePlatformworkloadidentityfederationruleError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+    let p_path_workload_identity_federation_rule_id = workload_identity_federation_rule_id;
+    let p_body_update_platform_workload_identity_federation_rule_body =
+        update_platform_workload_identity_federation_rule_body;
+
+    let uri_str = format!("{}/organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules/{workload_identity_federation_rule_id}", configuration.base_path, workload_identity_provider_id=crate::apis::urlencode(p_path_workload_identity_provider_id), workload_identity_federation_rule_id=crate::apis::urlencode(p_path_workload_identity_federation_rule_id));
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_update_platform_workload_identity_federation_rule_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -5007,6 +9574,79 @@ pub async fn update_platformworkloadidentityprovider(
     }
 }
 
+#[cfg(feature = "administration")]
+/// Update supplied provider fields, preserving omitted fields.
+///
+/// Sends the same request as [`update_platformworkloadidentityprovider`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::PlatformProvider` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn update_platformworkloadidentityprovider_response(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+    update_platform_workload_identity_provider_body: Option<
+        &models::UpdatePlatformWorkloadIdentityProviderBody,
+    >,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::PlatformProvider>,
+    Error<UpdatePlatformworkloadidentityproviderError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+    let p_body_update_platform_workload_identity_provider_body =
+        update_platform_workload_identity_provider_body;
+
+    let uri_str = format!(
+        "{}/organization/workload_identity_providers/{workload_identity_provider_id}",
+        configuration.base_path,
+        workload_identity_provider_id =
+            crate::apis::urlencode(p_path_workload_identity_provider_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_update_platform_workload_identity_provider_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdatePlatformworkloadidentityproviderError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdatePlatformworkloadidentityproviderError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 #[cfg(feature = "webhook")]
 /// Updates a webhook endpoint for the authenticated project.
 #[bon::builder]
@@ -5061,6 +9701,82 @@ pub async fn update_webhook_endpoint(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::WebhookEndpointBody`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::WebhookEndpointBody`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateWebhookEndpointError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateWebhookEndpointError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateWebhookEndpointError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateWebhookEndpointError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "webhook")]
+/// Updates a webhook endpoint for the authenticated project.
+///
+/// Sends the same request as [`update_webhook_endpoint`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::WebhookEndpointBody` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn update_webhook_endpoint_response(
+    configuration: &configuration::Configuration,
+    webhook_endpoint_id: &str,
+    public_update_endpoint_body: Option<&models::PublicUpdateEndpointBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::WebhookEndpointBody>, Error<UpdateWebhookEndpointError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_webhook_endpoint_id = webhook_endpoint_id;
+    let p_body_public_update_endpoint_body = public_update_endpoint_body;
+
+    let uri_str = format!(
+        "{}/webhook_endpoints/{webhook_endpoint_id}",
+        configuration.base_path,
+        webhook_endpoint_id = crate::apis::urlencode(p_path_webhook_endpoint_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_public_update_endpoint_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -5162,6 +9878,79 @@ pub async fn updateorganizationspendlimit(
 }
 
 #[cfg(feature = "administration")]
+/// Create or replace the organization's hard spend limit.
+///
+/// Sends the same request as [`updateorganizationspendlimit`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::OrganizationSpendLimitResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn updateorganizationspendlimit_response(
+    configuration: &configuration::Configuration,
+    update_organization_spend_limit_body: &models::UpdateOrganizationSpendLimitBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::OrganizationSpendLimitResource>,
+    Error<UpdateorganizationspendlimitError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_update_organization_spend_limit_body = update_organization_spend_limit_body;
+
+    let uri_str = format!("{}/organization/spend_limit", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_update_organization_spend_limit_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateorganizationspendlimitError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateorganizationspendlimitError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateorganizationspendlimitError::Status403),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateorganizationspendlimitError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Update the default or enabled service tiers atomically. Supply at least one field. Omitted fields keep their current values.
 #[bon::builder]
 pub async fn updateprojectservicetiersettings(
@@ -5233,6 +10022,75 @@ pub async fn updateprojectservicetiersettings(
 }
 
 #[cfg(feature = "administration")]
+/// Update the default or enabled service tiers atomically. Supply at least one field. Omitted fields keep their current values.
+///
+/// Sends the same request as [`updateprojectservicetiersettings`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProjectServiceTierSettingsResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn updateprojectservicetiersettings_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    update_project_service_tier_settings_body: &models::UpdateProjectServiceTierSettingsBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ProjectServiceTierSettingsResource>,
+    Error<UpdateprojectservicetiersettingsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_body_update_project_service_tier_settings_body =
+        update_project_service_tier_settings_body;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/service_tier_settings",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_update_project_service_tier_settings_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateprojectservicetiersettingsError> = serde_json::from_str(&content)
+            .ok()
+            .map(UpdateprojectservicetiersettingsError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Create or replace a project's hard spend limit.
 #[bon::builder]
 pub async fn updateprojectspendlimit(
@@ -5286,6 +10144,88 @@ pub async fn updateprojectspendlimit(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectSpendLimitResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectSpendLimitResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateprojectspendlimitError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateprojectspendlimitError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateprojectspendlimitError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateprojectspendlimitError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateprojectspendlimitError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// Create or replace a project's hard spend limit.
+///
+/// Sends the same request as [`updateprojectspendlimit`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ProjectSpendLimitResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn updateprojectspendlimit_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    update_project_spend_limit_body: &models::UpdateProjectSpendLimitBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ProjectSpendLimitResource>,
+    Error<UpdateprojectspendlimitError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_body_update_project_spend_limit_body = update_project_spend_limit_body;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/spend_limit",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_update_project_spend_limit_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -5386,6 +10326,72 @@ pub async fn validateanexternalkeyconfigfortheuser_quote_sorganization(
 }
 
 #[cfg(feature = "administration")]
+/// Validate an external key config for the user's organization
+///
+/// Sends the same request as [`validateanexternalkeyconfigfortheuser_quote_sorganization`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ValidateExternalKeyResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn validateanexternalkeyconfigfortheuser_quote_sorganization_response(
+    configuration: &configuration::Configuration,
+    external_key_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ValidateExternalKeyResource>,
+    Error<ValidateanexternalkeyconfigfortheuserQuoteSorganizationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_external_key_id = external_key_id;
+
+    let uri_str = format!(
+        "{}/organization/external_keys/{external_key_id}/validate",
+        configuration.base_path,
+        external_key_id = crate::apis::urlencode(p_path_external_key_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ValidateanexternalkeyconfigfortheuserQuoteSorganizationError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(ValidateanexternalkeyconfigfortheuserQuoteSorganizationError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Validate one customer-managed external storage configuration.
 #[bon::builder]
 pub async fn validateanexternalstorageconfiguration(
@@ -5436,6 +10442,88 @@ pub async fn validateanexternalstorageconfiguration(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ExternalStorageResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ExternalStorageResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ValidateanexternalstorageconfigurationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ValidateanexternalstorageconfigurationError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ValidateanexternalstorageconfigurationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ValidateanexternalstorageconfigurationError::Status404),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ValidateanexternalstorageconfigurationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ValidateanexternalstorageconfigurationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+#[cfg(feature = "administration")]
+/// Validate one customer-managed external storage configuration.
+///
+/// Sends the same request as [`validateanexternalstorageconfiguration`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ExternalStorageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn validateanexternalstorageconfiguration_response(
+    configuration: &configuration::Configuration,
+    external_storage_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ExternalStorageResponse>,
+    Error<ValidateanexternalstorageconfigurationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_external_storage_id = external_storage_id;
+
+    let uri_str = format!(
+        "{}/organization/external_storage/{external_storage_id}/validate",
+        configuration.base_path,
+        external_storage_id = crate::apis::urlencode(p_path_external_storage_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

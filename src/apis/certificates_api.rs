@@ -16,6 +16,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 use timvw_rust_runtime;
 
 /// struct for typed errors of method [`activate_organization_certificates`]
+///
+/// The headers its error responses declare are typed: [`ActivateOrganizationCertificatesErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ActivateOrganizationCertificatesErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ActivateOrganizationCertificatesError {
@@ -27,7 +30,39 @@ pub enum ActivateOrganizationCertificatesError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`activate_organization_certificates`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ActivateOrganizationCertificatesErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ActivateOrganizationCertificatesErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ActivateOrganizationCertificatesErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ActivateOrganizationCertificatesErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ActivateOrganizationCertificatesErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`activate_project_certificates`]
+///
+/// The headers its error responses declare are typed: [`ActivateProjectCertificatesErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ActivateProjectCertificatesErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ActivateProjectCertificatesError {
@@ -39,7 +74,39 @@ pub enum ActivateProjectCertificatesError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`activate_project_certificates`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ActivateProjectCertificatesErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ActivateProjectCertificatesErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ActivateProjectCertificatesErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ActivateProjectCertificatesErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ActivateProjectCertificatesErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`deactivate_organization_certificates`]
+///
+/// The headers its error responses declare are typed: [`DeactivateOrganizationCertificatesErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<DeactivateOrganizationCertificatesErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeactivateOrganizationCertificatesError {
@@ -51,7 +118,41 @@ pub enum DeactivateOrganizationCertificatesError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`deactivate_organization_certificates`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeactivateOrganizationCertificatesErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct DeactivateOrganizationCertificatesErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl DeactivateOrganizationCertificatesErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        DeactivateOrganizationCertificatesErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap>
+    for DeactivateOrganizationCertificatesErrorHeaders
+{
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`deactivate_project_certificates`]
+///
+/// The headers its error responses declare are typed: [`DeactivateProjectCertificatesErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<DeactivateProjectCertificatesErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeactivateProjectCertificatesError {
@@ -63,7 +164,39 @@ pub enum DeactivateProjectCertificatesError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`deactivate_project_certificates`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeactivateProjectCertificatesErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct DeactivateProjectCertificatesErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl DeactivateProjectCertificatesErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        DeactivateProjectCertificatesErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for DeactivateProjectCertificatesErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`delete_certificate`]
+///
+/// The headers its error responses declare are typed: [`DeleteCertificateErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<DeleteCertificateErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteCertificateError {
@@ -74,7 +207,39 @@ pub enum DeleteCertificateError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`delete_certificate`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeleteCertificateErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct DeleteCertificateErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl DeleteCertificateErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        DeleteCertificateErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for DeleteCertificateErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_certificate`]
+///
+/// The headers its error responses declare are typed: [`GetCertificateErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetCertificateErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetCertificateError {
@@ -85,7 +250,39 @@ pub enum GetCertificateError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_certificate`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetCertificateErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetCertificateErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetCertificateErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetCertificateErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetCertificateErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`list_organization_certificates`]
+///
+/// The headers its error responses declare are typed: [`ListOrganizationCertificatesErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListOrganizationCertificatesErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListOrganizationCertificatesError {
@@ -95,7 +292,39 @@ pub enum ListOrganizationCertificatesError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`list_organization_certificates`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListOrganizationCertificatesErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListOrganizationCertificatesErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListOrganizationCertificatesErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListOrganizationCertificatesErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListOrganizationCertificatesErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`list_project_certificates`]
+///
+/// The headers its error responses declare are typed: [`ListProjectCertificatesErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListProjectCertificatesErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListProjectCertificatesError {
@@ -105,7 +334,39 @@ pub enum ListProjectCertificatesError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`list_project_certificates`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListProjectCertificatesErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListProjectCertificatesErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListProjectCertificatesErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListProjectCertificatesErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListProjectCertificatesErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`modify_certificate`]
+///
+/// The headers its error responses declare are typed: [`ModifyCertificateErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ModifyCertificateErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ModifyCertificateError {
@@ -117,7 +378,39 @@ pub enum ModifyCertificateError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`modify_certificate`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ModifyCertificateErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ModifyCertificateErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ModifyCertificateErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ModifyCertificateErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ModifyCertificateErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`upload_certificate`]
+///
+/// The headers its error responses declare are typed: [`UploadCertificateErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UploadCertificateErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UploadCertificateError {
@@ -125,6 +418,35 @@ pub enum UploadCertificateError {
     Status403(models::PermissionErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// The headers the error responses of [`upload_certificate`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UploadCertificateErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UploadCertificateErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl UploadCertificateErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UploadCertificateErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UploadCertificateErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 /// Activate certificates at the organization level.  You can atomically and idempotently activate up to 10 certificates at a time.
@@ -180,6 +502,90 @@ pub async fn activate_organization_certificates(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationCertificateActivationResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationCertificateActivationResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ActivateOrganizationCertificatesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ActivateOrganizationCertificatesError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ActivateOrganizationCertificatesError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ActivateOrganizationCertificatesError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ActivateOrganizationCertificatesError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ActivateOrganizationCertificatesError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ActivateOrganizationCertificatesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Activate certificates at the organization level.  You can atomically and idempotently activate up to 10 certificates at a time.
+///
+/// Sends the same request as [`activate_organization_certificates`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::OrganizationCertificateActivationResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn activate_organization_certificates_response(
+    configuration: &configuration::Configuration,
+    toggle_certificates_request: &models::ToggleCertificatesRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::OrganizationCertificateActivationResponse>,
+    Error<ActivateOrganizationCertificatesError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_toggle_certificates_request = toggle_certificates_request;
+
+    let uri_str = format!(
+        "{}/organization/certificates/activate",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_toggle_certificates_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -306,6 +712,93 @@ pub async fn activate_project_certificates(
     }
 }
 
+/// Activate certificates at the project level.  You can atomically and idempotently activate up to 10 certificates at a time.
+///
+/// Sends the same request as [`activate_project_certificates`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::OrganizationProjectCertificateActivationResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn activate_project_certificates_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    toggle_certificates_request: &models::ToggleCertificatesRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::OrganizationProjectCertificateActivationResponse>,
+    Error<ActivateProjectCertificatesError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_body_toggle_certificates_request = toggle_certificates_request;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/certificates/activate",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_toggle_certificates_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ActivateProjectCertificatesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ActivateProjectCertificatesError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ActivateProjectCertificatesError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ActivateProjectCertificatesError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ActivateProjectCertificatesError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ActivateProjectCertificatesError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ActivateProjectCertificatesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Deactivate certificates at the organization level.  You can atomically and idempotently deactivate up to 10 certificates at a time.
 #[bon::builder]
 pub async fn deactivate_organization_certificates(
@@ -359,6 +852,90 @@ pub async fn deactivate_organization_certificates(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationCertificateDeactivationResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationCertificateDeactivationResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeactivateOrganizationCertificatesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeactivateOrganizationCertificatesError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeactivateOrganizationCertificatesError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeactivateOrganizationCertificatesError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeactivateOrganizationCertificatesError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(DeactivateOrganizationCertificatesError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeactivateOrganizationCertificatesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Deactivate certificates at the organization level.  You can atomically and idempotently deactivate up to 10 certificates at a time.
+///
+/// Sends the same request as [`deactivate_organization_certificates`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::OrganizationCertificateDeactivationResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn deactivate_organization_certificates_response(
+    configuration: &configuration::Configuration,
+    toggle_certificates_request: &models::ToggleCertificatesRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::OrganizationCertificateDeactivationResponse>,
+    Error<DeactivateOrganizationCertificatesError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_toggle_certificates_request = toggle_certificates_request;
+
+    let uri_str = format!(
+        "{}/organization/certificates/deactivate",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_toggle_certificates_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -485,6 +1062,93 @@ pub async fn deactivate_project_certificates(
     }
 }
 
+/// Deactivate certificates at the project level. You can atomically and  idempotently deactivate up to 10 certificates at a time.
+///
+/// Sends the same request as [`deactivate_project_certificates`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::OrganizationProjectCertificateDeactivationResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn deactivate_project_certificates_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    toggle_certificates_request: &models::ToggleCertificatesRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::OrganizationProjectCertificateDeactivationResponse>,
+    Error<DeactivateProjectCertificatesError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_body_toggle_certificates_request = toggle_certificates_request;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/certificates/deactivate",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_toggle_certificates_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeactivateProjectCertificatesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeactivateProjectCertificatesError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeactivateProjectCertificatesError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeactivateProjectCertificatesError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeactivateProjectCertificatesError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(DeactivateProjectCertificatesError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeactivateProjectCertificatesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Delete a certificate from the organization.  The certificate must be inactive for the organization and all projects.
 #[bon::builder]
 pub async fn delete_certificate(
@@ -535,6 +1199,84 @@ pub async fn delete_certificate(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteCertificateResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteCertificateResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteCertificateError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteCertificateError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteCertificateError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteCertificateError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteCertificateError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteCertificateError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Delete a certificate from the organization.  The certificate must be inactive for the organization and all projects.
+///
+/// Sends the same request as [`delete_certificate`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeleteCertificateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_certificate_response(
+    configuration: &configuration::Configuration,
+    certificate_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DeleteCertificateResponse>, Error<DeleteCertificateError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_certificate_id = certificate_id;
+
+    let uri_str = format!(
+        "{}/organization/certificates/{certificate_id}",
+        configuration.base_path,
+        certificate_id = crate::apis::urlencode(p_path_certificate_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -657,6 +1399,92 @@ pub async fn get_certificate(
     }
 }
 
+/// Get a certificate that has been uploaded to the organization.  You can get a certificate regardless of whether it is active or not.
+///
+/// Sends the same request as [`get_certificate`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::Certificate` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_certificate_response(
+    configuration: &configuration::Configuration,
+    certificate_id: &str,
+    include: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::Certificate>, Error<GetCertificateError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_certificate_id = certificate_id;
+    let p_query_include = include;
+
+    let uri_str = format!(
+        "{}/organization/certificates/{certificate_id}",
+        configuration.base_path,
+        certificate_id = crate::apis::urlencode(p_path_certificate_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_include {
+        let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
+        for item in items {
+            req_builder = req_builder.query(&[("include", item)]);
+        }
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetCertificateError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetCertificateError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(GetCertificateError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetCertificateError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetCertificateError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetCertificateError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// List uploaded certificates for this organization.
 #[bon::builder]
 pub async fn list_organization_certificates(
@@ -716,6 +1544,93 @@ pub async fn list_organization_certificates(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListCertificatesResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListCertificatesResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListOrganizationCertificatesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListOrganizationCertificatesError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListOrganizationCertificatesError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListOrganizationCertificatesError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListOrganizationCertificatesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// List uploaded certificates for this organization.
+///
+/// Sends the same request as [`list_organization_certificates`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListCertificatesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_organization_certificates_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    after: Option<&str>,
+    order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ListCertificatesResponse>,
+    Error<ListOrganizationCertificatesError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_after = after;
+    let p_query_order = order;
+
+    let uri_str = format!("{}/organization/certificates", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -839,6 +1754,99 @@ pub async fn list_project_certificates(
     }
 }
 
+/// List certificates for this project.
+///
+/// Sends the same request as [`list_project_certificates`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListProjectCertificatesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_project_certificates_response(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    limit: Option<i64>,
+    after: Option<&str>,
+    order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ListProjectCertificatesResponse>,
+    Error<ListProjectCertificatesError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_query_limit = limit;
+    let p_query_after = after;
+    let p_query_order = order;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/certificates",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListProjectCertificatesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListProjectCertificatesError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListProjectCertificatesError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListProjectCertificatesError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListProjectCertificatesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Modify a certificate. Note that only the name can be modified.
 #[bon::builder]
 pub async fn modify_certificate(
@@ -927,6 +1935,90 @@ pub async fn modify_certificate(
     }
 }
 
+/// Modify a certificate. Note that only the name can be modified.
+///
+/// Sends the same request as [`modify_certificate`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::Certificate` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn modify_certificate_response(
+    configuration: &configuration::Configuration,
+    certificate_id: &str,
+    modify_certificate_request: &models::ModifyCertificateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::Certificate>, Error<ModifyCertificateError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_certificate_id = certificate_id;
+    let p_body_modify_certificate_request = modify_certificate_request;
+
+    let uri_str = format!(
+        "{}/organization/certificates/{certificate_id}",
+        configuration.base_path,
+        certificate_id = crate::apis::urlencode(p_path_certificate_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_modify_certificate_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ModifyCertificateError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ModifyCertificateError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ModifyCertificateError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ModifyCertificateError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ModifyCertificateError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ModifyCertificateError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ModifyCertificateError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Upload a certificate to the organization. This does **not** automatically activate the certificate.  Organizations can upload up to 50 certificates.
 #[bon::builder]
 pub async fn upload_certificate(
@@ -974,6 +2066,78 @@ pub async fn upload_certificate(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::Certificate`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::Certificate`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UploadCertificateError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UploadCertificateError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UploadCertificateError::Status403),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UploadCertificateError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UploadCertificateError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Upload a certificate to the organization. This does **not** automatically activate the certificate.  Organizations can upload up to 50 certificates.
+///
+/// Sends the same request as [`upload_certificate`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::Certificate` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn upload_certificate_response(
+    configuration: &configuration::Configuration,
+    upload_certificate_request: &models::UploadCertificateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::Certificate>, Error<UploadCertificateError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_upload_certificate_request = upload_certificate_request;
+
+    let uri_str = format!("{}/organization/certificates", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_upload_certificate_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
