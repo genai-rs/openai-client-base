@@ -153,6 +153,8 @@ impl<T> fmt::Debug for ApiResponse<T> {
 
 /// The first value of the header `name`, trimmed, read by `parse`: `None` when it is missing, not UTF-8 or does
 /// not parse. Used by the `<Operation>ResponseHeaders` and `<Operation>ErrorHeaders` structs.
+// Unused when the enabled Cargo features (apiFeatures) have no operation with typed headers.
+#[allow(dead_code)]
 pub(crate) fn header_value<T>(
     headers: &timvw_rust_runtime::header::HeaderMap,
     name: &str,

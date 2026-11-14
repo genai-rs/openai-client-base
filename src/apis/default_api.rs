@@ -101,18 +101,19 @@ pub enum CreateContainerError {
     UnknownValue(serde_json::Value),
 }
 
-#[cfg(feature = "container")]
 /// The headers the error responses of [`create_container`] declare (`429`), typed. Read them from the
 /// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateContainerErrorHeaders>()`,
 /// or from any header map with [`from_headers`](Self::from_headers).
 ///
 /// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[cfg(feature = "container")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct CreateContainerErrorHeaders {
     /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
     pub retry_after: Option<i64>,
 }
 
+#[cfg(feature = "container")]
 impl CreateContainerErrorHeaders {
     /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
     /// does not parse is `None`, never an error.
@@ -125,6 +126,7 @@ impl CreateContainerErrorHeaders {
     }
 }
 
+#[cfg(feature = "container")]
 impl From<&timvw_rust_runtime::header::HeaderMap> for CreateContainerErrorHeaders {
     fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
         Self::from_headers(headers)
@@ -145,18 +147,19 @@ pub enum CreateContainerFileError {
     UnknownValue(serde_json::Value),
 }
 
-#[cfg(feature = "container")]
 /// The headers the error responses of [`create_container_file`] declare (`429`), typed. Read them from the
 /// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateContainerFileErrorHeaders>()`,
 /// or from any header map with [`from_headers`](Self::from_headers).
 ///
 /// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[cfg(feature = "container")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct CreateContainerFileErrorHeaders {
     /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
     pub retry_after: Option<i64>,
 }
 
+#[cfg(feature = "container")]
 impl CreateContainerFileErrorHeaders {
     /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
     /// does not parse is `None`, never an error.
@@ -169,6 +172,7 @@ impl CreateContainerFileErrorHeaders {
     }
 }
 
+#[cfg(feature = "container")]
 impl From<&timvw_rust_runtime::header::HeaderMap> for CreateContainerFileErrorHeaders {
     fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
         Self::from_headers(headers)
@@ -240,18 +244,19 @@ pub enum CreatecontentprovenancecheckError {
     UnknownValue(serde_json::Value),
 }
 
-#[cfg(feature = "content-provenance-checks")]
 /// The headers the error responses of [`createcontentprovenancecheck`] declare (`429`), typed. Read them from the
 /// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreatecontentprovenancecheckErrorHeaders>()`,
 /// or from any header map with [`from_headers`](Self::from_headers).
 ///
 /// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[cfg(feature = "content-provenance-checks")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct CreatecontentprovenancecheckErrorHeaders {
     /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
     pub retry_after: Option<i64>,
 }
 
+#[cfg(feature = "content-provenance-checks")]
 impl CreatecontentprovenancecheckErrorHeaders {
     /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
     /// does not parse is `None`, never an error.
@@ -264,6 +269,7 @@ impl CreatecontentprovenancecheckErrorHeaders {
     }
 }
 
+#[cfg(feature = "content-provenance-checks")]
 impl From<&timvw_rust_runtime::header::HeaderMap> for CreatecontentprovenancecheckErrorHeaders {
     fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
         Self::from_headers(headers)
@@ -283,18 +289,19 @@ pub enum DeleteContainerError {
     UnknownValue(serde_json::Value),
 }
 
-#[cfg(feature = "container")]
 /// The headers the error responses of [`delete_container`] declare (`429`), typed. Read them from the
 /// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeleteContainerErrorHeaders>()`,
 /// or from any header map with [`from_headers`](Self::from_headers).
 ///
 /// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[cfg(feature = "container")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct DeleteContainerErrorHeaders {
     /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
     pub retry_after: Option<i64>,
 }
 
+#[cfg(feature = "container")]
 impl DeleteContainerErrorHeaders {
     /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
     /// does not parse is `None`, never an error.
@@ -307,6 +314,7 @@ impl DeleteContainerErrorHeaders {
     }
 }
 
+#[cfg(feature = "container")]
 impl From<&timvw_rust_runtime::header::HeaderMap> for DeleteContainerErrorHeaders {
     fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
         Self::from_headers(headers)
@@ -326,18 +334,19 @@ pub enum DeleteContainerFileError {
     UnknownValue(serde_json::Value),
 }
 
-#[cfg(feature = "container")]
 /// The headers the error responses of [`delete_container_file`] declare (`429`), typed. Read them from the
 /// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeleteContainerFileErrorHeaders>()`,
 /// or from any header map with [`from_headers`](Self::from_headers).
 ///
 /// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[cfg(feature = "container")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct DeleteContainerFileErrorHeaders {
     /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
     pub retry_after: Option<i64>,
 }
 
+#[cfg(feature = "container")]
 impl DeleteContainerFileErrorHeaders {
     /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
     /// does not parse is `None`, never an error.
@@ -350,6 +359,7 @@ impl DeleteContainerFileErrorHeaders {
     }
 }
 
+#[cfg(feature = "container")]
 impl From<&timvw_rust_runtime::header::HeaderMap> for DeleteContainerFileErrorHeaders {
     fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
         Self::from_headers(headers)
@@ -480,18 +490,19 @@ pub enum GetprojectsafetyalertError {
     UnknownValue(serde_json::Value),
 }
 
-#[cfg(feature = "safety")]
 /// The headers the error responses of [`getprojectsafetyalert`] declare (`429`), typed. Read them from the
 /// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetprojectsafetyalertErrorHeaders>()`,
 /// or from any header map with [`from_headers`](Self::from_headers).
 ///
 /// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[cfg(feature = "safety")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct GetprojectsafetyalertErrorHeaders {
     /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
     pub retry_after: Option<i64>,
 }
 
+#[cfg(feature = "safety")]
 impl GetprojectsafetyalertErrorHeaders {
     /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
     /// does not parse is `None`, never an error.
@@ -504,6 +515,7 @@ impl GetprojectsafetyalertErrorHeaders {
     }
 }
 
+#[cfg(feature = "safety")]
 impl From<&timvw_rust_runtime::header::HeaderMap> for GetprojectsafetyalertErrorHeaders {
     fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
         Self::from_headers(headers)
@@ -537,18 +549,19 @@ pub enum GetsafetycaseError {
     UnknownValue(serde_json::Value),
 }
 
-#[cfg(feature = "safety")]
 /// The headers the error responses of [`getsafetycase`] declare (`429`), typed. Read them from the
 /// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetsafetycaseErrorHeaders>()`,
 /// or from any header map with [`from_headers`](Self::from_headers).
 ///
 /// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[cfg(feature = "safety")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct GetsafetycaseErrorHeaders {
     /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
     pub retry_after: Option<i64>,
 }
 
+#[cfg(feature = "safety")]
 impl GetsafetycaseErrorHeaders {
     /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
     /// does not parse is `None`, never an error.
@@ -561,6 +574,7 @@ impl GetsafetycaseErrorHeaders {
     }
 }
 
+#[cfg(feature = "safety")]
 impl From<&timvw_rust_runtime::header::HeaderMap> for GetsafetycaseErrorHeaders {
     fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
         Self::from_headers(headers)
@@ -580,18 +594,19 @@ pub enum ListContainerFilesError {
     UnknownValue(serde_json::Value),
 }
 
-#[cfg(feature = "container")]
 /// The headers the error responses of [`list_container_files`] declare (`429`), typed. Read them from the
 /// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListContainerFilesErrorHeaders>()`,
 /// or from any header map with [`from_headers`](Self::from_headers).
 ///
 /// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[cfg(feature = "container")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ListContainerFilesErrorHeaders {
     /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
     pub retry_after: Option<i64>,
 }
 
+#[cfg(feature = "container")]
 impl ListContainerFilesErrorHeaders {
     /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
     /// does not parse is `None`, never an error.
@@ -604,6 +619,7 @@ impl ListContainerFilesErrorHeaders {
     }
 }
 
+#[cfg(feature = "container")]
 impl From<&timvw_rust_runtime::header::HeaderMap> for ListContainerFilesErrorHeaders {
     fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
         Self::from_headers(headers)
@@ -623,18 +639,19 @@ pub enum ListContainersError {
     UnknownValue(serde_json::Value),
 }
 
-#[cfg(feature = "container")]
 /// The headers the error responses of [`list_containers`] declare (`429`), typed. Read them from the
 /// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListContainersErrorHeaders>()`,
 /// or from any header map with [`from_headers`](Self::from_headers).
 ///
 /// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[cfg(feature = "container")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ListContainersErrorHeaders {
     /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
     pub retry_after: Option<i64>,
 }
 
+#[cfg(feature = "container")]
 impl ListContainersErrorHeaders {
     /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
     /// does not parse is `None`, never an error.
@@ -647,6 +664,7 @@ impl ListContainersErrorHeaders {
     }
 }
 
+#[cfg(feature = "container")]
 impl From<&timvw_rust_runtime::header::HeaderMap> for ListContainersErrorHeaders {
     fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
         Self::from_headers(headers)
@@ -713,18 +731,19 @@ pub enum ListWebhookEventTypesError {
     UnknownValue(serde_json::Value),
 }
 
-#[cfg(feature = "webhook")]
 /// The headers the error responses of [`list_webhook_event_types`] declare (`401`), typed. Read them from the
 /// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListWebhookEventTypesErrorHeaders>()`,
 /// or from any header map with [`from_headers`](Self::from_headers).
 ///
 /// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[cfg(feature = "webhook")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ListWebhookEventTypesErrorHeaders {
     /// `WWW-Authenticate`: The bearer authentication challenge returned by the service.
     pub www_authenticate: Option<String>,
 }
 
+#[cfg(feature = "webhook")]
 impl ListWebhookEventTypesErrorHeaders {
     /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
     /// does not parse is `None`, never an error.
@@ -737,6 +756,7 @@ impl ListWebhookEventTypesErrorHeaders {
     }
 }
 
+#[cfg(feature = "webhook")]
 impl From<&timvw_rust_runtime::header::HeaderMap> for ListWebhookEventTypesErrorHeaders {
     fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
         Self::from_headers(headers)
@@ -776,18 +796,19 @@ pub enum OrganizationDecisionsusageError {
     UnknownValue(serde_json::Value),
 }
 
-#[cfg(feature = "administration")]
 /// The headers the error responses of [`organization_decisionsusage`] declare (`429`), typed. Read them from the
 /// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<OrganizationDecisionsusageErrorHeaders>()`,
 /// or from any header map with [`from_headers`](Self::from_headers).
 ///
 /// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[cfg(feature = "administration")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct OrganizationDecisionsusageErrorHeaders {
     /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
     pub retry_after: Option<i64>,
 }
 
+#[cfg(feature = "administration")]
 impl OrganizationDecisionsusageErrorHeaders {
     /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
     /// does not parse is `None`, never an error.
@@ -800,6 +821,7 @@ impl OrganizationDecisionsusageErrorHeaders {
     }
 }
 
+#[cfg(feature = "administration")]
 impl From<&timvw_rust_runtime::header::HeaderMap> for OrganizationDecisionsusageErrorHeaders {
     fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
         Self::from_headers(headers)
@@ -819,18 +841,19 @@ pub enum RetrieveContainerError {
     UnknownValue(serde_json::Value),
 }
 
-#[cfg(feature = "container")]
 /// The headers the error responses of [`retrieve_container`] declare (`429`), typed. Read them from the
 /// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<RetrieveContainerErrorHeaders>()`,
 /// or from any header map with [`from_headers`](Self::from_headers).
 ///
 /// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[cfg(feature = "container")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct RetrieveContainerErrorHeaders {
     /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
     pub retry_after: Option<i64>,
 }
 
+#[cfg(feature = "container")]
 impl RetrieveContainerErrorHeaders {
     /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
     /// does not parse is `None`, never an error.
@@ -843,6 +866,7 @@ impl RetrieveContainerErrorHeaders {
     }
 }
 
+#[cfg(feature = "container")]
 impl From<&timvw_rust_runtime::header::HeaderMap> for RetrieveContainerErrorHeaders {
     fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
         Self::from_headers(headers)
@@ -862,18 +886,19 @@ pub enum RetrieveContainerFileError {
     UnknownValue(serde_json::Value),
 }
 
-#[cfg(feature = "container")]
 /// The headers the error responses of [`retrieve_container_file`] declare (`429`), typed. Read them from the
 /// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<RetrieveContainerFileErrorHeaders>()`,
 /// or from any header map with [`from_headers`](Self::from_headers).
 ///
 /// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[cfg(feature = "container")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct RetrieveContainerFileErrorHeaders {
     /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
     pub retry_after: Option<i64>,
 }
 
+#[cfg(feature = "container")]
 impl RetrieveContainerFileErrorHeaders {
     /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
     /// does not parse is `None`, never an error.
@@ -886,6 +911,7 @@ impl RetrieveContainerFileErrorHeaders {
     }
 }
 
+#[cfg(feature = "container")]
 impl From<&timvw_rust_runtime::header::HeaderMap> for RetrieveContainerFileErrorHeaders {
     fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
         Self::from_headers(headers)
@@ -905,18 +931,19 @@ pub enum RetrieveContainerFileContentError {
     UnknownValue(serde_json::Value),
 }
 
-#[cfg(feature = "container")]
 /// The headers the error responses of [`retrieve_container_file_content`] declare (`429`), typed. Read them from the
 /// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<RetrieveContainerFileContentErrorHeaders>()`,
 /// or from any header map with [`from_headers`](Self::from_headers).
 ///
 /// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[cfg(feature = "container")]
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct RetrieveContainerFileContentErrorHeaders {
     /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
     pub retry_after: Option<i64>,
 }
 
+#[cfg(feature = "container")]
 impl RetrieveContainerFileContentErrorHeaders {
     /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
     /// does not parse is `None`, never an error.
@@ -929,6 +956,7 @@ impl RetrieveContainerFileContentErrorHeaders {
     }
 }
 
+#[cfg(feature = "container")]
 impl From<&timvw_rust_runtime::header::HeaderMap> for RetrieveContainerFileContentErrorHeaders {
     fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
         Self::from_headers(headers)
