@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **service_tier** | Option<[**models::ServiceTierParam**](ServiceTierParam.md)> | The service tier used for model requests. | [optional]
 **instructions** | Option<**String**> | Additional instructions appended to the agent's default base instructions. Omit to leave unchanged. | [optional]
 **multi_agent** | Option<[**models::MultiAgentConfigCurrentParam**](MultiAgentConfigCurrentParam.md)> | Configuration for creating and coordinating subagents. | [optional]
-**compaction** | Option<[**models::CompactionParam**](CompactionParam.md)> | Context compaction settings. Omit to keep the current settings. A supplied object replaces the settings; null or an empty object enables background compaction. | [optional]
+**compaction** | Option<[**models::CompactionParam**](CompactionParam.md)> | Context compaction settings. Omit to keep the current settings. A supplied object replaces the settings; null or an empty object uses blocking compaction. | [optional]
 **tools** | Option<[**Vec<models::AgentToolConfigParam>**](AgentToolConfigParam.md)> | Tools available to the agent. Omit to inherit, or pass null to clear them. The resolved tool list must fit within 3 MiB (3,145,728 bytes) of compact UTF-8 JSON. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

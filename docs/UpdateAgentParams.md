@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **service_tier** | Option<[**models::ServiceTierParam**](ServiceTierParam.md)> | The service tier used for model requests. | [optional]
 **instructions** | Option<**String**> | Additional instructions appended to the agent's default base instructions. Omit to leave unchanged. | [optional]
 **multi_agent** | Option<[**models::MultiAgentConfigCurrentParam**](MultiAgentConfigCurrentParam.md)> | Configuration for creating and coordinating subagents. | [optional]
-**compaction** | Option<[**models::CompactionParam**](CompactionParam.md)> | Context compaction settings. Omit to keep the current settings. A supplied object replaces the settings; null or an empty object enables background compaction. | [optional]
+**compaction** | Option<[**models::CompactionParam**](CompactionParam.md)> | Context compaction settings. Omit to keep the current settings. A supplied object replaces the settings; null or an empty object uses blocking compaction. | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Replaces all metadata. Omit to leave unchanged, or pass null or {} to clear it. Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters. | [optional]
 **name** | Option<**String**> | A replacement name. Omit to leave unchanged, or pass null to clear it. | [optional]
 **tools** | Option<[**Vec<models::PersistedAgentToolConfigParam>**](PersistedAgentToolConfigParam.md)> | Replaces the tool list. Omit to leave it unchanged, or pass null to clear it. The replacement must fit within 3 MiB (3,145,728 bytes) of compact UTF-8 JSON. | [optional]
