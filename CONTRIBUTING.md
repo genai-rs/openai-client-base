@@ -47,14 +47,19 @@ Before submitting:
 # Generate the client
 ./scripts/generate.sh
 
+# Run the generation script tests
+uv run --with pyyaml python -m unittest discover -s scripts/tests
+
 # Run tests
-cargo test
+cargo test --all-features
 
 # Check formatting
-cargo fmt --check
+cargo fmt --all -- --check
 
 # Run clippy
-cargo clippy -- -D warnings
+cargo clippy --all-targets --all-features -- -D warnings
 ```
+
+`generate.sh` needs Docker and [uv](https://docs.astral.sh/uv/); see [Generation](guides/generation.md).
 
 Thank you for understanding the special nature of this generated crate!
