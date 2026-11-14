@@ -50,8 +50,13 @@
   ],
   "optionalProperties": [
     "OutputTextContent.logprobs",
+    "BetaOutputTextContent.logprobs",
     "ResponseTextDeltaEvent.logprobs",
+    "BetaResponseTextDeltaEvent.logprobs",
+    "ResponseTextDoneEvent.logprobs",
+    "BetaResponseTextDoneEvent.logprobs",
     "Response.access_programs",
+    "BetaResponse.access_programs",
     "ResponseUsage.input_tokens_details.cache_write_tokens",
     "BetaResponseUsage.input_tokens_details.cache_write_tokens",
     "InputTokensDetailsResource.cache_write_tokens"

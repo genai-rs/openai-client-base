@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **id** | **String** | Unique identifier for this Response.  | 
 **object** | **Object** | The object type of this resource - always set to `response`.  (enum: response) | 
 **status** | Option<**Status**> | The status of the response generation. One of `completed`, `failed`, `in_progress`, `cancelled`, `queued`, or `incomplete`.  (enum: completed, failed, in_progress, cancelled, queued, incomplete) | [optional]
-**access_programs** | Option<[**models::BetaAccessProgramsBody**](BetaAccessProgramsBody.md)> |  | 
+**access_programs** | Option<[**models::BetaAccessProgramsBody**](BetaAccessProgramsBody.md)> |  | [optional]
 **created_at** | **f64** | Unix timestamp (in seconds) of when this Response was created.  | 
 **completed_at** | Option<**f64**> | Unix timestamp (in seconds) of when this Response was completed. Only present when the status is `completed`.  | [optional]
 **error** | Option<[**models::BetaResponseError**](BetaResponseError.md)> |  | 

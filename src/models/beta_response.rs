@@ -152,8 +152,13 @@ pub struct BetaResponse {
     /// The status of the response generation. One of `completed`, `failed`, `in_progress`, `cancelled`, `queued`, or `incomplete`.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
-    #[serde(rename = "access_programs", deserialize_with = "Option::deserialize")]
-    pub access_programs: Option<models::BetaAccessProgramsBody>,
+    #[serde(
+        rename = "access_programs",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub access_programs: Option<Option<models::BetaAccessProgramsBody>>,
     /// Unix timestamp (in seconds) of when this Response was created.
     #[serde(rename = "created_at")]
     pub created_at: f64,
@@ -249,7 +254,6 @@ impl BetaResponse {
         model: String,
         id: String,
         object: Object,
-        access_programs: Option<models::BetaAccessProgramsBody>,
         created_at: f64,
         error: Option<models::BetaResponseError>,
         incomplete_details: Option<models::BetaResponseAllOfIncompleteDetails>,
@@ -280,7 +284,7 @@ impl BetaResponse {
             id,
             object,
             status: None,
-            access_programs,
+            access_programs: None,
             created_at,
             completed_at: None,
             error,
