@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.34.0](https://github.com/genai-rs/openai-client-base/compare/v0.33.0...v0.34.0) - 2026-11-14
+
+### Added
+
+- [**breaking**] optional logprobs and access_programs in the beta and text-done models too; migration note for 0.34
+- [**breaking**] generate with timvw-rust 0.30.1; Responses input and instructions are typed
+
+### Other
+
+- update the OpenAPI spec from upstream
+- audit markdown against the current code
+- *(deps)* Update Rust crate wiremock to 0.6.5
+
 ## [0.33.0](https://github.com/genai-rs/openai-client-base/compare/v0.32.0...v0.33.0) - 2026-11-13
 
 ### Added
