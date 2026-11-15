@@ -182,6 +182,14 @@ video-types = ["dep:timvw-rust-runtime"]
 webhook = ["webhook-types", "_api"]
 webhook-types = []
 
+
+# The library has no unit tests or benchmarks (the tests are in tests/). Without test and bench
+# builds of it, `--all-targets` compiles this large crate once instead of twice at the same time;
+# twice was more than a CI runner's memory holds (about 8 GB each).
+[lib]
+test = false
+bench = false
+
 [dependencies]
 bon = "^3.10.3"
 serde = { version = "^1.0.229", features = ["derive"] }
