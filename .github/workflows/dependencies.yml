@@ -21,6 +21,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RUN: ${{ needs.gate.outputs.heavy != 'false' }}
+      # The crate with every feature and target is too big for a hosted runner with debug
+      # information and full parallelism: the runner was shut down mid-build (since the
+      # `_response` functions). udeps reads no debug information.
+      CARGO_PROFILE_DEV_DEBUG: "0"
+      CARGO_PROFILE_TEST_DEBUG: "0"
+      CARGO_BUILD_JOBS: "2"
     steps:
       - name: Skip (${{ needs.gate.outputs.mode }})
         if: env.RUN != 'true'
