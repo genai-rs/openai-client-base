@@ -80,8 +80,11 @@ rm -rf "$OUT_DIR/docs" 2>/dev/null || true
 
 # Run the generator. Hand-maintained files (Cargo.toml, README.md, src/lib.rs,
 # ...) are listed in .openapi-generator-ignore and left alone.
+# The working directory is the project's, so that the paths in generator-config.json
+# (apiFeaturesFile) resolve as they do when the generator runs in the repository.
 docker run --rm \
     -v "$PROJECT_ROOT:/local" \
+    -w /local \
     -u "$(id -u):$(id -g)" \
     -e JAVA_OPTS="-Dlog.level=${OPENAPI_GENERATOR_LOG_LEVEL}" \
     "$GENERATOR_IMAGE" generate \
