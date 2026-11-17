@@ -42,6 +42,14 @@ pub struct AutomationResourcePeriodic {
     pub metadata: std::collections::HashMap<String, String>,
     #[serde(rename = "created_by")]
     pub created_by: models::AutomationCreatedByResource,
+    /// Why the service paused this schedule, or null for other schedules.  Defaults to `\"target_session_failed\"`.
+    #[serde(
+        rename = "pause_reason",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub pause_reason: Option<Option<PauseReason>>,
     /// The cron expression determining scheduled occurrences.
     ///
     /// Validation: `minLength: 0`.
@@ -80,6 +88,7 @@ impl AutomationResourcePeriodic {
             target,
             metadata,
             created_by,
+            pause_reason: None,
             expression,
             timezone,
             status,
@@ -155,6 +164,16 @@ pub enum Type {
 pub enum Object {
     #[serde(rename = "agent.automation")]
     AgentAutomation,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
+}
+
+/// Why the service paused this schedule, or null for other schedules.  Defaults to `\"target_session_failed\"`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum PauseReason {
+    #[serde(rename = "target_session_failed")]
+    TargetSessionFailed,
     /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
     #[serde(rename = "unknown", other)]
     Unknown,
@@ -247,6 +266,54 @@ impl ::std::convert::TryFrom<&::std::string::String> for Object {
 }
 
 impl ::std::convert::TryFrom<::std::string::String> for Object {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for PauseReason {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::TargetSessionFailed => "target_session_failed",
+            Self::Unknown => "unknown",
+        })
+    }
+}
+
+impl ::std::str::FromStr for PauseReason {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "target_session_failed" => Ok(Self::TargetSessionFailed),
+            _ => Err(crate::models::ParseEnumError::new("PauseReason", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for PauseReason {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for PauseReason {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for PauseReason {
     type Error = crate::models::ParseEnumError;
 
     fn try_from(

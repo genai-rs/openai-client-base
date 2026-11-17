@@ -163,8 +163,14 @@ impl crate::models::validation::Validate
         path: &crate::models::validation::Path<'_>,
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
-        if let Self::LiveHostedShellToolInputParam(value) = self {
-            crate::models::validation::Validate::validate_into(value, path, errors);
+        match self {
+            Self::LiveHostedShellToolInputParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveMcpToolInputParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
         }
     }
 }

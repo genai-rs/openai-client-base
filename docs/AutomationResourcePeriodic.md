@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **target** | [**models::AutomationTargetResource**](AutomationTargetResource.md) |  | 
 **metadata** | **std::collections::HashMap<String, String>** | Custom string key-value pairs attached to the automation. | 
 **created_by** | [**models::AutomationCreatedByResource**](AutomationCreatedByResource.md) |  | 
+**pause_reason** | Option<**PauseReason**> | Why the service paused this schedule, or null for other schedules.  Defaults to `\"target_session_failed\"`. (enum: target_session_failed, ) | [optional]
 **expression** | **String** | The cron expression determining scheduled occurrences. | 
 **timezone** | **String** | The timezone used to interpret the expression. | 
 **status** | [**models::PeriodicAutomationStatusResource**](PeriodicAutomationStatusResource.md) |  | 
