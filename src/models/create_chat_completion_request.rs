@@ -220,7 +220,7 @@ pub struct CreateChatCompletionRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub max_tokens: Option<Option<i64>>,
-    /// How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep `n` as `1` to minimize costs.  Defaults to `1`.
+    /// How many chat completion choices to generate for each input message. Omit `n` to generate one choice. Newer models reject an explicit `n`, even `n=1`. When requesting multiple choices, you are billed for generated tokens across all choices.  Defaults to `1`.
     ///
     /// Validation: `minimum: 1`, `maximum: 128`.
     #[serde(
