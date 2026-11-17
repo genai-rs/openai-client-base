@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.34.2](https://github.com/genai-rs/openai-client-base/compare/v0.34.1...v0.34.2) - 2026-11-17
+
+### Other
+
+- *(deps)* Update Rust crate regex to 1.13.1
+- *(deps)* Update Rust crate timvw-rust-runtime to ^0.4.1
+- update generated client from latest OpenAPI spec
+- no test or bench build of the library
+
 ## [0.34.1](https://github.com/genai-rs/openai-client-base/compare/v0.34.0...v0.34.1) - 2026-11-14
 
 ### Added
