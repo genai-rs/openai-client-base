@@ -199,7 +199,7 @@ futures-core = "^0.3.34"
 serde_repr = "^0.1.21"
 regex = "1"
 url = "^2.5.8"
-timvw-rust-runtime = { version = "^0.4.0", default-features = false, features = ["fs", "time"], optional = true }
+timvw-rust-runtime = { version = "^0.4.1", default-features = false, features = ["fs", "time"], optional = true }
 
 [dev-dependencies]
 tokio = { version = "^1.54.1", features = ["rt-multi-thread", "macros"] }
