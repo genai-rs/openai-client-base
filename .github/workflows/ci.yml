@@ -34,6 +34,27 @@ jobs:
       - name: Test generation patches
         run: python3 -m unittest discover -s scripts/tests -v
 
+  server-and-mock:
+    name: Server and mock
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - name: Cache
+        uses: Swatinem/rust-cache@v2
+      # The shared CI builds the root crate; openai-server-base and openai-mock-server are the workspace's other
+      # members.
+      - name: Clippy
+        run: cargo clippy -p openai-server-base -p openai-mock-server --all-targets -- -D warnings
+      - name: Server with one group
+        run: cargo clippy -p openai-server-base --no-default-features --features chat-completion -- -D warnings
+      - name: Test the mock with the generated client
+        run: cargo test -p openai-mock-server
+
   features:
     name: Feature sets
     runs-on: ubuntu-latest
