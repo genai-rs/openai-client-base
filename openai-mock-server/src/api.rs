@@ -17,6 +17,9 @@ use crate::state::State;
 pub const SERVED: &[&str] = &[
     "create_chat_completion",
     "create_response",
+    "get_response",
+    "cancel_response",
+    "delete_response",
     "create_embedding",
     "list_models",
     "retrieve_model",
@@ -218,6 +221,12 @@ impl server::ChatApi for Mock {
 impl server::ResponsesApi for Mock {
     scripted!(create_response(responses::CreateResponseRequest) -> responses::CreateResponseResponse,
         json = Status200, stream = Status200Stream);
+    scripted!(get_response(responses::GetResponseRequest) -> responses::GetResponseResponse,
+        json = Status200, stream = Status200Stream);
+    scripted!(cancel_response(responses::CancelResponseRequest) -> responses::CancelResponseResponse,
+        json = Status200);
+    scripted!(delete_response(responses::DeleteResponseRequest) -> responses::DeleteResponseResponse,
+        json = Status200);
 }
 
 impl server::EmbeddingsApi for Mock {

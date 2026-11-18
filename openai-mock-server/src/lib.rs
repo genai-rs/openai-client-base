@@ -53,6 +53,12 @@ pub mod op {
     pub const CREATE_CHAT_COMPLETION: &str = "create_chat_completion";
     /// `POST /responses`
     pub const CREATE_RESPONSE: &str = "create_response";
+    /// `GET /responses/{response_id}`
+    pub const GET_RESPONSE: &str = "get_response";
+    /// `POST /responses/{response_id}/cancel`
+    pub const CANCEL_RESPONSE: &str = "cancel_response";
+    /// `DELETE /responses/{response_id}`
+    pub const DELETE_RESPONSE: &str = "delete_response";
     /// `POST /embeddings`
     pub const CREATE_EMBEDDING: &str = "create_embedding";
     /// `GET /models`
