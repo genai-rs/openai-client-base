@@ -30,6 +30,13 @@ class ServerConfigTests(unittest.TestCase):
         self.assertEqual(self.server["packageName"], "openai-server-base")
         self.assertTrue(self.server["serverDefaultMethods"])
 
+    def test_the_query_styles_are_the_clients(self):
+        # Client and server must agree on how query parameters are written.
+        for key in ("deepObjectQueryParameters", "resetQueryParameterStyle"):
+            self.assertNotIn(key, CLIENT_ONLY)
+            if key in self.client:
+                self.assertEqual(self.server[key], self.client[key], key)
+
 
 if __name__ == "__main__":
     unittest.main()

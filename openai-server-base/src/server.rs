@@ -339,7 +339,620 @@ where
     let router = vaults_api::routes::<I>(router);
     let router = vector_stores_api::routes::<I>(router);
     let router = videos_api::routes::<I>(router);
+    let router = router.route("/responses/{p0}/cancel", axum::routing::post(route_0::<I>));
+    let router = router.route("/responses/compact", axum::routing::post(route_1::<I>));
+    let router = router.route("/responses", axum::routing::post(route_2::<I>));
+    let router = router.route("/responses/{p0}", axum::routing::delete(route_3::<I>));
+    let router = router.route("/responses/{p0}", axum::routing::get(route_4::<I>));
+    let router = router.route("/responses/input_tokens", axum::routing::post(route_5::<I>));
+    let router = router.route(
+        "/responses/{p0}/input_items",
+        axum::routing::get(route_6::<I>),
+    );
     router.with_state(std::sync::Arc::new(api))
+}
+
+/// `POST /responses/{p0}/cancel`: the operation whose fixed query the request has (`beta_cancel_response`, `cancel_response`).
+// with Cargo features that leave every operation out, nothing reads the request
+#[allow(unused_variables)]
+async fn route_0<I>(
+    axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+    request: axum::extract::Request,
+) -> axum::response::Response
+where
+    I: agents_api::AgentsApi
+        + assistants_api::AssistantsApi
+        + audio_api::AudioApi
+        + audit_logs_api::AuditLogsApi
+        + batch_api::BatchApi
+        + certificates_api::CertificatesApi
+        + chat_api::ChatApi
+        + completions_api::CompletionsApi
+        + conversations_api::ConversationsApi
+        + data_retention_api::DataRetentionApi
+        + decisions_api::DecisionsApi
+        + default_api::DefaultApi
+        + embeddings_api::EmbeddingsApi
+        + evals_api::EvalsApi
+        + files_api::FilesApi
+        + fine_tuning_api::FineTuningApi
+        + group_organization_role_assignments_api::GroupOrganizationRoleAssignmentsApi
+        + group_users_api::GroupUsersApi
+        + groups_api::GroupsApi
+        + hosted_tools_api::HostedToolsApi
+        + images_api::ImagesApi
+        + invites_api::InvitesApi
+        + live_api::LiveApi
+        + models_api::ModelsApi
+        + moderations_api::ModerationsApi
+        + project_group_role_assignments_api::ProjectGroupRoleAssignmentsApi
+        + project_groups_api::ProjectGroupsApi
+        + project_user_role_assignments_api::ProjectUserRoleAssignmentsApi
+        + projects_api::ProjectsApi
+        + realtime_api::RealtimeApi
+        + responses_api::ResponsesApi
+        + roles_api::RolesApi
+        + skills_api::SkillsApi
+        + spend_alerts_api::SpendAlertsApi
+        + uploads_api::UploadsApi
+        + usage_api::UsageApi
+        + user_organization_role_assignments_api::UserOrganizationRoleAssignmentsApi
+        + users_api::UsersApi
+        + vaults_api::VaultsApi
+        + vector_stores_api::VectorStoresApi
+        + videos_api::VideosApi
+        + ErrorHandler
+        + 'static,
+{
+    let query = query_pairs(request.uri().query());
+    #[cfg(feature = "responses")]
+    {
+        if fixed_query(&query, &[("beta", "true")]) {
+            return axum::handler::Handler::call(
+                responses_api::handle_beta_cancel_response::<I>,
+                request,
+                api,
+            )
+            .await;
+        }
+    }
+    #[cfg(feature = "responses")]
+    {
+        if fixed_query(&query, &[]) {
+            return axum::handler::Handler::call(
+                responses_api::handle_cancel_response::<I>,
+                request,
+                api,
+            )
+            .await;
+        }
+    }
+    let mut error = serde_json::Map::new();
+    error.insert(
+        "message".to_owned(),
+        serde_json::Value::String(
+            "no operation of this path has the query of the request".to_owned(),
+        ),
+    );
+    error_response(http::StatusCode::NOT_FOUND, error)
+}
+
+/// `POST /responses/compact`: the operation whose fixed query the request has (`beta_compactconversation`, `compactconversation`).
+// with Cargo features that leave every operation out, nothing reads the request
+#[allow(unused_variables)]
+async fn route_1<I>(
+    axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+    request: axum::extract::Request,
+) -> axum::response::Response
+where
+    I: agents_api::AgentsApi
+        + assistants_api::AssistantsApi
+        + audio_api::AudioApi
+        + audit_logs_api::AuditLogsApi
+        + batch_api::BatchApi
+        + certificates_api::CertificatesApi
+        + chat_api::ChatApi
+        + completions_api::CompletionsApi
+        + conversations_api::ConversationsApi
+        + data_retention_api::DataRetentionApi
+        + decisions_api::DecisionsApi
+        + default_api::DefaultApi
+        + embeddings_api::EmbeddingsApi
+        + evals_api::EvalsApi
+        + files_api::FilesApi
+        + fine_tuning_api::FineTuningApi
+        + group_organization_role_assignments_api::GroupOrganizationRoleAssignmentsApi
+        + group_users_api::GroupUsersApi
+        + groups_api::GroupsApi
+        + hosted_tools_api::HostedToolsApi
+        + images_api::ImagesApi
+        + invites_api::InvitesApi
+        + live_api::LiveApi
+        + models_api::ModelsApi
+        + moderations_api::ModerationsApi
+        + project_group_role_assignments_api::ProjectGroupRoleAssignmentsApi
+        + project_groups_api::ProjectGroupsApi
+        + project_user_role_assignments_api::ProjectUserRoleAssignmentsApi
+        + projects_api::ProjectsApi
+        + realtime_api::RealtimeApi
+        + responses_api::ResponsesApi
+        + roles_api::RolesApi
+        + skills_api::SkillsApi
+        + spend_alerts_api::SpendAlertsApi
+        + uploads_api::UploadsApi
+        + usage_api::UsageApi
+        + user_organization_role_assignments_api::UserOrganizationRoleAssignmentsApi
+        + users_api::UsersApi
+        + vaults_api::VaultsApi
+        + vector_stores_api::VectorStoresApi
+        + videos_api::VideosApi
+        + ErrorHandler
+        + 'static,
+{
+    let query = query_pairs(request.uri().query());
+    #[cfg(feature = "responses")]
+    {
+        if fixed_query(&query, &[("beta", "true")]) {
+            return axum::handler::Handler::call(
+                responses_api::handle_beta_compactconversation::<I>,
+                request,
+                api,
+            )
+            .await;
+        }
+    }
+    #[cfg(feature = "responses")]
+    {
+        if fixed_query(&query, &[]) {
+            return axum::handler::Handler::call(
+                responses_api::handle_compactconversation::<I>,
+                request,
+                api,
+            )
+            .await;
+        }
+    }
+    let mut error = serde_json::Map::new();
+    error.insert(
+        "message".to_owned(),
+        serde_json::Value::String(
+            "no operation of this path has the query of the request".to_owned(),
+        ),
+    );
+    error_response(http::StatusCode::NOT_FOUND, error)
+}
+
+/// `POST /responses`: the operation whose fixed query the request has (`beta_create_response`, `create_response`).
+// with Cargo features that leave every operation out, nothing reads the request
+#[allow(unused_variables)]
+async fn route_2<I>(
+    axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+    request: axum::extract::Request,
+) -> axum::response::Response
+where
+    I: agents_api::AgentsApi
+        + assistants_api::AssistantsApi
+        + audio_api::AudioApi
+        + audit_logs_api::AuditLogsApi
+        + batch_api::BatchApi
+        + certificates_api::CertificatesApi
+        + chat_api::ChatApi
+        + completions_api::CompletionsApi
+        + conversations_api::ConversationsApi
+        + data_retention_api::DataRetentionApi
+        + decisions_api::DecisionsApi
+        + default_api::DefaultApi
+        + embeddings_api::EmbeddingsApi
+        + evals_api::EvalsApi
+        + files_api::FilesApi
+        + fine_tuning_api::FineTuningApi
+        + group_organization_role_assignments_api::GroupOrganizationRoleAssignmentsApi
+        + group_users_api::GroupUsersApi
+        + groups_api::GroupsApi
+        + hosted_tools_api::HostedToolsApi
+        + images_api::ImagesApi
+        + invites_api::InvitesApi
+        + live_api::LiveApi
+        + models_api::ModelsApi
+        + moderations_api::ModerationsApi
+        + project_group_role_assignments_api::ProjectGroupRoleAssignmentsApi
+        + project_groups_api::ProjectGroupsApi
+        + project_user_role_assignments_api::ProjectUserRoleAssignmentsApi
+        + projects_api::ProjectsApi
+        + realtime_api::RealtimeApi
+        + responses_api::ResponsesApi
+        + roles_api::RolesApi
+        + skills_api::SkillsApi
+        + spend_alerts_api::SpendAlertsApi
+        + uploads_api::UploadsApi
+        + usage_api::UsageApi
+        + user_organization_role_assignments_api::UserOrganizationRoleAssignmentsApi
+        + users_api::UsersApi
+        + vaults_api::VaultsApi
+        + vector_stores_api::VectorStoresApi
+        + videos_api::VideosApi
+        + ErrorHandler
+        + 'static,
+{
+    let query = query_pairs(request.uri().query());
+    #[cfg(feature = "responses")]
+    {
+        if fixed_query(&query, &[("beta", "true")]) {
+            return axum::handler::Handler::call(
+                responses_api::handle_beta_create_response::<I>,
+                request,
+                api,
+            )
+            .await;
+        }
+    }
+    #[cfg(feature = "responses")]
+    {
+        if fixed_query(&query, &[]) {
+            return axum::handler::Handler::call(
+                responses_api::handle_create_response::<I>,
+                request,
+                api,
+            )
+            .await;
+        }
+    }
+    let mut error = serde_json::Map::new();
+    error.insert(
+        "message".to_owned(),
+        serde_json::Value::String(
+            "no operation of this path has the query of the request".to_owned(),
+        ),
+    );
+    error_response(http::StatusCode::NOT_FOUND, error)
+}
+
+/// `DELETE /responses/{p0}`: the operation whose fixed query the request has (`beta_delete_response`, `delete_response`).
+// with Cargo features that leave every operation out, nothing reads the request
+#[allow(unused_variables)]
+async fn route_3<I>(
+    axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+    request: axum::extract::Request,
+) -> axum::response::Response
+where
+    I: agents_api::AgentsApi
+        + assistants_api::AssistantsApi
+        + audio_api::AudioApi
+        + audit_logs_api::AuditLogsApi
+        + batch_api::BatchApi
+        + certificates_api::CertificatesApi
+        + chat_api::ChatApi
+        + completions_api::CompletionsApi
+        + conversations_api::ConversationsApi
+        + data_retention_api::DataRetentionApi
+        + decisions_api::DecisionsApi
+        + default_api::DefaultApi
+        + embeddings_api::EmbeddingsApi
+        + evals_api::EvalsApi
+        + files_api::FilesApi
+        + fine_tuning_api::FineTuningApi
+        + group_organization_role_assignments_api::GroupOrganizationRoleAssignmentsApi
+        + group_users_api::GroupUsersApi
+        + groups_api::GroupsApi
+        + hosted_tools_api::HostedToolsApi
+        + images_api::ImagesApi
+        + invites_api::InvitesApi
+        + live_api::LiveApi
+        + models_api::ModelsApi
+        + moderations_api::ModerationsApi
+        + project_group_role_assignments_api::ProjectGroupRoleAssignmentsApi
+        + project_groups_api::ProjectGroupsApi
+        + project_user_role_assignments_api::ProjectUserRoleAssignmentsApi
+        + projects_api::ProjectsApi
+        + realtime_api::RealtimeApi
+        + responses_api::ResponsesApi
+        + roles_api::RolesApi
+        + skills_api::SkillsApi
+        + spend_alerts_api::SpendAlertsApi
+        + uploads_api::UploadsApi
+        + usage_api::UsageApi
+        + user_organization_role_assignments_api::UserOrganizationRoleAssignmentsApi
+        + users_api::UsersApi
+        + vaults_api::VaultsApi
+        + vector_stores_api::VectorStoresApi
+        + videos_api::VideosApi
+        + ErrorHandler
+        + 'static,
+{
+    let query = query_pairs(request.uri().query());
+    #[cfg(feature = "responses")]
+    {
+        if fixed_query(&query, &[("beta", "true")]) {
+            return axum::handler::Handler::call(
+                responses_api::handle_beta_delete_response::<I>,
+                request,
+                api,
+            )
+            .await;
+        }
+    }
+    #[cfg(feature = "responses")]
+    {
+        if fixed_query(&query, &[]) {
+            return axum::handler::Handler::call(
+                responses_api::handle_delete_response::<I>,
+                request,
+                api,
+            )
+            .await;
+        }
+    }
+    let mut error = serde_json::Map::new();
+    error.insert(
+        "message".to_owned(),
+        serde_json::Value::String(
+            "no operation of this path has the query of the request".to_owned(),
+        ),
+    );
+    error_response(http::StatusCode::NOT_FOUND, error)
+}
+
+/// `GET /responses/{p0}`: the operation whose fixed query the request has (`beta_get_response`, `get_response`).
+// with Cargo features that leave every operation out, nothing reads the request
+#[allow(unused_variables)]
+async fn route_4<I>(
+    axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+    request: axum::extract::Request,
+) -> axum::response::Response
+where
+    I: agents_api::AgentsApi
+        + assistants_api::AssistantsApi
+        + audio_api::AudioApi
+        + audit_logs_api::AuditLogsApi
+        + batch_api::BatchApi
+        + certificates_api::CertificatesApi
+        + chat_api::ChatApi
+        + completions_api::CompletionsApi
+        + conversations_api::ConversationsApi
+        + data_retention_api::DataRetentionApi
+        + decisions_api::DecisionsApi
+        + default_api::DefaultApi
+        + embeddings_api::EmbeddingsApi
+        + evals_api::EvalsApi
+        + files_api::FilesApi
+        + fine_tuning_api::FineTuningApi
+        + group_organization_role_assignments_api::GroupOrganizationRoleAssignmentsApi
+        + group_users_api::GroupUsersApi
+        + groups_api::GroupsApi
+        + hosted_tools_api::HostedToolsApi
+        + images_api::ImagesApi
+        + invites_api::InvitesApi
+        + live_api::LiveApi
+        + models_api::ModelsApi
+        + moderations_api::ModerationsApi
+        + project_group_role_assignments_api::ProjectGroupRoleAssignmentsApi
+        + project_groups_api::ProjectGroupsApi
+        + project_user_role_assignments_api::ProjectUserRoleAssignmentsApi
+        + projects_api::ProjectsApi
+        + realtime_api::RealtimeApi
+        + responses_api::ResponsesApi
+        + roles_api::RolesApi
+        + skills_api::SkillsApi
+        + spend_alerts_api::SpendAlertsApi
+        + uploads_api::UploadsApi
+        + usage_api::UsageApi
+        + user_organization_role_assignments_api::UserOrganizationRoleAssignmentsApi
+        + users_api::UsersApi
+        + vaults_api::VaultsApi
+        + vector_stores_api::VectorStoresApi
+        + videos_api::VideosApi
+        + ErrorHandler
+        + 'static,
+{
+    let query = query_pairs(request.uri().query());
+    #[cfg(feature = "responses")]
+    {
+        if fixed_query(&query, &[("beta", "true")]) {
+            return axum::handler::Handler::call(
+                responses_api::handle_beta_get_response::<I>,
+                request,
+                api,
+            )
+            .await;
+        }
+    }
+    #[cfg(feature = "responses")]
+    {
+        if fixed_query(&query, &[]) {
+            return axum::handler::Handler::call(
+                responses_api::handle_get_response::<I>,
+                request,
+                api,
+            )
+            .await;
+        }
+    }
+    let mut error = serde_json::Map::new();
+    error.insert(
+        "message".to_owned(),
+        serde_json::Value::String(
+            "no operation of this path has the query of the request".to_owned(),
+        ),
+    );
+    error_response(http::StatusCode::NOT_FOUND, error)
+}
+
+/// `POST /responses/input_tokens`: the operation whose fixed query the request has (`beta_getinputtokencounts`, `getinputtokencounts`).
+// with Cargo features that leave every operation out, nothing reads the request
+#[allow(unused_variables)]
+async fn route_5<I>(
+    axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+    request: axum::extract::Request,
+) -> axum::response::Response
+where
+    I: agents_api::AgentsApi
+        + assistants_api::AssistantsApi
+        + audio_api::AudioApi
+        + audit_logs_api::AuditLogsApi
+        + batch_api::BatchApi
+        + certificates_api::CertificatesApi
+        + chat_api::ChatApi
+        + completions_api::CompletionsApi
+        + conversations_api::ConversationsApi
+        + data_retention_api::DataRetentionApi
+        + decisions_api::DecisionsApi
+        + default_api::DefaultApi
+        + embeddings_api::EmbeddingsApi
+        + evals_api::EvalsApi
+        + files_api::FilesApi
+        + fine_tuning_api::FineTuningApi
+        + group_organization_role_assignments_api::GroupOrganizationRoleAssignmentsApi
+        + group_users_api::GroupUsersApi
+        + groups_api::GroupsApi
+        + hosted_tools_api::HostedToolsApi
+        + images_api::ImagesApi
+        + invites_api::InvitesApi
+        + live_api::LiveApi
+        + models_api::ModelsApi
+        + moderations_api::ModerationsApi
+        + project_group_role_assignments_api::ProjectGroupRoleAssignmentsApi
+        + project_groups_api::ProjectGroupsApi
+        + project_user_role_assignments_api::ProjectUserRoleAssignmentsApi
+        + projects_api::ProjectsApi
+        + realtime_api::RealtimeApi
+        + responses_api::ResponsesApi
+        + roles_api::RolesApi
+        + skills_api::SkillsApi
+        + spend_alerts_api::SpendAlertsApi
+        + uploads_api::UploadsApi
+        + usage_api::UsageApi
+        + user_organization_role_assignments_api::UserOrganizationRoleAssignmentsApi
+        + users_api::UsersApi
+        + vaults_api::VaultsApi
+        + vector_stores_api::VectorStoresApi
+        + videos_api::VideosApi
+        + ErrorHandler
+        + 'static,
+{
+    let query = query_pairs(request.uri().query());
+    #[cfg(feature = "responses")]
+    {
+        if fixed_query(&query, &[("beta", "true")]) {
+            return axum::handler::Handler::call(
+                responses_api::handle_beta_getinputtokencounts::<I>,
+                request,
+                api,
+            )
+            .await;
+        }
+    }
+    #[cfg(feature = "responses")]
+    {
+        if fixed_query(&query, &[]) {
+            return axum::handler::Handler::call(
+                responses_api::handle_getinputtokencounts::<I>,
+                request,
+                api,
+            )
+            .await;
+        }
+    }
+    let mut error = serde_json::Map::new();
+    error.insert(
+        "message".to_owned(),
+        serde_json::Value::String(
+            "no operation of this path has the query of the request".to_owned(),
+        ),
+    );
+    error_response(http::StatusCode::NOT_FOUND, error)
+}
+
+/// `GET /responses/{p0}/input_items`: the operation whose fixed query the request has (`beta_list_input_items`, `list_input_items`).
+// with Cargo features that leave every operation out, nothing reads the request
+#[allow(unused_variables)]
+async fn route_6<I>(
+    axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+    request: axum::extract::Request,
+) -> axum::response::Response
+where
+    I: agents_api::AgentsApi
+        + assistants_api::AssistantsApi
+        + audio_api::AudioApi
+        + audit_logs_api::AuditLogsApi
+        + batch_api::BatchApi
+        + certificates_api::CertificatesApi
+        + chat_api::ChatApi
+        + completions_api::CompletionsApi
+        + conversations_api::ConversationsApi
+        + data_retention_api::DataRetentionApi
+        + decisions_api::DecisionsApi
+        + default_api::DefaultApi
+        + embeddings_api::EmbeddingsApi
+        + evals_api::EvalsApi
+        + files_api::FilesApi
+        + fine_tuning_api::FineTuningApi
+        + group_organization_role_assignments_api::GroupOrganizationRoleAssignmentsApi
+        + group_users_api::GroupUsersApi
+        + groups_api::GroupsApi
+        + hosted_tools_api::HostedToolsApi
+        + images_api::ImagesApi
+        + invites_api::InvitesApi
+        + live_api::LiveApi
+        + models_api::ModelsApi
+        + moderations_api::ModerationsApi
+        + project_group_role_assignments_api::ProjectGroupRoleAssignmentsApi
+        + project_groups_api::ProjectGroupsApi
+        + project_user_role_assignments_api::ProjectUserRoleAssignmentsApi
+        + projects_api::ProjectsApi
+        + realtime_api::RealtimeApi
+        + responses_api::ResponsesApi
+        + roles_api::RolesApi
+        + skills_api::SkillsApi
+        + spend_alerts_api::SpendAlertsApi
+        + uploads_api::UploadsApi
+        + usage_api::UsageApi
+        + user_organization_role_assignments_api::UserOrganizationRoleAssignmentsApi
+        + users_api::UsersApi
+        + vaults_api::VaultsApi
+        + vector_stores_api::VectorStoresApi
+        + videos_api::VideosApi
+        + ErrorHandler
+        + 'static,
+{
+    let query = query_pairs(request.uri().query());
+    #[cfg(feature = "responses")]
+    {
+        if fixed_query(&query, &[("beta", "true")]) {
+            return axum::handler::Handler::call(
+                responses_api::handle_beta_list_input_items::<I>,
+                request,
+                api,
+            )
+            .await;
+        }
+    }
+    #[cfg(feature = "responses")]
+    {
+        if fixed_query(&query, &[]) {
+            return axum::handler::Handler::call(
+                responses_api::handle_list_input_items::<I>,
+                request,
+                api,
+            )
+            .await;
+        }
+    }
+    let mut error = serde_json::Map::new();
+    error.insert(
+        "message".to_owned(),
+        serde_json::Value::String(
+            "no operation of this path has the query of the request".to_owned(),
+        ),
+    );
+    error_response(http::StatusCode::NOT_FOUND, error)
+}
+
+/// Whether the query has every pair of a fixed query (`beta=true`).
+#[allow(dead_code)]
+fn fixed_query(query: &[(String, String)], fixed: &[(&str, &str)]) -> bool {
+    fixed
+        .iter()
+        .all(|(name, value)| query.iter().any(|(k, v)| k == name && v == value))
 }
 
 fn error_response(
@@ -457,6 +1070,289 @@ fn query_list<T>(
         }
     }
     Ok(Some(items))
+}
+
+/// The deepObject query parameter `name` read into `T`: `name[key]=value`, `name[a][b]=value` for a nested object and
+/// `name[a][0]=value` for the items of an array, as the client's `parse_deep_object` writes them. A value is text, read
+/// as the type at its place asks (a number, a boolean, `null` for `None`). `None` when the query does not have it.
+#[allow(dead_code)]
+fn query_deep<T: serde::de::DeserializeOwned>(
+    query: &[(String, String)],
+    name: &str,
+) -> Result<Option<T>, RequestError> {
+    let mut root: Option<DeepValue> = None;
+    for (key, value) in query {
+        let Some(rest) = key.strip_prefix(name) else {
+            continue;
+        };
+        let mut path = Vec::new();
+        let mut rest = rest;
+        while let Some(inner) = rest.strip_prefix('[') {
+            let Some(end) = inner.find(']') else {
+                return Err(RequestError::new(
+                    "query",
+                    Some(name),
+                    format!("invalid key '{key}'"),
+                ));
+            };
+            path.push(inner[..end].to_owned());
+            rest = &inner[end + 1..];
+        }
+        if !rest.is_empty() {
+            // another parameter whose name starts with this one's
+            continue;
+        }
+        DeepValue::insert(&mut root, &path, value.clone()).map_err(|()| {
+            RequestError::new(
+                "query",
+                Some(name),
+                format!("'{key}' conflicts with another key"),
+            )
+        })?;
+    }
+    match root {
+        None => Ok(None),
+        Some(root) => T::deserialize(root)
+            .map(Some)
+            .map_err(|e| RequestError::new("query", Some(name), e.to_string())),
+    }
+}
+
+/// The pairs of a deepObject query parameter as a tree: text at the leaves, keys in their order.
+#[derive(Debug)]
+enum DeepValue {
+    Text(String),
+    Map(Vec<(String, DeepValue)>),
+}
+
+impl DeepValue {
+    fn insert(node: &mut Option<DeepValue>, path: &[String], value: String) -> Result<(), ()> {
+        let Some((first, rest)) = path.split_first() else {
+            return match node {
+                None => {
+                    *node = Some(DeepValue::Text(value));
+                    Ok(())
+                }
+                Some(_) => Err(()),
+            };
+        };
+        let entries = match node.get_or_insert_with(|| DeepValue::Map(Vec::new())) {
+            DeepValue::Map(entries) => entries,
+            DeepValue::Text(_) => return Err(()),
+        };
+        let index = match entries.iter().position(|(key, _)| key == first) {
+            Some(index) => index,
+            None => {
+                entries.push((first.clone(), DeepValue::Map(Vec::new())));
+                let index = entries.len() - 1;
+                // a new entry starts empty: a leaf or a map, whatever the rest of the path makes it
+                let mut child = None;
+                DeepValue::insert(&mut child, rest, value)?;
+                entries[index].1 = child.unwrap_or(DeepValue::Map(Vec::new()));
+                return Ok(());
+            }
+        };
+        let mut child = Some(std::mem::replace(
+            &mut entries[index].1,
+            DeepValue::Map(Vec::new()),
+        ));
+        let result = DeepValue::insert(&mut child, rest, value);
+        entries[index].1 = child.unwrap_or(DeepValue::Map(Vec::new()));
+        result
+    }
+
+    fn text(&self) -> Option<&str> {
+        match self {
+            DeepValue::Text(text) => Some(text),
+            DeepValue::Map(_) => None,
+        }
+    }
+
+    fn parsed<T: std::str::FromStr>(&self, what: &str) -> Result<T, serde::de::value::Error> {
+        let text = self
+            .text()
+            .ok_or_else(|| serde::de::Error::custom(format!("expected {what}, found an object")))?;
+        text.parse()
+            .map_err(|_| serde::de::Error::custom(format!("expected {what}, found '{text}'")))
+    }
+}
+
+impl<'de> serde::de::IntoDeserializer<'de, serde::de::value::Error> for DeepValue {
+    type Deserializer = Self;
+
+    fn into_deserializer(self) -> Self {
+        self
+    }
+}
+
+impl<'de> serde::Deserializer<'de> for DeepValue {
+    type Error = serde::de::value::Error;
+
+    fn deserialize_any<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        match self {
+            DeepValue::Text(text) => visitor.visit_string(text),
+            DeepValue::Map(entries) => {
+                visitor.visit_map(serde::de::value::MapDeserializer::new(entries.into_iter()))
+            }
+        }
+    }
+
+    fn deserialize_i8<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        visitor.visit_i8(self.parsed::<i8>("a number")?)
+    }
+
+    fn deserialize_i16<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        visitor.visit_i16(self.parsed::<i16>("a number")?)
+    }
+
+    fn deserialize_i32<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        visitor.visit_i32(self.parsed::<i32>("a number")?)
+    }
+
+    fn deserialize_i64<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        visitor.visit_i64(self.parsed::<i64>("a number")?)
+    }
+
+    fn deserialize_u8<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        visitor.visit_u8(self.parsed::<u8>("a number")?)
+    }
+
+    fn deserialize_u16<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        visitor.visit_u16(self.parsed::<u16>("a number")?)
+    }
+
+    fn deserialize_u32<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        visitor.visit_u32(self.parsed::<u32>("a number")?)
+    }
+
+    fn deserialize_u64<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        visitor.visit_u64(self.parsed::<u64>("a number")?)
+    }
+
+    fn deserialize_f32<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        visitor.visit_f32(self.parsed::<f32>("a number")?)
+    }
+
+    fn deserialize_f64<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        visitor.visit_f64(self.parsed::<f64>("a number")?)
+    }
+
+    fn deserialize_bool<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        visitor.visit_bool(self.parsed::<bool>("a boolean")?)
+    }
+
+    fn deserialize_option<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        match self.text() {
+            Some("null") => visitor.visit_none(),
+            _ => visitor.visit_some(self),
+        }
+    }
+
+    fn deserialize_unit<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        visitor.visit_unit()
+    }
+
+    fn deserialize_newtype_struct<V: serde::de::Visitor<'de>>(
+        self,
+        _name: &'static str,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        visitor.visit_newtype_struct(self)
+    }
+
+    /// The items of an array: the entries of a map in the order of their index (`name[a][0]`, `name[a][1]`), or one
+    /// text as the only item.
+    fn deserialize_seq<V: serde::de::Visitor<'de>>(
+        self,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        match self {
+            DeepValue::Map(entries) => {
+                let mut items = Vec::new();
+                for (key, value) in entries {
+                    let index: usize = key.parse().map_err(|_| {
+                        serde::de::Error::custom(format!("expected an array index, found '{key}'"))
+                    })?;
+                    items.push((index, value));
+                }
+                items.sort_by_key(|(index, _)| *index);
+                let items = items.into_iter().map(|(_, value)| value);
+                visitor.visit_seq(serde::de::value::SeqDeserializer::new(items))
+            }
+            text => visitor.visit_seq(serde::de::value::SeqDeserializer::new(std::iter::once(
+                text,
+            ))),
+        }
+    }
+
+    fn deserialize_tuple<V: serde::de::Visitor<'de>>(
+        self,
+        _len: usize,
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        self.deserialize_seq(visitor)
+    }
+
+    fn deserialize_enum<V: serde::de::Visitor<'de>>(
+        self,
+        _name: &'static str,
+        _variants: &'static [&'static str],
+        visitor: V,
+    ) -> Result<V::Value, Self::Error> {
+        match self {
+            DeepValue::Text(text) => visitor
+                .visit_enum(serde::de::IntoDeserializer::<Self::Error>::into_deserializer(text)),
+            DeepValue::Map(_) => Err(serde::de::Error::custom(
+                "expected a value of an enum, found an object",
+            )),
+        }
+    }
+
+    serde::forward_to_deserialize_any! {
+        i128 u128 char str string bytes byte_buf unit_struct tuple_struct map struct identifier ignored_any
+    }
 }
 
 /// A required parameter's value: an error when it is missing.
@@ -974,6 +1870,15 @@ fn form_json_list<T: serde::de::DeserializeOwned>(
     }
 }
 
+/// A part that is not a file as a value of `T`: its JSON, else its text as a string.
+#[allow(dead_code)]
+fn part_value<T: serde::de::DeserializeOwned>(part: &FormPart) -> Option<T> {
+    serde_json::from_slice(&part.bytes).ok().or_else(|| {
+        let text = part.text().ok()?;
+        serde_json::from_value(serde_json::Value::String(text.to_owned())).ok()
+    })
+}
+
 /// The operations of the `agents_api` API module.
 pub mod agents_api {
     #![allow(clippy::large_enum_variant)]
@@ -1364,6 +2269,18 @@ pub mod agents_api {
                 "list_agent_session_turns",
             )))
         }
+        /// `GET /agents/sessions`: List agent sessions
+        #[cfg(feature = "agents")]
+        fn list_agent_sessions(
+            &self,
+            request: ListAgentSessionsRequest,
+        ) -> impl std::future::Future<Output = Result<ListAgentSessionsResponse, super::ServerError>>
+               + Send {
+            let _ = request;
+            std::future::ready(Err(super::ServerError::not_implemented(
+                "list_agent_sessions",
+            )))
+        }
         /// `GET /agents`: List agents
         #[cfg(feature = "agents")]
         fn list_agents(
@@ -1564,8 +2481,6 @@ pub mod agents_api {
         }
     }
 
-    // Not served: `list_agent_sessions` (GET /agents/sessions): the query parameter 'metadata' is a deepObject.
-
     // A route per operation, each a statement of its own so that a Cargo feature can leave it out.
     #[allow(clippy::let_and_return)]
     pub(super) fn routes<I>(
@@ -1722,6 +2637,11 @@ pub mod agents_api {
             axum::routing::get(handle_list_agent_session_turns::<I>),
         );
         #[cfg(feature = "agents")]
+        let router = router.route(
+            "/agents/sessions",
+            axum::routing::get(handle_list_agent_sessions::<I>),
+        );
+        #[cfg(feature = "agents")]
         let router = router.route("/agents", axum::routing::get(handle_list_agents::<I>));
         #[cfg(feature = "agents")]
         let router = router.route(
@@ -1866,7 +2786,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_create_agent<I>(
+    pub(super) async fn handle_create_agent<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -1960,7 +2880,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_create_agent_automation<I>(
+    pub(super) async fn handle_create_agent_automation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -2054,7 +2974,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_create_agent_automation_invocation<I>(
+    pub(super) async fn handle_create_agent_automation_invocation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -2166,7 +3086,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_create_agent_environment<I>(
+    pub(super) async fn handle_create_agent_environment<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -2267,7 +3187,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_create_agent_environment_file<I>(
+    pub(super) async fn handle_create_agent_environment_file<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -2374,7 +3294,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_create_agent_environment_template<I>(
+    pub(super) async fn handle_create_agent_environment_template<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -2481,7 +3401,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_create_agent_session<I>(
+    pub(super) async fn handle_create_agent_session<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -2577,7 +3497,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_create_agent_session_events<I>(
+    pub(super) async fn handle_create_agent_session_events<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -2687,7 +3607,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_delete_agent<I>(
+    pub(super) async fn handle_delete_agent<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -2794,7 +3714,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_delete_agent_automation<I>(
+    pub(super) async fn handle_delete_agent_automation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -2901,7 +3821,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_delete_agent_environment_template<I>(
+    pub(super) async fn handle_delete_agent_environment_template<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -3013,7 +3933,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_delete_agent_session<I>(
+    pub(super) async fn handle_delete_agent_session<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -3122,7 +4042,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_delete_agent_session_artifact<I>(
+    pub(super) async fn handle_delete_agent_session_artifact<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -3230,7 +4150,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_get_agent_automation<I>(
+    pub(super) async fn handle_get_agent_automation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -3339,7 +4259,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_get_agent_automation_invocation<I>(
+    pub(super) async fn handle_get_agent_automation_invocation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -3458,7 +4378,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_automation_invocations<I>(
+    pub(super) async fn handle_list_agent_automation_invocations<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -3587,7 +4507,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_automations<I>(
+    pub(super) async fn handle_list_agent_automations<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -3698,7 +4618,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_environment_files<I>(
+    pub(super) async fn handle_list_agent_environment_files<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -3818,7 +4738,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_environment_templates<I>(
+    pub(super) async fn handle_list_agent_environment_templates<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -3926,7 +4846,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_environments<I>(
+    pub(super) async fn handle_list_agent_environments<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -4042,7 +4962,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_session_artifacts<I>(
+    pub(super) async fn handle_list_agent_session_artifacts<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -4166,7 +5086,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_session_events<I>(
+    pub(super) async fn handle_list_agent_session_events<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -4285,7 +5205,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_session_items<I>(
+    pub(super) async fn handle_list_agent_session_items<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -4411,7 +5331,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_session_subagent_items<I>(
+    pub(super) async fn handle_list_agent_session_subagent_items<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -4540,7 +5460,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_session_subagent_turn_items<I>(
+    pub(super) async fn handle_list_agent_session_subagent_turn_items<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -4668,7 +5588,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_session_subagent_turns<I>(
+    pub(super) async fn handle_list_agent_session_subagent_turns<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -4793,7 +5713,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_session_subagents<I>(
+    pub(super) async fn handle_list_agent_session_subagents<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -4917,7 +5837,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_session_traces<I>(
+    pub(super) async fn handle_list_agent_session_traces<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -5043,7 +5963,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_session_turn_items<I>(
+    pub(super) async fn handle_list_agent_session_turn_items<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -5168,7 +6088,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agent_session_turns<I>(
+    pub(super) async fn handle_list_agent_session_turns<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -5217,6 +6137,118 @@ pub mod agents_api {
                 .ok()
             })?,
             after: super::query_value(query, "after", |v| Some(v.to_owned()))?,
+            headers,
+        })
+    }
+
+    /// The request of [`AgentsApi::list_agent_sessions`] (`GET /agents/sessions`).
+    #[cfg(feature = "agents")]
+    #[derive(Clone, Debug)]
+    pub struct ListAgentSessionsRequest {
+        /// `limit`, a query parameter: The maximum number of resources to return, between 1 and 100. Defaults to 20. Defaults to `20`.
+        pub limit: Option<i64>,
+        /// `order`, a query parameter: The order in which resources are returned. Defaults to `desc`. Defaults to `"desc"`.
+        pub order: Option<models::ListOrderParam>,
+        /// `after`, a query parameter: Return resources after this resource ID in the selected order.
+        pub after: Option<String>,
+        /// `agent_id`, a query parameter: Only return sessions whose root agent has this ID. Omit to return sessions for all agents.
+        pub agent_id: Option<String>,
+        /// `metadata`, a query parameter: Exact string matches supplied as `metadata[key]=value`. All supplied pairs must match. Up to 16 pairs, with keys from 1 to 64 characters and values up to 512 characters. New sessions and metadata updates may take time to appear in filtered results.
+        pub metadata: Option<std::collections::HashMap<String, String>>,
+        /// The request's headers, with its header and cookie parameters and credentials.
+        pub headers: http::HeaderMap,
+    }
+
+    /// The responses of [`AgentsApi::list_agent_sessions`], one per status the spec declares.
+    #[cfg(feature = "agents")]
+    #[derive(Clone, Debug)]
+    pub enum ListAgentSessionsResponse {
+        /// `200`: A page of sessions.
+        Status200(models::SessionListResource),
+        /// `400`: The request was invalid.
+        Status400(models::ErrorResponse2),
+        /// `401`: Authentication or project context was missing.
+        Status401(models::ErrorResponse2),
+        /// `403`: The API key lacks the required permission.
+        Status403(models::ErrorResponse2),
+        /// `404`: The requested session or event was not found.
+        Status404(models::ErrorResponse2),
+        /// `409`: The request conflicted with the current session state.
+        Status409(models::ErrorResponse2),
+        /// `500`: An internal error occurred.
+        Status500(models::ErrorResponse2),
+        /// `503`: The service is temporarily unavailable.
+        Status503(models::ErrorResponse2),
+    }
+
+    #[cfg(feature = "agents")]
+    impl axum::response::IntoResponse for ListAgentSessionsResponse {
+        fn into_response(self) -> axum::response::Response {
+            match self {
+                ListAgentSessionsResponse::Status200(body) => {
+                    super::json_response(super::status(200), http::HeaderMap::new(), &body)
+                }
+                ListAgentSessionsResponse::Status400(body) => {
+                    super::json_response(super::status(400), http::HeaderMap::new(), &body)
+                }
+                ListAgentSessionsResponse::Status401(body) => {
+                    super::json_response(super::status(401), http::HeaderMap::new(), &body)
+                }
+                ListAgentSessionsResponse::Status403(body) => {
+                    super::json_response(super::status(403), http::HeaderMap::new(), &body)
+                }
+                ListAgentSessionsResponse::Status404(body) => {
+                    super::json_response(super::status(404), http::HeaderMap::new(), &body)
+                }
+                ListAgentSessionsResponse::Status409(body) => {
+                    super::json_response(super::status(409), http::HeaderMap::new(), &body)
+                }
+                ListAgentSessionsResponse::Status500(body) => {
+                    super::json_response(super::status(500), http::HeaderMap::new(), &body)
+                }
+                ListAgentSessionsResponse::Status503(body) => {
+                    super::json_response(super::status(503), http::HeaderMap::new(), &body)
+                }
+            }
+        }
+    }
+
+    #[cfg(feature = "agents")]
+    pub(super) async fn handle_list_agent_sessions<I>(
+        axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+        axum::extract::RawQuery(query): axum::extract::RawQuery,
+        headers: http::HeaderMap,
+    ) -> axum::response::Response
+    where
+        I: AgentsApi + super::ErrorHandler + 'static,
+    {
+        let query = super::query_pairs(query.as_deref());
+        let request = match decode_list_agent_sessions(&query, headers) {
+            Ok(request) => request,
+            Err(error) => return api.invalid_request(error),
+        };
+        match api.list_agent_sessions(request).await {
+            Ok(response) => axum::response::IntoResponse::into_response(response),
+            Err(error) => api.server_error(error),
+        }
+    }
+
+    #[cfg(feature = "agents")]
+    fn decode_list_agent_sessions(
+        query: &[(String, String)],
+        headers: http::HeaderMap,
+    ) -> Result<ListAgentSessionsRequest, super::RequestError> {
+        Ok(ListAgentSessionsRequest {
+            limit: super::query_value(query, "limit", |v| v.parse::<i64>().ok())?,
+            order: super::query_value(query, "order", |v| {
+                serde_json::from_value::<models::ListOrderParam>(serde_json::Value::String(
+                    v.to_owned(),
+                ))
+                .ok()
+            })?,
+            after: super::query_value(query, "after", |v| Some(v.to_owned()))?,
+            agent_id: super::query_value(query, "agent_id", |v| Some(v.to_owned()))?,
+            metadata: super::query_deep(query, "metadata")?,
             headers,
         })
     }
@@ -5290,7 +6322,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_list_agents<I>(
+    pub(super) async fn handle_list_agents<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -5392,7 +6424,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_pause_agent_automation<I>(
+    pub(super) async fn handle_pause_agent_automation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -5499,7 +6531,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_resume_agent_automation<I>(
+    pub(super) async fn handle_resume_agent_automation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -5606,7 +6638,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_retrieve_agent<I>(
+    pub(super) async fn handle_retrieve_agent<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -5713,7 +6745,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_retrieve_agent_environment<I>(
+    pub(super) async fn handle_retrieve_agent_environment<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -5817,7 +6849,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_retrieve_agent_environment_template<I>(
+    pub(super) async fn handle_retrieve_agent_environment_template<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -5929,7 +6961,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_retrieve_agent_session<I>(
+    pub(super) async fn handle_retrieve_agent_session<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -6038,7 +7070,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_retrieve_agent_session_artifact<I>(
+    pub(super) async fn handle_retrieve_agent_session_artifact<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -6153,7 +7185,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_retrieve_agent_session_artifact_content<I>(
+    pub(super) async fn handle_retrieve_agent_session_artifact_content<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -6263,7 +7295,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_retrieve_agent_session_subagent<I>(
+    pub(super) async fn handle_retrieve_agent_session_subagent<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -6375,7 +7407,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_retrieve_agent_session_subagent_turn<I>(
+    pub(super) async fn handle_retrieve_agent_session_subagent_turn<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -6486,7 +7518,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_retrieve_agent_session_turn<I>(
+    pub(super) async fn handle_retrieve_agent_session_turn<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -6596,7 +7628,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_update_agent<I>(
+    pub(super) async fn handle_update_agent<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -6708,7 +7740,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_update_agent_automation<I>(
+    pub(super) async fn handle_update_agent_automation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -6820,7 +7852,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_update_agent_environment_template<I>(
+    pub(super) async fn handle_update_agent_environment_template<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -6937,7 +7969,7 @@ pub mod agents_api {
     }
 
     #[cfg(feature = "agents")]
-    async fn handle_update_agent_session<I>(
+    pub(super) async fn handle_update_agent_session<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -7389,7 +8421,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_cancel_run<I>(
+    pub(super) async fn handle_cancel_run<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -7470,7 +8502,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_create_assistant<I>(
+    pub(super) async fn handle_create_assistant<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -7539,7 +8571,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_create_message<I>(
+    pub(super) async fn handle_create_message<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -7634,7 +8666,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_create_run<I>(
+    pub(super) async fn handle_create_run<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -7726,7 +8758,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_create_thread<I>(
+    pub(super) async fn handle_create_thread<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -7801,7 +8833,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_create_thread_and_run<I>(
+    pub(super) async fn handle_create_thread_and_run<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -7868,7 +8900,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_delete_assistant<I>(
+    pub(super) async fn handle_delete_assistant<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -7950,7 +8982,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_delete_message<I>(
+    pub(super) async fn handle_delete_message<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -8031,7 +9063,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_delete_thread<I>(
+    pub(super) async fn handle_delete_thread<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -8111,7 +9143,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_get_assistant<I>(
+    pub(super) async fn handle_get_assistant<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -8193,7 +9225,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_get_message<I>(
+    pub(super) async fn handle_get_message<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -8276,7 +9308,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_get_run<I>(
+    pub(super) async fn handle_get_run<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -8363,7 +9395,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_get_run_step<I>(
+    pub(super) async fn handle_get_run_step<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -8454,7 +9486,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_get_thread<I>(
+    pub(super) async fn handle_get_thread<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -8540,7 +9572,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_list_assistants<I>(
+    pub(super) async fn handle_list_assistants<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -8621,7 +9653,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_list_messages<I>(
+    pub(super) async fn handle_list_messages<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -8721,7 +9753,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_list_run_steps<I>(
+    pub(super) async fn handle_list_run_steps<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -8823,7 +9855,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_list_runs<I>(
+    pub(super) async fn handle_list_runs<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -8912,7 +9944,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_modify_assistant<I>(
+    pub(super) async fn handle_modify_assistant<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -8999,7 +10031,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_modify_message<I>(
+    pub(super) async fn handle_modify_message<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -9087,7 +10119,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_modify_run<I>(
+    pub(super) async fn handle_modify_run<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -9173,7 +10205,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_modify_thread<I>(
+    pub(super) async fn handle_modify_thread<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -9270,7 +10302,7 @@ pub mod assistants_api {
     }
 
     #[cfg(feature = "assistants")]
-    async fn handle_submit_tool_ouputs_to_run<I>(
+    pub(super) async fn handle_submit_tool_ouputs_to_run<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -9591,7 +10623,7 @@ pub mod audio_api {
     }
 
     #[cfg(feature = "audio")]
-    async fn handle_create_speech<I>(
+    pub(super) async fn handle_create_speech<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -9700,7 +10732,16 @@ pub mod audio_api {
                 |v| Some(v.to_owned()),
             )?,
             stream: super::form_value(parts, "stream", |v| v.parse::<bool>().ok())?,
-            chunking_strategy: super::form_json(parts, "chunking_strategy")?,
+            chunking_strategy: super::form_value(parts, "chunking_strategy", |v| {
+                serde_json::from_value::<models::CreateTranscriptionRequestChunkingStrategy>(
+                    serde_json::Value::String(v.to_owned()),
+                )
+                .ok()
+                .or_else(|| {
+                    serde_json::from_str::<models::CreateTranscriptionRequestChunkingStrategy>(v)
+                        .ok()
+                })
+            })?,
             known_speaker_names: super::form_list(parts, "known_speaker_names", None, |v| {
                 Some(v.to_owned())
             })?,
@@ -9806,7 +10847,7 @@ pub mod audio_api {
     }
 
     #[cfg(feature = "audio")]
-    async fn handle_create_transcription<I>(
+    pub(super) async fn handle_create_transcription<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         request: axum::extract::Request,
@@ -9968,7 +11009,7 @@ pub mod audio_api {
     }
 
     #[cfg(feature = "audio")]
-    async fn handle_create_translation<I>(
+    pub(super) async fn handle_create_translation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         request: axum::extract::Request,
@@ -10118,7 +11159,7 @@ pub mod audio_api {
     }
 
     #[cfg(feature = "audio")]
-    async fn handle_create_voice<I>(
+    pub(super) async fn handle_create_voice<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         request: axum::extract::Request,
@@ -10220,7 +11261,7 @@ pub mod audio_api {
     }
 
     #[cfg(feature = "audio")]
-    async fn handle_create_voice_consent<I>(
+    pub(super) async fn handle_create_voice_consent<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         request: axum::extract::Request,
@@ -10293,7 +11334,7 @@ pub mod audio_api {
     }
 
     #[cfg(feature = "audio")]
-    async fn handle_delete_voice<I>(
+    pub(super) async fn handle_delete_voice<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -10375,7 +11416,7 @@ pub mod audio_api {
     }
 
     #[cfg(feature = "audio")]
-    async fn handle_delete_voice_consent<I>(
+    pub(super) async fn handle_delete_voice_consent<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -10457,7 +11498,7 @@ pub mod audio_api {
     }
 
     #[cfg(feature = "audio")]
-    async fn handle_get_voice_consent<I>(
+    pub(super) async fn handle_get_voice_consent<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -10541,7 +11582,7 @@ pub mod audio_api {
     }
 
     #[cfg(feature = "audio")]
-    async fn handle_list_voice_consents<I>(
+    pub(super) async fn handle_list_voice_consents<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -10614,7 +11655,7 @@ pub mod audio_api {
     }
 
     #[cfg(feature = "audio")]
-    async fn handle_update_voice_consent<I>(
+    pub(super) async fn handle_update_voice_consent<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -10702,7 +11743,7 @@ pub mod audit_logs_api {
     #[derive(Clone, Debug)]
     pub struct ListAuditLogsRequest {
         /// `effective_at`, a query parameter: Return only events whose `effective_at` (Unix seconds) is in this range.
-        pub effective_at: Option<String>,
+        pub effective_at: Option<models::ListAuditLogsEffectiveAtParameter>,
         /// `project_ids[]`, a query parameter: Return only events for these projects.
         pub project_ids_left_square_bracket_right_square_bracket: Option<Vec<String>>,
         /// `event_types[]`, a query parameter: Return only events with a `type` in one of these values. For example, `project.created`. For all options, see the documentation for the [audit log object](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/audit_logs).
@@ -10764,7 +11805,7 @@ pub mod audit_logs_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_audit_logs<I>(
+    pub(super) async fn handle_list_audit_logs<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -10789,7 +11830,7 @@ pub mod audit_logs_api {
         headers: http::HeaderMap,
     ) -> Result<ListAuditLogsRequest, super::RequestError> {
         Ok(ListAuditLogsRequest {
-            effective_at: super::query_value(query, "effective_at", |v| Some(v.to_owned()))?,
+            effective_at: super::query_deep(query, "effective_at")?,
             project_ids_left_square_bracket_right_square_bracket: super::query_list(
                 query,
                 "project_ids[]",
@@ -10960,7 +12001,7 @@ pub mod batch_api {
     }
 
     #[cfg(feature = "batch")]
-    async fn handle_cancel_batch<I>(
+    pub(super) async fn handle_cancel_batch<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -11052,7 +12093,7 @@ pub mod batch_api {
     }
 
     #[cfg(feature = "batch")]
-    async fn handle_create_batch<I>(
+    pub(super) async fn handle_create_batch<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -11128,7 +12169,7 @@ pub mod batch_api {
     }
 
     #[cfg(feature = "batch")]
-    async fn handle_list_batches<I>(
+    pub(super) async fn handle_list_batches<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -11204,7 +12245,7 @@ pub mod batch_api {
     }
 
     #[cfg(feature = "batch")]
-    async fn handle_retrieve_batch<I>(
+    pub(super) async fn handle_retrieve_batch<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -11501,7 +12542,7 @@ pub mod certificates_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_activate_organization_certificates<I>(
+    pub(super) async fn handle_activate_organization_certificates<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -11590,7 +12631,7 @@ pub mod certificates_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_activate_project_certificates<I>(
+    pub(super) async fn handle_activate_project_certificates<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -11693,7 +12734,7 @@ pub mod certificates_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_deactivate_organization_certificates<I>(
+    pub(super) async fn handle_deactivate_organization_certificates<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -11782,7 +12823,7 @@ pub mod certificates_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_deactivate_project_certificates<I>(
+    pub(super) async fn handle_deactivate_project_certificates<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -11880,7 +12921,7 @@ pub mod certificates_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_delete_certificate<I>(
+    pub(super) async fn handle_delete_certificate<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -11979,7 +13020,7 @@ pub mod certificates_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_get_certificate<I>(
+    pub(super) async fn handle_get_certificate<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -12079,7 +13120,7 @@ pub mod certificates_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_organization_certificates<I>(
+    pub(super) async fn handle_list_organization_certificates<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -12165,7 +13206,7 @@ pub mod certificates_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_project_certificates<I>(
+    pub(super) async fn handle_list_project_certificates<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -12273,7 +13314,7 @@ pub mod certificates_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_modify_certificate<I>(
+    pub(super) async fn handle_modify_certificate<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -12368,7 +13409,7 @@ pub mod certificates_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_upload_certificate<I>(
+    pub(super) async fn handle_upload_certificate<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -12618,7 +13659,7 @@ pub mod chat_api {
     }
 
     #[cfg(feature = "chat-completion")]
-    async fn handle_create_chat_completion<I>(
+    pub(super) async fn handle_create_chat_completion<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -12695,7 +13736,7 @@ pub mod chat_api {
     }
 
     #[cfg(feature = "chat-completion")]
-    async fn handle_delete_chat_completion<I>(
+    pub(super) async fn handle_delete_chat_completion<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -12785,7 +13826,7 @@ pub mod chat_api {
     }
 
     #[cfg(feature = "chat-completion")]
-    async fn handle_get_chat_completion<I>(
+    pub(super) async fn handle_get_chat_completion<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -12886,7 +13927,7 @@ pub mod chat_api {
     }
 
     #[cfg(feature = "chat-completion")]
-    async fn handle_get_chat_completion_messages<I>(
+    pub(super) async fn handle_get_chat_completion_messages<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -12990,7 +14031,7 @@ pub mod chat_api {
     }
 
     #[cfg(feature = "chat-completion")]
-    async fn handle_list_chat_completions<I>(
+    pub(super) async fn handle_list_chat_completions<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -13079,7 +14120,7 @@ pub mod chat_api {
     }
 
     #[cfg(feature = "chat-completion")]
-    async fn handle_update_chat_completion<I>(
+    pub(super) async fn handle_update_chat_completion<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -13254,7 +14295,7 @@ pub mod completions_api {
     }
 
     #[cfg(feature = "completions")]
-    async fn handle_create_completion<I>(
+    pub(super) async fn handle_create_completion<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -13491,7 +14532,7 @@ pub mod conversations_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_create_conversation<I>(
+    pub(super) async fn handle_create_conversation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -13577,7 +14618,7 @@ pub mod conversations_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_create_conversation_items<I>(
+    pub(super) async fn handle_create_conversation_items<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -13676,7 +14717,7 @@ pub mod conversations_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_delete_conversation<I>(
+    pub(super) async fn handle_delete_conversation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -13775,7 +14816,7 @@ pub mod conversations_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_delete_conversation_item<I>(
+    pub(super) async fn handle_delete_conversation_item<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -13863,7 +14904,7 @@ pub mod conversations_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_get_conversation<I>(
+    pub(super) async fn handle_get_conversation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -13954,7 +14995,7 @@ pub mod conversations_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_get_conversation_item<I>(
+    pub(super) async fn handle_get_conversation_item<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -14064,7 +15105,7 @@ pub mod conversations_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_list_conversation_items<I>(
+    pub(super) async fn handle_list_conversation_items<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -14175,7 +15216,7 @@ pub mod conversations_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_update_conversation<I>(
+    pub(super) async fn handle_update_conversation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -14355,7 +15396,7 @@ pub mod data_retention_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_organization_data_retention<I>(
+    pub(super) async fn handle_retrieve_organization_data_retention<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
     ) -> axum::response::Response
@@ -14424,7 +15465,7 @@ pub mod data_retention_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_project_data_retention<I>(
+    pub(super) async fn handle_retrieve_project_data_retention<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -14511,7 +15552,7 @@ pub mod data_retention_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_update_organization_data_retention<I>(
+    pub(super) async fn handle_update_organization_data_retention<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -14587,7 +15628,7 @@ pub mod data_retention_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_update_project_data_retention<I>(
+    pub(super) async fn handle_update_project_data_retention<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -14700,7 +15741,7 @@ pub mod decisions_api {
     }
 
     #[cfg(feature = "decisions")]
-    async fn handle_create_decision<I>(
+    pub(super) async fn handle_create_decision<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -15156,6 +16197,35 @@ pub mod default_api {
             let _ = request;
             std::future::ready(Err(super::ServerError::not_implemented("list_containers")))
         }
+        /// `GET /organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules`: List Platform workload identity federation rules
+        #[cfg(feature = "administration")]
+        fn list_platformworkloadidentityfederationrules(
+            &self,
+            request: ListPlatformworkloadidentityfederationrulesRequest,
+        ) -> impl std::future::Future<
+            Output = Result<
+                ListPlatformworkloadidentityfederationrulesResponse,
+                super::ServerError,
+            >,
+        > + Send {
+            let _ = request;
+            std::future::ready(Err(super::ServerError::not_implemented(
+                "list_platformworkloadidentityfederationrules",
+            )))
+        }
+        /// `GET /organization/workload_identity_providers`: List Platform workload identity providers
+        #[cfg(feature = "administration")]
+        fn list_platformworkloadidentityproviders(
+            &self,
+            request: ListPlatformworkloadidentityprovidersRequest,
+        ) -> impl std::future::Future<
+            Output = Result<ListPlatformworkloadidentityprovidersResponse, super::ServerError>,
+        > + Send {
+            let _ = request;
+            std::future::ready(Err(super::ServerError::not_implemented(
+                "list_platformworkloadidentityproviders",
+            )))
+        }
         /// `GET /chatkit/threads/{thread_id}/items`: List ChatKit thread items
         #[cfg(feature = "chatkit")]
         fn list_thread_items_method(
@@ -15492,10 +16562,6 @@ pub mod default_api {
         }
     }
 
-    // Not served: `list_platformworkloadidentityfederationrules` (GET /organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules): the query parameter 'order' (ListPlatformworkloadidentityfederationrulesOrderParameter) has no text form.
-
-    // Not served: `list_platformworkloadidentityproviders` (GET /organization/workload_identity_providers): the query parameter 'order' (ListPlatformworkloadidentityprovidersOrderParameter) has no text form.
-
     // A route per operation, each a statement of its own so that a Cargo feature can leave it out.
     #[allow(clippy::let_and_return)]
     pub(super) fn routes<I>(
@@ -15671,6 +16737,16 @@ pub mod default_api {
             "/containers",
             axum::routing::get(handle_list_containers::<I>),
         );
+        #[cfg(feature = "administration")]
+        let router = router.route(
+            "/organization/workload_identity_providers/{p0}/federation_rules",
+            axum::routing::get(handle_list_platformworkloadidentityfederationrules::<I>),
+        );
+        #[cfg(feature = "administration")]
+        let router = router.route(
+            "/organization/workload_identity_providers",
+            axum::routing::get(handle_list_platformworkloadidentityproviders::<I>),
+        );
         #[cfg(feature = "chatkit")]
         let router = router.route(
             "/chatkit/threads/{p0}/items",
@@ -15833,7 +16909,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_addanexternalkeyconfigforanorganization<I>(
+    pub(super) async fn handle_addanexternalkeyconfigforanorganization<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -15907,7 +16983,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_admin_api_keys_create<I>(
+    pub(super) async fn handle_admin_api_keys_create<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -15976,7 +17052,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_admin_api_keys_delete<I>(
+    pub(super) async fn handle_admin_api_keys_delete<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -16058,7 +17134,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_admin_api_keys_get<I>(
+    pub(super) async fn handle_admin_api_keys_get<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -16144,7 +17220,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_admin_api_keys_list<I>(
+    pub(super) async fn handle_admin_api_keys_list<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -16221,7 +17297,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "chatkit")]
-    async fn handle_cancel_chat_session_method<I>(
+    pub(super) async fn handle_cancel_chat_session_method<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -16308,7 +17384,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "chatkit")]
-    async fn handle_create_chat_session_method<I>(
+    pub(super) async fn handle_create_chat_session_method<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -16380,7 +17456,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "container")]
-    async fn handle_create_container<I>(
+    pub(super) async fn handle_create_container<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -16518,7 +17594,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "container")]
-    async fn handle_create_container_file<I>(
+    pub(super) async fn handle_create_container_file<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -16599,7 +17675,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_create_platformworkloadidentityfederationrule<I>(
+    pub(super) async fn handle_create_platformworkloadidentityfederationrule<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -16683,7 +17759,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_create_platformworkloadidentityprovider<I>(
+    pub(super) async fn handle_create_platformworkloadidentityprovider<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -16747,7 +17823,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "webhook")]
-    async fn handle_create_webhook_endpoint<I>(
+    pub(super) async fn handle_create_webhook_endpoint<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -16830,7 +17906,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_createan_ap_ikeyforaserviceaccount<I>(
+    pub(super) async fn handle_createan_ap_ikeyforaserviceaccount<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -16928,7 +18004,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_createanexternalstorageconfiguration<I>(
+    pub(super) async fn handle_createanexternalstorageconfiguration<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -17033,7 +18109,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "content-provenance-checks")]
-    async fn handle_createcontentprovenancecheck<I>(
+    pub(super) async fn handle_createcontentprovenancecheck<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         request: axum::extract::Request,
@@ -17112,7 +18188,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "container")]
-    async fn handle_delete_container<I>(
+    pub(super) async fn handle_delete_container<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -17199,7 +18275,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "container")]
-    async fn handle_delete_container_file<I>(
+    pub(super) async fn handle_delete_container_file<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -17274,7 +18350,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_delete_platformworkloadidentityfederationrule<I>(
+    pub(super) async fn handle_delete_platformworkloadidentityfederationrule<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -17360,7 +18436,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_delete_platformworkloadidentityprovider<I>(
+    pub(super) async fn handle_delete_platformworkloadidentityprovider<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -17452,7 +18528,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "chatkit")]
-    async fn handle_delete_thread_method<I>(
+    pub(super) async fn handle_delete_thread_method<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -17534,7 +18610,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "webhook")]
-    async fn handle_delete_webhook_endpoint<I>(
+    pub(super) async fn handle_delete_webhook_endpoint<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -17610,7 +18686,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_deleteanexternalkeyconfigfortheuser_quote_sorganization<I>(
+    pub(super) async fn handle_deleteanexternalkeyconfigfortheuser_quote_sorganization<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -17706,7 +18782,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_deleteanexternalstorageconfiguration<I>(
+    pub(super) async fn handle_deleteanexternalstorageconfiguration<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -17788,7 +18864,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_deleteorganizationspendlimit<I>(
+    pub(super) async fn handle_deleteorganizationspendlimit<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
     ) -> axum::response::Response
@@ -17857,7 +18933,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_deleteprojectspendlimit<I>(
+    pub(super) async fn handle_deleteprojectspendlimit<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -17944,7 +19020,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "chatkit")]
-    async fn handle_get_thread_method<I>(
+    pub(super) async fn handle_get_thread_method<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -18031,7 +19107,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_getanexternalstorageconfiguration<I>(
+    pub(super) async fn handle_getanexternalstorageconfiguration<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -18113,7 +19189,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_getorganizationspendlimit<I>(
+    pub(super) async fn handle_getorganizationspendlimit<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
     ) -> axum::response::Response
@@ -18190,7 +19266,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "safety")]
-    async fn handle_getprojectsafetyalert<I>(
+    pub(super) async fn handle_getprojectsafetyalert<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -18277,7 +19353,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_getprojectspendlimit<I>(
+    pub(super) async fn handle_getprojectspendlimit<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -18377,7 +19453,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "safety")]
-    async fn handle_getsafetycase<I>(
+    pub(super) async fn handle_getsafetycase<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -18468,7 +19544,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "container")]
-    async fn handle_list_container_files<I>(
+    pub(super) async fn handle_list_container_files<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -18565,7 +19641,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "container")]
-    async fn handle_list_containers<I>(
+    pub(super) async fn handle_list_containers<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -18594,6 +19670,183 @@ pub mod default_api {
             order: super::query_value(query, "order", |v| Some(v.to_owned()))?,
             after: super::query_value(query, "after", |v| Some(v.to_owned()))?,
             name: super::query_value(query, "name", |v| Some(v.to_owned()))?,
+            headers,
+        })
+    }
+
+    /// The request of [`DefaultApi::list_platformworkloadidentityfederationrules`] (`GET /organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules`).
+    #[cfg(feature = "administration")]
+    #[derive(Clone, Debug)]
+    pub struct ListPlatformworkloadidentityfederationrulesRequest {
+        /// `workload_identity_provider_id`, a path parameter
+        pub workload_identity_provider_id: String,
+        /// `limit`, a query parameter
+        pub limit: Option<i64>,
+        /// `order`, a query parameter
+        pub order: Option<models::ListPlatformworkloadidentityfederationrulesOrderParameter>,
+        /// `after`, a query parameter
+        pub after: Option<String>,
+        /// `service_account_id`, a query parameter
+        pub service_account_id: Option<String>,
+        /// The request's headers, with its header and cookie parameters and credentials.
+        pub headers: http::HeaderMap,
+    }
+
+    /// The responses of [`DefaultApi::list_platformworkloadidentityfederationrules`], one per status the spec declares.
+    #[cfg(feature = "administration")]
+    #[derive(Clone, Debug)]
+    pub enum ListPlatformworkloadidentityfederationrulesResponse {
+        /// `200`: Success
+        Status200(models::PlatformFederationRuleListResource),
+    }
+
+    #[cfg(feature = "administration")]
+    impl axum::response::IntoResponse for ListPlatformworkloadidentityfederationrulesResponse {
+        fn into_response(self) -> axum::response::Response {
+            match self {
+                ListPlatformworkloadidentityfederationrulesResponse::Status200(body) => {
+                    super::json_response(super::status(200), http::HeaderMap::new(), &body)
+                }
+            }
+        }
+    }
+
+    #[cfg(feature = "administration")]
+    pub(super) async fn handle_list_platformworkloadidentityfederationrules<I>(
+        axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+        path: Result<
+            axum::extract::Path<std::collections::HashMap<String, String>>,
+            axum::extract::rejection::PathRejection,
+        >,
+        axum::extract::RawQuery(query): axum::extract::RawQuery,
+        headers: http::HeaderMap,
+    ) -> axum::response::Response
+    where
+        I: DefaultApi + super::ErrorHandler + 'static,
+    {
+        let path = match path {
+            Ok(axum::extract::Path(path)) => path,
+            Err(rejection) => {
+                return api.invalid_request(super::RequestError::new(
+                    "path",
+                    None,
+                    rejection.body_text(),
+                ))
+            }
+        };
+        let query = super::query_pairs(query.as_deref());
+        let request =
+            match decode_list_platformworkloadidentityfederationrules(&path, &query, headers) {
+                Ok(request) => request,
+                Err(error) => return api.invalid_request(error),
+            };
+        match api
+            .list_platformworkloadidentityfederationrules(request)
+            .await
+        {
+            Ok(response) => axum::response::IntoResponse::into_response(response),
+            Err(error) => api.server_error(error),
+        }
+    }
+
+    #[cfg(feature = "administration")]
+    fn decode_list_platformworkloadidentityfederationrules(
+        path: &std::collections::HashMap<String, String>,
+        query: &[(String, String)],
+        headers: http::HeaderMap,
+    ) -> Result<ListPlatformworkloadidentityfederationrulesRequest, super::RequestError> {
+        Ok(ListPlatformworkloadidentityfederationrulesRequest {
+            workload_identity_provider_id: super::path_value(
+                path,
+                "p0",
+                "workload_identity_provider_id",
+                |v| Some(v.to_owned()),
+            )?,
+            limit: super::query_value(query, "limit", |v| v.parse::<i64>().ok())?,
+            order: super::query_value(query, "order", |v| {
+                serde_json::from_value::<
+                    models::ListPlatformworkloadidentityfederationrulesOrderParameter,
+                >(serde_json::Value::String(v.to_owned()))
+                .ok()
+                .or_else(|| {
+                    serde_json::from_str::<
+                        models::ListPlatformworkloadidentityfederationrulesOrderParameter,
+                    >(v)
+                    .ok()
+                })
+            })?,
+            after: super::query_value(query, "after", |v| Some(v.to_owned()))?,
+            service_account_id: super::query_value(query, "service_account_id", |v| {
+                Some(v.to_owned())
+            })?,
+            headers,
+        })
+    }
+
+    /// The request of [`DefaultApi::list_platformworkloadidentityproviders`] (`GET /organization/workload_identity_providers`).
+    #[cfg(feature = "administration")]
+    #[derive(Clone, Debug)]
+    pub struct ListPlatformworkloadidentityprovidersRequest {
+        /// `limit`, a query parameter
+        pub limit: Option<i64>,
+        /// `order`, a query parameter
+        pub order: Option<models::ListPlatformworkloadidentityprovidersOrderParameter>,
+        /// `after`, a query parameter
+        pub after: Option<String>,
+        /// The request's headers, with its header and cookie parameters and credentials.
+        pub headers: http::HeaderMap,
+    }
+
+    /// The responses of [`DefaultApi::list_platformworkloadidentityproviders`], one per status the spec declares.
+    #[cfg(feature = "administration")]
+    #[derive(Clone, Debug)]
+    pub enum ListPlatformworkloadidentityprovidersResponse {
+        /// `200`: Success
+        Status200(models::PlatformProviderListResource),
+    }
+
+    #[cfg(feature = "administration")]
+    impl axum::response::IntoResponse for ListPlatformworkloadidentityprovidersResponse {
+        fn into_response(self) -> axum::response::Response {
+            match self {
+                ListPlatformworkloadidentityprovidersResponse::Status200(body) => {
+                    super::json_response(super::status(200), http::HeaderMap::new(), &body)
+                }
+            }
+        }
+    }
+
+    #[cfg(feature = "administration")]
+    pub(super) async fn handle_list_platformworkloadidentityproviders<I>(
+        axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+        axum::extract::RawQuery(query): axum::extract::RawQuery,
+        headers: http::HeaderMap,
+    ) -> axum::response::Response
+    where
+        I: DefaultApi + super::ErrorHandler + 'static,
+    {
+        let query = super::query_pairs(query.as_deref());
+        let request = match decode_list_platformworkloadidentityproviders(&query, headers) {
+            Ok(request) => request,
+            Err(error) => return api.invalid_request(error),
+        };
+        match api.list_platformworkloadidentityproviders(request).await {
+            Ok(response) => axum::response::IntoResponse::into_response(response),
+            Err(error) => api.server_error(error),
+        }
+    }
+
+    #[cfg(feature = "administration")]
+    fn decode_list_platformworkloadidentityproviders(
+        query: &[(String, String)],
+        headers: http::HeaderMap,
+    ) -> Result<ListPlatformworkloadidentityprovidersRequest, super::RequestError> {
+        Ok(ListPlatformworkloadidentityprovidersRequest {
+            limit: super::query_value(query, "limit", |v| v.parse::<i64>().ok())?,
+            order: super::query_value(query, "order", |v| {
+                serde_json::from_value::<models::ListPlatformworkloadidentityprovidersOrderParameter>(serde_json::Value::String(v.to_owned())).ok().or_else(|| serde_json::from_str::<models::ListPlatformworkloadidentityprovidersOrderParameter>(v).ok())
+            })?,
+            after: super::query_value(query, "after", |v| Some(v.to_owned()))?,
             headers,
         })
     }
@@ -18651,7 +19904,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "chatkit")]
-    async fn handle_list_thread_items_method<I>(
+    pub(super) async fn handle_list_thread_items_method<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -18756,7 +20009,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "chatkit")]
-    async fn handle_list_threads_method<I>(
+    pub(super) async fn handle_list_threads_method<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -18835,7 +20088,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "webhook")]
-    async fn handle_list_webhook_endpoints<I>(
+    pub(super) async fn handle_list_webhook_endpoints<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -18902,7 +20155,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "webhook")]
-    async fn handle_list_webhook_event_types<I>(
+    pub(super) async fn handle_list_webhook_event_types<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
     ) -> axum::response::Response
@@ -18977,7 +20230,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_listexternalstorageconfigurations<I>(
+    pub(super) async fn handle_listexternalstorageconfigurations<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -19051,7 +20304,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_listtheexternalkeyconfigsregisteredontheuser_quote_sorganization<I>(
+    pub(super) async fn handle_listtheexternalkeyconfigsregisteredontheuser_quote_sorganization<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -19172,7 +20425,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_organization_decisionsusage<I>(
+    pub(super) async fn handle_organization_decisionsusage<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -19269,7 +20522,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "container")]
-    async fn handle_retrieve_container<I>(
+    pub(super) async fn handle_retrieve_container<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -19356,7 +20609,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "container")]
-    async fn handle_retrieve_container_file<I>(
+    pub(super) async fn handle_retrieve_container_file<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -19447,7 +20700,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "container")]
-    async fn handle_retrieve_container_file_content<I>(
+    pub(super) async fn handle_retrieve_container_file_content<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -19522,7 +20775,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_platformworkloadidentityfederationrule<I>(
+    pub(super) async fn handle_retrieve_platformworkloadidentityfederationrule<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -19608,7 +20861,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_platformworkloadidentityprovider<I>(
+    pub(super) async fn handle_retrieve_platformworkloadidentityprovider<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -19695,7 +20948,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "webhook")]
-    async fn handle_retrieve_webhook_endpoint<I>(
+    pub(super) async fn handle_retrieve_webhook_endpoint<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -19769,7 +21022,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieveanexternalkeyregistration<I>(
+    pub(super) async fn handle_retrieveanexternalkeyregistration<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -19843,7 +21096,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieveprojectservicetiersettings<I>(
+    pub(super) async fn handle_retrieveprojectservicetiersettings<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -19927,7 +21180,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "webhook")]
-    async fn handle_rotate_webhook_endpoint_signing_secret<I>(
+    pub(super) async fn handle_rotate_webhook_endpoint_signing_secret<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -20021,7 +21274,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "webhook")]
-    async fn handle_test_webhook_endpoint<I>(
+    pub(super) async fn handle_test_webhook_endpoint<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -20102,7 +21355,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_update_platformworkloadidentityfederationrule<I>(
+    pub(super) async fn handle_update_platformworkloadidentityfederationrule<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -20194,7 +21447,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_update_platformworkloadidentityprovider<I>(
+    pub(super) async fn handle_update_platformworkloadidentityprovider<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -20286,7 +21539,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "webhook")]
-    async fn handle_update_webhook_endpoint<I>(
+    pub(super) async fn handle_update_webhook_endpoint<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -20373,7 +21626,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_updateorganizationspendlimit<I>(
+    pub(super) async fn handle_updateorganizationspendlimit<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -20434,7 +21687,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_updateprojectservicetiersettings<I>(
+    pub(super) async fn handle_updateprojectservicetiersettings<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -20526,7 +21779,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_updateprojectspendlimit<I>(
+    pub(super) async fn handle_updateprojectspendlimit<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -20603,7 +21856,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_validateanexternalkeyconfigfortheuser_quote_sorganization<I>(
+    pub(super) async fn handle_validateanexternalkeyconfigfortheuser_quote_sorganization<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -20705,7 +21958,7 @@ pub mod default_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_validateanexternalstorageconfiguration<I>(
+    pub(super) async fn handle_validateanexternalstorageconfiguration<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -20864,7 +22117,7 @@ pub mod embeddings_api {
     }
 
     #[cfg(feature = "embedding")]
-    async fn handle_create_embedding<I>(
+    pub(super) async fn handle_create_embedding<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -21130,7 +22383,7 @@ pub mod evals_api {
     }
 
     #[cfg(feature = "evals")]
-    async fn handle_cancel_eval_run<I>(
+    pub(super) async fn handle_cancel_eval_run<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -21216,7 +22469,7 @@ pub mod evals_api {
     }
 
     #[cfg(feature = "evals")]
-    async fn handle_create_eval<I>(
+    pub(super) async fn handle_create_eval<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -21300,7 +22553,7 @@ pub mod evals_api {
     }
 
     #[cfg(feature = "evals")]
-    async fn handle_create_eval_run<I>(
+    pub(super) async fn handle_create_eval_run<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -21393,7 +22646,7 @@ pub mod evals_api {
     }
 
     #[cfg(feature = "evals")]
-    async fn handle_delete_eval<I>(
+    pub(super) async fn handle_delete_eval<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -21485,7 +22738,7 @@ pub mod evals_api {
     }
 
     #[cfg(feature = "evals")]
-    async fn handle_delete_eval_run<I>(
+    pub(super) async fn handle_delete_eval_run<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -21571,7 +22824,7 @@ pub mod evals_api {
     }
 
     #[cfg(feature = "evals")]
-    async fn handle_get_eval<I>(
+    pub(super) async fn handle_get_eval<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -21663,7 +22916,7 @@ pub mod evals_api {
     }
 
     #[cfg(feature = "evals")]
-    async fn handle_get_eval_run<I>(
+    pub(super) async fn handle_get_eval_run<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -21758,7 +23011,7 @@ pub mod evals_api {
     }
 
     #[cfg(feature = "evals")]
-    async fn handle_get_eval_run_output_item<I>(
+    pub(super) async fn handle_get_eval_run_output_item<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -21862,7 +23115,7 @@ pub mod evals_api {
     }
 
     #[cfg(feature = "evals")]
-    async fn handle_get_eval_run_output_items<I>(
+    pub(super) async fn handle_get_eval_run_output_items<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -21968,7 +23221,7 @@ pub mod evals_api {
     }
 
     #[cfg(feature = "evals")]
-    async fn handle_get_eval_runs<I>(
+    pub(super) async fn handle_get_eval_runs<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -22061,7 +23314,7 @@ pub mod evals_api {
     }
 
     #[cfg(feature = "evals")]
-    async fn handle_list_evals<I>(
+    pub(super) async fn handle_list_evals<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -22144,7 +23397,7 @@ pub mod evals_api {
     }
 
     #[cfg(feature = "evals")]
-    async fn handle_update_eval<I>(
+    pub(super) async fn handle_update_eval<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -22349,7 +23602,7 @@ pub mod files_api {
     }
 
     #[cfg(feature = "file")]
-    async fn handle_create_file<I>(
+    pub(super) async fn handle_create_file<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         request: axum::extract::Request,
@@ -22422,7 +23675,7 @@ pub mod files_api {
     }
 
     #[cfg(feature = "file")]
-    async fn handle_delete_file<I>(
+    pub(super) async fn handle_delete_file<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -22517,7 +23770,7 @@ pub mod files_api {
     }
 
     #[cfg(feature = "file")]
-    async fn handle_download_file<I>(
+    pub(super) async fn handle_download_file<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -22610,7 +23863,7 @@ pub mod files_api {
     }
 
     #[cfg(feature = "file")]
-    async fn handle_list_files<I>(
+    pub(super) async fn handle_list_files<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -22683,7 +23936,7 @@ pub mod files_api {
     }
 
     #[cfg(feature = "file")]
-    async fn handle_retrieve_file<I>(
+    pub(super) async fn handle_retrieve_file<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -22824,6 +24077,19 @@ pub mod fine_tuning_api {
                 "list_fine_tuning_job_checkpoints",
             )))
         }
+        /// `GET /fine_tuning/jobs`: List fine-tuning jobs
+        #[cfg(feature = "finetuning")]
+        fn list_paginated_fine_tuning_jobs(
+            &self,
+            request: ListPaginatedFineTuningJobsRequest,
+        ) -> impl std::future::Future<
+            Output = Result<ListPaginatedFineTuningJobsResponse, super::ServerError>,
+        > + Send {
+            let _ = request;
+            std::future::ready(Err(super::ServerError::not_implemented(
+                "list_paginated_fine_tuning_jobs",
+            )))
+        }
         /// `POST /fine_tuning/jobs/{fine_tuning_job_id}/pause`: Pause fine-tuning
         #[cfg(feature = "finetuning")]
         fn pause_fine_tuning_job(
@@ -22883,8 +24149,6 @@ pub mod fine_tuning_api {
         }
     }
 
-    // Not served: `list_paginated_fine_tuning_jobs` (GET /fine_tuning/jobs): the query parameter 'metadata' (std::collections::HashMap<String, String>) has no text form.
-
     // A route per operation, each a statement of its own so that a Cargo feature can leave it out.
     #[allow(clippy::let_and_return)]
     pub(super) fn routes<I>(
@@ -22927,6 +24191,11 @@ pub mod fine_tuning_api {
         let router = router.route(
             "/fine_tuning/jobs/{p0}/checkpoints",
             axum::routing::get(handle_list_fine_tuning_job_checkpoints::<I>),
+        );
+        #[cfg(feature = "finetuning")]
+        let router = router.route(
+            "/fine_tuning/jobs",
+            axum::routing::get(handle_list_paginated_fine_tuning_jobs::<I>),
         );
         #[cfg(feature = "finetuning")]
         let router = router.route(
@@ -23001,7 +24270,7 @@ pub mod fine_tuning_api {
     }
 
     #[cfg(feature = "finetuning")]
-    async fn handle_cancel_fine_tuning_job<I>(
+    pub(super) async fn handle_cancel_fine_tuning_job<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -23092,7 +24361,7 @@ pub mod fine_tuning_api {
     }
 
     #[cfg(feature = "finetuning")]
-    async fn handle_create_fine_tuning_checkpoint_permission<I>(
+    pub(super) async fn handle_create_fine_tuning_checkpoint_permission<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -23182,7 +24451,7 @@ pub mod fine_tuning_api {
     }
 
     #[cfg(feature = "finetuning")]
-    async fn handle_create_fine_tuning_job<I>(
+    pub(super) async fn handle_create_fine_tuning_job<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -23258,7 +24527,7 @@ pub mod fine_tuning_api {
     }
 
     #[cfg(feature = "finetuning")]
-    async fn handle_delete_fine_tuning_checkpoint_permission<I>(
+    pub(super) async fn handle_delete_fine_tuning_checkpoint_permission<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -23354,7 +24623,7 @@ pub mod fine_tuning_api {
     }
 
     #[cfg(feature = "finetuning")]
-    async fn handle_list_fine_tuning_checkpoint_permissions<I>(
+    pub(super) async fn handle_list_fine_tuning_checkpoint_permissions<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -23457,7 +24726,7 @@ pub mod fine_tuning_api {
     }
 
     #[cfg(feature = "finetuning")]
-    async fn handle_list_fine_tuning_events<I>(
+    pub(super) async fn handle_list_fine_tuning_events<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -23555,7 +24824,7 @@ pub mod fine_tuning_api {
     }
 
     #[cfg(feature = "finetuning")]
-    async fn handle_list_fine_tuning_job_checkpoints<I>(
+    pub(super) async fn handle_list_fine_tuning_job_checkpoints<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -23600,6 +24869,82 @@ pub mod fine_tuning_api {
             })?,
             after: super::query_value(query, "after", |v| Some(v.to_owned()))?,
             limit: super::query_value(query, "limit", |v| v.parse::<i64>().ok())?,
+            headers,
+        })
+    }
+
+    /// The request of [`FineTuningApi::list_paginated_fine_tuning_jobs`] (`GET /fine_tuning/jobs`).
+    #[cfg(feature = "finetuning")]
+    #[derive(Clone, Debug)]
+    pub struct ListPaginatedFineTuningJobsRequest {
+        /// `after`, a query parameter: Identifier for the last job from the previous pagination request.
+        pub after: Option<String>,
+        /// `limit`, a query parameter: Number of fine-tuning jobs to retrieve. Defaults to `20`.
+        pub limit: Option<i64>,
+        /// `metadata`, a query parameter: Optional metadata filter. To filter, use the syntax `metadata[k]=v`. Omitting the parameter or passing an empty object applies no metadata filter. An empty value, such as `metadata[k]=`, filters for that key with an empty string value. To select jobs with null metadata, send the literal query string `metadata=null`. Nullable caller types do not specify how a client serializes null for a deep-object parameter. Use a raw query parameter if the client omits null. Do not combine the two query forms.
+        pub metadata: Option<std::collections::HashMap<String, String>>,
+        /// The request's headers, with its header and cookie parameters and credentials.
+        pub headers: http::HeaderMap,
+    }
+
+    /// The responses of [`FineTuningApi::list_paginated_fine_tuning_jobs`], one per status the spec declares.
+    #[cfg(feature = "finetuning")]
+    #[derive(Clone, Debug)]
+    pub enum ListPaginatedFineTuningJobsResponse {
+        /// `200`: OK
+        Status200(models::ListPaginatedFineTuningJobsResponse),
+        /// `400`: The query parameters are invalid.
+        Status400(models::ErrorResponse),
+        /// `429`: The request rate limit has been exceeded.
+        Status429(models::ErrorResponse),
+    }
+
+    #[cfg(feature = "finetuning")]
+    impl axum::response::IntoResponse for ListPaginatedFineTuningJobsResponse {
+        fn into_response(self) -> axum::response::Response {
+            match self {
+                ListPaginatedFineTuningJobsResponse::Status200(body) => {
+                    super::json_response(super::status(200), http::HeaderMap::new(), &body)
+                }
+                ListPaginatedFineTuningJobsResponse::Status400(body) => {
+                    super::json_response(super::status(400), http::HeaderMap::new(), &body)
+                }
+                ListPaginatedFineTuningJobsResponse::Status429(body) => {
+                    super::json_response(super::status(429), http::HeaderMap::new(), &body)
+                }
+            }
+        }
+    }
+
+    #[cfg(feature = "finetuning")]
+    pub(super) async fn handle_list_paginated_fine_tuning_jobs<I>(
+        axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+        axum::extract::RawQuery(query): axum::extract::RawQuery,
+        headers: http::HeaderMap,
+    ) -> axum::response::Response
+    where
+        I: FineTuningApi + super::ErrorHandler + 'static,
+    {
+        let query = super::query_pairs(query.as_deref());
+        let request = match decode_list_paginated_fine_tuning_jobs(&query, headers) {
+            Ok(request) => request,
+            Err(error) => return api.invalid_request(error),
+        };
+        match api.list_paginated_fine_tuning_jobs(request).await {
+            Ok(response) => axum::response::IntoResponse::into_response(response),
+            Err(error) => api.server_error(error),
+        }
+    }
+
+    #[cfg(feature = "finetuning")]
+    fn decode_list_paginated_fine_tuning_jobs(
+        query: &[(String, String)],
+        headers: http::HeaderMap,
+    ) -> Result<ListPaginatedFineTuningJobsRequest, super::RequestError> {
+        Ok(ListPaginatedFineTuningJobsRequest {
+            after: super::query_value(query, "after", |v| Some(v.to_owned()))?,
+            limit: super::query_value(query, "limit", |v| v.parse::<i64>().ok())?,
+            metadata: super::query_deep(query, "metadata")?,
             headers,
         })
     }
@@ -23649,7 +24994,7 @@ pub mod fine_tuning_api {
     }
 
     #[cfg(feature = "finetuning")]
-    async fn handle_pause_fine_tuning_job<I>(
+    pub(super) async fn handle_pause_fine_tuning_job<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -23738,7 +25083,7 @@ pub mod fine_tuning_api {
     }
 
     #[cfg(feature = "finetuning")]
-    async fn handle_resume_fine_tuning_job<I>(
+    pub(super) async fn handle_resume_fine_tuning_job<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -23822,7 +25167,7 @@ pub mod fine_tuning_api {
     }
 
     #[cfg(feature = "finetuning")]
-    async fn handle_retrieve_fine_tuning_job<I>(
+    pub(super) async fn handle_retrieve_fine_tuning_job<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -23906,7 +25251,7 @@ pub mod fine_tuning_api {
     }
 
     #[cfg(feature = "finetuning")]
-    async fn handle_run_grader<I>(
+    pub(super) async fn handle_run_grader<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -23975,7 +25320,7 @@ pub mod fine_tuning_api {
     }
 
     #[cfg(feature = "finetuning")]
-    async fn handle_validate_grader<I>(
+    pub(super) async fn handle_validate_grader<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -24151,7 +25496,7 @@ pub mod group_organization_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_assign_group_role<I>(
+    pub(super) async fn handle_assign_group_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -24255,7 +25600,7 @@ pub mod group_organization_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_group_role_assignments<I>(
+    pub(super) async fn handle_list_group_role_assignments<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -24358,7 +25703,7 @@ pub mod group_organization_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_group_role<I>(
+    pub(super) async fn handle_retrieve_group_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -24456,7 +25801,7 @@ pub mod group_organization_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_unassign_group_role<I>(
+    pub(super) async fn handle_unassign_group_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -24646,7 +25991,7 @@ pub mod group_users_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_add_group_user<I>(
+    pub(super) async fn handle_add_group_user<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -24755,7 +26100,7 @@ pub mod group_users_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_group_users<I>(
+    pub(super) async fn handle_list_group_users<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -24863,7 +26208,7 @@ pub mod group_users_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_remove_group_user<I>(
+    pub(super) async fn handle_remove_group_user<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -24961,7 +26306,7 @@ pub mod group_users_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_group_user<I>(
+    pub(super) async fn handle_retrieve_group_user<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -25165,7 +26510,7 @@ pub mod groups_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_create_group<I>(
+    pub(super) async fn handle_create_group<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -25247,7 +26592,7 @@ pub mod groups_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_delete_group<I>(
+    pub(super) async fn handle_delete_group<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -25346,7 +26691,7 @@ pub mod groups_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_groups<I>(
+    pub(super) async fn handle_list_groups<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -25436,7 +26781,7 @@ pub mod groups_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_group<I>(
+    pub(super) async fn handle_retrieve_group<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -25538,7 +26883,7 @@ pub mod groups_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_update_group<I>(
+    pub(super) async fn handle_update_group<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -25692,7 +27037,7 @@ pub mod hosted_tools_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_project_hosted_tool_permissions<I>(
+    pub(super) async fn handle_retrieve_project_hosted_tool_permissions<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -25791,7 +27136,7 @@ pub mod hosted_tools_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_update_project_hosted_tool_permissions<I>(
+    pub(super) async fn handle_update_project_hosted_tool_permissions<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -25983,7 +27328,7 @@ pub mod images_api {
     }
 
     #[cfg(feature = "image")]
-    async fn handle_create_image<I>(
+    pub(super) async fn handle_create_image<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -26139,7 +27484,13 @@ pub mod images_api {
                 super::form_value(parts, "model", |v| Some(v.to_owned()))?,
             )?,
             n: super::form_value(parts, "n", |v| v.parse::<i64>().ok())?,
-            size: super::form_json(parts, "size")?,
+            size: super::form_value(parts, "size", |v| {
+                serde_json::from_value::<models::CreateImageEditRequestSize>(
+                    serde_json::Value::String(v.to_owned()),
+                )
+                .ok()
+                .or_else(|| serde_json::from_str::<models::CreateImageEditRequestSize>(v).ok())
+            })?,
             response_format: super::form_value(parts, "response_format", |v| Some(v.to_owned()))?,
             output_format: super::form_value(parts, "output_format", |v| {
                 serde_json::from_value::<models::ImagesApiOutputFormat>(serde_json::Value::String(
@@ -26231,7 +27582,7 @@ pub mod images_api {
     }
 
     #[cfg(feature = "image")]
-    async fn handle_create_image_edit<I>(
+    pub(super) async fn handle_create_image_edit<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         request: axum::extract::Request,
@@ -26352,7 +27703,7 @@ pub mod images_api {
     }
 
     #[cfg(feature = "image")]
-    async fn handle_create_image_variation<I>(
+    pub(super) async fn handle_create_image_variation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         request: axum::extract::Request,
@@ -26518,7 +27869,7 @@ pub mod invites_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_delete_invite<I>(
+    pub(super) async fn handle_delete_invite<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -26610,7 +27961,7 @@ pub mod invites_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_invite_user<I>(
+    pub(super) async fn handle_invite_user<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -26691,7 +28042,7 @@ pub mod invites_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_invites<I>(
+    pub(super) async fn handle_list_invites<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -26777,7 +28128,7 @@ pub mod invites_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_invite<I>(
+    pub(super) async fn handle_retrieve_invite<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -27025,7 +28376,7 @@ pub mod live_api {
     }
 
     #[cfg(feature = "live")]
-    async fn handle_accept_live_session<I>(
+    pub(super) async fn handle_accept_live_session<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -27165,7 +28516,7 @@ pub mod live_api {
     }
 
     #[cfg(feature = "live")]
-    async fn handle_create_live<I>(
+    pub(super) async fn handle_create_live<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -27258,7 +28609,7 @@ pub mod live_api {
     }
 
     #[cfg(feature = "live")]
-    async fn handle_download_live_recording<I>(
+    pub(super) async fn handle_download_live_recording<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -27368,7 +28719,7 @@ pub mod live_api {
     }
 
     #[cfg(feature = "live")]
-    async fn handle_fork_live_session<I>(
+    pub(super) async fn handle_fork_live_session<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -27448,7 +28799,7 @@ pub mod live_api {
     }
 
     #[cfg(feature = "live")]
-    async fn handle_hangup_live_session<I>(
+    pub(super) async fn handle_hangup_live_session<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -27540,7 +28891,7 @@ pub mod live_api {
     }
 
     #[cfg(feature = "live")]
-    async fn handle_refer_live_session<I>(
+    pub(super) async fn handle_refer_live_session<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -27640,7 +28991,7 @@ pub mod live_api {
     }
 
     #[cfg(feature = "live")]
-    async fn handle_reject_live_session<I>(
+    pub(super) async fn handle_reject_live_session<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -27790,7 +29141,7 @@ pub mod models_api {
     }
 
     #[cfg(feature = "model")]
-    async fn handle_delete_model<I>(
+    pub(super) async fn handle_delete_model<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -27865,7 +29216,7 @@ pub mod models_api {
     }
 
     #[cfg(feature = "model")]
-    async fn handle_list_models<I>(
+    pub(super) async fn handle_list_models<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
     ) -> axum::response::Response
@@ -27929,7 +29280,7 @@ pub mod models_api {
     }
 
     #[cfg(feature = "model")]
-    async fn handle_retrieve_model<I>(
+    pub(super) async fn handle_retrieve_model<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -28072,7 +29423,7 @@ pub mod moderations_api {
     }
 
     #[cfg(feature = "moderation")]
-    async fn handle_create_moderation<I>(
+    pub(super) async fn handle_create_moderation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -28253,7 +29604,7 @@ pub mod project_group_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_assign_project_group_role<I>(
+    pub(super) async fn handle_assign_project_group_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -28360,7 +29711,7 @@ pub mod project_group_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_project_group_role_assignments<I>(
+    pub(super) async fn handle_list_project_group_role_assignments<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -28466,7 +29817,7 @@ pub mod project_group_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_project_group_role<I>(
+    pub(super) async fn handle_retrieve_project_group_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -28567,7 +29918,7 @@ pub mod project_group_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_unassign_project_group_role<I>(
+    pub(super) async fn handle_unassign_project_group_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -28763,7 +30114,7 @@ pub mod project_groups_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_add_project_group<I>(
+    pub(super) async fn handle_add_project_group<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -28867,7 +30218,7 @@ pub mod project_groups_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_project_groups<I>(
+    pub(super) async fn handle_list_project_groups<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -28970,7 +30321,7 @@ pub mod project_groups_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_remove_project_group<I>(
+    pub(super) async fn handle_remove_project_group<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -29070,7 +30421,7 @@ pub mod project_groups_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_project_group<I>(
+    pub(super) async fn handle_retrieve_project_group<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -29269,7 +30620,7 @@ pub mod project_user_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_assign_project_user_role<I>(
+    pub(super) async fn handle_assign_project_user_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -29376,7 +30727,7 @@ pub mod project_user_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_project_user_role_assignments<I>(
+    pub(super) async fn handle_list_project_user_role_assignments<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -29482,7 +30833,7 @@ pub mod project_user_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_project_user_role<I>(
+    pub(super) async fn handle_retrieve_project_user_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -29583,7 +30934,7 @@ pub mod project_user_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_unassign_project_user_role<I>(
+    pub(super) async fn handle_unassign_project_user_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -30109,7 +31460,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_archive_project<I>(
+    pub(super) async fn handle_archive_project<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -30201,7 +31552,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_create_project<I>(
+    pub(super) async fn handle_create_project<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -30287,7 +31638,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_create_project_service_account<I>(
+    pub(super) async fn handle_create_project_service_account<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -30394,7 +31745,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_create_project_user<I>(
+    pub(super) async fn handle_create_project_user<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -30491,7 +31842,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_delete_project_api_key<I>(
+    pub(super) async fn handle_delete_project_api_key<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -30584,7 +31935,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_delete_project_model_permissions<I>(
+    pub(super) async fn handle_delete_project_model_permissions<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -30678,7 +32029,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_delete_project_service_account<I>(
+    pub(super) async fn handle_delete_project_service_account<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -30775,7 +32126,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_delete_project_user<I>(
+    pub(super) async fn handle_delete_project_user<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -30874,7 +32225,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_project_api_keys<I>(
+    pub(super) async fn handle_list_project_api_keys<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -30975,7 +32326,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_project_rate_limits<I>(
+    pub(super) async fn handle_list_project_rate_limits<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -31077,7 +32428,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_project_service_accounts<I>(
+    pub(super) async fn handle_list_project_service_accounts<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -31178,7 +32529,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_project_users<I>(
+    pub(super) async fn handle_list_project_users<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -31279,7 +32630,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_projects<I>(
+    pub(super) async fn handle_list_projects<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -31365,7 +32716,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_modify_project<I>(
+    pub(super) async fn handle_modify_project<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -31464,7 +32815,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_modify_project_user<I>(
+    pub(super) async fn handle_modify_project_user<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -31555,7 +32906,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_project<I>(
+    pub(super) async fn handle_retrieve_project<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -31649,7 +33000,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_project_api_key<I>(
+    pub(super) async fn handle_retrieve_project_api_key<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -31742,7 +33093,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_project_model_permissions<I>(
+    pub(super) async fn handle_retrieve_project_model_permissions<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -31836,7 +33187,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_project_service_account<I>(
+    pub(super) async fn handle_retrieve_project_service_account<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -31933,7 +33284,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_project_user<I>(
+    pub(super) async fn handle_retrieve_project_user<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -32030,7 +33381,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_update_project_api_key<I>(
+    pub(super) async fn handle_update_project_api_key<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -32128,7 +33479,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_update_project_model_permissions<I>(
+    pub(super) async fn handle_update_project_model_permissions<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -32222,7 +33573,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_update_project_rate_limits<I>(
+    pub(super) async fn handle_update_project_rate_limits<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -32322,7 +33673,7 @@ pub mod projects_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_update_project_service_account<I>(
+    pub(super) async fn handle_update_project_service_account<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -32600,7 +33951,7 @@ pub mod realtime_api {
     }
 
     #[cfg(feature = "realtime")]
-    async fn handle_accept_realtime_call<I>(
+    pub(super) async fn handle_accept_realtime_call<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -32744,7 +34095,7 @@ pub mod realtime_api {
     }
 
     #[cfg(feature = "realtime")]
-    async fn handle_create_realtime_call<I>(
+    pub(super) async fn handle_create_realtime_call<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         request: axum::extract::Request,
@@ -32819,7 +34170,7 @@ pub mod realtime_api {
     }
 
     #[cfg(feature = "realtime")]
-    async fn handle_create_realtime_client_secret<I>(
+    pub(super) async fn handle_create_realtime_client_secret<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -32878,7 +34229,7 @@ pub mod realtime_api {
     }
 
     #[cfg(feature = "realtime")]
-    async fn handle_create_realtime_session<I>(
+    pub(super) async fn handle_create_realtime_session<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -32937,7 +34288,7 @@ pub mod realtime_api {
     }
 
     #[cfg(feature = "realtime")]
-    async fn handle_create_realtime_transcription_session<I>(
+    pub(super) async fn handle_create_realtime_transcription_session<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -33011,7 +34362,7 @@ pub mod realtime_api {
     }
 
     #[cfg(feature = "realtime")]
-    async fn handle_create_realtime_translation_client_secret<I>(
+    pub(super) async fn handle_create_realtime_translation_client_secret<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -33075,7 +34426,7 @@ pub mod realtime_api {
     }
 
     #[cfg(feature = "realtime")]
-    async fn handle_hangup_realtime_call<I>(
+    pub(super) async fn handle_hangup_realtime_call<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -33162,7 +34513,7 @@ pub mod realtime_api {
     }
 
     #[cfg(feature = "realtime")]
-    async fn handle_refer_realtime_call<I>(
+    pub(super) async fn handle_refer_realtime_call<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -33257,7 +34608,7 @@ pub mod realtime_api {
     }
 
     #[cfg(feature = "realtime")]
-    async fn handle_reject_realtime_call<I>(
+    pub(super) async fn handle_reject_realtime_call<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -33347,6 +34698,30 @@ pub mod responses_api {
             let _ = request;
             std::future::ready(Err(super::ServerError::not_implemented(
                 "beta_create_response",
+            )))
+        }
+        /// `DELETE /responses/{response_id}?beta=true`: Delete a model response
+        #[cfg(feature = "responses")]
+        fn beta_delete_response(
+            &self,
+            request: BetaDeleteResponseRequest,
+        ) -> impl std::future::Future<Output = Result<BetaDeleteResponseResponse, super::ServerError>>
+               + Send {
+            let _ = request;
+            std::future::ready(Err(super::ServerError::not_implemented(
+                "beta_delete_response",
+            )))
+        }
+        /// `GET /responses/{response_id}?beta=true`: Get a model response
+        #[cfg(feature = "responses")]
+        fn beta_get_response(
+            &self,
+            request: BetaGetResponseRequest,
+        ) -> impl std::future::Future<Output = Result<BetaGetResponseResponse, super::ServerError>> + Send
+        {
+            let _ = request;
+            std::future::ready(Err(super::ServerError::not_implemented(
+                "beta_get_response",
             )))
         }
         /// `POST /responses/input_tokens?beta=true`: Get input token counts
@@ -33450,10 +34825,6 @@ pub mod responses_api {
         }
     }
 
-    // Not served: `beta_delete_response` (DELETE /responses/{response_id}?beta=true): the path segment '{response_id}?beta=true' is not one path parameter.
-
-    // Not served: `beta_get_response` (GET /responses/{response_id}?beta=true): the path segment '{response_id}?beta=true' is not one path parameter.
-
     // A route per operation, each a statement of its own so that a Cargo feature can leave it out.
     #[allow(clippy::let_and_return)]
     pub(super) fn routes<I>(
@@ -33462,66 +34833,6 @@ pub mod responses_api {
     where
         I: ResponsesApi + super::ErrorHandler + 'static,
     {
-        #[cfg(feature = "responses")]
-        let router = router.route(
-            "/responses/{p0}/cancel?beta=true",
-            axum::routing::post(handle_beta_cancel_response::<I>),
-        );
-        #[cfg(feature = "responses")]
-        let router = router.route(
-            "/responses/compact?beta=true",
-            axum::routing::post(handle_beta_compactconversation::<I>),
-        );
-        #[cfg(feature = "responses")]
-        let router = router.route(
-            "/responses?beta=true",
-            axum::routing::post(handle_beta_create_response::<I>),
-        );
-        #[cfg(feature = "responses")]
-        let router = router.route(
-            "/responses/input_tokens?beta=true",
-            axum::routing::post(handle_beta_getinputtokencounts::<I>),
-        );
-        #[cfg(feature = "responses")]
-        let router = router.route(
-            "/responses/{p0}/input_items?beta=true",
-            axum::routing::get(handle_beta_list_input_items::<I>),
-        );
-        #[cfg(feature = "responses")]
-        let router = router.route(
-            "/responses/{p0}/cancel",
-            axum::routing::post(handle_cancel_response::<I>),
-        );
-        #[cfg(feature = "responses")]
-        let router = router.route(
-            "/responses/compact",
-            axum::routing::post(handle_compactconversation::<I>),
-        );
-        #[cfg(feature = "responses")]
-        let router = router.route(
-            "/responses",
-            axum::routing::post(handle_create_response::<I>),
-        );
-        #[cfg(feature = "responses")]
-        let router = router.route(
-            "/responses/{p0}",
-            axum::routing::delete(handle_delete_response::<I>),
-        );
-        #[cfg(feature = "responses")]
-        let router = router.route(
-            "/responses/{p0}",
-            axum::routing::get(handle_get_response::<I>),
-        );
-        #[cfg(feature = "responses")]
-        let router = router.route(
-            "/responses/input_tokens",
-            axum::routing::post(handle_getinputtokencounts::<I>),
-        );
-        #[cfg(feature = "responses")]
-        let router = router.route(
-            "/responses/{p0}/input_items",
-            axum::routing::get(handle_list_input_items::<I>),
-        );
         router
     }
 
@@ -33568,7 +34879,7 @@ pub mod responses_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_beta_cancel_response<I>(
+    pub(super) async fn handle_beta_cancel_response<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -33661,7 +34972,7 @@ pub mod responses_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_beta_compactconversation<I>(
+    pub(super) async fn handle_beta_compactconversation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -33754,7 +35065,7 @@ pub mod responses_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_beta_create_response<I>(
+    pub(super) async fn handle_beta_create_response<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -33779,6 +35090,206 @@ pub mod responses_api {
     ) -> Result<BetaCreateResponseRequest, super::RequestError> {
         Ok(BetaCreateResponseRequest {
             body: super::json_body(&body)?,
+            headers,
+        })
+    }
+
+    /// The request of [`ResponsesApi::beta_delete_response`] (`DELETE /responses/{response_id}?beta=true`).
+    #[cfg(feature = "responses")]
+    #[derive(Clone, Debug)]
+    pub struct BetaDeleteResponseRequest {
+        /// `response_id`, a path parameter: The ID of the response to delete.
+        pub response_id: String,
+        /// The request's headers, with its header and cookie parameters and credentials.
+        pub headers: http::HeaderMap,
+    }
+
+    /// The responses of [`ResponsesApi::beta_delete_response`], one per status the spec declares.
+    #[cfg(feature = "responses")]
+    #[derive(Clone, Debug)]
+    pub enum BetaDeleteResponseResponse {
+        /// `200`: OK
+        Status200(models::BetaDeleteResponse200Response),
+        /// `404`: Not Found
+        Status404(models::BetaErrorResponse),
+        /// `429`: The request was rejected because a rate limit was exceeded.
+        Status429 {
+            body: models::ErrorResponse,
+            headers: crate::headers::BetaDeleteResponseErrorHeaders,
+        },
+    }
+
+    #[cfg(feature = "responses")]
+    impl axum::response::IntoResponse for BetaDeleteResponseResponse {
+        fn into_response(self) -> axum::response::Response {
+            match self {
+                BetaDeleteResponseResponse::Status200(body) => {
+                    super::json_response(super::status(200), http::HeaderMap::new(), &body)
+                }
+                BetaDeleteResponseResponse::Status404(body) => {
+                    super::json_response(super::status(404), http::HeaderMap::new(), &body)
+                }
+                BetaDeleteResponseResponse::Status429 { body, headers } => {
+                    super::json_response(super::status(429), headers.to_header_map(), &body)
+                }
+            }
+        }
+    }
+
+    #[cfg(feature = "responses")]
+    pub(super) async fn handle_beta_delete_response<I>(
+        axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+        path: Result<
+            axum::extract::Path<std::collections::HashMap<String, String>>,
+            axum::extract::rejection::PathRejection,
+        >,
+        headers: http::HeaderMap,
+    ) -> axum::response::Response
+    where
+        I: ResponsesApi + super::ErrorHandler + 'static,
+    {
+        let path = match path {
+            Ok(axum::extract::Path(path)) => path,
+            Err(rejection) => {
+                return api.invalid_request(super::RequestError::new(
+                    "path",
+                    None,
+                    rejection.body_text(),
+                ))
+            }
+        };
+        let request = match decode_beta_delete_response(&path, headers) {
+            Ok(request) => request,
+            Err(error) => return api.invalid_request(error),
+        };
+        match api.beta_delete_response(request).await {
+            Ok(response) => axum::response::IntoResponse::into_response(response),
+            Err(error) => api.server_error(error),
+        }
+    }
+
+    #[cfg(feature = "responses")]
+    fn decode_beta_delete_response(
+        path: &std::collections::HashMap<String, String>,
+        headers: http::HeaderMap,
+    ) -> Result<BetaDeleteResponseRequest, super::RequestError> {
+        Ok(BetaDeleteResponseRequest {
+            response_id: super::path_value(path, "p0", "response_id", |v| Some(v.to_owned()))?,
+            headers,
+        })
+    }
+
+    /// The request of [`ResponsesApi::beta_get_response`] (`GET /responses/{response_id}?beta=true`).
+    #[cfg(feature = "responses")]
+    #[derive(Clone, Debug)]
+    pub struct BetaGetResponseRequest {
+        /// `response_id`, a path parameter: The ID of the response to retrieve.
+        pub response_id: String,
+        /// `include`, a query parameter: Additional fields to include in the response. See the `include` parameter for Response creation above for more information.
+        pub include: Option<Vec<models::BetaIncludeEnum>>,
+        /// `stream`, a query parameter: If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](https://developers.openai.com/api/reference/resources/responses/streaming-events) for more information.
+        pub stream: Option<bool>,
+        /// `starting_after`, a query parameter: The sequence number of the event after which to start streaming.
+        pub starting_after: Option<i64>,
+        /// `include_obfuscation`, a query parameter: When true, stream obfuscation will be enabled. Stream obfuscation adds random characters to an `obfuscation` field on streaming delta events to normalize payload sizes as a mitigation to certain side-channel attacks. These obfuscation fields are included by default, but add a small amount of overhead to the data stream. You can set `include_obfuscation` to false to optimize for bandwidth if you trust the network links between your application and the OpenAI API.
+        pub include_obfuscation: Option<bool>,
+        /// The request's headers, with its header and cookie parameters and credentials.
+        pub headers: http::HeaderMap,
+    }
+
+    /// The responses of [`ResponsesApi::beta_get_response`], one per status the spec declares.
+    #[cfg(feature = "responses")]
+    #[derive(Debug)]
+    pub enum BetaGetResponseResponse {
+        /// `200`, `application/json`: OK
+        Status200(models::BetaResponse),
+        /// `200`, `text/event-stream`: OK
+        Status200Stream(super::EventStream<models::BetaResponseStreamEvent>),
+        /// `404`: The response was not found.
+        Status404(models::BetaErrorResponse),
+        /// `429`: The request was rejected because a rate limit was exceeded.
+        Status429 {
+            body: models::ErrorResponse,
+            headers: crate::headers::BetaGetResponseErrorHeaders,
+        },
+    }
+
+    #[cfg(feature = "responses")]
+    impl axum::response::IntoResponse for BetaGetResponseResponse {
+        fn into_response(self) -> axum::response::Response {
+            match self {
+                BetaGetResponseResponse::Status200(body) => {
+                    super::json_response(super::status(200), http::HeaderMap::new(), &body)
+                }
+                BetaGetResponseResponse::Status200Stream(body) => super::event_stream_response(
+                    super::status(200),
+                    http::HeaderMap::new(),
+                    body,
+                    Some("type"),
+                ),
+                BetaGetResponseResponse::Status404(body) => {
+                    super::json_response(super::status(404), http::HeaderMap::new(), &body)
+                }
+                BetaGetResponseResponse::Status429 { body, headers } => {
+                    super::json_response(super::status(429), headers.to_header_map(), &body)
+                }
+            }
+        }
+    }
+
+    #[cfg(feature = "responses")]
+    pub(super) async fn handle_beta_get_response<I>(
+        axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+        path: Result<
+            axum::extract::Path<std::collections::HashMap<String, String>>,
+            axum::extract::rejection::PathRejection,
+        >,
+        axum::extract::RawQuery(query): axum::extract::RawQuery,
+        headers: http::HeaderMap,
+    ) -> axum::response::Response
+    where
+        I: ResponsesApi + super::ErrorHandler + 'static,
+    {
+        let path = match path {
+            Ok(axum::extract::Path(path)) => path,
+            Err(rejection) => {
+                return api.invalid_request(super::RequestError::new(
+                    "path",
+                    None,
+                    rejection.body_text(),
+                ))
+            }
+        };
+        let query = super::query_pairs(query.as_deref());
+        let request = match decode_beta_get_response(&path, &query, headers) {
+            Ok(request) => request,
+            Err(error) => return api.invalid_request(error),
+        };
+        match api.beta_get_response(request).await {
+            Ok(response) => axum::response::IntoResponse::into_response(response),
+            Err(error) => api.server_error(error),
+        }
+    }
+
+    #[cfg(feature = "responses")]
+    fn decode_beta_get_response(
+        path: &std::collections::HashMap<String, String>,
+        query: &[(String, String)],
+        headers: http::HeaderMap,
+    ) -> Result<BetaGetResponseRequest, super::RequestError> {
+        Ok(BetaGetResponseRequest {
+            response_id: super::path_value(path, "p0", "response_id", |v| Some(v.to_owned()))?,
+            include: super::query_list(query, "include", None, |v| {
+                serde_json::from_value::<models::BetaIncludeEnum>(serde_json::Value::String(
+                    v.to_owned(),
+                ))
+                .ok()
+            })?,
+            stream: super::query_value(query, "stream", |v| v.parse::<bool>().ok())?,
+            starting_after: super::query_value(query, "starting_after", |v| v.parse::<i64>().ok())?,
+            include_obfuscation: super::query_value(query, "include_obfuscation", |v| {
+                v.parse::<bool>().ok()
+            })?,
             headers,
         })
     }
@@ -33826,7 +35337,7 @@ pub mod responses_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_beta_getinputtokencounts<I>(
+    pub(super) async fn handle_beta_getinputtokencounts<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -33906,7 +35417,7 @@ pub mod responses_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_beta_list_input_items<I>(
+    pub(super) async fn handle_beta_list_input_items<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -34003,7 +35514,7 @@ pub mod responses_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_cancel_response<I>(
+    pub(super) async fn handle_cancel_response<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -34096,7 +35607,7 @@ pub mod responses_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_compactconversation<I>(
+    pub(super) async fn handle_compactconversation<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -34189,7 +35700,7 @@ pub mod responses_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_create_response<I>(
+    pub(super) async fn handle_create_response<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -34261,7 +35772,7 @@ pub mod responses_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_delete_response<I>(
+    pub(super) async fn handle_delete_response<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -34362,7 +35873,7 @@ pub mod responses_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_get_response<I>(
+    pub(super) async fn handle_get_response<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -34461,7 +35972,7 @@ pub mod responses_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_getinputtokencounts<I>(
+    pub(super) async fn handle_getinputtokencounts<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -34541,7 +36052,7 @@ pub mod responses_api {
     }
 
     #[cfg(feature = "responses")]
-    async fn handle_list_input_items<I>(
+    pub(super) async fn handle_list_input_items<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -34833,7 +36344,7 @@ pub mod roles_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_create_project_role<I>(
+    pub(super) async fn handle_create_project_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -34931,7 +36442,7 @@ pub mod roles_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_create_role<I>(
+    pub(super) async fn handle_create_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -35015,7 +36526,7 @@ pub mod roles_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_delete_project_role<I>(
+    pub(super) async fn handle_delete_project_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -35111,7 +36622,7 @@ pub mod roles_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_delete_role<I>(
+    pub(super) async fn handle_delete_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -35212,7 +36723,7 @@ pub mod roles_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_project_roles<I>(
+    pub(super) async fn handle_list_project_roles<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -35317,7 +36828,7 @@ pub mod roles_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_roles<I>(
+    pub(super) async fn handle_list_roles<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -35399,7 +36910,7 @@ pub mod roles_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_project_role<I>(
+    pub(super) async fn handle_retrieve_project_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -35490,7 +37001,7 @@ pub mod roles_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_role<I>(
+    pub(super) async fn handle_retrieve_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -35589,7 +37100,7 @@ pub mod roles_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_update_project_role<I>(
+    pub(super) async fn handle_update_project_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -35690,7 +37201,7 @@ pub mod roles_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_update_role<I>(
+    pub(super) async fn handle_update_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -35982,7 +37493,7 @@ pub mod skills_api {
     #[derive(Clone, Debug)]
     pub struct CreateSkillForm {
         /// `files`
-        pub files: models::CreateSkillBodyFiles,
+        pub files: CreateSkillFiles,
     }
 
     #[cfg(feature = "skill")]
@@ -35990,8 +37501,45 @@ pub mod skills_api {
         parts: &[super::FormPart],
     ) -> Result<CreateSkillForm, super::RequestError> {
         Ok(CreateSkillForm {
-            files: super::required("body", "files", super::form_json(parts, "files")?)?,
+            files: super::required("body", "files", form_create_skill_files(parts)?)?,
         })
+    }
+
+    /// `files` of the multipart body of [`SkillsApi::create_skill`]: a file, or a value of one of the other
+    /// variants of its union.
+    #[cfg(feature = "skill")]
+    #[derive(Clone, Debug)]
+    pub enum CreateSkillFiles {
+        /// Skill files to upload (directory upload) or a single zip file.
+        ArrayOfStrings(Vec<super::FilePart>),
+        /// Skill zip file to upload.
+        Text(super::FilePart),
+    }
+
+    #[cfg(feature = "skill")]
+    fn form_create_skill_files(
+        parts: &[super::FormPart],
+    ) -> Result<Option<CreateSkillFiles>, super::RequestError> {
+        let files: Vec<&super::FormPart> = parts
+            .iter()
+            .filter(|p| p.file_name.is_some() && (p.name == "files" || p.name == "files[]"))
+            .collect();
+        if !files.is_empty() {
+            if files.len() > 1 || files.iter().any(|p| p.name != "files") {
+                return Ok(Some(CreateSkillFiles::ArrayOfStrings(
+                    files.iter().map(|p| p.file()).collect(),
+                )));
+            }
+            return Ok(Some(CreateSkillFiles::Text(files[0].file())));
+        }
+        if parts.iter().any(|p| p.name == "files") {
+            return Err(super::RequestError::new(
+                "body",
+                Some("files"),
+                "not a file",
+            ));
+        }
+        Ok(None)
     }
 
     /// The responses of [`SkillsApi::create_skill`], one per status the spec declares.
@@ -36032,7 +37580,7 @@ pub mod skills_api {
     }
 
     #[cfg(feature = "skill")]
-    async fn handle_create_skill<I>(
+    pub(super) async fn handle_create_skill<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         request: axum::extract::Request,
@@ -36120,7 +37668,7 @@ pub mod skills_api {
     #[derive(Clone, Debug)]
     pub struct CreateSkillVersionForm {
         /// `files`
-        pub files: models::CreateSkillVersionBodyFiles,
+        pub files: CreateSkillVersionFiles,
         /// `default`: Whether to set this version as the default.
         pub default: Option<bool>,
     }
@@ -36130,9 +37678,46 @@ pub mod skills_api {
         parts: &[super::FormPart],
     ) -> Result<CreateSkillVersionForm, super::RequestError> {
         Ok(CreateSkillVersionForm {
-            files: super::required("body", "files", super::form_json(parts, "files")?)?,
+            files: super::required("body", "files", form_create_skill_version_files(parts)?)?,
             default: super::form_value(parts, "default", |v| v.parse::<bool>().ok())?,
         })
+    }
+
+    /// `files` of the multipart body of [`SkillsApi::create_skill_version`]: a file, or a value of one of the other
+    /// variants of its union.
+    #[cfg(feature = "skill")]
+    #[derive(Clone, Debug)]
+    pub enum CreateSkillVersionFiles {
+        /// Skill files to upload (directory upload) or a single zip file.
+        ArrayOfStrings(Vec<super::FilePart>),
+        /// Skill zip file to upload.
+        Text(super::FilePart),
+    }
+
+    #[cfg(feature = "skill")]
+    fn form_create_skill_version_files(
+        parts: &[super::FormPart],
+    ) -> Result<Option<CreateSkillVersionFiles>, super::RequestError> {
+        let files: Vec<&super::FormPart> = parts
+            .iter()
+            .filter(|p| p.file_name.is_some() && p.name == "files")
+            .collect();
+        if !files.is_empty() {
+            if files.len() > 1 {
+                return Ok(Some(CreateSkillVersionFiles::ArrayOfStrings(
+                    files.iter().map(|p| p.file()).collect(),
+                )));
+            }
+            return Ok(Some(CreateSkillVersionFiles::Text(files[0].file())));
+        }
+        if parts.iter().any(|p| p.name == "files") {
+            return Err(super::RequestError::new(
+                "body",
+                Some("files"),
+                "not a file",
+            ));
+        }
+        Ok(None)
     }
 
     /// The responses of [`SkillsApi::create_skill_version`], one per status the spec declares.
@@ -36178,7 +37763,7 @@ pub mod skills_api {
     }
 
     #[cfg(feature = "skill")]
-    async fn handle_create_skill_version<I>(
+    pub(super) async fn handle_create_skill_version<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -36270,7 +37855,7 @@ pub mod skills_api {
     }
 
     #[cfg(feature = "skill")]
-    async fn handle_delete_skill<I>(
+    pub(super) async fn handle_delete_skill<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -36362,7 +37947,7 @@ pub mod skills_api {
     }
 
     #[cfg(feature = "skill")]
-    async fn handle_delete_skill_version<I>(
+    pub(super) async fn handle_delete_skill_version<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -36448,7 +38033,7 @@ pub mod skills_api {
     }
 
     #[cfg(feature = "skill")]
-    async fn handle_get_skill<I>(
+    pub(super) async fn handle_get_skill<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -36541,7 +38126,7 @@ pub mod skills_api {
     }
 
     #[cfg(feature = "skill")]
-    async fn handle_get_skill_content<I>(
+    pub(super) async fn handle_get_skill_content<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -36633,7 +38218,7 @@ pub mod skills_api {
     }
 
     #[cfg(feature = "skill")]
-    async fn handle_get_skill_version<I>(
+    pub(super) async fn handle_get_skill_version<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -36734,7 +38319,7 @@ pub mod skills_api {
     }
 
     #[cfg(feature = "skill")]
-    async fn handle_get_skill_version_content<I>(
+    pub(super) async fn handle_get_skill_version_content<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -36831,7 +38416,7 @@ pub mod skills_api {
     }
 
     #[cfg(feature = "skill")]
-    async fn handle_list_skill_versions<I>(
+    pub(super) async fn handle_list_skill_versions<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -36929,7 +38514,7 @@ pub mod skills_api {
     }
 
     #[cfg(feature = "skill")]
-    async fn handle_list_skills<I>(
+    pub(super) async fn handle_list_skills<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -37014,7 +38599,7 @@ pub mod skills_api {
     }
 
     #[cfg(feature = "skill")]
-    async fn handle_update_skill_default_version<I>(
+    pub(super) async fn handle_update_skill_default_version<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -37302,7 +38887,7 @@ pub mod spend_alerts_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_create_organization_spend_alert<I>(
+    pub(super) async fn handle_create_organization_spend_alert<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -37378,7 +38963,7 @@ pub mod spend_alerts_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_create_project_spend_alert<I>(
+    pub(super) async fn handle_create_project_spend_alert<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -37463,7 +39048,7 @@ pub mod spend_alerts_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_delete_organization_spend_alert<I>(
+    pub(super) async fn handle_delete_organization_spend_alert<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -37552,7 +39137,7 @@ pub mod spend_alerts_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_delete_project_spend_alert<I>(
+    pub(super) async fn handle_delete_project_spend_alert<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -37646,7 +39231,7 @@ pub mod spend_alerts_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_organization_spend_alerts<I>(
+    pub(super) async fn handle_list_organization_spend_alerts<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -37732,7 +39317,7 @@ pub mod spend_alerts_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_project_spend_alerts<I>(
+    pub(super) async fn handle_list_project_spend_alerts<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -37821,7 +39406,7 @@ pub mod spend_alerts_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_organization_spend_alert<I>(
+    pub(super) async fn handle_retrieve_organization_spend_alert<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -37910,7 +39495,7 @@ pub mod spend_alerts_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_project_spend_alert<I>(
+    pub(super) async fn handle_retrieve_project_spend_alert<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -38000,7 +39585,7 @@ pub mod spend_alerts_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_update_organization_spend_alert<I>(
+    pub(super) async fn handle_update_organization_spend_alert<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -38094,7 +39679,7 @@ pub mod spend_alerts_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_update_project_spend_alert<I>(
+    pub(super) async fn handle_update_project_spend_alert<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -38295,7 +39880,7 @@ pub mod uploads_api {
     }
 
     #[cfg(feature = "upload")]
-    async fn handle_add_upload_part<I>(
+    pub(super) async fn handle_add_upload_part<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -38394,7 +39979,7 @@ pub mod uploads_api {
     }
 
     #[cfg(feature = "upload")]
-    async fn handle_cancel_upload<I>(
+    pub(super) async fn handle_cancel_upload<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -38493,7 +40078,7 @@ pub mod uploads_api {
     }
 
     #[cfg(feature = "upload")]
-    async fn handle_complete_upload<I>(
+    pub(super) async fn handle_complete_upload<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -38578,7 +40163,7 @@ pub mod uploads_api {
     }
 
     #[cfg(feature = "upload")]
-    async fn handle_create_upload<I>(
+    pub(super) async fn handle_create_upload<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -38880,7 +40465,7 @@ pub mod usage_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_usage_audio_speeches<I>(
+    pub(super) async fn handle_usage_audio_speeches<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -38989,7 +40574,7 @@ pub mod usage_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_usage_audio_transcriptions<I>(
+    pub(super) async fn handle_usage_audio_transcriptions<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -39092,7 +40677,7 @@ pub mod usage_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_usage_code_interpreter_sessions<I>(
+    pub(super) async fn handle_usage_code_interpreter_sessions<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -39200,7 +40785,7 @@ pub mod usage_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_usage_completions<I>(
+    pub(super) async fn handle_usage_completions<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -39308,7 +40893,7 @@ pub mod usage_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_usage_costs<I>(
+    pub(super) async fn handle_usage_costs<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -39416,7 +41001,7 @@ pub mod usage_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_usage_embeddings<I>(
+    pub(super) async fn handle_usage_embeddings<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -39525,7 +41110,7 @@ pub mod usage_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_usage_file_search_calls<I>(
+    pub(super) async fn handle_usage_file_search_calls<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -39640,7 +41225,7 @@ pub mod usage_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_usage_images<I>(
+    pub(super) async fn handle_usage_images<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -39751,7 +41336,7 @@ pub mod usage_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_usage_moderations<I>(
+    pub(super) async fn handle_usage_moderations<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -39854,7 +41439,7 @@ pub mod usage_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_usage_vector_stores<I>(
+    pub(super) async fn handle_usage_vector_stores<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -39962,7 +41547,7 @@ pub mod usage_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_usage_web_search_calls<I>(
+    pub(super) async fn handle_usage_web_search_calls<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -40153,7 +41738,7 @@ pub mod user_organization_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_assign_user_role<I>(
+    pub(super) async fn handle_assign_user_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -40257,7 +41842,7 @@ pub mod user_organization_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_user_role_assignments<I>(
+    pub(super) async fn handle_list_user_role_assignments<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -40360,7 +41945,7 @@ pub mod user_organization_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_user_role<I>(
+    pub(super) async fn handle_retrieve_user_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -40458,7 +42043,7 @@ pub mod user_organization_role_assignments_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_unassign_user_role<I>(
+    pub(super) async fn handle_unassign_user_role<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -40634,7 +42219,7 @@ pub mod users_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_delete_user<I>(
+    pub(super) async fn handle_delete_user<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -40725,7 +42310,7 @@ pub mod users_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_list_users<I>(
+    pub(super) async fn handle_list_users<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -40809,7 +42394,7 @@ pub mod users_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_modify_user<I>(
+    pub(super) async fn handle_modify_user<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -40899,7 +42484,7 @@ pub mod users_api {
     }
 
     #[cfg(feature = "administration")]
-    async fn handle_retrieve_user<I>(
+    pub(super) async fn handle_retrieve_user<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -40997,6 +42582,29 @@ pub mod vaults_api {
                 "delete_vault_credential",
             )))
         }
+        /// `GET /vaults/{vault_id}/credentials`: List vault credentials
+        #[cfg(feature = "vaults")]
+        fn list_vault_credentials(
+            &self,
+            request: ListVaultCredentialsRequest,
+        ) -> impl std::future::Future<
+            Output = Result<ListVaultCredentialsResponse, super::ServerError>,
+        > + Send {
+            let _ = request;
+            std::future::ready(Err(super::ServerError::not_implemented(
+                "list_vault_credentials",
+            )))
+        }
+        /// `GET /vaults`: List vaults
+        #[cfg(feature = "vaults")]
+        fn list_vaults(
+            &self,
+            request: ListVaultsRequest,
+        ) -> impl std::future::Future<Output = Result<ListVaultsResponse, super::ServerError>> + Send
+        {
+            let _ = request;
+            std::future::ready(Err(super::ServerError::not_implemented("list_vaults")))
+        }
         /// `GET /vaults/{vault_id}`: Retrieve a vault
         #[cfg(feature = "vaults")]
         fn retrieve_vault(
@@ -41045,10 +42653,6 @@ pub mod vaults_api {
         }
     }
 
-    // Not served: `list_vault_credentials` (GET /vaults/{vault_id}/credentials): the query parameter 'metadata' is a deepObject.
-
-    // Not served: `list_vaults` (GET /vaults): the query parameter 'metadata' is a deepObject.
-
     // A route per operation, each a statement of its own so that a Cargo feature can leave it out.
     #[allow(clippy::let_and_return)]
     pub(super) fn routes<I>(
@@ -41074,6 +42678,13 @@ pub mod vaults_api {
             "/vaults/{p0}/credentials/{p1}",
             axum::routing::delete(handle_delete_vault_credential::<I>),
         );
+        #[cfg(feature = "vaults")]
+        let router = router.route(
+            "/vaults/{p0}/credentials",
+            axum::routing::get(handle_list_vault_credentials::<I>),
+        );
+        #[cfg(feature = "vaults")]
+        let router = router.route("/vaults", axum::routing::get(handle_list_vaults::<I>));
         #[cfg(feature = "vaults")]
         let router = router.route(
             "/vaults/{p0}",
@@ -41162,7 +42773,7 @@ pub mod vaults_api {
     }
 
     #[cfg(feature = "vaults")]
-    async fn handle_create_vault<I>(
+    pub(super) async fn handle_create_vault<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -41258,7 +42869,7 @@ pub mod vaults_api {
     }
 
     #[cfg(feature = "vaults")]
-    async fn handle_create_vault_credential<I>(
+    pub(super) async fn handle_create_vault_credential<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -41368,7 +42979,7 @@ pub mod vaults_api {
     }
 
     #[cfg(feature = "vaults")]
-    async fn handle_delete_vault<I>(
+    pub(super) async fn handle_delete_vault<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -41477,7 +43088,7 @@ pub mod vaults_api {
     }
 
     #[cfg(feature = "vaults")]
-    async fn handle_delete_vault_credential<I>(
+    pub(super) async fn handle_delete_vault_credential<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -41516,6 +43127,260 @@ pub mod vaults_api {
         Ok(DeleteVaultCredentialRequest {
             vault_id: super::path_value(path, "p0", "vault_id", |v| Some(v.to_owned()))?,
             credential_id: super::path_value(path, "p1", "credential_id", |v| Some(v.to_owned()))?,
+            headers,
+        })
+    }
+
+    /// The request of [`VaultsApi::list_vault_credentials`] (`GET /vaults/{vault_id}/credentials`).
+    #[cfg(feature = "vaults")]
+    #[derive(Clone, Debug)]
+    pub struct ListVaultCredentialsRequest {
+        /// `vault_id`, a path parameter: The ID of the vault.
+        pub vault_id: String,
+        /// `limit`, a query parameter: The maximum number of resources to return, between 1 and 100. Defaults to 20. Defaults to `20`.
+        pub limit: Option<i64>,
+        /// `order`, a query parameter: The order in which resources are returned. Defaults to `desc`. Defaults to `"desc"`.
+        pub order: Option<models::ListOrderParam>,
+        /// `after`, a query parameter: Return resources after this resource ID in the selected order.
+        pub after: Option<String>,
+        /// `metadata`, a query parameter: Exact string matches supplied as `metadata[key]=value`. All supplied pairs must match. Up to 16 pairs, with keys from 1 to 64 characters and values up to 512 characters. Filtering is eventually consistent; metadata changes may take time to appear.
+        pub metadata: Option<std::collections::HashMap<String, String>>,
+        /// `status`, a query parameter: Filter by one status or a list, such as `status=active` or `status[]=active&status[]=archived`. Both statuses are included by default.
+        pub status: Option<models::VaultStatusFilterParam>,
+        /// The request's headers, with its header and cookie parameters and credentials.
+        pub headers: http::HeaderMap,
+    }
+
+    /// The responses of [`VaultsApi::list_vault_credentials`], one per status the spec declares.
+    #[cfg(feature = "vaults")]
+    #[derive(Clone, Debug)]
+    pub enum ListVaultCredentialsResponse {
+        /// `200`: A page of vault credentials.
+        Status200(models::VaultCredentialListResource),
+        /// `400`: The request was invalid.
+        Status400(models::ErrorResponse2),
+        /// `401`: Authentication or project context was missing.
+        Status401(models::ErrorResponse2),
+        /// `403`: The API key lacks the required management permission.
+        Status403(models::ErrorResponse2),
+        /// `404`: The requested vault or credential was not found.
+        Status404(models::ErrorResponse2),
+        /// `409`: The request conflicted with the current vault state.
+        Status409(models::ErrorResponse2),
+        /// `500`: An internal error occurred.
+        Status500(models::ErrorResponse2),
+        /// `503`: The service is temporarily unavailable.
+        Status503(models::ErrorResponse2),
+    }
+
+    #[cfg(feature = "vaults")]
+    impl axum::response::IntoResponse for ListVaultCredentialsResponse {
+        fn into_response(self) -> axum::response::Response {
+            match self {
+                ListVaultCredentialsResponse::Status200(body) => {
+                    super::json_response(super::status(200), http::HeaderMap::new(), &body)
+                }
+                ListVaultCredentialsResponse::Status400(body) => {
+                    super::json_response(super::status(400), http::HeaderMap::new(), &body)
+                }
+                ListVaultCredentialsResponse::Status401(body) => {
+                    super::json_response(super::status(401), http::HeaderMap::new(), &body)
+                }
+                ListVaultCredentialsResponse::Status403(body) => {
+                    super::json_response(super::status(403), http::HeaderMap::new(), &body)
+                }
+                ListVaultCredentialsResponse::Status404(body) => {
+                    super::json_response(super::status(404), http::HeaderMap::new(), &body)
+                }
+                ListVaultCredentialsResponse::Status409(body) => {
+                    super::json_response(super::status(409), http::HeaderMap::new(), &body)
+                }
+                ListVaultCredentialsResponse::Status500(body) => {
+                    super::json_response(super::status(500), http::HeaderMap::new(), &body)
+                }
+                ListVaultCredentialsResponse::Status503(body) => {
+                    super::json_response(super::status(503), http::HeaderMap::new(), &body)
+                }
+            }
+        }
+    }
+
+    #[cfg(feature = "vaults")]
+    pub(super) async fn handle_list_vault_credentials<I>(
+        axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+        path: Result<
+            axum::extract::Path<std::collections::HashMap<String, String>>,
+            axum::extract::rejection::PathRejection,
+        >,
+        axum::extract::RawQuery(query): axum::extract::RawQuery,
+        headers: http::HeaderMap,
+    ) -> axum::response::Response
+    where
+        I: VaultsApi + super::ErrorHandler + 'static,
+    {
+        let path = match path {
+            Ok(axum::extract::Path(path)) => path,
+            Err(rejection) => {
+                return api.invalid_request(super::RequestError::new(
+                    "path",
+                    None,
+                    rejection.body_text(),
+                ))
+            }
+        };
+        let query = super::query_pairs(query.as_deref());
+        let request = match decode_list_vault_credentials(&path, &query, headers) {
+            Ok(request) => request,
+            Err(error) => return api.invalid_request(error),
+        };
+        match api.list_vault_credentials(request).await {
+            Ok(response) => axum::response::IntoResponse::into_response(response),
+            Err(error) => api.server_error(error),
+        }
+    }
+
+    #[cfg(feature = "vaults")]
+    fn decode_list_vault_credentials(
+        path: &std::collections::HashMap<String, String>,
+        query: &[(String, String)],
+        headers: http::HeaderMap,
+    ) -> Result<ListVaultCredentialsRequest, super::RequestError> {
+        Ok(ListVaultCredentialsRequest {
+            vault_id: super::path_value(path, "p0", "vault_id", |v| Some(v.to_owned()))?,
+            limit: super::query_value(query, "limit", |v| v.parse::<i64>().ok())?,
+            order: super::query_value(query, "order", |v| {
+                serde_json::from_value::<models::ListOrderParam>(serde_json::Value::String(
+                    v.to_owned(),
+                ))
+                .ok()
+            })?,
+            after: super::query_value(query, "after", |v| Some(v.to_owned()))?,
+            metadata: super::query_deep(query, "metadata")?,
+            status: super::query_value(query, "status", |v| {
+                serde_json::from_value::<models::VaultStatusFilterParam>(serde_json::Value::String(
+                    v.to_owned(),
+                ))
+                .ok()
+                .or_else(|| serde_json::from_str::<models::VaultStatusFilterParam>(v).ok())
+            })?,
+            headers,
+        })
+    }
+
+    /// The request of [`VaultsApi::list_vaults`] (`GET /vaults`).
+    #[cfg(feature = "vaults")]
+    #[derive(Clone, Debug)]
+    pub struct ListVaultsRequest {
+        /// `limit`, a query parameter: The maximum number of resources to return, between 1 and 100. Defaults to 20. Defaults to `20`.
+        pub limit: Option<i64>,
+        /// `order`, a query parameter: The order in which resources are returned. Defaults to `desc`. Defaults to `"desc"`.
+        pub order: Option<models::ListOrderParam>,
+        /// `after`, a query parameter: Return resources after this resource ID in the selected order.
+        pub after: Option<String>,
+        /// `metadata`, a query parameter: Exact string matches supplied as `metadata[key]=value`. All supplied pairs must match. Up to 16 pairs, with keys from 1 to 64 characters and values up to 512 characters. Filtering is eventually consistent; metadata changes may take time to appear.
+        pub metadata: Option<std::collections::HashMap<String, String>>,
+        /// `status`, a query parameter: Filter by one status or a list, such as `status=active` or `status[]=active&status[]=archived`. Both statuses are included by default.
+        pub status: Option<models::VaultStatusFilterParam>,
+        /// The request's headers, with its header and cookie parameters and credentials.
+        pub headers: http::HeaderMap,
+    }
+
+    /// The responses of [`VaultsApi::list_vaults`], one per status the spec declares.
+    #[cfg(feature = "vaults")]
+    #[derive(Clone, Debug)]
+    pub enum ListVaultsResponse {
+        /// `200`: A page of vaults.
+        Status200(models::VaultListResource),
+        /// `400`: The request was invalid.
+        Status400(models::ErrorResponse2),
+        /// `401`: Authentication or project context was missing.
+        Status401(models::ErrorResponse2),
+        /// `403`: The API key lacks the required management permission.
+        Status403(models::ErrorResponse2),
+        /// `404`: The requested vault or credential was not found.
+        Status404(models::ErrorResponse2),
+        /// `409`: The request conflicted with the current vault state.
+        Status409(models::ErrorResponse2),
+        /// `500`: An internal error occurred.
+        Status500(models::ErrorResponse2),
+        /// `503`: The service is temporarily unavailable.
+        Status503(models::ErrorResponse2),
+    }
+
+    #[cfg(feature = "vaults")]
+    impl axum::response::IntoResponse for ListVaultsResponse {
+        fn into_response(self) -> axum::response::Response {
+            match self {
+                ListVaultsResponse::Status200(body) => {
+                    super::json_response(super::status(200), http::HeaderMap::new(), &body)
+                }
+                ListVaultsResponse::Status400(body) => {
+                    super::json_response(super::status(400), http::HeaderMap::new(), &body)
+                }
+                ListVaultsResponse::Status401(body) => {
+                    super::json_response(super::status(401), http::HeaderMap::new(), &body)
+                }
+                ListVaultsResponse::Status403(body) => {
+                    super::json_response(super::status(403), http::HeaderMap::new(), &body)
+                }
+                ListVaultsResponse::Status404(body) => {
+                    super::json_response(super::status(404), http::HeaderMap::new(), &body)
+                }
+                ListVaultsResponse::Status409(body) => {
+                    super::json_response(super::status(409), http::HeaderMap::new(), &body)
+                }
+                ListVaultsResponse::Status500(body) => {
+                    super::json_response(super::status(500), http::HeaderMap::new(), &body)
+                }
+                ListVaultsResponse::Status503(body) => {
+                    super::json_response(super::status(503), http::HeaderMap::new(), &body)
+                }
+            }
+        }
+    }
+
+    #[cfg(feature = "vaults")]
+    pub(super) async fn handle_list_vaults<I>(
+        axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
+        axum::extract::RawQuery(query): axum::extract::RawQuery,
+        headers: http::HeaderMap,
+    ) -> axum::response::Response
+    where
+        I: VaultsApi + super::ErrorHandler + 'static,
+    {
+        let query = super::query_pairs(query.as_deref());
+        let request = match decode_list_vaults(&query, headers) {
+            Ok(request) => request,
+            Err(error) => return api.invalid_request(error),
+        };
+        match api.list_vaults(request).await {
+            Ok(response) => axum::response::IntoResponse::into_response(response),
+            Err(error) => api.server_error(error),
+        }
+    }
+
+    #[cfg(feature = "vaults")]
+    fn decode_list_vaults(
+        query: &[(String, String)],
+        headers: http::HeaderMap,
+    ) -> Result<ListVaultsRequest, super::RequestError> {
+        Ok(ListVaultsRequest {
+            limit: super::query_value(query, "limit", |v| v.parse::<i64>().ok())?,
+            order: super::query_value(query, "order", |v| {
+                serde_json::from_value::<models::ListOrderParam>(serde_json::Value::String(
+                    v.to_owned(),
+                ))
+                .ok()
+            })?,
+            after: super::query_value(query, "after", |v| Some(v.to_owned()))?,
+            metadata: super::query_deep(query, "metadata")?,
+            status: super::query_value(query, "status", |v| {
+                serde_json::from_value::<models::VaultStatusFilterParam>(serde_json::Value::String(
+                    v.to_owned(),
+                ))
+                .ok()
+                .or_else(|| serde_json::from_str::<models::VaultStatusFilterParam>(v).ok())
+            })?,
             headers,
         })
     }
@@ -41585,7 +43450,7 @@ pub mod vaults_api {
     }
 
     #[cfg(feature = "vaults")]
-    async fn handle_retrieve_vault<I>(
+    pub(super) async fn handle_retrieve_vault<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -41694,7 +43559,7 @@ pub mod vaults_api {
     }
 
     #[cfg(feature = "vaults")]
-    async fn handle_retrieve_vault_credential<I>(
+    pub(super) async fn handle_retrieve_vault_credential<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -41806,7 +43671,7 @@ pub mod vaults_api {
     }
 
     #[cfg(feature = "vaults")]
-    async fn handle_rotate_vault_credential<I>(
+    pub(super) async fn handle_rotate_vault_credential<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -41919,7 +43784,7 @@ pub mod vaults_api {
     }
 
     #[cfg(feature = "vaults")]
-    async fn handle_update_vault<I>(
+    pub(super) async fn handle_update_vault<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -42324,7 +44189,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_cancel_vector_store_file_batch<I>(
+    pub(super) async fn handle_cancel_vector_store_file_batch<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -42417,7 +44282,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_create_vector_store<I>(
+    pub(super) async fn handle_create_vector_store<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         body: axum::body::Bytes,
@@ -42509,7 +44374,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_create_vector_store_file<I>(
+    pub(super) async fn handle_create_vector_store_file<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -42619,7 +44484,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_create_vector_store_file_batch<I>(
+    pub(super) async fn handle_create_vector_store_file_batch<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -42717,7 +44582,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_delete_vector_store<I>(
+    pub(super) async fn handle_delete_vector_store<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -42824,7 +44689,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_delete_vector_store_file<I>(
+    pub(super) async fn handle_delete_vector_store_file<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -42912,7 +44777,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_get_vector_store<I>(
+    pub(super) async fn handle_get_vector_store<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -43006,7 +44871,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_get_vector_store_file<I>(
+    pub(super) async fn handle_get_vector_store_file<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -43101,7 +44966,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_get_vector_store_file_batch<I>(
+    pub(super) async fn handle_get_vector_store_file_batch<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -43206,7 +45071,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_list_files_in_vector_store_batch<I>(
+    pub(super) async fn handle_list_files_in_vector_store_batch<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -43317,7 +45182,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_list_vector_store_files<I>(
+    pub(super) async fn handle_list_vector_store_files<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -43418,7 +45283,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_list_vector_stores<I>(
+    pub(super) async fn handle_list_vector_stores<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -43506,7 +45371,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_modify_vector_store<I>(
+    pub(super) async fn handle_modify_vector_store<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -43608,7 +45473,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_retrieve_vector_store_file_content<I>(
+    pub(super) async fn handle_retrieve_vector_store_file_content<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -43703,7 +45568,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_search_vector_store<I>(
+    pub(super) async fn handle_search_vector_store<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -43815,7 +45680,7 @@ pub mod vector_stores_api {
     }
 
     #[cfg(feature = "vectorstore")]
-    async fn handle_update_vector_store_file_attributes<I>(
+    pub(super) async fn handle_update_vector_store_file_attributes<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -44097,7 +45962,7 @@ pub mod videos_api {
         /// `prompt`: Text prompt that describes the video to generate.
         pub prompt: String,
         /// `input_reference`
-        pub input_reference: Option<models::CreateVideoMultipartBodyInputReference>,
+        pub input_reference: Option<CreateVideoInputReference>,
         /// `seconds`
         pub seconds: Option<models::VideoSeconds>,
         /// `size`
@@ -44109,13 +45974,19 @@ pub mod videos_api {
         parts: &[super::FormPart],
     ) -> Result<CreateVideoForm, super::RequestError> {
         Ok(CreateVideoForm {
-            model: super::form_json(parts, "model")?,
+            model: super::form_value(parts, "model", |v| {
+                serde_json::from_value::<models::VideoModel>(serde_json::Value::String(
+                    v.to_owned(),
+                ))
+                .ok()
+                .or_else(|| serde_json::from_str::<models::VideoModel>(v).ok())
+            })?,
             prompt: super::required(
                 "body",
                 "prompt",
                 super::form_value(parts, "prompt", |v| Some(v.to_owned()))?,
             )?,
-            input_reference: super::form_json(parts, "input_reference")?,
+            input_reference: form_create_video_input_reference(parts)?,
             seconds: super::form_value(parts, "seconds", |v| {
                 serde_json::from_value::<models::VideoSeconds>(serde_json::Value::String(
                     v.to_owned(),
@@ -44127,6 +45998,43 @@ pub mod videos_api {
                     .ok()
             })?,
         })
+    }
+
+    /// `input_reference` of the multipart body of [`VideosApi::create_video`]: a file, or a value of one of the other
+    /// variants of its union.
+    #[cfg(feature = "video")]
+    #[derive(Clone, Debug)]
+    pub enum CreateVideoInputReference {
+        /// Optional reference asset upload or reference object that guides generation.
+        Text(super::FilePart),
+        ImageRefParam2(models::ImageRefParam2),
+    }
+
+    #[cfg(feature = "video")]
+    fn form_create_video_input_reference(
+        parts: &[super::FormPart],
+    ) -> Result<Option<CreateVideoInputReference>, super::RequestError> {
+        let files: Vec<&super::FormPart> = parts
+            .iter()
+            .filter(|p| p.file_name.is_some() && p.name == "input_reference")
+            .collect();
+        if !files.is_empty() {
+            return Ok(Some(CreateVideoInputReference::Text(files[0].file())));
+        }
+        let Some(part) = parts
+            .iter()
+            .find(|p| p.name == "input_reference" && p.file_name.is_none())
+        else {
+            return Ok(None);
+        };
+        if let Some(value) = super::part_value::<models::ImageRefParam2>(part) {
+            return Ok(Some(CreateVideoInputReference::ImageRefParam2(value)));
+        }
+        Err(super::RequestError::new(
+            "body",
+            Some("input_reference"),
+            "neither a file nor a value of its union",
+        ))
     }
 
     /// The responses of [`VideosApi::create_video`], one per status the spec declares.
@@ -44180,7 +46088,7 @@ pub mod videos_api {
     }
 
     #[cfg(feature = "video")]
-    async fn handle_create_video<I>(
+    pub(super) async fn handle_create_video<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         request: axum::extract::Request,
@@ -44285,7 +46193,7 @@ pub mod videos_api {
     }
 
     #[cfg(feature = "video")]
-    async fn handle_create_video_character<I>(
+    pub(super) async fn handle_create_video_character<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         request: axum::extract::Request,
@@ -44375,7 +46283,7 @@ pub mod videos_api {
     #[derive(Clone, Debug)]
     pub struct CreateVideoEditForm {
         /// `video`
-        pub video: models::CreateVideoEditMultipartBodyVideo,
+        pub video: CreateVideoEditVideo,
         /// `prompt`: Text prompt that describes how to edit the source video.
         pub prompt: String,
     }
@@ -44385,13 +46293,50 @@ pub mod videos_api {
         parts: &[super::FormPart],
     ) -> Result<CreateVideoEditForm, super::RequestError> {
         Ok(CreateVideoEditForm {
-            video: super::required("body", "video", super::form_json(parts, "video")?)?,
+            video: super::required("body", "video", form_create_video_edit_video(parts)?)?,
             prompt: super::required(
                 "body",
                 "prompt",
                 super::form_value(parts, "prompt", |v| Some(v.to_owned()))?,
             )?,
         })
+    }
+
+    /// `video` of the multipart body of [`VideosApi::create_video_edit`]: a file, or a value of one of the other
+    /// variants of its union.
+    #[cfg(feature = "video")]
+    #[derive(Clone, Debug)]
+    pub enum CreateVideoEditVideo {
+        /// Reference to the completed video to edit.
+        Text(super::FilePart),
+        VideoReferenceInputParam(models::VideoReferenceInputParam),
+    }
+
+    #[cfg(feature = "video")]
+    fn form_create_video_edit_video(
+        parts: &[super::FormPart],
+    ) -> Result<Option<CreateVideoEditVideo>, super::RequestError> {
+        let files: Vec<&super::FormPart> = parts
+            .iter()
+            .filter(|p| p.file_name.is_some() && p.name == "video")
+            .collect();
+        if !files.is_empty() {
+            return Ok(Some(CreateVideoEditVideo::Text(files[0].file())));
+        }
+        let Some(part) = parts
+            .iter()
+            .find(|p| p.name == "video" && p.file_name.is_none())
+        else {
+            return Ok(None);
+        };
+        if let Some(value) = super::part_value::<models::VideoReferenceInputParam>(part) {
+            return Ok(Some(CreateVideoEditVideo::VideoReferenceInputParam(value)));
+        }
+        Err(super::RequestError::new(
+            "body",
+            Some("video"),
+            "neither a file nor a value of its union",
+        ))
     }
 
     /// The responses of [`VideosApi::create_video_edit`], one per status the spec declares.
@@ -44445,7 +46390,7 @@ pub mod videos_api {
     }
 
     #[cfg(feature = "video")]
-    async fn handle_create_video_edit<I>(
+    pub(super) async fn handle_create_video_edit<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         request: axum::extract::Request,
@@ -44529,7 +46474,7 @@ pub mod videos_api {
     #[derive(Clone, Debug)]
     pub struct CreateVideoExtendForm {
         /// `video`
-        pub video: models::CreateVideoExtendMultipartBodyVideo,
+        pub video: CreateVideoExtendVideo,
         /// `prompt`: Updated text prompt that directs the extension generation.
         pub prompt: String,
         /// `seconds`
@@ -44541,7 +46486,7 @@ pub mod videos_api {
         parts: &[super::FormPart],
     ) -> Result<CreateVideoExtendForm, super::RequestError> {
         Ok(CreateVideoExtendForm {
-            video: super::required("body", "video", super::form_json(parts, "video")?)?,
+            video: super::required("body", "video", form_create_video_extend_video(parts)?)?,
             prompt: super::required(
                 "body",
                 "prompt",
@@ -44558,6 +46503,45 @@ pub mod videos_api {
                 })?,
             )?,
         })
+    }
+
+    /// `video` of the multipart body of [`VideosApi::create_video_extend`]: a file, or a value of one of the other
+    /// variants of its union.
+    #[cfg(feature = "video")]
+    #[derive(Clone, Debug)]
+    pub enum CreateVideoExtendVideo {
+        VideoReferenceInputParam(models::VideoReferenceInputParam),
+        /// Reference to the completed video to extend.
+        Text(super::FilePart),
+    }
+
+    #[cfg(feature = "video")]
+    fn form_create_video_extend_video(
+        parts: &[super::FormPart],
+    ) -> Result<Option<CreateVideoExtendVideo>, super::RequestError> {
+        let files: Vec<&super::FormPart> = parts
+            .iter()
+            .filter(|p| p.file_name.is_some() && p.name == "video")
+            .collect();
+        if !files.is_empty() {
+            return Ok(Some(CreateVideoExtendVideo::Text(files[0].file())));
+        }
+        let Some(part) = parts
+            .iter()
+            .find(|p| p.name == "video" && p.file_name.is_none())
+        else {
+            return Ok(None);
+        };
+        if let Some(value) = super::part_value::<models::VideoReferenceInputParam>(part) {
+            return Ok(Some(CreateVideoExtendVideo::VideoReferenceInputParam(
+                value,
+            )));
+        }
+        Err(super::RequestError::new(
+            "body",
+            Some("video"),
+            "neither a file nor a value of its union",
+        ))
     }
 
     /// The responses of [`VideosApi::create_video_extend`], one per status the spec declares.
@@ -44611,7 +46595,7 @@ pub mod videos_api {
     }
 
     #[cfg(feature = "video")]
-    async fn handle_create_video_extend<I>(
+    pub(super) async fn handle_create_video_extend<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         headers: http::HeaderMap,
         request: axum::extract::Request,
@@ -44764,7 +46748,7 @@ pub mod videos_api {
     }
 
     #[cfg(feature = "video")]
-    async fn handle_create_video_remix<I>(
+    pub(super) async fn handle_create_video_remix<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -44858,7 +46842,7 @@ pub mod videos_api {
     }
 
     #[cfg(feature = "video")]
-    async fn handle_delete_video<I>(
+    pub(super) async fn handle_delete_video<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -44940,7 +46924,7 @@ pub mod videos_api {
     }
 
     #[cfg(feature = "video")]
-    async fn handle_get_video<I>(
+    pub(super) async fn handle_get_video<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -45022,7 +47006,7 @@ pub mod videos_api {
     }
 
     #[cfg(feature = "video")]
-    async fn handle_get_video_character<I>(
+    pub(super) async fn handle_get_video_character<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
@@ -45108,7 +47092,7 @@ pub mod videos_api {
     }
 
     #[cfg(feature = "video")]
-    async fn handle_list_videos<I>(
+    pub(super) async fn handle_list_videos<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         axum::extract::RawQuery(query): axum::extract::RawQuery,
         headers: http::HeaderMap,
@@ -45198,7 +47182,7 @@ pub mod videos_api {
     }
 
     #[cfg(feature = "video")]
-    async fn handle_retrieve_video_content<I>(
+    pub(super) async fn handle_retrieve_video_content<I>(
         axum::extract::State(api): axum::extract::State<std::sync::Arc<I>>,
         path: Result<
             axum::extract::Path<std::collections::HashMap<String, String>>,
