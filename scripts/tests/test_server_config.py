@@ -18,7 +18,7 @@ class ServerConfigTests(unittest.TestCase):
 
     def test_the_model_options_are_the_clients(self):
         for key in ("stringIdSchemas", "stringIdProperties", "stringProperties", "optionalProperties",
-                    "fileProperties", "apiFeaturesFile", "webhookModule", "useChrono", "titleNaming"):
+                    "fileProperties", "apiFeaturesFile", "webhookModule", "dateLibrary", "titleNaming"):
             if key in self.client:
                 self.assertEqual(self.server[key], self.client[key], key)
 
