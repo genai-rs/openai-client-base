@@ -1,7 +1,0 @@
-# Hand-maintained files of openai-server-base: the generator writes src/ only.
-Cargo.toml
-README.md
-CHANGELOG.md
-.gitignore
-.travis.yml
-git_push.sh

@@ -13,7 +13,7 @@ pr_branch_prefix = "automated/release-plz/"
 # PR settings
 pr_labels = ["release", "automated"]
 pr_draft = false
-pr_name = "chore: release{% if version %} version {{ version }}{% endif %}"
+pr_name = "chore: release version {{version}}"
 
 # Publishing
 publish = true
@@ -73,15 +73,3 @@ name = "openai-client-base"
 # cargo-semver-checks generates rustdoc JSON, which exceeds standard runner
 # memory for this client. See scripts/README.md for evidence and manual checks.
 semver_check = false
-# The workspace has more than one crate: keep this crate's tags as they were.
-git_tag_name = "v{{ version }}"
-
-[[package]]
-name = "openai-server-base"
-# Generated with the client, and as large: same reason as above.
-semver_check = false
-git_tag_name = "openai-server-base-v{{ version }}"
-
-[[package]]
-name = "openai-mock-server"
-git_tag_name = "openai-mock-server-v{{ version }}"

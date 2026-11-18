@@ -240,7 +240,6 @@ jobs:
             dependencies
           add-paths: |
             src/**
-            openai-server-base/src/**
             docs/**
             README.md
             Cargo.toml

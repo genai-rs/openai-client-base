@@ -12,8 +12,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-# openai-client-base's tags are v<version>; the workspace's other crates tag <crate>-v<version>.
-REF="${1:-$(git -C "$PROJECT_ROOT" describe --tags --abbrev=0 --match 'v[0-9]*')}"
+REF="${1:-$(git -C "$PROJECT_ROOT" describe --tags --abbrev=0)}"
 REPORT_DIR="$PROJECT_ROOT/target/reports"
 REPORT="$REPORT_DIR/public-api-diff.json"
 
