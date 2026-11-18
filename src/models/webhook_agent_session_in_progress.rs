@@ -21,8 +21,8 @@ pub struct WebhookAgentSessionInProgress {
     #[serde(rename = "object")]
     pub object: Object,
     /// The Unix timestamp, in seconds, when the event was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The event type. Always `agent.session.in_progress`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -35,7 +35,7 @@ impl WebhookAgentSessionInProgress {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         r#type: Type,
         data: models::AgentSessionEnvironmentPayloadResource,
     ) -> WebhookAgentSessionInProgress {

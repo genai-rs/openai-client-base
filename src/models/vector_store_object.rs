@@ -21,8 +21,8 @@ pub struct VectorStoreObject {
     #[serde(rename = "object")]
     pub object: Object,
     /// The Unix timestamp (in seconds) for when the vector store was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The name of the vector store.
     #[serde(rename = "name")]
     pub name: String,
@@ -40,13 +40,13 @@ pub struct VectorStoreObject {
     #[serde(
         rename = "expires_at",
         default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::double_option"
     )]
-    pub expires_at: Option<Option<i64>>,
+    pub expires_at: Option<Option<jiff::Timestamp>>,
     /// The Unix timestamp (in seconds) for when the vector store was last active.
-    #[serde(rename = "last_active_at", deserialize_with = "Option::deserialize")]
-    pub last_active_at: Option<i64>,
+    #[serde(rename = "last_active_at", with = "super::unix_time::option")]
+    pub last_active_at: Option<jiff::Timestamp>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
@@ -57,12 +57,12 @@ impl VectorStoreObject {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         name: String,
         usage_bytes: i64,
         file_counts: models::VectorStoreObjectFileCounts,
         status: Status,
-        last_active_at: Option<i64>,
+        last_active_at: Option<jiff::Timestamp>,
         metadata: Option<std::collections::HashMap<String, String>>,
     ) -> VectorStoreObject {
         VectorStoreObject {

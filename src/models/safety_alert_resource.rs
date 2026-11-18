@@ -18,8 +18,8 @@ pub struct SafetyAlertResource {
     /// Defaults to `\"safety.alert\"`.
     #[serde(rename = "object")]
     pub object: Object,
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     #[serde(rename = "request_id")]
     pub request_id: String,
     #[serde(rename = "response_id")]
@@ -48,7 +48,7 @@ impl SafetyAlertResource {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         request_id: String,
         response_id: String,
         model: String,

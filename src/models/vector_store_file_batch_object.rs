@@ -21,8 +21,8 @@ pub struct VectorStoreFileBatchObject {
     #[serde(rename = "object")]
     pub object: Object,
     /// The Unix timestamp (in seconds) for when the vector store files batch was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The ID of the [vector store](https://developers.openai.com/api/reference/resources/vector_stores) that the [File](https://developers.openai.com/api/reference/resources/files) is attached to.
     #[serde(rename = "vector_store_id")]
     pub vector_store_id: String,
@@ -38,7 +38,7 @@ impl VectorStoreFileBatchObject {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         vector_store_id: String,
         status: Status,
         file_counts: models::VectorStoreFileBatchObjectFileCounts,

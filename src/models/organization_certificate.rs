@@ -24,8 +24,8 @@ pub struct OrganizationCertificate {
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
     pub name: Option<String>,
     /// The Unix timestamp (in seconds) of when the certificate was uploaded.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     #[serde(rename = "certificate_details")]
     pub certificate_details: models::OrganizationCertificateCertificateDetails,
     /// Whether the certificate is currently active at the organization level.
@@ -39,7 +39,7 @@ impl OrganizationCertificate {
         object: Object,
         id: String,
         name: Option<String>,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         certificate_details: models::OrganizationCertificateCertificateDetails,
         active: bool,
     ) -> OrganizationCertificate {

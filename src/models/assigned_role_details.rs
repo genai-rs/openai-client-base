@@ -33,11 +33,11 @@ pub struct AssignedRoleDetails {
     #[serde(rename = "description", deserialize_with = "Option::deserialize")]
     pub description: Option<String>,
     /// When the role was created.
-    #[serde(rename = "created_at", deserialize_with = "Option::deserialize")]
-    pub created_at: Option<i64>,
+    #[serde(rename = "created_at", with = "super::unix_time::option")]
+    pub created_at: Option<jiff::Timestamp>,
     /// When the role was last updated.
-    #[serde(rename = "updated_at", deserialize_with = "Option::deserialize")]
-    pub updated_at: Option<i64>,
+    #[serde(rename = "updated_at", with = "super::unix_time::option")]
+    pub updated_at: Option<jiff::Timestamp>,
     /// Identifier of the actor who created the role.
     #[serde(rename = "created_by", deserialize_with = "Option::deserialize")]
     pub created_by: Option<String>,
@@ -67,8 +67,8 @@ impl AssignedRoleDetails {
         resource_type: String,
         predefined_role: bool,
         description: Option<String>,
-        created_at: Option<i64>,
-        updated_at: Option<i64>,
+        created_at: Option<jiff::Timestamp>,
+        updated_at: Option<jiff::Timestamp>,
         created_by: Option<String>,
         created_by_user_obj: Option<std::collections::HashMap<String, serde_json::Value>>,
         metadata: Option<std::collections::HashMap<String, serde_json::Value>>,

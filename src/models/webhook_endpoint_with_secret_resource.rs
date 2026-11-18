@@ -19,11 +19,16 @@ pub struct WebhookEndpointWithSecretResource {
     #[serde(rename = "object")]
     pub object: Object,
     /// The Unix timestamp when the endpoint was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The Unix timestamp of the last endpoint configuration or signing-secret change. Initialized at creation; tests and unchanged updates do not advance it.
-    #[serde(rename = "updated_at", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<i64>,
+    #[serde(
+        rename = "updated_at",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::option"
+    )]
+    pub updated_at: Option<jiff::Timestamp>,
     /// The human-readable name of the endpoint.
     #[serde(rename = "name")]
     pub name: String,
@@ -48,7 +53,7 @@ impl WebhookEndpointWithSecretResource {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         name: String,
         url: String,
         event_types: Vec<String>,

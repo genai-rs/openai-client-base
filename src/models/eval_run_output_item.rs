@@ -27,8 +27,8 @@ pub struct EvalRunOutputItem {
     #[serde(rename = "eval_id")]
     pub eval_id: String,
     /// Unix timestamp (in seconds) when the evaluation run was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The status of the evaluation run.
     #[serde(rename = "status")]
     pub status: String,
@@ -52,7 +52,7 @@ impl EvalRunOutputItem {
         id: String,
         run_id: String,
         eval_id: String,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         status: String,
         datasource_item_id: i64,
         datasource_item: std::collections::HashMap<String, serde_json::Value>,

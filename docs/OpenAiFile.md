@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The file identifier, which can be referenced in the API endpoints. | 
 **bytes** | Option<**i64**> | The size of the file, in bytes. In a completed file upload response, this can be null when the file size is not yet available.  | 
-**created_at** | **i64** | The Unix timestamp (in seconds) for when the file was created. | 
-**expires_at** | Option<**i64**> | The Unix timestamp (in seconds) for when the file will expire. In a completed file upload response, this can be null when no expiry is set.  | [optional]
+**created_at** | **jiff::Timestamp** | The Unix timestamp (in seconds) for when the file was created. | 
+**expires_at** | Option<**jiff::Timestamp**> | The Unix timestamp (in seconds) for when the file will expire. In a completed file upload response, this can be null when no expiry is set.  | [optional]
 **filename** | **String** | The name of the file. | 
 **object** | **Object** | The object type, which is always `file`. (enum: file) | 
 **purpose** | **Purpose** | The intended purpose of the file. Supported values are `assistants`, `assistants_output`, `batch`, `batch_output`, `fine-tune`, `fine-tune-results`, `vision`, and `user_data`. (enum: assistants, assistants_output, batch, batch_output, fine-tune, fine-tune-results, vision, user_data) | 

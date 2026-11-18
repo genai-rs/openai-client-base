@@ -26,8 +26,8 @@ pub struct VoiceConsentResource {
     #[serde(rename = "language")]
     pub language: String,
     /// The Unix timestamp (in seconds) for when the consent recording was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
 }
 
 impl VoiceConsentResource {
@@ -37,7 +37,7 @@ impl VoiceConsentResource {
         id: String,
         name: String,
         language: String,
-        created_at: i64,
+        created_at: jiff::Timestamp,
     ) -> VoiceConsentResource {
         VoiceConsentResource {
             object,

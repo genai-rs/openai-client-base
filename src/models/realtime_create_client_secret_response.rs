@@ -18,8 +18,8 @@ pub struct RealtimeCreateClientSecretResponse {
     #[serde(rename = "value")]
     pub value: String,
     /// Expiration timestamp for the client secret, in seconds since epoch.
-    #[serde(rename = "expires_at")]
-    pub expires_at: i64,
+    #[serde(rename = "expires_at", with = "super::unix_time")]
+    pub expires_at: jiff::Timestamp,
     #[serde(rename = "session")]
     pub session: models::RealtimeCreateClientSecretResponseSession,
 }
@@ -28,7 +28,7 @@ impl RealtimeCreateClientSecretResponse {
     /// Response from creating a session and client secret for the Realtime API.
     pub fn new(
         value: String,
-        expires_at: i64,
+        expires_at: jiff::Timestamp,
         session: models::RealtimeCreateClientSecretResponseSession,
     ) -> RealtimeCreateClientSecretResponse {
         RealtimeCreateClientSecretResponse {

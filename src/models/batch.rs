@@ -57,72 +57,72 @@ pub struct Batch {
     )]
     pub error_file_id: Option<Option<String>>,
     /// The Unix timestamp (in seconds) for when the batch was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The Unix timestamp (in seconds) for when the batch started processing.
     #[serde(
         rename = "in_progress_at",
         default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::double_option"
     )]
-    pub in_progress_at: Option<Option<i64>>,
+    pub in_progress_at: Option<Option<jiff::Timestamp>>,
     /// The Unix timestamp (in seconds) for when the batch will expire.
     #[serde(
         rename = "expires_at",
         default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::double_option"
     )]
-    pub expires_at: Option<Option<i64>>,
+    pub expires_at: Option<Option<jiff::Timestamp>>,
     /// The Unix timestamp (in seconds) for when the batch started finalizing.
     #[serde(
         rename = "finalizing_at",
         default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::double_option"
     )]
-    pub finalizing_at: Option<Option<i64>>,
+    pub finalizing_at: Option<Option<jiff::Timestamp>>,
     /// The Unix timestamp (in seconds) for when the batch was completed.
     #[serde(
         rename = "completed_at",
         default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::double_option"
     )]
-    pub completed_at: Option<Option<i64>>,
+    pub completed_at: Option<Option<jiff::Timestamp>>,
     /// The Unix timestamp (in seconds) for when the batch failed.
     #[serde(
         rename = "failed_at",
         default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::double_option"
     )]
-    pub failed_at: Option<Option<i64>>,
+    pub failed_at: Option<Option<jiff::Timestamp>>,
     /// The Unix timestamp (in seconds) for when the batch expired.
     #[serde(
         rename = "expired_at",
         default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::double_option"
     )]
-    pub expired_at: Option<Option<i64>>,
+    pub expired_at: Option<Option<jiff::Timestamp>>,
     /// The Unix timestamp (in seconds) for when the batch started cancelling.
     #[serde(
         rename = "cancelling_at",
         default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::double_option"
     )]
-    pub cancelling_at: Option<Option<i64>>,
+    pub cancelling_at: Option<Option<jiff::Timestamp>>,
     /// The Unix timestamp (in seconds) for when the batch was cancelled.
     #[serde(
         rename = "cancelled_at",
         default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::double_option"
     )]
-    pub cancelled_at: Option<Option<i64>>,
+    pub cancelled_at: Option<Option<jiff::Timestamp>>,
     #[serde(rename = "request_counts", skip_serializing_if = "Option::is_none")]
     pub request_counts: Option<models::BatchRequestCounts>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
@@ -145,7 +145,7 @@ impl Batch {
         input_file_id: String,
         completion_window: String,
         status: Status,
-        created_at: i64,
+        created_at: jiff::Timestamp,
     ) -> Batch {
         Batch {
             id,

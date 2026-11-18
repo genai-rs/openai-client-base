@@ -21,8 +21,8 @@ pub struct RealtimeTranslationSession {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Expiration timestamp for the session, in seconds since epoch.
-    #[serde(rename = "expires_at")]
-    pub expires_at: i64,
+    #[serde(rename = "expires_at", with = "super::unix_time")]
+    pub expires_at: jiff::Timestamp,
     /// The Realtime translation model used for this session. This field is set at session creation and cannot be changed with `session.update`.
     #[serde(rename = "model")]
     pub model: String,
@@ -35,7 +35,7 @@ impl RealtimeTranslationSession {
     pub fn new(
         id: String,
         r#type: Type,
-        expires_at: i64,
+        expires_at: jiff::Timestamp,
         model: String,
         audio: models::RealtimeTranslationSessionAudio,
     ) -> RealtimeTranslationSession {

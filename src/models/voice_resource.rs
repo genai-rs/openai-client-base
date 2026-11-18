@@ -29,8 +29,8 @@ pub struct VoiceResource {
     #[serde(rename = "name")]
     pub name: String,
     /// The Unix timestamp (in seconds) for when the voice was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
 }
 
 impl VoiceResource {
@@ -40,7 +40,7 @@ impl VoiceResource {
         id: String,
         r#type: Type,
         name: String,
-        created_at: i64,
+        created_at: jiff::Timestamp,
     ) -> VoiceResource {
         VoiceResource {
             object,

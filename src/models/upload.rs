@@ -18,8 +18,8 @@ pub struct Upload {
     #[serde(rename = "id")]
     pub id: String,
     /// The Unix timestamp (in seconds) for when the Upload was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The name of the file to be uploaded.
     #[serde(rename = "filename")]
     pub filename: String,
@@ -33,8 +33,8 @@ pub struct Upload {
     #[serde(rename = "status")]
     pub status: Status,
     /// The Unix timestamp (in seconds) for when the Upload will expire.
-    #[serde(rename = "expires_at")]
-    pub expires_at: i64,
+    #[serde(rename = "expires_at", with = "super::unix_time")]
+    pub expires_at: jiff::Timestamp,
     /// The object type, which is always \"upload\".
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
     pub object: Option<Object>,
@@ -52,12 +52,12 @@ impl Upload {
     /// The Upload object can accept byte chunks in the form of Parts.
     pub fn new(
         id: String,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         filename: String,
         bytes: i64,
         purpose: String,
         status: Status,
-        expires_at: i64,
+        expires_at: jiff::Timestamp,
     ) -> Upload {
         Upload {
             id,

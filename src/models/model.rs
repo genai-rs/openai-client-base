@@ -17,8 +17,8 @@ pub struct Model {
     #[serde(rename = "id")]
     pub id: String,
     /// The Unix timestamp (in seconds) when the model was created.
-    #[serde(rename = "created")]
-    pub created: i64,
+    #[serde(rename = "created", with = "super::unix_time")]
+    pub created: jiff::Timestamp,
     /// The object type, which is always \"model\".
     #[serde(rename = "object")]
     pub object: Object,
@@ -32,12 +32,12 @@ pub struct Model {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub shutdown_date: Option<Option<String>>,
+    pub shutdown_date: Option<Option<jiff::civil::Date>>,
 }
 
 impl Model {
     /// Describes an OpenAI model offering that can be used with the API.
-    pub fn new(id: String, created: i64, object: Object, owned_by: String) -> Model {
+    pub fn new(id: String, created: jiff::Timestamp, object: Object, owned_by: String) -> Model {
         Model {
             id,
             created,

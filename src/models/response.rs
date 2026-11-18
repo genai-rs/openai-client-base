@@ -160,16 +160,16 @@ pub struct Response {
     )]
     pub access_programs: Option<Option<models::AccessProgramsBody>>,
     /// Unix timestamp (in seconds) of when this Response was created.
-    #[serde(rename = "created_at")]
-    pub created_at: f64,
+    #[serde(rename = "created_at", with = "super::unix_time::fractional")]
+    pub created_at: jiff::Timestamp,
     /// Unix timestamp (in seconds) of when this Response was completed. Only present when the status is `completed`.
     #[serde(
         rename = "completed_at",
         default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::fractional::double_option"
     )]
-    pub completed_at: Option<Option<f64>>,
+    pub completed_at: Option<Option<jiff::Timestamp>>,
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
     pub error: Option<models::ResponseError>,
     #[serde(
@@ -254,7 +254,7 @@ impl Response {
         model: String,
         id: String,
         object: Object,
-        created_at: f64,
+        created_at: jiff::Timestamp,
         error: Option<models::ResponseError>,
         incomplete_details: Option<models::ResponseAllOfIncompleteDetails>,
         output: Vec<models::OutputItem>,

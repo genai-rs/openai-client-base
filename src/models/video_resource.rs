@@ -28,14 +28,14 @@ pub struct VideoResource {
     #[serde(rename = "progress")]
     pub progress: i64,
     /// Unix timestamp (seconds) for when the job was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// Unix timestamp (seconds) for when the job completed, if finished.
-    #[serde(rename = "completed_at", deserialize_with = "Option::deserialize")]
-    pub completed_at: Option<i64>,
+    #[serde(rename = "completed_at", with = "super::unix_time::option")]
+    pub completed_at: Option<jiff::Timestamp>,
     /// Unix timestamp (seconds) for when the downloadable assets expire, if set.
-    #[serde(rename = "expires_at", deserialize_with = "Option::deserialize")]
-    pub expires_at: Option<i64>,
+    #[serde(rename = "expires_at", with = "super::unix_time::option")]
+    pub expires_at: Option<jiff::Timestamp>,
     /// The prompt that was used to generate the video.
     #[serde(rename = "prompt", deserialize_with = "Option::deserialize")]
     pub prompt: Option<String>,
@@ -62,9 +62,9 @@ impl VideoResource {
         model: models::VideoModel,
         status: models::VideoStatus,
         progress: i64,
-        created_at: i64,
-        completed_at: Option<i64>,
-        expires_at: Option<i64>,
+        created_at: jiff::Timestamp,
+        completed_at: Option<jiff::Timestamp>,
+        expires_at: Option<jiff::Timestamp>,
         prompt: Option<String>,
         size: models::VideoSize,
         seconds: String,

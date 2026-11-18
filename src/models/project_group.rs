@@ -29,8 +29,8 @@ pub struct ProjectGroup {
     #[serde(rename = "group_type")]
     pub group_type: GroupType,
     /// Unix timestamp (in seconds) when the group was granted project access.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
 }
 
 impl ProjectGroup {
@@ -41,7 +41,7 @@ impl ProjectGroup {
         group_id: String,
         group_name: String,
         group_type: GroupType,
-        created_at: i64,
+        created_at: jiff::Timestamp,
     ) -> ProjectGroup {
         ProjectGroup {
             object,

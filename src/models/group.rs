@@ -23,8 +23,8 @@ pub struct Group {
     #[serde(rename = "name")]
     pub name: String,
     /// Unix timestamp (in seconds) when the group was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// Whether the group is managed through SCIM.
     #[serde(rename = "scim_managed")]
     pub scim_managed: bool,
@@ -36,7 +36,7 @@ impl Group {
         object: Object,
         id: String,
         name: String,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         scim_managed: bool,
     ) -> Group {
         Group {

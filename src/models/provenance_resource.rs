@@ -16,8 +16,8 @@ pub struct ProvenanceResource {
     #[serde(rename = "object")]
     pub object: models::ProvenanceCheckObject,
     /// The Unix timestamp, in seconds, when the provenance check was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The provenance results that apply to the uploaded file. Image results include C2PA and SynthID; audio results include SynthID.
     #[serde(rename = "results")]
     pub results: Vec<models::ProvenanceResourceResultsInner>,
@@ -26,7 +26,7 @@ pub struct ProvenanceResource {
 impl ProvenanceResource {
     pub fn new(
         object: models::ProvenanceCheckObject,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         results: Vec<models::ProvenanceResourceResultsInner>,
     ) -> ProvenanceResource {
         ProvenanceResource {

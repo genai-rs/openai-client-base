@@ -88,8 +88,13 @@ pub struct RealtimeSession {
     )]
     pub max_response_output_tokens: Option<models::RealtimeSessionMaxResponseOutputTokens>,
     /// Expiration timestamp for the session, in seconds since epoch.
-    #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
-    pub expires_at: Option<i64>,
+    #[serde(
+        rename = "expires_at",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::option"
+    )]
+    pub expires_at: Option<jiff::Timestamp>,
     #[serde(
         rename = "prompt",
         default,

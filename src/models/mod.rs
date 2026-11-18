@@ -13164,9 +13164,162 @@ pub use self::workflow_param_state_variables_value::WorkflowParamStateVariablesV
 pub mod workflow_tracing_param;
 #[cfg(feature = "chatkit-types")]
 pub use self::workflow_tracing_param::WorkflowTracingParam;
+pub mod validation;
+
+/// Serde for a Unix timestamp: a [`jiff::Timestamp`] in Rust, a number of seconds since the epoch in JSON.
+///
+/// The generated models name these modules in `#[serde(with = "...")]`, and your own types can too:
+/// `unix_time` for a `Timestamp`, [`unix_time::option`](option) for an `Option<Timestamp>` and
+/// [`unix_time::double_option`](double_option) for an `Option<Option<Timestamp>>` (absent, `null` or a value).
+/// They write whole seconds, as an integer. [`fractional`] has the same three for a JSON `number`, which keeps the
+/// fraction of a second. All of them read an integer or a fraction, and fail on a value that is not a time in
+/// seconds: milliseconds are far outside the years a `Timestamp` holds.
+pub mod unix_time {
+    use serde::{de, Deserialize, Deserializer, Serialize, Serializer};
+
+    fn from_seconds<E: de::Error>(seconds: i64, nanoseconds: i32) -> Result<jiff::Timestamp, E> {
+        jiff::Timestamp::new(seconds, nanoseconds).map_err(|error| {
+            E::custom(format!(
+                "{seconds} is not a Unix timestamp in seconds: {error}"
+            ))
+        })
+    }
+
+    struct Seconds;
+
+    impl de::Visitor<'_> for Seconds {
+        type Value = jiff::Timestamp;
+
+        fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+            formatter.write_str("a Unix timestamp, in seconds")
+        }
+
+        fn visit_i64<E: de::Error>(self, value: i64) -> Result<Self::Value, E> {
+            from_seconds(value, 0)
+        }
+
+        fn visit_u64<E: de::Error>(self, value: u64) -> Result<Self::Value, E> {
+            let seconds = i64::try_from(value)
+                .map_err(|_| E::custom(format!("{value} is not a Unix timestamp in seconds")))?;
+            from_seconds(seconds, 0)
+        }
+
+        fn visit_f64<E: de::Error>(self, value: f64) -> Result<Self::Value, E> {
+            let seconds = value.floor();
+            if !value.is_finite() || seconds < i64::MIN as f64 || seconds > i64::MAX as f64 {
+                return Err(E::custom(format!(
+                    "{value} is not a Unix timestamp in seconds"
+                )));
+            }
+            let nanoseconds = ((value - seconds) * 1e9).round().min(999_999_999.0);
+            from_seconds(seconds as i64, nanoseconds as i32)
+        }
+    }
+
+    /// Whole seconds, as an integer.
+    struct Whole(jiff::Timestamp);
+
+    impl Serialize for Whole {
+        fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+            serializer.serialize_i64(self.0.as_second())
+        }
+    }
+
+    impl<'de> Deserialize<'de> for Whole {
+        fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+            deserializer.deserialize_i64(Seconds).map(Whole)
+        }
+    }
+
+    /// Seconds with their fraction: an integer when there is none.
+    struct Fraction(jiff::Timestamp);
+
+    impl Serialize for Fraction {
+        fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+            match self.0.subsec_nanosecond() {
+                0 => serializer.serialize_i64(self.0.as_second()),
+                nanoseconds => serializer
+                    .serialize_f64(self.0.as_second() as f64 + f64::from(nanoseconds) / 1e9),
+            }
+        }
+    }
+
+    impl<'de> Deserialize<'de> for Fraction {
+        fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+            deserializer.deserialize_f64(Seconds).map(Fraction)
+        }
+    }
+
+    macro_rules! with {
+        ($wire:ident) => {
+            pub fn serialize<S: Serializer>(
+                value: &jiff::Timestamp,
+                serializer: S,
+            ) -> Result<S::Ok, S::Error> {
+                $wire(*value).serialize(serializer)
+            }
+
+            pub fn deserialize<'de, D: Deserializer<'de>>(
+                deserializer: D,
+            ) -> Result<jiff::Timestamp, D::Error> {
+                $wire::deserialize(deserializer).map(|wire| wire.0)
+            }
+
+            /// For an `Option<Timestamp>`: `null` is `None`.
+            pub mod option {
+                use super::$wire;
+                use serde::{Deserialize, Deserializer, Serialize, Serializer};
+
+                pub fn serialize<S: Serializer>(
+                    value: &Option<jiff::Timestamp>,
+                    serializer: S,
+                ) -> Result<S::Ok, S::Error> {
+                    value.map($wire).serialize(serializer)
+                }
+
+                pub fn deserialize<'de, D: Deserializer<'de>>(
+                    deserializer: D,
+                ) -> Result<Option<jiff::Timestamp>, D::Error> {
+                    Ok(Option::<$wire>::deserialize(deserializer)?.map(|wire| wire.0))
+                }
+            }
+
+            /// For an `Option<Option<Timestamp>>` on a field with `#[serde(default)]`: an absent field is `None`,
+            /// `null` is `Some(None)`.
+            pub mod double_option {
+                use super::$wire;
+                use serde::{Deserialize, Deserializer, Serialize, Serializer};
+
+                pub fn serialize<S: Serializer>(
+                    value: &Option<Option<jiff::Timestamp>>,
+                    serializer: S,
+                ) -> Result<S::Ok, S::Error> {
+                    value.flatten().map($wire).serialize(serializer)
+                }
+
+                pub fn deserialize<'de, D: Deserializer<'de>>(
+                    deserializer: D,
+                ) -> Result<Option<Option<jiff::Timestamp>>, D::Error> {
+                    Ok(Some(
+                        Option::<$wire>::deserialize(deserializer)?.map(|wire| wire.0),
+                    ))
+                }
+            }
+        };
+    }
+
+    with!(Whole);
+
+    /// The same for a JSON `number`: the fraction of a second is kept.
+    pub mod fractional {
+        use super::Fraction;
+        use serde::{Deserialize, Deserializer, Serialize, Serializer};
+
+        with!(Fraction);
+    }
+}
 #[allow(dead_code)]
 pub mod parse_enum_error;
 #[allow(dead_code)]
 pub(crate) mod union_dispatch;
-pub mod validation;
 pub use self::parse_enum_error::ParseEnumError;

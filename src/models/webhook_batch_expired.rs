@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookBatchExpired {
     /// The Unix timestamp (in seconds) of when the batch API request expired.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The unique ID of the event.
     #[serde(rename = "id")]
     pub id: String,
@@ -33,7 +33,7 @@ pub struct WebhookBatchExpired {
 impl WebhookBatchExpired {
     /// Sent when a batch API request has expired.
     pub fn new(
-        created_at: i64,
+        created_at: jiff::Timestamp,
         id: String,
         data: models::WebhookBatchFailedData,
         r#type: Type,

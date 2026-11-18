@@ -26,8 +26,8 @@ pub struct ProjectServiceAccount {
     #[serde(rename = "role")]
     pub role: Role,
     /// The Unix timestamp (in seconds) of when the service account was created
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
 }
 
 impl ProjectServiceAccount {
@@ -37,7 +37,7 @@ impl ProjectServiceAccount {
         id: String,
         name: String,
         role: Role,
-        created_at: i64,
+        created_at: jiff::Timestamp,
     ) -> ProjectServiceAccount {
         ProjectServiceAccount {
             object,

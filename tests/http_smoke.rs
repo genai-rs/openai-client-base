@@ -57,7 +57,7 @@ async fn list_models_sends_bearer_and_user_agent_and_parses_body() {
     assert_eq!(response.object, models::list_models_response::Object::List);
     assert_eq!(response.data.len(), 1);
     assert_eq!(response.data[0].id, "gpt-test");
-    assert_eq!(response.data[0].created, 1_686_935_002);
+    assert_eq!(response.data[0].created.as_second(), 1_686_935_002);
     assert_eq!(response.data[0].owned_by, "openai");
 }
 

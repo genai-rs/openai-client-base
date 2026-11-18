@@ -21,8 +21,8 @@ pub struct AssistantObject {
     #[serde(rename = "object")]
     pub object: Object,
     /// The Unix timestamp (in seconds) for when the assistant was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The name of the assistant. The maximum length is 256 characters.
     ///
     /// Validation: `maxLength: 256`.
@@ -90,7 +90,7 @@ impl AssistantObject {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         name: Option<String>,
         description: Option<String>,
         model: String,

@@ -18,16 +18,16 @@ pub struct FineTuningJob {
     #[serde(rename = "id")]
     pub id: String,
     /// The Unix timestamp (in seconds) for when the fine-tuning job was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
     pub error: Option<models::FineTuningJobError>,
     /// The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running.
     #[serde(rename = "fine_tuned_model", deserialize_with = "Option::deserialize")]
     pub fine_tuned_model: Option<String>,
     /// The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running.
-    #[serde(rename = "finished_at", deserialize_with = "Option::deserialize")]
-    pub finished_at: Option<i64>,
+    #[serde(rename = "finished_at", with = "super::unix_time::option")]
+    pub finished_at: Option<jiff::Timestamp>,
     #[serde(
         rename = "hyperparameters",
         default,
@@ -76,10 +76,10 @@ pub struct FineTuningJob {
     #[serde(
         rename = "estimated_finish",
         default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::double_option"
     )]
-    pub estimated_finish: Option<Option<i64>>,
+    pub estimated_finish: Option<Option<jiff::Timestamp>>,
     #[serde(
         rename = "method",
         default,
@@ -101,10 +101,10 @@ impl FineTuningJob {
     /// The `fine_tuning.job` object represents a fine-tuning job that has been created through the API.
     pub fn new(
         id: String,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         error: Option<models::FineTuningJobError>,
         fine_tuned_model: Option<String>,
-        finished_at: Option<i64>,
+        finished_at: Option<jiff::Timestamp>,
         model: String,
         object: Object,
         organization_id: String,

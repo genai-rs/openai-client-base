@@ -22,8 +22,8 @@ pub struct ProjectServiceAccountCreateResponse {
     /// Service accounts created with default project membership have role `member`. Accounts created with `create_service_account_only` have role `none`.
     #[serde(rename = "role")]
     pub role: Role,
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     #[serde(rename = "api_key", deserialize_with = "Option::deserialize")]
     pub api_key: Option<models::ProjectServiceAccountApiKey>,
 }
@@ -34,7 +34,7 @@ impl ProjectServiceAccountCreateResponse {
         id: String,
         name: String,
         role: Role,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         api_key: Option<models::ProjectServiceAccountApiKey>,
     ) -> ProjectServiceAccountCreateResponse {
         ProjectServiceAccountCreateResponse {

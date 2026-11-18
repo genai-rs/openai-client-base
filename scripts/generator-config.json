@@ -1,7 +1,7 @@
 {
   "packageName": "openai-client-base",
   "packageVersion": "0.1.0",
-  "dateLibrary": "string",
+  "dateLibrary": "jiff",
   "titleNaming": false,
   "multipartHelper": true,
   "apiLintAllows": "clippy::into_iter_on_ref",

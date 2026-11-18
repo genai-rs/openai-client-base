@@ -23,8 +23,8 @@ pub struct ImagesResponse {
     )]
     pub safety_identifier: Option<Option<String>>,
     /// The Unix timestamp (in seconds) of when the image was created.
-    #[serde(rename = "created")]
-    pub created: i64,
+    #[serde(rename = "created", with = "super::unix_time")]
+    pub created: jiff::Timestamp,
     /// The list of generated images.
     #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
     pub data: Option<Vec<models::Image>>,
@@ -46,7 +46,7 @@ pub struct ImagesResponse {
 
 impl ImagesResponse {
     /// The response from the image generation endpoint.
-    pub fn new(created: i64) -> ImagesResponse {
+    pub fn new(created: jiff::Timestamp) -> ImagesResponse {
         ImagesResponse {
             safety_identifier: None,
             created,

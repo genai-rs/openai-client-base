@@ -20,8 +20,8 @@ pub struct FineTuningJobEvent {
     #[serde(rename = "id")]
     pub id: String,
     /// The Unix timestamp (in seconds) for when the fine-tuning job was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The log level of the event.
     #[serde(rename = "level")]
     pub level: Level,
@@ -46,7 +46,7 @@ impl FineTuningJobEvent {
     pub fn new(
         object: Object,
         id: String,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         level: Level,
         message: String,
     ) -> FineTuningJobEvent {

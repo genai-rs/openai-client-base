@@ -17,8 +17,8 @@ pub struct UploadPart {
     #[serde(rename = "id")]
     pub id: String,
     /// The Unix timestamp (in seconds) for when the Part was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The ID of the Upload object that this Part was added to.
     #[serde(rename = "upload_id")]
     pub upload_id: String,
@@ -29,7 +29,12 @@ pub struct UploadPart {
 
 impl UploadPart {
     /// The upload Part represents a chunk of bytes we can add to an Upload object.
-    pub fn new(id: String, created_at: i64, upload_id: String, object: Object) -> UploadPart {
+    pub fn new(
+        id: String,
+        created_at: jiff::Timestamp,
+        upload_id: String,
+        object: Object,
+    ) -> UploadPart {
         UploadPart {
             id,
             created_at,

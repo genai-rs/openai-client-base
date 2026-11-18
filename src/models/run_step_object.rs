@@ -21,8 +21,8 @@ pub struct RunStepObject {
     #[serde(rename = "object")]
     pub object: Object,
     /// The Unix timestamp (in seconds) for when the run step was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) associated with the run step.
     #[serde(rename = "assistant_id")]
     pub assistant_id: String,
@@ -43,17 +43,17 @@ pub struct RunStepObject {
     #[serde(rename = "last_error", deserialize_with = "Option::deserialize")]
     pub last_error: Option<models::RunStepObjectLastError>,
     /// The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired.
-    #[serde(rename = "expired_at", deserialize_with = "Option::deserialize")]
-    pub expired_at: Option<i64>,
+    #[serde(rename = "expired_at", with = "super::unix_time::option")]
+    pub expired_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) for when the run step was cancelled.
-    #[serde(rename = "cancelled_at", deserialize_with = "Option::deserialize")]
-    pub cancelled_at: Option<i64>,
+    #[serde(rename = "cancelled_at", with = "super::unix_time::option")]
+    pub cancelled_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) for when the run step failed.
-    #[serde(rename = "failed_at", deserialize_with = "Option::deserialize")]
-    pub failed_at: Option<i64>,
+    #[serde(rename = "failed_at", with = "super::unix_time::option")]
+    pub failed_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) for when the run step completed.
-    #[serde(rename = "completed_at", deserialize_with = "Option::deserialize")]
-    pub completed_at: Option<i64>,
+    #[serde(rename = "completed_at", with = "super::unix_time::option")]
+    pub completed_at: Option<jiff::Timestamp>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
@@ -66,7 +66,7 @@ impl RunStepObject {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         assistant_id: String,
         thread_id: String,
         run_id: String,
@@ -74,10 +74,10 @@ impl RunStepObject {
         status: Status,
         step_details: models::RunStepObjectStepDetails,
         last_error: Option<models::RunStepObjectLastError>,
-        expired_at: Option<i64>,
-        cancelled_at: Option<i64>,
-        failed_at: Option<i64>,
-        completed_at: Option<i64>,
+        expired_at: Option<jiff::Timestamp>,
+        cancelled_at: Option<jiff::Timestamp>,
+        failed_at: Option<jiff::Timestamp>,
+        completed_at: Option<jiff::Timestamp>,
         metadata: Option<std::collections::HashMap<String, String>>,
         usage: Option<models::RunStepCompletionUsage>,
     ) -> RunStepObject {

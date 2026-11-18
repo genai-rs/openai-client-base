@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookRealtimeCallIncoming {
     /// The Unix timestamp (in seconds) of when the model response was completed.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The unique ID of the event.
     #[serde(rename = "id")]
     pub id: String,
@@ -33,7 +33,7 @@ pub struct WebhookRealtimeCallIncoming {
 impl WebhookRealtimeCallIncoming {
     /// Sent when an incoming API SIP session is available for Realtime acceptance. The same pending session can also emit `live.transport.incoming`; the first successful Realtime or Live accept endpoint selects the runtime surface.
     pub fn new(
-        created_at: i64,
+        created_at: jiff::Timestamp,
         id: String,
         data: models::WebhookRealtimeCallIncomingData,
         r#type: Type,

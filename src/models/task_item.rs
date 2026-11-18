@@ -21,8 +21,8 @@ pub struct TaskItem {
     #[serde(rename = "object")]
     pub object: Object,
     /// Unix timestamp (in seconds) for when the item was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// Identifier of the parent thread.
     #[serde(rename = "thread_id")]
     pub thread_id: String,
@@ -44,7 +44,7 @@ impl TaskItem {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         thread_id: String,
         r#type: Type,
         task_type: models::TaskType,
