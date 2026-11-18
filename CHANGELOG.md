@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.34.3](https://github.com/genai-rs/openai-client-base/compare/v0.34.2...v0.34.3) - 2026-11-18
+
+### Added
+
+- openai-server-base and openai-mock-server
+
+### Fixed
+
+- *(release)* name the release PR when several crates release together
+
 ## [0.34.2](https://github.com/genai-rs/openai-client-base/compare/v0.34.1...v0.34.2) - 2026-11-17
 
 ### Other
