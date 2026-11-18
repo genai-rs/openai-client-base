@@ -1,6 +1,6 @@
 {
   "source_heads": {
-    "reference": "git:v0.34.3",
+    "reference": "git:v0.34.4",
     "candidate": "working-tree"
   },
   "method": "Source declaration census of public model exports, struct fields, enum variants (names and tuple/struct payloads, generic enums such as apis::Error<T> included), function signatures, and hand-written trait impls (e.g. From) on public types, plus derive and serde-field-attribute differences. This is not an exhaustive Rust public API or semver check: it does not expand derives or macros, resolve blanket impls, or resolve every visibility/re-export interaction.",

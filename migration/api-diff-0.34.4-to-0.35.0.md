@@ -3,7 +3,7 @@
 This release generates with `timvw-rust` 0.38.1 (runtime 0.4, unchanged) and `dateLibrary=jiff`. Every model field
 the spec marks `format: unixtime` is a [`jiff::Timestamp`](https://docs.rs/jiff/latest/jiff/struct.Timestamp.html)
 instead of an `i64` (or an `f64`, on `Response`), and `Model.shutdown_date` is a `jiff::civil::Date` instead of a
-`String`. The JSON is unchanged: a number of seconds. The census is `api-diff-0.34.3-to-0.35.0.json`.
+`String`. The JSON is unchanged: a number of seconds. The census is `api-diff-0.34.4-to-0.35.0.json`.
 
 ## What changes
 

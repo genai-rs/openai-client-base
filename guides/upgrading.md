@@ -7,7 +7,7 @@ every release.
 
 - **0.35** (timvw-rust 0.38.1, runtime 0.4): every field the spec marks `format: unixtime` (`created_at`, `created`,
   `expires_at`, ...) is a `jiff::Timestamp` instead of an `i64`, and `Model.shutdown_date` is a `jiff::civil::Date`.
-  The JSON is unchanged. See [`api-diff-0.34.3-to-0.35.0.md`](../migration/api-diff-0.34.3-to-0.35.0.md).
+  The JSON is unchanged. See [`api-diff-0.34.4-to-0.35.0.md`](../migration/api-diff-0.34.4-to-0.35.0.md).
 - **0.34.1** (timvw-rust 0.30.2, runtime 0.4): additive. Every operation with a response body gains an
   `<operation>_response` function that returns an `ApiResponse<T>` with the status, the headers and the body, and the
   spec's declared headers are typed (`<Operation>ErrorHeaders`). See
