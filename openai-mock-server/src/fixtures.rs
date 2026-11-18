@@ -158,6 +158,11 @@ pub fn response_function_call(name: &str, arguments: Value) -> Value {
     )
 }
 
+/// The answer to `delete_response`.
+pub fn response_deleted(id: &str) -> Value {
+    json!({"id": id, "object": "response", "deleted": true})
+}
+
 /// The events of a streamed response: `response.created`, an `output_text.delta` per piece of `parts`,
 /// `output_text.done` and `response.completed`.
 pub fn response_events(parts: &[&str]) -> Vec<Value> {
@@ -371,6 +376,7 @@ mod tests {
         for event in response_events(&["Hel", "lo"]) {
             decodes::<models::ResponseStreamEvent>(event);
         }
+        decodes::<models::DeleteResponse200Response>(response_deleted("resp_mock"));
         decodes::<models::CreateEmbeddingResponse>(embeddings(&[&[0.1, 0.2]]));
         decodes::<models::Model>(model("gpt-4o"));
         decodes::<models::ListModelsResponse>(models(&["gpt-4o", "gpt-4o-mini"]));
