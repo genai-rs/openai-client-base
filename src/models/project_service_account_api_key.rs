@@ -19,16 +19,16 @@ pub struct ProjectServiceAccountApiKey {
     pub value: String,
     #[serde(rename = "name")]
     pub name: String,
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The Unix timestamp (in seconds) when the API key expires, or null if it does not expire.
     #[serde(
         rename = "expires_at",
         default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::double_option"
     )]
-    pub expires_at: Option<Option<i64>>,
+    pub expires_at: Option<Option<jiff::Timestamp>>,
     #[serde(rename = "id")]
     pub id: String,
 }
@@ -38,7 +38,7 @@ impl ProjectServiceAccountApiKey {
         object: Object,
         value: String,
         name: String,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         id: String,
     ) -> ProjectServiceAccountApiKey {
         ProjectServiceAccountApiKey {

@@ -19,12 +19,16 @@ pub struct WebhookAgentSessionEnvelope {
     #[serde(rename = "object")]
     pub object: Object,
     /// The Unix timestamp, in seconds, when the event was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
 }
 
 impl WebhookAgentSessionEnvelope {
-    pub fn new(id: String, object: Object, created_at: i64) -> WebhookAgentSessionEnvelope {
+    pub fn new(
+        id: String,
+        object: Object,
+        created_at: jiff::Timestamp,
+    ) -> WebhookAgentSessionEnvelope {
         WebhookAgentSessionEnvelope {
             id,
             object,

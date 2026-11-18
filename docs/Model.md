@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The model identifier, which can be referenced in the API endpoints. | 
-**created** | **i64** | The Unix timestamp (in seconds) when the model was created. | 
+**created** | **jiff::Timestamp** | The Unix timestamp (in seconds) when the model was created. | 
 **object** | **Object** | The object type, which is always \"model\". (enum: model) | 
 **owned_by** | **String** | The organization that owns the model. | 
-**shutdown_date** | Option<**String**> | The date when the model will shut down, or null if not announced. | [optional]
+**shutdown_date** | Option<**jiff::civil::Date**> | The date when the model will shut down, or null if not announced. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

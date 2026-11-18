@@ -1,0 +1,3762 @@
+{
+  "source_heads": {
+    "reference": "git:v0.34.3",
+    "candidate": "working-tree"
+  },
+  "method": "Source declaration census of public model exports, struct fields, enum variants (names and tuple/struct payloads, generic enums such as apis::Error<T> included), function signatures, and hand-written trait impls (e.g. From) on public types, plus derive and serde-field-attribute differences. This is not an exhaustive Rust public API or semver check: it does not expand derives or macros, resolve blanket impls, or resolve every visibility/re-export interaction.",
+  "registry_source_rs_files": 3192,
+  "current_source_rs_files": 3192,
+  "source_files_added": [],
+  "source_files_removed": [],
+  "source_files_modified": [
+    "models/admin_api_key.rs",
+    "models/admin_api_key_create_response.rs",
+    "models/admin_api_key_owner.rs",
+    "models/assigned_role_details.rs",
+    "models/assistant_message_item.rs",
+    "models/assistant_object.rs",
+    "models/audit_log.rs",
+    "models/batch.rs",
+    "models/beta_compact_resource.rs",
+    "models/beta_response.rs",
+    "models/certificate.rs",
+    "models/certificate_certificate_details.rs",
+    "models/chat_completion_response_message_audio.rs",
+    "models/chat_completion_stream_response_delta_audio.rs",
+    "models/chat_session_resource.rs",
+    "models/client_tool_call_item.rs",
+    "models/compact_resource.rs",
+    "models/container_file_resource.rs",
+    "models/container_resource.rs",
+    "models/conversation_resource.rs",
+    "models/create_chat_completion_response.rs",
+    "models/create_chat_completion_stream_response.rs",
+    "models/create_completion_response.rs",
+    "models/eval.rs",
+    "models/eval_run.rs",
+    "models/eval_run_output_item.rs",
+    "models/external_storage_response.rs",
+    "models/fine_tuning_checkpoint_permission.rs",
+    "models/fine_tuning_job.rs",
+    "models/fine_tuning_job_checkpoint.rs",
+    "models/fine_tuning_job_event.rs",
+    "models/group.rs",
+    "models/group_resource_with_success.rs",
+    "models/group_response.rs",
+    "models/image_edit_completed_event.rs",
+    "models/image_edit_partial_image_event.rs",
+    "models/image_gen_completed_event.rs",
+    "models/image_gen_partial_image_event.rs",
+    "models/images_response.rs",
+    "models/invite.rs",
+    "models/message_object.rs",
+    "models/mod.rs",
+    "models/model.rs",
+    "models/open_ai_file.rs",
+    "models/organization_certificate.rs",
+    "models/organization_certificate_certificate_details.rs",
+    "models/organization_project_certificate.rs",
+    "models/organization_project_certificate_certificate_details.rs",
+    "models/project.rs",
+    "models/project_api_key.rs",
+    "models/project_api_key_owner_service_account.rs",
+    "models/project_api_key_owner_user.rs",
+    "models/project_group.rs",
+    "models/project_service_account.rs",
+    "models/project_service_account_api_key.rs",
+    "models/project_service_account_create_response.rs",
+    "models/project_user.rs",
+    "models/provenance_resource.rs",
+    "models/realtime_create_client_secret_response.rs",
+    "models/realtime_session.rs",
+    "models/realtime_session_create_request_client_secret.rs",
+    "models/realtime_session_create_response.rs",
+    "models/realtime_session_create_response_ga.rs",
+    "models/realtime_transcription_session_create_response_client_secret.rs",
+    "models/realtime_transcription_session_create_response_ga.rs",
+    "models/realtime_translation_client_secret_create_response.rs",
+    "models/realtime_translation_session.rs",
+    "models/response.rs",
+    "models/run_object.rs",
+    "models/run_step_object.rs",
+    "models/safety_alert_resource.rs",
+    "models/safety_case_resource.rs",
+    "models/service_account_api_key_body.rs",
+    "models/skill_resource.rs",
+    "models/skill_version_resource.rs",
+    "models/task_group_item.rs",
+    "models/task_item.rs",
+    "models/thread_object.rs",
+    "models/thread_resource.rs",
+    "models/upload.rs",
+    "models/upload_part.rs",
+    "models/user.rs",
+    "models/user_message_item.rs",
+    "models/user_user.rs",
+    "models/vector_store_file_batch_object.rs",
+    "models/vector_store_file_object.rs",
+    "models/vector_store_object.rs",
+    "models/video_character_resource.rs",
+    "models/video_resource.rs",
+    "models/voice_consent_resource.rs",
+    "models/voice_resource.rs",
+    "models/webhook_agent_environment_expired.rs",
+    "models/webhook_agent_environment_failed.rs",
+    "models/webhook_agent_environment_ready.rs",
+    "models/webhook_agent_environment_suspended.rs",
+    "models/webhook_agent_session_action_required.rs",
+    "models/webhook_agent_session_created.rs",
+    "models/webhook_agent_session_envelope.rs",
+    "models/webhook_agent_session_failed.rs",
+    "models/webhook_agent_session_idle.rs",
+    "models/webhook_agent_session_in_progress.rs",
+    "models/webhook_batch_cancelled.rs",
+    "models/webhook_batch_completed.rs",
+    "models/webhook_batch_expired.rs",
+    "models/webhook_batch_failed.rs",
+    "models/webhook_endpoint_body.rs",
+    "models/webhook_endpoint_with_secret_resource.rs",
+    "models/webhook_eval_run_canceled.rs",
+    "models/webhook_eval_run_failed.rs",
+    "models/webhook_eval_run_succeeded.rs",
+    "models/webhook_fine_tuning_job_cancelled.rs",
+    "models/webhook_fine_tuning_job_failed.rs",
+    "models/webhook_fine_tuning_job_succeeded.rs",
+    "models/webhook_live_call_incoming.rs",
+    "models/webhook_live_transport_connected.rs",
+    "models/webhook_live_transport_incoming.rs",
+    "models/webhook_realtime_call_incoming.rs",
+    "models/webhook_response_cancelled.rs",
+    "models/webhook_response_completed.rs",
+    "models/webhook_response_failed.rs",
+    "models/webhook_response_incomplete.rs",
+    "models/webhook_safety_alert_created.rs",
+    "models/webhook_safety_deactivation_issued.rs",
+    "models/webhook_safety_org_alert_created.rs",
+    "models/webhook_safety_warning_issued.rs",
+    "models/widget_message_item.rs"
+  ],
+  "model_exports_added": [],
+  "model_exports_removed": [],
+  "public_functions_added_or_signature_changed": [
+    {
+      "file": "models/admin_api_key.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, redacted_value: String, created_at: jiff::Timestamp, expires_at: Option<jiff::Timestamp>, owner: models::AdminApiKeyOwner, ) -> AdminApiKey"
+    },
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, redacted_value: String, created_at: jiff::Timestamp, expires_at: Option<jiff::Timestamp>, owner: models::AdminApiKeyOwner, value: String, ) -> AdminApiKeyCreateResponse"
+    },
+    {
+      "file": "models/assigned_role_details.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, name: String, permissions: Vec<String>, resource_type: String, predefined_role: bool, description: Option<String>, created_at: Option<jiff::Timestamp>, updated_at: Option<jiff::Timestamp>, created_by: Option<String>, created_by_user_obj: Option<std::collections::HashMap<String, serde_json::Value>>, metadata: Option<std::collections::HashMap<String, serde_json::Value>>, assignment_sources: Option<Vec<models::AssignedRoleDetailsAssignmentSourcesInner>>, ) -> AssignedRoleDetails"
+    },
+    {
+      "file": "models/assistant_message_item.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, thread_id: String, r#type: Type, content: Vec<models::ResponseOutputText>, ) -> AssistantMessageItem"
+    },
+    {
+      "file": "models/assistant_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, name: Option<String>, description: Option<String>, model: String, instructions: Option<String>, tools: Vec<models::AssistantObjectToolsInner>, metadata: Option<std::collections::HashMap<String, String>>, ) -> AssistantObject"
+    },
+    {
+      "file": "models/audit_log.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, r#type: models::AuditLogEventType, effective_at: jiff::Timestamp, ) -> AuditLog"
+    },
+    {
+      "file": "models/batch.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, endpoint: String, input_file_id: String, completion_window: String, status: Status, created_at: jiff::Timestamp, ) -> Batch"
+    },
+    {
+      "file": "models/beta_compact_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, output: Vec<models::BetaItemField>, created_at: jiff::Timestamp, usage: models::BetaResponseUsage, ) -> BetaCompactResource"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "name": "new",
+      "signature": "pub fn new( model: String, id: String, object: Object, created_at: jiff::Timestamp, error: Option<models::BetaResponseError>, incomplete_details: Option<models::BetaResponseAllOfIncompleteDetails>, output: Vec<models::BetaOutputItem>, instructions: Option<models::BetaResponseAllOfInstructions>, parallel_tool_calls: bool, ) -> BetaResponse"
+    },
+    {
+      "file": "models/certificate.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: Option<String>, created_at: jiff::Timestamp, certificate_details: models::CertificateCertificateDetails, ) -> Certificate"
+    },
+    {
+      "file": "models/chat_completion_response_message_audio.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, expires_at: jiff::Timestamp, data: String, transcript: String, ) -> ChatCompletionResponseMessageAudio"
+    },
+    {
+      "file": "models/chat_session_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, expires_at: jiff::Timestamp, client_secret: String, workflow: models::ChatkitWorkflow, user: String, rate_limits: models::ChatSessionRateLimits, max_requests_per_1_minute: i64, status: models::ChatSessionStatus, chatkit_configuration: models::ChatSessionChatkitConfiguration, ) -> ChatSessionResource"
+    },
+    {
+      "file": "models/client_tool_call_item.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, thread_id: String, r#type: Type, status: models::ClientToolCallStatus, call_id: String, name: String, arguments: String, output: Option<String>, ) -> ClientToolCallItem"
+    },
+    {
+      "file": "models/compact_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, output: Vec<models::ItemField>, created_at: jiff::Timestamp, usage: models::ResponseUsage, ) -> CompactResource"
+    },
+    {
+      "file": "models/container_file_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: String, container_id: String, created_at: jiff::Timestamp, bytes: i64, path: String, source: String, ) -> ContainerFileResource"
+    },
+    {
+      "file": "models/container_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: String, name: String, created_at: jiff::Timestamp, status: String, ) -> ContainerResource"
+    },
+    {
+      "file": "models/conversation_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, metadata: std::collections::HashMap<String, String>, created_at: jiff::Timestamp, ) -> ConversationResource"
+    },
+    {
+      "file": "models/create_chat_completion_response.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, choices: Vec<models::CreateChatCompletionResponseChoicesInner>, created: jiff::Timestamp, model: String, object: Object, ) -> CreateChatCompletionResponse"
+    },
+    {
+      "file": "models/create_chat_completion_stream_response.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, choices: Vec<models::CreateChatCompletionStreamResponseChoicesInner>, created: jiff::Timestamp, model: String, object: Object, ) -> CreateChatCompletionStreamResponse"
+    },
+    {
+      "file": "models/create_completion_response.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, choices: Vec<models::CreateCompletionResponseChoicesInner>, created: jiff::Timestamp, model: String, object: Object, ) -> CreateCompletionResponse"
+    },
+    {
+      "file": "models/eval.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: String, data_source_config: models::EvalDataSourceConfig, testing_criteria: Vec<models::EvalTestingCriteriaInner>, created_at: jiff::Timestamp, metadata: Option<std::collections::HashMap<String, String>>, ) -> Eval"
+    },
+    {
+      "file": "models/eval_run.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, eval_id: String, status: String, model: Option<String>, name: Option<String>, created_at: jiff::Timestamp, report_url: String, result_counts: models::EvalRunResultCounts, per_model_usage: Option<Vec<models::EvalRunPerModelUsageInner>>, per_testing_criteria_results: Option<Vec<models::EvalRunPerTestingCriteriaResultsInner>>, data_source: models::EvalRunDataSource, metadata: Option<std::collections::HashMap<String, String>>, error: Option<models::EvalApiError>, ) -> EvalRun"
+    },
+    {
+      "file": "models/eval_run_output_item.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, run_id: String, eval_id: String, created_at: jiff::Timestamp, status: String, datasource_item_id: i64, datasource_item: std::collections::HashMap<String, serde_json::Value>, results: Vec<models::EvalRunOutputItemResult>, sample: models::EvalRunOutputItemSample, ) -> EvalRunOutputItem"
+    },
+    {
+      "file": "models/external_storage_response.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, project_id: String, provider: models::ExternalStorageResponseProvider, geography: String, status: models::ExternalStorageStatus, created_at: jiff::Timestamp, ) -> ExternalStorageResponse"
+    },
+    {
+      "file": "models/fine_tuning_checkpoint_permission.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, created_at: jiff::Timestamp, project_id: String, object: Object, ) -> FineTuningCheckpointPermission"
+    },
+    {
+      "file": "models/fine_tuning_job.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, created_at: jiff::Timestamp, error: Option<models::FineTuningJobError>, fine_tuned_model: Option<String>, finished_at: Option<jiff::Timestamp>, model: String, object: Object, organization_id: String, result_files: Vec<String>, status: Status, trained_tokens: Option<i64>, training_file: String, validation_file: Option<String>, seed: Option<i64>, ) -> FineTuningJob"
+    },
+    {
+      "file": "models/fine_tuning_job_checkpoint.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, created_at: jiff::Timestamp, fine_tuned_model_checkpoint: String, step_number: i64, metrics: models::FineTuningJobCheckpointMetrics, fine_tuning_job_id: String, object: Object, ) -> FineTuningJobCheckpoint"
+    },
+    {
+      "file": "models/fine_tuning_job_event.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, created_at: jiff::Timestamp, level: Level, message: String, ) -> FineTuningJobEvent"
+    },
+    {
+      "file": "models/group.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: String, created_at: jiff::Timestamp, scim_managed: bool, ) -> Group"
+    },
+    {
+      "file": "models/group_resource_with_success.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, name: String, created_at: jiff::Timestamp, is_scim_managed: bool, ) -> GroupResourceWithSuccess"
+    },
+    {
+      "file": "models/group_response.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, name: String, created_at: jiff::Timestamp, is_scim_managed: bool, group_type: GroupType, ) -> GroupResponse"
+    },
+    {
+      "file": "models/image_edit_completed_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, b64_json: String, created_at: jiff::Timestamp, size: models::ImageEditCompletedEventSize, quality: Quality, background: Background, output_format: OutputFormat, usage: models::ImagesUsage, ) -> ImageEditCompletedEvent"
+    },
+    {
+      "file": "models/image_edit_partial_image_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, b64_json: String, created_at: jiff::Timestamp, size: models::ImageEditPartialImageEventSize, quality: Quality, background: Background, output_format: OutputFormat, partial_image_index: i64, ) -> ImageEditPartialImageEvent"
+    },
+    {
+      "file": "models/image_gen_completed_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, b64_json: String, created_at: jiff::Timestamp, size: models::ImageGenCompletedEventSize, quality: Quality, background: Background, output_format: OutputFormat, usage: models::ImagesUsage, ) -> ImageGenCompletedEvent"
+    },
+    {
+      "file": "models/image_gen_partial_image_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, b64_json: String, created_at: jiff::Timestamp, size: models::ImageGenPartialImageEventSize, quality: Quality, background: Background, output_format: OutputFormat, partial_image_index: i64, ) -> ImageGenPartialImageEvent"
+    },
+    {
+      "file": "models/images_response.rs",
+      "name": "new",
+      "signature": "pub fn new(created: jiff::Timestamp) -> ImagesResponse"
+    },
+    {
+      "file": "models/invite.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, email: String, role: Role, status: Status, created_at: jiff::Timestamp, projects: Vec<models::InviteProjectsInner>, ) -> Invite"
+    },
+    {
+      "file": "models/message_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, thread_id: String, status: Status, incomplete_details: Option<models::MessageObjectIncompleteDetails>, completed_at: Option<jiff::Timestamp>, incomplete_at: Option<jiff::Timestamp>, role: Role, content: Vec<models::MessageObjectContentInner>, assistant_id: Option<String>, run_id: Option<String>, attachments: Option<Vec<models::MessageObjectAttachmentsInner>>, metadata: Option<std::collections::HashMap<String, String>>, ) -> MessageObject"
+    },
+    {
+      "file": "models/model.rs",
+      "name": "new",
+      "signature": "pub fn new(id: String, created: jiff::Timestamp, object: Object, owned_by: String) -> Model"
+    },
+    {
+      "file": "models/open_ai_file.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, bytes: Option<i64>, created_at: jiff::Timestamp, filename: String, object: Object, purpose: Purpose, status: Status, ) -> OpenAiFile"
+    },
+    {
+      "file": "models/organization_certificate.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: Option<String>, created_at: jiff::Timestamp, certificate_details: models::OrganizationCertificateCertificateDetails, active: bool, ) -> OrganizationCertificate"
+    },
+    {
+      "file": "models/organization_project_certificate.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: Option<String>, created_at: jiff::Timestamp, certificate_details: models::OrganizationProjectCertificateCertificateDetails, active: bool, ) -> OrganizationProjectCertificate"
+    },
+    {
+      "file": "models/project.rs",
+      "name": "new",
+      "signature": "pub fn new(id: String, object: Object, created_at: jiff::Timestamp) -> Project"
+    },
+    {
+      "file": "models/project_api_key.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, redacted_value: String, name: String, created_at: jiff::Timestamp, last_used_at: Option<jiff::Timestamp>, id: String, owner_project_access: OwnerProjectAccess, owner: models::ProjectApiKeyOwner, ) -> ProjectApiKey"
+    },
+    {
+      "file": "models/project_api_key_owner_service_account.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, name: String, created_at: jiff::Timestamp, role: String, ) -> ProjectApiKeyOwnerServiceAccount"
+    },
+    {
+      "file": "models/project_api_key_owner_user.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, email: String, name: String, created_at: jiff::Timestamp, role: String, ) -> ProjectApiKeyOwnerUser"
+    },
+    {
+      "file": "models/project_group.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, project_id: String, group_id: String, group_name: String, group_type: GroupType, created_at: jiff::Timestamp, ) -> ProjectGroup"
+    },
+    {
+      "file": "models/project_service_account.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: String, role: Role, created_at: jiff::Timestamp, ) -> ProjectServiceAccount"
+    },
+    {
+      "file": "models/project_service_account_api_key.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, value: String, name: String, created_at: jiff::Timestamp, id: String, ) -> ProjectServiceAccountApiKey"
+    },
+    {
+      "file": "models/project_service_account_create_response.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: String, role: Role, created_at: jiff::Timestamp, api_key: Option<models::ProjectServiceAccountApiKey>, ) -> ProjectServiceAccountCreateResponse"
+    },
+    {
+      "file": "models/project_user.rs",
+      "name": "new",
+      "signature": "pub fn new(object: Object, id: String, role: String, added_at: jiff::Timestamp) -> ProjectUser"
+    },
+    {
+      "file": "models/provenance_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( object: models::ProvenanceCheckObject, created_at: jiff::Timestamp, results: Vec<models::ProvenanceResourceResultsInner>, ) -> ProvenanceResource"
+    },
+    {
+      "file": "models/realtime_create_client_secret_response.rs",
+      "name": "new",
+      "signature": "pub fn new( value: String, expires_at: jiff::Timestamp, session: models::RealtimeCreateClientSecretResponseSession, ) -> RealtimeCreateClientSecretResponse"
+    },
+    {
+      "file": "models/realtime_session_create_request_client_secret.rs",
+      "name": "new",
+      "signature": "pub fn new( value: String, expires_at: jiff::Timestamp, ) -> RealtimeSessionCreateRequestClientSecret"
+    },
+    {
+      "file": "models/realtime_transcription_session_create_response_client_secret.rs",
+      "name": "new",
+      "signature": "pub fn new( value: String, expires_at: jiff::Timestamp, ) -> RealtimeTranscriptionSessionCreateResponseClientSecret"
+    },
+    {
+      "file": "models/realtime_translation_client_secret_create_response.rs",
+      "name": "new",
+      "signature": "pub fn new( value: String, expires_at: jiff::Timestamp, session: models::RealtimeTranslationSession, ) -> RealtimeTranslationClientSecretCreateResponse"
+    },
+    {
+      "file": "models/realtime_translation_session.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, r#type: Type, expires_at: jiff::Timestamp, model: String, audio: models::RealtimeTranslationSessionAudio, ) -> RealtimeTranslationSession"
+    },
+    {
+      "file": "models/response.rs",
+      "name": "new",
+      "signature": "pub fn new( model: String, id: String, object: Object, created_at: jiff::Timestamp, error: Option<models::ResponseError>, incomplete_details: Option<models::ResponseAllOfIncompleteDetails>, output: Vec<models::OutputItem>, instructions: Option<models::ResponseAllOfInstructions>, parallel_tool_calls: bool, ) -> Response"
+    },
+    {
+      "file": "models/run_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, thread_id: String, assistant_id: String, status: Status, required_action: Option<models::RunObjectRequiredAction>, last_error: Option<models::RunObjectLastError>, expires_at: Option<jiff::Timestamp>, started_at: Option<jiff::Timestamp>, cancelled_at: Option<jiff::Timestamp>, failed_at: Option<jiff::Timestamp>, completed_at: Option<jiff::Timestamp>, incomplete_details: Option<models::RunObjectIncompleteDetails>, model: String, instructions: String, tools: Vec<models::RunObjectToolsInner>, metadata: Option<std::collections::HashMap<String, String>>, usage: Option<models::RunCompletionUsage>, max_prompt_tokens: Option<i64>, max_completion_tokens: Option<i64>, truncation_strategy: Option<models::TruncationObject>, tool_choice: Option<models::AssistantsApiToolChoiceOption>, parallel_tool_calls: bool, response_format: Option<models::AssistantsApiResponseFormatOption>, ) -> RunObject"
+    },
+    {
+      "file": "models/run_step_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, assistant_id: String, thread_id: String, run_id: String, r#type: Type, status: Status, step_details: models::RunStepObjectStepDetails, last_error: Option<models::RunStepObjectLastError>, expired_at: Option<jiff::Timestamp>, cancelled_at: Option<jiff::Timestamp>, failed_at: Option<jiff::Timestamp>, completed_at: Option<jiff::Timestamp>, metadata: Option<std::collections::HashMap<String, String>>, usage: Option<models::RunStepCompletionUsage>, ) -> RunStepObject"
+    },
+    {
+      "file": "models/safety_alert_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, request_id: String, response_id: String, model: String, request_paused: bool, error_type: models::SafetyAlertErrorType, reason: Option<String>, ) -> SafetyAlertResource"
+    },
+    {
+      "file": "models/safety_case_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, entity_identifier: String, reason: Option<String>, notice: models::SafetyCaseNotice, ) -> SafetyCaseResource"
+    },
+    {
+      "file": "models/service_account_api_key_body.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, value: String, name: String, created_at: jiff::Timestamp, id: String, ) -> ServiceAccountApiKeyBody"
+    },
+    {
+      "file": "models/skill_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, name: String, description: String, created_at: jiff::Timestamp, default_version: String, latest_version: String, ) -> SkillResource"
+    },
+    {
+      "file": "models/skill_version_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, skill_id: String, version: String, created_at: jiff::Timestamp, name: String, description: String, ) -> SkillVersionResource"
+    },
+    {
+      "file": "models/task_group_item.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, thread_id: String, r#type: Type, tasks: Vec<models::TaskGroupTask>, ) -> TaskGroupItem"
+    },
+    {
+      "file": "models/task_item.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, thread_id: String, r#type: Type, task_type: models::TaskType, heading: Option<String>, summary: Option<String>, ) -> TaskItem"
+    },
+    {
+      "file": "models/thread_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, tool_resources: Option<models::ThreadObjectToolResources>, metadata: Option<std::collections::HashMap<String, String>>, ) -> ThreadObject"
+    },
+    {
+      "file": "models/thread_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, title: Option<String>, status: models::ThreadResourceStatus, user: String, ) -> ThreadResource"
+    },
+    {
+      "file": "models/upload.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, created_at: jiff::Timestamp, filename: String, bytes: i64, purpose: String, status: Status, expires_at: jiff::Timestamp, ) -> Upload"
+    },
+    {
+      "file": "models/upload_part.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, created_at: jiff::Timestamp, upload_id: String, object: Object, ) -> UploadPart"
+    },
+    {
+      "file": "models/user.rs",
+      "name": "new",
+      "signature": "pub fn new(object: Object, id: String, added_at: jiff::Timestamp) -> User"
+    },
+    {
+      "file": "models/user_message_item.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, thread_id: String, r#type: Type, content: Vec<models::UserMessageItemContentInner>, attachments: Vec<models::Attachment>, inference_options: Option<models::InferenceOptions>, ) -> UserMessageItem"
+    },
+    {
+      "file": "models/vector_store_file_batch_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, vector_store_id: String, status: Status, file_counts: models::VectorStoreFileBatchObjectFileCounts, ) -> VectorStoreFileBatchObject"
+    },
+    {
+      "file": "models/vector_store_file_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, usage_bytes: i64, created_at: jiff::Timestamp, vector_store_id: String, status: Status, last_error: Option<models::VectorStoreFileObjectLastError>, ) -> VectorStoreFileObject"
+    },
+    {
+      "file": "models/vector_store_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, name: String, usage_bytes: i64, file_counts: models::VectorStoreObjectFileCounts, status: Status, last_active_at: Option<jiff::Timestamp>, metadata: Option<std::collections::HashMap<String, String>>, ) -> VectorStoreObject"
+    },
+    {
+      "file": "models/video_character_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: Option<String>, name: Option<String>, created_at: jiff::Timestamp, ) -> VideoCharacterResource"
+    },
+    {
+      "file": "models/video_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, model: models::VideoModel, status: models::VideoStatus, progress: i64, created_at: jiff::Timestamp, completed_at: Option<jiff::Timestamp>, expires_at: Option<jiff::Timestamp>, prompt: Option<String>, size: models::VideoSize, seconds: String, remixed_from_video_id: Option<String>, error: Option<models::Error2>, ) -> VideoResource"
+    },
+    {
+      "file": "models/voice_consent_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: String, language: String, created_at: jiff::Timestamp, ) -> VoiceConsentResource"
+    },
+    {
+      "file": "models/voice_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, r#type: Type, name: String, created_at: jiff::Timestamp, ) -> VoiceResource"
+    },
+    {
+      "file": "models/webhook_agent_environment_expired.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, r#type: Type, data: models::AgentEnvironmentEvent, ) -> WebhookAgentEnvironmentExpired"
+    },
+    {
+      "file": "models/webhook_agent_environment_failed.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, r#type: Type, data: models::AgentEnvironmentEvent, ) -> WebhookAgentEnvironmentFailed"
+    },
+    {
+      "file": "models/webhook_agent_environment_ready.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, r#type: Type, data: models::AgentEnvironmentEvent, ) -> WebhookAgentEnvironmentReady"
+    },
+    {
+      "file": "models/webhook_agent_environment_suspended.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, r#type: Type, data: models::AgentEnvironmentEvent, ) -> WebhookAgentEnvironmentSuspended"
+    },
+    {
+      "file": "models/webhook_agent_session_action_required.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, r#type: Type, data: models::AgentSessionActionRequiredPayloadResource, ) -> WebhookAgentSessionActionRequired"
+    },
+    {
+      "file": "models/webhook_agent_session_created.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, r#type: Type, data: models::AgentSessionCreatedPayloadResource, ) -> WebhookAgentSessionCreated"
+    },
+    {
+      "file": "models/webhook_agent_session_envelope.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, ) -> WebhookAgentSessionEnvelope"
+    },
+    {
+      "file": "models/webhook_agent_session_failed.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, r#type: Type, data: models::AgentSessionEnvironmentPayloadResource, ) -> WebhookAgentSessionFailed"
+    },
+    {
+      "file": "models/webhook_agent_session_idle.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, r#type: Type, data: models::AgentSessionEnvironmentPayloadResource, ) -> WebhookAgentSessionIdle"
+    },
+    {
+      "file": "models/webhook_agent_session_in_progress.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, r#type: Type, data: models::AgentSessionEnvironmentPayloadResource, ) -> WebhookAgentSessionInProgress"
+    },
+    {
+      "file": "models/webhook_batch_cancelled.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookBatchFailedData, r#type: Type, ) -> WebhookBatchCancelled"
+    },
+    {
+      "file": "models/webhook_batch_completed.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookBatchFailedData, r#type: Type, ) -> WebhookBatchCompleted"
+    },
+    {
+      "file": "models/webhook_batch_expired.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookBatchFailedData, r#type: Type, ) -> WebhookBatchExpired"
+    },
+    {
+      "file": "models/webhook_batch_failed.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookBatchFailedData, r#type: Type, ) -> WebhookBatchFailed"
+    },
+    {
+      "file": "models/webhook_endpoint_body.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, name: String, url: String, event_types: Vec<String>, signing_secret_hint: Option<String>, ) -> WebhookEndpointBody"
+    },
+    {
+      "file": "models/webhook_endpoint_with_secret_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, name: String, url: String, event_types: Vec<String>, signing_secret_hint: Option<String>, signing_secret: String, ) -> WebhookEndpointWithSecretResource"
+    },
+    {
+      "file": "models/webhook_eval_run_canceled.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookEvalRunFailedData, r#type: Type, ) -> WebhookEvalRunCanceled"
+    },
+    {
+      "file": "models/webhook_eval_run_failed.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookEvalRunFailedData, r#type: Type, ) -> WebhookEvalRunFailed"
+    },
+    {
+      "file": "models/webhook_eval_run_succeeded.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookEvalRunFailedData, r#type: Type, ) -> WebhookEvalRunSucceeded"
+    },
+    {
+      "file": "models/webhook_fine_tuning_job_cancelled.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookFineTuningJobFailedData, r#type: Type, ) -> WebhookFineTuningJobCancelled"
+    },
+    {
+      "file": "models/webhook_fine_tuning_job_failed.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookFineTuningJobFailedData, r#type: Type, ) -> WebhookFineTuningJobFailed"
+    },
+    {
+      "file": "models/webhook_fine_tuning_job_succeeded.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookFineTuningJobFailedData, r#type: Type, ) -> WebhookFineTuningJobSucceeded"
+    },
+    {
+      "file": "models/webhook_live_call_incoming.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookLiveCallIncomingData, r#type: Type, ) -> WebhookLiveCallIncoming"
+    },
+    {
+      "file": "models/webhook_live_transport_connected.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, r#type: Type, data: models::WebhookLiveTransportConnectedData, ) -> WebhookLiveTransportConnected"
+    },
+    {
+      "file": "models/webhook_live_transport_incoming.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookLiveTransportIncomingData, r#type: Type, ) -> WebhookLiveTransportIncoming"
+    },
+    {
+      "file": "models/webhook_realtime_call_incoming.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookRealtimeCallIncomingData, r#type: Type, ) -> WebhookRealtimeCallIncoming"
+    },
+    {
+      "file": "models/webhook_response_cancelled.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookResponseFailedData, r#type: Type, ) -> WebhookResponseCancelled"
+    },
+    {
+      "file": "models/webhook_response_completed.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookResponseFailedData, r#type: Type, ) -> WebhookResponseCompleted"
+    },
+    {
+      "file": "models/webhook_response_failed.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookResponseFailedData, r#type: Type, ) -> WebhookResponseFailed"
+    },
+    {
+      "file": "models/webhook_response_incomplete.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: jiff::Timestamp, id: String, data: models::WebhookResponseFailedData, r#type: Type, ) -> WebhookResponseIncomplete"
+    },
+    {
+      "file": "models/webhook_safety_alert_created.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, r#type: Type, data: models::WebhookSafetyAlertCreatedData, ) -> WebhookSafetyAlertCreated"
+    },
+    {
+      "file": "models/webhook_safety_deactivation_issued.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, r#type: Type, data: models::WebhookSafetyDeactivationIssuedData, ) -> WebhookSafetyDeactivationIssued"
+    },
+    {
+      "file": "models/webhook_safety_org_alert_created.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, r#type: Type, data: models::WebhookSafetyOrgAlertCreatedData, ) -> WebhookSafetyOrgAlertCreated"
+    },
+    {
+      "file": "models/webhook_safety_warning_issued.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, r#type: Type, data: models::WebhookSafetyWarningIssuedData, ) -> WebhookSafetyWarningIssued"
+    },
+    {
+      "file": "models/widget_message_item.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: jiff::Timestamp, thread_id: String, r#type: Type, widget: String, ) -> WidgetMessageItem"
+    }
+  ],
+  "public_functions_removed_or_signature_changed": [
+    {
+      "file": "models/admin_api_key.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, redacted_value: String, created_at: i64, expires_at: Option<i64>, owner: models::AdminApiKeyOwner, ) -> AdminApiKey"
+    },
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, redacted_value: String, created_at: i64, expires_at: Option<i64>, owner: models::AdminApiKeyOwner, value: String, ) -> AdminApiKeyCreateResponse"
+    },
+    {
+      "file": "models/assigned_role_details.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, name: String, permissions: Vec<String>, resource_type: String, predefined_role: bool, description: Option<String>, created_at: Option<i64>, updated_at: Option<i64>, created_by: Option<String>, created_by_user_obj: Option<std::collections::HashMap<String, serde_json::Value>>, metadata: Option<std::collections::HashMap<String, serde_json::Value>>, assignment_sources: Option<Vec<models::AssignedRoleDetailsAssignmentSourcesInner>>, ) -> AssignedRoleDetails"
+    },
+    {
+      "file": "models/assistant_message_item.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, thread_id: String, r#type: Type, content: Vec<models::ResponseOutputText>, ) -> AssistantMessageItem"
+    },
+    {
+      "file": "models/assistant_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, name: Option<String>, description: Option<String>, model: String, instructions: Option<String>, tools: Vec<models::AssistantObjectToolsInner>, metadata: Option<std::collections::HashMap<String, String>>, ) -> AssistantObject"
+    },
+    {
+      "file": "models/audit_log.rs",
+      "name": "new",
+      "signature": "pub fn new(id: String, r#type: models::AuditLogEventType, effective_at: i64) -> AuditLog"
+    },
+    {
+      "file": "models/batch.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, endpoint: String, input_file_id: String, completion_window: String, status: Status, created_at: i64, ) -> Batch"
+    },
+    {
+      "file": "models/beta_compact_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, output: Vec<models::BetaItemField>, created_at: i64, usage: models::BetaResponseUsage, ) -> BetaCompactResource"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "name": "new",
+      "signature": "pub fn new( model: String, id: String, object: Object, created_at: f64, error: Option<models::BetaResponseError>, incomplete_details: Option<models::BetaResponseAllOfIncompleteDetails>, output: Vec<models::BetaOutputItem>, instructions: Option<models::BetaResponseAllOfInstructions>, parallel_tool_calls: bool, ) -> BetaResponse"
+    },
+    {
+      "file": "models/certificate.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: Option<String>, created_at: i64, certificate_details: models::CertificateCertificateDetails, ) -> Certificate"
+    },
+    {
+      "file": "models/chat_completion_response_message_audio.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, expires_at: i64, data: String, transcript: String, ) -> ChatCompletionResponseMessageAudio"
+    },
+    {
+      "file": "models/chat_session_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, expires_at: i64, client_secret: String, workflow: models::ChatkitWorkflow, user: String, rate_limits: models::ChatSessionRateLimits, max_requests_per_1_minute: i64, status: models::ChatSessionStatus, chatkit_configuration: models::ChatSessionChatkitConfiguration, ) -> ChatSessionResource"
+    },
+    {
+      "file": "models/client_tool_call_item.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, thread_id: String, r#type: Type, status: models::ClientToolCallStatus, call_id: String, name: String, arguments: String, output: Option<String>, ) -> ClientToolCallItem"
+    },
+    {
+      "file": "models/compact_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, output: Vec<models::ItemField>, created_at: i64, usage: models::ResponseUsage, ) -> CompactResource"
+    },
+    {
+      "file": "models/container_file_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: String, container_id: String, created_at: i64, bytes: i64, path: String, source: String, ) -> ContainerFileResource"
+    },
+    {
+      "file": "models/container_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: String, name: String, created_at: i64, status: String, ) -> ContainerResource"
+    },
+    {
+      "file": "models/conversation_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, metadata: std::collections::HashMap<String, String>, created_at: i64, ) -> ConversationResource"
+    },
+    {
+      "file": "models/create_chat_completion_response.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, choices: Vec<models::CreateChatCompletionResponseChoicesInner>, created: i64, model: String, object: Object, ) -> CreateChatCompletionResponse"
+    },
+    {
+      "file": "models/create_chat_completion_stream_response.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, choices: Vec<models::CreateChatCompletionStreamResponseChoicesInner>, created: i64, model: String, object: Object, ) -> CreateChatCompletionStreamResponse"
+    },
+    {
+      "file": "models/create_completion_response.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, choices: Vec<models::CreateCompletionResponseChoicesInner>, created: i64, model: String, object: Object, ) -> CreateCompletionResponse"
+    },
+    {
+      "file": "models/eval.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: String, data_source_config: models::EvalDataSourceConfig, testing_criteria: Vec<models::EvalTestingCriteriaInner>, created_at: i64, metadata: Option<std::collections::HashMap<String, String>>, ) -> Eval"
+    },
+    {
+      "file": "models/eval_run.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, eval_id: String, status: String, model: Option<String>, name: Option<String>, created_at: i64, report_url: String, result_counts: models::EvalRunResultCounts, per_model_usage: Option<Vec<models::EvalRunPerModelUsageInner>>, per_testing_criteria_results: Option<Vec<models::EvalRunPerTestingCriteriaResultsInner>>, data_source: models::EvalRunDataSource, metadata: Option<std::collections::HashMap<String, String>>, error: Option<models::EvalApiError>, ) -> EvalRun"
+    },
+    {
+      "file": "models/eval_run_output_item.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, run_id: String, eval_id: String, created_at: i64, status: String, datasource_item_id: i64, datasource_item: std::collections::HashMap<String, serde_json::Value>, results: Vec<models::EvalRunOutputItemResult>, sample: models::EvalRunOutputItemSample, ) -> EvalRunOutputItem"
+    },
+    {
+      "file": "models/external_storage_response.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, project_id: String, provider: models::ExternalStorageResponseProvider, geography: String, status: models::ExternalStorageStatus, created_at: i64, ) -> ExternalStorageResponse"
+    },
+    {
+      "file": "models/fine_tuning_checkpoint_permission.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, created_at: i64, project_id: String, object: Object, ) -> FineTuningCheckpointPermission"
+    },
+    {
+      "file": "models/fine_tuning_job.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, created_at: i64, error: Option<models::FineTuningJobError>, fine_tuned_model: Option<String>, finished_at: Option<i64>, model: String, object: Object, organization_id: String, result_files: Vec<String>, status: Status, trained_tokens: Option<i64>, training_file: String, validation_file: Option<String>, seed: Option<i64>, ) -> FineTuningJob"
+    },
+    {
+      "file": "models/fine_tuning_job_checkpoint.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, created_at: i64, fine_tuned_model_checkpoint: String, step_number: i64, metrics: models::FineTuningJobCheckpointMetrics, fine_tuning_job_id: String, object: Object, ) -> FineTuningJobCheckpoint"
+    },
+    {
+      "file": "models/fine_tuning_job_event.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, created_at: i64, level: Level, message: String, ) -> FineTuningJobEvent"
+    },
+    {
+      "file": "models/group.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: String, created_at: i64, scim_managed: bool, ) -> Group"
+    },
+    {
+      "file": "models/group_resource_with_success.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, name: String, created_at: i64, is_scim_managed: bool, ) -> GroupResourceWithSuccess"
+    },
+    {
+      "file": "models/group_response.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, name: String, created_at: i64, is_scim_managed: bool, group_type: GroupType, ) -> GroupResponse"
+    },
+    {
+      "file": "models/image_edit_completed_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, b64_json: String, created_at: i64, size: models::ImageEditCompletedEventSize, quality: Quality, background: Background, output_format: OutputFormat, usage: models::ImagesUsage, ) -> ImageEditCompletedEvent"
+    },
+    {
+      "file": "models/image_edit_partial_image_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, b64_json: String, created_at: i64, size: models::ImageEditPartialImageEventSize, quality: Quality, background: Background, output_format: OutputFormat, partial_image_index: i64, ) -> ImageEditPartialImageEvent"
+    },
+    {
+      "file": "models/image_gen_completed_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, b64_json: String, created_at: i64, size: models::ImageGenCompletedEventSize, quality: Quality, background: Background, output_format: OutputFormat, usage: models::ImagesUsage, ) -> ImageGenCompletedEvent"
+    },
+    {
+      "file": "models/image_gen_partial_image_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, b64_json: String, created_at: i64, size: models::ImageGenPartialImageEventSize, quality: Quality, background: Background, output_format: OutputFormat, partial_image_index: i64, ) -> ImageGenPartialImageEvent"
+    },
+    {
+      "file": "models/images_response.rs",
+      "name": "new",
+      "signature": "pub fn new(created: i64) -> ImagesResponse"
+    },
+    {
+      "file": "models/invite.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, email: String, role: Role, status: Status, created_at: i64, projects: Vec<models::InviteProjectsInner>, ) -> Invite"
+    },
+    {
+      "file": "models/message_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, thread_id: String, status: Status, incomplete_details: Option<models::MessageObjectIncompleteDetails>, completed_at: Option<i64>, incomplete_at: Option<i64>, role: Role, content: Vec<models::MessageObjectContentInner>, assistant_id: Option<String>, run_id: Option<String>, attachments: Option<Vec<models::MessageObjectAttachmentsInner>>, metadata: Option<std::collections::HashMap<String, String>>, ) -> MessageObject"
+    },
+    {
+      "file": "models/model.rs",
+      "name": "new",
+      "signature": "pub fn new(id: String, created: i64, object: Object, owned_by: String) -> Model"
+    },
+    {
+      "file": "models/open_ai_file.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, bytes: Option<i64>, created_at: i64, filename: String, object: Object, purpose: Purpose, status: Status, ) -> OpenAiFile"
+    },
+    {
+      "file": "models/organization_certificate.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: Option<String>, created_at: i64, certificate_details: models::OrganizationCertificateCertificateDetails, active: bool, ) -> OrganizationCertificate"
+    },
+    {
+      "file": "models/organization_project_certificate.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: Option<String>, created_at: i64, certificate_details: models::OrganizationProjectCertificateCertificateDetails, active: bool, ) -> OrganizationProjectCertificate"
+    },
+    {
+      "file": "models/project.rs",
+      "name": "new",
+      "signature": "pub fn new(id: String, object: Object, created_at: i64) -> Project"
+    },
+    {
+      "file": "models/project_api_key.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, redacted_value: String, name: String, created_at: i64, last_used_at: Option<i64>, id: String, owner_project_access: OwnerProjectAccess, owner: models::ProjectApiKeyOwner, ) -> ProjectApiKey"
+    },
+    {
+      "file": "models/project_api_key_owner_service_account.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, name: String, created_at: i64, role: String, ) -> ProjectApiKeyOwnerServiceAccount"
+    },
+    {
+      "file": "models/project_api_key_owner_user.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, email: String, name: String, created_at: i64, role: String, ) -> ProjectApiKeyOwnerUser"
+    },
+    {
+      "file": "models/project_group.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, project_id: String, group_id: String, group_name: String, group_type: GroupType, created_at: i64, ) -> ProjectGroup"
+    },
+    {
+      "file": "models/project_service_account.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: String, role: Role, created_at: i64, ) -> ProjectServiceAccount"
+    },
+    {
+      "file": "models/project_service_account_api_key.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, value: String, name: String, created_at: i64, id: String, ) -> ProjectServiceAccountApiKey"
+    },
+    {
+      "file": "models/project_service_account_create_response.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: String, role: Role, created_at: i64, api_key: Option<models::ProjectServiceAccountApiKey>, ) -> ProjectServiceAccountCreateResponse"
+    },
+    {
+      "file": "models/project_user.rs",
+      "name": "new",
+      "signature": "pub fn new(object: Object, id: String, role: String, added_at: i64) -> ProjectUser"
+    },
+    {
+      "file": "models/provenance_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( object: models::ProvenanceCheckObject, created_at: i64, results: Vec<models::ProvenanceResourceResultsInner>, ) -> ProvenanceResource"
+    },
+    {
+      "file": "models/realtime_create_client_secret_response.rs",
+      "name": "new",
+      "signature": "pub fn new( value: String, expires_at: i64, session: models::RealtimeCreateClientSecretResponseSession, ) -> RealtimeCreateClientSecretResponse"
+    },
+    {
+      "file": "models/realtime_session_create_request_client_secret.rs",
+      "name": "new",
+      "signature": "pub fn new(value: String, expires_at: i64) -> RealtimeSessionCreateRequestClientSecret"
+    },
+    {
+      "file": "models/realtime_transcription_session_create_response_client_secret.rs",
+      "name": "new",
+      "signature": "pub fn new( value: String, expires_at: i64, ) -> RealtimeTranscriptionSessionCreateResponseClientSecret"
+    },
+    {
+      "file": "models/realtime_translation_client_secret_create_response.rs",
+      "name": "new",
+      "signature": "pub fn new( value: String, expires_at: i64, session: models::RealtimeTranslationSession, ) -> RealtimeTranslationClientSecretCreateResponse"
+    },
+    {
+      "file": "models/realtime_translation_session.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, r#type: Type, expires_at: i64, model: String, audio: models::RealtimeTranslationSessionAudio, ) -> RealtimeTranslationSession"
+    },
+    {
+      "file": "models/response.rs",
+      "name": "new",
+      "signature": "pub fn new( model: String, id: String, object: Object, created_at: f64, error: Option<models::ResponseError>, incomplete_details: Option<models::ResponseAllOfIncompleteDetails>, output: Vec<models::OutputItem>, instructions: Option<models::ResponseAllOfInstructions>, parallel_tool_calls: bool, ) -> Response"
+    },
+    {
+      "file": "models/run_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, thread_id: String, assistant_id: String, status: Status, required_action: Option<models::RunObjectRequiredAction>, last_error: Option<models::RunObjectLastError>, expires_at: Option<i64>, started_at: Option<i64>, cancelled_at: Option<i64>, failed_at: Option<i64>, completed_at: Option<i64>, incomplete_details: Option<models::RunObjectIncompleteDetails>, model: String, instructions: String, tools: Vec<models::RunObjectToolsInner>, metadata: Option<std::collections::HashMap<String, String>>, usage: Option<models::RunCompletionUsage>, max_prompt_tokens: Option<i64>, max_completion_tokens: Option<i64>, truncation_strategy: Option<models::TruncationObject>, tool_choice: Option<models::AssistantsApiToolChoiceOption>, parallel_tool_calls: bool, response_format: Option<models::AssistantsApiResponseFormatOption>, ) -> RunObject"
+    },
+    {
+      "file": "models/run_step_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, assistant_id: String, thread_id: String, run_id: String, r#type: Type, status: Status, step_details: models::RunStepObjectStepDetails, last_error: Option<models::RunStepObjectLastError>, expired_at: Option<i64>, cancelled_at: Option<i64>, failed_at: Option<i64>, completed_at: Option<i64>, metadata: Option<std::collections::HashMap<String, String>>, usage: Option<models::RunStepCompletionUsage>, ) -> RunStepObject"
+    },
+    {
+      "file": "models/safety_alert_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, request_id: String, response_id: String, model: String, request_paused: bool, error_type: models::SafetyAlertErrorType, reason: Option<String>, ) -> SafetyAlertResource"
+    },
+    {
+      "file": "models/safety_case_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, entity_identifier: String, reason: Option<String>, notice: models::SafetyCaseNotice, ) -> SafetyCaseResource"
+    },
+    {
+      "file": "models/service_account_api_key_body.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, value: String, name: String, created_at: i64, id: String, ) -> ServiceAccountApiKeyBody"
+    },
+    {
+      "file": "models/skill_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, name: String, description: String, created_at: i64, default_version: String, latest_version: String, ) -> SkillResource"
+    },
+    {
+      "file": "models/skill_version_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, skill_id: String, version: String, created_at: i64, name: String, description: String, ) -> SkillVersionResource"
+    },
+    {
+      "file": "models/task_group_item.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, thread_id: String, r#type: Type, tasks: Vec<models::TaskGroupTask>, ) -> TaskGroupItem"
+    },
+    {
+      "file": "models/task_item.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, thread_id: String, r#type: Type, task_type: models::TaskType, heading: Option<String>, summary: Option<String>, ) -> TaskItem"
+    },
+    {
+      "file": "models/thread_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, tool_resources: Option<models::ThreadObjectToolResources>, metadata: Option<std::collections::HashMap<String, String>>, ) -> ThreadObject"
+    },
+    {
+      "file": "models/thread_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, title: Option<String>, status: models::ThreadResourceStatus, user: String, ) -> ThreadResource"
+    },
+    {
+      "file": "models/upload.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, created_at: i64, filename: String, bytes: i64, purpose: String, status: Status, expires_at: i64, ) -> Upload"
+    },
+    {
+      "file": "models/upload_part.rs",
+      "name": "new",
+      "signature": "pub fn new(id: String, created_at: i64, upload_id: String, object: Object) -> UploadPart"
+    },
+    {
+      "file": "models/user.rs",
+      "name": "new",
+      "signature": "pub fn new(object: Object, id: String, added_at: i64) -> User"
+    },
+    {
+      "file": "models/user_message_item.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, thread_id: String, r#type: Type, content: Vec<models::UserMessageItemContentInner>, attachments: Vec<models::Attachment>, inference_options: Option<models::InferenceOptions>, ) -> UserMessageItem"
+    },
+    {
+      "file": "models/vector_store_file_batch_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, vector_store_id: String, status: Status, file_counts: models::VectorStoreFileBatchObjectFileCounts, ) -> VectorStoreFileBatchObject"
+    },
+    {
+      "file": "models/vector_store_file_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, usage_bytes: i64, created_at: i64, vector_store_id: String, status: Status, last_error: Option<models::VectorStoreFileObjectLastError>, ) -> VectorStoreFileObject"
+    },
+    {
+      "file": "models/vector_store_object.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, name: String, usage_bytes: i64, file_counts: models::VectorStoreObjectFileCounts, status: Status, last_active_at: Option<i64>, metadata: Option<std::collections::HashMap<String, String>>, ) -> VectorStoreObject"
+    },
+    {
+      "file": "models/video_character_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: Option<String>, name: Option<String>, created_at: i64, ) -> VideoCharacterResource"
+    },
+    {
+      "file": "models/video_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, model: models::VideoModel, status: models::VideoStatus, progress: i64, created_at: i64, completed_at: Option<i64>, expires_at: Option<i64>, prompt: Option<String>, size: models::VideoSize, seconds: String, remixed_from_video_id: Option<String>, error: Option<models::Error2>, ) -> VideoResource"
+    },
+    {
+      "file": "models/voice_consent_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, name: String, language: String, created_at: i64, ) -> VoiceConsentResource"
+    },
+    {
+      "file": "models/voice_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, r#type: Type, name: String, created_at: i64, ) -> VoiceResource"
+    },
+    {
+      "file": "models/webhook_agent_environment_expired.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, r#type: Type, data: models::AgentEnvironmentEvent, ) -> WebhookAgentEnvironmentExpired"
+    },
+    {
+      "file": "models/webhook_agent_environment_failed.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, r#type: Type, data: models::AgentEnvironmentEvent, ) -> WebhookAgentEnvironmentFailed"
+    },
+    {
+      "file": "models/webhook_agent_environment_ready.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, r#type: Type, data: models::AgentEnvironmentEvent, ) -> WebhookAgentEnvironmentReady"
+    },
+    {
+      "file": "models/webhook_agent_environment_suspended.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, r#type: Type, data: models::AgentEnvironmentEvent, ) -> WebhookAgentEnvironmentSuspended"
+    },
+    {
+      "file": "models/webhook_agent_session_action_required.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, r#type: Type, data: models::AgentSessionActionRequiredPayloadResource, ) -> WebhookAgentSessionActionRequired"
+    },
+    {
+      "file": "models/webhook_agent_session_created.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, r#type: Type, data: models::AgentSessionCreatedPayloadResource, ) -> WebhookAgentSessionCreated"
+    },
+    {
+      "file": "models/webhook_agent_session_envelope.rs",
+      "name": "new",
+      "signature": "pub fn new(id: String, object: Object, created_at: i64) -> WebhookAgentSessionEnvelope"
+    },
+    {
+      "file": "models/webhook_agent_session_failed.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, r#type: Type, data: models::AgentSessionEnvironmentPayloadResource, ) -> WebhookAgentSessionFailed"
+    },
+    {
+      "file": "models/webhook_agent_session_idle.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, r#type: Type, data: models::AgentSessionEnvironmentPayloadResource, ) -> WebhookAgentSessionIdle"
+    },
+    {
+      "file": "models/webhook_agent_session_in_progress.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, r#type: Type, data: models::AgentSessionEnvironmentPayloadResource, ) -> WebhookAgentSessionInProgress"
+    },
+    {
+      "file": "models/webhook_batch_cancelled.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookBatchFailedData, r#type: Type, ) -> WebhookBatchCancelled"
+    },
+    {
+      "file": "models/webhook_batch_completed.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookBatchFailedData, r#type: Type, ) -> WebhookBatchCompleted"
+    },
+    {
+      "file": "models/webhook_batch_expired.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookBatchFailedData, r#type: Type, ) -> WebhookBatchExpired"
+    },
+    {
+      "file": "models/webhook_batch_failed.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookBatchFailedData, r#type: Type, ) -> WebhookBatchFailed"
+    },
+    {
+      "file": "models/webhook_endpoint_body.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, name: String, url: String, event_types: Vec<String>, signing_secret_hint: Option<String>, ) -> WebhookEndpointBody"
+    },
+    {
+      "file": "models/webhook_endpoint_with_secret_resource.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, name: String, url: String, event_types: Vec<String>, signing_secret_hint: Option<String>, signing_secret: String, ) -> WebhookEndpointWithSecretResource"
+    },
+    {
+      "file": "models/webhook_eval_run_canceled.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookEvalRunFailedData, r#type: Type, ) -> WebhookEvalRunCanceled"
+    },
+    {
+      "file": "models/webhook_eval_run_failed.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookEvalRunFailedData, r#type: Type, ) -> WebhookEvalRunFailed"
+    },
+    {
+      "file": "models/webhook_eval_run_succeeded.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookEvalRunFailedData, r#type: Type, ) -> WebhookEvalRunSucceeded"
+    },
+    {
+      "file": "models/webhook_fine_tuning_job_cancelled.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookFineTuningJobFailedData, r#type: Type, ) -> WebhookFineTuningJobCancelled"
+    },
+    {
+      "file": "models/webhook_fine_tuning_job_failed.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookFineTuningJobFailedData, r#type: Type, ) -> WebhookFineTuningJobFailed"
+    },
+    {
+      "file": "models/webhook_fine_tuning_job_succeeded.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookFineTuningJobFailedData, r#type: Type, ) -> WebhookFineTuningJobSucceeded"
+    },
+    {
+      "file": "models/webhook_live_call_incoming.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookLiveCallIncomingData, r#type: Type, ) -> WebhookLiveCallIncoming"
+    },
+    {
+      "file": "models/webhook_live_transport_connected.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, r#type: Type, data: models::WebhookLiveTransportConnectedData, ) -> WebhookLiveTransportConnected"
+    },
+    {
+      "file": "models/webhook_live_transport_incoming.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookLiveTransportIncomingData, r#type: Type, ) -> WebhookLiveTransportIncoming"
+    },
+    {
+      "file": "models/webhook_realtime_call_incoming.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookRealtimeCallIncomingData, r#type: Type, ) -> WebhookRealtimeCallIncoming"
+    },
+    {
+      "file": "models/webhook_response_cancelled.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookResponseFailedData, r#type: Type, ) -> WebhookResponseCancelled"
+    },
+    {
+      "file": "models/webhook_response_completed.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookResponseFailedData, r#type: Type, ) -> WebhookResponseCompleted"
+    },
+    {
+      "file": "models/webhook_response_failed.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookResponseFailedData, r#type: Type, ) -> WebhookResponseFailed"
+    },
+    {
+      "file": "models/webhook_response_incomplete.rs",
+      "name": "new",
+      "signature": "pub fn new( created_at: i64, id: String, data: models::WebhookResponseFailedData, r#type: Type, ) -> WebhookResponseIncomplete"
+    },
+    {
+      "file": "models/webhook_safety_alert_created.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, r#type: Type, data: models::WebhookSafetyAlertCreatedData, ) -> WebhookSafetyAlertCreated"
+    },
+    {
+      "file": "models/webhook_safety_deactivation_issued.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, r#type: Type, data: models::WebhookSafetyDeactivationIssuedData, ) -> WebhookSafetyDeactivationIssued"
+    },
+    {
+      "file": "models/webhook_safety_org_alert_created.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, r#type: Type, data: models::WebhookSafetyOrgAlertCreatedData, ) -> WebhookSafetyOrgAlertCreated"
+    },
+    {
+      "file": "models/webhook_safety_warning_issued.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, r#type: Type, data: models::WebhookSafetyWarningIssuedData, ) -> WebhookSafetyWarningIssued"
+    },
+    {
+      "file": "models/widget_message_item.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, object: Object, created_at: i64, thread_id: String, r#type: Type, widget: String, ) -> WidgetMessageItem"
+    }
+  ],
+  "public_model_field_changes": [
+    {
+      "file": "models/admin_api_key.rs",
+      "model": "AdminApiKey",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/admin_api_key.rs",
+      "model": "AdminApiKey",
+      "field": "expires_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/admin_api_key.rs",
+      "model": "AdminApiKey",
+      "field": "last_used_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "model": "AdminApiKeyCreateResponse",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "model": "AdminApiKeyCreateResponse",
+      "field": "expires_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "model": "AdminApiKeyCreateResponse",
+      "field": "last_used_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/admin_api_key_owner.rs",
+      "model": "AdminApiKeyOwner",
+      "field": "created_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/assigned_role_details.rs",
+      "model": "AssignedRoleDetails",
+      "field": "created_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/assigned_role_details.rs",
+      "model": "AssignedRoleDetails",
+      "field": "updated_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/assistant_message_item.rs",
+      "model": "AssistantMessageItem",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/assistant_object.rs",
+      "model": "AssistantObject",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/audit_log.rs",
+      "model": "AuditLog",
+      "field": "effective_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "cancelled_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "cancelling_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "completed_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "expired_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "expires_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "failed_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "finalizing_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "in_progress_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/beta_compact_resource.rs",
+      "model": "BetaCompactResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "completed_at",
+      "registry": "Option<Option<f64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "created_at",
+      "registry": "f64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/certificate.rs",
+      "model": "Certificate",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/certificate_certificate_details.rs",
+      "model": "CertificateCertificateDetails",
+      "field": "expires_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/certificate_certificate_details.rs",
+      "model": "CertificateCertificateDetails",
+      "field": "valid_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/chat_completion_response_message_audio.rs",
+      "model": "ChatCompletionResponseMessageAudio",
+      "field": "expires_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/chat_completion_stream_response_delta_audio.rs",
+      "model": "ChatCompletionStreamResponseDeltaAudio",
+      "field": "expires_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/chat_session_resource.rs",
+      "model": "ChatSessionResource",
+      "field": "expires_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/client_tool_call_item.rs",
+      "model": "ClientToolCallItem",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/compact_resource.rs",
+      "model": "CompactResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/container_file_resource.rs",
+      "model": "ContainerFileResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/container_resource.rs",
+      "model": "ContainerResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/container_resource.rs",
+      "model": "ContainerResource",
+      "field": "last_active_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/conversation_resource.rs",
+      "model": "ConversationResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/create_chat_completion_response.rs",
+      "model": "CreateChatCompletionResponse",
+      "field": "created",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/create_chat_completion_stream_response.rs",
+      "model": "CreateChatCompletionStreamResponse",
+      "field": "created",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/create_completion_response.rs",
+      "model": "CreateCompletionResponse",
+      "field": "created",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/eval.rs",
+      "model": "Eval",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/eval_run.rs",
+      "model": "EvalRun",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/eval_run_output_item.rs",
+      "model": "EvalRunOutputItem",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/external_storage_response.rs",
+      "model": "ExternalStorageResponse",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/fine_tuning_checkpoint_permission.rs",
+      "model": "FineTuningCheckpointPermission",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/fine_tuning_job.rs",
+      "model": "FineTuningJob",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/fine_tuning_job.rs",
+      "model": "FineTuningJob",
+      "field": "estimated_finish",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/fine_tuning_job.rs",
+      "model": "FineTuningJob",
+      "field": "finished_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/fine_tuning_job_checkpoint.rs",
+      "model": "FineTuningJobCheckpoint",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/fine_tuning_job_event.rs",
+      "model": "FineTuningJobEvent",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/group.rs",
+      "model": "Group",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/group_resource_with_success.rs",
+      "model": "GroupResourceWithSuccess",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/group_response.rs",
+      "model": "GroupResponse",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/image_edit_completed_event.rs",
+      "model": "ImageEditCompletedEvent",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/image_edit_partial_image_event.rs",
+      "model": "ImageEditPartialImageEvent",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/image_gen_completed_event.rs",
+      "model": "ImageGenCompletedEvent",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/image_gen_partial_image_event.rs",
+      "model": "ImageGenPartialImageEvent",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/images_response.rs",
+      "model": "ImagesResponse",
+      "field": "created",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/invite.rs",
+      "model": "Invite",
+      "field": "accepted_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/invite.rs",
+      "model": "Invite",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/invite.rs",
+      "model": "Invite",
+      "field": "expires_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/message_object.rs",
+      "model": "MessageObject",
+      "field": "completed_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/message_object.rs",
+      "model": "MessageObject",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/message_object.rs",
+      "model": "MessageObject",
+      "field": "incomplete_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/model.rs",
+      "model": "Model",
+      "field": "created",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/model.rs",
+      "model": "Model",
+      "field": "shutdown_date",
+      "registry": "Option<Option<String>>",
+      "current": "Option<Option<jiff::civil::Date>>"
+    },
+    {
+      "file": "models/open_ai_file.rs",
+      "model": "OpenAiFile",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/open_ai_file.rs",
+      "model": "OpenAiFile",
+      "field": "expires_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/organization_certificate.rs",
+      "model": "OrganizationCertificate",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/organization_certificate_certificate_details.rs",
+      "model": "OrganizationCertificateCertificateDetails",
+      "field": "expires_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/organization_certificate_certificate_details.rs",
+      "model": "OrganizationCertificateCertificateDetails",
+      "field": "valid_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/organization_project_certificate.rs",
+      "model": "OrganizationProjectCertificate",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/organization_project_certificate_certificate_details.rs",
+      "model": "OrganizationProjectCertificateCertificateDetails",
+      "field": "expires_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/organization_project_certificate_certificate_details.rs",
+      "model": "OrganizationProjectCertificateCertificateDetails",
+      "field": "valid_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/project.rs",
+      "model": "Project",
+      "field": "archived_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/project.rs",
+      "model": "Project",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/project_api_key.rs",
+      "model": "ProjectApiKey",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/project_api_key.rs",
+      "model": "ProjectApiKey",
+      "field": "expires_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/project_api_key.rs",
+      "model": "ProjectApiKey",
+      "field": "last_used_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/project_api_key_owner_service_account.rs",
+      "model": "ProjectApiKeyOwnerServiceAccount",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/project_api_key_owner_user.rs",
+      "model": "ProjectApiKeyOwnerUser",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/project_group.rs",
+      "model": "ProjectGroup",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/project_service_account.rs",
+      "model": "ProjectServiceAccount",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/project_service_account_api_key.rs",
+      "model": "ProjectServiceAccountApiKey",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/project_service_account_api_key.rs",
+      "model": "ProjectServiceAccountApiKey",
+      "field": "expires_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/project_service_account_create_response.rs",
+      "model": "ProjectServiceAccountCreateResponse",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/project_user.rs",
+      "model": "ProjectUser",
+      "field": "added_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/provenance_resource.rs",
+      "model": "ProvenanceResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/realtime_create_client_secret_response.rs",
+      "model": "RealtimeCreateClientSecretResponse",
+      "field": "expires_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/realtime_session.rs",
+      "model": "RealtimeSession",
+      "field": "expires_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/realtime_session_create_request_client_secret.rs",
+      "model": "RealtimeSessionCreateRequestClientSecret",
+      "field": "expires_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/realtime_session_create_response.rs",
+      "model": "RealtimeSessionCreateResponse",
+      "field": "expires_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/realtime_session_create_response_ga.rs",
+      "model": "RealtimeSessionCreateResponseGa",
+      "field": "expires_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/realtime_transcription_session_create_response_client_secret.rs",
+      "model": "RealtimeTranscriptionSessionCreateResponseClientSecret",
+      "field": "expires_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/realtime_transcription_session_create_response_ga.rs",
+      "model": "RealtimeTranscriptionSessionCreateResponseGa",
+      "field": "expires_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/realtime_translation_client_secret_create_response.rs",
+      "model": "RealtimeTranslationClientSecretCreateResponse",
+      "field": "expires_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/realtime_translation_session.rs",
+      "model": "RealtimeTranslationSession",
+      "field": "expires_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "completed_at",
+      "registry": "Option<Option<f64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "created_at",
+      "registry": "f64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/run_object.rs",
+      "model": "RunObject",
+      "field": "cancelled_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/run_object.rs",
+      "model": "RunObject",
+      "field": "completed_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/run_object.rs",
+      "model": "RunObject",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/run_object.rs",
+      "model": "RunObject",
+      "field": "expires_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/run_object.rs",
+      "model": "RunObject",
+      "field": "failed_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/run_object.rs",
+      "model": "RunObject",
+      "field": "started_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/run_step_object.rs",
+      "model": "RunStepObject",
+      "field": "cancelled_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/run_step_object.rs",
+      "model": "RunStepObject",
+      "field": "completed_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/run_step_object.rs",
+      "model": "RunStepObject",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/run_step_object.rs",
+      "model": "RunStepObject",
+      "field": "expired_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/run_step_object.rs",
+      "model": "RunStepObject",
+      "field": "failed_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/safety_alert_resource.rs",
+      "model": "SafetyAlertResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/safety_case_resource.rs",
+      "model": "SafetyCaseResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/service_account_api_key_body.rs",
+      "model": "ServiceAccountApiKeyBody",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/service_account_api_key_body.rs",
+      "model": "ServiceAccountApiKeyBody",
+      "field": "expires_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/skill_resource.rs",
+      "model": "SkillResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/skill_version_resource.rs",
+      "model": "SkillVersionResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/task_group_item.rs",
+      "model": "TaskGroupItem",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/task_item.rs",
+      "model": "TaskItem",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/thread_object.rs",
+      "model": "ThreadObject",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/thread_resource.rs",
+      "model": "ThreadResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/upload.rs",
+      "model": "Upload",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/upload.rs",
+      "model": "Upload",
+      "field": "expires_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/upload_part.rs",
+      "model": "UploadPart",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/user.rs",
+      "model": "User",
+      "field": "added_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/user.rs",
+      "model": "User",
+      "field": "api_key_last_used_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/user.rs",
+      "model": "User",
+      "field": "created",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/user_message_item.rs",
+      "model": "UserMessageItem",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/user_user.rs",
+      "model": "UserUser",
+      "field": "banned_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/vector_store_file_batch_object.rs",
+      "model": "VectorStoreFileBatchObject",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/vector_store_file_object.rs",
+      "model": "VectorStoreFileObject",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/vector_store_object.rs",
+      "model": "VectorStoreObject",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/vector_store_object.rs",
+      "model": "VectorStoreObject",
+      "field": "expires_at",
+      "registry": "Option<Option<i64>>",
+      "current": "Option<Option<jiff::Timestamp>>"
+    },
+    {
+      "file": "models/vector_store_object.rs",
+      "model": "VectorStoreObject",
+      "field": "last_active_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/video_character_resource.rs",
+      "model": "VideoCharacterResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/video_resource.rs",
+      "model": "VideoResource",
+      "field": "completed_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/video_resource.rs",
+      "model": "VideoResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/video_resource.rs",
+      "model": "VideoResource",
+      "field": "expires_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/voice_consent_resource.rs",
+      "model": "VoiceConsentResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/voice_resource.rs",
+      "model": "VoiceResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_agent_environment_expired.rs",
+      "model": "WebhookAgentEnvironmentExpired",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_agent_environment_failed.rs",
+      "model": "WebhookAgentEnvironmentFailed",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_agent_environment_ready.rs",
+      "model": "WebhookAgentEnvironmentReady",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_agent_environment_suspended.rs",
+      "model": "WebhookAgentEnvironmentSuspended",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_agent_session_action_required.rs",
+      "model": "WebhookAgentSessionActionRequired",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_agent_session_created.rs",
+      "model": "WebhookAgentSessionCreated",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_agent_session_envelope.rs",
+      "model": "WebhookAgentSessionEnvelope",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_agent_session_failed.rs",
+      "model": "WebhookAgentSessionFailed",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_agent_session_idle.rs",
+      "model": "WebhookAgentSessionIdle",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_agent_session_in_progress.rs",
+      "model": "WebhookAgentSessionInProgress",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_batch_cancelled.rs",
+      "model": "WebhookBatchCancelled",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_batch_completed.rs",
+      "model": "WebhookBatchCompleted",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_batch_expired.rs",
+      "model": "WebhookBatchExpired",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_batch_failed.rs",
+      "model": "WebhookBatchFailed",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_endpoint_body.rs",
+      "model": "WebhookEndpointBody",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_endpoint_body.rs",
+      "model": "WebhookEndpointBody",
+      "field": "updated_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/webhook_endpoint_with_secret_resource.rs",
+      "model": "WebhookEndpointWithSecretResource",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_endpoint_with_secret_resource.rs",
+      "model": "WebhookEndpointWithSecretResource",
+      "field": "updated_at",
+      "registry": "Option<i64>",
+      "current": "Option<jiff::Timestamp>"
+    },
+    {
+      "file": "models/webhook_eval_run_canceled.rs",
+      "model": "WebhookEvalRunCanceled",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_eval_run_failed.rs",
+      "model": "WebhookEvalRunFailed",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_eval_run_succeeded.rs",
+      "model": "WebhookEvalRunSucceeded",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_fine_tuning_job_cancelled.rs",
+      "model": "WebhookFineTuningJobCancelled",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_fine_tuning_job_failed.rs",
+      "model": "WebhookFineTuningJobFailed",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_fine_tuning_job_succeeded.rs",
+      "model": "WebhookFineTuningJobSucceeded",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_live_call_incoming.rs",
+      "model": "WebhookLiveCallIncoming",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_live_transport_connected.rs",
+      "model": "WebhookLiveTransportConnected",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_live_transport_incoming.rs",
+      "model": "WebhookLiveTransportIncoming",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_realtime_call_incoming.rs",
+      "model": "WebhookRealtimeCallIncoming",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_response_cancelled.rs",
+      "model": "WebhookResponseCancelled",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_response_completed.rs",
+      "model": "WebhookResponseCompleted",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_response_failed.rs",
+      "model": "WebhookResponseFailed",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_response_incomplete.rs",
+      "model": "WebhookResponseIncomplete",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_safety_alert_created.rs",
+      "model": "WebhookSafetyAlertCreated",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_safety_deactivation_issued.rs",
+      "model": "WebhookSafetyDeactivationIssued",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_safety_org_alert_created.rs",
+      "model": "WebhookSafetyOrgAlertCreated",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/webhook_safety_warning_issued.rs",
+      "model": "WebhookSafetyWarningIssued",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    },
+    {
+      "file": "models/widget_message_item.rs",
+      "model": "WidgetMessageItem",
+      "field": "created_at",
+      "registry": "i64",
+      "current": "jiff::Timestamp"
+    }
+  ],
+  "public_enum_variant_changes": [],
+  "public_derive_changes": [],
+  "serde_field_attribute_changes": [
+    {
+      "file": "models/admin_api_key.rs",
+      "model": "AdminApiKey",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/admin_api_key.rs",
+      "model": "AdminApiKey",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"expires_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/admin_api_key.rs",
+      "model": "AdminApiKey",
+      "field": "last_used_at",
+      "registry": "#[serde( rename = \"last_used_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"last_used_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "model": "AdminApiKeyCreateResponse",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "model": "AdminApiKeyCreateResponse",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"expires_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "model": "AdminApiKeyCreateResponse",
+      "field": "last_used_at",
+      "registry": "#[serde( rename = \"last_used_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"last_used_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/admin_api_key_owner.rs",
+      "model": "AdminApiKeyOwner",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"created_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/assigned_role_details.rs",
+      "model": "AssignedRoleDetails",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/assigned_role_details.rs",
+      "model": "AssignedRoleDetails",
+      "field": "updated_at",
+      "registry": "#[serde(rename = \"updated_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"updated_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/assistant_message_item.rs",
+      "model": "AssistantMessageItem",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/assistant_object.rs",
+      "model": "AssistantObject",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/audit_log.rs",
+      "model": "AuditLog",
+      "field": "effective_at",
+      "registry": "#[serde(rename = \"effective_at\")]",
+      "current": "#[serde(rename = \"effective_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "cancelled_at",
+      "registry": "#[serde( rename = \"cancelled_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"cancelled_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "cancelling_at",
+      "registry": "#[serde( rename = \"cancelling_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"cancelling_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "completed_at",
+      "registry": "#[serde( rename = \"completed_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"completed_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "expired_at",
+      "registry": "#[serde( rename = \"expired_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"expired_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "expires_at",
+      "registry": "#[serde( rename = \"expires_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "failed_at",
+      "registry": "#[serde( rename = \"failed_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"failed_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "finalizing_at",
+      "registry": "#[serde( rename = \"finalizing_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"finalizing_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/batch.rs",
+      "model": "Batch",
+      "field": "in_progress_at",
+      "registry": "#[serde( rename = \"in_progress_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"in_progress_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/beta_compact_resource.rs",
+      "model": "BetaCompactResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "completed_at",
+      "registry": "#[serde( rename = \"completed_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"completed_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::fractional::double_option\" )]"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time::fractional\")]"
+    },
+    {
+      "file": "models/certificate.rs",
+      "model": "Certificate",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/certificate_certificate_details.rs",
+      "model": "CertificateCertificateDetails",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/certificate_certificate_details.rs",
+      "model": "CertificateCertificateDetails",
+      "field": "valid_at",
+      "registry": "#[serde(rename = \"valid_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"valid_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/chat_completion_response_message_audio.rs",
+      "model": "ChatCompletionResponseMessageAudio",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\")]",
+      "current": "#[serde(rename = \"expires_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/chat_completion_stream_response_delta_audio.rs",
+      "model": "ChatCompletionStreamResponseDeltaAudio",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/chat_session_resource.rs",
+      "model": "ChatSessionResource",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\")]",
+      "current": "#[serde(rename = \"expires_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/client_tool_call_item.rs",
+      "model": "ClientToolCallItem",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/compact_resource.rs",
+      "model": "CompactResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/container_file_resource.rs",
+      "model": "ContainerFileResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/container_resource.rs",
+      "model": "ContainerResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/container_resource.rs",
+      "model": "ContainerResource",
+      "field": "last_active_at",
+      "registry": "#[serde(rename = \"last_active_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"last_active_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/conversation_resource.rs",
+      "model": "ConversationResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/create_chat_completion_response.rs",
+      "model": "CreateChatCompletionResponse",
+      "field": "created",
+      "registry": "#[serde(rename = \"created\")]",
+      "current": "#[serde(rename = \"created\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/create_chat_completion_stream_response.rs",
+      "model": "CreateChatCompletionStreamResponse",
+      "field": "created",
+      "registry": "#[serde(rename = \"created\")]",
+      "current": "#[serde(rename = \"created\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/create_completion_response.rs",
+      "model": "CreateCompletionResponse",
+      "field": "created",
+      "registry": "#[serde(rename = \"created\")]",
+      "current": "#[serde(rename = \"created\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/eval.rs",
+      "model": "Eval",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/eval_run.rs",
+      "model": "EvalRun",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/eval_run_output_item.rs",
+      "model": "EvalRunOutputItem",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/external_storage_response.rs",
+      "model": "ExternalStorageResponse",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/fine_tuning_checkpoint_permission.rs",
+      "model": "FineTuningCheckpointPermission",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/fine_tuning_job.rs",
+      "model": "FineTuningJob",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/fine_tuning_job.rs",
+      "model": "FineTuningJob",
+      "field": "estimated_finish",
+      "registry": "#[serde( rename = \"estimated_finish\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"estimated_finish\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/fine_tuning_job.rs",
+      "model": "FineTuningJob",
+      "field": "finished_at",
+      "registry": "#[serde(rename = \"finished_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"finished_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/fine_tuning_job_checkpoint.rs",
+      "model": "FineTuningJobCheckpoint",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/fine_tuning_job_event.rs",
+      "model": "FineTuningJobEvent",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/group.rs",
+      "model": "Group",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/group_resource_with_success.rs",
+      "model": "GroupResourceWithSuccess",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/group_response.rs",
+      "model": "GroupResponse",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/image_edit_completed_event.rs",
+      "model": "ImageEditCompletedEvent",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/image_edit_partial_image_event.rs",
+      "model": "ImageEditPartialImageEvent",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/image_gen_completed_event.rs",
+      "model": "ImageGenCompletedEvent",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/image_gen_partial_image_event.rs",
+      "model": "ImageGenPartialImageEvent",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/images_response.rs",
+      "model": "ImagesResponse",
+      "field": "created",
+      "registry": "#[serde(rename = \"created\")]",
+      "current": "#[serde(rename = \"created\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/invite.rs",
+      "model": "Invite",
+      "field": "accepted_at",
+      "registry": "#[serde( rename = \"accepted_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"accepted_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/invite.rs",
+      "model": "Invite",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/invite.rs",
+      "model": "Invite",
+      "field": "expires_at",
+      "registry": "#[serde( rename = \"expires_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/message_object.rs",
+      "model": "MessageObject",
+      "field": "completed_at",
+      "registry": "#[serde(rename = \"completed_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"completed_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/message_object.rs",
+      "model": "MessageObject",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/message_object.rs",
+      "model": "MessageObject",
+      "field": "incomplete_at",
+      "registry": "#[serde(rename = \"incomplete_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"incomplete_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/model.rs",
+      "model": "Model",
+      "field": "created",
+      "registry": "#[serde(rename = \"created\")]",
+      "current": "#[serde(rename = \"created\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/open_ai_file.rs",
+      "model": "OpenAiFile",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/open_ai_file.rs",
+      "model": "OpenAiFile",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/organization_certificate.rs",
+      "model": "OrganizationCertificate",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/organization_certificate_certificate_details.rs",
+      "model": "OrganizationCertificateCertificateDetails",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/organization_certificate_certificate_details.rs",
+      "model": "OrganizationCertificateCertificateDetails",
+      "field": "valid_at",
+      "registry": "#[serde(rename = \"valid_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"valid_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/organization_project_certificate.rs",
+      "model": "OrganizationProjectCertificate",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/organization_project_certificate_certificate_details.rs",
+      "model": "OrganizationProjectCertificateCertificateDetails",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/organization_project_certificate_certificate_details.rs",
+      "model": "OrganizationProjectCertificateCertificateDetails",
+      "field": "valid_at",
+      "registry": "#[serde(rename = \"valid_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"valid_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/project.rs",
+      "model": "Project",
+      "field": "archived_at",
+      "registry": "#[serde( rename = \"archived_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"archived_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/project.rs",
+      "model": "Project",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/project_api_key.rs",
+      "model": "ProjectApiKey",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/project_api_key.rs",
+      "model": "ProjectApiKey",
+      "field": "expires_at",
+      "registry": "#[serde( rename = \"expires_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/project_api_key.rs",
+      "model": "ProjectApiKey",
+      "field": "last_used_at",
+      "registry": "#[serde(rename = \"last_used_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"last_used_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/project_api_key_owner_service_account.rs",
+      "model": "ProjectApiKeyOwnerServiceAccount",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/project_api_key_owner_user.rs",
+      "model": "ProjectApiKeyOwnerUser",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/project_group.rs",
+      "model": "ProjectGroup",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/project_service_account.rs",
+      "model": "ProjectServiceAccount",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/project_service_account_api_key.rs",
+      "model": "ProjectServiceAccountApiKey",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/project_service_account_api_key.rs",
+      "model": "ProjectServiceAccountApiKey",
+      "field": "expires_at",
+      "registry": "#[serde( rename = \"expires_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/project_service_account_create_response.rs",
+      "model": "ProjectServiceAccountCreateResponse",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/project_user.rs",
+      "model": "ProjectUser",
+      "field": "added_at",
+      "registry": "#[serde(rename = \"added_at\")]",
+      "current": "#[serde(rename = \"added_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/provenance_resource.rs",
+      "model": "ProvenanceResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/realtime_create_client_secret_response.rs",
+      "model": "RealtimeCreateClientSecretResponse",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\")]",
+      "current": "#[serde(rename = \"expires_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/realtime_session.rs",
+      "model": "RealtimeSession",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/realtime_session_create_request_client_secret.rs",
+      "model": "RealtimeSessionCreateRequestClientSecret",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\")]",
+      "current": "#[serde(rename = \"expires_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/realtime_session_create_response.rs",
+      "model": "RealtimeSessionCreateResponse",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/realtime_session_create_response_ga.rs",
+      "model": "RealtimeSessionCreateResponseGa",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/realtime_transcription_session_create_response_client_secret.rs",
+      "model": "RealtimeTranscriptionSessionCreateResponseClientSecret",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\")]",
+      "current": "#[serde(rename = \"expires_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/realtime_transcription_session_create_response_ga.rs",
+      "model": "RealtimeTranscriptionSessionCreateResponseGa",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/realtime_translation_client_secret_create_response.rs",
+      "model": "RealtimeTranslationClientSecretCreateResponse",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\")]",
+      "current": "#[serde(rename = \"expires_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/realtime_translation_session.rs",
+      "model": "RealtimeTranslationSession",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\")]",
+      "current": "#[serde(rename = \"expires_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "completed_at",
+      "registry": "#[serde( rename = \"completed_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"completed_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::fractional::double_option\" )]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time::fractional\")]"
+    },
+    {
+      "file": "models/run_object.rs",
+      "model": "RunObject",
+      "field": "cancelled_at",
+      "registry": "#[serde(rename = \"cancelled_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"cancelled_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/run_object.rs",
+      "model": "RunObject",
+      "field": "completed_at",
+      "registry": "#[serde(rename = \"completed_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"completed_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/run_object.rs",
+      "model": "RunObject",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/run_object.rs",
+      "model": "RunObject",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"expires_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/run_object.rs",
+      "model": "RunObject",
+      "field": "failed_at",
+      "registry": "#[serde(rename = \"failed_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"failed_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/run_object.rs",
+      "model": "RunObject",
+      "field": "started_at",
+      "registry": "#[serde(rename = \"started_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"started_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/run_step_object.rs",
+      "model": "RunStepObject",
+      "field": "cancelled_at",
+      "registry": "#[serde(rename = \"cancelled_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"cancelled_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/run_step_object.rs",
+      "model": "RunStepObject",
+      "field": "completed_at",
+      "registry": "#[serde(rename = \"completed_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"completed_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/run_step_object.rs",
+      "model": "RunStepObject",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/run_step_object.rs",
+      "model": "RunStepObject",
+      "field": "expired_at",
+      "registry": "#[serde(rename = \"expired_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"expired_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/run_step_object.rs",
+      "model": "RunStepObject",
+      "field": "failed_at",
+      "registry": "#[serde(rename = \"failed_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"failed_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/safety_alert_resource.rs",
+      "model": "SafetyAlertResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/safety_case_resource.rs",
+      "model": "SafetyCaseResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/service_account_api_key_body.rs",
+      "model": "ServiceAccountApiKeyBody",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/service_account_api_key_body.rs",
+      "model": "ServiceAccountApiKeyBody",
+      "field": "expires_at",
+      "registry": "#[serde( rename = \"expires_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/skill_resource.rs",
+      "model": "SkillResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/skill_version_resource.rs",
+      "model": "SkillVersionResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/task_group_item.rs",
+      "model": "TaskGroupItem",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/task_item.rs",
+      "model": "TaskItem",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/thread_object.rs",
+      "model": "ThreadObject",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/thread_resource.rs",
+      "model": "ThreadResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/upload.rs",
+      "model": "Upload",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/upload.rs",
+      "model": "Upload",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\")]",
+      "current": "#[serde(rename = \"expires_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/upload_part.rs",
+      "model": "UploadPart",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/user.rs",
+      "model": "User",
+      "field": "added_at",
+      "registry": "#[serde(rename = \"added_at\")]",
+      "current": "#[serde(rename = \"added_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/user.rs",
+      "model": "User",
+      "field": "api_key_last_used_at",
+      "registry": "#[serde( rename = \"api_key_last_used_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"api_key_last_used_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/user.rs",
+      "model": "User",
+      "field": "created",
+      "registry": "#[serde(rename = \"created\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"created\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/user_message_item.rs",
+      "model": "UserMessageItem",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/user_user.rs",
+      "model": "UserUser",
+      "field": "banned_at",
+      "registry": "#[serde( rename = \"banned_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"banned_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/vector_store_file_batch_object.rs",
+      "model": "VectorStoreFileBatchObject",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/vector_store_file_object.rs",
+      "model": "VectorStoreFileObject",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/vector_store_object.rs",
+      "model": "VectorStoreObject",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/vector_store_object.rs",
+      "model": "VectorStoreObject",
+      "field": "expires_at",
+      "registry": "#[serde( rename = \"expires_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"expires_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::double_option\" )]"
+    },
+    {
+      "file": "models/vector_store_object.rs",
+      "model": "VectorStoreObject",
+      "field": "last_active_at",
+      "registry": "#[serde(rename = \"last_active_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"last_active_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/video_character_resource.rs",
+      "model": "VideoCharacterResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/video_resource.rs",
+      "model": "VideoResource",
+      "field": "completed_at",
+      "registry": "#[serde(rename = \"completed_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"completed_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/video_resource.rs",
+      "model": "VideoResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/video_resource.rs",
+      "model": "VideoResource",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde(rename = \"expires_at\", with = \"super::unix_time::option\")]"
+    },
+    {
+      "file": "models/voice_consent_resource.rs",
+      "model": "VoiceConsentResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/voice_resource.rs",
+      "model": "VoiceResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_agent_environment_expired.rs",
+      "model": "WebhookAgentEnvironmentExpired",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_agent_environment_failed.rs",
+      "model": "WebhookAgentEnvironmentFailed",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_agent_environment_ready.rs",
+      "model": "WebhookAgentEnvironmentReady",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_agent_environment_suspended.rs",
+      "model": "WebhookAgentEnvironmentSuspended",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_agent_session_action_required.rs",
+      "model": "WebhookAgentSessionActionRequired",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_agent_session_created.rs",
+      "model": "WebhookAgentSessionCreated",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_agent_session_envelope.rs",
+      "model": "WebhookAgentSessionEnvelope",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_agent_session_failed.rs",
+      "model": "WebhookAgentSessionFailed",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_agent_session_idle.rs",
+      "model": "WebhookAgentSessionIdle",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_agent_session_in_progress.rs",
+      "model": "WebhookAgentSessionInProgress",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_batch_cancelled.rs",
+      "model": "WebhookBatchCancelled",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_batch_completed.rs",
+      "model": "WebhookBatchCompleted",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_batch_expired.rs",
+      "model": "WebhookBatchExpired",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_batch_failed.rs",
+      "model": "WebhookBatchFailed",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_endpoint_body.rs",
+      "model": "WebhookEndpointBody",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_endpoint_body.rs",
+      "model": "WebhookEndpointBody",
+      "field": "updated_at",
+      "registry": "#[serde(rename = \"updated_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"updated_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/webhook_endpoint_with_secret_resource.rs",
+      "model": "WebhookEndpointWithSecretResource",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_endpoint_with_secret_resource.rs",
+      "model": "WebhookEndpointWithSecretResource",
+      "field": "updated_at",
+      "registry": "#[serde(rename = \"updated_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"updated_at\", default, skip_serializing_if = \"Option::is_none\", with = \"super::unix_time::option\" )]"
+    },
+    {
+      "file": "models/webhook_eval_run_canceled.rs",
+      "model": "WebhookEvalRunCanceled",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_eval_run_failed.rs",
+      "model": "WebhookEvalRunFailed",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_eval_run_succeeded.rs",
+      "model": "WebhookEvalRunSucceeded",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_fine_tuning_job_cancelled.rs",
+      "model": "WebhookFineTuningJobCancelled",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_fine_tuning_job_failed.rs",
+      "model": "WebhookFineTuningJobFailed",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_fine_tuning_job_succeeded.rs",
+      "model": "WebhookFineTuningJobSucceeded",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_live_call_incoming.rs",
+      "model": "WebhookLiveCallIncoming",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_live_transport_connected.rs",
+      "model": "WebhookLiveTransportConnected",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_live_transport_incoming.rs",
+      "model": "WebhookLiveTransportIncoming",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_realtime_call_incoming.rs",
+      "model": "WebhookRealtimeCallIncoming",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_response_cancelled.rs",
+      "model": "WebhookResponseCancelled",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_response_completed.rs",
+      "model": "WebhookResponseCompleted",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_response_failed.rs",
+      "model": "WebhookResponseFailed",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_response_incomplete.rs",
+      "model": "WebhookResponseIncomplete",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_safety_alert_created.rs",
+      "model": "WebhookSafetyAlertCreated",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_safety_deactivation_issued.rs",
+      "model": "WebhookSafetyDeactivationIssued",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_safety_org_alert_created.rs",
+      "model": "WebhookSafetyOrgAlertCreated",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/webhook_safety_warning_issued.rs",
+      "model": "WebhookSafetyWarningIssued",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    },
+    {
+      "file": "models/widget_message_item.rs",
+      "model": "WidgetMessageItem",
+      "field": "created_at",
+      "registry": "#[serde(rename = \"created_at\")]",
+      "current": "#[serde(rename = \"created_at\", with = \"super::unix_time\")]"
+    }
+  ],
+  "public_enum_variant_payload_changes": [],
+  "public_trait_impl_changes": [],
+  "counts": {
+    "model_exports_added": 0,
+    "model_exports_removed": 0,
+    "public_functions_added_or_signature_changed": 115,
+    "public_functions_removed_or_signature_changed": 115,
+    "public_model_field_changes": 175,
+    "public_enum_types_with_variant_changes": 0,
+    "public_enum_variants_added": 0,
+    "public_enum_variants_removed": 0,
+    "public_derive_changes": 0,
+    "serde_field_attribute_changes": 174,
+    "public_enum_variant_payload_changes": 0,
+    "public_types_with_trait_impl_changes": 0,
+    "public_trait_impls_added": 0,
+    "public_trait_impls_removed": 0
+  }
+}

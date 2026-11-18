@@ -21,8 +21,8 @@ pub struct RunObject {
     #[serde(rename = "object")]
     pub object: Object,
     /// The Unix timestamp (in seconds) for when the run was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The ID of the [thread](https://developers.openai.com/api/docs/assistants/migration) that was executed on as a part of this run.
     #[serde(rename = "thread_id")]
     pub thread_id: String,
@@ -37,20 +37,20 @@ pub struct RunObject {
     #[serde(rename = "last_error", deserialize_with = "Option::deserialize")]
     pub last_error: Option<models::RunObjectLastError>,
     /// The Unix timestamp (in seconds) for when the run will expire.
-    #[serde(rename = "expires_at", deserialize_with = "Option::deserialize")]
-    pub expires_at: Option<i64>,
+    #[serde(rename = "expires_at", with = "super::unix_time::option")]
+    pub expires_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) for when the run was started.
-    #[serde(rename = "started_at", deserialize_with = "Option::deserialize")]
-    pub started_at: Option<i64>,
+    #[serde(rename = "started_at", with = "super::unix_time::option")]
+    pub started_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) for when the run was cancelled.
-    #[serde(rename = "cancelled_at", deserialize_with = "Option::deserialize")]
-    pub cancelled_at: Option<i64>,
+    #[serde(rename = "cancelled_at", with = "super::unix_time::option")]
+    pub cancelled_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) for when the run failed.
-    #[serde(rename = "failed_at", deserialize_with = "Option::deserialize")]
-    pub failed_at: Option<i64>,
+    #[serde(rename = "failed_at", with = "super::unix_time::option")]
+    pub failed_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) for when the run was completed.
-    #[serde(rename = "completed_at", deserialize_with = "Option::deserialize")]
-    pub completed_at: Option<i64>,
+    #[serde(rename = "completed_at", with = "super::unix_time::option")]
+    pub completed_at: Option<jiff::Timestamp>,
     #[serde(
         rename = "incomplete_details",
         deserialize_with = "Option::deserialize"
@@ -120,17 +120,17 @@ impl RunObject {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         thread_id: String,
         assistant_id: String,
         status: Status,
         required_action: Option<models::RunObjectRequiredAction>,
         last_error: Option<models::RunObjectLastError>,
-        expires_at: Option<i64>,
-        started_at: Option<i64>,
-        cancelled_at: Option<i64>,
-        failed_at: Option<i64>,
-        completed_at: Option<i64>,
+        expires_at: Option<jiff::Timestamp>,
+        started_at: Option<jiff::Timestamp>,
+        cancelled_at: Option<jiff::Timestamp>,
+        failed_at: Option<jiff::Timestamp>,
+        completed_at: Option<jiff::Timestamp>,
         incomplete_details: Option<models::RunObjectIncompleteDetails>,
         model: String,
         instructions: String,

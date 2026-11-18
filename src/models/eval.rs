@@ -29,8 +29,8 @@ pub struct Eval {
     #[serde(rename = "testing_criteria")]
     pub testing_criteria: Vec<models::EvalTestingCriteriaInner>,
     /// The Unix timestamp (in seconds) for when the eval was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
@@ -44,7 +44,7 @@ impl Eval {
         name: String,
         data_source_config: models::EvalDataSourceConfig,
         testing_criteria: Vec<models::EvalTestingCriteriaInner>,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         metadata: Option<std::collections::HashMap<String, String>>,
     ) -> Eval {
         Eval {

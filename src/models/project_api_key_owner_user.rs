@@ -23,8 +23,8 @@ pub struct ProjectApiKeyOwnerUser {
     #[serde(rename = "name")]
     pub name: String,
     /// The Unix timestamp (in seconds) of when the user was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The user's project role.
     #[serde(rename = "role")]
     pub role: String,
@@ -36,7 +36,7 @@ impl ProjectApiKeyOwnerUser {
         id: String,
         email: String,
         name: String,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         role: String,
     ) -> ProjectApiKeyOwnerUser {
         ProjectApiKeyOwnerUser {

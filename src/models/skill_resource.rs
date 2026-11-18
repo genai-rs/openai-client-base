@@ -25,8 +25,8 @@ pub struct SkillResource {
     #[serde(rename = "description")]
     pub description: String,
     /// Unix timestamp (seconds) for when the skill was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// Default version for the skill.
     #[serde(rename = "default_version")]
     pub default_version: String,
@@ -41,7 +41,7 @@ impl SkillResource {
         object: Object,
         name: String,
         description: String,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         default_version: String,
         latest_version: String,
     ) -> SkillResource {

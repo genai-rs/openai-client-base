@@ -20,8 +20,8 @@ pub struct GroupResponse {
     #[serde(rename = "name")]
     pub name: String,
     /// Unix timestamp (in seconds) when the group was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// Whether the group is managed through SCIM and controlled by your identity provider.
     #[serde(rename = "is_scim_managed")]
     pub is_scim_managed: bool,
@@ -35,7 +35,7 @@ impl GroupResponse {
     pub fn new(
         id: String,
         name: String,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         is_scim_managed: bool,
         group_type: GroupType,
     ) -> GroupResponse {

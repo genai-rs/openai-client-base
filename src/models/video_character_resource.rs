@@ -19,15 +19,15 @@ pub struct VideoCharacterResource {
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
     pub name: Option<String>,
     /// Unix timestamp (in seconds) when the character was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
 }
 
 impl VideoCharacterResource {
     pub fn new(
         id: Option<String>,
         name: Option<String>,
-        created_at: i64,
+        created_at: jiff::Timestamp,
     ) -> VideoCharacterResource {
         VideoCharacterResource {
             id,

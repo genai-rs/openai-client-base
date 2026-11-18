@@ -20,8 +20,8 @@ pub struct AuditLog {
     #[serde(rename = "type")]
     pub r#type: models::AuditLogEventType,
     /// The Unix timestamp (in seconds) of the event.
-    #[serde(rename = "effective_at")]
-    pub effective_at: i64,
+    #[serde(rename = "effective_at", with = "super::unix_time")]
+    pub effective_at: jiff::Timestamp,
     #[serde(rename = "project", skip_serializing_if = "Option::is_none")]
     pub project: Option<models::AuditLogProject>,
     #[serde(
@@ -244,7 +244,11 @@ pub struct AuditLog {
 
 impl AuditLog {
     /// A log of a user action or configuration change within this organization.
-    pub fn new(id: String, r#type: models::AuditLogEventType, effective_at: i64) -> AuditLog {
+    pub fn new(
+        id: String,
+        r#type: models::AuditLogEventType,
+        effective_at: jiff::Timestamp,
+    ) -> AuditLog {
         AuditLog {
             id,
             r#type,

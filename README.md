@@ -48,6 +48,8 @@ println!("{}", response.id);
 - **Every endpoint and webhook** of the spec, checked on each generation ([generation](guides/generation.md)).
 - **Typed streaming**: `text/event-stream` operations return a stream of the spec's event type
   ([usage](guides/usage.md#streaming)).
+- **Timestamps as `jiff::Timestamp`s**: the spec's Unix timestamps (`created_at`, `expires_at`) are times, not
+  integers ([usage](guides/usage.md#timestamps)).
 - **Uploads** from paths, bytes or streams (`timvw_rust_runtime::Upload`), streamed with a known length and re-sent on
   retry ([usage](guides/usage.md#uploading-files)).
 - **A tower client**: retries of `429`, `408`, `5xx` and failed connections honouring `Retry-After`, timeouts,

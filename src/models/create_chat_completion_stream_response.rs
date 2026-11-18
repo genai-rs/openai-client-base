@@ -21,8 +21,8 @@ pub struct CreateChatCompletionStreamResponse {
     #[serde(rename = "choices")]
     pub choices: Vec<models::CreateChatCompletionStreamResponseChoicesInner>,
     /// The Unix timestamp (in seconds) of when the chat completion was created. Each chunk has the same timestamp.
-    #[serde(rename = "created")]
-    pub created: i64,
+    #[serde(rename = "created", with = "super::unix_time")]
+    pub created: jiff::Timestamp,
     /// The model to generate the completion.
     #[serde(rename = "model")]
     pub model: String,
@@ -64,7 +64,7 @@ impl CreateChatCompletionStreamResponse {
     pub fn new(
         id: String,
         choices: Vec<models::CreateChatCompletionStreamResponseChoicesInner>,
-        created: i64,
+        created: jiff::Timestamp,
         model: String,
         object: Object,
     ) -> CreateChatCompletionStreamResponse {

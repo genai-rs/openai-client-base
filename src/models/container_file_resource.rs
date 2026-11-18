@@ -22,8 +22,8 @@ pub struct ContainerFileResource {
     #[serde(rename = "container_id")]
     pub container_id: String,
     /// Unix timestamp (in seconds) when the file was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// Size of the file in bytes.
     #[serde(rename = "bytes")]
     pub bytes: i64,
@@ -40,7 +40,7 @@ impl ContainerFileResource {
         id: String,
         object: String,
         container_id: String,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         bytes: i64,
         path: String,
         source: String,

@@ -55,10 +55,10 @@ pub struct UserUser {
     #[serde(
         rename = "banned_at",
         default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::double_option"
     )]
-    pub banned_at: Option<Option<i64>>,
+    pub banned_at: Option<Option<jiff::Timestamp>>,
 }
 
 impl UserUser {

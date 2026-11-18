@@ -6,17 +6,17 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The identifier, which can be referenced in API endpoints. | 
 **object** | **Object** | The object type, which is always `thread.run`. (enum: thread.run) | 
-**created_at** | **i64** | The Unix timestamp (in seconds) for when the run was created. | 
+**created_at** | **jiff::Timestamp** | The Unix timestamp (in seconds) for when the run was created. | 
 **thread_id** | **String** | The ID of the [thread](https://developers.openai.com/api/docs/assistants/migration) that was executed on as a part of this run. | 
 **assistant_id** | **String** | The ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for execution of this run. | 
 **status** | **Status** | The status of the run, which can be either `queued`, `in_progress`, `requires_action`, `cancelling`, `cancelled`, `failed`, `completed`, `incomplete`, or `expired`. (enum: queued, in_progress, requires_action, cancelling, cancelled, failed, completed, incomplete, expired) | 
 **required_action** | Option<[**models::RunObjectRequiredAction**](RunObjectRequiredAction.md)> |  | 
 **last_error** | Option<[**models::RunObjectLastError**](RunObjectLastError.md)> |  | 
-**expires_at** | Option<**i64**> | The Unix timestamp (in seconds) for when the run will expire. | 
-**started_at** | Option<**i64**> | The Unix timestamp (in seconds) for when the run was started. | 
-**cancelled_at** | Option<**i64**> | The Unix timestamp (in seconds) for when the run was cancelled. | 
-**failed_at** | Option<**i64**> | The Unix timestamp (in seconds) for when the run failed. | 
-**completed_at** | Option<**i64**> | The Unix timestamp (in seconds) for when the run was completed. | 
+**expires_at** | Option<**jiff::Timestamp**> | The Unix timestamp (in seconds) for when the run will expire. | 
+**started_at** | Option<**jiff::Timestamp**> | The Unix timestamp (in seconds) for when the run was started. | 
+**cancelled_at** | Option<**jiff::Timestamp**> | The Unix timestamp (in seconds) for when the run was cancelled. | 
+**failed_at** | Option<**jiff::Timestamp**> | The Unix timestamp (in seconds) for when the run failed. | 
+**completed_at** | Option<**jiff::Timestamp**> | The Unix timestamp (in seconds) for when the run was completed. | 
 **incomplete_details** | Option<[**models::RunObjectIncompleteDetails**](RunObjectIncompleteDetails.md)> |  | 
 **model** | **String** | The model that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run. | 
 **instructions** | **String** | The instructions that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run. | 

@@ -128,6 +128,23 @@ let remaining = response.headers.get("x-ratelimit-remaining-requests");
 let body: models::Response = response.json()?;
 ```
 
+## Timestamps
+
+A field the spec marks as a Unix timestamp (`format: unixtime`: `created`, `created_at`, `expires_at`, ...) is a
+[`jiff::Timestamp`](https://docs.rs/jiff/latest/jiff/struct.Timestamp.html). On the wire it stays a number of
+seconds. `Model.shutdown_date` is a `jiff::civil::Date`.
+
+<!-- not compiled: needs a response -->
+```rust
+let age = jiff::Timestamp::now().duration_since(response.created_at);
+let seconds: i64 = response.created_at.as_second();
+println!("created {}", response.created_at); // 2026-01-02T03:04:05Z
+```
+
+`models::unix_time` holds the serde functions the fields use; a type of your own can name them with
+`#[serde(with = "openai_client_base::models::unix_time")]` (`::option` for an `Option`). A timestamp field the spec
+gives no format stays an `i64`.
+
 ## Errors
 
 Every operation returns `Result<T, apis::Error<E>>`, where `E` is the operation's typed error (an enum of the error

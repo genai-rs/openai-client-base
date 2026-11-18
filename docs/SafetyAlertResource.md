@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
 **object** | **Object** | Defaults to `\"safety.alert\"`. (enum: safety.alert) | 
-**created_at** | **i64** |  | 
+**created_at** | **jiff::Timestamp** |  | 
 **request_id** | **String** |  | 
 **response_id** | **String** |  | 
 **model** | **String** |  | 

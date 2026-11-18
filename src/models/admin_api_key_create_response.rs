@@ -31,19 +31,19 @@ pub struct AdminApiKeyCreateResponse {
     #[serde(rename = "redacted_value")]
     pub redacted_value: String,
     /// The Unix timestamp (in seconds) of when the API key was created
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The Unix timestamp (in seconds) of when the API key expires
-    #[serde(rename = "expires_at", deserialize_with = "Option::deserialize")]
-    pub expires_at: Option<i64>,
+    #[serde(rename = "expires_at", with = "super::unix_time::option")]
+    pub expires_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) of when the API key was last used
     #[serde(
         rename = "last_used_at",
         default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::double_option"
     )]
-    pub last_used_at: Option<Option<i64>>,
+    pub last_used_at: Option<Option<jiff::Timestamp>>,
     #[serde(rename = "owner")]
     pub owner: models::AdminApiKeyOwner,
     /// The value of the API key. Only shown on create.
@@ -56,8 +56,8 @@ impl AdminApiKeyCreateResponse {
         object: Object,
         id: String,
         redacted_value: String,
-        created_at: i64,
-        expires_at: Option<i64>,
+        created_at: jiff::Timestamp,
+        expires_at: Option<jiff::Timestamp>,
         owner: models::AdminApiKeyOwner,
         value: String,
     ) -> AdminApiKeyCreateResponse {

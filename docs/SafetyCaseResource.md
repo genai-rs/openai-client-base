@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
 **object** | **Object** | Defaults to `\"safety.case\"`. (enum: safety.case) | 
-**created_at** | **i64** |  | 
+**created_at** | **jiff::Timestamp** |  | 
 **entity_identifier** | **String** |  | 
 **reason** | Option<**String**> |  | 
 **notice** | [**models::SafetyCaseNotice**](SafetyCaseNotice.md) |  | 

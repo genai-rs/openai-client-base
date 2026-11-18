@@ -21,8 +21,8 @@ pub struct ImageEditPartialImageEvent {
     #[serde(rename = "b64_json")]
     pub b64_json: String,
     /// The Unix timestamp when the event was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     #[serde(rename = "size")]
     pub size: models::ImageEditPartialImageEventSize,
     /// The quality setting for the requested edited image.
@@ -44,7 +44,7 @@ impl ImageEditPartialImageEvent {
     pub fn new(
         r#type: Type,
         b64_json: String,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         size: models::ImageEditPartialImageEventSize,
         quality: Quality,
         background: Background,

@@ -21,8 +21,8 @@ pub struct ChatSessionResource {
     #[serde(rename = "object")]
     pub object: Object,
     /// Unix timestamp (in seconds) for when the session expires.
-    #[serde(rename = "expires_at")]
-    pub expires_at: i64,
+    #[serde(rename = "expires_at", with = "super::unix_time")]
+    pub expires_at: jiff::Timestamp,
     /// Ephemeral client secret that authenticates session requests.
     #[serde(rename = "client_secret")]
     pub client_secret: String,
@@ -47,7 +47,7 @@ impl ChatSessionResource {
     pub fn new(
         id: String,
         object: Object,
-        expires_at: i64,
+        expires_at: jiff::Timestamp,
         client_secret: String,
         workflow: models::ChatkitWorkflow,
         user: String,

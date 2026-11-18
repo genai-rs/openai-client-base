@@ -13,11 +13,21 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CertificateCertificateDetails {
     /// The Unix timestamp (in seconds) of when the certificate becomes valid.
-    #[serde(rename = "valid_at", skip_serializing_if = "Option::is_none")]
-    pub valid_at: Option<i64>,
+    #[serde(
+        rename = "valid_at",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::option"
+    )]
+    pub valid_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) of when the certificate expires.
-    #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
-    pub expires_at: Option<i64>,
+    #[serde(
+        rename = "expires_at",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::option"
+    )]
+    pub expires_at: Option<jiff::Timestamp>,
     /// The content of the certificate in PEM format.
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,

@@ -21,8 +21,8 @@ pub struct ThreadResource {
     #[serde(rename = "object")]
     pub object: Object,
     /// Unix timestamp (in seconds) for when the thread was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// Optional human-readable title for the thread. Defaults to null when no title has been generated.
     #[serde(rename = "title", deserialize_with = "Option::deserialize")]
     pub title: Option<String>,
@@ -38,7 +38,7 @@ impl ThreadResource {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         title: Option<String>,
         status: models::ThreadResourceStatus,
         user: String,

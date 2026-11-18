@@ -21,8 +21,8 @@ pub struct MessageObject {
     #[serde(rename = "object")]
     pub object: Object,
     /// The Unix timestamp (in seconds) for when the message was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The [thread](https://developers.openai.com/api/docs/assistants/migration) ID that this message belongs to.
     #[serde(rename = "thread_id")]
     pub thread_id: String,
@@ -35,11 +35,11 @@ pub struct MessageObject {
     )]
     pub incomplete_details: Option<models::MessageObjectIncompleteDetails>,
     /// The Unix timestamp (in seconds) for when the message was completed.
-    #[serde(rename = "completed_at", deserialize_with = "Option::deserialize")]
-    pub completed_at: Option<i64>,
+    #[serde(rename = "completed_at", with = "super::unix_time::option")]
+    pub completed_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) for when the message was marked as incomplete.
-    #[serde(rename = "incomplete_at", deserialize_with = "Option::deserialize")]
-    pub incomplete_at: Option<i64>,
+    #[serde(rename = "incomplete_at", with = "super::unix_time::option")]
+    pub incomplete_at: Option<jiff::Timestamp>,
     /// The entity that produced the message. One of `user` or `assistant`.
     #[serde(rename = "role")]
     pub role: Role,
@@ -65,12 +65,12 @@ impl MessageObject {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         thread_id: String,
         status: Status,
         incomplete_details: Option<models::MessageObjectIncompleteDetails>,
-        completed_at: Option<i64>,
-        incomplete_at: Option<i64>,
+        completed_at: Option<jiff::Timestamp>,
+        incomplete_at: Option<jiff::Timestamp>,
         role: Role,
         content: Vec<models::MessageObjectContentInner>,
         assistant_id: Option<String>,

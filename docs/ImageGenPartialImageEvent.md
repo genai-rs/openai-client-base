@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **Type** | The type of the event. Always `image_generation.partial_image`.  (enum: image_generation.partial_image) | 
 **b64_json** | **String** | Base64-encoded partial image data, suitable for rendering as an image.  | 
-**created_at** | **i64** | The Unix timestamp when the event was created.  | 
+**created_at** | **jiff::Timestamp** | The Unix timestamp when the event was created.  | 
 **size** | [**models::ImageGenPartialImageEventSize**](ImageGenPartialImageEventSize.md) |  | 
 **quality** | **Quality** | The quality setting for the requested image.  (enum: low, medium, high, xhigh, max, auto) | 
 **background** | **Background** | The background setting for the requested image.  (enum: transparent, opaque, auto) | 

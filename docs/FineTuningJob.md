@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The object identifier, which can be referenced in the API endpoints. | 
-**created_at** | **i64** | The Unix timestamp (in seconds) for when the fine-tuning job was created. | 
+**created_at** | **jiff::Timestamp** | The Unix timestamp (in seconds) for when the fine-tuning job was created. | 
 **error** | Option<[**models::FineTuningJobError**](FineTuningJobError.md)> |  | 
 **fine_tuned_model** | Option<**String**> | The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running. | 
-**finished_at** | Option<**i64**> | The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running. | 
+**finished_at** | Option<**jiff::Timestamp**> | The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running. | 
 **hyperparameters** | Option<[**models::FineTuningJobHyperparameters**](FineTuningJobHyperparameters.md)> |  | [optional]
 **model** | **String** | The base model that is being fine-tuned. | 
 **object** | **Object** | The object type, which is always \"fine_tuning.job\". (enum: fine_tuning.job) | 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **validation_file** | Option<**String**> | The file ID used for validation. You can retrieve the validation results with the [Files API](https://developers.openai.com/api/reference/resources/files/methods/content). | 
 **integrations** | Option<[**Vec<models::FineTuningIntegration>**](FineTuningIntegration.md)> | A list of integrations to enable for this fine-tuning job. | [optional]
 **seed** | Option<**i64**> | The seed used for the fine-tuning job. | 
-**estimated_finish** | Option<**i64**> | The Unix timestamp (in seconds) for when the fine-tuning job is estimated to finish. The value will be null if the fine-tuning job is not running. | [optional]
+**estimated_finish** | Option<**jiff::Timestamp**> | The Unix timestamp (in seconds) for when the fine-tuning job is estimated to finish. The value will be null if the fine-tuning job is not running. | [optional]
 **method** | Option<[**models::FineTuneMethod**](FineTuneMethod.md)> |  | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | [optional]
 

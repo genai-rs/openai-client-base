@@ -20,11 +20,16 @@ pub struct OpenAiFile {
     #[serde(rename = "bytes", deserialize_with = "Option::deserialize")]
     pub bytes: Option<i64>,
     /// The Unix timestamp (in seconds) for when the file was created.
-    #[serde(rename = "created_at")]
-    pub created_at: i64,
+    #[serde(rename = "created_at", with = "super::unix_time")]
+    pub created_at: jiff::Timestamp,
     /// The Unix timestamp (in seconds) for when the file will expire. In a completed file upload response, this can be null when no expiry is set.
-    #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
-    pub expires_at: Option<i64>,
+    #[serde(
+        rename = "expires_at",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "super::unix_time::option"
+    )]
+    pub expires_at: Option<jiff::Timestamp>,
     /// The name of the file.
     #[serde(rename = "filename")]
     pub filename: String,
@@ -47,7 +52,7 @@ impl OpenAiFile {
     pub fn new(
         id: String,
         bytes: Option<i64>,
-        created_at: i64,
+        created_at: jiff::Timestamp,
         filename: String,
         object: Object,
         purpose: Purpose,

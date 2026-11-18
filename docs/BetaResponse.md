@@ -27,8 +27,8 @@ Name | Type | Description | Notes
 **object** | **Object** | The object type of this resource - always set to `response`.  (enum: response) | 
 **status** | Option<**Status**> | The status of the response generation. One of `completed`, `failed`, `in_progress`, `cancelled`, `queued`, or `incomplete`.  (enum: completed, failed, in_progress, cancelled, queued, incomplete) | [optional]
 **access_programs** | Option<[**models::BetaAccessProgramsBody**](BetaAccessProgramsBody.md)> |  | [optional]
-**created_at** | **f64** | Unix timestamp (in seconds) of when this Response was created.  | 
-**completed_at** | Option<**f64**> | Unix timestamp (in seconds) of when this Response was completed. Only present when the status is `completed`.  | [optional]
+**created_at** | **jiff::Timestamp** | Unix timestamp (in seconds) of when this Response was created.  | 
+**completed_at** | Option<**jiff::Timestamp**> | Unix timestamp (in seconds) of when this Response was completed. Only present when the status is `completed`.  | [optional]
 **error** | Option<[**models::BetaResponseError**](BetaResponseError.md)> |  | 
 **incomplete_details** | Option<[**models::BetaResponseAllOfIncompleteDetails**](BetaResponseAllOfIncompleteDetails.md)> |  | 
 **input_transformations** | Option<[**Vec<models::BetaReasoningInputTransformation>**](BetaReasoningInputTransformation.md)> | Reasoning inputs withheld from the model, in input order. | [optional]
