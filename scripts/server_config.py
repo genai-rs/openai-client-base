@@ -9,7 +9,8 @@ adds the server's. Usage: server_config.py <generator-config.json> <output.json>
 import json
 import sys
 
-# Options timvw-rust applies to the client only: a server-only generation fails on them.
+# Options timvw-rust applies to the client only: a server-only generation fails on them. (The query-style
+# options, deepObjectQueryParameters and resetQueryParameterStyle, apply to both: client and server must agree.)
 CLIENT_ONLY = {
     "runtimeVersion",
     "runtimePath",
@@ -20,8 +21,6 @@ CLIENT_ONLY = {
     "contentTypeMethods",
     "typedEventStreams",
     "typedEnumParameters",
-    "deepObjectQueryParameters",
-    "resetQueryParameterStyle",
     "multipartHelper",
     "userAgentFromPackage",
     "apiLintAllows",
