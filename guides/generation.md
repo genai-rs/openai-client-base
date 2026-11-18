@@ -13,8 +13,7 @@ in CI, the public API against the last release.
 ## What is generated and what is not
 
 Generated, and replaced on every run: `src/apis/`, `src/models/` and `docs/`
-(the generated reference pages for every API and model), and the server's
-`openai-server-base/src/`. Hand-maintained, and
+(the generated reference pages for every API and model). Hand-maintained, and
 listed in `.openapi-generator-ignore` or outside the generator's output:
 `Cargo.toml`, `src/lib.rs`, `README.md`, these guides (`guides/`), `tests/`,
 `scripts/` and `migration/`. The guides live in `guides/` rather than under
@@ -40,12 +39,6 @@ listed in `.openapi-generator-ignore` or outside the generator's output:
    spec rules to `target/specs/l2_rust_compatible.json`. Hand-maintained files
    (`Cargo.toml`, `README.md`, `src/lib.rs`, ...) are listed in
    `.openapi-generator-ignore` and left alone.
-   Then the server, [openai-server-base](../openai-server-base/README.md),
-   from the same spec: `server_config.py` writes its configuration from
-   `generator-config.json` (the same model options, without the client's,
-   with `targets: ["server"]` and `modelsCrate: openai-client-base`), so it
-   uses this crate's models. Its `Cargo.toml` and `README.md` are
-   hand-maintained (`openai-server-base/.openapi-generator-ignore`).
 4. **Check**: the remaining script tests (`scripts/tests`), and
    `check_openapi_coverage.py`, which fails when the generated APIs miss an
    upstream operation or webhook.

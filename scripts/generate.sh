@@ -94,25 +94,6 @@ docker run --rm \
     -c "/local/scripts/generator-config.json" \
     --skip-validate-spec
 
-# Step 3b: Generate the server (openai-server-base): the same spec and model options, the client's models
-# (modelsCrate). Its Cargo.toml and README.md are hand-maintained (openai-server-base/.openapi-generator-ignore).
-echo ""
-echo "🦀 Generating Rust server (openai-server-base)..."
-SERVER_CONFIG="$GEN_SPEC_DIR/server-generator-config.json"
-python3 -I "$SCRIPT_DIR/server_config.py" "$SCRIPT_DIR/generator-config.json" "$SERVER_CONFIG"
-find "$OUT_DIR/openai-server-base/src" -name "*.rs" -delete
-docker run --rm \
-    -v "$PROJECT_ROOT:/local" \
-    -w /local \
-    -u "$(id -u):$(id -g)" \
-    -e JAVA_OPTS="-Dlog.level=${OPENAPI_GENERATOR_LOG_LEVEL}" \
-    "$GENERATOR_IMAGE" generate \
-    -i "/local/openapi.json" \
-    -g "$GENERATOR_NAME" \
-    -o "/local/openai-server-base" \
-    -c "/local/target/specs/server-generator-config.json" \
-    --skip-validate-spec
-
 # Step 4: Self-test the remaining generation scripts. The generator renders
 # unions and decides Default and Display itself, and writes only the imports a
 # file uses. Nothing rewrites the generated code afterwards any more. PyYAML is

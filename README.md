@@ -56,14 +56,8 @@ println!("{}", response.id);
 - **Cargo features per API group** (`responses`, `audio`, …) and `-types` features with only the models; builds for
   `wasm32-unknown-unknown` ([Cargo features](guides/cargo-features.md)).
 
-## A server and a mock
-
-The repository also holds two crates generated from the same spec, with this crate's models:
-
-- [openai-server-base](openai-server-base/README.md): the API as an [axum](https://docs.rs/axum) server, a trait per
-  API group, every method answering `501` until implemented.
-- [openai-mock-server](openai-mock-server/README.md): a scripted mock of the API for tests, on that server. Requests
-  are decoded and replies encoded with this crate's types, so a client and a fixture that disagree with the spec fail.
+For tests, [openai-mock-server](https://github.com/genai-rs/openai-mock-server) is a scripted mock of the API, generated
+from the same specification in its own repository.
 
 ## Documentation
 
