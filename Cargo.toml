@@ -211,3 +211,7 @@ futures-util = "^0.3.34"
 # Generated code trips this lint on the MSRV toolchain; the shared CI clippy has no per-toolchain flags.
 [lints.clippy]
 uninlined_format_args = "allow"
+
+# The server generated from the same spec with this crate's models, and the mock built on it.
+[workspace]
+members = [".", "openai-server-base", "openai-mock-server"]

@@ -8,7 +8,7 @@ OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-7.27.0}"
 # https://github.com/timvw/openapi-generator-timvw-rust). Image tags are
 # <generator version>-og<openapi-generator version>. Override for local builds,
 # e.g. GENERATOR_IMAGE=timvw-rust:dev.
-TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.30.2}"
+TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.35.0}"
 GENERATOR_IMAGE="${GENERATOR_IMAGE:-ghcr.io/timvw/openapi-generator-timvw-rust:${TIMVW_RUST_VERSION}-og${OPENAPI_GENERATOR_VERSION}}"
 GENERATOR_NAME="${GENERATOR_NAME:-timvw-rust}"
 # Control openapi-generator verbosity (values: error|warn|info|debug|trace)
@@ -92,6 +92,25 @@ docker run --rm \
     -g "$GENERATOR_NAME" \
     -o "/local" \
     -c "/local/scripts/generator-config.json" \
+    --skip-validate-spec
+
+# Step 3b: Generate the server (openai-server-base): the same spec and model options, the client's models
+# (modelsCrate). Its Cargo.toml and README.md are hand-maintained (openai-server-base/.openapi-generator-ignore).
+echo ""
+echo "🦀 Generating Rust server (openai-server-base)..."
+SERVER_CONFIG="$GEN_SPEC_DIR/server-generator-config.json"
+python3 -I "$SCRIPT_DIR/server_config.py" "$SCRIPT_DIR/generator-config.json" "$SERVER_CONFIG"
+find "$OUT_DIR/openai-server-base/src" -name "*.rs" -delete
+docker run --rm \
+    -v "$PROJECT_ROOT:/local" \
+    -w /local \
+    -u "$(id -u):$(id -g)" \
+    -e JAVA_OPTS="-Dlog.level=${OPENAPI_GENERATOR_LOG_LEVEL}" \
+    "$GENERATOR_IMAGE" generate \
+    -i "/local/openapi.json" \
+    -g "$GENERATOR_NAME" \
+    -o "/local/openai-server-base" \
+    -c "/local/target/specs/server-generator-config.json" \
     --skip-validate-spec
 
 # Step 4: Self-test the remaining generation scripts. The generator renders
