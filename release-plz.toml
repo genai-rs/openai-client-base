@@ -13,7 +13,7 @@ pr_branch_prefix = "automated/release-plz/"
 # PR settings
 pr_labels = ["release", "automated"]
 pr_draft = false
-pr_name = "chore: release version {{version}}"
+pr_name = "chore: release{% if version %} version {{ version }}{% endif %}"
 
 # Publishing
 publish = true
