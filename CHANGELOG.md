@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.35.0](https://github.com/genai-rs/openai-client-base/compare/v0.34.4...v0.35.0) - 2026-11-18
+
+### Added
+
+- [**breaking**] Unix timestamps are jiff::Timestamps
+
 ## [0.34.4](https://github.com/genai-rs/openai-client-base/compare/v0.34.3...v0.34.4) - 2026-11-18
 
 ### Other
