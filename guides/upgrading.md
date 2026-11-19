@@ -5,6 +5,11 @@ version. Each one has a migration note in [`migration/`](../migration), next to 
 (`api-diff-<from>-to-<to>.json`, written by `scripts/check_public_api.sh`). The [CHANGELOG](../CHANGELOG.md) lists
 every release.
 
+- **0.37.0** (unreleased; timvw-rust with `splitCrates`): the crate is a workspace of twelve crates, the facade
+  `openai-client-base` re-exporting eleven internal ones under the same paths and features, so that it compiles and
+  documents in about 3 GB instead of 11 GB. Code using `openai_client_base::models` and `apis` does not change;
+  `std::any::type_name` names the internal crates. Webhook functions post to `base_path` itself (timvw-rust 0.41.0).
+  See [`api-diff-0.36.2-to-0.37.0.md`](../migration/api-diff-0.36.2-to-0.37.0.md).
 - **0.36.2** (timvw-rust 0.40.0, runtime 0.4): no change to calls. The builders' `build()` and `call()` are the
   generator's, bounded by the required members instead of bon's `IsComplete`, which made rustdoc try every builder's
   blanket impl on every type: the docs now build in about a minute, where they took more than 40 minutes and docs.rs

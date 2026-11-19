@@ -6,7 +6,8 @@ pub struct ParseEnumError {
 }
 
 impl ParseEnumError {
-    pub(crate) fn new(type_name: &'static str, value: &str) -> Self {
+    #[doc(hidden)]
+    pub fn new(type_name: &'static str, value: &str) -> Self {
         Self {
             type_name,
             value: value.to_owned(),

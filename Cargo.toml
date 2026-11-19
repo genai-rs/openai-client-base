@@ -1,18 +1,17 @@
 [package]
 name = "openai-client-base"
-version = "0.36.2"
+version.workspace = true
 authors = ["Tim Van Wassenhove <github@timvw.be>"]
 description = "Auto-generated Rust client for the OpenAI API"
 license = "MIT OR Apache-2.0"
 edition = "2021"
 repository = "https://github.com/genai-rs/openai-client-base"
-homepage = "https://github.com/genai-rs/openai-client-base"
 documentation = "https://docs.rs/openai-client-base"
 readme = "README.md"
 keywords = ["openai", "api", "client", "generated"]
 categories = ["api-bindings"]
 rust-version = "1.88"
-exclude = ["docs/", "openapi.json", "migration/", "scripts/", ".github/", "*.backup", "guides/", "MIGRATION-*.md"]
+exclude = ["docs/", "openapi.json", "migration/", "scripts/", ".github/", "*.backup", "guides/", "MIGRATION-*.md", "crates/"]
 
 [package.metadata.docs.rs]
 all-features = true
@@ -20,14 +19,14 @@ rustdoc-args = ["--cfg", "docsrs"]
 
 [features]
 default = ["rustls", "retry", "full"]
-rustls = ["timvw-rust-runtime?/rustls"]
-native-tls = ["timvw-rust-runtime?/native-tls"]
+rustls = ["openai-client-base-common/rustls"]
+native-tls = ["openai-client-base-common/native-tls"]
 # Retries of 429, 408, 5xx and failed connections in the default client (Configuration::new()).
-retry = ["timvw-rust-runtime?/retry"]
+retry = ["openai-client-base-common/retry"]
 # timvw_rust_runtime::trace::TraceLayer: logs each request and retry with `tracing`.
-tracing = ["timvw-rust-runtime?/tracing"]
-# Generated from scripts/api-features.yaml (timvw-rust apiFeaturesFile); copy the generator's [features] section
-# when the groups or the spec's tags change.
+tracing = ["openai-client-base-common/tracing"]
+# Generated from scripts/api-features.yaml (timvw-rust apiFeaturesFile with splitCrates); copy the generator's
+# [features] section when the groups or the spec's tags change.
 # API features (apiFeatures): `<group>` compiles the group's API functions with its models and the HTTP client,
 # `<group>-types` only its models. `types` is every model, `full` everything.
 full = [
@@ -92,116 +91,116 @@ types = [
     "vectorstore-types",
     "video-types",
     "webhook-types",
+    "dep:openai-client-base-untagged",
+    "openai-client-base-untagged/types",
 ]
-_api = ["dep:timvw-rust-runtime"]
+_api = ["openai-client-base-common/_api"]
 # tags Audit Logs, Certificates, Data retention, Groups, Group users, Group organization role assignments, Invites, Projects, Project groups, Project group role assignments, Project user role assignments, Roles, Spend alerts, Usage, Users, User organization role assignments, Hosted tools; paths under `/organization`
-administration = ["administration-types", "_api"]
-administration-types = []
+administration = ["administration-types", "_api", "openai-client-base-administration/administration"]
+administration-types = ["dep:openai-client-base-administration", "openai-client-base-administration/administration-types", "openai-client-base-common/administration-types"]
 # tag Agents
-agents = ["agents-types", "_api"]
-agents-types = []
+agents = ["agents-types", "_api", "openai-client-base-agents/agents"]
+agents-types = ["dep:openai-client-base-agents", "openai-client-base-agents/agents-types", "openai-client-base-common/agents-types"]
 # tag Assistants
-assistants = ["assistants-types", "_api"]
-assistants-types = []
+assistants = ["assistants-types", "_api", "openai-client-base-assistants/assistants"]
+assistants-types = ["dep:openai-client-base-assistants", "openai-client-base-assistants/assistants-types", "openai-client-base-common/assistants-types"]
 # tag Audio
-audio = ["audio-types", "_api"]
-audio-types = []
+audio = ["audio-types", "_api", "openai-client-base-realtime/audio"]
+audio-types = ["dep:openai-client-base-realtime", "openai-client-base-realtime/audio-types", "openai-client-base-common/audio-types"]
 # tag Batch
-batch = ["batch-types", "_api"]
-batch-types = []
+batch = ["batch-types", "_api", "openai-client-base-assistants/batch"]
+batch-types = ["dep:openai-client-base-assistants", "openai-client-base-assistants/batch-types", "openai-client-base-common/batch-types"]
 # tag Chat
-chat-completion = ["chat-completion-types", "_api"]
-chat-completion-types = []
+chat-completion = ["chat-completion-types", "_api", "openai-client-base-chat/chat-completion"]
+chat-completion-types = ["dep:openai-client-base-chat", "openai-client-base-chat/chat-completion-types", "openai-client-base-common/chat-completion-types"]
 # paths under `/chatkit`
-chatkit = ["chatkit-types", "_api"]
-chatkit-types = []
+chatkit = ["chatkit-types", "_api", "openai-client-base-tools/chatkit"]
+chatkit-types = ["dep:openai-client-base-tools", "openai-client-base-tools/chatkit-types", "openai-client-base-common/chatkit-types"]
 # tag Completions
-completions = ["completions-types", "_api"]
-completions-types = []
+completions = ["completions-types", "_api", "openai-client-base-chat/completions"]
+completions-types = ["dep:openai-client-base-chat", "openai-client-base-chat/completions-types", "openai-client-base-common/completions-types"]
 # paths under `/containers`
-container = ["container-types", "_api"]
-container-types = ["dep:timvw-rust-runtime"]
+container = ["container-types", "_api", "openai-client-base-tools/container"]
+container-types = ["dep:openai-client-base-tools", "openai-client-base-tools/container-types", "openai-client-base-common/container-types"]
 # paths under `/content_provenance_checks`
-content-provenance-checks = ["content-provenance-checks-types", "_api"]
-content-provenance-checks-types = []
+content-provenance-checks = ["content-provenance-checks-types", "_api", "openai-client-base-platform/content-provenance-checks"]
+content-provenance-checks-types = ["dep:openai-client-base-platform", "openai-client-base-platform/content-provenance-checks-types", "openai-client-base-common/content-provenance-checks-types"]
 # tag Decisions
-decisions = ["decisions-types", "_api"]
-decisions-types = []
+decisions = ["decisions-types", "_api", "openai-client-base-platform/decisions"]
+decisions-types = ["dep:openai-client-base-platform", "openai-client-base-platform/decisions-types", "openai-client-base-common/decisions-types"]
 # tag Embeddings
-embedding = ["embedding-types", "_api"]
-embedding-types = []
+embedding = ["embedding-types", "_api", "openai-client-base-chat/embedding"]
+embedding-types = ["dep:openai-client-base-chat", "openai-client-base-chat/embedding-types", "openai-client-base-common/embedding-types"]
 # tag Evals
-evals = ["evals-types", "_api"]
-evals-types = []
+evals = ["evals-types", "_api", "openai-client-base-finetuning/evals"]
+evals-types = ["dep:openai-client-base-finetuning", "openai-client-base-finetuning/evals-types", "openai-client-base-common/evals-types"]
 # tag Files
-file = ["file-types", "_api"]
-file-types = []
+file = ["file-types", "_api", "openai-client-base-assistants/file"]
+file-types = ["dep:openai-client-base-assistants", "openai-client-base-assistants/file-types", "openai-client-base-common/file-types"]
 # tag Fine-tuning
-finetuning = ["finetuning-types", "_api"]
-finetuning-types = []
+finetuning = ["finetuning-types", "_api", "openai-client-base-finetuning/finetuning"]
+finetuning-types = ["dep:openai-client-base-finetuning", "openai-client-base-finetuning/finetuning-types", "openai-client-base-common/finetuning-types"]
 # tag Images
-image = ["image-types", "_api"]
-image-types = []
+image = ["image-types", "_api", "openai-client-base-chat/image"]
+image-types = ["dep:openai-client-base-chat", "openai-client-base-chat/image-types", "openai-client-base-common/image-types"]
 # tag Live
-live = ["live-types", "_api"]
-live-types = []
+live = ["live-types", "_api", "openai-client-base-realtime/live"]
+live-types = ["dep:openai-client-base-realtime", "openai-client-base-realtime/live-types", "openai-client-base-common/live-types"]
 # tag Models
-model = ["model-types", "_api"]
-model-types = []
+model = ["model-types", "_api", "openai-client-base-chat/model"]
+model-types = ["dep:openai-client-base-chat", "openai-client-base-chat/model-types", "openai-client-base-common/model-types"]
 # tag Moderations
-moderation = ["moderation-types", "_api"]
-moderation-types = []
+moderation = ["moderation-types", "_api", "openai-client-base-chat/moderation"]
+moderation-types = ["dep:openai-client-base-chat", "openai-client-base-chat/moderation-types", "openai-client-base-common/moderation-types"]
 # tag OpenAiClientBaseWebhooks
-open-ai-client-base-webhooks = ["open-ai-client-base-webhooks-types", "_api"]
-open-ai-client-base-webhooks-types = []
+open-ai-client-base-webhooks = ["open-ai-client-base-webhooks-types", "_api", "openai-client-base-platform/open-ai-client-base-webhooks"]
+open-ai-client-base-webhooks-types = ["dep:openai-client-base-platform", "openai-client-base-platform/open-ai-client-base-webhooks-types", "openai-client-base-common/open-ai-client-base-webhooks-types"]
 # tag Realtime
-realtime = ["realtime-types", "_api"]
-realtime-types = []
+realtime = ["realtime-types", "_api", "openai-client-base-realtime/realtime"]
+realtime-types = ["dep:openai-client-base-realtime", "openai-client-base-realtime/realtime-types", "openai-client-base-common/realtime-types"]
 # tags Responses, Conversations
-responses = ["responses-types", "_api"]
-responses-types = []
+responses = ["responses-types", "_api", "openai-client-base-responses/responses"]
+responses-types = ["dep:openai-client-base-responses", "openai-client-base-responses/responses-types", "openai-client-base-common/responses-types"]
 # paths under `/safety`
-safety = ["safety-types", "_api"]
-safety-types = []
+safety = ["safety-types", "_api", "openai-client-base-platform/safety"]
+safety-types = ["dep:openai-client-base-platform", "openai-client-base-platform/safety-types", "openai-client-base-common/safety-types"]
 # tag Skills
-skill = ["skill-types", "_api"]
-skill-types = ["dep:timvw-rust-runtime"]
+skill = ["skill-types", "_api", "openai-client-base-tools/skill"]
+skill-types = ["dep:openai-client-base-tools", "openai-client-base-tools/skill-types", "openai-client-base-common/skill-types"]
 # tag Uploads
-upload = ["upload-types", "_api"]
-upload-types = []
+upload = ["upload-types", "_api", "openai-client-base-assistants/upload"]
+upload-types = ["dep:openai-client-base-assistants", "openai-client-base-assistants/upload-types", "openai-client-base-common/upload-types"]
 # tag Vaults
-vaults = ["vaults-types", "_api"]
-vaults-types = []
+vaults = ["vaults-types", "_api", "openai-client-base-tools/vaults"]
+vaults-types = ["dep:openai-client-base-tools", "openai-client-base-tools/vaults-types", "openai-client-base-common/vaults-types"]
 # tag Vector stores
-vectorstore = ["vectorstore-types", "_api"]
-vectorstore-types = []
+vectorstore = ["vectorstore-types", "_api", "openai-client-base-assistants/vectorstore"]
+vectorstore-types = ["dep:openai-client-base-assistants", "openai-client-base-assistants/vectorstore-types", "openai-client-base-common/vectorstore-types"]
 # tag Videos
-video = ["video-types", "_api"]
-video-types = ["dep:timvw-rust-runtime"]
+video = ["video-types", "_api", "openai-client-base-platform/video"]
+video-types = ["dep:openai-client-base-platform", "openai-client-base-platform/video-types", "openai-client-base-common/video-types"]
 # paths under `/webhook_endpoints`, `/webhook_event_types`
-webhook = ["webhook-types", "_api"]
-webhook-types = []
+webhook = ["webhook-types", "_api", "openai-client-base-platform/webhook"]
+webhook-types = ["dep:openai-client-base-platform", "openai-client-base-platform/webhook-types", "openai-client-base-common/webhook-types"]
 
-
-# The library has no unit tests or benchmarks (the tests are in tests/). Without test and bench
-# builds of it, `--all-targets` compiles this large crate once instead of twice at the same time;
-# twice was more than a CI runner's memory holds (about 8 GB each).
+# The library has no unit tests or benchmarks (the tests are in tests/).
 [lib]
 test = false
 bench = false
 
 [dependencies]
-bon = "^3.10.3"
-serde = { version = "^1.0.229", features = ["derive"] }
-serde_with = { version = "^3.24.0", default-features = false, features = ["base64", "std", "macros"] }
-serde_json = "^1.0.154"
-futures-core = "^0.3.34"
-serde_repr = "^0.1.21"
-regex = "1.13.1"
-# Unix timestamps (format unixtime) and dates are jiff types (generator option dateLibrary).
-jiff = { version = "^1.0.1", default-features = false, features = ["std", "serde"] }
-url = "^2.5.8"
-timvw-rust-runtime = { version = "^0.4.1", default-features = false, features = ["fs", "time"], optional = true }
+# The crates of the workspace (splitCrates): this crate re-exports them.
+openai-client-base-common = { workspace = true }
+openai-client-base-administration = { workspace = true, optional = true }
+openai-client-base-agents = { workspace = true, optional = true }
+openai-client-base-assistants = { workspace = true, optional = true }
+openai-client-base-chat = { workspace = true, optional = true }
+openai-client-base-finetuning = { workspace = true, optional = true }
+openai-client-base-platform = { workspace = true, optional = true }
+openai-client-base-realtime = { workspace = true, optional = true }
+openai-client-base-responses = { workspace = true, optional = true }
+openai-client-base-tools = { workspace = true, optional = true }
+openai-client-base-untagged = { workspace = true, optional = true }
 
 [dev-dependencies]
 tokio = { version = "^1.54.1", features = ["rt-multi-thread", "macros"] }
@@ -209,7 +208,70 @@ wiremock = "0.6.5"
 # Tests send through a reqwest::Client with short timeouts and no retries (one-shot loopback servers).
 reqwest = { version = "^0.13.5", default-features = false }
 futures-util = "^0.3.34"
+# The tests use the runtime, serde and url themselves (the crates of the workspace depend on them).
+timvw-rust-runtime = { version = "^0.4.1", default-features = false, features = ["fs", "time"] }
+serde = { version = "^1.0.229", features = ["derive"] }
+serde_json = "^1.0.154"
+url = "^2.5.8"
 
-# Generated code trips this lint on the MSRV toolchain; the shared CI clippy has no per-toolchain flags.
-[lints.clippy]
+[lints]
+workspace = true
+
+# splitCrates: this crate is the facade of a workspace; the models and API functions are in the crates below,
+# which it re-exports under its own paths.
+[workspace]
+members = [
+    "crates/common",
+    "crates/administration",
+    "crates/agents",
+    "crates/assistants",
+    "crates/chat",
+    "crates/finetuning",
+    "crates/platform",
+    "crates/realtime",
+    "crates/responses",
+    "crates/tools",
+    "crates/untagged",
+]
+
+[workspace.package]
+version = "0.36.2"
+authors = ["Tim Van Wassenhove <github@timvw.be>"]
+license = "MIT OR Apache-2.0"
+edition = "2021"
+rust-version = "1.88"
+repository = "https://github.com/genai-rs/openai-client-base"
+
+[workspace.dependencies]
+# The crates are released together, with one version: each one requires exactly that version of the others.
+openai-client-base-common = { path = "crates/common", version = "=0.36.2", default-features = false }
+openai-client-base-administration = { path = "crates/administration", version = "=0.36.2", default-features = false }
+openai-client-base-agents = { path = "crates/agents", version = "=0.36.2", default-features = false }
+openai-client-base-assistants = { path = "crates/assistants", version = "=0.36.2", default-features = false }
+openai-client-base-chat = { path = "crates/chat", version = "=0.36.2", default-features = false }
+openai-client-base-finetuning = { path = "crates/finetuning", version = "=0.36.2", default-features = false }
+openai-client-base-platform = { path = "crates/platform", version = "=0.36.2", default-features = false }
+openai-client-base-realtime = { path = "crates/realtime", version = "=0.36.2", default-features = false }
+openai-client-base-responses = { path = "crates/responses", version = "=0.36.2", default-features = false }
+openai-client-base-tools = { path = "crates/tools", version = "=0.36.2", default-features = false }
+openai-client-base-untagged = { path = "crates/untagged", version = "=0.36.2", default-features = false }
+
+# The lints of every crate of the workspace, which inherit them (`[lints] workspace = true`): add
+# `[workspace.lints.clippy]` or `[workspace.lints.rust]` entries here to change them everywhere.
+[workspace.lints.clippy]
+# Generated code trips these lints (uninlined_format_args on the MSRV toolchain); the shared CI clippy has no
+# per-crate flags.
 uninlined_format_args = "allow"
+too_many_arguments = "allow"
+needless_return = "allow"
+unnecessary_operation = "allow"
+into_iter_on_ref = "allow"
+empty_docs = "allow"
+new_without_default = "allow"
+large_enum_variant = "allow"
+derive_partial_eq_without_eq = "allow"
+enum_variant_names = "allow"
+redundant_field_names = "allow"
+missing_errors_doc = "allow"
+module_name_repetitions = "allow"
+derivable_impls = "allow"

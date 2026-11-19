@@ -1,0 +1,38 @@
+[package]
+name = "openai-client-base-untagged"
+description = "Internal part of openai-client-base: the models no operation uses, which the feature `types` compiles. Depend on openai-client-base instead"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+readme = "README.md"
+
+[package.metadata.docs.rs]
+all-features = true
+
+[dependencies]
+openai-client-base-common = { workspace = true }
+openai-client-base-chat = { workspace = true }
+openai-client-base-finetuning = { workspace = true }
+openai-client-base-platform = { workspace = true }
+openai-client-base-realtime = { workspace = true }
+openai-client-base-responses = { workspace = true }
+bon = { version = "^3", optional = true }
+serde = { version = "^1.0", features = ["derive"] }
+serde_with = { version = "^3.8", default-features = false, features = ["base64", "std", "macros"], optional = true }
+serde_json = "^1.0"
+futures-core = "^0.3"
+serde_repr = "^0.1"
+url = "^2.5"
+regex = "^1.10"
+jiff = { version = "^1", default-features = false, features = ["std", "serde"] }
+timvw-rust-runtime = { version = "^0.4", default-features = false, features = ["fs", "time"], optional = true }
+
+[features]
+default = []
+types = ["dep:bon", "dep:serde_with", "openai-client-base-common/administration-types", "openai-client-base-common/agents-types", "openai-client-base-common/assistants-types", "openai-client-base-common/audio-types", "openai-client-base-common/batch-types", "openai-client-base-common/chat-completion-types", "openai-client-base-common/chatkit-types", "openai-client-base-common/completions-types", "openai-client-base-common/container-types", "openai-client-base-common/content-provenance-checks-types", "openai-client-base-common/decisions-types", "openai-client-base-common/embedding-types", "openai-client-base-common/evals-types", "openai-client-base-common/file-types", "openai-client-base-common/finetuning-types", "openai-client-base-common/image-types", "openai-client-base-common/live-types", "openai-client-base-common/model-types", "openai-client-base-common/moderation-types", "openai-client-base-common/open-ai-client-base-webhooks-types", "openai-client-base-common/realtime-types", "openai-client-base-common/responses-types", "openai-client-base-common/safety-types", "openai-client-base-common/skill-types", "openai-client-base-common/upload-types", "openai-client-base-common/vaults-types", "openai-client-base-common/vectorstore-types", "openai-client-base-common/video-types", "openai-client-base-common/webhook-types", "openai-client-base-chat/chat-completion-types", "openai-client-base-chat/completions-types", "openai-client-base-chat/embedding-types", "openai-client-base-chat/image-types", "openai-client-base-chat/model-types", "openai-client-base-chat/moderation-types", "openai-client-base-finetuning/evals-types", "openai-client-base-finetuning/finetuning-types", "openai-client-base-platform/content-provenance-checks-types", "openai-client-base-platform/decisions-types", "openai-client-base-platform/open-ai-client-base-webhooks-types", "openai-client-base-platform/safety-types", "openai-client-base-platform/video-types", "openai-client-base-platform/webhook-types", "openai-client-base-realtime/audio-types", "openai-client-base-realtime/live-types", "openai-client-base-realtime/realtime-types", "openai-client-base-responses/responses-types"]
+
+[lints]
+workspace = true
