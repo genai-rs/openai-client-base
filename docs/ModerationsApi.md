@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## create_moderation
 
-> models::CreateModerationResponse create_moderation(create_moderation_request, options)
+> models::CreateModeration200Response create_moderation(create_moderation_request, options)
 Create moderation
 
 Classifies if text and/or image inputs are potentially harmful. Learn more in the [moderation guide](https://developers.openai.com/api/docs/guides/moderation). 
@@ -28,7 +28,7 @@ create_moderation().configuration(&configuration).create_moderation_request(..).
 
 ### Return type
 
-[**models::CreateModerationResponse**](CreateModerationResponse.md)
+[**models::CreateModeration200Response**](CreateModeration200Response.md)
 
 ### Authorization
 

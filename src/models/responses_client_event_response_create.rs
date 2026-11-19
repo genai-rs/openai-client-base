@@ -194,6 +194,8 @@ pub struct ResponsesClientEventResponseCreate {
         skip_serializing_if = "Option::is_none"
     )]
     pub moderation: Option<Option<models::ModerationParam>>,
+    #[serde(rename = "background_options", skip_serializing_if = "Option::is_none")]
+    pub background_options: Option<models::BackgroundOptionsParam>,
     /// If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](https://developers.openai.com/api/reference/resources/responses/streaming-events) for more information.
     #[serde(
         rename = "stream",
@@ -281,6 +283,7 @@ impl ResponsesClientEventResponseCreate {
             store: None,
             instructions: None,
             moderation: None,
+            background_options: None,
             stream: None,
             stream_options: None,
             conversation: None,

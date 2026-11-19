@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **prompt_cache_options** | Option<[**models::PromptCacheOptionsParam2**](PromptCacheOptionsParam2.md)> | Default prompt cache lifetime for future turns. Send null to clear the session default. | [optional]
+**vault_ids** | Option<**Vec<String>**> | Replaces the session's referenced vaults. Omit to retain them; null or [] clears them. | [optional]
 **review** | Option<[**models::SessionReviewParam**](SessionReviewParam.md)> |  | [optional]
 **agent** | Option<[**models::UpdateSessionAgentParam**](UpdateSessionAgentParam.md)> |  | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Replaces all metadata. Omit to leave unchanged, or pass null or {} to clear it. Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters. | [optional]

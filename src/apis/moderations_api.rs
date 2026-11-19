@@ -65,7 +65,7 @@ pub async fn create_moderation(
     configuration: &configuration::Configuration,
     create_moderation_request: &models::CreateModerationRequest,
     options: Option<&timvw_rust_runtime::RequestOptions>,
-) -> Result<models::CreateModerationResponse, Error<CreateModerationError>> {
+) -> Result<models::CreateModeration200Response, Error<CreateModerationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_moderation_request = create_moderation_request;
 
@@ -103,8 +103,8 @@ pub async fn create_moderation(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateModerationResponse`"))),
-            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateModerationResponse`")))),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateModeration200Response`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateModeration200Response`")))),
         }
     } else {
         let headers = resp.headers().clone();
@@ -145,14 +145,14 @@ pub async fn create_moderation(
 ///
 /// Sends the same request as [`create_moderation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
-/// `models::CreateModerationResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// `models::CreateModeration200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[bon::builder]
 pub async fn create_moderation_response(
     configuration: &configuration::Configuration,
     create_moderation_request: &models::CreateModerationRequest,
     options: Option<&timvw_rust_runtime::RequestOptions>,
-) -> Result<super::ApiResponse<models::CreateModerationResponse>, Error<CreateModerationError>> {
+) -> Result<super::ApiResponse<models::CreateModeration200Response>, Error<CreateModerationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_moderation_request = create_moderation_request;
 

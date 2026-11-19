@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **id** | **String** |  | 
 **object** | **Object** | The object type, which is always `batch`. (enum: batch) | 
 **endpoint** | **String** | The OpenAI API endpoint used by the batch. | 
-**model** | Option<**String**> | Model ID used to process the batch, like `gpt-6-astra`. OpenAI offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [model guide](https://developers.openai.com/api/docs/models) to browse and compare available models.  | [optional]
+**model** | Option<**String**> | Model ID used to process the batch, like `gpt-6.2-astra`. OpenAI offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [model guide](https://developers.openai.com/api/docs/models) to browse and compare available models.  | [optional]
 **errors** | Option<[**models::BatchErrors**](BatchErrors.md)> |  | [optional]
 **input_file_id** | **String** | The ID of the input file for the batch. | 
 **completion_window** | **String** | The time frame within which the batch should be processed. | 
