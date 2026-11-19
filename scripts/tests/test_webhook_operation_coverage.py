@@ -38,7 +38,7 @@ class OperationCoverageTests(unittest.TestCase):
                 'client.request(reqwest::Method::GET, &uri_str); }\n'
             ),
             "webhooks_api.rs": (
-                'pub async fn event_received() { let uri_str = format!("{}/event", base); '
+                'pub async fn event_received() { let uri_str = configuration.base_path.clone(); '
                 'client.request(reqwest::Method::POST, &uri_str); }\n'
             ),
         })
@@ -55,7 +55,7 @@ class OperationCoverageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             apis = Path(directory)
             (apis / "webhooks_api.rs").write_text(
-                'pub async fn event_received() { let uri_str = format!("{}/event", base); '
+                'pub async fn event_received() { let uri_str = configuration.base_path.clone(); '
                 'client.request(reqwest::Method::POST, &uri_str); }\n'
             )
             result = audit(spec, apis, "webhooks_api")
@@ -88,7 +88,7 @@ class OperationCoverageTests(unittest.TestCase):
         self.assertEqual(1, len(result["mismatched_webhook_functions"]))
         mismatch = result["mismatched_webhook_functions"][0]
         self.assertEqual("POST", mismatch["webhook"]["method"])
-        self.assertEqual("/event", mismatch["webhook"]["path"])
+        self.assertEqual("", mismatch["webhook"]["path"])
         self.assertEqual("DELETE", mismatch["generated"][0]["method"])
         self.assertEqual("/WRONG", mismatch["generated"][0]["path"])
 
@@ -145,7 +145,7 @@ class OperationCoverageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             apis = Path(directory)
             (apis / "webhooks_api.rs").write_text(
-                'pub async fn event_received() { let uri_str = format!("{}/event", base); '
+                'pub async fn event_received() { let uri_str = configuration.base_path.clone(); '
                 'client.request(reqwest::Method::POST, &uri_str); }\n'
             )
             result = audit(spec, apis, "webhooks_api")
@@ -196,7 +196,7 @@ class OperationCoverageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             apis = Path(directory)
             (apis / "webhooks_api.rs").write_text(
-                'pub async fn event_post() { let uri_str = format!("{}/event", base); '
+                'pub async fn event_post() { let uri_str = configuration.base_path.clone(); '
                 'client.request(reqwest::Method::POST, &uri_str); }\n'
             )
             result = audit(spec, apis, "webhooks_api")
@@ -231,7 +231,7 @@ class OperationCoverageTests(unittest.TestCase):
                 'client.request(reqwest::Method::GET, &uri_str); }\n'
             ),
             "webhooks_api.rs": (
-                'pub async fn event_received() { let uri_str = format!("{}/event", base); '
+                'pub async fn event_received() { let uri_str = configuration.base_path.clone(); '
                 'client.request(reqwest::Method::POST, &uri_str); }\n'
             ),
         })
@@ -254,7 +254,7 @@ class OperationCoverageTests(unittest.TestCase):
             + function(name, "/keys") + function(name + "_response", "/keys"),
             "probe_api.rs": function("read_tagged", "/tagged"),
             "webhooks_api.rs": (
-                'pub async fn event_received() { let uri_str = format!("{}/event", base); '
+                'pub async fn event_received() { let uri_str = configuration.base_path.clone(); '
                 'client.request(reqwest::Method::POST, &uri_str); }\n'
             ),
         })
@@ -269,6 +269,17 @@ class OperationCoverageTests(unittest.TestCase):
         result = self.run_audit({"one_api.rs": function("read_item"), "two_api.rs": function("read_item_stream")})
         self.assertEqual("fail", result["status"])
         self.assertEqual(1, len(result["ambiguous_normal_operations"]))
+
+    def test_base_path_function_cannot_satisfy_a_normal_path_operation(self):
+        result = self.run_audit({
+            "default_api.rs": (
+                'pub async fn read_item() { let uri_str = configuration.base_path.clone(); '
+                'client.request(reqwest::Method::GET, &uri_str); }\n'
+            ),
+        })
+        self.assertEqual("fail", result["status"])
+        self.assertIn("readItem",
+                      [entry["operation_id"] for entry in result["missing_normal_operations"]])
 
     def test_unparseable_generated_function_fails_closed(self):
         result = self.run_audit({"default_api.rs": "pub async fn mystery() {}\n"})

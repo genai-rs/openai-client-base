@@ -112,6 +112,8 @@ def extract_functions(apis_dir: Path) -> tuple[list[dict[str, str]], list[dict[s
     # Top-level functions only: the call() of a function's builder (an impl block) is indented.
     declaration = re.compile(r"(?m)^pub\s+async\s+fn\s+(\w+)\s*\(")
     uri_pattern = re.compile(r"let\s+uri_str\s*=\s*format!\(\s*\"((?:\\.|[^\"\\])*)\"", re.S)
+    # A webhook function sends to the receiver's URL, the configuration's base_path itself.
+    base_path_pattern = re.compile(r"let\s+uri_str\s*=\s*configuration\s*\.\s*base_path\s*\.\s*clone\(\s*\)\s*;")
     method_pattern = re.compile(r"\.request\(\s*(?:reqwest|timvw_rust_runtime)::Method::(\w+)")
 
     for file in sorted(apis_dir.glob("*_api.rs")):
@@ -122,9 +124,13 @@ def extract_functions(apis_dir: Path) -> tuple[list[dict[str, str]], list[dict[s
             body = source[match.start():end]
             uri = uri_pattern.search(body)
             method = method_pattern.search(body)
+            if method and not uri and base_path_pattern.search(body):
+                generated.append({"module": file.stem, "function": match.group(1),
+                                  "method": method.group(1).upper(), "path": "", "normalized_path": ""})
+                continue
             if not uri or not method:
                 unparsed.append({"file": file.name, "function": match.group(1),
-                                 "reason": "could not read the HTTP method and format! URI"})
+                                 "reason": "could not read the HTTP method and the URI"})
                 continue
             template = bytes(uri.group(1), "utf-8").decode("unicode_escape")
             # Generated Rust operations form URIs from a base URL followed by a
@@ -174,7 +180,8 @@ def webhook_inventory(spec: dict[str, Any]) -> list[dict[str, str]]:
                            "operation_id_source": operation_id_source,
                            "function": rust_operation_name(operation_id),
                            "method": HTTP_METHODS[method], "webhook": str(name),
-                           "path": f"/{name}", "normalized_path": normalize_path(f"/{name}")})
+                           # Sent to the receiver's URL (base_path), not to a path below it.
+                           "path": "", "normalized_path": ""})
     return result
 
 
