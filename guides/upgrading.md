@@ -5,6 +5,11 @@ version. Each one has a migration note in [`migration/`](../migration), next to 
 (`api-diff-<from>-to-<to>.json`, written by `scripts/check_public_api.sh`). The [CHANGELOG](../CHANGELOG.md) lists
 every release.
 
+- **0.36** (OpenAI spec of 2026-11-19, timvw-rust 0.38.1): `moderations_api::create_moderation` returns a
+  `CreateModeration200Response`, the classification or the new CSAM model's answer;
+  `SessionTurnErrorCodeResource::SessionBudgetExceeded` becomes `ApiKeySpendLimitExceeded`; the Responses requests
+  gain `background_options` and `UpdateAgentSessionParams` gains `vault_ids`. See
+  [`api-diff-0.35.0-to-0.36.0.md`](../migration/api-diff-0.35.0-to-0.36.0.md).
 - **0.35** (timvw-rust 0.38.1, runtime 0.4): every field the spec marks `format: unixtime` (`created_at`, `created`,
   `expires_at`, ...) is a `jiff::Timestamp` instead of an `i64`, and `Model.shutdown_date` is a `jiff::civil::Date`.
   The JSON is unchanged. See [`api-diff-0.34.4-to-0.35.0.md`](../migration/api-diff-0.34.4-to-0.35.0.md).
