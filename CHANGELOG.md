@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.36.2](https://github.com/genai-rs/openai-client-base/compare/v0.36.1...v0.36.2) - 2026-11-19
+
+### Fixed
+
+- docs that docs.rs can build (timvw-rust 0.40.0)
+
 ## [0.36.1](https://github.com/genai-rs/openai-client-base/compare/v0.36.0...v0.36.1) - 2026-11-19
 
 ### Fixed
