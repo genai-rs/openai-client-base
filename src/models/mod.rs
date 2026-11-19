@@ -826,6 +826,14 @@ pub use self::azure_external_storage_provider_params::AzureExternalStorageProvid
 pub mod azure_external_storage_provider_response;
 #[cfg(feature = "administration-types")]
 pub use self::azure_external_storage_provider_response::AzureExternalStorageProviderResponse;
+#[cfg(feature = "responses-types")]
+pub mod background_completion_window_enum;
+#[cfg(feature = "responses-types")]
+pub use self::background_completion_window_enum::BackgroundCompletionWindowEnum;
+#[cfg(feature = "responses-types")]
+pub mod background_options_param;
+#[cfg(feature = "responses-types")]
+pub use self::background_options_param::BackgroundOptionsParam;
 #[cfg(feature = "batch-types")]
 pub mod batch;
 #[cfg(feature = "batch-types")]
@@ -978,6 +986,14 @@ pub use self::beta_auto_code_interpreter_tool_param::BetaAutoCodeInterpreterTool
 pub mod beta_auto_code_interpreter_tool_param_network_policy;
 #[cfg(feature = "responses-types")]
 pub use self::beta_auto_code_interpreter_tool_param_network_policy::BetaAutoCodeInterpreterToolParamNetworkPolicy;
+#[cfg(feature = "responses-types")]
+pub mod beta_background_completion_window_enum;
+#[cfg(feature = "responses-types")]
+pub use self::beta_background_completion_window_enum::BetaBackgroundCompletionWindowEnum;
+#[cfg(feature = "responses-types")]
+pub mod beta_background_options_param;
+#[cfg(feature = "responses-types")]
+pub use self::beta_background_options_param::BetaBackgroundOptionsParam;
 #[cfg(feature = "responses-types")]
 pub mod beta_cache_miss_reason_type_enum;
 #[cfg(feature = "responses-types")]
@@ -3910,6 +3926,10 @@ pub use self::create_conversation_body::CreateConversationBody;
 pub mod create_conversation_items_request;
 #[cfg(feature = "responses-types")]
 pub use self::create_conversation_items_request::CreateConversationItemsRequest;
+#[cfg(feature = "moderation-types")]
+pub mod create_csam_moderation_response;
+#[cfg(feature = "moderation-types")]
+pub use self::create_csam_moderation_response::CreateCsamModerationResponse;
 #[cfg(feature = "embedding-types")]
 pub mod create_embedding_request;
 #[cfg(feature = "embedding-types")]
@@ -4150,6 +4170,10 @@ pub use self::create_message_request_content_one_of_inner::CreateMessageRequestC
 pub mod create_model_response_properties;
 #[cfg(any(feature = "chat-completion-types", feature = "responses-types"))]
 pub use self::create_model_response_properties::CreateModelResponseProperties;
+#[cfg(feature = "moderation-types")]
+pub mod create_moderation_200_response;
+#[cfg(feature = "moderation-types")]
+pub use self::create_moderation_200_response::CreateModeration200Response;
 #[cfg(feature = "moderation-types")]
 pub mod create_moderation_request;
 #[cfg(feature = "moderation-types")]
@@ -4454,6 +4478,22 @@ pub use self::create_video_remix_body::CreateVideoRemixBody;
 pub mod create_voice_prompt_request;
 #[cfg(feature = "audio-types")]
 pub use self::create_voice_prompt_request::CreateVoicePromptRequest;
+#[cfg(feature = "moderation-types")]
+pub mod csam_category_applied_input_types;
+#[cfg(feature = "moderation-types")]
+pub use self::csam_category_applied_input_types::CsamCategoryAppliedInputTypes;
+#[cfg(feature = "moderation-types")]
+pub mod csam_category_flags;
+#[cfg(feature = "moderation-types")]
+pub use self::csam_category_flags::CsamCategoryFlags;
+#[cfg(feature = "moderation-types")]
+pub mod csam_category_scores;
+#[cfg(feature = "moderation-types")]
+pub use self::csam_category_scores::CsamCategoryScores;
+#[cfg(feature = "moderation-types")]
+pub mod csam_moderation_result;
+#[cfg(feature = "moderation-types")]
+pub use self::csam_moderation_result::CsamModerationResult;
 #[cfg(any(feature = "evals-types", feature = "responses-types"))]
 pub mod custom_grammar_format_param;
 #[cfg(any(feature = "evals-types", feature = "responses-types"))]

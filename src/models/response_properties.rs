@@ -21,7 +21,7 @@ pub struct ResponseProperties {
         skip_serializing_if = "Option::is_none"
     )]
     pub previous_response_id: Option<Option<String>>,
-    /// Model ID used to generate the response, like `gpt-6-astra`. OpenAI offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [model guide](https://developers.openai.com/api/docs/models) to browse and compare available models.
+    /// Model ID used to generate the response, like `gpt-6.2-astra`. OpenAI offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [model guide](https://developers.openai.com/api/docs/models) to browse and compare available models.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// Whether to run the model response in the background. [Learn more](https://developers.openai.com/api/docs/guides/background).

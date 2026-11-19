@@ -21,7 +21,7 @@ pub struct CreateEvalCompletionsRunDataSource {
     pub input_messages: Option<models::CreateEvalCompletionsRunDataSourceInputMessages>,
     #[serde(rename = "sampling_params", skip_serializing_if = "Option::is_none")]
     pub sampling_params: Option<models::CreateEvalCompletionsRunDataSourceSamplingParams>,
-    /// The name of the model to use for generating completions (e.g. \"o3-mini\").
+    /// The model to use to sample outputs with the Chat Completions API.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     #[serde(rename = "source")]

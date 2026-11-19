@@ -18,10 +18,10 @@ pub enum SessionTurnErrorCodeResource {
     ContextLengthExceeded,
     #[serde(rename = "max_output_tokens")]
     MaxOutputTokens,
-    #[serde(rename = "session_budget_exceeded")]
-    SessionBudgetExceeded,
     #[serde(rename = "usage_limit_exceeded")]
     UsageLimitExceeded,
+    #[serde(rename = "api_key_spend_limit_exceeded")]
+    ApiKeySpendLimitExceeded,
     #[serde(rename = "project_spend_limit_exceeded")]
     ProjectSpendLimitExceeded,
     #[serde(rename = "organization_spend_limit_exceeded")]
@@ -73,8 +73,8 @@ impl std::fmt::Display for SessionTurnErrorCodeResource {
         match self {
             Self::ContextLengthExceeded => write!(f, "context_length_exceeded"),
             Self::MaxOutputTokens => write!(f, "max_output_tokens"),
-            Self::SessionBudgetExceeded => write!(f, "session_budget_exceeded"),
             Self::UsageLimitExceeded => write!(f, "usage_limit_exceeded"),
+            Self::ApiKeySpendLimitExceeded => write!(f, "api_key_spend_limit_exceeded"),
             Self::ProjectSpendLimitExceeded => write!(f, "project_spend_limit_exceeded"),
             Self::OrganizationSpendLimitExceeded => write!(f, "organization_spend_limit_exceeded"),
             Self::OrganizationUsageLimitExceeded => write!(f, "organization_usage_limit_exceeded"),
@@ -116,8 +116,8 @@ impl ::std::str::FromStr for SessionTurnErrorCodeResource {
         match value {
             "context_length_exceeded" => Ok(Self::ContextLengthExceeded),
             "max_output_tokens" => Ok(Self::MaxOutputTokens),
-            "session_budget_exceeded" => Ok(Self::SessionBudgetExceeded),
             "usage_limit_exceeded" => Ok(Self::UsageLimitExceeded),
+            "api_key_spend_limit_exceeded" => Ok(Self::ApiKeySpendLimitExceeded),
             "project_spend_limit_exceeded" => Ok(Self::ProjectSpendLimitExceeded),
             "organization_spend_limit_exceeded" => Ok(Self::OrganizationSpendLimitExceeded),
             "organization_usage_limit_exceeded" => Ok(Self::OrganizationUsageLimitExceeded),

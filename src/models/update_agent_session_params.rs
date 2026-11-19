@@ -22,6 +22,16 @@ pub struct UpdateAgentSessionParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub prompt_cache_options: Option<Option<models::PromptCacheOptionsParam2>>,
+    /// Replaces the session's referenced vaults. Omit to retain them; null or [] clears them.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
+    #[serde(
+        rename = "vault_ids",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub vault_ids: Option<Option<Vec<String>>>,
     #[serde(rename = "review", skip_serializing_if = "Option::is_none")]
     pub review: Option<models::SessionReviewParam>,
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
@@ -43,6 +53,7 @@ impl UpdateAgentSessionParams {
     pub fn new() -> UpdateAgentSessionParams {
         UpdateAgentSessionParams {
             prompt_cache_options: None,
+            vault_ids: None,
             review: None,
             agent: None,
             metadata: None,
@@ -56,6 +67,24 @@ impl crate::models::validation::Validate for UpdateAgentSessionParams {
         path: &crate::models::validation::Path<'_>,
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
+        if let Some(Some(value0)) = &self.vault_ids {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16384),
+                &path.field("vault_ids"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("vault_ids").index(index1),
+                    errors,
+                );
+            }
+        }
         crate::models::validation::Validate::validate_into(
             &self.agent,
             &path.field("agent"),

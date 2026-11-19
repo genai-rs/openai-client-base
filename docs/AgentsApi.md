@@ -307,7 +307,7 @@ Submits message, cancellation, tool-result, or computer-use approval-response ev
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | The ID of the session. | [required] |
-**idempotency_key** | Option<**String**> | An optional client-generated key that makes retries of submitted messages idempotent. |  |
+**idempotency_key** | Option<**String**> | An optional client-generated key for message submissions. Retry the same message with the same key and identical input within the 24-hour replay window; a retry replays the original outcome if it is available. After the window expires, a key whose outcome is unavailable may return 409. After a timeout or server error, inspect the session history and items before resubmitting. Use a new key for a new message, or only after confirming the earlier message did not execute. |  |
 **create_session_events_params** | Option<[**CreateSessionEventsParams**](CreateSessionEventsParams.md)> |  |  |
 **options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
 
@@ -1728,7 +1728,7 @@ update_agent_environment_template().configuration(&configuration).environment_te
 > models::SessionResource update_agent_session(session_id, update_agent_session_params, options)
 Update an agent session
 
-Updates session tools, metadata, model, reasoning effort, service tier, or the default prompt cache lifetime. Model settings apply to subsequent turns. Omitted fields are unchanged. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
+Updates session tools, vaults, metadata, model, reasoning effort, service tier, or the default prompt cache lifetime. Model settings apply to subsequent turns. Omitted fields are unchanged. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
 
 ### Parameters
 
