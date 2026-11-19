@@ -30,12 +30,12 @@ pub struct ComputerUseCallItemResource {
     /// A model-generated description of the activity, when available.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "title", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "title", default)]
     pub title: Option<String>,
     #[serde(rename = "status")]
     pub status: models::FunctionCallStatusResource,
     /// The last screenshot emitted by the model. Null when screenshot inclusion is disabled or the call emitted no screenshot.
-    #[serde(rename = "output", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "output", default)]
     pub output: Option<models::ComputerScreenshotResource>,
 }
 

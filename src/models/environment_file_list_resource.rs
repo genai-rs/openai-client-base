@@ -24,7 +24,7 @@ pub struct EnvironmentFileListResource {
     /// The opaque cursor to use when requesting the next page, if any.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "next", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "next", default)]
     pub next: Option<String>,
     /// Whether more files follow this page.
     #[serde(rename = "has_more")]

@@ -19,10 +19,7 @@ pub struct MultiAgentConfigResource {
     /// Maximum number of subagents that may run concurrently, or null when disabled. Defaults to 6 when enabled.
     ///
     /// Validation: `minimum: 1`, `maximum: 4294967295`.
-    #[serde(
-        rename = "max_concurrent_subagents",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "max_concurrent_subagents", default)]
     pub max_concurrent_subagents: Option<i64>,
 }
 

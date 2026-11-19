@@ -28,7 +28,7 @@ pub struct AutomationAgentConfigResource {
     /// Custom instructions, or null when absent.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "instructions", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "instructions", default)]
     pub instructions: Option<String>,
     /// Configured tools, excluding confidential credentials.
     ///

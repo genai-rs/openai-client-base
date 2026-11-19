@@ -27,7 +27,7 @@ pub struct SessionEnvironmentStateResource {
     #[serde(rename = "status")]
     pub status: models::SessionEnvironmentStatusResource,
     /// The error reported while preparing the environment, if any.
-    #[serde(rename = "error", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "error", default)]
     pub error: Option<models::SessionEnvironmentErrorResource>,
 }
 

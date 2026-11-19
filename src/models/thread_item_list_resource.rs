@@ -21,10 +21,10 @@ pub struct ThreadItemListResource {
     #[serde(rename = "data")]
     pub data: Vec<models::ThreadItem>,
     /// The ID of the first item in the list.
-    #[serde(rename = "first_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "first_id", default)]
     pub first_id: Option<String>,
     /// The ID of the last item in the list.
-    #[serde(rename = "last_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "last_id", default)]
     pub last_id: Option<String>,
     /// Whether there are more items available.
     #[serde(rename = "has_more")]

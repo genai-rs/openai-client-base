@@ -22,7 +22,7 @@ pub struct EnvironmentTemplateResource {
     /// An optional human-readable display name for the template.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "name", default)]
     pub name: Option<String>,
     /// The object type. Always `agent.environment.template`.  Defaults to `\"agent.environment.template\"`.
     #[serde(rename = "object")]

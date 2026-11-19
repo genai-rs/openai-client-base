@@ -21,7 +21,7 @@ pub struct ComputerUseApprovalResponseKindResourceBrowserAuthenticationSubmitRes
     /// The chosen sign-in method, or null when no options were offered.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "selected_option", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "selected_option", default)]
     pub selected_option: Option<String>,
 }
 

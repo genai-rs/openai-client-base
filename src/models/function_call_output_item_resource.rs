@@ -35,12 +35,12 @@ pub struct FunctionCallOutputItemResource {
     #[serde(rename = "status")]
     pub status: models::FunctionCallStatusResource,
     /// The function result, if the call succeeded.
-    #[serde(rename = "output", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "output", default)]
     pub output: Option<models::FunctionCallOutputResource>,
     /// The error message, if the call failed.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "error", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "error", default)]
     pub error: Option<String>,
 }
 

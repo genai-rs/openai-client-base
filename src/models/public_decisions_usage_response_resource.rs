@@ -18,7 +18,7 @@ pub struct PublicDecisionsUsageResponseResource {
     pub object: Object,
     #[serde(rename = "has_more")]
     pub has_more: bool,
-    #[serde(rename = "next_page", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "next_page", default)]
     pub next_page: Option<String>,
     #[serde(rename = "data")]
     pub data: Vec<models::DecisionsUsageBucket>,

@@ -15,7 +15,7 @@ pub struct DiscoveryVerification {
     /// Defaults to `\"discovery\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    #[serde(rename = "discovery_url", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "discovery_url", default)]
     pub discovery_url: Option<String>,
 }
 

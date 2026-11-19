@@ -24,10 +24,10 @@ pub struct PersistedAgentToolResourceWebSearch {
     /// Allowed search domains, or `null` when the search is unrestricted.
     ///
     /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
-    #[serde(rename = "allowed_domains", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "allowed_domains", default)]
     pub allowed_domains: Option<Vec<String>>,
     /// Approximate location used to localize search results, if provided.
-    #[serde(rename = "location", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "location", default)]
     pub location: Option<models::WebSearchLocationResource>,
 }
 

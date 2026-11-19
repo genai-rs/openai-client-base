@@ -30,31 +30,25 @@ pub struct AssignedRoleDetails {
     #[serde(rename = "predefined_role")]
     pub predefined_role: bool,
     /// Description of the role.
-    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "description", default)]
     pub description: Option<String>,
     /// When the role was created.
-    #[serde(rename = "created_at", with = "super::unix_time::option")]
+    #[serde(rename = "created_at", default, with = "super::unix_time::option")]
     pub created_at: Option<jiff::Timestamp>,
     /// When the role was last updated.
-    #[serde(rename = "updated_at", with = "super::unix_time::option")]
+    #[serde(rename = "updated_at", default, with = "super::unix_time::option")]
     pub updated_at: Option<jiff::Timestamp>,
     /// Identifier of the actor who created the role.
-    #[serde(rename = "created_by", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "created_by", default)]
     pub created_by: Option<String>,
     /// User details for the actor that created the role, when available.
-    #[serde(
-        rename = "created_by_user_obj",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "created_by_user_obj", default)]
     pub created_by_user_obj: Option<std::collections::HashMap<String, serde_json::Value>>,
     /// Arbitrary metadata stored on the role.
-    #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "metadata", default)]
     pub metadata: Option<std::collections::HashMap<String, serde_json::Value>>,
     /// Principals from which the role assignment is inherited, when available.
-    #[serde(
-        rename = "assignment_sources",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "assignment_sources", default)]
     pub assignment_sources: Option<Vec<models::AssignedRoleDetailsAssignmentSourcesInner>>,
 }
 

@@ -30,7 +30,7 @@ pub struct SessionEventAgentSessionTurnReasoningSummaryPartDone {
     /// The ID of the turn associated with the event, when applicable.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "turn_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "turn_id", default)]
     pub turn_id: Option<String>,
     /// The ID of the reasoning item.
     ///
@@ -50,7 +50,7 @@ pub struct SessionEventAgentSessionTurnReasoningSummaryPartDone {
     #[serde(rename = "part")]
     pub part: models::SummaryTextResource,
     /// Present as `incomplete` when summary generation was interrupted.
-    #[serde(rename = "status", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "status", default)]
     pub status: Option<Status>,
     /// Random alphanumeric padding. Present when stream obfuscation is enabled.
     ///

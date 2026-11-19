@@ -17,10 +17,10 @@ pub struct TaskGroupTask {
     #[serde(rename = "type")]
     pub r#type: models::TaskType,
     /// Optional heading for the grouped task. Defaults to null when not provided.
-    #[serde(rename = "heading", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "heading", default)]
     pub heading: Option<String>,
     /// Optional summary that describes the grouped task. Defaults to null when omitted.
-    #[serde(rename = "summary", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "summary", default)]
     pub summary: Option<String>,
 }
 

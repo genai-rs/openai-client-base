@@ -20,13 +20,13 @@ pub struct FineTuningJob {
     /// The Unix timestamp (in seconds) for when the fine-tuning job was created.
     #[serde(rename = "created_at", with = "super::unix_time")]
     pub created_at: jiff::Timestamp,
-    #[serde(rename = "error", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "error", default)]
     pub error: Option<models::FineTuningJobError>,
     /// The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running.
-    #[serde(rename = "fine_tuned_model", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "fine_tuned_model", default)]
     pub fine_tuned_model: Option<String>,
     /// The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running.
-    #[serde(rename = "finished_at", with = "super::unix_time::option")]
+    #[serde(rename = "finished_at", default, with = "super::unix_time::option")]
     pub finished_at: Option<jiff::Timestamp>,
     #[serde(
         rename = "hyperparameters",
@@ -51,13 +51,13 @@ pub struct FineTuningJob {
     #[serde(rename = "status")]
     pub status: Status,
     /// The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running.
-    #[serde(rename = "trained_tokens", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "trained_tokens", default)]
     pub trained_tokens: Option<i64>,
     /// The file ID used for training. You can retrieve the training data with the [Files API](https://developers.openai.com/api/reference/resources/files/methods/content).
     #[serde(rename = "training_file")]
     pub training_file: String,
     /// The file ID used for validation. You can retrieve the validation results with the [Files API](https://developers.openai.com/api/reference/resources/files/methods/content).
-    #[serde(rename = "validation_file", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "validation_file", default)]
     pub validation_file: Option<String>,
     /// A list of integrations to enable for this fine-tuning job.
     ///
@@ -70,7 +70,7 @@ pub struct FineTuningJob {
     )]
     pub integrations: Option<Option<Vec<models::FineTuningIntegration>>>,
     /// The seed used for the fine-tuning job.
-    #[serde(rename = "seed", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "seed", default)]
     pub seed: Option<i64>,
     /// The Unix timestamp (in seconds) for when the fine-tuning job is estimated to finish. The value will be null if the fine-tuning job is not running.
     #[serde(

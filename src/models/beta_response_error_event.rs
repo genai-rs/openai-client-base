@@ -26,13 +26,13 @@ pub struct BetaResponseErrorEvent {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The error code.
-    #[serde(rename = "code", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "code", default)]
     pub code: Option<String>,
     /// The error message.
     #[serde(rename = "message")]
     pub message: String,
     /// The error parameter.
-    #[serde(rename = "param", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "param", default)]
     pub param: Option<String>,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]

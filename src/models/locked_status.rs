@@ -17,7 +17,7 @@ pub struct LockedStatus {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Reason that the thread was locked. Defaults to null when no reason is recorded.
-    #[serde(rename = "reason", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "reason", default)]
     pub reason: Option<String>,
 }
 

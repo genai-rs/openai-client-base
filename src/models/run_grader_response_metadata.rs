@@ -23,12 +23,9 @@ pub struct RunGraderResponseMetadata {
     pub execution_time: f64,
     #[serde(rename = "scores")]
     pub scores: std::collections::HashMap<String, serde_json::Value>,
-    #[serde(rename = "token_usage", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "token_usage", default)]
     pub token_usage: Option<models::RunGraderResponseMetadataTokenUsage>,
-    #[serde(
-        rename = "sampled_model_name",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "sampled_model_name", default)]
     pub sampled_model_name: Option<String>,
 }
 

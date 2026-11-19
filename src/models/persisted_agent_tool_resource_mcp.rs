@@ -25,7 +25,7 @@ pub struct PersistedAgentToolResourceMcp {
     /// The vault credential selected for this MCP server, if any.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "credential_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "credential_id", default)]
     pub credential_id: Option<String>,
     #[serde(rename = "transport")]
     pub transport: models::PersistedMcpTransportResource,
@@ -37,7 +37,7 @@ pub struct PersistedAgentToolResourceMcp {
     /// The MCP tools the agent may call, or null when all server tools are allowed.
     ///
     /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
-    #[serde(rename = "allowed_tools", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "allowed_tools", default)]
     pub allowed_tools: Option<Vec<String>>,
     /// Whether this MCP server must initialize before the first turn.
     #[serde(rename = "required")]

@@ -20,16 +20,13 @@ pub struct GroupMemberUser {
     #[serde(rename = "name")]
     pub name: String,
     /// Email address of the user, or `null` for users without an email.
-    #[serde(rename = "email", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "email", default)]
     pub email: Option<String>,
     /// URL of the user's profile picture, if available.
-    #[serde(rename = "picture", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "picture", default)]
     pub picture: Option<String>,
     /// Whether the user is a service account.
-    #[serde(
-        rename = "is_service_account",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "is_service_account", default)]
     pub is_service_account: Option<bool>,
     /// The type of user.
     #[serde(rename = "user_type")]

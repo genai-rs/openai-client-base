@@ -27,10 +27,10 @@ pub struct EvalRun {
     #[serde(rename = "status")]
     pub status: String,
     /// The model that is evaluated, if applicable.
-    #[serde(rename = "model", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "model", default)]
     pub model: Option<String>,
     /// The name of the evaluation run.
-    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "name", default)]
     pub name: Option<String>,
     /// Unix timestamp (in seconds) when the evaluation run was created.
     #[serde(rename = "created_at", with = "super::unix_time")]
@@ -41,20 +41,17 @@ pub struct EvalRun {
     #[serde(rename = "result_counts")]
     pub result_counts: models::EvalRunResultCounts,
     /// Usage statistics for each model during the evaluation run.
-    #[serde(rename = "per_model_usage", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "per_model_usage", default)]
     pub per_model_usage: Option<Vec<models::EvalRunPerModelUsageInner>>,
     /// Results per testing criteria applied during the evaluation run.
-    #[serde(
-        rename = "per_testing_criteria_results",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "per_testing_criteria_results", default)]
     pub per_testing_criteria_results: Option<Vec<models::EvalRunPerTestingCriteriaResultsInner>>,
     #[serde(rename = "data_source")]
     pub data_source: models::EvalRunDataSource,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
-    #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "metadata", default)]
     pub metadata: Option<std::collections::HashMap<String, String>>,
-    #[serde(rename = "error", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "error", default)]
     pub error: Option<models::EvalApiError>,
 }
 

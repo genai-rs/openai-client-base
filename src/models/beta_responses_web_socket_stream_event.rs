@@ -100,7 +100,7 @@ pub struct BetaResponsesWebSocketStreamEvent {
     #[serde(rename = "annotation_index")]
     pub annotation_index: i64,
     /// The annotation object being added. (See annotation schema for details.)
-    #[serde(rename = "annotation", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "annotation", default)]
     pub annotation: Option<models::BetaAnnotation>,
     /// The complete input data for the custom tool call.
     #[serde(rename = "input")]

@@ -20,7 +20,7 @@ pub struct GroupUser {
     #[serde(rename = "name")]
     pub name: String,
     /// The email address of the user.
-    #[serde(rename = "email", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "email", default)]
     pub email: Option<String>,
 }
 

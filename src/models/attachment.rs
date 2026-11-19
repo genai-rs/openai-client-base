@@ -26,7 +26,7 @@ pub struct Attachment {
     #[serde(rename = "mime_type")]
     pub mime_type: String,
     /// Preview URL for rendering the attachment inline.
-    #[serde(rename = "preview_url", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "preview_url", default)]
     pub preview_url: Option<String>,
 }
 

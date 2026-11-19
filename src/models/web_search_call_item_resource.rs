@@ -30,7 +30,7 @@ pub struct WebSearchCallItemResource {
     #[serde(rename = "status")]
     pub status: models::OutputItemStatusResource,
     /// The action performed by the web search tool.
-    #[serde(rename = "action", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "action", default)]
     pub action: Option<models::WebSearchActionResource>,
 }
 

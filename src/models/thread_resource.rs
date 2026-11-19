@@ -24,7 +24,7 @@ pub struct ThreadResource {
     #[serde(rename = "created_at", with = "super::unix_time")]
     pub created_at: jiff::Timestamp,
     /// Optional human-readable title for the thread. Defaults to null when no title has been generated.
-    #[serde(rename = "title", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "title", default)]
     pub title: Option<String>,
     #[serde(rename = "status")]
     pub status: models::ThreadResourceStatus,

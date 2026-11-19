@@ -35,7 +35,7 @@ pub struct UserMessageItem {
     /// Attachments associated with the user message. Defaults to an empty list.
     #[serde(rename = "attachments")]
     pub attachments: Vec<models::Attachment>,
-    #[serde(rename = "inference_options", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "inference_options", default)]
     pub inference_options: Option<models::InferenceOptions>,
 }
 

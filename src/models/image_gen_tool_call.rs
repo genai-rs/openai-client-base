@@ -24,7 +24,7 @@ pub struct ImageGenToolCall {
     #[serde(rename = "status")]
     pub status: Status,
     /// The generated image encoded in base64.
-    #[serde(rename = "result", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "result", default)]
     pub result: Option<String>,
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
     pub error: Option<models::ImageGenToolCallError>,

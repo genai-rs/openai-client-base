@@ -18,10 +18,10 @@ pub struct BetaComputerScreenshotContent {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the screenshot image.
-    #[serde(rename = "image_url", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "image_url", default)]
     pub image_url: Option<String>,
     /// The identifier of an uploaded file that contains the screenshot.
-    #[serde(rename = "file_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "file_id", default)]
     pub file_id: Option<String>,
     #[serde(rename = "detail")]
     pub detail: models::BetaImageDetail,

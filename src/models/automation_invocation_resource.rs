@@ -33,20 +33,20 @@ pub struct AutomationInvocationResource {
     #[serde(rename = "source")]
     pub source: models::AutomationInvocationSourceResource,
     /// The intended occurrence as a Unix timestamp in seconds, or null for manual runs.
-    #[serde(rename = "scheduled_at", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "scheduled_at", default)]
     pub scheduled_at: Option<i64>,
     /// The target or newly created session ID, or null before one is available.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "session_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "session_id", default)]
     pub session_id: Option<String>,
     #[serde(rename = "status")]
     pub status: models::AutomationInvocationStatusResource,
     /// Why an occurrence was skipped, or null when it was not skipped.  Defaults to `\"pending_delivery\"`.
-    #[serde(rename = "skip_reason", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "skip_reason", default)]
     pub skip_reason: Option<SkipReason>,
     /// The permanent delivery failure, or null when no failure occurred.
-    #[serde(rename = "error", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "error", default)]
     pub error: Option<models::AutomationInvocationErrorResource>,
 }
 

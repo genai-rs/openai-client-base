@@ -35,7 +35,7 @@ pub struct SessionEventAgentSessionTurnFailed {
     #[serde(rename = "turn")]
     pub turn: models::TurnResource,
     /// Token usage by the root agent during the turn, when available.
-    #[serde(rename = "usage", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "usage", default)]
     pub usage: Option<models::TokenUsageResource>,
     /// Random alphanumeric padding. Present when stream obfuscation is enabled.
     ///

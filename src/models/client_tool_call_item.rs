@@ -41,7 +41,7 @@ pub struct ClientToolCallItem {
     #[serde(rename = "arguments")]
     pub arguments: String,
     /// JSON-encoded output captured from the tool. Defaults to null while execution is in progress.
-    #[serde(rename = "output", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "output", default)]
     pub output: Option<String>,
 }
 

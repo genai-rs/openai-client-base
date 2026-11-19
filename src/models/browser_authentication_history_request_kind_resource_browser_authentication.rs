@@ -20,12 +20,12 @@ pub struct BrowserAuthenticationHistoryRequestKindResourceBrowserAuthentication 
     /// Why the agent needs the user to sign in.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "reason", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "reason", default)]
     pub reason: Option<String>,
     /// The registered form or frame origin where values will be entered.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "credential_origin", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "credential_origin", default)]
     pub credential_origin: Option<String>,
     /// Controls to render. All submitted values are sensitive.
     ///

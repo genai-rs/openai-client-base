@@ -18,13 +18,13 @@ pub struct BetaErrorPayload {
     #[serde(rename = "type")]
     pub r#type: String,
     /// The error code that was emitted, if any.
-    #[serde(rename = "code", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "code", default)]
     pub code: Option<String>,
     /// The human-readable error message that was emitted.
     #[serde(rename = "message")]
     pub message: String,
     /// The parameter name that was associated with the error, if any.
-    #[serde(rename = "param", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "param", default)]
     pub param: Option<String>,
     /// The response headers that were emitted with the error, if any.
     #[serde(rename = "headers", skip_serializing_if = "Option::is_none")]

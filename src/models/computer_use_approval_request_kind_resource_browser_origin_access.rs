@@ -19,7 +19,7 @@ pub struct ComputerUseApprovalRequestKindResourceBrowserOriginAccess {
     /// The browser's explanation for this request, or null when unavailable.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "reason", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "reason", default)]
     pub reason: Option<String>,
     /// The origin the browser needs permission to access.
     ///

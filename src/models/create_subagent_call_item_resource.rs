@@ -42,12 +42,12 @@ pub struct CreateSubagentCallItemResource {
     /// The model requested for the spawned agent.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "model", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "model", default)]
     pub model: Option<String>,
     /// The reasoning effort requested for the spawned agent.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "reasoning_effort", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "reasoning_effort", default)]
     pub reasoning_effort: Option<String>,
 }
 

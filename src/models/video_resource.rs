@@ -31,13 +31,13 @@ pub struct VideoResource {
     #[serde(rename = "created_at", with = "super::unix_time")]
     pub created_at: jiff::Timestamp,
     /// Unix timestamp (seconds) for when the job completed, if finished.
-    #[serde(rename = "completed_at", with = "super::unix_time::option")]
+    #[serde(rename = "completed_at", default, with = "super::unix_time::option")]
     pub completed_at: Option<jiff::Timestamp>,
     /// Unix timestamp (seconds) for when the downloadable assets expire, if set.
-    #[serde(rename = "expires_at", with = "super::unix_time::option")]
+    #[serde(rename = "expires_at", default, with = "super::unix_time::option")]
     pub expires_at: Option<jiff::Timestamp>,
     /// The prompt that was used to generate the video.
-    #[serde(rename = "prompt", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "prompt", default)]
     pub prompt: Option<String>,
     #[serde(rename = "size")]
     pub size: models::VideoSize,
@@ -45,12 +45,9 @@ pub struct VideoResource {
     #[serde(rename = "seconds")]
     pub seconds: String,
     /// Identifier of the source video if this video is a remix.
-    #[serde(
-        rename = "remixed_from_video_id",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "remixed_from_video_id", default)]
     pub remixed_from_video_id: Option<String>,
-    #[serde(rename = "error", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "error", default)]
     pub error: Option<models::Error2>,
 }
 

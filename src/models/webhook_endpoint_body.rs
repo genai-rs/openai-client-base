@@ -39,10 +39,7 @@ pub struct WebhookEndpointBody {
     #[serde(rename = "event_types")]
     pub event_types: Vec<String>,
     /// A masked hint for the endpoint's signing secret.
-    #[serde(
-        rename = "signing_secret_hint",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "signing_secret_hint", default)]
     pub signing_secret_hint: Option<String>,
 }
 

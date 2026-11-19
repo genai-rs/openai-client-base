@@ -29,7 +29,7 @@ pub struct SessionEventAgentOutputCommandExecutionOutputDelta {
     /// The ID of the turn associated with the event, when applicable.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "turn_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "turn_id", default)]
     pub turn_id: Option<String>,
     /// The ID of the command execution item.
     ///

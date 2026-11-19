@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateChatCompletionStreamResponseChoicesInnerLogprobs {
     /// A list of message content tokens with log probability information.
-    #[serde(rename = "content", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "content", default)]
     pub content: Option<Vec<models::ChatCompletionTokenLogprob>>,
     /// A list of message refusal tokens with log probability information.
-    #[serde(rename = "refusal", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "refusal", default)]
     pub refusal: Option<Vec<models::ChatCompletionTokenLogprob>>,
 }
 

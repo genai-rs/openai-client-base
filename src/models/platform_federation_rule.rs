@@ -24,9 +24,9 @@ pub struct PlatformFederationRule {
     pub project_id: String,
     #[serde(rename = "service_account_id")]
     pub service_account_id: String,
-    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "name", default)]
     pub name: Option<String>,
-    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "description", default)]
     pub description: Option<String>,
     #[serde(rename = "attribute_matchers")]
     pub attribute_matchers:

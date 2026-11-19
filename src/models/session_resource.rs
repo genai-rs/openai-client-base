@@ -53,7 +53,7 @@ pub struct SessionResource {
     /// The error that caused the session to fail, if any.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "error", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "error", default)]
     pub error: Option<String>,
     #[serde(rename = "agent")]
     pub agent: models::SessionAgentResource,
@@ -65,7 +65,7 @@ pub struct SessionResource {
     #[serde(rename = "vault_ids")]
     pub vault_ids: Vec<String>,
     /// Best-effort token usage for the session, or null if unknown. Recorded usage may change.
-    #[serde(rename = "usage", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "usage", default)]
     pub usage: Option<models::TokenUsageResource>,
 }
 

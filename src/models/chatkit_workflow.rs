@@ -18,10 +18,10 @@ pub struct ChatkitWorkflow {
     #[serde(rename = "id")]
     pub id: String,
     /// Specific workflow version used for the session. Defaults to null when using the latest deployment.
-    #[serde(rename = "version", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "version", default)]
     pub version: Option<String>,
     /// State variable key-value pairs applied when invoking the workflow. Defaults to null when no overrides were provided.
-    #[serde(rename = "state_variables", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "state_variables", default)]
     pub state_variables: Option<
         std::collections::HashMap<String, Option<models::ChatkitWorkflowStateVariablesValue>>,
     >,

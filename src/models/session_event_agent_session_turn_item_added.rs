@@ -30,12 +30,12 @@ pub struct SessionEventAgentSessionTurnItemAdded {
     /// The ID of the turn associated with the event, when applicable.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "turn_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "turn_id", default)]
     pub turn_id: Option<String>,
     /// The index of the item in the turn output, when the item is agent output.
     ///
     /// Validation: `minimum: 0`, `maximum: 4294967295`.
-    #[serde(rename = "output_index", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "output_index", default)]
     pub output_index: Option<i64>,
     #[serde(rename = "item")]
     pub item: models::SessionTurnItemResource,

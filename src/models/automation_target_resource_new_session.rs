@@ -19,10 +19,10 @@ pub struct AutomationTargetResourceNewSession {
     /// The saved agent reference, or null when an inline agent is configured.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "agent_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "agent_id", default)]
     pub agent_id: Option<String>,
     /// The inline agent configuration, or null when agent_id is configured.
-    #[serde(rename = "agent", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "agent", default)]
     pub agent: Option<models::AutomationAgentConfigResource>,
     #[serde(rename = "environment")]
     pub environment: models::AutomationEnvironmentResource,

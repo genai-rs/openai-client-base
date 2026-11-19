@@ -13,10 +13,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VideoCharacterResource {
     /// Identifier for the character creation cameo.
-    #[serde(rename = "id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "id", default)]
     pub id: Option<String>,
     /// Display name for the character.
-    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "name", default)]
     pub name: Option<String>,
     /// Unix timestamp (in seconds) when the character was created.
     #[serde(rename = "created_at", with = "super::unix_time")]

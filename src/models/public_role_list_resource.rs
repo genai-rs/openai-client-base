@@ -24,7 +24,7 @@ pub struct PublicRoleListResource {
     #[serde(rename = "has_more")]
     pub has_more: bool,
     /// Cursor to fetch the next page of results, or `null` when there are no additional roles.
-    #[serde(rename = "next", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "next", default)]
     pub next: Option<String>,
 }
 

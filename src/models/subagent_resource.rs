@@ -29,12 +29,12 @@ pub struct SubagentResource {
     /// The runner-assigned nickname, or null when unavailable.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "name", default)]
     pub name: Option<String>,
     /// Initial task content, or null when unavailable. Text may contain placeholders for images or audio when only a preview is available.
     ///
     /// Validation: `minItems: 0`, `maxItems: 2000`.
-    #[serde(rename = "instructions", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "instructions", default)]
     pub instructions: Option<Vec<models::AgentContentResource>>,
     /// The ID of the agent that created this subagent.
     ///
@@ -47,7 +47,7 @@ pub struct SubagentResource {
     #[serde(rename = "opened_at")]
     pub opened_at: i64,
     /// The Unix timestamp, in seconds, when the subagent was closed. Null while active, including after resume.
-    #[serde(rename = "closed_at", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "closed_at", default)]
     pub closed_at: Option<i64>,
 }
 

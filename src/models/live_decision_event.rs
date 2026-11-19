@@ -21,15 +21,15 @@ pub struct LiveDecisionEvent {
     #[serde(rename = "event_id")]
     pub event_id: String,
     /// The Live delegation ID, or null for a transcript trigger.
-    #[serde(rename = "delegation_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "delegation_id", default)]
     pub delegation_id: Option<String>,
     /// The Live-assigned ID of this trigger firing, or null for a delegation.
-    #[serde(rename = "trigger_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "trigger_id", default)]
     pub trigger_id: Option<String>,
-    #[serde(rename = "source_event_type", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "source_event_type", default)]
     pub source_event_type: Option<SourceEventType>,
     /// The event_id of the transcript delta that fired this trigger, or null for a delegation.
-    #[serde(rename = "source_event_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "source_event_id", default)]
     pub source_event_id: Option<String>,
     #[serde(rename = "event")]
     pub event: models::LiveDecisionCompleted,

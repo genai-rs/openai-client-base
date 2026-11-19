@@ -18,7 +18,7 @@ pub struct AutomationEnvironmentResourceSelfHosted {
     /// An existing registration, or null to create a session-owned environment.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "environment_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "environment_id", default)]
     pub environment_id: Option<String>,
     /// The absolute project directory in the environment.
     ///

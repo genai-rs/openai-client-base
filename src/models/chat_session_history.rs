@@ -17,7 +17,7 @@ pub struct ChatSessionHistory {
     #[serde(rename = "enabled")]
     pub enabled: bool,
     /// Number of prior threads surfaced in history views. Defaults to null when all history is retained.
-    #[serde(rename = "recent_threads", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "recent_threads", default)]
     pub recent_threads: Option<i64>,
 }
 

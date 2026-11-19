@@ -29,7 +29,7 @@ pub struct PlatformProvider {
     pub audience: String,
     #[serde(rename = "verification")]
     pub verification: models::PlatformProviderVerification,
-    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "description", default)]
     pub description: Option<String>,
     #[serde(rename = "attribute_transformations")]
     pub attribute_transformations: Vec<models::Transformation>,

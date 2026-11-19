@@ -26,10 +26,10 @@ pub struct CreateModerationResponseResultsInnerCategories {
     #[serde(rename = "harassment/threatening")]
     pub harassment_slash_threatening: bool,
     /// Content that includes instructions or advice that facilitate the planning or execution of wrongdoing, or that gives advice or instruction on how to commit illicit acts. For example, \"how to shoplift\" would fit this category.
-    #[serde(rename = "illicit", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "illicit", default)]
     pub illicit: Option<bool>,
     /// Content that includes instructions or advice that facilitate the planning or execution of wrongdoing that also includes violence, or that gives advice or instruction on the procurement of any weapon.
-    #[serde(rename = "illicit/violent", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "illicit/violent", default)]
     pub illicit_slash_violent: Option<bool>,
     /// Content that promotes, encourages, or depicts acts of self-harm, such as suicide, cutting, and eating disorders.
     #[serde(rename = "self-harm")]

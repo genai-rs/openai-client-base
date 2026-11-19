@@ -24,7 +24,7 @@ pub struct ProjectServiceAccountCreateResponse {
     pub role: Role,
     #[serde(rename = "created_at", with = "super::unix_time")]
     pub created_at: jiff::Timestamp,
-    #[serde(rename = "api_key", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "api_key", default)]
     pub api_key: Option<models::ProjectServiceAccountApiKey>,
 }
 

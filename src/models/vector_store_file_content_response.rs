@@ -24,7 +24,7 @@ pub struct VectorStoreFileContentResponse {
     #[serde(rename = "has_more")]
     pub has_more: bool,
     /// The token for the next page, if any.
-    #[serde(rename = "next_page", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "next_page", default)]
     pub next_page: Option<String>,
 }
 
