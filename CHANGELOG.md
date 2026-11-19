@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.37.0](https://github.com/genai-rs/openai-client-base/compare/v0.36.2...v0.37.0) - 2026-11-19
+
+### Added
+
+- [**breaking**] generate the client as a workspace of smaller crates behind the facade
+
 ## [0.36.2](https://github.com/genai-rs/openai-client-base/compare/v0.36.1...v0.36.2) - 2026-11-19
 
 ### Fixed
