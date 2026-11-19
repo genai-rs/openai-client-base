@@ -1,6 +1,7 @@
 {
   "packageName": "openai-client-base",
   "packageVersion": "0.1.0",
+  "repositoryUrl": "https://github.com/genai-rs/openai-client-base",
   "dateLibrary": "jiff",
   "titleNaming": false,
   "multipartHelper": true,
@@ -69,5 +70,6 @@
     "/fine_tuning/jobs?metadata",
     "/organization/audit_logs?effective_at"
   ],
-  "apiFeaturesFile": "scripts/api-features.yaml"
+  "apiFeaturesFile": "scripts/api-features.yaml",
+  "splitCrates": true
 }

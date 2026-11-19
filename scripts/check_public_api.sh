@@ -4,7 +4,7 @@
 # Usage: scripts/check_public_api.sh [git-ref]
 #   git-ref defaults to the latest tag (the last release).
 #
-# The reference src/ is extracted with `git archive`, so the comparison never
+# The reference sources are extracted with `git archive`, so the comparison never
 # depends on crates.io or on network access. Exit code 1 means the public API
 # differs; set ALLOW_API_CHANGES=1 to report without failing (for releases
 # that intentionally change the API and ship a migration note).
@@ -20,7 +20,16 @@ mkdir -p "$REPORT_DIR"
 REF_SRC="$(mktemp -d)"
 trap 'rm -rf "$REF_SRC"' EXIT
 
-git -C "$PROJECT_ROOT" archive "$REF" src | tar -x -C "$REF_SRC"
+# The generated sources are in src/ and, since the client is a workspace (splitCrates), in crates/*/src/: both
+# trees are merged into one src/ tree per side, as the single crate had them.
+paths=(src)
+if git -C "$PROJECT_ROOT" cat-file -e "$REF:crates" 2>/dev/null; then
+    paths+=(crates)
+fi
+mkdir -p "$REF_SRC/ref" "$REF_SRC/merged-ref" "$REF_SRC/merged-candidate"
+git -C "$PROJECT_ROOT" archive "$REF" "${paths[@]}" | tar -x -C "$REF_SRC/ref"
+python3 "$SCRIPT_DIR/merge_crate_sources.py" "$REF_SRC/ref" "$REF_SRC/merged-ref"
+python3 "$SCRIPT_DIR/merge_crate_sources.py" "$PROJECT_ROOT" "$REF_SRC/merged-candidate"
 
 flags=(--reference-label "git:$REF" --candidate-label "working-tree")
 if [ "${ALLOW_API_CHANGES:-0}" != "1" ]; then
@@ -29,7 +38,7 @@ fi
 
 status=0
 python3 "$PROJECT_ROOT/migration/compare_public_api.py" \
-    "$REF_SRC/src" "$PROJECT_ROOT/src" "${flags[@]}" > "$REPORT" || status=$?
+    "$REF_SRC/merged-ref" "$REF_SRC/merged-candidate" "${flags[@]}" > "$REPORT" || status=$?
 
 python3 - "$REPORT" <<'EOF'
 import json, sys

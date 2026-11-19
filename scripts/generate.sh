@@ -74,12 +74,19 @@ uv run python "$SCRIPT_DIR/validate_spec.py" "$SPEC_IN"
 echo ""
 echo "🦀 Generating Rust client..."
 
-# Clean generated directories but preserve src folder structure
+# Clean generated directories but preserve src folder structure. The crates of the
+# workspace (crates/, generator option splitCrates) are generated as a whole: a
+# crate the groups no longer have must not stay behind.
 find "$OUT_DIR/src/apis" "$OUT_DIR/src/models" -name "*.rs" -delete
-rm -rf "$OUT_DIR/docs" 2>/dev/null || true
+rm -rf "$OUT_DIR/docs" "$OUT_DIR/crates" 2>/dev/null || true
 
 # Run the generator. Hand-maintained files (Cargo.toml, README.md, src/lib.rs,
-# ...) are listed in .openapi-generator-ignore and left alone.
+# ...) are listed in .openapi-generator-ignore and left alone. With splitCrates
+# the generator writes a workspace: the facade (this crate's src/models/mod.rs
+# and src/apis/mod.rs re-export the crates) and crates/<name>/ (Cargo.toml,
+# README.md and src/ of each crate). The root Cargo.toml holds the workspace and
+# its version; copy the generator's [features], [dependencies], [workspace]
+# members and [workspace.dependencies] when the crates change.
 # The working directory is the project's, so that the paths in generator-config.json
 # (apiFeaturesFile) resolve as they do when the generator runs in the repository.
 docker run --rm \
@@ -104,8 +111,11 @@ uv run --with pyyaml python -m unittest discover -s "$SCRIPT_DIR/tests"
 
 # Fail closed if the generated APIs do not cover every raw upstream path
 # operation and webhook. This audit uses the fetched source before patches.
+MERGED_SRC="$PROJECT_ROOT/target/merged-src"
+rm -rf "$MERGED_SRC"
+python3 "$SCRIPT_DIR/merge_crate_sources.py" "$PROJECT_ROOT" "$MERGED_SRC"
 uv run python "$SCRIPT_DIR/check_openapi_coverage.py" \
-    "$SPEC_IN" "$PROJECT_ROOT/src/apis" \
+    "$SPEC_IN" "$MERGED_SRC/apis" \
     --webhook-module open_ai_client_base_webhooks_api \
     --report "$PROJECT_ROOT/target/reports/openapi-coverage.json"
 

@@ -27,8 +27,10 @@ jobs:
       msrv: "1.88"
       generated-crate: true
       os-matrix: '["ubuntu-latest"]'
-      # rustdoc is OOM-killed on hosted runners for this crate.
-      run-doc: false
+      # The docs of the facade (its crates are only checked): about 3.2 GB since the
+      # crate is a workspace of smaller crates. rustdoc was OOM-killed on hosted
+      # runners for the single crate.
+      run-doc: true
     secrets: inherit
 
   python-tests:

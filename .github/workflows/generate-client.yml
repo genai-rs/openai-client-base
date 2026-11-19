@@ -90,10 +90,10 @@ jobs:
           cargo build --all-features
           
           echo "📋 Running clippy..."
-          cargo clippy --all-features --all-targets -- -D warnings
+          cargo clippy --workspace --all-features --all-targets -- -D warnings
           
           echo "🧪 Running tests..."
-          cargo test --all-features
+          cargo test --workspace --all-features
 
           echo "🎨 Checking formatting..."
           cargo fmt --all -- --check
@@ -146,6 +146,7 @@ jobs:
           # Only consider generated outputs from the pipeline
           ALLOWED_PATHS=(
             src
+            crates
             docs
             README.md
             Cargo.toml
@@ -240,6 +241,7 @@ jobs:
             dependencies
           add-paths: |
             src/**
+            crates/**
             docs/**
             README.md
             Cargo.toml

@@ -1,0 +1,100 @@
+{
+  "source_heads": {
+    "reference": "git:v0.36.2 (src/)",
+    "candidate": "the workspace (src/ and crates/*/src/, merged)"
+  },
+  "method": "Source declaration census of public model exports, struct fields, enum variants (names and tuple/struct payloads, generic enums such as apis::Error<T> included), function signatures, and hand-written trait impls (e.g. From) on public types, plus derive and serde-field-attribute differences. This is not an exhaustive Rust public API or semver check: it does not expand derives or macros, resolve blanket impls, or resolve every visibility/re-export interaction.",
+  "registry_source_rs_files": 3202,
+  "current_source_rs_files": 3202,
+  "source_files_added": [],
+  "source_files_removed": [],
+  "source_files_modified": [
+    "apis/api_response.rs",
+    "apis/default_api.rs",
+    "apis/mod.rs",
+    "apis/open_ai_client_base_webhooks_api.rs",
+    "lib.rs",
+    "models/mod.rs",
+    "models/parse_enum_error.rs",
+    "models/union_dispatch.rs"
+  ],
+  "model_exports_added": [],
+  "model_exports_removed": [],
+  "public_functions_added_or_signature_changed": [
+    {
+      "file": "apis/default_api.rs",
+      "name": "call",
+      "signature": "pub async fn call( self, ) -> Result<timvw_rust_runtime::Response, Error<RetrieveContainerFileContentError>>"
+    },
+    {
+      "file": "models/parse_enum_error.rs",
+      "name": "new",
+      "signature": "pub fn new(type_name: &'static str, value: &str) -> Self"
+    },
+    {
+      "file": "models/union_dispatch.rs",
+      "name": "missing_tag",
+      "signature": "pub fn missing_tag(union: &str, tag: &str) -> String"
+    },
+    {
+      "file": "models/union_dispatch.rs",
+      "name": "not_an_object",
+      "signature": "pub fn not_an_object(value: &Value, union: &str, tag: &str) -> String"
+    },
+    {
+      "file": "models/union_dispatch.rs",
+      "name": "unknown_tag",
+      "signature": "pub fn unknown_tag(union: &str, tag: &str, value: &str) -> String"
+    }
+  ],
+  "public_functions_removed_or_signature_changed": [
+    {
+      "file": "apis/default_api.rs",
+      "name": "call",
+      "signature": "pub async fn call( self, ) -> Result< super::ApiResponse<models::ExternalStorageResponse>, Error<ValidateanexternalstorageconfigurationError>, >"
+    }
+  ],
+  "public_model_field_changes": [],
+  "public_enum_variant_changes": [
+    {
+      "file": "apis/mod.rs",
+      "enum": "ContentType",
+      "added": [
+        "Json",
+        "Text",
+        "Unsupported"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/union_dispatch.rs",
+      "enum": "Tag",
+      "added": [
+        "Missing",
+        "NotObject",
+        "Value"
+      ],
+      "removed": []
+    }
+  ],
+  "public_derive_changes": [],
+  "serde_field_attribute_changes": [],
+  "public_enum_variant_payload_changes": [],
+  "public_trait_impl_changes": [],
+  "counts": {
+    "model_exports_added": 0,
+    "model_exports_removed": 0,
+    "public_functions_added_or_signature_changed": 5,
+    "public_functions_removed_or_signature_changed": 1,
+    "public_model_field_changes": 0,
+    "public_enum_types_with_variant_changes": 2,
+    "public_enum_variants_added": 6,
+    "public_enum_variants_removed": 0,
+    "public_derive_changes": 0,
+    "serde_field_attribute_changes": 0,
+    "public_enum_variant_payload_changes": 0,
+    "public_types_with_trait_impl_changes": 0,
+    "public_trait_impls_added": 0,
+    "public_trait_impls_removed": 0
+  }
+}

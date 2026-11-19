@@ -57,6 +57,8 @@ println!("{}", response.id);
   ([HTTP client](guides/http-client.md)).
 - **Cargo features per API group** (`responses`, `audio`, …) and `-types` features with only the models; builds for
   `wasm32-unknown-unknown` ([Cargo features](guides/cargo-features.md)).
+- **Builds in about 3 GB**: the models and functions are in smaller internal crates, which this crate re-exports under
+  its own paths ([generation](guides/generation.md#the-crates-of-the-workspace)).
 
 For tests, [openai-mock-server](https://github.com/genai-rs/openai-mock-server) is a scripted mock of the API, generated
 from the same specification in its own repository.

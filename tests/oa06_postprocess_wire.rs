@@ -16,7 +16,7 @@ use url::Url;
 
 // The test uses only some of the helper's functions.
 #[allow(dead_code)]
-#[path = "../src/apis/multipart_helper.rs"]
+#[path = "../crates/common/src/apis/multipart_helper.rs"]
 mod multipart_helper_contract;
 
 static TEMP_FILE_SEQUENCE: AtomicU64 = AtomicU64::new(0);

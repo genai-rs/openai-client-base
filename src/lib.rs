@@ -24,26 +24,8 @@
 //! # }
 //! ```
 
-#![allow(
-    clippy::too_many_arguments,
-    clippy::needless_return,
-    clippy::unnecessary_operation,
-    clippy::into_iter_on_ref,
-    clippy::empty_docs,
-    clippy::new_without_default,
-    clippy::large_enum_variant,
-    clippy::derive_partial_eq_without_eq,
-    clippy::enum_variant_names,
-    clippy::redundant_field_names,
-    clippy::missing_errors_doc,
-    clippy::module_name_repetitions,
-    clippy::derivable_impls  // Rust 1.91.0 new lint - generated code has manual Default impls
-)]
-extern crate serde;
-extern crate serde_json;
-extern crate serde_repr;
-extern crate url;
-
+// splitCrates: the models and API modules are in the crates of the workspace (crates/), which `apis` and
+// `models` re-export under these paths. The lints of every crate are in Cargo.toml ([workspace.lints]).
 // Generated with apiFeatures: the API modules need the HTTP client (any API feature, or `full`).
 #[cfg(feature = "_api")]
 pub mod apis;

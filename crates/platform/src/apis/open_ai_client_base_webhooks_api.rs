@@ -242,7 +242,8 @@ pub async fn agent_environment_expired_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_environment_expired = webhook_agent_environment_expired;
 
-    let uri_str = format!("{}/agent_environment_expired", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -306,7 +307,8 @@ pub async fn agent_environment_failed_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_environment_failed = webhook_agent_environment_failed;
 
-    let uri_str = format!("{}/agent_environment_failed", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -370,7 +372,8 @@ pub async fn agent_environment_ready_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_environment_ready = webhook_agent_environment_ready;
 
-    let uri_str = format!("{}/agent_environment_ready", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -433,7 +436,8 @@ pub async fn agent_environment_suspended_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_environment_suspended = webhook_agent_environment_suspended;
 
-    let uri_str = format!("{}/agent_environment_suspended", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -497,7 +501,8 @@ pub async fn agent_session_action_required_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_session_action_required = webhook_agent_session_action_required;
 
-    let uri_str = format!("{}/agent_session_action_required", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -561,7 +566,8 @@ pub async fn agent_session_created_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_session_created = webhook_agent_session_created;
 
-    let uri_str = format!("{}/agent_session_created", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -624,7 +630,8 @@ pub async fn agent_session_failed_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_session_failed = webhook_agent_session_failed;
 
-    let uri_str = format!("{}/agent_session_failed", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -687,7 +694,8 @@ pub async fn agent_session_idle_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_session_idle = webhook_agent_session_idle;
 
-    let uri_str = format!("{}/agent_session_idle", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -750,7 +758,8 @@ pub async fn agent_session_in_progress_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_session_in_progress = webhook_agent_session_in_progress;
 
-    let uri_str = format!("{}/agent_session_in_progress", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -814,7 +823,8 @@ pub async fn batch_cancelled_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_batch_cancelled = webhook_batch_cancelled;
 
-    let uri_str = format!("{}/batch_cancelled", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -877,7 +887,8 @@ pub async fn batch_completed_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_batch_completed = webhook_batch_completed;
 
-    let uri_str = format!("{}/batch_completed", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -940,7 +951,8 @@ pub async fn batch_expired_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_batch_expired = webhook_batch_expired;
 
-    let uri_str = format!("{}/batch_expired", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1003,7 +1015,8 @@ pub async fn batch_failed_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_batch_failed = webhook_batch_failed;
 
-    let uri_str = format!("{}/batch_failed", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1066,7 +1079,8 @@ pub async fn eval_run_canceled_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_eval_run_canceled = webhook_eval_run_canceled;
 
-    let uri_str = format!("{}/eval_run_canceled", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1129,7 +1143,8 @@ pub async fn eval_run_failed_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_eval_run_failed = webhook_eval_run_failed;
 
-    let uri_str = format!("{}/eval_run_failed", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1192,7 +1207,8 @@ pub async fn eval_run_succeeded_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_eval_run_succeeded = webhook_eval_run_succeeded;
 
-    let uri_str = format!("{}/eval_run_succeeded", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1255,7 +1271,8 @@ pub async fn fine_tuning_job_cancelled_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_fine_tuning_job_cancelled = webhook_fine_tuning_job_cancelled;
 
-    let uri_str = format!("{}/fine_tuning_job_cancelled", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1319,7 +1336,8 @@ pub async fn fine_tuning_job_failed_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_fine_tuning_job_failed = webhook_fine_tuning_job_failed;
 
-    let uri_str = format!("{}/fine_tuning_job_failed", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1382,7 +1400,8 @@ pub async fn fine_tuning_job_succeeded_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_fine_tuning_job_succeeded = webhook_fine_tuning_job_succeeded;
 
-    let uri_str = format!("{}/fine_tuning_job_succeeded", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1447,7 +1466,8 @@ pub async fn live_call_incoming_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_live_call_incoming = webhook_live_call_incoming;
 
-    let uri_str = format!("{}/live_call_incoming", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1510,7 +1530,8 @@ pub async fn live_transport_connected_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_live_transport_connected = webhook_live_transport_connected;
 
-    let uri_str = format!("{}/live_transport_connected", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1575,7 +1596,8 @@ pub async fn live_transport_incoming_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_live_transport_incoming = webhook_live_transport_incoming;
 
-    let uri_str = format!("{}/live_transport_incoming", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1638,7 +1660,8 @@ pub async fn realtime_call_incoming_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_realtime_call_incoming = webhook_realtime_call_incoming;
 
-    let uri_str = format!("{}/realtime_call_incoming", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1701,7 +1724,8 @@ pub async fn response_cancelled_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_response_cancelled = webhook_response_cancelled;
 
-    let uri_str = format!("{}/response_cancelled", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1764,7 +1788,8 @@ pub async fn response_completed_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_response_completed = webhook_response_completed;
 
-    let uri_str = format!("{}/response_completed", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1827,7 +1852,8 @@ pub async fn response_failed_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_response_failed = webhook_response_failed;
 
-    let uri_str = format!("{}/response_failed", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1890,7 +1916,8 @@ pub async fn response_incomplete_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_response_incomplete = webhook_response_incomplete;
 
-    let uri_str = format!("{}/response_incomplete", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -1953,7 +1980,8 @@ pub async fn safety_alert_created_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_safety_alert_created = webhook_safety_alert_created;
 
-    let uri_str = format!("{}/safety_alert_created", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -2016,7 +2044,8 @@ pub async fn safety_deactivation_issued_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_safety_deactivation_issued = webhook_safety_deactivation_issued;
 
-    let uri_str = format!("{}/safety_deactivation_issued", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -2080,7 +2109,8 @@ pub async fn safety_org_alert_created_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_safety_org_alert_created = webhook_safety_org_alert_created;
 
-    let uri_str = format!("{}/safety_org_alert_created", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);
@@ -2144,7 +2174,8 @@ pub async fn safety_warning_issued_post(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_safety_warning_issued = webhook_safety_warning_issued;
 
-    let uri_str = format!("{}/safety_warning_issued", configuration.base_path);
+    // a webhook goes to the receiver's endpoint, base_path itself
+    let uri_str = configuration.base_path.clone();
     let mut req_builder = configuration
         .client
         .request(timvw_rust_runtime::Method::POST, &uri_str);

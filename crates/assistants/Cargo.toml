@@ -1,0 +1,43 @@
+[package]
+name = "openai-client-base-assistants"
+description = "Internal part of openai-client-base: the models and API functions of the features `assistants`, `batch`, `file`, `upload`, `vectorstore`. Depend on openai-client-base instead"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+readme = "README.md"
+
+[package.metadata.docs.rs]
+all-features = true
+
+[dependencies]
+openai-client-base-common = { workspace = true }
+bon = { version = "^3", optional = true }
+serde = { version = "^1.0", features = ["derive"] }
+serde_with = { version = "^3.8", default-features = false, features = ["base64", "std", "macros"], optional = true }
+serde_json = "^1.0"
+futures-core = "^0.3"
+serde_repr = "^0.1"
+url = "^2.5"
+regex = "^1.10"
+jiff = { version = "^1", default-features = false, features = ["std", "serde"] }
+timvw-rust-runtime = { version = "^0.4", default-features = false, features = ["fs", "time"], optional = true }
+
+[features]
+default = []
+_api = ["dep:timvw-rust-runtime", "dep:bon", "openai-client-base-common/_api"]
+assistants = ["assistants-types", "_api"]
+assistants-types = ["dep:bon", "dep:serde_with", "openai-client-base-common/assistants-types"]
+batch = ["batch-types", "_api"]
+batch-types = ["dep:bon", "dep:serde_with", "openai-client-base-common/batch-types"]
+file = ["file-types", "_api"]
+file-types = ["dep:bon", "dep:serde_with", "openai-client-base-common/file-types"]
+upload = ["upload-types", "_api"]
+upload-types = ["dep:bon", "dep:serde_with", "openai-client-base-common/upload-types"]
+vectorstore = ["vectorstore-types", "_api"]
+vectorstore-types = ["dep:bon", "dep:serde_with", "openai-client-base-common/vectorstore-types"]
+
+[lints]
+workspace = true

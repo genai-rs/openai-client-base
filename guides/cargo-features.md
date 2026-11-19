@@ -15,6 +15,10 @@ tags and paths each one holds, are in [`scripts/api-features.yaml`](../scripts/a
   (`container-types`, `skill-types`, `video-types`) also pull in `timvw-rust-runtime` for its `Upload` type.
 - `types` is every model, `full` everything.
 
+Each group's models and functions are in an internal crate of the workspace (`openai-client-base-<crate>`, see
+[generation](generation.md#the-crates-of-the-workspace)); a feature enables that crate. Depend on
+`openai-client-base` only: the paths are the same whatever the features.
+
 ```toml
 [dependencies]
 # only the Responses API (and its models)

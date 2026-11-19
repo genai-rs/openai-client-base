@@ -31,7 +31,7 @@ use serde::Deserialize;
 /// ```
 /// use std::borrow::Cow;
 ///
-/// use openai_client_base::apis::ApiResponse;
+/// # use openai_client_base_common::apis::ApiResponse;
 /// use serde::Deserialize;
 ///
 /// // What a `_response` function returns; built by hand here, it comes from the server in use.
@@ -155,7 +155,8 @@ impl<T> fmt::Debug for ApiResponse<T> {
 /// not parse. Used by the `<Operation>ResponseHeaders` and `<Operation>ErrorHeaders` structs.
 // Unused when the enabled Cargo features (apiFeatures) have no operation with typed headers.
 #[allow(dead_code)]
-pub(crate) fn header_value<T>(
+#[doc(hidden)]
+pub fn header_value<T>(
     headers: &timvw_rust_runtime::header::HeaderMap,
     name: &str,
     parse: impl Fn(&str) -> Option<T>,

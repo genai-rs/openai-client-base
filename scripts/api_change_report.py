@@ -160,8 +160,12 @@ def snapshot(spec_path, generated_root, source_url, generator_version, revision)
     spec = load_spec(raw)
     surface = inventory(spec)
     files = {}
-    for folder in ("src/apis", "src/models"):
-        directory = generated_root / folder
+    folders = [generated_root / "src/apis", generated_root / "src/models"]
+    # splitCrates: the models and API modules are in the workspace's crates, the facade's src/ re-exports them
+    crates = generated_root / "crates"
+    if crates.is_dir():
+        folders += sorted(crates.glob("*/src"))
+    for directory in folders:
         if not directory.is_dir():
             raise ValueError(f"missing generated directory: {directory}")
         paths = sorted(directory.rglob("*.rs"))

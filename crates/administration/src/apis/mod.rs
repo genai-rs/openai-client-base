@@ -1,0 +1,40 @@
+// The configuration, errors and helpers, under the same paths: `super::Error` names them.
+#[doc(no_inline)]
+pub use openai_client_base_common::apis::*;
+
+#[cfg(feature = "administration")]
+pub mod audit_logs_api;
+#[cfg(feature = "administration")]
+pub mod certificates_api;
+#[cfg(feature = "administration")]
+pub mod data_retention_api;
+#[cfg(feature = "administration")]
+pub mod default_api;
+#[cfg(feature = "administration")]
+pub mod group_organization_role_assignments_api;
+#[cfg(feature = "administration")]
+pub mod group_users_api;
+#[cfg(feature = "administration")]
+pub mod groups_api;
+#[cfg(feature = "administration")]
+pub mod hosted_tools_api;
+#[cfg(feature = "administration")]
+pub mod invites_api;
+#[cfg(feature = "administration")]
+pub mod project_group_role_assignments_api;
+#[cfg(feature = "administration")]
+pub mod project_groups_api;
+#[cfg(feature = "administration")]
+pub mod project_user_role_assignments_api;
+#[cfg(feature = "administration")]
+pub mod projects_api;
+#[cfg(feature = "administration")]
+pub mod roles_api;
+#[cfg(feature = "administration")]
+pub mod spend_alerts_api;
+#[cfg(feature = "administration")]
+pub mod usage_api;
+#[cfg(feature = "administration")]
+pub mod user_organization_role_assignments_api;
+#[cfg(feature = "administration")]
+pub mod users_api;

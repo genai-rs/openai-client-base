@@ -9,7 +9,8 @@ use serde::de::DeserializeOwned;
 use serde_json::Value;
 
 /// What a union finds where it looks for its tag.
-pub(crate) enum Tag<'a> {
+#[doc(hidden)]
+pub enum Tag<'a> {
     /// The tag's value.
     Value(&'a str),
     /// An object without the tag, or with `null` for it.
@@ -19,7 +20,8 @@ pub(crate) enum Tag<'a> {
 }
 
 /// Looks at the tag. A tag of another kind than a string is an error here, whatever the variants say.
-pub(crate) fn tag<'a>(value: &'a Value, union: &str, tag: &str) -> Result<Tag<'a>, String> {
+#[doc(hidden)]
+pub fn tag<'a>(value: &'a Value, union: &str, tag: &str) -> Result<Tag<'a>, String> {
     let Value::Object(fields) = value else {
         return Ok(Tag::NotObject);
     };
@@ -34,19 +36,18 @@ pub(crate) fn tag<'a>(value: &'a Value, union: &str, tag: &str) -> Result<Tag<'a
 }
 
 /// Decodes the one variant selected, and keeps its error.
-pub(crate) fn decode<T: DeserializeOwned>(
-    value: Value,
-    union: &str,
-    variant: &str,
-) -> Result<T, String> {
+#[doc(hidden)]
+pub fn decode<T: DeserializeOwned>(value: Value, union: &str, variant: &str) -> Result<T, String> {
     serde_json::from_value(value).map_err(|e| format!("{union}::{variant}: {e}"))
 }
 
 /// A variant to try: its name, and how to decode it.
-pub(crate) type Attempt<U> = (&'static str, fn(Value) -> Result<U, serde_json::Error>);
+#[doc(hidden)]
+pub type Attempt<U> = (&'static str, fn(Value) -> Result<U, serde_json::Error>);
 
 /// Tries the variants selected in order, and keeps the error of each when none decodes.
-pub(crate) fn first_of<U>(
+#[doc(hidden)]
+pub fn first_of<U>(
     mut value: Value,
     union: &str,
     tag: &str,
@@ -77,17 +78,20 @@ pub(crate) fn first_of<U>(
 
 /// The error of a tag no variant has.
 #[allow(dead_code)]
-pub(crate) fn unknown_tag(union: &str, tag: &str, value: &str) -> String {
+#[doc(hidden)]
+pub fn unknown_tag(union: &str, tag: &str, value: &str) -> String {
     format!("{union}: unknown `{tag}` value {value:?}")
 }
 
 /// The error of no tag, when every variant requires it.
-pub(crate) fn missing_tag(union: &str, tag: &str) -> String {
+#[doc(hidden)]
+pub fn missing_tag(union: &str, tag: &str) -> String {
     format!("{union}: tag `{tag}` is missing or null")
 }
 
 /// The error of something other than an object, when every variant is one.
-pub(crate) fn not_an_object(value: &Value, union: &str, tag: &str) -> String {
+#[doc(hidden)]
+pub fn not_an_object(value: &Value, union: &str, tag: &str) -> String {
     format!(
         "{union}: expected an object with tag `{tag}`, got {}",
         kind(value)

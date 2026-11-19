@@ -1,0 +1,41 @@
+[package]
+name = "openai-client-base-tools"
+description = "Internal part of openai-client-base: the models and API functions of the features `chatkit`, `container`, `skill`, `vaults`. Depend on openai-client-base instead"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+readme = "README.md"
+
+[package.metadata.docs.rs]
+all-features = true
+
+[dependencies]
+openai-client-base-common = { workspace = true }
+bon = { version = "^3", optional = true }
+serde = { version = "^1.0", features = ["derive"] }
+serde_with = { version = "^3.8", default-features = false, features = ["base64", "std", "macros"], optional = true }
+serde_json = "^1.0"
+futures-core = "^0.3"
+serde_repr = "^0.1"
+url = "^2.5"
+regex = "^1.10"
+jiff = { version = "^1", default-features = false, features = ["std", "serde"] }
+timvw-rust-runtime = { version = "^0.4", default-features = false, features = ["fs", "time"], optional = true }
+
+[features]
+default = []
+_api = ["dep:timvw-rust-runtime", "dep:bon", "openai-client-base-common/_api"]
+chatkit = ["chatkit-types", "_api"]
+chatkit-types = ["dep:bon", "dep:serde_with", "openai-client-base-common/chatkit-types"]
+container = ["container-types", "_api"]
+container-types = ["dep:timvw-rust-runtime", "dep:bon", "dep:serde_with", "openai-client-base-common/container-types"]
+skill = ["skill-types", "_api"]
+skill-types = ["dep:timvw-rust-runtime", "dep:bon", "dep:serde_with", "openai-client-base-common/skill-types"]
+vaults = ["vaults-types", "_api"]
+vaults-types = ["dep:bon", "dep:serde_with", "openai-client-base-common/vaults-types"]
+
+[lints]
+workspace = true
