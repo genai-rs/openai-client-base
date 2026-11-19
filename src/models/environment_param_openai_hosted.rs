@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// EnvironmentParamOpenaiHosted : An existing OpenAI-hosted environment or new inline/template-based hosted configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = environment_param_openai_hosted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EnvironmentParamOpenaiHosted {
     /// The type of the object. Always `openai_hosted`.  Defaults to `\"openai_hosted\"`.
     #[serde(rename = "type")]
@@ -136,6 +137,17 @@ impl EnvironmentParamOpenaiHosted {
             environment_template_id: None,
             container_size: None,
         }
+    }
+}
+
+impl<S: environment_param_openai_hosted_builder::State> EnvironmentParamOpenaiHostedBuilder<S>
+where
+    S::Type: environment_param_openai_hosted_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EnvironmentParamOpenaiHosted {
+        self.build_internal()
     }
 }
 

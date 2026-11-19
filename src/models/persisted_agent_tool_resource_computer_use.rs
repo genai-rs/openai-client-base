@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// PersistedAgentToolResourceComputerUse : Browser use in an OpenAI-hosted session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = persisted_agent_tool_resource_computer_use_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PersistedAgentToolResourceComputerUse {
     /// The type of the object. Always `computer_use`.  Defaults to `\"computer_use\"`.
     #[serde(rename = "type")]
@@ -28,6 +29,19 @@ impl PersistedAgentToolResourceComputerUse {
             r#type,
             include_screenshots,
         }
+    }
+}
+
+impl<S: persisted_agent_tool_resource_computer_use_builder::State>
+    PersistedAgentToolResourceComputerUseBuilder<S>
+where
+    S::Type: persisted_agent_tool_resource_computer_use_builder::IsSet,
+    S::IncludeScreenshots: persisted_agent_tool_resource_computer_use_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PersistedAgentToolResourceComputerUse {
+        self.build_internal()
     }
 }
 

@@ -140,7 +140,7 @@ pub enum ValidateGraderError {
 }
 
 /// Immediately cancel a fine-tune job.
-#[bon::builder]
+#[bon::builder(state_mod = cancel_fine_tuning_job_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_fine_tuning_job(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
@@ -218,13 +218,26 @@ pub async fn cancel_fine_tuning_job(
     }
 }
 
+#[allow(deprecated)]
+impl<S: cancel_fine_tuning_job_builder::State> CancelFineTuningJobBuilder<'_, '_, '_, S>
+where
+    S::Configuration: cancel_fine_tuning_job_builder::IsSet,
+    S::FineTuningJobId: cancel_fine_tuning_job_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::FineTuningJob, Error<CancelFineTuningJobError>> {
+        self.call_internal().await
+    }
+}
+
 /// Immediately cancel a fine-tune job.
 ///
 /// Sends the same request as [`cancel_fine_tuning_job`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::FineTuningJob` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = cancel_fine_tuning_job_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_fine_tuning_job_response(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
@@ -293,8 +306,24 @@ pub async fn cancel_fine_tuning_job_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: cancel_fine_tuning_job_response_builder::State>
+    CancelFineTuningJobResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: cancel_fine_tuning_job_response_builder::IsSet,
+    S::FineTuningJobId: cancel_fine_tuning_job_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::FineTuningJob>, Error<CancelFineTuningJobError>> {
+        self.call_internal().await
+    }
+}
+
 /// **NOTE:** Calling this endpoint requires an [admin API key](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/admin_api_keys).  This enables organization owners to share fine-tuned models with other projects in their organization.
-#[bon::builder]
+#[bon::builder(state_mod = create_fine_tuning_checkpoint_permission_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_fine_tuning_checkpoint_permission(
     configuration: &configuration::Configuration,
     fine_tuned_model_checkpoint: &str,
@@ -379,13 +408,34 @@ pub async fn create_fine_tuning_checkpoint_permission(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_fine_tuning_checkpoint_permission_builder::State>
+    CreateFineTuningCheckpointPermissionBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_fine_tuning_checkpoint_permission_builder::IsSet,
+    S::FineTunedModelCheckpoint: create_fine_tuning_checkpoint_permission_builder::IsSet,
+    S::CreateFineTuningCheckpointPermissionRequest:
+        create_fine_tuning_checkpoint_permission_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::ListFineTuningCheckpointPermissionResponse,
+        Error<CreateFineTuningCheckpointPermissionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// **NOTE:** Calling this endpoint requires an [admin API key](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/admin_api_keys).  This enables organization owners to share fine-tuned models with other projects in their organization.
 ///
 /// Sends the same request as [`create_fine_tuning_checkpoint_permission`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListFineTuningCheckpointPermissionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_fine_tuning_checkpoint_permission_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_fine_tuning_checkpoint_permission_response(
     configuration: &configuration::Configuration,
     fine_tuned_model_checkpoint: &str,
@@ -461,8 +511,29 @@ pub async fn create_fine_tuning_checkpoint_permission_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_fine_tuning_checkpoint_permission_response_builder::State>
+    CreateFineTuningCheckpointPermissionResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_fine_tuning_checkpoint_permission_response_builder::IsSet,
+    S::FineTunedModelCheckpoint: create_fine_tuning_checkpoint_permission_response_builder::IsSet,
+    S::CreateFineTuningCheckpointPermissionRequest:
+        create_fine_tuning_checkpoint_permission_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ListFineTuningCheckpointPermissionResponse>,
+        Error<CreateFineTuningCheckpointPermissionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Creates a fine-tuning job which begins the process of creating a new model from a given dataset.  Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.  [Learn more about fine-tuning](https://developers.openai.com/api/docs/guides/model-optimization)
-#[bon::builder]
+#[bon::builder(state_mod = create_fine_tuning_job_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_fine_tuning_job(
     configuration: &configuration::Configuration,
     create_fine_tuning_job_request: &models::CreateFineTuningJobRequest,
@@ -534,13 +605,26 @@ pub async fn create_fine_tuning_job(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_fine_tuning_job_builder::State> CreateFineTuningJobBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_fine_tuning_job_builder::IsSet,
+    S::CreateFineTuningJobRequest: create_fine_tuning_job_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::FineTuningJob, Error<CreateFineTuningJobError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a fine-tuning job which begins the process of creating a new model from a given dataset.  Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.  [Learn more about fine-tuning](https://developers.openai.com/api/docs/guides/model-optimization)
 ///
 /// Sends the same request as [`create_fine_tuning_job`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::FineTuningJob` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_fine_tuning_job_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_fine_tuning_job_response(
     configuration: &configuration::Configuration,
     create_fine_tuning_job_request: &models::CreateFineTuningJobRequest,
@@ -603,8 +687,24 @@ pub async fn create_fine_tuning_job_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_fine_tuning_job_response_builder::State>
+    CreateFineTuningJobResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_fine_tuning_job_response_builder::IsSet,
+    S::CreateFineTuningJobRequest: create_fine_tuning_job_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::FineTuningJob>, Error<CreateFineTuningJobError>> {
+        self.call_internal().await
+    }
+}
+
 /// **NOTE:** This endpoint requires an [admin API key](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/admin_api_keys).  Organization owners can use this endpoint to delete a permission for a fine-tuned model checkpoint.
-#[bon::builder]
+#[bon::builder(state_mod = delete_fine_tuning_checkpoint_permission_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_fine_tuning_checkpoint_permission(
     configuration: &configuration::Configuration,
     fine_tuned_model_checkpoint: &str,
@@ -688,13 +788,33 @@ pub async fn delete_fine_tuning_checkpoint_permission(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_fine_tuning_checkpoint_permission_builder::State>
+    DeleteFineTuningCheckpointPermissionBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_fine_tuning_checkpoint_permission_builder::IsSet,
+    S::FineTunedModelCheckpoint: delete_fine_tuning_checkpoint_permission_builder::IsSet,
+    S::PermissionId: delete_fine_tuning_checkpoint_permission_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::DeleteFineTuningCheckpointPermissionResponse,
+        Error<DeleteFineTuningCheckpointPermissionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// **NOTE:** This endpoint requires an [admin API key](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/admin_api_keys).  Organization owners can use this endpoint to delete a permission for a fine-tuned model checkpoint.
 ///
 /// Sends the same request as [`delete_fine_tuning_checkpoint_permission`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeleteFineTuningCheckpointPermissionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_fine_tuning_checkpoint_permission_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_fine_tuning_checkpoint_permission_response(
     configuration: &configuration::Configuration,
     fine_tuned_model_checkpoint: &str,
@@ -769,8 +889,28 @@ pub async fn delete_fine_tuning_checkpoint_permission_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_fine_tuning_checkpoint_permission_response_builder::State>
+    DeleteFineTuningCheckpointPermissionResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_fine_tuning_checkpoint_permission_response_builder::IsSet,
+    S::FineTunedModelCheckpoint: delete_fine_tuning_checkpoint_permission_response_builder::IsSet,
+    S::PermissionId: delete_fine_tuning_checkpoint_permission_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::DeleteFineTuningCheckpointPermissionResponse>,
+        Error<DeleteFineTuningCheckpointPermissionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// **NOTE:** This endpoint requires an [admin API key](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/admin_api_keys).  Organization owners can use this endpoint to view all permissions for a fine-tuned model checkpoint.
-#[bon::builder]
+#[bon::builder(state_mod = list_fine_tuning_checkpoint_permissions_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_fine_tuning_checkpoint_permissions(
     configuration: &configuration::Configuration,
     fine_tuned_model_checkpoint: &str,
@@ -868,13 +1008,32 @@ pub async fn list_fine_tuning_checkpoint_permissions(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_fine_tuning_checkpoint_permissions_builder::State>
+    ListFineTuningCheckpointPermissionsBuilder<'_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_fine_tuning_checkpoint_permissions_builder::IsSet,
+    S::FineTunedModelCheckpoint: list_fine_tuning_checkpoint_permissions_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::ListFineTuningCheckpointPermissionResponse,
+        Error<ListFineTuningCheckpointPermissionsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// **NOTE:** This endpoint requires an [admin API key](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/admin_api_keys).  Organization owners can use this endpoint to view all permissions for a fine-tuned model checkpoint.
 ///
 /// Sends the same request as [`list_fine_tuning_checkpoint_permissions`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListFineTuningCheckpointPermissionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_fine_tuning_checkpoint_permissions_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_fine_tuning_checkpoint_permissions_response(
     configuration: &configuration::Configuration,
     fine_tuned_model_checkpoint: &str,
@@ -963,8 +1122,27 @@ pub async fn list_fine_tuning_checkpoint_permissions_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_fine_tuning_checkpoint_permissions_response_builder::State>
+    ListFineTuningCheckpointPermissionsResponseBuilder<'_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_fine_tuning_checkpoint_permissions_response_builder::IsSet,
+    S::FineTunedModelCheckpoint: list_fine_tuning_checkpoint_permissions_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ListFineTuningCheckpointPermissionResponse>,
+        Error<ListFineTuningCheckpointPermissionsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Get status updates for a fine-tuning job.
-#[bon::builder]
+#[bon::builder(state_mod = list_fine_tuning_events_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_fine_tuning_events(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
@@ -1052,13 +1230,28 @@ pub async fn list_fine_tuning_events(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_fine_tuning_events_builder::State> ListFineTuningEventsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_fine_tuning_events_builder::IsSet,
+    S::FineTuningJobId: list_fine_tuning_events_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ListFineTuningJobEventsResponse, Error<ListFineTuningEventsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get status updates for a fine-tuning job.
 ///
 /// Sends the same request as [`list_fine_tuning_events`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListFineTuningJobEventsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_fine_tuning_events_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_fine_tuning_events_response(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
@@ -1140,8 +1333,27 @@ pub async fn list_fine_tuning_events_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_fine_tuning_events_response_builder::State>
+    ListFineTuningEventsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_fine_tuning_events_response_builder::IsSet,
+    S::FineTuningJobId: list_fine_tuning_events_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ListFineTuningJobEventsResponse>,
+        Error<ListFineTuningEventsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// List checkpoints for a fine-tuning job.
-#[bon::builder]
+#[bon::builder(state_mod = list_fine_tuning_job_checkpoints_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_fine_tuning_job_checkpoints(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
@@ -1230,13 +1442,32 @@ pub async fn list_fine_tuning_job_checkpoints(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_fine_tuning_job_checkpoints_builder::State>
+    ListFineTuningJobCheckpointsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_fine_tuning_job_checkpoints_builder::IsSet,
+    S::FineTuningJobId: list_fine_tuning_job_checkpoints_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::ListFineTuningJobCheckpointsResponse,
+        Error<ListFineTuningJobCheckpointsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// List checkpoints for a fine-tuning job.
 ///
 /// Sends the same request as [`list_fine_tuning_job_checkpoints`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListFineTuningJobCheckpointsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_fine_tuning_job_checkpoints_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_fine_tuning_job_checkpoints_response(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
@@ -1318,8 +1549,27 @@ pub async fn list_fine_tuning_job_checkpoints_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_fine_tuning_job_checkpoints_response_builder::State>
+    ListFineTuningJobCheckpointsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_fine_tuning_job_checkpoints_response_builder::IsSet,
+    S::FineTuningJobId: list_fine_tuning_job_checkpoints_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ListFineTuningJobCheckpointsResponse>,
+        Error<ListFineTuningJobCheckpointsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// List your organization's fine-tuning jobs
-#[bon::builder]
+#[bon::builder(state_mod = list_paginated_fine_tuning_jobs_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_paginated_fine_tuning_jobs(
     configuration: &configuration::Configuration,
     after: Option<&str>,
@@ -1406,13 +1656,29 @@ pub async fn list_paginated_fine_tuning_jobs(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_paginated_fine_tuning_jobs_builder::State>
+    ListPaginatedFineTuningJobsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_paginated_fine_tuning_jobs_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ListPaginatedFineTuningJobsResponse, Error<ListPaginatedFineTuningJobsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// List your organization's fine-tuning jobs
 ///
 /// Sends the same request as [`list_paginated_fine_tuning_jobs`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListPaginatedFineTuningJobsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_paginated_fine_tuning_jobs_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_paginated_fine_tuning_jobs_response(
     configuration: &configuration::Configuration,
     after: Option<&str>,
@@ -1493,8 +1759,26 @@ pub async fn list_paginated_fine_tuning_jobs_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_paginated_fine_tuning_jobs_response_builder::State>
+    ListPaginatedFineTuningJobsResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_paginated_fine_tuning_jobs_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ListPaginatedFineTuningJobsResponse>,
+        Error<ListPaginatedFineTuningJobsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Pause a fine-tune job.
-#[bon::builder]
+#[bon::builder(state_mod = pause_fine_tuning_job_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn pause_fine_tuning_job(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
@@ -1572,13 +1856,26 @@ pub async fn pause_fine_tuning_job(
     }
 }
 
+#[allow(deprecated)]
+impl<S: pause_fine_tuning_job_builder::State> PauseFineTuningJobBuilder<'_, '_, '_, S>
+where
+    S::Configuration: pause_fine_tuning_job_builder::IsSet,
+    S::FineTuningJobId: pause_fine_tuning_job_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::FineTuningJob, Error<PauseFineTuningJobError>> {
+        self.call_internal().await
+    }
+}
+
 /// Pause a fine-tune job.
 ///
 /// Sends the same request as [`pause_fine_tuning_job`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::FineTuningJob` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = pause_fine_tuning_job_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn pause_fine_tuning_job_response(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
@@ -1647,8 +1944,24 @@ pub async fn pause_fine_tuning_job_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: pause_fine_tuning_job_response_builder::State>
+    PauseFineTuningJobResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: pause_fine_tuning_job_response_builder::IsSet,
+    S::FineTuningJobId: pause_fine_tuning_job_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::FineTuningJob>, Error<PauseFineTuningJobError>> {
+        self.call_internal().await
+    }
+}
+
 /// Resume a fine-tune job.
-#[bon::builder]
+#[bon::builder(state_mod = resume_fine_tuning_job_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn resume_fine_tuning_job(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
@@ -1726,13 +2039,26 @@ pub async fn resume_fine_tuning_job(
     }
 }
 
+#[allow(deprecated)]
+impl<S: resume_fine_tuning_job_builder::State> ResumeFineTuningJobBuilder<'_, '_, '_, S>
+where
+    S::Configuration: resume_fine_tuning_job_builder::IsSet,
+    S::FineTuningJobId: resume_fine_tuning_job_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::FineTuningJob, Error<ResumeFineTuningJobError>> {
+        self.call_internal().await
+    }
+}
+
 /// Resume a fine-tune job.
 ///
 /// Sends the same request as [`resume_fine_tuning_job`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::FineTuningJob` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = resume_fine_tuning_job_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn resume_fine_tuning_job_response(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
@@ -1801,8 +2127,24 @@ pub async fn resume_fine_tuning_job_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: resume_fine_tuning_job_response_builder::State>
+    ResumeFineTuningJobResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: resume_fine_tuning_job_response_builder::IsSet,
+    S::FineTuningJobId: resume_fine_tuning_job_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::FineTuningJob>, Error<ResumeFineTuningJobError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get info about a fine-tuning job.  [Learn more about fine-tuning](https://developers.openai.com/api/docs/guides/model-optimization)
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_fine_tuning_job_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_fine_tuning_job(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
@@ -1877,13 +2219,26 @@ pub async fn retrieve_fine_tuning_job(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_fine_tuning_job_builder::State> RetrieveFineTuningJobBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_fine_tuning_job_builder::IsSet,
+    S::FineTuningJobId: retrieve_fine_tuning_job_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::FineTuningJob, Error<RetrieveFineTuningJobError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get info about a fine-tuning job.  [Learn more about fine-tuning](https://developers.openai.com/api/docs/guides/model-optimization)
 ///
 /// Sends the same request as [`retrieve_fine_tuning_job`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::FineTuningJob` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_fine_tuning_job_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_fine_tuning_job_response(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
@@ -1949,8 +2304,24 @@ pub async fn retrieve_fine_tuning_job_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_fine_tuning_job_response_builder::State>
+    RetrieveFineTuningJobResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_fine_tuning_job_response_builder::IsSet,
+    S::FineTuningJobId: retrieve_fine_tuning_job_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::FineTuningJob>, Error<RetrieveFineTuningJobError>> {
+        self.call_internal().await
+    }
+}
+
 /// Run a grader.
-#[bon::builder]
+#[bon::builder(state_mod = run_grader_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn run_grader(
     configuration: &configuration::Configuration,
     run_grader_request: &models::RunGraderRequest,
@@ -2022,13 +2393,26 @@ pub async fn run_grader(
     }
 }
 
+#[allow(deprecated)]
+impl<S: run_grader_builder::State> RunGraderBuilder<'_, '_, '_, S>
+where
+    S::Configuration: run_grader_builder::IsSet,
+    S::RunGraderRequest: run_grader_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::RunGraderResponse, Error<RunGraderError>> {
+        self.call_internal().await
+    }
+}
+
 /// Run a grader.
 ///
 /// Sends the same request as [`run_grader`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RunGraderResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = run_grader_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn run_grader_response(
     configuration: &configuration::Configuration,
     run_grader_request: &models::RunGraderRequest,
@@ -2091,8 +2475,23 @@ pub async fn run_grader_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: run_grader_response_builder::State> RunGraderResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: run_grader_response_builder::IsSet,
+    S::RunGraderRequest: run_grader_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::RunGraderResponse>, Error<RunGraderError>> {
+        self.call_internal().await
+    }
+}
+
 /// Validate a grader.
-#[bon::builder]
+#[bon::builder(state_mod = validate_grader_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn validate_grader(
     configuration: &configuration::Configuration,
     validate_grader_request: &models::ValidateGraderRequest,
@@ -2167,13 +2566,26 @@ pub async fn validate_grader(
     }
 }
 
+#[allow(deprecated)]
+impl<S: validate_grader_builder::State> ValidateGraderBuilder<'_, '_, '_, S>
+where
+    S::Configuration: validate_grader_builder::IsSet,
+    S::ValidateGraderRequest: validate_grader_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ValidateGraderResponse, Error<ValidateGraderError>> {
+        self.call_internal().await
+    }
+}
+
 /// Validate a grader.
 ///
 /// Sends the same request as [`validate_grader`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ValidateGraderResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = validate_grader_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn validate_grader_response(
     configuration: &configuration::Configuration,
     validate_grader_request: &models::ValidateGraderRequest,
@@ -2236,5 +2648,21 @@ pub async fn validate_grader_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: validate_grader_response_builder::State> ValidateGraderResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: validate_grader_response_builder::IsSet,
+    S::ValidateGraderRequest: validate_grader_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ValidateGraderResponse>, Error<ValidateGraderError>>
+    {
+        self.call_internal().await
     }
 }

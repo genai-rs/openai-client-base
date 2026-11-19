@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ReasoningParam : Reasoning configuration for the agent.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = reasoning_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ReasoningParam {
     /// The amount of reasoning effort the model should use. Omission lets the model select it.
     #[serde(
@@ -39,6 +40,14 @@ impl ReasoningParam {
             effort: None,
             summary: None,
         }
+    }
+}
+
+impl<S: reasoning_param_builder::State> ReasoningParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ReasoningParam {
+        self.build_internal()
     }
 }
 

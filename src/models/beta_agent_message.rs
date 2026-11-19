@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_agent_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaAgentMessage {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
@@ -48,6 +49,21 @@ impl BetaAgentMessage {
             recipient,
             content,
         }
+    }
+}
+
+impl<S: beta_agent_message_builder::State> BetaAgentMessageBuilder<S>
+where
+    S::Type: beta_agent_message_builder::IsSet,
+    S::Id: beta_agent_message_builder::IsSet,
+    S::Author: beta_agent_message_builder::IsSet,
+    S::Recipient: beta_agent_message_builder::IsSet,
+    S::Content: beta_agent_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaAgentMessage {
+        self.build_internal()
     }
 }
 

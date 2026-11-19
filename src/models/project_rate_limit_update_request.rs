@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_rate_limit_update_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectRateLimitUpdateRequest {
     /// The maximum requests per minute.
     #[serde(
@@ -60,6 +61,14 @@ impl ProjectRateLimitUpdateRequest {
             max_requests_per_1_day: None,
             batch_1_day_max_input_tokens: None,
         }
+    }
+}
+
+impl<S: project_rate_limit_update_request_builder::State> ProjectRateLimitUpdateRequestBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectRateLimitUpdateRequest {
+        self.build_internal()
     }
 }
 

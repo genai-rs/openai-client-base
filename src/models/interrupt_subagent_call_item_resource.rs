@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// InterruptSubagentCallItemResource : A request to interrupt a subagent's current turn. The subagent remains available.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = interrupt_subagent_call_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InterruptSubagentCallItemResource {
     /// The item type. Always `interrupt_subagent_call`.  Defaults to `\"interrupt_subagent_call\"`.
     #[serde(rename = "type")]
@@ -59,6 +60,23 @@ impl InterruptSubagentCallItemResource {
             sender_agent_id,
             recipient_agent_id,
         }
+    }
+}
+
+impl<S: interrupt_subagent_call_item_resource_builder::State>
+    InterruptSubagentCallItemResourceBuilder<S>
+where
+    S::Type: interrupt_subagent_call_item_resource_builder::IsSet,
+    S::Id: interrupt_subagent_call_item_resource_builder::IsSet,
+    S::TurnId: interrupt_subagent_call_item_resource_builder::IsSet,
+    S::Status: interrupt_subagent_call_item_resource_builder::IsSet,
+    S::SenderAgentId: interrupt_subagent_call_item_resource_builder::IsSet,
+    S::RecipientAgentId: interrupt_subagent_call_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InterruptSubagentCallItemResource {
+        self.build_internal()
     }
 }
 

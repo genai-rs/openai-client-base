@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_connect_documentation_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeConnectDocumentationParams {
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -28,6 +29,16 @@ impl RealtimeConnectDocumentationParams {
             call_id: None,
             intent: None,
         }
+    }
+}
+
+impl<S: realtime_connect_documentation_params_builder::State>
+    RealtimeConnectDocumentationParamsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeConnectDocumentationParams {
+        self.build_internal()
     }
 }
 

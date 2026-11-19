@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AssignedRoleDetails : Detailed information about a role assignment entry returned when listing assignments.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = assigned_role_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AssignedRoleDetails {
     /// Identifier for the role.
     #[serde(rename = "id")]
@@ -82,6 +83,21 @@ impl AssignedRoleDetails {
             metadata,
             assignment_sources,
         }
+    }
+}
+
+impl<S: assigned_role_details_builder::State> AssignedRoleDetailsBuilder<S>
+where
+    S::Id: assigned_role_details_builder::IsSet,
+    S::Name: assigned_role_details_builder::IsSet,
+    S::Permissions: assigned_role_details_builder::IsSet,
+    S::ResourceType: assigned_role_details_builder::IsSet,
+    S::PredefinedRole: assigned_role_details_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AssignedRoleDetails {
+        self.build_internal()
     }
 }
 

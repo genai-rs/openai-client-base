@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = list_external_keys_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ListExternalKeysResource {
     /// Defaults to `\"list\"`.
     #[serde(rename = "object")]
@@ -41,6 +42,19 @@ impl ListExternalKeysResource {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: list_external_keys_resource_builder::State> ListExternalKeysResourceBuilder<S>
+where
+    S::Object: list_external_keys_resource_builder::IsSet,
+    S::Data: list_external_keys_resource_builder::IsSet,
+    S::HasMore: list_external_keys_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ListExternalKeysResource {
+        self.build_internal()
     }
 }
 

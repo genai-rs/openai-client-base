@@ -109,7 +109,8 @@ def input_inventory(spec: dict[str, Any]) -> tuple[list[dict[str, str]], list[di
 def extract_functions(apis_dir: Path) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
     generated: list[dict[str, str]] = []
     unparsed: list[dict[str, str]] = []
-    declaration = re.compile(r"(?m)^\s*pub\s+async\s+fn\s+(\w+)\s*\(")
+    # Top-level functions only: the call() of a function's builder (an impl block) is indented.
+    declaration = re.compile(r"(?m)^pub\s+async\s+fn\s+(\w+)\s*\(")
     uri_pattern = re.compile(r"let\s+uri_str\s*=\s*format!\(\s*\"((?:\\.|[^\"\\])*)\"", re.S)
     method_pattern = re.compile(r"\.request\(\s*(?:reqwest|timvw_rust_runtime)::Method::(\w+)")
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaMcpListTools : A list of tools available on an MCP server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_mcp_list_tools_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaMcpListTools {
     /// The agent that produced this item.
     #[serde(
@@ -60,6 +61,20 @@ impl BetaMcpListTools {
             tools,
             error: None,
         }
+    }
+}
+
+impl<S: beta_mcp_list_tools_builder::State> BetaMcpListToolsBuilder<S>
+where
+    S::Type: beta_mcp_list_tools_builder::IsSet,
+    S::Id: beta_mcp_list_tools_builder::IsSet,
+    S::ServerLabel: beta_mcp_list_tools_builder::IsSet,
+    S::Tools: beta_mcp_list_tools_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaMcpListTools {
+        self.build_internal()
     }
 }
 

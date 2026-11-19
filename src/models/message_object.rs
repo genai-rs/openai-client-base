@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageObject : Represents a message within a [thread](https://developers.openai.com/api/docs/assistants/migration).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageObject {
     /// The identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -91,6 +92,23 @@ impl MessageObject {
             attachments,
             metadata,
         }
+    }
+}
+
+impl<S: message_object_builder::State> MessageObjectBuilder<S>
+where
+    S::Id: message_object_builder::IsSet,
+    S::Object: message_object_builder::IsSet,
+    S::CreatedAt: message_object_builder::IsSet,
+    S::ThreadId: message_object_builder::IsSet,
+    S::Status: message_object_builder::IsSet,
+    S::Role: message_object_builder::IsSet,
+    S::Content: message_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageObject {
+        self.build_internal()
     }
 }
 

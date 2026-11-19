@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_request_message_content_part_audio_input_audio_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionRequestMessageContentPartAudioInputAudio {
     /// Base64 encoded audio data.
     #[serde(rename = "data")]
@@ -26,6 +27,19 @@ impl ChatCompletionRequestMessageContentPartAudioInputAudio {
         format: Format,
     ) -> ChatCompletionRequestMessageContentPartAudioInputAudio {
         ChatCompletionRequestMessageContentPartAudioInputAudio { data, format }
+    }
+}
+
+impl<S: chat_completion_request_message_content_part_audio_input_audio_builder::State>
+    ChatCompletionRequestMessageContentPartAudioInputAudioBuilder<S>
+where
+    S::Data: chat_completion_request_message_content_part_audio_input_audio_builder::IsSet,
+    S::Format: chat_completion_request_message_content_part_audio_input_audio_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionRequestMessageContentPartAudioInputAudio {
+        self.build_internal()
     }
 }
 

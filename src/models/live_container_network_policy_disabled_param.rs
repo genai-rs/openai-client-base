@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_container_network_policy_disabled_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveContainerNetworkPolicyDisabledParam {
     /// Disable outbound network access. Always `disabled`.  Defaults to `\"disabled\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,18 @@ pub struct LiveContainerNetworkPolicyDisabledParam {
 impl LiveContainerNetworkPolicyDisabledParam {
     pub fn new(r#type: Type) -> LiveContainerNetworkPolicyDisabledParam {
         LiveContainerNetworkPolicyDisabledParam { r#type }
+    }
+}
+
+impl<S: live_container_network_policy_disabled_param_builder::State>
+    LiveContainerNetworkPolicyDisabledParamBuilder<S>
+where
+    S::Type: live_container_network_policy_disabled_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveContainerNetworkPolicyDisabledParam {
+        self.build_internal()
     }
 }
 

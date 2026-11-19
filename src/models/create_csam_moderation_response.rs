@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_csam_moderation_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateCsamModerationResponse {
     #[serde(rename = "id")]
     pub id: String,
@@ -29,6 +30,19 @@ impl CreateCsamModerationResponse {
         results: Vec<models::CsamModerationResult>,
     ) -> CreateCsamModerationResponse {
         CreateCsamModerationResponse { id, model, results }
+    }
+}
+
+impl<S: create_csam_moderation_response_builder::State> CreateCsamModerationResponseBuilder<S>
+where
+    S::Id: create_csam_moderation_response_builder::IsSet,
+    S::Model: create_csam_moderation_response_builder::IsSet,
+    S::Results: create_csam_moderation_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateCsamModerationResponse {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UpdateProjectServiceAccountBody : Parameters for updating a project service account.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_project_service_account_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateProjectServiceAccountBody {
     /// The updated service account name.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,16 @@ impl UpdateProjectServiceAccountBody {
             name: None,
             role: None,
         }
+    }
+}
+
+impl<S: update_project_service_account_body_builder::State>
+    UpdateProjectServiceAccountBodyBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateProjectServiceAccountBody {
+        self.build_internal()
     }
 }
 

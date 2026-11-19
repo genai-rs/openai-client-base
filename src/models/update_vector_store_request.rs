@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_vector_store_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateVectorStoreRequest {
     /// The name of the vector store.
     #[serde(
@@ -40,6 +41,14 @@ impl UpdateVectorStoreRequest {
             expires_after: None,
             metadata: None,
         }
+    }
+}
+
+impl<S: update_vector_store_request_builder::State> UpdateVectorStoreRequestBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateVectorStoreRequest {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_apply_patch_tool_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveApplyPatchToolInputParam {
     /// Defaults to `\"apply_patch\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,17 @@ pub struct LiveApplyPatchToolInputParam {
 impl LiveApplyPatchToolInputParam {
     pub fn new(r#type: Type) -> LiveApplyPatchToolInputParam {
         LiveApplyPatchToolInputParam { r#type }
+    }
+}
+
+impl<S: live_apply_patch_tool_input_param_builder::State> LiveApplyPatchToolInputParamBuilder<S>
+where
+    S::Type: live_apply_patch_tool_input_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveApplyPatchToolInputParam {
+        self.build_internal()
     }
 }
 

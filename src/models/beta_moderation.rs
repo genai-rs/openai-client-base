@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaModeration : Moderation results or errors for the response input and output.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_moderation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaModeration {
     #[serde(rename = "input")]
     pub input: models::BetaModerationInput,
@@ -27,6 +28,18 @@ impl BetaModeration {
         output: models::BetaModerationOutput,
     ) -> BetaModeration {
         BetaModeration { input, output }
+    }
+}
+
+impl<S: beta_moderation_builder::State> BetaModerationBuilder<S>
+where
+    S::Input: beta_moderation_builder::IsSet,
+    S::Output: beta_moderation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaModeration {
+        self.build_internal()
     }
 }
 

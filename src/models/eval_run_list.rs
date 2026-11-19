@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalRunList : An object representing a list of runs for an evaluation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_run_list_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalRunList {
     /// The type of this object. It is always set to \"list\".  Defaults to `\"list\"`.
     #[serde(rename = "object")]
@@ -47,6 +48,21 @@ impl EvalRunList {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: eval_run_list_builder::State> EvalRunListBuilder<S>
+where
+    S::Object: eval_run_list_builder::IsSet,
+    S::Data: eval_run_list_builder::IsSet,
+    S::FirstId: eval_run_list_builder::IsSet,
+    S::LastId: eval_run_list_builder::IsSet,
+    S::HasMore: eval_run_list_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalRunList {
+        self.build_internal()
     }
 }
 

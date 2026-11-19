@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventOutputAudioBufferCleared : **WebRTC/SIP Only:** Emitted when the output audio buffer is cleared. This happens either in VAD mode when the user has interrupted (`input_audio_buffer.speech_started`), or when the client has emitted the `output_audio_buffer.clear` event to manually cut off the current audio response. [Learn more](https://developers.openai.com/api/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_output_audio_buffer_cleared_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventOutputAudioBufferCleared {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeServerEventOutputAudioBufferCleared {
             r#type,
             response_id,
         }
+    }
+}
+
+impl<S: realtime_server_event_output_audio_buffer_cleared_builder::State>
+    RealtimeServerEventOutputAudioBufferClearedBuilder<S>
+where
+    S::EventId: realtime_server_event_output_audio_buffer_cleared_builder::IsSet,
+    S::Type: realtime_server_event_output_audio_buffer_cleared_builder::IsSet,
+    S::ResponseId: realtime_server_event_output_audio_buffer_cleared_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventOutputAudioBufferCleared {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// McpTransportResourceStdio : Starts an MCP server as a local process.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_transport_resource_stdio_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpTransportResourceStdio {
     /// The type of the object. Always `stdio`.  Defaults to `\"stdio\"`.
     #[serde(rename = "type")]
@@ -54,6 +55,21 @@ impl McpTransportResourceStdio {
             cwd,
             env_vars,
         }
+    }
+}
+
+impl<S: mcp_transport_resource_stdio_builder::State> McpTransportResourceStdioBuilder<S>
+where
+    S::Type: mcp_transport_resource_stdio_builder::IsSet,
+    S::Command: mcp_transport_resource_stdio_builder::IsSet,
+    S::Args: mcp_transport_resource_stdio_builder::IsSet,
+    S::Cwd: mcp_transport_resource_stdio_builder::IsSet,
+    S::EnvVars: mcp_transport_resource_stdio_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpTransportResourceStdio {
+        self.build_internal()
     }
 }
 

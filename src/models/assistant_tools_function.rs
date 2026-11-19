@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = assistant_tools_function_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AssistantToolsFunction {
     /// The type of tool being defined: `function`
     #[serde(rename = "type")]
@@ -23,6 +24,18 @@ pub struct AssistantToolsFunction {
 impl AssistantToolsFunction {
     pub fn new(r#type: Type, function: models::FunctionObject) -> AssistantToolsFunction {
         AssistantToolsFunction { r#type, function }
+    }
+}
+
+impl<S: assistant_tools_function_builder::State> AssistantToolsFunctionBuilder<S>
+where
+    S::Type: assistant_tools_function_builder::IsSet,
+    S::Function: assistant_tools_function_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AssistantToolsFunction {
+        self.build_internal()
     }
 }
 

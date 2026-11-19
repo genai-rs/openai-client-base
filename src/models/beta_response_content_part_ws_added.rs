@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseContentPartWsAdded : Emitted when a new content part is added.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_content_part_ws_added_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseContentPartWsAdded {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -64,6 +65,22 @@ impl BetaResponseContentPartWsAdded {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_content_part_ws_added_builder::State> BetaResponseContentPartWsAddedBuilder<S>
+where
+    S::Type: beta_response_content_part_ws_added_builder::IsSet,
+    S::ItemId: beta_response_content_part_ws_added_builder::IsSet,
+    S::OutputIndex: beta_response_content_part_ws_added_builder::IsSet,
+    S::ContentIndex: beta_response_content_part_ws_added_builder::IsSet,
+    S::Part: beta_response_content_part_ws_added_builder::IsSet,
+    S::SequenceNumber: beta_response_content_part_ws_added_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseContentPartWsAdded {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// Session : The newly created Live session. Use its ID for session controls and sideband connections.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Session {
     /// Opaque session identifier. Preserve the returned value unchanged, including its prefix.
     #[serde(rename = "id")]
@@ -22,6 +23,17 @@ impl Session {
     /// The newly created Live session. Use its ID for session controls and sideband connections.
     pub fn new(id: String) -> Session {
         Session { id }
+    }
+}
+
+impl<S: session_builder::State> SessionBuilder<S>
+where
+    S::Id: session_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Session {
+        self.build_internal()
     }
 }
 

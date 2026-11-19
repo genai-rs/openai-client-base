@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateGroupBody : Request payload for creating a new group in the organization.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_group_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateGroupBody {
     /// Human readable name for the group.
     ///
@@ -24,6 +25,17 @@ impl CreateGroupBody {
     /// Request payload for creating a new group in the organization.
     pub fn new(name: String) -> CreateGroupBody {
         CreateGroupBody { name }
+    }
+}
+
+impl<S: create_group_body_builder::State> CreateGroupBodyBuilder<S>
+where
+    S::Name: create_group_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateGroupBody {
+        self.build_internal()
     }
 }
 

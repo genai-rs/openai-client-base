@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseCodeInterpreterCallInWsProgress : Emitted when a code interpreter call is in progress.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_code_interpreter_call_in_ws_progress_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseCodeInterpreterCallInWsProgress {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -55,6 +56,21 @@ impl BetaResponseCodeInterpreterCallInWsProgress {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_code_interpreter_call_in_ws_progress_builder::State>
+    BetaResponseCodeInterpreterCallInWsProgressBuilder<S>
+where
+    S::Type: beta_response_code_interpreter_call_in_ws_progress_builder::IsSet,
+    S::OutputIndex: beta_response_code_interpreter_call_in_ws_progress_builder::IsSet,
+    S::ItemId: beta_response_code_interpreter_call_in_ws_progress_builder::IsSet,
+    S::SequenceNumber: beta_response_code_interpreter_call_in_ws_progress_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseCodeInterpreterCallInWsProgress {
+        self.build_internal()
     }
 }
 

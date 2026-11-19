@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// McpApprovalRequest : A request for human approval of a tool invocation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_approval_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpApprovalRequest {
     /// The type of the item. Always `mcp_approval_request`.
     #[serde(rename = "type")]
@@ -46,6 +47,21 @@ impl McpApprovalRequest {
             name,
             arguments,
         }
+    }
+}
+
+impl<S: mcp_approval_request_builder::State> McpApprovalRequestBuilder<S>
+where
+    S::Type: mcp_approval_request_builder::IsSet,
+    S::Id: mcp_approval_request_builder::IsSet,
+    S::ServerLabel: mcp_approval_request_builder::IsSet,
+    S::Name: mcp_approval_request_builder::IsSet,
+    S::Arguments: mcp_approval_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpApprovalRequest {
+        self.build_internal()
     }
 }
 

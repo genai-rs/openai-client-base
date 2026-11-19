@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseMcpListToolsCompletedEvent : Emitted when the list of available MCP tools has been successfully retrieved.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_mcp_list_tools_completed_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseMcpListToolsCompletedEvent {
     /// The type of the event. Always 'response.mcp_list_tools.completed'.
     #[serde(rename = "type")]
@@ -41,6 +42,21 @@ impl ResponseMcpListToolsCompletedEvent {
             output_index,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_mcp_list_tools_completed_event_builder::State>
+    ResponseMcpListToolsCompletedEventBuilder<S>
+where
+    S::Type: response_mcp_list_tools_completed_event_builder::IsSet,
+    S::ItemId: response_mcp_list_tools_completed_event_builder::IsSet,
+    S::OutputIndex: response_mcp_list_tools_completed_event_builder::IsSet,
+    S::SequenceNumber: response_mcp_list_tools_completed_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseMcpListToolsCompletedEvent {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AssistantMessageItemResource : An assistant message produced by the agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = assistant_message_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AssistantMessageItemResource {
     /// The item type. Always `message`.  Defaults to `\"message\"`.
     #[serde(rename = "type")]
@@ -62,6 +63,22 @@ impl AssistantMessageItemResource {
             content,
             phase,
         }
+    }
+}
+
+impl<S: assistant_message_item_resource_builder::State> AssistantMessageItemResourceBuilder<S>
+where
+    S::Type: assistant_message_item_resource_builder::IsSet,
+    S::Id: assistant_message_item_resource_builder::IsSet,
+    S::TurnId: assistant_message_item_resource_builder::IsSet,
+    S::Role: assistant_message_item_resource_builder::IsSet,
+    S::Status: assistant_message_item_resource_builder::IsSet,
+    S::Content: assistant_message_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AssistantMessageItemResource {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSpecificApplyPatchParam : Forces the model to call the apply_patch tool when executing a tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_specific_apply_patch_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSpecificApplyPatchParam {
     /// The tool to call. Always `apply_patch`.  Defaults to `\"apply_patch\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl LiveSpecificApplyPatchParam {
     /// Forces the model to call the apply_patch tool when executing a tool call.
     pub fn new(r#type: Type) -> LiveSpecificApplyPatchParam {
         LiveSpecificApplyPatchParam { r#type }
+    }
+}
+
+impl<S: live_specific_apply_patch_param_builder::State> LiveSpecificApplyPatchParamBuilder<S>
+where
+    S::Type: live_specific_apply_patch_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSpecificApplyPatchParam {
+        self.build_internal()
     }
 }
 

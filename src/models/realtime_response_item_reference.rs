@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeResponseItemReference : Reference an existing item in this Realtime session as response.create input. Item references are only accepted in the response input array, not as new conversation items.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_response_item_reference_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeResponseItemReference {
     /// The type of this item. Always `item_reference`.
     #[serde(rename = "type")]
@@ -27,6 +28,18 @@ impl RealtimeResponseItemReference {
     /// Reference an existing item in this Realtime session as response.create input. Item references are only accepted in the response input array, not as new conversation items.
     pub fn new(r#type: Type, id: String) -> RealtimeResponseItemReference {
         RealtimeResponseItemReference { r#type, id }
+    }
+}
+
+impl<S: realtime_response_item_reference_builder::State> RealtimeResponseItemReferenceBuilder<S>
+where
+    S::Type: realtime_response_item_reference_builder::IsSet,
+    S::Id: realtime_response_item_reference_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeResponseItemReference {
+        self.build_internal()
     }
 }
 

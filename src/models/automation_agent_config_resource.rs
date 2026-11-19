@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AutomationAgentConfigResource : Inline agent configuration without a generated session-local identity.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_agent_config_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationAgentConfigResource {
     /// The requested model name.
     ///
@@ -65,6 +66,22 @@ impl AutomationAgentConfigResource {
             compaction: None,
             experimental: None,
         }
+    }
+}
+
+impl<S: automation_agent_config_resource_builder::State> AutomationAgentConfigResourceBuilder<S>
+where
+    S::Model: automation_agent_config_resource_builder::IsSet,
+    S::Reasoning: automation_agent_config_resource_builder::IsSet,
+    S::Text: automation_agent_config_resource_builder::IsSet,
+    S::ServiceTier: automation_agent_config_resource_builder::IsSet,
+    S::Tools: automation_agent_config_resource_builder::IsSet,
+    S::MultiAgent: automation_agent_config_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationAgentConfigResource {
+        self.build_internal()
     }
 }
 

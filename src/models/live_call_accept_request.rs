@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveCallAcceptRequest : Accept an incoming SIP call with Live startup configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_call_accept_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveCallAcceptRequest {
     #[serde(rename = "session")]
     pub session: models::LiveCallAcceptSession,
@@ -22,6 +23,17 @@ impl LiveCallAcceptRequest {
     /// Accept an incoming SIP call with Live startup configuration.
     pub fn new(session: models::LiveCallAcceptSession) -> LiveCallAcceptRequest {
         LiveCallAcceptRequest { session }
+    }
+}
+
+impl<S: live_call_accept_request_builder::State> LiveCallAcceptRequestBuilder<S>
+where
+    S::Session: live_call_accept_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveCallAcceptRequest {
+        self.build_internal()
     }
 }
 

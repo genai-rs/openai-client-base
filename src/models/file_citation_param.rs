@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = file_citation_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FileCitationParam {
     /// The citation type. Always `file_citation`.  Defaults to `\"file_citation\"`.
     #[serde(rename = "type")]
@@ -36,6 +37,20 @@ impl FileCitationParam {
             file_id,
             filename,
         }
+    }
+}
+
+impl<S: file_citation_param_builder::State> FileCitationParamBuilder<S>
+where
+    S::Type: file_citation_param_builder::IsSet,
+    S::Index: file_citation_param_builder::IsSet,
+    S::FileId: file_citation_param_builder::IsSet,
+    S::Filename: file_citation_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FileCitationParam {
+        self.build_internal()
     }
 }
 

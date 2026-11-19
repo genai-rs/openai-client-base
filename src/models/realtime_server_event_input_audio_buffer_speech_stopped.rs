@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventInputAudioBufferSpeechStopped : Returned in `server_vad` mode when the server detects the end of speech in  the audio buffer. The server will also send an `conversation.item.created`  event with the user message item that is created from the audio buffer.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_input_audio_buffer_speech_stopped_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventInputAudioBufferSpeechStopped {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -41,6 +42,21 @@ impl RealtimeServerEventInputAudioBufferSpeechStopped {
             audio_end_ms,
             item_id,
         }
+    }
+}
+
+impl<S: realtime_server_event_input_audio_buffer_speech_stopped_builder::State>
+    RealtimeServerEventInputAudioBufferSpeechStoppedBuilder<S>
+where
+    S::EventId: realtime_server_event_input_audio_buffer_speech_stopped_builder::IsSet,
+    S::Type: realtime_server_event_input_audio_buffer_speech_stopped_builder::IsSet,
+    S::AudioEndMs: realtime_server_event_input_audio_buffer_speech_stopped_builder::IsSet,
+    S::ItemId: realtime_server_event_input_audio_buffer_speech_stopped_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventInputAudioBufferSpeechStopped {
+        self.build_internal()
     }
 }
 

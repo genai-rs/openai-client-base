@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_request_message_content_part_file_file_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionRequestMessageContentPartFileFile {
     /// The name of the file, used when passing the file to the model as a string.
     #[serde(rename = "filename", skip_serializing_if = "Option::is_none")]
@@ -30,6 +31,16 @@ impl ChatCompletionRequestMessageContentPartFileFile {
             file_data: None,
             file_id: None,
         }
+    }
+}
+
+impl<S: chat_completion_request_message_content_part_file_file_builder::State>
+    ChatCompletionRequestMessageContentPartFileFileBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionRequestMessageContentPartFileFile {
+        self.build_internal()
     }
 }
 

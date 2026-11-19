@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FineTuningJobHyperparameters : The hyperparameters used for the fine-tuning job. This value will only be returned when running `supervised` jobs.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tuning_job_hyperparameters_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuningJobHyperparameters {
     #[serde(
         rename = "batch_size",
@@ -39,6 +40,14 @@ impl FineTuningJobHyperparameters {
             learning_rate_multiplier: None,
             n_epochs: None,
         }
+    }
+}
+
+impl<S: fine_tuning_job_hyperparameters_builder::State> FineTuningJobHyperparametersBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuningJobHyperparameters {
+        self.build_internal()
     }
 }
 

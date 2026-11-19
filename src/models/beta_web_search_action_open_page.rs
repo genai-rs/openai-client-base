@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaWebSearchActionOpenPage : Action type \"open_page\" - Opens a specific URL from search results.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_web_search_action_open_page_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaWebSearchActionOpenPage {
     /// The action type.
     #[serde(rename = "type")]
@@ -30,6 +31,17 @@ impl BetaWebSearchActionOpenPage {
     /// Action type \"open_page\" - Opens a specific URL from search results.
     pub fn new(r#type: Type) -> BetaWebSearchActionOpenPage {
         BetaWebSearchActionOpenPage { r#type, url: None }
+    }
+}
+
+impl<S: beta_web_search_action_open_page_builder::State> BetaWebSearchActionOpenPageBuilder<S>
+where
+    S::Type: beta_web_search_action_open_page_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaWebSearchActionOpenPage {
+        self.build_internal()
     }
 }
 

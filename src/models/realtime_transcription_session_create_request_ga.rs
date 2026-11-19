@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranscriptionSessionCreateRequestGa : Realtime transcription session object configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_transcription_session_create_request_ga_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranscriptionSessionCreateRequestGa {
     /// The type of session to create. Always `transcription` for transcription sessions.
     #[serde(rename = "type")]
@@ -32,6 +33,18 @@ impl RealtimeTranscriptionSessionCreateRequestGa {
             audio: None,
             include: None,
         }
+    }
+}
+
+impl<S: realtime_transcription_session_create_request_ga_builder::State>
+    RealtimeTranscriptionSessionCreateRequestGaBuilder<S>
+where
+    S::Type: realtime_transcription_session_create_request_ga_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranscriptionSessionCreateRequestGa {
+        self.build_internal()
     }
 }
 

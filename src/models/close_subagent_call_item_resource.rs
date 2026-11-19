@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CloseSubagentCallItemResource : A request to close a subagent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = close_subagent_call_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CloseSubagentCallItemResource {
     /// The item type. Always `close_subagent_call`.  Defaults to `\"close_subagent_call\"`.
     #[serde(rename = "type")]
@@ -59,6 +60,22 @@ impl CloseSubagentCallItemResource {
             sender_agent_id,
             recipient_agent_id,
         }
+    }
+}
+
+impl<S: close_subagent_call_item_resource_builder::State> CloseSubagentCallItemResourceBuilder<S>
+where
+    S::Type: close_subagent_call_item_resource_builder::IsSet,
+    S::Id: close_subagent_call_item_resource_builder::IsSet,
+    S::TurnId: close_subagent_call_item_resource_builder::IsSet,
+    S::Status: close_subagent_call_item_resource_builder::IsSet,
+    S::SenderAgentId: close_subagent_call_item_resource_builder::IsSet,
+    S::RecipientAgentId: close_subagent_call_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CloseSubagentCallItemResource {
+        self.build_internal()
     }
 }
 

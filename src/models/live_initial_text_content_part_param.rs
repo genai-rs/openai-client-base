@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveInitialTextContentPartParam : Assistant text supplied as conversation history when starting a Live session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_initial_text_content_part_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveInitialTextContentPartParam {
     /// The text content type. Always `text`.  Defaults to `\"text\"`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -25,6 +26,18 @@ impl LiveInitialTextContentPartParam {
     /// Assistant text supplied as conversation history when starting a Live session.
     pub fn new(text: String) -> LiveInitialTextContentPartParam {
         LiveInitialTextContentPartParam { r#type: None, text }
+    }
+}
+
+impl<S: live_initial_text_content_part_param_builder::State>
+    LiveInitialTextContentPartParamBuilder<S>
+where
+    S::Text: live_initial_text_content_part_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveInitialTextContentPartParam {
+        self.build_internal()
     }
 }
 

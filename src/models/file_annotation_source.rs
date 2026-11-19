@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// FileAnnotationSource : Attachment source referenced by an annotation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = file_annotation_source_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FileAnnotationSource {
     /// Type discriminator that is always `file`.  Defaults to `\"file\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl FileAnnotationSource {
     /// Attachment source referenced by an annotation.
     pub fn new(r#type: Type, filename: String) -> FileAnnotationSource {
         FileAnnotationSource { r#type, filename }
+    }
+}
+
+impl<S: file_annotation_source_builder::State> FileAnnotationSourceBuilder<S>
+where
+    S::Type: file_annotation_source_builder::IsSet,
+    S::Filename: file_annotation_source_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FileAnnotationSource {
+        self.build_internal()
     }
 }
 

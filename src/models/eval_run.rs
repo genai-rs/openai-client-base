@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalRun : A schema representing an evaluation run.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_run_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalRun {
     /// The type of the object. Always \"eval.run\".  Defaults to `\"eval.run\"`.
     #[serde(rename = "object")]
@@ -89,6 +90,24 @@ impl EvalRun {
             metadata,
             error,
         }
+    }
+}
+
+impl<S: eval_run_builder::State> EvalRunBuilder<S>
+where
+    S::Object: eval_run_builder::IsSet,
+    S::Id: eval_run_builder::IsSet,
+    S::EvalId: eval_run_builder::IsSet,
+    S::Status: eval_run_builder::IsSet,
+    S::CreatedAt: eval_run_builder::IsSet,
+    S::ReportUrl: eval_run_builder::IsSet,
+    S::ResultCounts: eval_run_builder::IsSet,
+    S::DataSource: eval_run_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalRun {
+        self.build_internal()
     }
 }
 

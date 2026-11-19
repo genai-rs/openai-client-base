@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageContentResourceInputText : Text supplied by the user.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_content_resource_input_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageContentResourceInputText {
     /// The type of the object. Always `input_text`.  Defaults to `\"input_text\"`.
     #[serde(rename = "type")]
@@ -27,6 +28,19 @@ impl MessageContentResourceInputText {
     /// Text supplied by the user.
     pub fn new(r#type: Type, text: String) -> MessageContentResourceInputText {
         MessageContentResourceInputText { r#type, text }
+    }
+}
+
+impl<S: message_content_resource_input_text_builder::State>
+    MessageContentResourceInputTextBuilder<S>
+where
+    S::Type: message_content_resource_input_text_builder::IsSet,
+    S::Text: message_content_resource_input_text_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageContentResourceInputText {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RoleListResource : Paginated list of roles assigned to a principal.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = role_list_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RoleListResource {
     /// Always `list`.
     #[serde(rename = "object")]
@@ -42,6 +43,19 @@ impl RoleListResource {
             has_more,
             next,
         }
+    }
+}
+
+impl<S: role_list_resource_builder::State> RoleListResourceBuilder<S>
+where
+    S::Object: role_list_resource_builder::IsSet,
+    S::Data: role_list_resource_builder::IsSet,
+    S::HasMore: role_list_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RoleListResource {
+        self.build_internal()
     }
 }
 

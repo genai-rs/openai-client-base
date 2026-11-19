@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_service_account_create_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectServiceAccountCreateResponse {
     #[serde(rename = "object")]
     pub object: Object,
@@ -45,6 +46,22 @@ impl ProjectServiceAccountCreateResponse {
             created_at,
             api_key,
         }
+    }
+}
+
+impl<S: project_service_account_create_response_builder::State>
+    ProjectServiceAccountCreateResponseBuilder<S>
+where
+    S::Object: project_service_account_create_response_builder::IsSet,
+    S::Id: project_service_account_create_response_builder::IsSet,
+    S::Name: project_service_account_create_response_builder::IsSet,
+    S::Role: project_service_account_create_response_builder::IsSet,
+    S::CreatedAt: project_service_account_create_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectServiceAccountCreateResponse {
+        self.build_internal()
     }
 }
 

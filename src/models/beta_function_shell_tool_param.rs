@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaFunctionShellToolParam : A tool that allows the model to execute shell commands.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_function_shell_tool_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFunctionShellToolParam {
     /// The type of the shell tool. Always `shell`.  Defaults to `\"shell\"`.
     #[serde(rename = "type")]
@@ -44,6 +45,17 @@ impl BetaFunctionShellToolParam {
             environment: None,
             allowed_callers: None,
         }
+    }
+}
+
+impl<S: beta_function_shell_tool_param_builder::State> BetaFunctionShellToolParamBuilder<S>
+where
+    S::Type: beta_function_shell_tool_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFunctionShellToolParam {
+        self.build_internal()
     }
 }
 

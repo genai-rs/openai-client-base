@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = platform_federation_rule_deleted_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PlatformFederationRuleDeletedResource {
     /// Defaults to `\"organization.workload_identity_federation_rule.deleted\"`.
     #[serde(rename = "object")]
@@ -28,6 +29,20 @@ impl PlatformFederationRuleDeletedResource {
             id,
             deleted,
         }
+    }
+}
+
+impl<S: platform_federation_rule_deleted_resource_builder::State>
+    PlatformFederationRuleDeletedResourceBuilder<S>
+where
+    S::Object: platform_federation_rule_deleted_resource_builder::IsSet,
+    S::Id: platform_federation_rule_deleted_resource_builder::IsSet,
+    S::Deleted: platform_federation_rule_deleted_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PlatformFederationRuleDeletedResource {
+        self.build_internal()
     }
 }
 

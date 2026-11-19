@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ImageGenToolUsage : Token usage for image generation tool calls in a response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = image_gen_tool_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ImageGenToolUsage {
     /// The number of tokens (images and text) in the input prompt.
     #[serde(rename = "input_tokens")]
@@ -56,6 +57,20 @@ impl ImageGenToolUsage {
             cached_tokens: None,
             cached_tokens_details: None,
         }
+    }
+}
+
+impl<S: image_gen_tool_usage_builder::State> ImageGenToolUsageBuilder<S>
+where
+    S::InputTokens: image_gen_tool_usage_builder::IsSet,
+    S::TotalTokens: image_gen_tool_usage_builder::IsSet,
+    S::OutputTokens: image_gen_tool_usage_builder::IsSet,
+    S::InputTokensDetails: image_gen_tool_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ImageGenToolUsage {
+        self.build_internal()
     }
 }
 

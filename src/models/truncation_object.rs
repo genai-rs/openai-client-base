@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// TruncationObject : Controls for how a thread will be truncated prior to the run. Use this to control the initial context window of the run.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = truncation_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TruncationObject {
     /// The truncation strategy to use for the thread. The default is `auto`. If set to `last_messages`, the thread will be truncated to the n most recent messages in the thread. When set to `auto`, messages in the middle of the thread will be dropped to fit the context length of the model, `max_prompt_tokens`.
     #[serde(rename = "type")]
@@ -35,6 +36,17 @@ impl TruncationObject {
             r#type,
             last_messages: None,
         }
+    }
+}
+
+impl<S: truncation_object_builder::State> TruncationObjectBuilder<S>
+where
+    S::Type: truncation_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TruncationObject {
+        self.build_internal()
     }
 }
 

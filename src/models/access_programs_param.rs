@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AccessProgramsParam : Domain-specific access programs to use for this request.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = access_programs_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AccessProgramsParam {
     #[serde(rename = "cyber", skip_serializing_if = "Option::is_none")]
     pub cyber: Option<models::CyberAccessProgramEnum>,
@@ -22,6 +23,14 @@ impl AccessProgramsParam {
     /// Domain-specific access programs to use for this request.
     pub fn new() -> AccessProgramsParam {
         AccessProgramsParam { cyber: None }
+    }
+}
+
+impl<S: access_programs_param_builder::State> AccessProgramsParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AccessProgramsParam {
+        self.build_internal()
     }
 }
 

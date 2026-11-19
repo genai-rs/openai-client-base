@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeClientEventResponseCancel : Send this event to cancel an in-progress response. The server will respond  with a `response.done` event with a status of `response.status=cancelled`. If  there is no response to cancel, the server will respond with an error. It's safe to call `response.cancel` even if no response is in progress, an error will be returned the session will remain unaffected.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_client_event_response_cancel_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeClientEventResponseCancel {
     /// Optional client-generated ID used to identify this event.
     ///
@@ -34,6 +35,18 @@ impl RealtimeClientEventResponseCancel {
             r#type,
             response_id: None,
         }
+    }
+}
+
+impl<S: realtime_client_event_response_cancel_builder::State>
+    RealtimeClientEventResponseCancelBuilder<S>
+where
+    S::Type: realtime_client_event_response_cancel_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeClientEventResponseCancel {
+        self.build_internal()
     }
 }
 

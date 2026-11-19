@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseConfigurationUpdateItemParamText : The text output configuration for subsequent responses.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_configuration_update_item_param_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseConfigurationUpdateItemParamText {
     #[serde(rename = "format")]
     pub format: models::BetaResponseConfigurationUpdateItemParamTextFormat,
@@ -24,6 +25,18 @@ impl BetaResponseConfigurationUpdateItemParamText {
         format: models::BetaResponseConfigurationUpdateItemParamTextFormat,
     ) -> BetaResponseConfigurationUpdateItemParamText {
         BetaResponseConfigurationUpdateItemParamText { format }
+    }
+}
+
+impl<S: beta_response_configuration_update_item_param_text_builder::State>
+    BetaResponseConfigurationUpdateItemParamTextBuilder<S>
+where
+    S::Format: beta_response_configuration_update_item_param_text_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseConfigurationUpdateItemParamText {
+        self.build_internal()
     }
 }
 

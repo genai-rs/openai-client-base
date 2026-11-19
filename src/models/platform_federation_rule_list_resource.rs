@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = platform_federation_rule_list_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PlatformFederationRuleListResource {
     /// Defaults to `\"list\"`.
     #[serde(rename = "object")]
@@ -41,6 +42,20 @@ impl PlatformFederationRuleListResource {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: platform_federation_rule_list_resource_builder::State>
+    PlatformFederationRuleListResourceBuilder<S>
+where
+    S::Object: platform_federation_rule_list_resource_builder::IsSet,
+    S::Data: platform_federation_rule_list_resource_builder::IsSet,
+    S::HasMore: platform_federation_rule_list_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PlatformFederationRuleListResource {
+        self.build_internal()
     }
 }
 

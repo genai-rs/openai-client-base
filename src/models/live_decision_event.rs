@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveDecisionEvent : A Decision API event for a Live delegation or transcript trigger. For a trigger, source_event_id identifies the transcript delta that caused this evaluation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionEvent {
     /// Defaults to `\"decision.event\"`.
     #[serde(rename = "type")]
@@ -55,6 +56,19 @@ impl LiveDecisionEvent {
             source_event_id,
             event,
         }
+    }
+}
+
+impl<S: live_decision_event_builder::State> LiveDecisionEventBuilder<S>
+where
+    S::Type: live_decision_event_builder::IsSet,
+    S::EventId: live_decision_event_builder::IsSet,
+    S::Event: live_decision_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionEvent {
+        self.build_internal()
     }
 }
 

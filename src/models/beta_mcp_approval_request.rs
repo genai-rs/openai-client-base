@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaMcpApprovalRequest : A request for human approval of a tool invocation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_mcp_approval_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaMcpApprovalRequest {
     /// The agent that produced this item.
     #[serde(
@@ -56,6 +57,21 @@ impl BetaMcpApprovalRequest {
             name,
             arguments,
         }
+    }
+}
+
+impl<S: beta_mcp_approval_request_builder::State> BetaMcpApprovalRequestBuilder<S>
+where
+    S::Type: beta_mcp_approval_request_builder::IsSet,
+    S::Id: beta_mcp_approval_request_builder::IsSet,
+    S::ServerLabel: beta_mcp_approval_request_builder::IsSet,
+    S::Name: beta_mcp_approval_request_builder::IsSet,
+    S::Arguments: beta_mcp_approval_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaMcpApprovalRequest {
+        self.build_internal()
     }
 }
 

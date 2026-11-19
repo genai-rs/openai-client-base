@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SubagentResource : A subagent created within a session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = subagent_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SubagentResource {
     /// The ID of the subagent.
     ///
@@ -75,6 +76,22 @@ impl SubagentResource {
             opened_at,
             closed_at,
         }
+    }
+}
+
+impl<S: subagent_resource_builder::State> SubagentResourceBuilder<S>
+where
+    S::Id: subagent_resource_builder::IsSet,
+    S::Object: subagent_resource_builder::IsSet,
+    S::SessionId: subagent_resource_builder::IsSet,
+    S::ParentAgentId: subagent_resource_builder::IsSet,
+    S::Status: subagent_resource_builder::IsSet,
+    S::OpenedAt: subagent_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SubagentResource {
+        self.build_internal()
     }
 }
 

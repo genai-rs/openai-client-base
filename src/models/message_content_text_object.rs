@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageContentTextObject : The text content that is part of a message.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_content_text_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageContentTextObject {
     /// Always `text`.
     #[serde(rename = "type")]
@@ -28,6 +29,18 @@ impl MessageContentTextObject {
         text: models::MessageContentTextObjectText,
     ) -> MessageContentTextObject {
         MessageContentTextObject { r#type, text }
+    }
+}
+
+impl<S: message_content_text_object_builder::State> MessageContentTextObjectBuilder<S>
+where
+    S::Type: message_content_text_object_builder::IsSet,
+    S::Text: message_content_text_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageContentTextObject {
+        self.build_internal()
     }
 }
 

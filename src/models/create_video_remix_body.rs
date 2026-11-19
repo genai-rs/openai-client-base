@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateVideoRemixBody : Parameters for remixing an existing generated video.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_video_remix_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateVideoRemixBody {
     /// Updated text prompt that directs the remix generation.
     ///
@@ -24,6 +25,17 @@ impl CreateVideoRemixBody {
     /// Parameters for remixing an existing generated video.
     pub fn new(prompt: String) -> CreateVideoRemixBody {
         CreateVideoRemixBody { prompt }
+    }
+}
+
+impl<S: create_video_remix_body_builder::State> CreateVideoRemixBodyBuilder<S>
+where
+    S::Prompt: create_video_remix_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateVideoRemixBody {
+        self.build_internal()
     }
 }
 

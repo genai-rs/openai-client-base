@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = external_storage_deleted_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ExternalStorageDeletedResource {
     /// Defaults to `\"organization.external_storage.deleted\"`.
     #[serde(rename = "object")]
@@ -28,6 +29,19 @@ impl ExternalStorageDeletedResource {
             id,
             deleted,
         }
+    }
+}
+
+impl<S: external_storage_deleted_resource_builder::State> ExternalStorageDeletedResourceBuilder<S>
+where
+    S::Object: external_storage_deleted_resource_builder::IsSet,
+    S::Id: external_storage_deleted_resource_builder::IsSet,
+    S::Deleted: external_storage_deleted_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ExternalStorageDeletedResource {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CodeInterpreterOutputImage : The image output from the code interpreter.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = code_interpreter_output_image_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CodeInterpreterOutputImage {
     /// The type of the output. Always `image`.  Defaults to `\"image\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl CodeInterpreterOutputImage {
     /// The image output from the code interpreter.
     pub fn new(r#type: Type, url: String) -> CodeInterpreterOutputImage {
         CodeInterpreterOutputImage { r#type, url }
+    }
+}
+
+impl<S: code_interpreter_output_image_builder::State> CodeInterpreterOutputImageBuilder<S>
+where
+    S::Type: code_interpreter_output_image_builder::IsSet,
+    S::Url: code_interpreter_output_image_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CodeInterpreterOutputImage {
+        self.build_internal()
     }
 }
 

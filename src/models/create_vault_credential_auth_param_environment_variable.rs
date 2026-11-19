@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateVaultCredentialAuthParamEnvironmentVariable : An HTTP credential for OpenAI-hosted environments only. The sandbox receives an environment variable containing a placeholder, not the secret. Use the placeholder unchanged in outgoing requests. The egress proxy replaces the placeholder with the secret for allowed HTTPS destinations on ports 443 and 8443. Sandbox code cannot read the real secret or use it for local computation, such as signing a request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_vault_credential_auth_param_environment_variable_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateVaultCredentialAuthParamEnvironmentVariable {
     /// The type of the object. Always `environment_variable`.  Defaults to `\"environment_variable\"`.
     #[serde(rename = "type")]
@@ -45,6 +46,21 @@ impl CreateVaultCredentialAuthParamEnvironmentVariable {
             secret_value,
             networking,
         }
+    }
+}
+
+impl<S: create_vault_credential_auth_param_environment_variable_builder::State>
+    CreateVaultCredentialAuthParamEnvironmentVariableBuilder<S>
+where
+    S::Type: create_vault_credential_auth_param_environment_variable_builder::IsSet,
+    S::SecretName: create_vault_credential_auth_param_environment_variable_builder::IsSet,
+    S::SecretValue: create_vault_credential_auth_param_environment_variable_builder::IsSet,
+    S::Networking: create_vault_credential_auth_param_environment_variable_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateVaultCredentialAuthParamEnvironmentVariable {
+        self.build_internal()
     }
 }
 

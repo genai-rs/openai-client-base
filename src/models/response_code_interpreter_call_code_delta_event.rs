@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseCodeInterpreterCallCodeDeltaEvent : Emitted when a partial code snippet is streamed by the code interpreter.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_code_interpreter_call_code_delta_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseCodeInterpreterCallCodeDeltaEvent {
     /// The type of the event. Always `response.code_interpreter_call_code.delta`.
     #[serde(rename = "type")]
@@ -46,6 +47,22 @@ impl ResponseCodeInterpreterCallCodeDeltaEvent {
             delta,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_code_interpreter_call_code_delta_event_builder::State>
+    ResponseCodeInterpreterCallCodeDeltaEventBuilder<S>
+where
+    S::Type: response_code_interpreter_call_code_delta_event_builder::IsSet,
+    S::OutputIndex: response_code_interpreter_call_code_delta_event_builder::IsSet,
+    S::ItemId: response_code_interpreter_call_code_delta_event_builder::IsSet,
+    S::Delta: response_code_interpreter_call_code_delta_event_builder::IsSet,
+    S::SequenceNumber: response_code_interpreter_call_code_delta_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseCodeInterpreterCallCodeDeltaEvent {
+        self.build_internal()
     }
 }
 

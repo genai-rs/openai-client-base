@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ListAgentAutomationInvocations200Response : A page of Agents API resources, with IDs for retrieving additional pages.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = list_agent_automation_invocations200_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ListAgentAutomationInvocations200Response {
     /// The object type, which is always `list`.
     #[serde(rename = "object")]
@@ -53,6 +54,20 @@ impl ListAgentAutomationInvocations200Response {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: list_agent_automation_invocations200_response_builder::State>
+    ListAgentAutomationInvocations200ResponseBuilder<S>
+where
+    S::Object: list_agent_automation_invocations200_response_builder::IsSet,
+    S::Data: list_agent_automation_invocations200_response_builder::IsSet,
+    S::HasMore: list_agent_automation_invocations200_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ListAgentAutomationInvocations200Response {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookResponseFailed : Sent when a background response has failed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_response_failed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookResponseFailed {
     /// The Unix timestamp (in seconds) of when the model response failed.
     #[serde(rename = "created_at", with = "super::unix_time")]
@@ -45,6 +46,20 @@ impl WebhookResponseFailed {
             object: None,
             r#type,
         }
+    }
+}
+
+impl<S: webhook_response_failed_builder::State> WebhookResponseFailedBuilder<S>
+where
+    S::CreatedAt: webhook_response_failed_builder::IsSet,
+    S::Id: webhook_response_failed_builder::IsSet,
+    S::Data: webhook_response_failed_builder::IsSet,
+    S::Type: webhook_response_failed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookResponseFailed {
+        self.build_internal()
     }
 }
 

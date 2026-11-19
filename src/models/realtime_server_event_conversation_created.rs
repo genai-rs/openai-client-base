@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventConversationCreated : Returned when a conversation is created. Emitted right after session creation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_conversation_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventConversationCreated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeServerEventConversationCreated {
             r#type,
             conversation,
         }
+    }
+}
+
+impl<S: realtime_server_event_conversation_created_builder::State>
+    RealtimeServerEventConversationCreatedBuilder<S>
+where
+    S::EventId: realtime_server_event_conversation_created_builder::IsSet,
+    S::Type: realtime_server_event_conversation_created_builder::IsSet,
+    S::Conversation: realtime_server_event_conversation_created_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventConversationCreated {
+        self.build_internal()
     }
 }
 

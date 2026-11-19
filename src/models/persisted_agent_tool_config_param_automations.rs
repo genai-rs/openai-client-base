@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// PersistedAgentToolConfigParamAutomations : Lets the agent manage its own scheduled wakeups.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = persisted_agent_tool_config_param_automations_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PersistedAgentToolConfigParamAutomations {
     /// The type of the object. Always `automations`.  Defaults to `\"automations\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,18 @@ impl PersistedAgentToolConfigParamAutomations {
     /// Lets the agent manage its own scheduled wakeups.
     pub fn new(r#type: Type) -> PersistedAgentToolConfigParamAutomations {
         PersistedAgentToolConfigParamAutomations { r#type }
+    }
+}
+
+impl<S: persisted_agent_tool_config_param_automations_builder::State>
+    PersistedAgentToolConfigParamAutomationsBuilder<S>
+where
+    S::Type: persisted_agent_tool_config_param_automations_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PersistedAgentToolConfigParamAutomations {
+        self.build_internal()
     }
 }
 

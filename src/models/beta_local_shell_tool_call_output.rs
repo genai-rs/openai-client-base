@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaLocalShellToolCallOutput : The output of a local shell tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_local_shell_tool_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaLocalShellToolCallOutput {
     /// The agent that produced this item.
     #[serde(
@@ -51,6 +52,19 @@ impl BetaLocalShellToolCallOutput {
             output,
             status: None,
         }
+    }
+}
+
+impl<S: beta_local_shell_tool_call_output_builder::State> BetaLocalShellToolCallOutputBuilder<S>
+where
+    S::Type: beta_local_shell_tool_call_output_builder::IsSet,
+    S::Id: beta_local_shell_tool_call_output_builder::IsSet,
+    S::Output: beta_local_shell_tool_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaLocalShellToolCallOutput {
+        self.build_internal()
     }
 }
 

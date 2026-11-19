@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_endpoint_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookEndpointBody {
     /// The unique ID of the webhook endpoint.
     #[serde(rename = "id")]
@@ -63,6 +64,22 @@ impl WebhookEndpointBody {
             event_types,
             signing_secret_hint,
         }
+    }
+}
+
+impl<S: webhook_endpoint_body_builder::State> WebhookEndpointBodyBuilder<S>
+where
+    S::Id: webhook_endpoint_body_builder::IsSet,
+    S::Object: webhook_endpoint_body_builder::IsSet,
+    S::CreatedAt: webhook_endpoint_body_builder::IsSet,
+    S::Name: webhook_endpoint_body_builder::IsSet,
+    S::Url: webhook_endpoint_body_builder::IsSet,
+    S::EventTypes: webhook_endpoint_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookEndpointBody {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ApplyPatchToolCallOutput : The output emitted by an apply patch tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = apply_patch_tool_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ApplyPatchToolCallOutput {
     /// The type of the item. Always `apply_patch_call_output`.  Defaults to `\"apply_patch_call_output\"`.
     #[serde(rename = "type")]
@@ -62,6 +63,20 @@ impl ApplyPatchToolCallOutput {
             output: None,
             created_by: None,
         }
+    }
+}
+
+impl<S: apply_patch_tool_call_output_builder::State> ApplyPatchToolCallOutputBuilder<S>
+where
+    S::Type: apply_patch_tool_call_output_builder::IsSet,
+    S::Id: apply_patch_tool_call_output_builder::IsSet,
+    S::CallId: apply_patch_tool_call_output_builder::IsSet,
+    S::Status: apply_patch_tool_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ApplyPatchToolCallOutput {
+        self.build_internal()
     }
 }
 

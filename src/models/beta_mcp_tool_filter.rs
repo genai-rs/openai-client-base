@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaMcpToolFilter : A filter object to specify which tools are allowed.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_mcp_tool_filter_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaMcpToolFilter {
     /// List of allowed tool names.
     #[serde(rename = "tool_names", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,14 @@ impl BetaMcpToolFilter {
             tool_names: None,
             read_only: None,
         }
+    }
+}
+
+impl<S: beta_mcp_tool_filter_builder::State> BetaMcpToolFilterBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaMcpToolFilter {
+        self.build_internal()
     }
 }
 

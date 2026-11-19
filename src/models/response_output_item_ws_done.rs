@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseOutputItemWsDone : Emitted when an output item is marked done.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_output_item_ws_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseOutputItemWsDone {
     /// The type of the event. Always `response.output_item.done`.
     #[serde(rename = "type")]
@@ -45,6 +46,20 @@ impl ResponseOutputItemWsDone {
             item,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_output_item_ws_done_builder::State> ResponseOutputItemWsDoneBuilder<S>
+where
+    S::Type: response_output_item_ws_done_builder::IsSet,
+    S::OutputIndex: response_output_item_ws_done_builder::IsSet,
+    S::SequenceNumber: response_output_item_ws_done_builder::IsSet,
+    S::Item: response_output_item_ws_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseOutputItemWsDone {
+        self.build_internal()
     }
 }
 

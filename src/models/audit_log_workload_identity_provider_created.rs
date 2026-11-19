@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogWorkloadIdentityProviderCreated : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_workload_identity_provider_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogWorkloadIdentityProviderCreated {
     /// The workload identity provider ID.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,16 @@ impl AuditLogWorkloadIdentityProviderCreated {
             id: None,
             data: None,
         }
+    }
+}
+
+impl<S: audit_log_workload_identity_provider_created_builder::State>
+    AuditLogWorkloadIdentityProviderCreatedBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogWorkloadIdentityProviderCreated {
+        self.build_internal()
     }
 }
 

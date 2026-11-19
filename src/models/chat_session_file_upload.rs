@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatSessionFileUpload : Upload permissions and limits applied to the session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_session_file_upload_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatSessionFileUpload {
     /// Indicates if uploads are enabled for the session.
     #[serde(rename = "enabled")]
@@ -36,6 +37,17 @@ impl ChatSessionFileUpload {
             max_file_size,
             max_files,
         }
+    }
+}
+
+impl<S: chat_session_file_upload_builder::State> ChatSessionFileUploadBuilder<S>
+where
+    S::Enabled: chat_session_file_upload_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatSessionFileUpload {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = program_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Program {
     /// The type of the item. Always `program`.  Defaults to `\"program\"`.
     #[serde(rename = "type")]
@@ -44,6 +45,21 @@ impl Program {
             code,
             fingerprint,
         }
+    }
+}
+
+impl<S: program_builder::State> ProgramBuilder<S>
+where
+    S::Type: program_builder::IsSet,
+    S::Id: program_builder::IsSet,
+    S::CallId: program_builder::IsSet,
+    S::Code: program_builder::IsSet,
+    S::Fingerprint: program_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Program {
+        self.build_internal()
     }
 }
 

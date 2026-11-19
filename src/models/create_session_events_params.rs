@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateSessionEventsParams : Input events submitted to an existing session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_session_events_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateSessionEventsParams {
     /// The input events to submit to the session.
     ///
@@ -25,6 +26,17 @@ impl CreateSessionEventsParams {
     /// Input events submitted to an existing session.
     pub fn new(events: Vec<models::SessionInputParam>) -> CreateSessionEventsParams {
         CreateSessionEventsParams { events }
+    }
+}
+
+impl<S: create_session_events_params_builder::State> CreateSessionEventsParamsBuilder<S>
+where
+    S::Events: create_session_events_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateSessionEventsParams {
+        self.build_internal()
     }
 }
 

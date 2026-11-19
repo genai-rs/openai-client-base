@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// TaskGroupItem : Collection of workflow tasks grouped together in the thread.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = task_group_item_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TaskGroupItem {
     /// Identifier of the thread item.
     #[serde(rename = "id")]
@@ -52,6 +53,22 @@ impl TaskGroupItem {
             r#type,
             tasks,
         }
+    }
+}
+
+impl<S: task_group_item_builder::State> TaskGroupItemBuilder<S>
+where
+    S::Id: task_group_item_builder::IsSet,
+    S::Object: task_group_item_builder::IsSet,
+    S::CreatedAt: task_group_item_builder::IsSet,
+    S::ThreadId: task_group_item_builder::IsSet,
+    S::Type: task_group_item_builder::IsSet,
+    S::Tasks: task_group_item_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TaskGroupItem {
+        self.build_internal()
     }
 }
 

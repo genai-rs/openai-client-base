@@ -39,7 +39,7 @@ pub enum UpdateProjectHostedToolPermissionsError {
 }
 
 /// Returns hosted tool permissions for a project.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_hosted_tool_permissions_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_hosted_tool_permissions(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -121,13 +121,32 @@ pub async fn retrieve_project_hosted_tool_permissions(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_hosted_tool_permissions_builder::State>
+    RetrieveProjectHostedToolPermissionsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_hosted_tool_permissions_builder::IsSet,
+    S::ProjectId: retrieve_project_hosted_tool_permissions_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::ProjectHostedToolPermissions,
+        Error<RetrieveProjectHostedToolPermissionsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Returns hosted tool permissions for a project.
 ///
 /// Sends the same request as [`retrieve_project_hosted_tool_permissions`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectHostedToolPermissions` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_hosted_tool_permissions_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_hosted_tool_permissions_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -202,8 +221,27 @@ pub async fn retrieve_project_hosted_tool_permissions_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_hosted_tool_permissions_response_builder::State>
+    RetrieveProjectHostedToolPermissionsResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_hosted_tool_permissions_response_builder::IsSet,
+    S::ProjectId: retrieve_project_hosted_tool_permissions_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectHostedToolPermissions>,
+        Error<RetrieveProjectHostedToolPermissionsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Updates hosted tool permissions for a project.
-#[bon::builder]
+#[bon::builder(state_mod = update_project_hosted_tool_permissions_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_hosted_tool_permissions(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -291,13 +329,32 @@ pub async fn update_project_hosted_tool_permissions(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_project_hosted_tool_permissions_builder::State>
+    UpdateProjectHostedToolPermissionsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_hosted_tool_permissions_builder::IsSet,
+    S::ProjectId: update_project_hosted_tool_permissions_builder::IsSet,
+    S::ProjectHostedToolPermissionsUpdateRequest:
+        update_project_hosted_tool_permissions_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectHostedToolPermissions, Error<UpdateProjectHostedToolPermissionsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Updates hosted tool permissions for a project.
 ///
 /// Sends the same request as [`update_project_hosted_tool_permissions`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectHostedToolPermissions` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_project_hosted_tool_permissions_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_hosted_tool_permissions_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -376,5 +433,26 @@ pub async fn update_project_hosted_tool_permissions_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: update_project_hosted_tool_permissions_response_builder::State>
+    UpdateProjectHostedToolPermissionsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_hosted_tool_permissions_response_builder::IsSet,
+    S::ProjectId: update_project_hosted_tool_permissions_response_builder::IsSet,
+    S::ProjectHostedToolPermissionsUpdateRequest:
+        update_project_hosted_tool_permissions_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectHostedToolPermissions>,
+        Error<UpdateProjectHostedToolPermissionsError>,
+    > {
+        self.call_internal().await
     }
 }

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogExternalStorageRegistered : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_external_storage_registered_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogExternalStorageRegistered {
     /// The ID of the external storage configuration.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,16 @@ impl AuditLogExternalStorageRegistered {
             id: None,
             data: None,
         }
+    }
+}
+
+impl<S: audit_log_external_storage_registered_builder::State>
+    AuditLogExternalStorageRegisteredBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogExternalStorageRegistered {
+        self.build_internal()
     }
 }
 

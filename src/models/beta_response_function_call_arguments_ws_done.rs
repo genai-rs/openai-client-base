@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseFunctionCallArgumentsWsDone : Emitted when function-call arguments are finalized.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_function_call_arguments_ws_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseFunctionCallArgumentsWsDone {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -59,6 +60,22 @@ impl BetaResponseFunctionCallArgumentsWsDone {
             arguments,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_function_call_arguments_ws_done_builder::State>
+    BetaResponseFunctionCallArgumentsWsDoneBuilder<S>
+where
+    S::Type: beta_response_function_call_arguments_ws_done_builder::IsSet,
+    S::ItemId: beta_response_function_call_arguments_ws_done_builder::IsSet,
+    S::OutputIndex: beta_response_function_call_arguments_ws_done_builder::IsSet,
+    S::SequenceNumber: beta_response_function_call_arguments_ws_done_builder::IsSet,
+    S::Arguments: beta_response_function_call_arguments_ws_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseFunctionCallArgumentsWsDone {
+        self.build_internal()
     }
 }
 

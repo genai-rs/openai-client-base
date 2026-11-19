@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SpeechAudioDoneEvent : Emitted when the speech synthesis is complete and all audio has been streamed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = speech_audio_done_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SpeechAudioDoneEvent {
     /// The type of the event. Always `speech.audio.done`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl SpeechAudioDoneEvent {
     /// Emitted when the speech synthesis is complete and all audio has been streamed.
     pub fn new(r#type: Type, usage: models::SpeechAudioDoneEventUsage) -> SpeechAudioDoneEvent {
         SpeechAudioDoneEvent { r#type, usage }
+    }
+}
+
+impl<S: speech_audio_done_event_builder::State> SpeechAudioDoneEventBuilder<S>
+where
+    S::Type: speech_audio_done_event_builder::IsSet,
+    S::Usage: speech_audio_done_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SpeechAudioDoneEvent {
+        self.build_internal()
     }
 }
 

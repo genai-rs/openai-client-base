@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RotateVaultCredentialParams : Metadata, secret, expiry, and OAuth refresh scope updates for an existing vault credential. Supply at least one of `auth` or `metadata`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = rotate_vault_credential_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RotateVaultCredentialParams {
     #[serde(rename = "auth", skip_serializing_if = "Option::is_none")]
     pub auth: Option<models::RotateVaultCredentialAuthParam>,
@@ -30,6 +31,14 @@ impl RotateVaultCredentialParams {
             auth: None,
             metadata: None,
         }
+    }
+}
+
+impl<S: rotate_vault_credential_params_builder::State> RotateVaultCredentialParamsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RotateVaultCredentialParams {
+        self.build_internal()
     }
 }
 

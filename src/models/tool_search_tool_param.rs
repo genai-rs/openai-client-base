@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ToolSearchToolParam : Hosted or BYOT tool search configuration for deferred tools.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = tool_search_tool_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ToolSearchToolParam {
     /// The type of the tool. Always `tool_search`.  Defaults to `\"tool_search\"`.
     #[serde(rename = "type")]
@@ -45,6 +46,17 @@ impl ToolSearchToolParam {
             description: None,
             parameters: None,
         }
+    }
+}
+
+impl<S: tool_search_tool_param_builder::State> ToolSearchToolParamBuilder<S>
+where
+    S::Type: tool_search_tool_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ToolSearchToolParam {
+        self.build_internal()
     }
 }
 

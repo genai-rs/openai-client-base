@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// FunctionShellCallOutputTimeoutOutcome : Indicates that the shell call exceeded its configured time limit.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = function_shell_call_output_timeout_outcome_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FunctionShellCallOutputTimeoutOutcome {
     /// The outcome type. Always `timeout`.  Defaults to `\"timeout\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,18 @@ impl FunctionShellCallOutputTimeoutOutcome {
     /// Indicates that the shell call exceeded its configured time limit.
     pub fn new(r#type: Type) -> FunctionShellCallOutputTimeoutOutcome {
         FunctionShellCallOutputTimeoutOutcome { r#type }
+    }
+}
+
+impl<S: function_shell_call_output_timeout_outcome_builder::State>
+    FunctionShellCallOutputTimeoutOutcomeBuilder<S>
+where
+    S::Type: function_shell_call_output_timeout_outcome_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FunctionShellCallOutputTimeoutOutcome {
+        self.build_internal()
     }
 }
 

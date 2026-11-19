@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// QuestionParamPredicate : Estimate how likely it is that a statement about the input is true.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = question_param_predicate_builder, finish_fn(vis = "", name = build_internal))]
 pub struct QuestionParamPredicate {
     /// The type of the object. Always `predicate`.  Defaults to `\"predicate\"`.
     #[serde(rename = "type")]
@@ -35,6 +36,18 @@ impl QuestionParamPredicate {
             name: None,
             instructions,
         }
+    }
+}
+
+impl<S: question_param_predicate_builder::State> QuestionParamPredicateBuilder<S>
+where
+    S::Type: question_param_predicate_builder::IsSet,
+    S::Instructions: question_param_predicate_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> QuestionParamPredicate {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// DecisionRequestPromptCacheOptions : Options for prompt caching. Supported for `gpt-5.6` and later models. By default, OpenAI automatically chooses one implicit cache breakpoint. You can add explicit breakpoints to content blocks with `prompt_cache_breakpoint`. Each request can write up to four breakpoints. For cache matching, OpenAI considers up to the latest 80 breakpoints in the conversation, without a content-block lookback limit. Set `mode` to `explicit` to disable the implicit breakpoint. The `ttl` defaults to `30m`, which is currently the only supported value. See the [prompt caching guide](https://developers.openai.com/api/docs/guides/prompt-caching) for current details.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = decision_request_prompt_cache_options_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DecisionRequestPromptCacheOptions {
     /// The minimum lifetime applied to every implicit and explicit cache breakpoint written by the request. Defaults to `30m`, which is currently the only supported value. The backend may retain cache entries for longer.  Defaults to `\"30m\"`.
     #[serde(rename = "ttl", skip_serializing_if = "Option::is_none")]
@@ -33,6 +34,16 @@ impl DecisionRequestPromptCacheOptions {
             ttl: None,
             mode: None,
         }
+    }
+}
+
+impl<S: decision_request_prompt_cache_options_builder::State>
+    DecisionRequestPromptCacheOptionsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DecisionRequestPromptCacheOptions {
+        self.build_internal()
     }
 }
 

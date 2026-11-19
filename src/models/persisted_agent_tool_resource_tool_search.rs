@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// PersistedAgentToolResourceToolSearch : Discovers deferred function tools and loads them into the model context.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = persisted_agent_tool_resource_tool_search_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PersistedAgentToolResourceToolSearch {
     /// The type of the object. Always `tool_search`.  Defaults to `\"tool_search\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,18 @@ impl PersistedAgentToolResourceToolSearch {
     /// Discovers deferred function tools and loads them into the model context.
     pub fn new(r#type: Type) -> PersistedAgentToolResourceToolSearch {
         PersistedAgentToolResourceToolSearch { r#type }
+    }
+}
+
+impl<S: persisted_agent_tool_resource_tool_search_builder::State>
+    PersistedAgentToolResourceToolSearchBuilder<S>
+where
+    S::Type: persisted_agent_tool_resource_tool_search_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PersistedAgentToolResourceToolSearch {
+        self.build_internal()
     }
 }
 

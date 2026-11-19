@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionInputParamAgentSessionInputMessage : Adds one or more user messages and starts a turn.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_input_param_agent_session_input_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionInputParamAgentSessionInputMessage {
     /// The type of the object. Always `agent.session.input.message`.  Defaults to `\"agent.session.input.message\"`.
     #[serde(rename = "type")]
@@ -31,6 +32,19 @@ impl SessionInputParamAgentSessionInputMessage {
         input: Vec<models::InputMessageParam>,
     ) -> SessionInputParamAgentSessionInputMessage {
         SessionInputParamAgentSessionInputMessage { r#type, input }
+    }
+}
+
+impl<S: session_input_param_agent_session_input_message_builder::State>
+    SessionInputParamAgentSessionInputMessageBuilder<S>
+where
+    S::Type: session_input_param_agent_session_input_message_builder::IsSet,
+    S::Input: session_input_param_agent_session_input_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionInputParamAgentSessionInputMessage {
+        self.build_internal()
     }
 }
 

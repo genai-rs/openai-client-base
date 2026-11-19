@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_program_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaProgramItemParam {
     #[serde(
         rename = "agent",
@@ -59,6 +60,21 @@ impl BetaProgramItemParam {
             code,
             fingerprint,
         }
+    }
+}
+
+impl<S: beta_program_item_param_builder::State> BetaProgramItemParamBuilder<S>
+where
+    S::Id: beta_program_item_param_builder::IsSet,
+    S::Type: beta_program_item_param_builder::IsSet,
+    S::CallId: beta_program_item_param_builder::IsSet,
+    S::Code: beta_program_item_param_builder::IsSet,
+    S::Fingerprint: beta_program_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaProgramItemParam {
+        self.build_internal()
     }
 }
 

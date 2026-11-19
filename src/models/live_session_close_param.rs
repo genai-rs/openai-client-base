@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSessionCloseParam : Request that the Live session close. The terminal `session.closed` event contains the close reason and final usage.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_close_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionCloseParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
     ///
@@ -35,6 +36,17 @@ impl LiveSessionCloseParam {
             event_id: None,
             r#type,
         }
+    }
+}
+
+impl<S: live_session_close_param_builder::State> LiveSessionCloseParamBuilder<S>
+where
+    S::Type: live_session_close_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionCloseParam {
+        self.build_internal()
     }
 }
 

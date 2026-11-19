@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_request_message_content_part_image_image_url_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionRequestMessageContentPartImageImageUrl {
     /// Either a URL of the image or the base64 encoded image data.
     #[serde(rename = "url")]
@@ -23,6 +24,18 @@ pub struct ChatCompletionRequestMessageContentPartImageImageUrl {
 impl ChatCompletionRequestMessageContentPartImageImageUrl {
     pub fn new(url: String) -> ChatCompletionRequestMessageContentPartImageImageUrl {
         ChatCompletionRequestMessageContentPartImageImageUrl { url, detail: None }
+    }
+}
+
+impl<S: chat_completion_request_message_content_part_image_image_url_builder::State>
+    ChatCompletionRequestMessageContentPartImageImageUrlBuilder<S>
+where
+    S::Url: chat_completion_request_message_content_part_image_image_url_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionRequestMessageContentPartImageImageUrl {
+        self.build_internal()
     }
 }
 

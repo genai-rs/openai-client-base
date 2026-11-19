@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseReasoningSummaryTextWsDelta : Emitted when a delta is added to a reasoning summary text.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_reasoning_summary_text_ws_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseReasoningSummaryTextWsDelta {
     /// The type of the event. Always `response.reasoning_summary_text.delta`.
     #[serde(rename = "type")]
@@ -55,6 +56,23 @@ impl ResponseReasoningSummaryTextWsDelta {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_reasoning_summary_text_ws_delta_builder::State>
+    ResponseReasoningSummaryTextWsDeltaBuilder<S>
+where
+    S::Type: response_reasoning_summary_text_ws_delta_builder::IsSet,
+    S::ItemId: response_reasoning_summary_text_ws_delta_builder::IsSet,
+    S::OutputIndex: response_reasoning_summary_text_ws_delta_builder::IsSet,
+    S::SummaryIndex: response_reasoning_summary_text_ws_delta_builder::IsSet,
+    S::Delta: response_reasoning_summary_text_ws_delta_builder::IsSet,
+    S::SequenceNumber: response_reasoning_summary_text_ws_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseReasoningSummaryTextWsDelta {
+        self.build_internal()
     }
 }
 

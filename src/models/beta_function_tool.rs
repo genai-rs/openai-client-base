@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaFunctionTool : Defines a function in your own code the model can choose to call. Learn more about [function calling](https://developers.openai.com/api/docs/guides/function-calling).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_function_tool_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFunctionTool {
     /// The type of the function tool. Always `function`.  Defaults to `\"function\"`.
     #[serde(rename = "type")]
@@ -76,6 +77,18 @@ impl BetaFunctionTool {
             defer_loading: None,
             allowed_callers: None,
         }
+    }
+}
+
+impl<S: beta_function_tool_builder::State> BetaFunctionToolBuilder<S>
+where
+    S::Type: beta_function_tool_builder::IsSet,
+    S::Name: beta_function_tool_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFunctionTool {
+        self.build_internal()
     }
 }
 

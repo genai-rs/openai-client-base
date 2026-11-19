@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// Moderation : Moderation results or errors for the response input and output.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = moderation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Moderation {
     #[serde(rename = "input")]
     pub input: models::ModerationInput,
@@ -24,6 +25,18 @@ impl Moderation {
     /// Moderation results or errors for the response input and output.
     pub fn new(input: models::ModerationInput, output: models::ModerationOutput) -> Moderation {
         Moderation { input, output }
+    }
+}
+
+impl<S: moderation_builder::State> ModerationBuilder<S>
+where
+    S::Input: moderation_builder::IsSet,
+    S::Output: moderation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Moderation {
+        self.build_internal()
     }
 }
 

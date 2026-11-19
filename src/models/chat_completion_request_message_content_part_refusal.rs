@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_request_message_content_part_refusal_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionRequestMessageContentPartRefusal {
     /// The type of the content part.
     #[serde(rename = "type")]
@@ -23,6 +24,19 @@ pub struct ChatCompletionRequestMessageContentPartRefusal {
 impl ChatCompletionRequestMessageContentPartRefusal {
     pub fn new(r#type: Type, refusal: String) -> ChatCompletionRequestMessageContentPartRefusal {
         ChatCompletionRequestMessageContentPartRefusal { r#type, refusal }
+    }
+}
+
+impl<S: chat_completion_request_message_content_part_refusal_builder::State>
+    ChatCompletionRequestMessageContentPartRefusalBuilder<S>
+where
+    S::Type: chat_completion_request_message_content_part_refusal_builder::IsSet,
+    S::Refusal: chat_completion_request_message_content_part_refusal_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionRequestMessageContentPartRefusal {
+        self.build_internal()
     }
 }
 

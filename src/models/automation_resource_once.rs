@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AutomationResourceOnce : Fields shared by periodic and one-time automations.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_resource_once_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationResourceOnce {
     /// The type of the object. Always `once`.  Defaults to `\"once\"`.
     #[serde(rename = "type")]
@@ -84,6 +85,26 @@ impl AutomationResourceOnce {
             run_at,
             status,
         }
+    }
+}
+
+impl<S: automation_resource_once_builder::State> AutomationResourceOnceBuilder<S>
+where
+    S::Type: automation_resource_once_builder::IsSet,
+    S::Id: automation_resource_once_builder::IsSet,
+    S::Object: automation_resource_once_builder::IsSet,
+    S::CreatedAt: automation_resource_once_builder::IsSet,
+    S::Name: automation_resource_once_builder::IsSet,
+    S::Target: automation_resource_once_builder::IsSet,
+    S::Metadata: automation_resource_once_builder::IsSet,
+    S::CreatedBy: automation_resource_once_builder::IsSet,
+    S::RunAt: automation_resource_once_builder::IsSet,
+    S::Status: automation_resource_once_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationResourceOnce {
+        self.build_internal()
     }
 }
 

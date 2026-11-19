@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionTurnListResource : A page of Agents API resources, with IDs for retrieving additional pages.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_turn_list_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionTurnListResource {
     /// The object type, which is always `list`.  Defaults to `\"list\"`.
     #[serde(rename = "object")]
@@ -53,6 +54,19 @@ impl SessionTurnListResource {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: session_turn_list_resource_builder::State> SessionTurnListResourceBuilder<S>
+where
+    S::Object: session_turn_list_resource_builder::IsSet,
+    S::Data: session_turn_list_resource_builder::IsSet,
+    S::HasMore: session_turn_list_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionTurnListResource {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveForkSessionStartEvent : Start a Live session after connecting to a stored session’s fork WebSocket. Send an empty `session` object to use the stored configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_fork_session_start_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveForkSessionStartEvent {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
     ///
@@ -42,6 +43,18 @@ impl LiveForkSessionStartEvent {
             r#type,
             session,
         }
+    }
+}
+
+impl<S: live_fork_session_start_event_builder::State> LiveForkSessionStartEventBuilder<S>
+where
+    S::Type: live_fork_session_start_event_builder::IsSet,
+    S::Session: live_fork_session_start_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveForkSessionStartEvent {
+        self.build_internal()
     }
 }
 

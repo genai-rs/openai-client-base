@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UserUser : Nested user details.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = user_user_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UserUser {
     #[serde(rename = "object")]
     pub object: Object,
@@ -74,6 +75,18 @@ impl UserUser {
             banned: None,
             banned_at: None,
         }
+    }
+}
+
+impl<S: user_user_builder::State> UserUserBuilder<S>
+where
+    S::Object: user_user_builder::IsSet,
+    S::Id: user_user_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UserUser {
+        self.build_internal()
     }
 }
 

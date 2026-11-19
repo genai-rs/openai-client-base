@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseError : An error object returned when the model fails to generate a Response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseError {
     /// The original error type, or null if it was not recorded.
     #[serde(
@@ -49,6 +50,18 @@ impl BetaResponseError {
             message,
             misalignment: None,
         }
+    }
+}
+
+impl<S: beta_response_error_builder::State> BetaResponseErrorBuilder<S>
+where
+    S::Code: beta_response_error_builder::IsSet,
+    S::Message: beta_response_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseError {
+        self.build_internal()
     }
 }
 

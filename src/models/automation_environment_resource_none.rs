@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_environment_resource_none_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationEnvironmentResourceNone {
     /// The type of the object. Always `none`.  Defaults to `\"none\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,18 @@ pub struct AutomationEnvironmentResourceNone {
 impl AutomationEnvironmentResourceNone {
     pub fn new(r#type: Type) -> AutomationEnvironmentResourceNone {
         AutomationEnvironmentResourceNone { r#type }
+    }
+}
+
+impl<S: automation_environment_resource_none_builder::State>
+    AutomationEnvironmentResourceNoneBuilder<S>
+where
+    S::Type: automation_environment_resource_none_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationEnvironmentResourceNone {
+        self.build_internal()
     }
 }
 

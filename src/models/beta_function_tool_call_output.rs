@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaFunctionToolCallOutput : The output of a function tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_function_tool_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFunctionToolCallOutput {
     /// The agent that produced this item.
     #[serde(
@@ -68,6 +69,18 @@ impl BetaFunctionToolCallOutput {
             output,
             status: None,
         }
+    }
+}
+
+impl<S: beta_function_tool_call_output_builder::State> BetaFunctionToolCallOutputBuilder<S>
+where
+    S::Type: beta_function_tool_call_output_builder::IsSet,
+    S::Output: beta_function_tool_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFunctionToolCallOutput {
+        self.build_internal()
     }
 }
 

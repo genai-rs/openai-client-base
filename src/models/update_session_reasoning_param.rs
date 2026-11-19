@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// UpdateSessionReasoningParam : Reasoning effort for subsequent turns. The reasoning summary stays unchanged.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_session_reasoning_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateSessionReasoningParam {
     /// Omit to keep the current effort. Null selects the model's default effort.
     #[serde(
@@ -28,6 +29,14 @@ impl UpdateSessionReasoningParam {
     /// Reasoning effort for subsequent turns. The reasoning summary stays unchanged.
     pub fn new() -> UpdateSessionReasoningParam {
         UpdateSessionReasoningParam { effort: None }
+    }
+}
+
+impl<S: update_session_reasoning_param_builder::State> UpdateSessionReasoningParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateSessionReasoningParam {
+        self.build_internal()
     }
 }
 

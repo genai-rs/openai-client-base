@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventRateLimitsUpdated : Emitted at the beginning of a Response to indicate the updated rate limits.  When a Response is created some tokens will be \"reserved\" for the output  tokens, the rate limits shown here reflect that reservation, which is then  adjusted accordingly once the Response is completed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_rate_limits_updated_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventRateLimitsUpdated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -37,6 +38,20 @@ impl RealtimeServerEventRateLimitsUpdated {
             r#type,
             rate_limits,
         }
+    }
+}
+
+impl<S: realtime_server_event_rate_limits_updated_builder::State>
+    RealtimeServerEventRateLimitsUpdatedBuilder<S>
+where
+    S::EventId: realtime_server_event_rate_limits_updated_builder::IsSet,
+    S::Type: realtime_server_event_rate_limits_updated_builder::IsSet,
+    S::RateLimits: realtime_server_event_rate_limits_updated_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventRateLimitsUpdated {
+        self.build_internal()
     }
 }
 

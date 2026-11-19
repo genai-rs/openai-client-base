@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UsageAudioSpeechesResult : The aggregated audio speeches usage details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = usage_audio_speeches_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UsageAudioSpeechesResult {
     #[serde(rename = "object")]
     pub object: Object,
@@ -66,6 +67,19 @@ impl UsageAudioSpeechesResult {
             api_key_id: None,
             model: None,
         }
+    }
+}
+
+impl<S: usage_audio_speeches_result_builder::State> UsageAudioSpeechesResultBuilder<S>
+where
+    S::Object: usage_audio_speeches_result_builder::IsSet,
+    S::Characters: usage_audio_speeches_result_builder::IsSet,
+    S::NumModelRequests: usage_audio_speeches_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UsageAudioSpeechesResult {
+        self.build_internal()
     }
 }
 

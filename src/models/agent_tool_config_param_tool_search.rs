@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AgentToolConfigParamToolSearch : Discovers deferred function tools and loads them into the model context.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = agent_tool_config_param_tool_search_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AgentToolConfigParamToolSearch {
     /// The type of the object. Always `tool_search`.  Defaults to `\"tool_search\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl AgentToolConfigParamToolSearch {
     /// Discovers deferred function tools and loads them into the model context.
     pub fn new(r#type: Type) -> AgentToolConfigParamToolSearch {
         AgentToolConfigParamToolSearch { r#type }
+    }
+}
+
+impl<S: agent_tool_config_param_tool_search_builder::State> AgentToolConfigParamToolSearchBuilder<S>
+where
+    S::Type: agent_tool_config_param_tool_search_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AgentToolConfigParamToolSearch {
+        self.build_internal()
     }
 }
 

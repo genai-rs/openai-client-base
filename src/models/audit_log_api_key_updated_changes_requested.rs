@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogApiKeyUpdatedChangesRequested : The payload used to update the API key.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_api_key_updated_changes_requested_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogApiKeyUpdatedChangesRequested {
     /// A list of scopes allowed for the API key, e.g. `[\"api.model.request\"]`
     #[serde(rename = "scopes", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,16 @@ impl AuditLogApiKeyUpdatedChangesRequested {
             scopes: None,
             expires_in_seconds: None,
         }
+    }
+}
+
+impl<S: audit_log_api_key_updated_changes_requested_builder::State>
+    AuditLogApiKeyUpdatedChangesRequestedBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogApiKeyUpdatedChangesRequested {
+        self.build_internal()
     }
 }
 

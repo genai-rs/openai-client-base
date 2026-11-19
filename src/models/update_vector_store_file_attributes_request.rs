@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_vector_store_file_attributes_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateVectorStoreFileAttributesRequest {
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard. Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters, booleans, or numbers.
     ///
@@ -28,6 +29,16 @@ impl UpdateVectorStoreFileAttributesRequest {
         >,
     ) -> UpdateVectorStoreFileAttributesRequest {
         UpdateVectorStoreFileAttributesRequest { attributes }
+    }
+}
+
+impl<S: update_vector_store_file_attributes_request_builder::State>
+    UpdateVectorStoreFileAttributesRequestBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateVectorStoreFileAttributesRequest {
+        self.build_internal()
     }
 }
 

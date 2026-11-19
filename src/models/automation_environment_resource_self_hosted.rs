@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_environment_resource_self_hosted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationEnvironmentResourceSelfHosted {
     /// The type of the object. Always `self_hosted`.  Defaults to `\"self_hosted\"`.
     #[serde(rename = "type")]
@@ -45,6 +46,20 @@ impl AutomationEnvironmentResourceSelfHosted {
             workspace_directory,
             capability_directories,
         }
+    }
+}
+
+impl<S: automation_environment_resource_self_hosted_builder::State>
+    AutomationEnvironmentResourceSelfHostedBuilder<S>
+where
+    S::Type: automation_environment_resource_self_hosted_builder::IsSet,
+    S::WorkspaceDirectory: automation_environment_resource_self_hosted_builder::IsSet,
+    S::CapabilityDirectories: automation_environment_resource_self_hosted_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationEnvironmentResourceSelfHosted {
+        self.build_internal()
     }
 }
 

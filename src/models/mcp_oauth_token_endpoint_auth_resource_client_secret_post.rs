@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// McpOauthTokenEndpointAuthResourceClientSecretPost : Sends the client ID and secret in the token request body.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_oauth_token_endpoint_auth_resource_client_secret_post_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpOauthTokenEndpointAuthResourceClientSecretPost {
     /// The type of the object. Always `client_secret_post`.  Defaults to `\"client_secret_post\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,18 @@ impl McpOauthTokenEndpointAuthResourceClientSecretPost {
     /// Sends the client ID and secret in the token request body.
     pub fn new(r#type: Type) -> McpOauthTokenEndpointAuthResourceClientSecretPost {
         McpOauthTokenEndpointAuthResourceClientSecretPost { r#type }
+    }
+}
+
+impl<S: mcp_oauth_token_endpoint_auth_resource_client_secret_post_builder::State>
+    McpOauthTokenEndpointAuthResourceClientSecretPostBuilder<S>
+where
+    S::Type: mcp_oauth_token_endpoint_auth_resource_client_secret_post_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpOauthTokenEndpointAuthResourceClientSecretPost {
+        self.build_internal()
     }
 }
 

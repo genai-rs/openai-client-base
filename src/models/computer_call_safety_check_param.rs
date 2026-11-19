@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ComputerCallSafetyCheckParam : A pending safety check for the computer call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = computer_call_safety_check_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ComputerCallSafetyCheckParam {
     /// The ID of the pending safety check.
     #[serde(rename = "id")]
@@ -42,6 +43,17 @@ impl ComputerCallSafetyCheckParam {
             code: None,
             message: None,
         }
+    }
+}
+
+impl<S: computer_call_safety_check_param_builder::State> ComputerCallSafetyCheckParamBuilder<S>
+where
+    S::Id: computer_call_safety_check_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ComputerCallSafetyCheckParam {
+        self.build_internal()
     }
 }
 

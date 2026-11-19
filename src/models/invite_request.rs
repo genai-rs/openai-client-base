@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = invite_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InviteRequest {
     /// Send an email to this address
     #[serde(rename = "email")]
@@ -31,6 +32,18 @@ impl InviteRequest {
             role,
             projects: None,
         }
+    }
+}
+
+impl<S: invite_request_builder::State> InviteRequestBuilder<S>
+where
+    S::Email: invite_request_builder::IsSet,
+    S::Role: invite_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InviteRequest {
+        self.build_internal()
     }
 }
 

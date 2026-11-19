@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageDeltaObjectDelta : The delta containing the fields that have changed on the Message.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_delta_object_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageDeltaObjectDelta {
     /// The entity that produced the message. One of `user` or `assistant`.
     #[serde(rename = "role", skip_serializing_if = "Option::is_none")]
@@ -29,6 +30,14 @@ impl MessageDeltaObjectDelta {
             role: None,
             content: None,
         }
+    }
+}
+
+impl<S: message_delta_object_delta_builder::State> MessageDeltaObjectDeltaBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageDeltaObjectDelta {
+        self.build_internal()
     }
 }
 

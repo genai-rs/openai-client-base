@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_automation_params_periodic_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateAutomationParamsPeriodic {
     /// The type of the object. Always `periodic`.  Defaults to `\"periodic\"`.
     #[serde(rename = "type")]
@@ -54,6 +55,21 @@ impl CreateAutomationParamsPeriodic {
             expression,
             timezone,
         }
+    }
+}
+
+impl<S: create_automation_params_periodic_builder::State> CreateAutomationParamsPeriodicBuilder<S>
+where
+    S::Type: create_automation_params_periodic_builder::IsSet,
+    S::Name: create_automation_params_periodic_builder::IsSet,
+    S::Target: create_automation_params_periodic_builder::IsSet,
+    S::Expression: create_automation_params_periodic_builder::IsSet,
+    S::Timezone: create_automation_params_periodic_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateAutomationParamsPeriodic {
+        self.build_internal()
     }
 }
 

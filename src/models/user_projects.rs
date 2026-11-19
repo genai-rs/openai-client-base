@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// UserProjects : Projects associated with the user, if included.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = user_projects_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UserProjects {
     #[serde(rename = "object")]
     pub object: Object,
@@ -24,6 +25,18 @@ impl UserProjects {
     /// Projects associated with the user, if included.
     pub fn new(object: Object, data: Vec<models::UserProjectsDataInner>) -> UserProjects {
         UserProjects { object, data }
+    }
+}
+
+impl<S: user_projects_builder::State> UserProjectsBuilder<S>
+where
+    S::Object: user_projects_builder::IsSet,
+    S::Data: user_projects_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UserProjects {
+        self.build_internal()
     }
 }
 

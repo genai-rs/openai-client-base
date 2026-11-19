@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = aws_external_storage_provider_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AwsExternalStorageProviderParams {
     /// Defaults to `\"aws\"`.
     #[serde(rename = "type")]
@@ -28,6 +29,20 @@ impl AwsExternalStorageProviderParams {
             bucket,
             role_arn,
         }
+    }
+}
+
+impl<S: aws_external_storage_provider_params_builder::State>
+    AwsExternalStorageProviderParamsBuilder<S>
+where
+    S::Type: aws_external_storage_provider_params_builder::IsSet,
+    S::Bucket: aws_external_storage_provider_params_builder::IsSet,
+    S::RoleArn: aws_external_storage_provider_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AwsExternalStorageProviderParams {
+        self.build_internal()
     }
 }
 

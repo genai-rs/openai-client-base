@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageDeltaObject : Represents a message delta i.e. any changed fields on a message during streaming.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_delta_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageDeltaObject {
     /// The identifier of the message, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -32,6 +33,19 @@ impl MessageDeltaObject {
         delta: models::MessageDeltaObjectDelta,
     ) -> MessageDeltaObject {
         MessageDeltaObject { id, object, delta }
+    }
+}
+
+impl<S: message_delta_object_builder::State> MessageDeltaObjectBuilder<S>
+where
+    S::Id: message_delta_object_builder::IsSet,
+    S::Object: message_delta_object_builder::IsSet,
+    S::Delta: message_delta_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageDeltaObject {
+        self.build_internal()
     }
 }
 

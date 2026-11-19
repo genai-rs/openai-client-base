@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// GraderTextSimilarity : A TextSimilarityGrader object which grades text based on similarity metrics.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = grader_text_similarity_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GraderTextSimilarity {
     /// The type of grader.  Defaults to `\"text_similarity\"`.
     #[serde(rename = "type")]
@@ -46,6 +47,21 @@ impl GraderTextSimilarity {
             reference,
             evaluation_metric,
         }
+    }
+}
+
+impl<S: grader_text_similarity_builder::State> GraderTextSimilarityBuilder<S>
+where
+    S::Type: grader_text_similarity_builder::IsSet,
+    S::Name: grader_text_similarity_builder::IsSet,
+    S::Input: grader_text_similarity_builder::IsSet,
+    S::Reference: grader_text_similarity_builder::IsSet,
+    S::EvaluationMetric: grader_text_similarity_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GraderTextSimilarity {
+        self.build_internal()
     }
 }
 

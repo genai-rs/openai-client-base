@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogExternalStorageRemoved : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_external_storage_removed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogExternalStorageRemoved {
     /// The ID of the external storage configuration.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,16 @@ impl AuditLogExternalStorageRemoved {
     /// The details for events with this `type`.
     pub fn new() -> AuditLogExternalStorageRemoved {
         AuditLogExternalStorageRemoved { id: None }
+    }
+}
+
+impl<S: audit_log_external_storage_removed_builder::State>
+    AuditLogExternalStorageRemovedBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogExternalStorageRemoved {
+        self.build_internal()
     }
 }
 

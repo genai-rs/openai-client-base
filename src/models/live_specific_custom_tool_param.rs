@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_specific_custom_tool_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSpecificCustomToolParam {
     /// The tool to call. Always `custom`.  Defaults to `\"custom\"`.
     #[serde(rename = "type")]
@@ -23,6 +24,18 @@ pub struct LiveSpecificCustomToolParam {
 impl LiveSpecificCustomToolParam {
     pub fn new(r#type: Type, name: String) -> LiveSpecificCustomToolParam {
         LiveSpecificCustomToolParam { r#type, name }
+    }
+}
+
+impl<S: live_specific_custom_tool_param_builder::State> LiveSpecificCustomToolParamBuilder<S>
+where
+    S::Type: live_specific_custom_tool_param_builder::IsSet,
+    S::Name: live_specific_custom_tool_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSpecificCustomToolParam {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseReasoningSummaryTextDoneEvent : Emitted when a reasoning summary text is completed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_reasoning_summary_text_done_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseReasoningSummaryTextDoneEvent {
     /// The type of the event. Always `response.reasoning_summary_text.done`.
     #[serde(rename = "type")]
@@ -51,6 +52,23 @@ impl ResponseReasoningSummaryTextDoneEvent {
             text,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_reasoning_summary_text_done_event_builder::State>
+    ResponseReasoningSummaryTextDoneEventBuilder<S>
+where
+    S::Type: response_reasoning_summary_text_done_event_builder::IsSet,
+    S::ItemId: response_reasoning_summary_text_done_event_builder::IsSet,
+    S::OutputIndex: response_reasoning_summary_text_done_event_builder::IsSet,
+    S::SummaryIndex: response_reasoning_summary_text_done_event_builder::IsSet,
+    S::Text: response_reasoning_summary_text_done_event_builder::IsSet,
+    S::SequenceNumber: response_reasoning_summary_text_done_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseReasoningSummaryTextDoneEvent {
+        self.build_internal()
     }
 }
 

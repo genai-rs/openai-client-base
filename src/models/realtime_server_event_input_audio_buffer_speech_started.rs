@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventInputAudioBufferSpeechStarted : Sent by the server when in `server_vad` mode to indicate that speech has been  detected in the audio buffer. This can happen any time audio is added to the  buffer (unless speech is already detected). The client may want to use this  event to interrupt audio playback or provide visual feedback to the user.   The client should expect to receive a `input_audio_buffer.speech_stopped` event  when speech stops. The `item_id` property is the ID of the user message item  that will be created when speech stops and will also be included in the  `input_audio_buffer.speech_stopped` event (unless the client manually commits  the audio buffer during VAD activation).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_input_audio_buffer_speech_started_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventInputAudioBufferSpeechStarted {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -41,6 +42,21 @@ impl RealtimeServerEventInputAudioBufferSpeechStarted {
             audio_start_ms,
             item_id,
         }
+    }
+}
+
+impl<S: realtime_server_event_input_audio_buffer_speech_started_builder::State>
+    RealtimeServerEventInputAudioBufferSpeechStartedBuilder<S>
+where
+    S::EventId: realtime_server_event_input_audio_buffer_speech_started_builder::IsSet,
+    S::Type: realtime_server_event_input_audio_buffer_speech_started_builder::IsSet,
+    S::AudioStartMs: realtime_server_event_input_audio_buffer_speech_started_builder::IsSet,
+    S::ItemId: realtime_server_event_input_audio_buffer_speech_started_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventInputAudioBufferSpeechStarted {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateVoicePromptRequest : Creates a synthetic voice from a text description. Supports application/json or multipart/form-data.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_voice_prompt_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateVoicePromptRequest {
     /// Set to `prompt` to create a voice from a text description.
     #[serde(rename = "type")]
@@ -46,6 +47,19 @@ impl CreateVoicePromptRequest {
             script_hint: None,
             model: None,
         }
+    }
+}
+
+impl<S: create_voice_prompt_request_builder::State> CreateVoicePromptRequestBuilder<S>
+where
+    S::Type: create_voice_prompt_request_builder::IsSet,
+    S::Name: create_voice_prompt_request_builder::IsSet,
+    S::Prompt: create_voice_prompt_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateVoicePromptRequest {
+        self.build_internal()
     }
 }
 

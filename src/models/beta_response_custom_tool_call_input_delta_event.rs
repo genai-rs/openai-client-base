@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseCustomToolCallInputDeltaEvent : Event representing a delta (partial update) to the input of a custom tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_custom_tool_call_input_delta_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseCustomToolCallInputDeltaEvent {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -56,6 +57,22 @@ impl BetaResponseCustomToolCallInputDeltaEvent {
             item_id,
             delta,
         }
+    }
+}
+
+impl<S: beta_response_custom_tool_call_input_delta_event_builder::State>
+    BetaResponseCustomToolCallInputDeltaEventBuilder<S>
+where
+    S::Type: beta_response_custom_tool_call_input_delta_event_builder::IsSet,
+    S::SequenceNumber: beta_response_custom_tool_call_input_delta_event_builder::IsSet,
+    S::OutputIndex: beta_response_custom_tool_call_input_delta_event_builder::IsSet,
+    S::ItemId: beta_response_custom_tool_call_input_delta_event_builder::IsSet,
+    S::Delta: beta_response_custom_tool_call_input_delta_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseCustomToolCallInputDeltaEvent {
+        self.build_internal()
     }
 }
 

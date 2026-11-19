@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateSkillVersionBody : Uploads a new immutable version of a skill.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_skill_version_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateSkillVersionBody {
     #[serde(rename = "files")]
     pub files: models::CreateSkillVersionBodyFiles,
@@ -28,6 +29,17 @@ impl CreateSkillVersionBody {
             files,
             default: None,
         }
+    }
+}
+
+impl<S: create_skill_version_body_builder::State> CreateSkillVersionBodyBuilder<S>
+where
+    S::Files: create_skill_version_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateSkillVersionBody {
+        self.build_internal()
     }
 }
 

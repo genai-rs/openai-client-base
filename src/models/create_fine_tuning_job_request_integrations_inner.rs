@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_fine_tuning_job_request_integrations_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateFineTuningJobRequestIntegrationsInner {
     /// The type of integration to enable. Currently, only \"wandb\" (Weights and Biases) is supported.
     #[serde(rename = "type")]
@@ -26,6 +27,19 @@ impl CreateFineTuningJobRequestIntegrationsInner {
         wandb: models::CreateFineTuningJobRequestIntegrationsInnerWandb,
     ) -> CreateFineTuningJobRequestIntegrationsInner {
         CreateFineTuningJobRequestIntegrationsInner { r#type, wandb }
+    }
+}
+
+impl<S: create_fine_tuning_job_request_integrations_inner_builder::State>
+    CreateFineTuningJobRequestIntegrationsInnerBuilder<S>
+where
+    S::Type: create_fine_tuning_job_request_integrations_inner_builder::IsSet,
+    S::Wandb: create_fine_tuning_job_request_integrations_inner_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateFineTuningJobRequestIntegrationsInner {
+        self.build_internal()
     }
 }
 

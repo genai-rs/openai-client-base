@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_invocation_error_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationInvocationErrorResource {
     /// A machine-readable error code.
     ///
@@ -27,6 +28,19 @@ pub struct AutomationInvocationErrorResource {
 impl AutomationInvocationErrorResource {
     pub fn new(code: String, message: String) -> AutomationInvocationErrorResource {
         AutomationInvocationErrorResource { code, message }
+    }
+}
+
+impl<S: automation_invocation_error_resource_builder::State>
+    AutomationInvocationErrorResourceBuilder<S>
+where
+    S::Code: automation_invocation_error_resource_builder::IsSet,
+    S::Message: automation_invocation_error_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationInvocationErrorResource {
+        self.build_internal()
     }
 }
 

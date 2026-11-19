@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseConfigurationUpdateItemParamReasoning : Updates to reasoning configuration. Only effort is supported.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_configuration_update_item_param_reasoning_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseConfigurationUpdateItemParamReasoning {
     #[serde(
         rename = "effort",
@@ -27,6 +28,16 @@ impl BetaResponseConfigurationUpdateItemParamReasoning {
     /// Updates to reasoning configuration. Only effort is supported.
     pub fn new() -> BetaResponseConfigurationUpdateItemParamReasoning {
         BetaResponseConfigurationUpdateItemParamReasoning { effort: None }
+    }
+}
+
+impl<S: beta_response_configuration_update_item_param_reasoning_builder::State>
+    BetaResponseConfigurationUpdateItemParamReasoningBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseConfigurationUpdateItemParamReasoning {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionTurnReasoningSummaryTextDelta : Emitted when text is appended to a reasoning summary.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_turn_reasoning_summary_text_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionTurnReasoningSummaryTextDelta {
     /// The type of the object. Always `agent.session.turn.reasoning_summary_text.delta`.  Defaults to `\"agent.session.turn.reasoning_summary_text.delta\"`.
     #[serde(rename = "type")]
@@ -81,6 +82,24 @@ impl SessionEventAgentSessionTurnReasoningSummaryTextDelta {
             delta,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_turn_reasoning_summary_text_delta_builder::State>
+    SessionEventAgentSessionTurnReasoningSummaryTextDeltaBuilder<S>
+where
+    S::Type: session_event_agent_session_turn_reasoning_summary_text_delta_builder::IsSet,
+    S::EventId: session_event_agent_session_turn_reasoning_summary_text_delta_builder::IsSet,
+    S::SessionId: session_event_agent_session_turn_reasoning_summary_text_delta_builder::IsSet,
+    S::ItemId: session_event_agent_session_turn_reasoning_summary_text_delta_builder::IsSet,
+    S::OutputIndex: session_event_agent_session_turn_reasoning_summary_text_delta_builder::IsSet,
+    S::SummaryIndex: session_event_agent_session_turn_reasoning_summary_text_delta_builder::IsSet,
+    S::Delta: session_event_agent_session_turn_reasoning_summary_text_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionTurnReasoningSummaryTextDelta {
+        self.build_internal()
     }
 }
 

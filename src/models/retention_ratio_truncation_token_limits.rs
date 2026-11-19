@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RetentionRatioTruncationTokenLimits : Optional custom token limits for this truncation strategy. If not provided, the model's default token limits will be used.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = retention_ratio_truncation_token_limits_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RetentionRatioTruncationTokenLimits {
     /// Maximum tokens allowed in the conversation after instructions (which including tool definitions). For example, setting this to 5,000 would mean that truncation would occur when the conversation exceeds 5,000 tokens after instructions. This cannot be higher than the model's context window size minus the maximum output tokens.
     ///
@@ -26,6 +27,16 @@ impl RetentionRatioTruncationTokenLimits {
         RetentionRatioTruncationTokenLimits {
             post_instructions: None,
         }
+    }
+}
+
+impl<S: retention_ratio_truncation_token_limits_builder::State>
+    RetentionRatioTruncationTokenLimitsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RetentionRatioTruncationTokenLimits {
+        self.build_internal()
     }
 }
 

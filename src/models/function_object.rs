@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = function_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FunctionObject {
     /// A description of what the function does, used by the model to choose when and how to call the function.
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
@@ -39,6 +40,17 @@ impl FunctionObject {
             parameters: None,
             strict: None,
         }
+    }
+}
+
+impl<S: function_object_builder::State> FunctionObjectBuilder<S>
+where
+    S::Name: function_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FunctionObject {
+        self.build_internal()
     }
 }
 

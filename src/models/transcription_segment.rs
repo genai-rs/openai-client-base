@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = transcription_segment_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TranscriptionSegment {
     /// Unique identifier of the segment.
     #[serde(rename = "id")]
@@ -69,6 +70,26 @@ impl TranscriptionSegment {
             compression_ratio,
             no_speech_prob,
         }
+    }
+}
+
+impl<S: transcription_segment_builder::State> TranscriptionSegmentBuilder<S>
+where
+    S::Id: transcription_segment_builder::IsSet,
+    S::Seek: transcription_segment_builder::IsSet,
+    S::Start: transcription_segment_builder::IsSet,
+    S::End: transcription_segment_builder::IsSet,
+    S::Text: transcription_segment_builder::IsSet,
+    S::Tokens: transcription_segment_builder::IsSet,
+    S::Temperature: transcription_segment_builder::IsSet,
+    S::AvgLogprob: transcription_segment_builder::IsSet,
+    S::CompressionRatio: transcription_segment_builder::IsSet,
+    S::NoSpeechProb: transcription_segment_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TranscriptionSegment {
+        self.build_internal()
     }
 }
 

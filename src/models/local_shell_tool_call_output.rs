@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LocalShellToolCallOutput : The output of a local shell tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = local_shell_tool_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LocalShellToolCallOutput {
     /// The type of the local shell tool call output. Always `local_shell_call_output`.
     #[serde(rename = "type")]
@@ -41,6 +42,19 @@ impl LocalShellToolCallOutput {
             output,
             status: None,
         }
+    }
+}
+
+impl<S: local_shell_tool_call_output_builder::State> LocalShellToolCallOutputBuilder<S>
+where
+    S::Type: local_shell_tool_call_output_builder::IsSet,
+    S::Id: local_shell_tool_call_output_builder::IsSet,
+    S::Output: local_shell_tool_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LocalShellToolCallOutput {
+        self.build_internal()
     }
 }
 

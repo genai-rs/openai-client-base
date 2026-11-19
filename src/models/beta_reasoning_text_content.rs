@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaReasoningTextContent : Reasoning text from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_reasoning_text_content_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaReasoningTextContent {
     /// The type of the reasoning text. Always `reasoning_text`.  Defaults to `\"reasoning_text\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl BetaReasoningTextContent {
     /// Reasoning text from the model.
     pub fn new(r#type: Type, text: String) -> BetaReasoningTextContent {
         BetaReasoningTextContent { r#type, text }
+    }
+}
+
+impl<S: beta_reasoning_text_content_builder::State> BetaReasoningTextContentBuilder<S>
+where
+    S::Type: beta_reasoning_text_content_builder::IsSet,
+    S::Text: beta_reasoning_text_content_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaReasoningTextContent {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = container_file_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ContainerFileResource {
     /// Unique identifier for the file.
     #[serde(rename = "id")]
@@ -54,6 +55,23 @@ impl ContainerFileResource {
             path,
             source,
         }
+    }
+}
+
+impl<S: container_file_resource_builder::State> ContainerFileResourceBuilder<S>
+where
+    S::Id: container_file_resource_builder::IsSet,
+    S::Object: container_file_resource_builder::IsSet,
+    S::ContainerId: container_file_resource_builder::IsSet,
+    S::CreatedAt: container_file_resource_builder::IsSet,
+    S::Bytes: container_file_resource_builder::IsSet,
+    S::Path: container_file_resource_builder::IsSet,
+    S::Source: container_file_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ContainerFileResource {
+        self.build_internal()
     }
 }
 

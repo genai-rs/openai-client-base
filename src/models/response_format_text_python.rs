@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseFormatTextPython : Configure the model to generate valid Python code. See the [custom grammars guide](https://developers.openai.com/api/docs/guides/function-calling#context-free-grammars) for more details.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_format_text_python_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseFormatTextPython {
     /// The type of response format being defined. Always `python`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl ResponseFormatTextPython {
     /// Configure the model to generate valid Python code. See the [custom grammars guide](https://developers.openai.com/api/docs/guides/function-calling#context-free-grammars) for more details.
     pub fn new(r#type: Type) -> ResponseFormatTextPython {
         ResponseFormatTextPython { r#type }
+    }
+}
+
+impl<S: response_format_text_python_builder::State> ResponseFormatTextPythonBuilder<S>
+where
+    S::Type: response_format_text_python_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseFormatTextPython {
+        self.build_internal()
     }
 }
 

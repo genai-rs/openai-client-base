@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// PersistedAgentToolResourceWebSearch : Web search.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = persisted_agent_tool_resource_web_search_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PersistedAgentToolResourceWebSearch {
     /// The type of the object. Always `web_search`.  Defaults to `\"web_search\"`.
     #[serde(rename = "type")]
@@ -47,6 +48,20 @@ impl PersistedAgentToolResourceWebSearch {
             allowed_domains,
             location,
         }
+    }
+}
+
+impl<S: persisted_agent_tool_resource_web_search_builder::State>
+    PersistedAgentToolResourceWebSearchBuilder<S>
+where
+    S::Type: persisted_agent_tool_resource_web_search_builder::IsSet,
+    S::Mode: persisted_agent_tool_resource_web_search_builder::IsSet,
+    S::ContextSize: persisted_agent_tool_resource_web_search_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PersistedAgentToolResourceWebSearch {
+        self.build_internal()
     }
 }
 

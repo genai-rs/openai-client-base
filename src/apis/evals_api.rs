@@ -515,7 +515,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for UpdateEvalErrorHeaders {
 }
 
 /// Cancel an ongoing evaluation run.
-#[bon::builder]
+#[bon::builder(state_mod = cancel_eval_run_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_eval_run(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -590,13 +590,27 @@ pub async fn cancel_eval_run(
     }
 }
 
+#[allow(deprecated)]
+impl<S: cancel_eval_run_builder::State> CancelEvalRunBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: cancel_eval_run_builder::IsSet,
+    S::EvalId: cancel_eval_run_builder::IsSet,
+    S::RunId: cancel_eval_run_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::EvalRun, Error<CancelEvalRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Cancel an ongoing evaluation run.
 ///
 /// Sends the same request as [`cancel_eval_run`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::EvalRun` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = cancel_eval_run_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_eval_run_response(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -662,8 +676,24 @@ pub async fn cancel_eval_run_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: cancel_eval_run_response_builder::State> CancelEvalRunResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: cancel_eval_run_response_builder::IsSet,
+    S::EvalId: cancel_eval_run_response_builder::IsSet,
+    S::RunId: cancel_eval_run_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::EvalRun>, Error<CancelEvalRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create the structure of an evaluation that can be used to test a model's performance. An evaluation is a set of testing criteria and the config for a data source, which dictates the schema of the data used in the evaluation. After creating an evaluation, you can run it on different models and model parameters. We support several types of graders and datasources. For more information, see the [Evals guide](https://developers.openai.com/api/docs/guides/evals).
-#[bon::builder]
+#[bon::builder(state_mod = create_eval_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_eval(
     configuration: &configuration::Configuration,
     create_eval_request: &models::CreateEvalRequest,
@@ -735,13 +765,26 @@ pub async fn create_eval(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_eval_builder::State> CreateEvalBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_eval_builder::IsSet,
+    S::CreateEvalRequest: create_eval_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Eval, Error<CreateEvalError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create the structure of an evaluation that can be used to test a model's performance. An evaluation is a set of testing criteria and the config for a data source, which dictates the schema of the data used in the evaluation. After creating an evaluation, you can run it on different models and model parameters. We support several types of graders and datasources. For more information, see the [Evals guide](https://developers.openai.com/api/docs/guides/evals).
 ///
 /// Sends the same request as [`create_eval`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Eval` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_eval_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_eval_response(
     configuration: &configuration::Configuration,
     create_eval_request: &models::CreateEvalRequest,
@@ -804,8 +847,21 @@ pub async fn create_eval_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_eval_response_builder::State> CreateEvalResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_eval_response_builder::IsSet,
+    S::CreateEvalRequest: create_eval_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<models::Eval>, Error<CreateEvalError>> {
+        self.call_internal().await
+    }
+}
+
 /// Kicks off a new run for a given evaluation, specifying the data source, and what model configuration to use to test. The datasource will be validated against the schema specified in the config of the evaluation.
-#[bon::builder]
+#[bon::builder(state_mod = create_eval_run_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_eval_run(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -889,13 +945,27 @@ pub async fn create_eval_run(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_eval_run_builder::State> CreateEvalRunBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_eval_run_builder::IsSet,
+    S::EvalId: create_eval_run_builder::IsSet,
+    S::CreateEvalRunRequest: create_eval_run_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::EvalRun, Error<CreateEvalRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Kicks off a new run for a given evaluation, specifying the data source, and what model configuration to use to test. The datasource will be validated against the schema specified in the config of the evaluation.
 ///
 /// Sends the same request as [`create_eval_run`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::EvalRun` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_eval_run_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_eval_run_response(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -970,8 +1040,24 @@ pub async fn create_eval_run_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_eval_run_response_builder::State> CreateEvalRunResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_eval_run_response_builder::IsSet,
+    S::EvalId: create_eval_run_response_builder::IsSet,
+    S::CreateEvalRunRequest: create_eval_run_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::EvalRun>, Error<CreateEvalRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete an evaluation.
-#[bon::builder]
+#[bon::builder(state_mod = delete_eval_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_eval(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -1049,13 +1135,26 @@ pub async fn delete_eval(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_eval_builder::State> DeleteEvalBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_eval_builder::IsSet,
+    S::EvalId: delete_eval_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::DeleteEval200Response, Error<DeleteEvalError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete an evaluation.
 ///
 /// Sends the same request as [`delete_eval`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeleteEval200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_eval_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_eval_response(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -1124,8 +1223,23 @@ pub async fn delete_eval_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_eval_response_builder::State> DeleteEvalResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_eval_response_builder::IsSet,
+    S::EvalId: delete_eval_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeleteEval200Response>, Error<DeleteEvalError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete an eval run.
-#[bon::builder]
+#[bon::builder(state_mod = delete_eval_run_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_eval_run(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -1206,13 +1320,27 @@ pub async fn delete_eval_run(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_eval_run_builder::State> DeleteEvalRunBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_eval_run_builder::IsSet,
+    S::EvalId: delete_eval_run_builder::IsSet,
+    S::RunId: delete_eval_run_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::DeleteEvalRun200Response, Error<DeleteEvalRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete an eval run.
 ///
 /// Sends the same request as [`delete_eval_run`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeleteEvalRun200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_eval_run_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_eval_run_response(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -1284,8 +1412,25 @@ pub async fn delete_eval_run_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_eval_run_response_builder::State> DeleteEvalRunResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_eval_run_response_builder::IsSet,
+    S::EvalId: delete_eval_run_response_builder::IsSet,
+    S::RunId: delete_eval_run_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeleteEvalRun200Response>, Error<DeleteEvalRunError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Get an evaluation by ID.
-#[bon::builder]
+#[bon::builder(state_mod = get_eval_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_eval(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -1360,13 +1505,26 @@ pub async fn get_eval(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_eval_builder::State> GetEvalBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_eval_builder::IsSet,
+    S::EvalId: get_eval_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Eval, Error<GetEvalError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get an evaluation by ID.
 ///
 /// Sends the same request as [`get_eval`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Eval` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_eval_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_eval_response(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -1432,8 +1590,21 @@ pub async fn get_eval_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_eval_response_builder::State> GetEvalResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_eval_response_builder::IsSet,
+    S::EvalId: get_eval_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<models::Eval>, Error<GetEvalError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get an evaluation run by ID.
-#[bon::builder]
+#[bon::builder(state_mod = get_eval_run_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_eval_run(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -1514,13 +1685,27 @@ pub async fn get_eval_run(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_eval_run_builder::State> GetEvalRunBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_eval_run_builder::IsSet,
+    S::EvalId: get_eval_run_builder::IsSet,
+    S::RunId: get_eval_run_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::EvalRun, Error<GetEvalRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get an evaluation run by ID.
 ///
 /// Sends the same request as [`get_eval_run`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::EvalRun` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_eval_run_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_eval_run_response(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -1592,8 +1777,22 @@ pub async fn get_eval_run_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_eval_run_response_builder::State> GetEvalRunResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_eval_run_response_builder::IsSet,
+    S::EvalId: get_eval_run_response_builder::IsSet,
+    S::RunId: get_eval_run_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<models::EvalRun>, Error<GetEvalRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get an evaluation run output item by ID.
-#[bon::builder]
+#[bon::builder(state_mod = get_eval_run_output_item_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_eval_run_output_item(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -1677,13 +1876,28 @@ pub async fn get_eval_run_output_item(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_eval_run_output_item_builder::State> GetEvalRunOutputItemBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: get_eval_run_output_item_builder::IsSet,
+    S::EvalId: get_eval_run_output_item_builder::IsSet,
+    S::RunId: get_eval_run_output_item_builder::IsSet,
+    S::OutputItemId: get_eval_run_output_item_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::EvalRunOutputItem, Error<GetEvalRunOutputItemError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get an evaluation run output item by ID.
 ///
 /// Sends the same request as [`get_eval_run_output_item`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::EvalRunOutputItem` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_eval_run_output_item_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_eval_run_output_item_response(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -1758,8 +1972,27 @@ pub async fn get_eval_run_output_item_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_eval_run_output_item_response_builder::State>
+    GetEvalRunOutputItemResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: get_eval_run_output_item_response_builder::IsSet,
+    S::EvalId: get_eval_run_output_item_response_builder::IsSet,
+    S::RunId: get_eval_run_output_item_response_builder::IsSet,
+    S::OutputItemId: get_eval_run_output_item_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::EvalRunOutputItem>, Error<GetEvalRunOutputItemError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Get a list of output items for an evaluation run.
-#[bon::builder]
+#[bon::builder(state_mod = get_eval_run_output_items_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_eval_run_output_items(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -1860,13 +2093,30 @@ pub async fn get_eval_run_output_items(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_eval_run_output_items_builder::State>
+    GetEvalRunOutputItemsBuilder<'_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: get_eval_run_output_items_builder::IsSet,
+    S::EvalId: get_eval_run_output_items_builder::IsSet,
+    S::RunId: get_eval_run_output_items_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::EvalRunOutputItemList, Error<GetEvalRunOutputItemsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get a list of output items for an evaluation run.
 ///
 /// Sends the same request as [`get_eval_run_output_items`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::EvalRunOutputItemList` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_eval_run_output_items_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_eval_run_output_items_response(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -1958,8 +2208,26 @@ pub async fn get_eval_run_output_items_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_eval_run_output_items_response_builder::State>
+    GetEvalRunOutputItemsResponseBuilder<'_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: get_eval_run_output_items_response_builder::IsSet,
+    S::EvalId: get_eval_run_output_items_response_builder::IsSet,
+    S::RunId: get_eval_run_output_items_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::EvalRunOutputItemList>, Error<GetEvalRunOutputItemsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Get a list of runs for an evaluation.
-#[bon::builder]
+#[bon::builder(state_mod = get_eval_runs_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_eval_runs(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -2057,13 +2325,26 @@ pub async fn get_eval_runs(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_eval_runs_builder::State> GetEvalRunsBuilder<'_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: get_eval_runs_builder::IsSet,
+    S::EvalId: get_eval_runs_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::EvalRunList, Error<GetEvalRunsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get a list of runs for an evaluation.
 ///
 /// Sends the same request as [`get_eval_runs`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::EvalRunList` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_eval_runs_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_eval_runs_response(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -2152,8 +2433,23 @@ pub async fn get_eval_runs_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_eval_runs_response_builder::State> GetEvalRunsResponseBuilder<'_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: get_eval_runs_response_builder::IsSet,
+    S::EvalId: get_eval_runs_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::EvalRunList>, Error<GetEvalRunsError>> {
+        self.call_internal().await
+    }
+}
+
 /// List evaluations for a project.
-#[bon::builder]
+#[bon::builder(state_mod = list_evals_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_evals(
     configuration: &configuration::Configuration,
     after: Option<&str>,
@@ -2239,13 +2535,25 @@ pub async fn list_evals(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_evals_builder::State> ListEvalsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_evals_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::EvalList, Error<ListEvalsError>> {
+        self.call_internal().await
+    }
+}
+
 /// List evaluations for a project.
 ///
 /// Sends the same request as [`list_evals`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::EvalList` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_evals_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_evals_response(
     configuration: &configuration::Configuration,
     after: Option<&str>,
@@ -2322,8 +2630,20 @@ pub async fn list_evals_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_evals_response_builder::State> ListEvalsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_evals_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<models::EvalList>, Error<ListEvalsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Update certain properties of an evaluation.
-#[bon::builder]
+#[bon::builder(state_mod = update_eval_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_eval(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -2404,13 +2724,27 @@ pub async fn update_eval(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_eval_builder::State> UpdateEvalBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_eval_builder::IsSet,
+    S::EvalId: update_eval_builder::IsSet,
+    S::UpdateEvalRequest: update_eval_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Eval, Error<UpdateEvalError>> {
+        self.call_internal().await
+    }
+}
+
 /// Update certain properties of an evaluation.
 ///
 /// Sends the same request as [`update_eval`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Eval` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_eval_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_eval_response(
     configuration: &configuration::Configuration,
     eval_id: &str,
@@ -2479,5 +2813,19 @@ pub async fn update_eval_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: update_eval_response_builder::State> UpdateEvalResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_eval_response_builder::IsSet,
+    S::EvalId: update_eval_response_builder::IsSet,
+    S::UpdateEvalRequest: update_eval_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<models::Eval>, Error<UpdateEvalError>> {
+        self.call_internal().await
     }
 }

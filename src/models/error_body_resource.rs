@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ErrorBodyResource : Details about an API error.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = error_body_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ErrorBodyResource {
     /// The error type.
     ///
@@ -49,6 +50,19 @@ impl ErrorBodyResource {
             message,
             param,
         }
+    }
+}
+
+impl<S: error_body_resource_builder::State> ErrorBodyResourceBuilder<S>
+where
+    S::Type: error_body_resource_builder::IsSet,
+    S::Code: error_body_resource_builder::IsSet,
+    S::Message: error_body_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ErrorBodyResource {
+        self.build_internal()
     }
 }
 

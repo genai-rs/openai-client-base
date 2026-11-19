@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AgentMessageItemResource : A message exchanged between agent threads.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = agent_message_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AgentMessageItemResource {
     /// The ID of the message.
     ///
@@ -62,6 +63,22 @@ impl AgentMessageItemResource {
             recipient_agent_id,
             content,
         }
+    }
+}
+
+impl<S: agent_message_item_resource_builder::State> AgentMessageItemResourceBuilder<S>
+where
+    S::Id: agent_message_item_resource_builder::IsSet,
+    S::TurnId: agent_message_item_resource_builder::IsSet,
+    S::Type: agent_message_item_resource_builder::IsSet,
+    S::SenderAgentId: agent_message_item_resource_builder::IsSet,
+    S::RecipientAgentId: agent_message_item_resource_builder::IsSet,
+    S::Content: agent_message_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AgentMessageItemResource {
+        self.build_internal()
     }
 }
 

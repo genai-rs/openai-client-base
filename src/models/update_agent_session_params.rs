@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// UpdateAgentSessionParams : Fields to update on an existing session.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_agent_session_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateAgentSessionParams {
     /// Default prompt cache lifetime for future turns. Send null to clear the session default.
     #[serde(
@@ -58,6 +59,14 @@ impl UpdateAgentSessionParams {
             agent: None,
             metadata: None,
         }
+    }
+}
+
+impl<S: update_agent_session_params_builder::State> UpdateAgentSessionParamsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateAgentSessionParams {
+        self.build_internal()
     }
 }
 

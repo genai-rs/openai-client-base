@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseCustomToolCallInputDoneEvent : Event indicating that input for a custom tool call is complete.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_custom_tool_call_input_done_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseCustomToolCallInputDoneEvent {
     /// The event type identifier.
     #[serde(rename = "type")]
@@ -46,6 +47,22 @@ impl ResponseCustomToolCallInputDoneEvent {
             item_id,
             input,
         }
+    }
+}
+
+impl<S: response_custom_tool_call_input_done_event_builder::State>
+    ResponseCustomToolCallInputDoneEventBuilder<S>
+where
+    S::Type: response_custom_tool_call_input_done_event_builder::IsSet,
+    S::SequenceNumber: response_custom_tool_call_input_done_event_builder::IsSet,
+    S::OutputIndex: response_custom_tool_call_input_done_event_builder::IsSet,
+    S::ItemId: response_custom_tool_call_input_done_event_builder::IsSet,
+    S::Input: response_custom_tool_call_input_done_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseCustomToolCallInputDoneEvent {
+        self.build_internal()
     }
 }
 

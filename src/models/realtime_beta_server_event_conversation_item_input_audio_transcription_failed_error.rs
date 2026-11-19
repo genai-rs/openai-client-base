@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventConversationItemInputAudioTranscriptionFailedError : Details of the transcription error.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_conversation_item_input_audio_transcription_failed_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventConversationItemInputAudioTranscriptionFailedError {
     /// The type of error.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -36,6 +37,16 @@ impl RealtimeBetaServerEventConversationItemInputAudioTranscriptionFailedError {
             message: None,
             param: None,
         }
+    }
+}
+
+impl<S: realtime_beta_server_event_conversation_item_input_audio_transcription_failed_error_builder::State> RealtimeBetaServerEventConversationItemInputAudioTranscriptionFailedErrorBuilder<S>
+where
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventConversationItemInputAudioTranscriptionFailedError {
+        self.build_internal()
     }
 }
 

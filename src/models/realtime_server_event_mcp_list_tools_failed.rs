@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventMcpListToolsFailed : Returned when listing MCP tools has failed for an item.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_mcp_list_tools_failed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventMcpListToolsFailed {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeServerEventMcpListToolsFailed {
             r#type,
             item_id,
         }
+    }
+}
+
+impl<S: realtime_server_event_mcp_list_tools_failed_builder::State>
+    RealtimeServerEventMcpListToolsFailedBuilder<S>
+where
+    S::EventId: realtime_server_event_mcp_list_tools_failed_builder::IsSet,
+    S::Type: realtime_server_event_mcp_list_tools_failed_builder::IsSet,
+    S::ItemId: realtime_server_event_mcp_list_tools_failed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventMcpListToolsFailed {
+        self.build_internal()
     }
 }
 

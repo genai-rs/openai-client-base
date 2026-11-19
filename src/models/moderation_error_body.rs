@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ModerationErrorBody : An error produced while attempting moderation for the response input or output.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = moderation_error_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ModerationErrorBody {
     /// The object type, which was always `error` for moderation failures.  Defaults to `\"error\"`.
     #[serde(rename = "type")]
@@ -32,6 +33,19 @@ impl ModerationErrorBody {
             code,
             message,
         }
+    }
+}
+
+impl<S: moderation_error_body_builder::State> ModerationErrorBodyBuilder<S>
+where
+    S::Type: moderation_error_body_builder::IsSet,
+    S::Code: moderation_error_body_builder::IsSet,
+    S::Message: moderation_error_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ModerationErrorBody {
+        self.build_internal()
     }
 }
 

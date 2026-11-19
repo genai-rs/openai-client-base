@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ActiveStatus : Indicates that a thread is active.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = active_status_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ActiveStatus {
     /// Status discriminator that is always `active`.  Defaults to `\"active\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl ActiveStatus {
     /// Indicates that a thread is active.
     pub fn new(r#type: Type) -> ActiveStatus {
         ActiveStatus { r#type }
+    }
+}
+
+impl<S: active_status_builder::State> ActiveStatusBuilder<S>
+where
+    S::Type: active_status_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ActiveStatus {
+        self.build_internal()
     }
 }
 

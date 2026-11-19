@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// VaultResource : A collection of credentials for MCP servers and OpenAI-hosted environments.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vault_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VaultResource {
     /// The ID of the vault.
     ///
@@ -52,6 +53,20 @@ impl VaultResource {
             metadata,
             created_at,
         }
+    }
+}
+
+impl<S: vault_resource_builder::State> VaultResourceBuilder<S>
+where
+    S::Id: vault_resource_builder::IsSet,
+    S::Object: vault_resource_builder::IsSet,
+    S::Metadata: vault_resource_builder::IsSet,
+    S::CreatedAt: vault_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VaultResource {
+        self.build_internal()
     }
 }
 

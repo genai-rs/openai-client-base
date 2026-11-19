@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audio_transcription_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AudioTranscriptionResponse {
     /// The model used for transcription. Current options are `whisper-1`, `gpt-transcribe`, `gpt-live-transcribe`, `gpt-4o-mini-transcribe`, `gpt-4o-mini-transcribe-2025-12-15`, `gpt-4o-transcribe`, `gpt-4o-transcribe-diarize`, and `gpt-realtime-whisper`.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
@@ -45,6 +46,14 @@ impl AudioTranscriptionResponse {
             keywords: None,
             prompt: None,
         }
+    }
+}
+
+impl<S: audio_transcription_response_builder::State> AudioTranscriptionResponseBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AudioTranscriptionResponse {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_tool_search_output_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaToolSearchOutputItemParam {
     #[serde(
         rename = "agent",
@@ -69,6 +70,18 @@ impl BetaToolSearchOutputItemParam {
             tools,
             status: None,
         }
+    }
+}
+
+impl<S: beta_tool_search_output_item_param_builder::State> BetaToolSearchOutputItemParamBuilder<S>
+where
+    S::Type: beta_tool_search_output_item_param_builder::IsSet,
+    S::Tools: beta_tool_search_output_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaToolSearchOutputItemParam {
+        self.build_internal()
     }
 }
 

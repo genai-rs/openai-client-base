@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseShellCallOutputContentDoneStreamingEvent : A streaming event that indicated shell call output was completed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_shell_call_output_content_done_streaming_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseShellCallOutputContentDoneStreamingEvent {
     /// The type of the event, always `response.shell_call_output_content.done`.  Defaults to `\"response.shell_call_output_content.done\"`.
     #[serde(rename = "type")]
@@ -52,6 +53,23 @@ impl ResponseShellCallOutputContentDoneStreamingEvent {
             command_index,
             output,
         }
+    }
+}
+
+impl<S: response_shell_call_output_content_done_streaming_event_builder::State>
+    ResponseShellCallOutputContentDoneStreamingEventBuilder<S>
+where
+    S::Type: response_shell_call_output_content_done_streaming_event_builder::IsSet,
+    S::SequenceNumber: response_shell_call_output_content_done_streaming_event_builder::IsSet,
+    S::ItemId: response_shell_call_output_content_done_streaming_event_builder::IsSet,
+    S::OutputIndex: response_shell_call_output_content_done_streaming_event_builder::IsSet,
+    S::CommandIndex: response_shell_call_output_content_done_streaming_event_builder::IsSet,
+    S::Output: response_shell_call_output_content_done_streaming_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseShellCallOutputContentDoneStreamingEvent {
+        self.build_internal()
     }
 }
 

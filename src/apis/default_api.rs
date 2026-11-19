@@ -1103,7 +1103,7 @@ pub enum ValidateanexternalstorageconfigurationError {
 
 #[cfg(feature = "administration")]
 /// Add an external key config for an organization
-#[bon::builder]
+#[bon::builder(state_mod = addanexternalkeyconfigforanorganization_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn addanexternalkeyconfigforanorganization(
     configuration: &configuration::Configuration,
     v1_organization_external_keys_post_request: &models::V1OrganizationExternalKeysPostRequest,
@@ -1167,13 +1167,32 @@ pub async fn addanexternalkeyconfigforanorganization(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: addanexternalkeyconfigforanorganization_builder::State>
+    AddanexternalkeyconfigforanorganizationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: addanexternalkeyconfigforanorganization_builder::IsSet,
+    S::V1OrganizationExternalKeysPostRequest:
+        addanexternalkeyconfigforanorganization_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ExternalKeyResource, Error<AddanexternalkeyconfigforanorganizationError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Add an external key config for an organization
 ///
 /// Sends the same request as [`addanexternalkeyconfigforanorganization`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ExternalKeyResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = addanexternalkeyconfigforanorganization_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn addanexternalkeyconfigforanorganization_response(
     configuration: &configuration::Configuration,
     v1_organization_external_keys_post_request: &models::V1OrganizationExternalKeysPostRequest,
@@ -1231,8 +1250,29 @@ pub async fn addanexternalkeyconfigforanorganization_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: addanexternalkeyconfigforanorganization_response_builder::State>
+    AddanexternalkeyconfigforanorganizationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: addanexternalkeyconfigforanorganization_response_builder::IsSet,
+    S::V1OrganizationExternalKeysPostRequest:
+        addanexternalkeyconfigforanorganization_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ExternalKeyResource>,
+        Error<AddanexternalkeyconfigforanorganizationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Create an organization admin API key
-#[bon::builder]
+#[bon::builder(state_mod = admin_api_keys_create_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn admin_api_keys_create(
     configuration: &configuration::Configuration,
     admin_api_keys_create_request: &models::AdminApiKeysCreateRequest,
@@ -1308,13 +1348,29 @@ pub async fn admin_api_keys_create(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: admin_api_keys_create_builder::State> AdminApiKeysCreateBuilder<'_, '_, '_, S>
+where
+    S::Configuration: admin_api_keys_create_builder::IsSet,
+    S::AdminApiKeysCreateRequest: admin_api_keys_create_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::AdminApiKeyCreateResponse, Error<AdminApiKeysCreateError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Create an organization admin API key
 ///
 /// Sends the same request as [`admin_api_keys_create`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AdminApiKeyCreateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = admin_api_keys_create_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn admin_api_keys_create_response(
     configuration: &configuration::Configuration,
     admin_api_keys_create_request: &models::AdminApiKeysCreateRequest,
@@ -1381,8 +1437,26 @@ pub async fn admin_api_keys_create_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: admin_api_keys_create_response_builder::State>
+    AdminApiKeysCreateResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: admin_api_keys_create_response_builder::IsSet,
+    S::AdminApiKeysCreateRequest: admin_api_keys_create_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AdminApiKeyCreateResponse>, Error<AdminApiKeysCreateError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Delete an organization admin API key
-#[bon::builder]
+#[bon::builder(state_mod = admin_api_keys_delete_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn admin_api_keys_delete(
     configuration: &configuration::Configuration,
     key_id: &str,
@@ -1458,13 +1532,29 @@ pub async fn admin_api_keys_delete(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: admin_api_keys_delete_builder::State> AdminApiKeysDeleteBuilder<'_, '_, '_, S>
+where
+    S::Configuration: admin_api_keys_delete_builder::IsSet,
+    S::KeyId: admin_api_keys_delete_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::AdminApiKeysDelete200Response, Error<AdminApiKeysDeleteError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Delete an organization admin API key
 ///
 /// Sends the same request as [`admin_api_keys_delete`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AdminApiKeysDelete200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = admin_api_keys_delete_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn admin_api_keys_delete_response(
     configuration: &configuration::Configuration,
     key_id: &str,
@@ -1532,8 +1622,28 @@ pub async fn admin_api_keys_delete_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: admin_api_keys_delete_response_builder::State>
+    AdminApiKeysDeleteResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: admin_api_keys_delete_response_builder::IsSet,
+    S::KeyId: admin_api_keys_delete_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::AdminApiKeysDelete200Response>,
+        Error<AdminApiKeysDeleteError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Retrieve a single organization API key
-#[bon::builder]
+#[bon::builder(state_mod = admin_api_keys_get_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn admin_api_keys_get(
     configuration: &configuration::Configuration,
     key_id: &str,
@@ -1609,13 +1719,27 @@ pub async fn admin_api_keys_get(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: admin_api_keys_get_builder::State> AdminApiKeysGetBuilder<'_, '_, '_, S>
+where
+    S::Configuration: admin_api_keys_get_builder::IsSet,
+    S::KeyId: admin_api_keys_get_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::AdminApiKey, Error<AdminApiKeysGetError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Retrieve a single organization API key
 ///
 /// Sends the same request as [`admin_api_keys_get`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AdminApiKey` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = admin_api_keys_get_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn admin_api_keys_get_response(
     configuration: &configuration::Configuration,
     key_id: &str,
@@ -1682,8 +1806,24 @@ pub async fn admin_api_keys_get_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: admin_api_keys_get_response_builder::State> AdminApiKeysGetResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: admin_api_keys_get_response_builder::IsSet,
+    S::KeyId: admin_api_keys_get_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AdminApiKey>, Error<AdminApiKeysGetError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// List organization API keys
-#[bon::builder]
+#[bon::builder(state_mod = admin_api_keys_list_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn admin_api_keys_list(
     configuration: &configuration::Configuration,
     after: Option<&str>,
@@ -1768,13 +1908,26 @@ pub async fn admin_api_keys_list(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: admin_api_keys_list_builder::State> AdminApiKeysListBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: admin_api_keys_list_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ApiKeyList, Error<AdminApiKeysListError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// List organization API keys
 ///
 /// Sends the same request as [`admin_api_keys_list`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ApiKeyList` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = admin_api_keys_list_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn admin_api_keys_list_response(
     configuration: &configuration::Configuration,
     after: Option<&str>,
@@ -1849,9 +2002,25 @@ pub async fn admin_api_keys_list_response(
     }
 }
 
+#[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: admin_api_keys_list_response_builder::State>
+    AdminApiKeysListResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: admin_api_keys_list_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ApiKeyList>, Error<AdminApiKeysListError>> {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "chatkit")]
 /// Cancel an active ChatKit session and return its most recent metadata.  Cancelling prevents new requests from using the issued client secret.
-#[bon::builder]
+#[bon::builder(state_mod = cancel_chat_session_method_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_chat_session_method(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -1930,13 +2099,29 @@ pub async fn cancel_chat_session_method(
 }
 
 #[cfg(feature = "chatkit")]
+#[allow(deprecated)]
+impl<S: cancel_chat_session_method_builder::State> CancelChatSessionMethodBuilder<'_, '_, '_, S>
+where
+    S::Configuration: cancel_chat_session_method_builder::IsSet,
+    S::SessionId: cancel_chat_session_method_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ChatSessionResource, Error<CancelChatSessionMethodError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "chatkit")]
 /// Cancel an active ChatKit session and return its most recent metadata.  Cancelling prevents new requests from using the issued client secret.
 ///
 /// Sends the same request as [`cancel_chat_session_method`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ChatSessionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = cancel_chat_session_method_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_chat_session_method_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -2006,8 +2191,26 @@ pub async fn cancel_chat_session_method_response(
 }
 
 #[cfg(feature = "chatkit")]
+#[allow(deprecated)]
+impl<S: cancel_chat_session_method_response_builder::State>
+    CancelChatSessionMethodResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: cancel_chat_session_method_response_builder::IsSet,
+    S::SessionId: cancel_chat_session_method_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ChatSessionResource>, Error<CancelChatSessionMethodError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "chatkit")]
 /// Create a ChatKit session.
-#[bon::builder]
+#[bon::builder(state_mod = create_chat_session_method_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_chat_session_method(
     configuration: &configuration::Configuration,
     create_chat_session_body: Option<&models::CreateChatSessionBody>,
@@ -2083,13 +2286,28 @@ pub async fn create_chat_session_method(
 }
 
 #[cfg(feature = "chatkit")]
+#[allow(deprecated)]
+impl<S: create_chat_session_method_builder::State> CreateChatSessionMethodBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_chat_session_method_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ChatSessionResource, Error<CreateChatSessionMethodError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "chatkit")]
 /// Create a ChatKit session.
 ///
 /// Sends the same request as [`create_chat_session_method`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ChatSessionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_chat_session_method_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_chat_session_method_response(
     configuration: &configuration::Configuration,
     create_chat_session_body: Option<&models::CreateChatSessionBody>,
@@ -2155,9 +2373,26 @@ pub async fn create_chat_session_method_response(
     }
 }
 
+#[cfg(feature = "chatkit")]
+#[allow(deprecated)]
+impl<S: create_chat_session_method_response_builder::State>
+    CreateChatSessionMethodResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_chat_session_method_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ChatSessionResource>, Error<CreateChatSessionMethodError>>
+    {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "container")]
 /// Create Container
-#[bon::builder]
+#[bon::builder(state_mod = create_container_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_container(
     configuration: &configuration::Configuration,
     create_container_body: Option<&models::CreateContainerBody>,
@@ -2230,13 +2465,26 @@ pub async fn create_container(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: create_container_builder::State> CreateContainerBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_container_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ContainerResource, Error<CreateContainerError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// Create Container
 ///
 /// Sends the same request as [`create_container`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ContainerResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_container_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_container_response(
     configuration: &configuration::Configuration,
     create_container_body: Option<&models::CreateContainerBody>,
@@ -2300,8 +2548,23 @@ pub async fn create_container_response(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: create_container_response_builder::State> CreateContainerResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_container_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ContainerResource>, Error<CreateContainerError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// Create a Container File  You can send either a multipart/form-data request with the raw file content, or a JSON request with a file ID.
-#[bon::builder]
+#[bon::builder(state_mod = create_container_file_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_container_file(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -2383,13 +2646,30 @@ pub async fn create_container_file(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: create_container_file_builder::State> CreateContainerFileBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_container_file_builder::IsSet,
+    S::ContainerId: create_container_file_builder::IsSet,
+    S::CreateContainerFileBody: create_container_file_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ContainerFileResource, Error<CreateContainerFileError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// Create a Container File  You can send either a multipart/form-data request with the raw file content, or a JSON request with a file ID.
 ///
 /// Sends the same request as [`create_container_file`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ContainerFileResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_container_file_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_container_file_response(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -2462,10 +2742,29 @@ pub async fn create_container_file_response(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: create_container_file_response_builder::State>
+    CreateContainerFileResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_container_file_response_builder::IsSet,
+    S::ContainerId: create_container_file_response_builder::IsSet,
+    S::CreateContainerFileBody: create_container_file_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ContainerFileResource>, Error<CreateContainerFileError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// Create a Container File  You can send either a multipart/form-data request with the raw file content, or a JSON request with a file ID.
 ///
 /// Sends the request body as `multipart/form-data`; `create_container_file` sends it as `application/json`.
-#[bon::builder]
+#[bon::builder(state_mod = create_container_file_multipart_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_container_file_multipart(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -2558,6 +2857,23 @@ pub async fn create_container_file_multipart(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: create_container_file_multipart_builder::State>
+    CreateContainerFileMultipartBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_container_file_multipart_builder::IsSet,
+    S::ContainerId: create_container_file_multipart_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ContainerFileResource, Error<CreateContainerFileError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// Create a Container File  You can send either a multipart/form-data request with the raw file content, or a JSON request with a file ID.
 ///
 /// Sends the request body as `multipart/form-data`; `create_container_file` sends it as `application/json`.
@@ -2566,7 +2882,7 @@ pub async fn create_container_file_multipart(
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ContainerFileResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_container_file_multipart_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_container_file_multipart_response(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -2649,9 +2965,27 @@ pub async fn create_container_file_multipart_response(
     }
 }
 
+#[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: create_container_file_multipart_response_builder::State>
+    CreateContainerFileMultipartResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_container_file_multipart_response_builder::IsSet,
+    S::ContainerId: create_container_file_multipart_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ContainerFileResource>, Error<CreateContainerFileError>>
+    {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Bind verified token attributes to an existing project service account.
-#[bon::builder]
+#[bon::builder(state_mod = create_platformworkloadidentityfederationrule_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_platformworkloadidentityfederationrule(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -2720,13 +3054,33 @@ pub async fn create_platformworkloadidentityfederationrule(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: create_platformworkloadidentityfederationrule_builder::State>
+    CreatePlatformworkloadidentityfederationruleBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_platformworkloadidentityfederationrule_builder::IsSet,
+    S::WorkloadIdentityProviderId: create_platformworkloadidentityfederationrule_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::PlatformFederationRule,
+        Error<CreatePlatformworkloadidentityfederationruleError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Bind verified token attributes to an existing project service account.
 ///
 /// Sends the same request as [`create_platformworkloadidentityfederationrule`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PlatformFederationRule` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_platformworkloadidentityfederationrule_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_platformworkloadidentityfederationrule_response(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -2788,8 +3142,29 @@ pub async fn create_platformworkloadidentityfederationrule_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: create_platformworkloadidentityfederationrule_response_builder::State>
+    CreatePlatformworkloadidentityfederationruleResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_platformworkloadidentityfederationrule_response_builder::IsSet,
+    S::WorkloadIdentityProviderId:
+        create_platformworkloadidentityfederationrule_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::PlatformFederationRule>,
+        Error<CreatePlatformworkloadidentityfederationruleError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Register an OIDC provider for keyless project service-account authentication.
-#[bon::builder]
+#[bon::builder(state_mod = create_platformworkloadidentityprovider_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_platformworkloadidentityprovider(
     configuration: &configuration::Configuration,
     create_platform_workload_identity_provider_body: Option<
@@ -2858,13 +3233,29 @@ pub async fn create_platformworkloadidentityprovider(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: create_platformworkloadidentityprovider_builder::State>
+    CreatePlatformworkloadidentityproviderBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_platformworkloadidentityprovider_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::PlatformProvider, Error<CreatePlatformworkloadidentityproviderError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Register an OIDC provider for keyless project service-account authentication.
 ///
 /// Sends the same request as [`create_platformworkloadidentityprovider`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PlatformProvider` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_platformworkloadidentityprovider_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_platformworkloadidentityprovider_response(
     configuration: &configuration::Configuration,
     create_platform_workload_identity_provider_body: Option<
@@ -2926,9 +3317,28 @@ pub async fn create_platformworkloadidentityprovider_response(
     }
 }
 
+#[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: create_platformworkloadidentityprovider_response_builder::State>
+    CreatePlatformworkloadidentityproviderResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_platformworkloadidentityprovider_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::PlatformProvider>,
+        Error<CreatePlatformworkloadidentityproviderError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "webhook")]
 /// Creates a webhook endpoint for the authenticated project.
-#[bon::builder]
+#[bon::builder(state_mod = create_webhook_endpoint_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_webhook_endpoint(
     configuration: &configuration::Configuration,
     public_create_endpoint_body: Option<&models::PublicCreateEndpointBody>,
@@ -2998,13 +3408,28 @@ pub async fn create_webhook_endpoint(
 }
 
 #[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: create_webhook_endpoint_builder::State> CreateWebhookEndpointBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_webhook_endpoint_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::WebhookEndpointWithSecretResource, Error<CreateWebhookEndpointError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "webhook")]
 /// Creates a webhook endpoint for the authenticated project.
 ///
 /// Sends the same request as [`create_webhook_endpoint`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::WebhookEndpointWithSecretResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_webhook_endpoint_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_webhook_endpoint_response(
     configuration: &configuration::Configuration,
     public_create_endpoint_body: Option<&models::PublicCreateEndpointBody>,
@@ -3067,9 +3492,28 @@ pub async fn create_webhook_endpoint_response(
     }
 }
 
+#[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: create_webhook_endpoint_response_builder::State>
+    CreateWebhookEndpointResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_webhook_endpoint_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::WebhookEndpointWithSecretResource>,
+        Error<CreateWebhookEndpointError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Creates an API key for a service account in the project.
-#[bon::builder]
+#[bon::builder(state_mod = createan_ap_ikeyforaserviceaccount_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn createan_ap_ikeyforaserviceaccount(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -3160,13 +3604,32 @@ pub async fn createan_ap_ikeyforaserviceaccount(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: createan_ap_ikeyforaserviceaccount_builder::State>
+    CreateanApIkeyforaserviceaccountBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: createan_ap_ikeyforaserviceaccount_builder::IsSet,
+    S::ProjectId: createan_ap_ikeyforaserviceaccount_builder::IsSet,
+    S::ServiceAccountId: createan_ap_ikeyforaserviceaccount_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ServiceAccountApiKeyBody, Error<CreateanApIkeyforaserviceaccountError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Creates an API key for a service account in the project.
 ///
 /// Sends the same request as [`createan_ap_ikeyforaserviceaccount`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ServiceAccountApiKeyBody` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = createan_ap_ikeyforaserviceaccount_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn createan_ap_ikeyforaserviceaccount_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -3251,8 +3714,29 @@ pub async fn createan_ap_ikeyforaserviceaccount_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: createan_ap_ikeyforaserviceaccount_response_builder::State>
+    CreateanApIkeyforaserviceaccountResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: createan_ap_ikeyforaserviceaccount_response_builder::IsSet,
+    S::ProjectId: createan_ap_ikeyforaserviceaccount_response_builder::IsSet,
+    S::ServiceAccountId: createan_ap_ikeyforaserviceaccount_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ServiceAccountApiKeyBody>,
+        Error<CreateanApIkeyforaserviceaccountError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Register one customer-managed external storage configuration.
-#[bon::builder]
+#[bon::builder(state_mod = createanexternalstorageconfiguration_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn createanexternalstorageconfiguration(
     configuration: &configuration::Configuration,
     create_external_storage_body: &models::CreateExternalStorageBody,
@@ -3331,13 +3815,31 @@ pub async fn createanexternalstorageconfiguration(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: createanexternalstorageconfiguration_builder::State>
+    CreateanexternalstorageconfigurationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: createanexternalstorageconfiguration_builder::IsSet,
+    S::CreateExternalStorageBody: createanexternalstorageconfiguration_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ExternalStorageResponse, Error<CreateanexternalstorageconfigurationError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Register one customer-managed external storage configuration.
 ///
 /// Sends the same request as [`createanexternalstorageconfiguration`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ExternalStorageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = createanexternalstorageconfiguration_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn createanexternalstorageconfiguration_response(
     configuration: &configuration::Configuration,
     create_external_storage_body: &models::CreateExternalStorageBody,
@@ -3409,9 +3911,29 @@ pub async fn createanexternalstorageconfiguration_response(
     }
 }
 
+#[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: createanexternalstorageconfiguration_response_builder::State>
+    CreateanexternalstorageconfigurationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: createanexternalstorageconfiguration_response_builder::IsSet,
+    S::CreateExternalStorageBody: createanexternalstorageconfiguration_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ExternalStorageResponse>,
+        Error<CreateanexternalstorageconfigurationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "content-provenance-checks")]
 /// Check whether an image or audio file contains known OpenAI provenance signals. [Learn more about content provenance](https://developers.openai.com/api/docs/guides/content-provenance).  If `not_detected`, it means the tool did not find supported signals in the uploaded file. The content could still have been generated by OpenAI if the metadata was stripped or has evidence of tampering, the watermark was degraded, it comes from a legacy generation model, or it was created before provenance signals were available. Content could also still be AI-generated by another company's model, which the tool currently does not detect.
-#[bon::builder]
+#[bon::builder(state_mod = createcontentprovenancecheck_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn createcontentprovenancecheck(
     configuration: &configuration::Configuration,
     #[builder(into)] file: timvw_rust_runtime::Upload,
@@ -3497,13 +4019,29 @@ pub async fn createcontentprovenancecheck(
 }
 
 #[cfg(feature = "content-provenance-checks")]
+#[allow(deprecated)]
+impl<S: createcontentprovenancecheck_builder::State> CreatecontentprovenancecheckBuilder<'_, '_, S>
+where
+    S::Configuration: createcontentprovenancecheck_builder::IsSet,
+    S::File: createcontentprovenancecheck_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProvenanceResource, Error<CreatecontentprovenancecheckError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "content-provenance-checks")]
 /// Check whether an image or audio file contains known OpenAI provenance signals. [Learn more about content provenance](https://developers.openai.com/api/docs/guides/content-provenance).  If `not_detected`, it means the tool did not find supported signals in the uploaded file. The content could still have been generated by OpenAI if the metadata was stripped or has evidence of tampering, the watermark was degraded, it comes from a legacy generation model, or it was created before provenance signals were available. Content could also still be AI-generated by another company's model, which the tool currently does not detect.
 ///
 /// Sends the same request as [`createcontentprovenancecheck`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProvenanceResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = createcontentprovenancecheck_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn createcontentprovenancecheck_response(
     configuration: &configuration::Configuration,
     #[builder(into)] file: timvw_rust_runtime::Upload,
@@ -3580,9 +4118,29 @@ pub async fn createcontentprovenancecheck_response(
     }
 }
 
+#[cfg(feature = "content-provenance-checks")]
+#[allow(deprecated)]
+impl<S: createcontentprovenancecheck_response_builder::State>
+    CreatecontentprovenancecheckResponseBuilder<'_, '_, S>
+where
+    S::Configuration: createcontentprovenancecheck_response_builder::IsSet,
+    S::File: createcontentprovenancecheck_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProvenanceResource>,
+        Error<CreatecontentprovenancecheckError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "container")]
 /// Delete Container
-#[bon::builder]
+#[bon::builder(state_mod = delete_container_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_container(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -3658,13 +4216,29 @@ pub async fn delete_container(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: delete_container_builder::State> DeleteContainerBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_container_builder::IsSet,
+    S::ContainerId: delete_container_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeleteContainer200Response, Error<DeleteContainerError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// Delete Container
 ///
 /// Sends the same request as [`delete_container`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeleteContainer200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_container_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_container_response(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -3731,8 +4305,25 @@ pub async fn delete_container_response(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: delete_container_response_builder::State> DeleteContainerResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_container_response_builder::IsSet,
+    S::ContainerId: delete_container_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeleteContainer200Response>, Error<DeleteContainerError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// Delete Container File
-#[bon::builder]
+#[bon::builder(state_mod = delete_container_file_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_container_file(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -3811,13 +4402,30 @@ pub async fn delete_container_file(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: delete_container_file_builder::State> DeleteContainerFileBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_container_file_builder::IsSet,
+    S::ContainerId: delete_container_file_builder::IsSet,
+    S::FileId: delete_container_file_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeleteContainerFile200Response, Error<DeleteContainerFileError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// Delete Container File
 ///
 /// Sends the same request as [`delete_container_file`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeleteContainerFile200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_container_file_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_container_file_response(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -3889,9 +4497,30 @@ pub async fn delete_container_file_response(
     }
 }
 
+#[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: delete_container_file_response_builder::State>
+    DeleteContainerFileResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_container_file_response_builder::IsSet,
+    S::ContainerId: delete_container_file_response_builder::IsSet,
+    S::FileId: delete_container_file_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::DeleteContainerFile200Response>,
+        Error<DeleteContainerFileError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Delete a federation rule to a project service account.
-#[bon::builder]
+#[bon::builder(state_mod = delete_platformworkloadidentityfederationrule_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_platformworkloadidentityfederationrule(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -3958,13 +4587,35 @@ pub async fn delete_platformworkloadidentityfederationrule(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: delete_platformworkloadidentityfederationrule_builder::State>
+    DeletePlatformworkloadidentityfederationruleBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_platformworkloadidentityfederationrule_builder::IsSet,
+    S::WorkloadIdentityProviderId: delete_platformworkloadidentityfederationrule_builder::IsSet,
+    S::WorkloadIdentityFederationRuleId:
+        delete_platformworkloadidentityfederationrule_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::PlatformFederationRuleDeletedResource,
+        Error<DeletePlatformworkloadidentityfederationruleError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Delete a federation rule to a project service account.
 ///
 /// Sends the same request as [`delete_platformworkloadidentityfederationrule`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PlatformFederationRuleDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_platformworkloadidentityfederationrule_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_platformworkloadidentityfederationrule_response(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -4022,8 +4673,31 @@ pub async fn delete_platformworkloadidentityfederationrule_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: delete_platformworkloadidentityfederationrule_response_builder::State>
+    DeletePlatformworkloadidentityfederationruleResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_platformworkloadidentityfederationrule_response_builder::IsSet,
+    S::WorkloadIdentityProviderId:
+        delete_platformworkloadidentityfederationrule_response_builder::IsSet,
+    S::WorkloadIdentityFederationRuleId:
+        delete_platformworkloadidentityfederationrule_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::PlatformFederationRuleDeletedResource>,
+        Error<DeletePlatformworkloadidentityfederationruleError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Delete a provider after deleting all its federation rules.
-#[bon::builder]
+#[bon::builder(state_mod = delete_platformworkloadidentityprovider_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_platformworkloadidentityprovider(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -4093,13 +4767,33 @@ pub async fn delete_platformworkloadidentityprovider(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: delete_platformworkloadidentityprovider_builder::State>
+    DeletePlatformworkloadidentityproviderBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_platformworkloadidentityprovider_builder::IsSet,
+    S::WorkloadIdentityProviderId: delete_platformworkloadidentityprovider_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::PlatformProviderDeletedResource,
+        Error<DeletePlatformworkloadidentityproviderError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Delete a provider after deleting all its federation rules.
 ///
 /// Sends the same request as [`delete_platformworkloadidentityprovider`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PlatformProviderDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_platformworkloadidentityprovider_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_platformworkloadidentityprovider_response(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -4159,9 +4853,29 @@ pub async fn delete_platformworkloadidentityprovider_response(
     }
 }
 
+#[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: delete_platformworkloadidentityprovider_response_builder::State>
+    DeletePlatformworkloadidentityproviderResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_platformworkloadidentityprovider_response_builder::IsSet,
+    S::WorkloadIdentityProviderId: delete_platformworkloadidentityprovider_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::PlatformProviderDeletedResource>,
+        Error<DeletePlatformworkloadidentityproviderError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "chatkit")]
 /// Delete a ChatKit thread along with its items and stored attachments.
-#[bon::builder]
+#[bon::builder(state_mod = delete_thread_method_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_thread_method(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -4240,13 +4954,29 @@ pub async fn delete_thread_method(
 }
 
 #[cfg(feature = "chatkit")]
+#[allow(deprecated)]
+impl<S: delete_thread_method_builder::State> DeleteThreadMethodBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_thread_method_builder::IsSet,
+    S::ThreadId: delete_thread_method_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeletedThreadResource, Error<DeleteThreadMethodError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "chatkit")]
 /// Delete a ChatKit thread along with its items and stored attachments.
 ///
 /// Sends the same request as [`delete_thread_method`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeletedThreadResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_thread_method_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_thread_method_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -4315,9 +5045,27 @@ pub async fn delete_thread_method_response(
     }
 }
 
+#[cfg(feature = "chatkit")]
+#[allow(deprecated)]
+impl<S: delete_thread_method_response_builder::State>
+    DeleteThreadMethodResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_thread_method_response_builder::IsSet,
+    S::ThreadId: delete_thread_method_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeletedThreadResource>, Error<DeleteThreadMethodError>>
+    {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "webhook")]
 /// Deletes a webhook endpoint for the authenticated project.
-#[bon::builder]
+#[bon::builder(state_mod = delete_webhook_endpoint_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_webhook_endpoint(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
@@ -4393,13 +5141,29 @@ pub async fn delete_webhook_endpoint(
 }
 
 #[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: delete_webhook_endpoint_builder::State> DeleteWebhookEndpointBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_webhook_endpoint_builder::IsSet,
+    S::WebhookEndpointId: delete_webhook_endpoint_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeletedWebhookEndpointResource, Error<DeleteWebhookEndpointError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "webhook")]
 /// Deletes a webhook endpoint for the authenticated project.
 ///
 /// Sends the same request as [`delete_webhook_endpoint`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeletedWebhookEndpointResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_webhook_endpoint_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_webhook_endpoint_response(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
@@ -4468,9 +5232,29 @@ pub async fn delete_webhook_endpoint_response(
     }
 }
 
+#[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: delete_webhook_endpoint_response_builder::State>
+    DeleteWebhookEndpointResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_webhook_endpoint_response_builder::IsSet,
+    S::WebhookEndpointId: delete_webhook_endpoint_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::DeletedWebhookEndpointResource>,
+        Error<DeleteWebhookEndpointError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Delete an external key config for the user's organization
-#[bon::builder]
+#[bon::builder(state_mod = deleteanexternalkeyconfigfortheuser_quote_sorganization_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn deleteanexternalkeyconfigfortheuser_quote_sorganization(
     configuration: &configuration::Configuration,
     external_key_id: &str,
@@ -4539,13 +5323,33 @@ pub async fn deleteanexternalkeyconfigfortheuser_quote_sorganization(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: deleteanexternalkeyconfigfortheuser_quote_sorganization_builder::State>
+    DeleteanexternalkeyconfigfortheuserQuoteSorganizationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: deleteanexternalkeyconfigfortheuser_quote_sorganization_builder::IsSet,
+    S::ExternalKeyId: deleteanexternalkeyconfigfortheuser_quote_sorganization_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::ExternalKeyResource,
+        Error<DeleteanexternalkeyconfigfortheuserQuoteSorganizationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Delete an external key config for the user's organization
 ///
 /// Sends the same request as [`deleteanexternalkeyconfigfortheuser_quote_sorganization`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ExternalKeyResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = deleteanexternalkeyconfigfortheuser_quote_sorganization_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn deleteanexternalkeyconfigfortheuser_quote_sorganization_response(
     configuration: &configuration::Configuration,
     external_key_id: &str,
@@ -4605,8 +5409,30 @@ pub async fn deleteanexternalkeyconfigfortheuser_quote_sorganization_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: deleteanexternalkeyconfigfortheuser_quote_sorganization_response_builder::State>
+    DeleteanexternalkeyconfigfortheuserQuoteSorganizationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration:
+        deleteanexternalkeyconfigfortheuser_quote_sorganization_response_builder::IsSet,
+    S::ExternalKeyId:
+        deleteanexternalkeyconfigfortheuser_quote_sorganization_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ExternalKeyResource>,
+        Error<DeleteanexternalkeyconfigfortheuserQuoteSorganizationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Disconnect a customer-managed external storage configuration. Removing the project's last configuration restores organization-default retention if customer-managed retention was active. Repeating a deletion also completes any interrupted retention update. Cloud storage is unchanged.
-#[bon::builder]
+#[bon::builder(state_mod = deleteanexternalstorageconfiguration_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn deleteanexternalstorageconfiguration(
     configuration: &configuration::Configuration,
     external_storage_id: &str,
@@ -4686,13 +5512,33 @@ pub async fn deleteanexternalstorageconfiguration(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: deleteanexternalstorageconfiguration_builder::State>
+    DeleteanexternalstorageconfigurationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: deleteanexternalstorageconfiguration_builder::IsSet,
+    S::ExternalStorageId: deleteanexternalstorageconfiguration_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::ExternalStorageDeletedResource,
+        Error<DeleteanexternalstorageconfigurationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Disconnect a customer-managed external storage configuration. Removing the project's last configuration restores organization-default retention if customer-managed retention was active. Repeating a deletion also completes any interrupted retention update. Cloud storage is unchanged.
 ///
 /// Sends the same request as [`deleteanexternalstorageconfiguration`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ExternalStorageDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = deleteanexternalstorageconfiguration_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn deleteanexternalstorageconfiguration_response(
     configuration: &configuration::Configuration,
     external_storage_id: &str,
@@ -4765,8 +5611,28 @@ pub async fn deleteanexternalstorageconfiguration_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: deleteanexternalstorageconfiguration_response_builder::State>
+    DeleteanexternalstorageconfigurationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: deleteanexternalstorageconfiguration_response_builder::IsSet,
+    S::ExternalStorageId: deleteanexternalstorageconfiguration_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ExternalStorageDeletedResource>,
+        Error<DeleteanexternalstorageconfigurationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Delete the organization's hard spend limit.
-#[bon::builder]
+#[bon::builder(state_mod = deleteorganizationspendlimit_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn deleteorganizationspendlimit(
     configuration: &configuration::Configuration,
     options: Option<&timvw_rust_runtime::RequestOptions>,
@@ -4835,13 +5701,31 @@ pub async fn deleteorganizationspendlimit(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: deleteorganizationspendlimit_builder::State> DeleteorganizationspendlimitBuilder<'_, '_, S>
+where
+    S::Configuration: deleteorganizationspendlimit_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::OrganizationSpendLimitDeletedResource,
+        Error<DeleteorganizationspendlimitError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Delete the organization's hard spend limit.
 ///
 /// Sends the same request as [`deleteorganizationspendlimit`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OrganizationSpendLimitDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = deleteorganizationspendlimit_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn deleteorganizationspendlimit_response(
     configuration: &configuration::Configuration,
     options: Option<&timvw_rust_runtime::RequestOptions>,
@@ -4903,8 +5787,27 @@ pub async fn deleteorganizationspendlimit_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: deleteorganizationspendlimit_response_builder::State>
+    DeleteorganizationspendlimitResponseBuilder<'_, '_, S>
+where
+    S::Configuration: deleteorganizationspendlimit_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::OrganizationSpendLimitDeletedResource>,
+        Error<DeleteorganizationspendlimitError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Delete a project's hard spend limit.
-#[bon::builder]
+#[bon::builder(state_mod = deleteprojectspendlimit_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn deleteprojectspendlimit(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -4983,13 +5886,29 @@ pub async fn deleteprojectspendlimit(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: deleteprojectspendlimit_builder::State> DeleteprojectspendlimitBuilder<'_, '_, '_, S>
+where
+    S::Configuration: deleteprojectspendlimit_builder::IsSet,
+    S::ProjectId: deleteprojectspendlimit_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectSpendLimitDeletedResource, Error<DeleteprojectspendlimitError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Delete a project's hard spend limit.
 ///
 /// Sends the same request as [`deleteprojectspendlimit`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectSpendLimitDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = deleteprojectspendlimit_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn deleteprojectspendlimit_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -5061,9 +5980,29 @@ pub async fn deleteprojectspendlimit_response(
     }
 }
 
+#[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: deleteprojectspendlimit_response_builder::State>
+    DeleteprojectspendlimitResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: deleteprojectspendlimit_response_builder::IsSet,
+    S::ProjectId: deleteprojectspendlimit_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectSpendLimitDeletedResource>,
+        Error<DeleteprojectspendlimitError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "chatkit")]
 /// Retrieve a ChatKit thread by its identifier.
-#[bon::builder]
+#[bon::builder(state_mod = get_thread_method_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_thread_method(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -5142,13 +6081,27 @@ pub async fn get_thread_method(
 }
 
 #[cfg(feature = "chatkit")]
+#[allow(deprecated)]
+impl<S: get_thread_method_builder::State> GetThreadMethodBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_thread_method_builder::IsSet,
+    S::ThreadId: get_thread_method_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ThreadResource, Error<GetThreadMethodError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "chatkit")]
 /// Retrieve a ChatKit thread by its identifier.
 ///
 /// Sends the same request as [`get_thread_method`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ThreadResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_thread_method_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_thread_method_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -5217,9 +6170,25 @@ pub async fn get_thread_method_response(
     }
 }
 
+#[cfg(feature = "chatkit")]
+#[allow(deprecated)]
+impl<S: get_thread_method_response_builder::State> GetThreadMethodResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_thread_method_response_builder::IsSet,
+    S::ThreadId: get_thread_method_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ThreadResource>, Error<GetThreadMethodError>> {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Get one customer-managed external storage configuration.
-#[bon::builder]
+#[bon::builder(state_mod = getanexternalstorageconfiguration_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn getanexternalstorageconfiguration(
     configuration: &configuration::Configuration,
     external_storage_id: &str,
@@ -5298,13 +6267,31 @@ pub async fn getanexternalstorageconfiguration(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: getanexternalstorageconfiguration_builder::State>
+    GetanexternalstorageconfigurationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: getanexternalstorageconfiguration_builder::IsSet,
+    S::ExternalStorageId: getanexternalstorageconfiguration_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ExternalStorageResponse, Error<GetanexternalstorageconfigurationError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Get one customer-managed external storage configuration.
 ///
 /// Sends the same request as [`getanexternalstorageconfiguration`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ExternalStorageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = getanexternalstorageconfiguration_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn getanexternalstorageconfiguration_response(
     configuration: &configuration::Configuration,
     external_storage_id: &str,
@@ -5377,8 +6364,28 @@ pub async fn getanexternalstorageconfiguration_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: getanexternalstorageconfiguration_response_builder::State>
+    GetanexternalstorageconfigurationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: getanexternalstorageconfiguration_response_builder::IsSet,
+    S::ExternalStorageId: getanexternalstorageconfiguration_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ExternalStorageResponse>,
+        Error<GetanexternalstorageconfigurationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Get the organization's hard spend limit.
-#[bon::builder]
+#[bon::builder(state_mod = getorganizationspendlimit_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn getorganizationspendlimit(
     configuration: &configuration::Configuration,
     options: Option<&timvw_rust_runtime::RequestOptions>,
@@ -5446,13 +6453,28 @@ pub async fn getorganizationspendlimit(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: getorganizationspendlimit_builder::State> GetorganizationspendlimitBuilder<'_, '_, S>
+where
+    S::Configuration: getorganizationspendlimit_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::OrganizationSpendLimitResource, Error<GetorganizationspendlimitError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Get the organization's hard spend limit.
 ///
 /// Sends the same request as [`getorganizationspendlimit`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OrganizationSpendLimitResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = getorganizationspendlimit_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn getorganizationspendlimit_response(
     configuration: &configuration::Configuration,
     options: Option<&timvw_rust_runtime::RequestOptions>,
@@ -5513,9 +6535,28 @@ pub async fn getorganizationspendlimit_response(
     }
 }
 
+#[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: getorganizationspendlimit_response_builder::State>
+    GetorganizationspendlimitResponseBuilder<'_, '_, S>
+where
+    S::Configuration: getorganizationspendlimit_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::OrganizationSpendLimitResource>,
+        Error<GetorganizationspendlimitError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "safety")]
 /// Get a safety alert belonging to the authenticated API project.
-#[bon::builder]
+#[bon::builder(state_mod = getprojectsafetyalert_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn getprojectsafetyalert(
     configuration: &configuration::Configuration,
     id: &str,
@@ -5597,13 +6638,29 @@ pub async fn getprojectsafetyalert(
 }
 
 #[cfg(feature = "safety")]
+#[allow(deprecated)]
+impl<S: getprojectsafetyalert_builder::State> GetprojectsafetyalertBuilder<'_, '_, '_, S>
+where
+    S::Configuration: getprojectsafetyalert_builder::IsSet,
+    S::Id: getprojectsafetyalert_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SafetyAlertResource, Error<GetprojectsafetyalertError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "safety")]
 /// Get a safety alert belonging to the authenticated API project.
 ///
 /// Sends the same request as [`getprojectsafetyalert`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SafetyAlertResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = getprojectsafetyalert_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn getprojectsafetyalert_response(
     configuration: &configuration::Configuration,
     id: &str,
@@ -5675,9 +6732,27 @@ pub async fn getprojectsafetyalert_response(
     }
 }
 
+#[cfg(feature = "safety")]
+#[allow(deprecated)]
+impl<S: getprojectsafetyalert_response_builder::State>
+    GetprojectsafetyalertResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: getprojectsafetyalert_response_builder::IsSet,
+    S::Id: getprojectsafetyalert_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SafetyAlertResource>, Error<GetprojectsafetyalertError>>
+    {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Get a project's hard spend limit.
-#[bon::builder]
+#[bon::builder(state_mod = getprojectspendlimit_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn getprojectspendlimit(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -5756,13 +6831,29 @@ pub async fn getprojectspendlimit(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: getprojectspendlimit_builder::State> GetprojectspendlimitBuilder<'_, '_, '_, S>
+where
+    S::Configuration: getprojectspendlimit_builder::IsSet,
+    S::ProjectId: getprojectspendlimit_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectSpendLimitResource, Error<GetprojectspendlimitError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Get a project's hard spend limit.
 ///
 /// Sends the same request as [`getprojectspendlimit`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectSpendLimitResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = getprojectspendlimit_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn getprojectspendlimit_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -5832,9 +6923,29 @@ pub async fn getprojectspendlimit_response(
     }
 }
 
+#[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: getprojectspendlimit_response_builder::State>
+    GetprojectspendlimitResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: getprojectspendlimit_response_builder::IsSet,
+    S::ProjectId: getprojectspendlimit_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectSpendLimitResource>,
+        Error<GetprojectspendlimitError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "safety")]
 /// Get a safety case by ID.
-#[bon::builder]
+#[bon::builder(state_mod = getsafetycase_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn getsafetycase(
     configuration: &configuration::Configuration,
     id: &str,
@@ -5919,13 +7030,27 @@ pub async fn getsafetycase(
 }
 
 #[cfg(feature = "safety")]
+#[allow(deprecated)]
+impl<S: getsafetycase_builder::State> GetsafetycaseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: getsafetycase_builder::IsSet,
+    S::Id: getsafetycase_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::SafetyCaseResource, Error<GetsafetycaseError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "safety")]
 /// Get a safety case by ID.
 ///
 /// Sends the same request as [`getsafetycase`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SafetyCaseResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = getsafetycase_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn getsafetycase_response(
     configuration: &configuration::Configuration,
     id: &str,
@@ -6000,9 +7125,25 @@ pub async fn getsafetycase_response(
     }
 }
 
+#[cfg(feature = "safety")]
+#[allow(deprecated)]
+impl<S: getsafetycase_response_builder::State> GetsafetycaseResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: getsafetycase_response_builder::IsSet,
+    S::Id: getsafetycase_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SafetyCaseResource>, Error<GetsafetycaseError>> {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "container")]
 /// List Container files
-#[bon::builder]
+#[bon::builder(state_mod = list_container_files_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_container_files(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -6093,13 +7234,29 @@ pub async fn list_container_files(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: list_container_files_builder::State> ListContainerFilesBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_container_files_builder::IsSet,
+    S::ContainerId: list_container_files_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ContainerFileListResource, Error<ListContainerFilesError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// List Container files
 ///
 /// Sends the same request as [`list_container_files`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ContainerFileListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_container_files_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_container_files_response(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -6181,8 +7338,26 @@ pub async fn list_container_files_response(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: list_container_files_response_builder::State>
+    ListContainerFilesResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_container_files_response_builder::IsSet,
+    S::ContainerId: list_container_files_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ContainerFileListResource>, Error<ListContainerFilesError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// List Containers
-#[bon::builder]
+#[bon::builder(state_mod = list_containers_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_containers(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -6272,13 +7447,26 @@ pub async fn list_containers(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: list_containers_builder::State> ListContainersBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_containers_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ContainerListResource, Error<ListContainersError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// List Containers
 ///
 /// Sends the same request as [`list_containers`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ContainerListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_containers_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_containers_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -6358,9 +7546,25 @@ pub async fn list_containers_response(
     }
 }
 
+#[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: list_containers_response_builder::State>
+    ListContainersResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_containers_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ContainerListResource>, Error<ListContainersError>> {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "administration")]
 /// List the provider's federation rules to project service accounts.
-#[bon::builder]
+#[bon::builder(state_mod = list_platformworkloadidentityfederationrules_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_platformworkloadidentityfederationrules(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -6446,13 +7650,33 @@ pub async fn list_platformworkloadidentityfederationrules(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: list_platformworkloadidentityfederationrules_builder::State>
+    ListPlatformworkloadidentityfederationrulesBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_platformworkloadidentityfederationrules_builder::IsSet,
+    S::WorkloadIdentityProviderId: list_platformworkloadidentityfederationrules_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::PlatformFederationRuleListResource,
+        Error<ListPlatformworkloadidentityfederationrulesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// List the provider's federation rules to project service accounts.
 ///
 /// Sends the same request as [`list_platformworkloadidentityfederationrules`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PlatformFederationRuleListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_platformworkloadidentityfederationrules_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_platformworkloadidentityfederationrules_response(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -6529,8 +7753,29 @@ pub async fn list_platformworkloadidentityfederationrules_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: list_platformworkloadidentityfederationrules_response_builder::State>
+    ListPlatformworkloadidentityfederationrulesResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_platformworkloadidentityfederationrules_response_builder::IsSet,
+    S::WorkloadIdentityProviderId:
+        list_platformworkloadidentityfederationrules_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::PlatformFederationRuleListResource>,
+        Error<ListPlatformworkloadidentityfederationrulesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// List OIDC providers in the authenticated Admin API key's organization.
-#[bon::builder]
+#[bon::builder(state_mod = list_platformworkloadidentityproviders_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_platformworkloadidentityproviders(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -6610,13 +7855,32 @@ pub async fn list_platformworkloadidentityproviders(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: list_platformworkloadidentityproviders_builder::State>
+    ListPlatformworkloadidentityprovidersBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_platformworkloadidentityproviders_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::PlatformProviderListResource,
+        Error<ListPlatformworkloadidentityprovidersError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// List OIDC providers in the authenticated Admin API key's organization.
 ///
 /// Sends the same request as [`list_platformworkloadidentityproviders`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PlatformProviderListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_platformworkloadidentityproviders_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_platformworkloadidentityproviders_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -6688,9 +7952,28 @@ pub async fn list_platformworkloadidentityproviders_response(
     }
 }
 
+#[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: list_platformworkloadidentityproviders_response_builder::State>
+    ListPlatformworkloadidentityprovidersResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_platformworkloadidentityproviders_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::PlatformProviderListResource>,
+        Error<ListPlatformworkloadidentityprovidersError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "chatkit")]
 /// List items that belong to a ChatKit thread.
-#[bon::builder]
+#[bon::builder(state_mod = list_thread_items_method_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_thread_items_method(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -6789,13 +8072,29 @@ pub async fn list_thread_items_method(
 }
 
 #[cfg(feature = "chatkit")]
+#[allow(deprecated)]
+impl<S: list_thread_items_method_builder::State> ListThreadItemsMethodBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_thread_items_method_builder::IsSet,
+    S::ThreadId: list_thread_items_method_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ThreadItemListResource, Error<ListThreadItemsMethodError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "chatkit")]
 /// List items that belong to a ChatKit thread.
 ///
 /// Sends the same request as [`list_thread_items_method`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ThreadItemListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_thread_items_method_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_thread_items_method_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -6885,8 +8184,26 @@ pub async fn list_thread_items_method_response(
 }
 
 #[cfg(feature = "chatkit")]
+#[allow(deprecated)]
+impl<S: list_thread_items_method_response_builder::State>
+    ListThreadItemsMethodResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_thread_items_method_response_builder::IsSet,
+    S::ThreadId: list_thread_items_method_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ThreadItemListResource>, Error<ListThreadItemsMethodError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "chatkit")]
 /// List ChatKit threads with optional pagination and user filters.
-#[bon::builder]
+#[bon::builder(state_mod = list_threads_method_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_threads_method(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -6984,13 +8301,26 @@ pub async fn list_threads_method(
 }
 
 #[cfg(feature = "chatkit")]
+#[allow(deprecated)]
+impl<S: list_threads_method_builder::State> ListThreadsMethodBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_threads_method_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ThreadListResource, Error<ListThreadsMethodError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "chatkit")]
 /// List ChatKit threads with optional pagination and user filters.
 ///
 /// Sends the same request as [`list_threads_method`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ThreadListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_threads_method_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_threads_method_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -7078,9 +8408,25 @@ pub async fn list_threads_method_response(
     }
 }
 
+#[cfg(feature = "chatkit")]
+#[allow(deprecated)]
+impl<S: list_threads_method_response_builder::State>
+    ListThreadsMethodResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_threads_method_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ThreadListResource>, Error<ListThreadsMethodError>> {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "webhook")]
 /// Returns webhook endpoints for the authenticated project in newest-first order.
-#[bon::builder]
+#[bon::builder(state_mod = list_webhook_endpoints_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_webhook_endpoints(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -7160,13 +8506,28 @@ pub async fn list_webhook_endpoints(
 }
 
 #[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: list_webhook_endpoints_builder::State> ListWebhookEndpointsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_webhook_endpoints_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::WebhookEndpointListResource, Error<ListWebhookEndpointsError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "webhook")]
 /// Returns webhook endpoints for the authenticated project in newest-first order.
 ///
 /// Sends the same request as [`list_webhook_endpoints`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::WebhookEndpointListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_webhook_endpoints_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_webhook_endpoints_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -7238,8 +8599,27 @@ pub async fn list_webhook_endpoints_response(
 }
 
 #[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: list_webhook_endpoints_response_builder::State>
+    ListWebhookEndpointsResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_webhook_endpoints_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::WebhookEndpointListResource>,
+        Error<ListWebhookEndpointsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "webhook")]
 /// Returns webhook event types visible to the authenticated project.
-#[bon::builder]
+#[bon::builder(state_mod = list_webhook_event_types_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_webhook_event_types(
     configuration: &configuration::Configuration,
     options: Option<&timvw_rust_runtime::RequestOptions>,
@@ -7304,13 +8684,28 @@ pub async fn list_webhook_event_types(
 }
 
 #[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: list_webhook_event_types_builder::State> ListWebhookEventTypesBuilder<'_, '_, S>
+where
+    S::Configuration: list_webhook_event_types_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::WebhookEventTypeListResource, Error<ListWebhookEventTypesError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "webhook")]
 /// Returns webhook event types visible to the authenticated project.
 ///
 /// Sends the same request as [`list_webhook_event_types`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::WebhookEventTypeListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_webhook_event_types_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_webhook_event_types_response(
     configuration: &configuration::Configuration,
     options: Option<&timvw_rust_runtime::RequestOptions>,
@@ -7368,9 +8763,28 @@ pub async fn list_webhook_event_types_response(
     }
 }
 
+#[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: list_webhook_event_types_response_builder::State>
+    ListWebhookEventTypesResponseBuilder<'_, '_, S>
+where
+    S::Configuration: list_webhook_event_types_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::WebhookEventTypeListResource>,
+        Error<ListWebhookEventTypesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "administration")]
 /// List the organization's customer-managed external storage configurations.
-#[bon::builder]
+#[bon::builder(state_mod = listexternalstorageconfigurations_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn listexternalstorageconfigurations(
     configuration: &configuration::Configuration,
     project_id: Option<&str>,
@@ -7463,13 +8877,30 @@ pub async fn listexternalstorageconfigurations(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: listexternalstorageconfigurations_builder::State>
+    ListexternalstorageconfigurationsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: listexternalstorageconfigurations_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ExternalStorageListResource, Error<ListexternalstorageconfigurationsError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// List the organization's customer-managed external storage configurations.
 ///
 /// Sends the same request as [`listexternalstorageconfigurations`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ExternalStorageListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = listexternalstorageconfigurations_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn listexternalstorageconfigurations_response(
     configuration: &configuration::Configuration,
     project_id: Option<&str>,
@@ -7556,8 +8987,27 @@ pub async fn listexternalstorageconfigurations_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: listexternalstorageconfigurations_response_builder::State>
+    ListexternalstorageconfigurationsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: listexternalstorageconfigurations_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ExternalStorageListResource>,
+        Error<ListexternalstorageconfigurationsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// List the external key configs registered on the user's organization
-#[bon::builder]
+#[bon::builder(state_mod = listtheexternalkeyconfigsregisteredontheuser_quote_sorganization_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn listtheexternalkeyconfigsregisteredontheuser_quote_sorganization(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -7640,13 +9090,33 @@ pub async fn listtheexternalkeyconfigsregisteredontheuser_quote_sorganization(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: listtheexternalkeyconfigsregisteredontheuser_quote_sorganization_builder::State>
+    ListtheexternalkeyconfigsregisteredontheuserQuoteSorganizationBuilder<'_, '_, '_, S>
+where
+    S::Configuration:
+        listtheexternalkeyconfigsregisteredontheuser_quote_sorganization_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::ListExternalKeysResource,
+        Error<ListtheexternalkeyconfigsregisteredontheuserQuoteSorganizationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// List the external key configs registered on the user's organization
 ///
 /// Sends the same request as [`listtheexternalkeyconfigsregisteredontheuser_quote_sorganization`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListExternalKeysResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = listtheexternalkeyconfigsregisteredontheuser_quote_sorganization_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn listtheexternalkeyconfigsregisteredontheuser_quote_sorganization_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -7720,8 +9190,29 @@ pub async fn listtheexternalkeyconfigsregisteredontheuser_quote_sorganization_re
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<
+        S: listtheexternalkeyconfigsregisteredontheuser_quote_sorganization_response_builder::State,
+    > ListtheexternalkeyconfigsregisteredontheuserQuoteSorganizationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration:
+        listtheexternalkeyconfigsregisteredontheuser_quote_sorganization_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ListExternalKeysResource>,
+        Error<ListtheexternalkeyconfigsregisteredontheuserQuoteSorganizationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Get Decisions API usage details for the organization.
-#[bon::builder]
+#[bon::builder(state_mod = organization_decisionsusage_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn organization_decisionsusage(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -7862,13 +9353,30 @@ pub async fn organization_decisionsusage(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: organization_decisionsusage_builder::State> OrganizationDecisionsusageBuilder<'_, '_, '_, S>
+where
+    S::Configuration: organization_decisionsusage_builder::IsSet,
+    S::StartTime: organization_decisionsusage_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::PublicDecisionsUsageResponseResource, Error<OrganizationDecisionsusageError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Get Decisions API usage details for the organization.
 ///
 /// Sends the same request as [`organization_decisionsusage`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PublicDecisionsUsageResponseResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = organization_decisionsusage_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn organization_decisionsusage_response(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -8002,9 +9510,29 @@ pub async fn organization_decisionsusage_response(
     }
 }
 
+#[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: organization_decisionsusage_response_builder::State>
+    OrganizationDecisionsusageResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: organization_decisionsusage_response_builder::IsSet,
+    S::StartTime: organization_decisionsusage_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::PublicDecisionsUsageResponseResource>,
+        Error<OrganizationDecisionsusageError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "container")]
 /// Retrieve Container
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_container_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_container(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -8080,13 +9608,27 @@ pub async fn retrieve_container(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: retrieve_container_builder::State> RetrieveContainerBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_container_builder::IsSet,
+    S::ContainerId: retrieve_container_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ContainerResource, Error<RetrieveContainerError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// Retrieve Container
 ///
 /// Sends the same request as [`retrieve_container`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ContainerResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_container_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_container_response(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -8153,8 +9695,24 @@ pub async fn retrieve_container_response(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: retrieve_container_response_builder::State> RetrieveContainerResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_container_response_builder::IsSet,
+    S::ContainerId: retrieve_container_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ContainerResource>, Error<RetrieveContainerError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// Retrieve Container File
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_container_file_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_container_file(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -8233,13 +9791,30 @@ pub async fn retrieve_container_file(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: retrieve_container_file_builder::State> RetrieveContainerFileBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_container_file_builder::IsSet,
+    S::ContainerId: retrieve_container_file_builder::IsSet,
+    S::FileId: retrieve_container_file_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ContainerFileResource, Error<RetrieveContainerFileError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// Retrieve Container File
 ///
 /// Sends the same request as [`retrieve_container_file`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ContainerFileResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_container_file_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_container_file_response(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -8309,8 +9884,27 @@ pub async fn retrieve_container_file_response(
 }
 
 #[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: retrieve_container_file_response_builder::State>
+    RetrieveContainerFileResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_container_file_response_builder::IsSet,
+    S::ContainerId: retrieve_container_file_response_builder::IsSet,
+    S::FileId: retrieve_container_file_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ContainerFileResource>, Error<RetrieveContainerFileError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "container")]
 /// Retrieve Container File Content
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_container_file_content_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_container_file_content(
     configuration: &configuration::Configuration,
     container_id: &str,
@@ -8377,9 +9971,27 @@ pub async fn retrieve_container_file_content(
     }
 }
 
+#[cfg(feature = "container")]
+#[allow(deprecated)]
+impl<S: retrieve_container_file_content_builder::State>
+    RetrieveContainerFileContentBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_container_file_content_builder::IsSet,
+    S::ContainerId: retrieve_container_file_content_builder::IsSet,
+    S::FileId: retrieve_container_file_content_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<timvw_rust_runtime::Response, Error<RetrieveContainerFileContentError>> {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Retrieve a federation rule owned by the authenticated organization and provider.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_platformworkloadidentityfederationrule_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_platformworkloadidentityfederationrule(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -8446,13 +10058,35 @@ pub async fn retrieve_platformworkloadidentityfederationrule(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: retrieve_platformworkloadidentityfederationrule_builder::State>
+    RetrievePlatformworkloadidentityfederationruleBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_platformworkloadidentityfederationrule_builder::IsSet,
+    S::WorkloadIdentityProviderId: retrieve_platformworkloadidentityfederationrule_builder::IsSet,
+    S::WorkloadIdentityFederationRuleId:
+        retrieve_platformworkloadidentityfederationrule_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::PlatformFederationRule,
+        Error<RetrievePlatformworkloadidentityfederationruleError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Retrieve a federation rule owned by the authenticated organization and provider.
 ///
 /// Sends the same request as [`retrieve_platformworkloadidentityfederationrule`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PlatformFederationRule` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_platformworkloadidentityfederationrule_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_platformworkloadidentityfederationrule_response(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -8510,8 +10144,31 @@ pub async fn retrieve_platformworkloadidentityfederationrule_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: retrieve_platformworkloadidentityfederationrule_response_builder::State>
+    RetrievePlatformworkloadidentityfederationruleResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_platformworkloadidentityfederationrule_response_builder::IsSet,
+    S::WorkloadIdentityProviderId:
+        retrieve_platformworkloadidentityfederationrule_response_builder::IsSet,
+    S::WorkloadIdentityFederationRuleId:
+        retrieve_platformworkloadidentityfederationrule_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::PlatformFederationRule>,
+        Error<RetrievePlatformworkloadidentityfederationruleError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Retrieve an OIDC provider in the authenticated organization.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_platformworkloadidentityprovider_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_platformworkloadidentityprovider(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -8578,13 +10235,31 @@ pub async fn retrieve_platformworkloadidentityprovider(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: retrieve_platformworkloadidentityprovider_builder::State>
+    RetrievePlatformworkloadidentityproviderBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_platformworkloadidentityprovider_builder::IsSet,
+    S::WorkloadIdentityProviderId: retrieve_platformworkloadidentityprovider_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::PlatformProvider, Error<RetrievePlatformworkloadidentityproviderError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Retrieve an OIDC provider in the authenticated organization.
 ///
 /// Sends the same request as [`retrieve_platformworkloadidentityprovider`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PlatformProvider` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_platformworkloadidentityprovider_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_platformworkloadidentityprovider_response(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -8644,9 +10319,30 @@ pub async fn retrieve_platformworkloadidentityprovider_response(
     }
 }
 
+#[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: retrieve_platformworkloadidentityprovider_response_builder::State>
+    RetrievePlatformworkloadidentityproviderResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_platformworkloadidentityprovider_response_builder::IsSet,
+    S::WorkloadIdentityProviderId:
+        retrieve_platformworkloadidentityprovider_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::PlatformProvider>,
+        Error<RetrievePlatformworkloadidentityproviderError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "webhook")]
 /// Retrieves a webhook endpoint for the authenticated project.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_webhook_endpoint_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_webhook_endpoint(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
@@ -8722,13 +10418,29 @@ pub async fn retrieve_webhook_endpoint(
 }
 
 #[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: retrieve_webhook_endpoint_builder::State> RetrieveWebhookEndpointBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_webhook_endpoint_builder::IsSet,
+    S::WebhookEndpointId: retrieve_webhook_endpoint_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::WebhookEndpointBody, Error<RetrieveWebhookEndpointError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "webhook")]
 /// Retrieves a webhook endpoint for the authenticated project.
 ///
 /// Sends the same request as [`retrieve_webhook_endpoint`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::WebhookEndpointBody` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_webhook_endpoint_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_webhook_endpoint_response(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
@@ -8794,9 +10506,27 @@ pub async fn retrieve_webhook_endpoint_response(
     }
 }
 
+#[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: retrieve_webhook_endpoint_response_builder::State>
+    RetrieveWebhookEndpointResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_webhook_endpoint_response_builder::IsSet,
+    S::WebhookEndpointId: retrieve_webhook_endpoint_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::WebhookEndpointBody>, Error<RetrieveWebhookEndpointError>>
+    {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Retrieve a stored external key registration for the user's organization.
-#[bon::builder]
+#[bon::builder(state_mod = retrieveanexternalkeyregistration_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieveanexternalkeyregistration(
     configuration: &configuration::Configuration,
     external_key_id: &str,
@@ -8861,13 +10591,30 @@ pub async fn retrieveanexternalkeyregistration(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: retrieveanexternalkeyregistration_builder::State>
+    RetrieveanexternalkeyregistrationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieveanexternalkeyregistration_builder::IsSet,
+    S::ExternalKeyId: retrieveanexternalkeyregistration_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ExternalKeyResource, Error<RetrieveanexternalkeyregistrationError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Retrieve a stored external key registration for the user's organization.
 ///
 /// Sends the same request as [`retrieveanexternalkeyregistration`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ExternalKeyResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieveanexternalkeyregistration_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieveanexternalkeyregistration_response(
     configuration: &configuration::Configuration,
     external_key_id: &str,
@@ -8926,8 +10673,28 @@ pub async fn retrieveanexternalkeyregistration_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: retrieveanexternalkeyregistration_response_builder::State>
+    RetrieveanexternalkeyregistrationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieveanexternalkeyregistration_response_builder::IsSet,
+    S::ExternalKeyId: retrieveanexternalkeyregistration_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ExternalKeyResource>,
+        Error<RetrieveanexternalkeyregistrationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Retrieve the configured default and enabled service tiers for a project.
-#[bon::builder]
+#[bon::builder(state_mod = retrieveprojectservicetiersettings_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieveprojectservicetiersettings(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -8996,13 +10763,33 @@ pub async fn retrieveprojectservicetiersettings(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: retrieveprojectservicetiersettings_builder::State>
+    RetrieveprojectservicetiersettingsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieveprojectservicetiersettings_builder::IsSet,
+    S::ProjectId: retrieveprojectservicetiersettings_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::ProjectServiceTierSettingsResource,
+        Error<RetrieveprojectservicetiersettingsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Retrieve the configured default and enabled service tiers for a project.
 ///
 /// Sends the same request as [`retrieveprojectservicetiersettings`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectServiceTierSettingsResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieveprojectservicetiersettings_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieveprojectservicetiersettings_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -9061,9 +10848,29 @@ pub async fn retrieveprojectservicetiersettings_response(
     }
 }
 
+#[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: retrieveprojectservicetiersettings_response_builder::State>
+    RetrieveprojectservicetiersettingsResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieveprojectservicetiersettings_response_builder::IsSet,
+    S::ProjectId: retrieveprojectservicetiersettings_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectServiceTierSettingsResource>,
+        Error<RetrieveprojectservicetiersettingsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "webhook")]
 /// Rotates the signing secret for a webhook endpoint in the authenticated project.
-#[bon::builder]
+#[bon::builder(state_mod = rotate_webhook_endpoint_signing_secret_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn rotate_webhook_endpoint_signing_secret(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
@@ -9143,13 +10950,33 @@ pub async fn rotate_webhook_endpoint_signing_secret(
 }
 
 #[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: rotate_webhook_endpoint_signing_secret_builder::State>
+    RotateWebhookEndpointSigningSecretBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: rotate_webhook_endpoint_signing_secret_builder::IsSet,
+    S::WebhookEndpointId: rotate_webhook_endpoint_signing_secret_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::WebhookEndpointWithSecretResource,
+        Error<RotateWebhookEndpointSigningSecretError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "webhook")]
 /// Rotates the signing secret for a webhook endpoint in the authenticated project.
 ///
 /// Sends the same request as [`rotate_webhook_endpoint_signing_secret`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::WebhookEndpointWithSecretResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = rotate_webhook_endpoint_signing_secret_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn rotate_webhook_endpoint_signing_secret_response(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
@@ -9222,8 +11049,28 @@ pub async fn rotate_webhook_endpoint_signing_secret_response(
 }
 
 #[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: rotate_webhook_endpoint_signing_secret_response_builder::State>
+    RotateWebhookEndpointSigningSecretResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: rotate_webhook_endpoint_signing_secret_response_builder::IsSet,
+    S::WebhookEndpointId: rotate_webhook_endpoint_signing_secret_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::WebhookEndpointWithSecretResource>,
+        Error<RotateWebhookEndpointSigningSecretError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "webhook")]
 /// Sends a sample event to a webhook endpoint for the authenticated project.
-#[bon::builder]
+#[bon::builder(state_mod = test_webhook_endpoint_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn test_webhook_endpoint(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
@@ -9305,13 +11152,29 @@ pub async fn test_webhook_endpoint(
 }
 
 #[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: test_webhook_endpoint_builder::State> TestWebhookEndpointBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: test_webhook_endpoint_builder::IsSet,
+    S::WebhookEndpointId: test_webhook_endpoint_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::WebhookEndpointTestResultResource, Error<TestWebhookEndpointError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "webhook")]
 /// Sends a sample event to a webhook endpoint for the authenticated project.
 ///
 /// Sends the same request as [`test_webhook_endpoint`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::WebhookEndpointTestResultResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = test_webhook_endpoint_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn test_webhook_endpoint_response(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
@@ -9386,9 +11249,29 @@ pub async fn test_webhook_endpoint_response(
     }
 }
 
+#[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: test_webhook_endpoint_response_builder::State>
+    TestWebhookEndpointResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: test_webhook_endpoint_response_builder::IsSet,
+    S::WebhookEndpointId: test_webhook_endpoint_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::WebhookEndpointTestResultResource>,
+        Error<TestWebhookEndpointError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Update supplied matcher, permission, metadata, or enabled fields.
-#[bon::builder]
+#[bon::builder(state_mod = update_platformworkloadidentityfederationrule_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_platformworkloadidentityfederationrule(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -9459,13 +11342,35 @@ pub async fn update_platformworkloadidentityfederationrule(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: update_platformworkloadidentityfederationrule_builder::State>
+    UpdatePlatformworkloadidentityfederationruleBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: update_platformworkloadidentityfederationrule_builder::IsSet,
+    S::WorkloadIdentityProviderId: update_platformworkloadidentityfederationrule_builder::IsSet,
+    S::WorkloadIdentityFederationRuleId:
+        update_platformworkloadidentityfederationrule_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::PlatformFederationRule,
+        Error<UpdatePlatformworkloadidentityfederationruleError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Update supplied matcher, permission, metadata, or enabled fields.
 ///
 /// Sends the same request as [`update_platformworkloadidentityfederationrule`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PlatformFederationRule` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_platformworkloadidentityfederationrule_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_platformworkloadidentityfederationrule_response(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -9529,8 +11434,31 @@ pub async fn update_platformworkloadidentityfederationrule_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: update_platformworkloadidentityfederationrule_response_builder::State>
+    UpdatePlatformworkloadidentityfederationruleResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: update_platformworkloadidentityfederationrule_response_builder::IsSet,
+    S::WorkloadIdentityProviderId:
+        update_platformworkloadidentityfederationrule_response_builder::IsSet,
+    S::WorkloadIdentityFederationRuleId:
+        update_platformworkloadidentityfederationrule_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::PlatformFederationRule>,
+        Error<UpdatePlatformworkloadidentityfederationruleError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Update supplied provider fields, preserving omitted fields.
-#[bon::builder]
+#[bon::builder(state_mod = update_platformworkloadidentityprovider_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_platformworkloadidentityprovider(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -9603,13 +11531,30 @@ pub async fn update_platformworkloadidentityprovider(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: update_platformworkloadidentityprovider_builder::State>
+    UpdatePlatformworkloadidentityproviderBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_platformworkloadidentityprovider_builder::IsSet,
+    S::WorkloadIdentityProviderId: update_platformworkloadidentityprovider_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::PlatformProvider, Error<UpdatePlatformworkloadidentityproviderError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Update supplied provider fields, preserving omitted fields.
 ///
 /// Sends the same request as [`update_platformworkloadidentityprovider`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PlatformProvider` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_platformworkloadidentityprovider_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_platformworkloadidentityprovider_response(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
@@ -9675,9 +11620,29 @@ pub async fn update_platformworkloadidentityprovider_response(
     }
 }
 
+#[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: update_platformworkloadidentityprovider_response_builder::State>
+    UpdatePlatformworkloadidentityproviderResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_platformworkloadidentityprovider_response_builder::IsSet,
+    S::WorkloadIdentityProviderId: update_platformworkloadidentityprovider_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::PlatformProvider>,
+        Error<UpdatePlatformworkloadidentityproviderError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "webhook")]
 /// Updates a webhook endpoint for the authenticated project.
-#[bon::builder]
+#[bon::builder(state_mod = update_webhook_endpoint_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_webhook_endpoint(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
@@ -9756,13 +11721,29 @@ pub async fn update_webhook_endpoint(
 }
 
 #[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: update_webhook_endpoint_builder::State> UpdateWebhookEndpointBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_webhook_endpoint_builder::IsSet,
+    S::WebhookEndpointId: update_webhook_endpoint_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::WebhookEndpointBody, Error<UpdateWebhookEndpointError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "webhook")]
 /// Updates a webhook endpoint for the authenticated project.
 ///
 /// Sends the same request as [`update_webhook_endpoint`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::WebhookEndpointBody` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_webhook_endpoint_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_webhook_endpoint_response(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
@@ -9831,9 +11812,27 @@ pub async fn update_webhook_endpoint_response(
     }
 }
 
+#[cfg(feature = "webhook")]
+#[allow(deprecated)]
+impl<S: update_webhook_endpoint_response_builder::State>
+    UpdateWebhookEndpointResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_webhook_endpoint_response_builder::IsSet,
+    S::WebhookEndpointId: update_webhook_endpoint_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::WebhookEndpointBody>, Error<UpdateWebhookEndpointError>>
+    {
+        self.call_internal().await
+    }
+}
+
 #[cfg(feature = "administration")]
 /// Create or replace the organization's hard spend limit.
-#[bon::builder]
+#[bon::builder(state_mod = updateorganizationspendlimit_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn updateorganizationspendlimit(
     configuration: &configuration::Configuration,
     update_organization_spend_limit_body: &models::UpdateOrganizationSpendLimitBody,
@@ -9906,13 +11905,31 @@ pub async fn updateorganizationspendlimit(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: updateorganizationspendlimit_builder::State>
+    UpdateorganizationspendlimitBuilder<'_, '_, '_, S>
+where
+    S::Configuration: updateorganizationspendlimit_builder::IsSet,
+    S::UpdateOrganizationSpendLimitBody: updateorganizationspendlimit_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::OrganizationSpendLimitResource, Error<UpdateorganizationspendlimitError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Create or replace the organization's hard spend limit.
 ///
 /// Sends the same request as [`updateorganizationspendlimit`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OrganizationSpendLimitResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = updateorganizationspendlimit_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn updateorganizationspendlimit_response(
     configuration: &configuration::Configuration,
     update_organization_spend_limit_body: &models::UpdateOrganizationSpendLimitBody,
@@ -9979,8 +11996,28 @@ pub async fn updateorganizationspendlimit_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: updateorganizationspendlimit_response_builder::State>
+    UpdateorganizationspendlimitResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: updateorganizationspendlimit_response_builder::IsSet,
+    S::UpdateOrganizationSpendLimitBody: updateorganizationspendlimit_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::OrganizationSpendLimitResource>,
+        Error<UpdateorganizationspendlimitError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Update the default or enabled service tiers atomically. Supply at least one field. Omitted fields keep their current values.
-#[bon::builder]
+#[bon::builder(state_mod = updateprojectservicetiersettings_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn updateprojectservicetiersettings(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -10050,13 +12087,34 @@ pub async fn updateprojectservicetiersettings(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: updateprojectservicetiersettings_builder::State>
+    UpdateprojectservicetiersettingsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: updateprojectservicetiersettings_builder::IsSet,
+    S::ProjectId: updateprojectservicetiersettings_builder::IsSet,
+    S::UpdateProjectServiceTierSettingsBody: updateprojectservicetiersettings_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::ProjectServiceTierSettingsResource,
+        Error<UpdateprojectservicetiersettingsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Update the default or enabled service tiers atomically. Supply at least one field. Omitted fields keep their current values.
 ///
 /// Sends the same request as [`updateprojectservicetiersettings`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectServiceTierSettingsResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = updateprojectservicetiersettings_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn updateprojectservicetiersettings_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -10119,8 +12177,30 @@ pub async fn updateprojectservicetiersettings_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: updateprojectservicetiersettings_response_builder::State>
+    UpdateprojectservicetiersettingsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: updateprojectservicetiersettings_response_builder::IsSet,
+    S::ProjectId: updateprojectservicetiersettings_response_builder::IsSet,
+    S::UpdateProjectServiceTierSettingsBody:
+        updateprojectservicetiersettings_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectServiceTierSettingsResource>,
+        Error<UpdateprojectservicetiersettingsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Create or replace a project's hard spend limit.
-#[bon::builder]
+#[bon::builder(state_mod = updateprojectspendlimit_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn updateprojectspendlimit(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -10202,13 +12282,30 @@ pub async fn updateprojectspendlimit(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: updateprojectspendlimit_builder::State> UpdateprojectspendlimitBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: updateprojectspendlimit_builder::IsSet,
+    S::ProjectId: updateprojectspendlimit_builder::IsSet,
+    S::UpdateProjectSpendLimitBody: updateprojectspendlimit_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectSpendLimitResource, Error<UpdateprojectspendlimitError>> {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Create or replace a project's hard spend limit.
 ///
 /// Sends the same request as [`updateprojectspendlimit`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectSpendLimitResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = updateprojectspendlimit_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn updateprojectspendlimit_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -10284,8 +12381,29 @@ pub async fn updateprojectspendlimit_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: updateprojectspendlimit_response_builder::State>
+    UpdateprojectspendlimitResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: updateprojectspendlimit_response_builder::IsSet,
+    S::ProjectId: updateprojectspendlimit_response_builder::IsSet,
+    S::UpdateProjectSpendLimitBody: updateprojectspendlimit_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectSpendLimitResource>,
+        Error<UpdateprojectspendlimitError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Validate an external key config for the user's organization
-#[bon::builder]
+#[bon::builder(state_mod = validateanexternalkeyconfigfortheuser_quote_sorganization_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn validateanexternalkeyconfigfortheuser_quote_sorganization(
     configuration: &configuration::Configuration,
     external_key_id: &str,
@@ -10354,13 +12472,33 @@ pub async fn validateanexternalkeyconfigfortheuser_quote_sorganization(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: validateanexternalkeyconfigfortheuser_quote_sorganization_builder::State>
+    ValidateanexternalkeyconfigfortheuserQuoteSorganizationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: validateanexternalkeyconfigfortheuser_quote_sorganization_builder::IsSet,
+    S::ExternalKeyId: validateanexternalkeyconfigfortheuser_quote_sorganization_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::ValidateExternalKeyResource,
+        Error<ValidateanexternalkeyconfigfortheuserQuoteSorganizationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Validate an external key config for the user's organization
 ///
 /// Sends the same request as [`validateanexternalkeyconfigfortheuser_quote_sorganization`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ValidateExternalKeyResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = validateanexternalkeyconfigfortheuser_quote_sorganization_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn validateanexternalkeyconfigfortheuser_quote_sorganization_response(
     configuration: &configuration::Configuration,
     external_key_id: &str,
@@ -10420,8 +12558,30 @@ pub async fn validateanexternalkeyconfigfortheuser_quote_sorganization_response(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: validateanexternalkeyconfigfortheuser_quote_sorganization_response_builder::State>
+    ValidateanexternalkeyconfigfortheuserQuoteSorganizationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration:
+        validateanexternalkeyconfigfortheuser_quote_sorganization_response_builder::IsSet,
+    S::ExternalKeyId:
+        validateanexternalkeyconfigfortheuser_quote_sorganization_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ValidateExternalKeyResource>,
+        Error<ValidateanexternalkeyconfigfortheuserQuoteSorganizationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Validate one customer-managed external storage configuration.
-#[bon::builder]
+#[bon::builder(state_mod = validateanexternalstorageconfiguration_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn validateanexternalstorageconfiguration(
     configuration: &configuration::Configuration,
     external_storage_id: &str,
@@ -10503,13 +12663,31 @@ pub async fn validateanexternalstorageconfiguration(
 }
 
 #[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: validateanexternalstorageconfiguration_builder::State>
+    ValidateanexternalstorageconfigurationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: validateanexternalstorageconfiguration_builder::IsSet,
+    S::ExternalStorageId: validateanexternalstorageconfiguration_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ExternalStorageResponse, Error<ValidateanexternalstorageconfigurationError>>
+    {
+        self.call_internal().await
+    }
+}
+
+#[cfg(feature = "administration")]
 /// Validate one customer-managed external storage configuration.
 ///
 /// Sends the same request as [`validateanexternalstorageconfiguration`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ExternalStorageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = validateanexternalstorageconfiguration_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn validateanexternalstorageconfiguration_response(
     configuration: &configuration::Configuration,
     external_storage_id: &str,
@@ -10581,6 +12759,26 @@ pub async fn validateanexternalstorageconfiguration_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[cfg(feature = "administration")]
+#[allow(deprecated)]
+impl<S: validateanexternalstorageconfiguration_response_builder::State>
+    ValidateanexternalstorageconfigurationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: validateanexternalstorageconfiguration_response_builder::IsSet,
+    S::ExternalStorageId: validateanexternalstorageconfiguration_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ExternalStorageResponse>,
+        Error<ValidateanexternalstorageconfigurationError>,
+    > {
+        self.call_internal().await
     }
 }
 

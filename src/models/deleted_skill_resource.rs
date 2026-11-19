@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = deleted_skill_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeletedSkillResource {
     /// Defaults to `\"skill.deleted\"`.
     #[serde(rename = "object")]
@@ -28,6 +29,19 @@ impl DeletedSkillResource {
             deleted,
             id,
         }
+    }
+}
+
+impl<S: deleted_skill_resource_builder::State> DeletedSkillResourceBuilder<S>
+where
+    S::Object: deleted_skill_resource_builder::IsSet,
+    S::Deleted: deleted_skill_resource_builder::IsSet,
+    S::Id: deleted_skill_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeletedSkillResource {
+        self.build_internal()
     }
 }
 

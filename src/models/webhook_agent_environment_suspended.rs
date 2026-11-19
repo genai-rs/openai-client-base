@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookAgentEnvironmentSuspended : Sent when an agent environment is suspended and can resume from a snapshot.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_agent_environment_suspended_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookAgentEnvironmentSuspended {
     /// The unique ID of the event.
     #[serde(rename = "id")]
@@ -46,6 +47,22 @@ impl WebhookAgentEnvironmentSuspended {
             r#type,
             data,
         }
+    }
+}
+
+impl<S: webhook_agent_environment_suspended_builder::State>
+    WebhookAgentEnvironmentSuspendedBuilder<S>
+where
+    S::Id: webhook_agent_environment_suspended_builder::IsSet,
+    S::Object: webhook_agent_environment_suspended_builder::IsSet,
+    S::CreatedAt: webhook_agent_environment_suspended_builder::IsSet,
+    S::Type: webhook_agent_environment_suspended_builder::IsSet,
+    S::Data: webhook_agent_environment_suspended_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookAgentEnvironmentSuspended {
+        self.build_internal()
     }
 }
 

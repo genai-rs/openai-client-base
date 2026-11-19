@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaImageGenToolCall : An image generation request made by the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_image_gen_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaImageGenToolCall {
     #[serde(
         rename = "agent",
@@ -106,6 +107,19 @@ impl BetaImageGenToolCall {
             svg_usage: None,
             revised_prompt: None,
         }
+    }
+}
+
+impl<S: beta_image_gen_tool_call_builder::State> BetaImageGenToolCallBuilder<S>
+where
+    S::Type: beta_image_gen_tool_call_builder::IsSet,
+    S::Id: beta_image_gen_tool_call_builder::IsSet,
+    S::Status: beta_image_gen_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaImageGenToolCall {
+        self.build_internal()
     }
 }
 

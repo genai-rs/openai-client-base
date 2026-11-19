@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_conversation_item_message_user_content_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeConversationItemMessageUserContentInner {
     /// The content type (`input_text`, `input_audio`, or `input_image`).
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -42,6 +43,16 @@ impl RealtimeConversationItemMessageUserContentInner {
             detail: None,
             transcript: None,
         }
+    }
+}
+
+impl<S: realtime_conversation_item_message_user_content_inner_builder::State>
+    RealtimeConversationItemMessageUserContentInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeConversationItemMessageUserContentInner {
+        self.build_internal()
     }
 }
 

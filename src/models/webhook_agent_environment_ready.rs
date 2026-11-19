@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookAgentEnvironmentReady : Sent when a prewarmed OpenAI-hosted environment finishes setup before being attached to a session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_agent_environment_ready_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookAgentEnvironmentReady {
     /// The unique ID of the event.
     #[serde(rename = "id")]
@@ -46,6 +47,21 @@ impl WebhookAgentEnvironmentReady {
             r#type,
             data,
         }
+    }
+}
+
+impl<S: webhook_agent_environment_ready_builder::State> WebhookAgentEnvironmentReadyBuilder<S>
+where
+    S::Id: webhook_agent_environment_ready_builder::IsSet,
+    S::Object: webhook_agent_environment_ready_builder::IsSet,
+    S::CreatedAt: webhook_agent_environment_ready_builder::IsSet,
+    S::Type: webhook_agent_environment_ready_builder::IsSet,
+    S::Data: webhook_agent_environment_ready_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookAgentEnvironmentReady {
+        self.build_internal()
     }
 }
 

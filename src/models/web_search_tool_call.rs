@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebSearchToolCall : The results of a web search tool call. See the [web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = web_search_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebSearchToolCall {
     /// The unique ID of the web search tool call.
     #[serde(rename = "id")]
@@ -35,6 +36,19 @@ impl WebSearchToolCall {
             status,
             action: None,
         }
+    }
+}
+
+impl<S: web_search_tool_call_builder::State> WebSearchToolCallBuilder<S>
+where
+    S::Id: web_search_tool_call_builder::IsSet,
+    S::Type: web_search_tool_call_builder::IsSet,
+    S::Status: web_search_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebSearchToolCall {
+        self.build_internal()
     }
 }
 

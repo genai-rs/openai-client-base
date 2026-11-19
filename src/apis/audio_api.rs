@@ -219,7 +219,7 @@ pub enum UpdateVoiceConsentError {
 }
 
 /// Generates audio from the input text.  Returns the audio file content, or a stream of audio events.  The `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, `gpt-4o-mini-tts-2025-03-20`, and `gpt-4o-mini-tts-2025-12-15` models are deprecated and scheduled to shut down on January 6, 2027. These examples use the existing Speech API; for new integrations, migrate to `gpt-realtime-2.1-mini` through the [Realtime API](https://developers.openai.com/api/docs/guides/realtime). See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for migration details.
-#[bon::builder]
+#[bon::builder(state_mod = create_speech_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_speech(
     configuration: &configuration::Configuration,
     create_speech_request: &models::CreateSpeechRequest,
@@ -290,10 +290,23 @@ pub async fn create_speech(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_speech_builder::State> CreateSpeechBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_speech_builder::IsSet,
+    S::CreateSpeechRequest: create_speech_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<timvw_rust_runtime::Response, Error<CreateSpeechError>> {
+        self.call_internal().await
+    }
+}
+
 /// Generates audio from the input text.  Returns the audio file content, or a stream of audio events.  The `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, `gpt-4o-mini-tts-2025-03-20`, and `gpt-4o-mini-tts-2025-12-15` models are deprecated and scheduled to shut down on January 6, 2027. These examples use the existing Speech API; for new integrations, migrate to `gpt-realtime-2.1-mini` through the [Realtime API](https://developers.openai.com/api/docs/guides/realtime). See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for migration details.
 ///
 /// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::CreateSpeechResponseStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
-#[bon::builder]
+#[bon::builder(state_mod = create_speech_stream_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_speech_stream(
     configuration: &configuration::Configuration,
     create_speech_request: &models::CreateSpeechRequest,
@@ -374,8 +387,26 @@ pub async fn create_speech_stream(
     Ok(super::sse::EventStream::from_response(resp))
 }
 
+#[allow(deprecated)]
+impl<S: create_speech_stream_builder::State> CreateSpeechStreamBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_speech_stream_builder::IsSet,
+    S::CreateSpeechRequest: create_speech_stream_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::sse::EventStream<models::CreateSpeechResponseStreamEvent, CreateSpeechError>,
+        Error<CreateSpeechError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model.
-#[bon::builder]
+#[bon::builder(state_mod = create_transcription_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_transcription(
     configuration: &configuration::Configuration,
     #[builder(into)] file: timvw_rust_runtime::Upload,
@@ -577,13 +608,29 @@ pub async fn create_transcription(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_transcription_builder::State> CreateTranscriptionBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_transcription_builder::IsSet,
+    S::File: create_transcription_builder::IsSet,
+    S::Model: create_transcription_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::CreateTranscription200Response, Error<CreateTranscriptionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model.
 ///
 /// Sends the same request as [`create_transcription`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::CreateTranscription200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_transcription_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_transcription_response(
     configuration: &configuration::Configuration,
     #[builder(into)] file: timvw_rust_runtime::Upload,
@@ -779,10 +826,30 @@ pub async fn create_transcription_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_transcription_response_builder::State>
+    CreateTranscriptionResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_transcription_response_builder::IsSet,
+    S::File: create_transcription_response_builder::IsSet,
+    S::Model: create_transcription_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::CreateTranscription200Response>,
+        Error<CreateTranscriptionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model.
 ///
 /// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::CreateTranscriptionResponseStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
-#[bon::builder]
+#[bon::builder(state_mod = create_transcription_stream_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_transcription_stream(
     configuration: &configuration::Configuration,
     #[builder(into)] file: timvw_rust_runtime::Upload,
@@ -986,10 +1053,33 @@ pub async fn create_transcription_stream(
     Ok(super::sse::EventStream::from_response(resp))
 }
 
+#[allow(deprecated)]
+impl<S: create_transcription_stream_builder::State>
+    CreateTranscriptionStreamBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_transcription_stream_builder::IsSet,
+    S::File: create_transcription_stream_builder::IsSet,
+    S::Model: create_transcription_stream_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::sse::EventStream<
+            models::CreateTranscriptionResponseStreamEvent,
+            CreateTranscriptionError,
+        >,
+        Error<CreateTranscriptionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model.
 ///
 /// Decodes the `text/plain` form of the response; `create_transcription` decodes `application/json`.
-#[bon::builder]
+#[bon::builder(state_mod = create_transcription_text_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_transcription_text(
     configuration: &configuration::Configuration,
     #[builder(into)] file: timvw_rust_runtime::Upload,
@@ -1191,6 +1281,21 @@ pub async fn create_transcription_text(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_transcription_text_builder::State>
+    CreateTranscriptionTextBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_transcription_text_builder::IsSet,
+    S::File: create_transcription_text_builder::IsSet,
+    S::Model: create_transcription_text_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<String, Error<CreateTranscriptionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model.
 ///
 /// Decodes the `text/plain` form of the response; `create_transcription` decodes `application/json`.
@@ -1199,7 +1304,7 @@ pub async fn create_transcription_text(
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `String` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_transcription_text_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_transcription_text_response(
     configuration: &configuration::Configuration,
     #[builder(into)] file: timvw_rust_runtime::Upload,
@@ -1392,9 +1497,24 @@ pub async fn create_transcription_text_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_transcription_text_response_builder::State>
+    CreateTranscriptionTextResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_transcription_text_response_builder::IsSet,
+    S::File: create_transcription_text_response_builder::IsSet,
+    S::Model: create_transcription_text_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<String>, Error<CreateTranscriptionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Translates audio into English.  This endpoint supports only `whisper-1`. The endpoint and model are deprecated and scheduled to shut down on February 26, 2027. Migrate to `/v1/realtime/translations`, which requires a separate integration. See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for details.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_translation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_translation(
     configuration: &configuration::Configuration,
     #[builder(into)] file: timvw_rust_runtime::Upload,
@@ -1504,6 +1624,22 @@ pub async fn create_translation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_translation_builder::State> CreateTranslationBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_translation_builder::IsSet,
+    S::File: create_translation_builder::IsSet,
+    S::Model: create_translation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::CreateTranslation200Response, Error<CreateTranslationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Translates audio into English.  This endpoint supports only `whisper-1`. The endpoint and model are deprecated and scheduled to shut down on February 26, 2027. Migrate to `/v1/realtime/translations`, which requires a separate integration. See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for details.
 ///
 /// Sends the same request as [`create_translation`] and fails the same way, error status included, but returns the
@@ -1511,7 +1647,7 @@ pub async fn create_translation(
 /// `models::CreateTranslation200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_translation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_translation_response(
     configuration: &configuration::Configuration,
     #[builder(into)] file: timvw_rust_runtime::Upload,
@@ -1613,11 +1749,31 @@ pub async fn create_translation_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_translation_response_builder::State>
+    CreateTranslationResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_translation_response_builder::IsSet,
+    S::File: create_translation_response_builder::IsSet,
+    S::Model: create_translation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::CreateTranslation200Response>,
+        Error<CreateTranslationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Translates audio into English.  This endpoint supports only `whisper-1`. The endpoint and model are deprecated and scheduled to shut down on February 26, 2027. Migrate to `/v1/realtime/translations`, which requires a separate integration. See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for details.
 ///
 /// Decodes the `text/plain` form of the response; `create_translation` decodes `application/json`.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_translation_text_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_translation_text(
     configuration: &configuration::Configuration,
     #[builder(into)] file: timvw_rust_runtime::Upload,
@@ -1727,6 +1883,20 @@ pub async fn create_translation_text(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_translation_text_builder::State> CreateTranslationTextBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_translation_text_builder::IsSet,
+    S::File: create_translation_text_builder::IsSet,
+    S::Model: create_translation_text_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<String, Error<CreateTranslationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Translates audio into English.  This endpoint supports only `whisper-1`. The endpoint and model are deprecated and scheduled to shut down on February 26, 2027. Migrate to `/v1/realtime/translations`, which requires a separate integration. See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for details.
 ///
 /// Decodes the `text/plain` form of the response; `create_translation` decodes `application/json`.
@@ -1736,7 +1906,7 @@ pub async fn create_translation_text(
 /// `String` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_translation_text_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_translation_text_response(
     configuration: &configuration::Configuration,
     #[builder(into)] file: timvw_rust_runtime::Upload,
@@ -1837,8 +2007,23 @@ pub async fn create_translation_text_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_translation_text_response_builder::State>
+    CreateTranslationTextResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_translation_text_response_builder::IsSet,
+    S::File: create_translation_text_response_builder::IsSet,
+    S::Model: create_translation_text_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<String>, Error<CreateTranslationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio.
-#[bon::builder]
+#[bon::builder(state_mod = create_voice_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_voice(
     configuration: &configuration::Configuration,
     create_voice_prompt_request: &models::CreateVoicePromptRequest,
@@ -1913,13 +2098,26 @@ pub async fn create_voice(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_voice_builder::State> CreateVoiceBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_voice_builder::IsSet,
+    S::CreateVoicePromptRequest: create_voice_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VoiceResource, Error<CreateVoiceError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio.
 ///
 /// Sends the same request as [`create_voice`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VoiceResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_voice_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_voice_response(
     configuration: &configuration::Configuration,
     create_voice_prompt_request: &models::CreateVoicePromptRequest,
@@ -1985,8 +2183,23 @@ pub async fn create_voice_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_voice_response_builder::State> CreateVoiceResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_voice_response_builder::IsSet,
+    S::CreateVoicePromptRequest: create_voice_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VoiceResource>, Error<CreateVoiceError>> {
+        self.call_internal().await
+    }
+}
+
 /// Upload a voice consent recording.
-#[bon::builder]
+#[bon::builder(state_mod = create_voice_consent_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_voice_consent(
     configuration: &configuration::Configuration,
     name: &str,
@@ -2068,13 +2281,30 @@ pub async fn create_voice_consent(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_voice_consent_builder::State> CreateVoiceConsentBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_voice_consent_builder::IsSet,
+    S::Name: create_voice_consent_builder::IsSet,
+    S::Recording: create_voice_consent_builder::IsSet,
+    S::Language: create_voice_consent_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VoiceConsentResource, Error<CreateVoiceConsentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Upload a voice consent recording.
 ///
 /// Sends the same request as [`create_voice_consent`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VoiceConsentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_voice_consent_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_voice_consent_response(
     configuration: &configuration::Configuration,
     name: &str,
@@ -2147,10 +2377,29 @@ pub async fn create_voice_consent_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_voice_consent_response_builder::State>
+    CreateVoiceConsentResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_voice_consent_response_builder::IsSet,
+    S::Name: create_voice_consent_response_builder::IsSet,
+    S::Recording: create_voice_consent_response_builder::IsSet,
+    S::Language: create_voice_consent_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VoiceConsentResource>, Error<CreateVoiceConsentError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio.
 ///
 /// Sends the request body as `multipart/form-data`; `create_voice` sends it as `application/json`.
-#[bon::builder]
+#[bon::builder(state_mod = create_voice_multipart_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_voice_multipart(
     configuration: &configuration::Configuration,
     r#type: Option<&str>,
@@ -2261,6 +2510,19 @@ pub async fn create_voice_multipart(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_voice_multipart_builder::State>
+    CreateVoiceMultipartBuilder<'_, '_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_voice_multipart_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VoiceResource, Error<CreateVoiceError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio.
 ///
 /// Sends the request body as `multipart/form-data`; `create_voice` sends it as `application/json`.
@@ -2269,7 +2531,7 @@ pub async fn create_voice_multipart(
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VoiceResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_voice_multipart_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_voice_multipart_response(
     configuration: &configuration::Configuration,
     r#type: Option<&str>,
@@ -2371,8 +2633,23 @@ pub async fn create_voice_multipart_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_voice_multipart_response_builder::State>
+    CreateVoiceMultipartResponseBuilder<'_, '_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_voice_multipart_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VoiceResource>, Error<CreateVoiceError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a voice created from a text prompt or an audio sample.  Requires voice write permission and access to the voice's project. Access to voices created from recordings is limited to eligible customers. See the [custom voices guide](https://developers.openai.com/api/docs/guides/custom-voices).  Deleting a voice does not delete its consent recording. Deleting an already deleted voice returns a 404 error.
-#[bon::builder]
+#[bon::builder(state_mod = delete_voice_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_voice(
     configuration: &configuration::Configuration,
     voice_id: &str,
@@ -2447,13 +2724,26 @@ pub async fn delete_voice(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_voice_builder::State> DeleteVoiceBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_voice_builder::IsSet,
+    S::VoiceId: delete_voice_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VoiceDeletedResource, Error<DeleteVoiceError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a voice created from a text prompt or an audio sample.  Requires voice write permission and access to the voice's project. Access to voices created from recordings is limited to eligible customers. See the [custom voices guide](https://developers.openai.com/api/docs/guides/custom-voices).  Deleting a voice does not delete its consent recording. Deleting an already deleted voice returns a 404 error.
 ///
 /// Sends the same request as [`delete_voice`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VoiceDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_voice_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_voice_response(
     configuration: &configuration::Configuration,
     voice_id: &str,
@@ -2519,8 +2809,23 @@ pub async fn delete_voice_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_voice_response_builder::State> DeleteVoiceResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_voice_response_builder::IsSet,
+    S::VoiceId: delete_voice_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VoiceDeletedResource>, Error<DeleteVoiceError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a voice consent recording.
-#[bon::builder]
+#[bon::builder(state_mod = delete_voice_consent_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_voice_consent(
     configuration: &configuration::Configuration,
     consent_id: &str,
@@ -2595,13 +2900,28 @@ pub async fn delete_voice_consent(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_voice_consent_builder::State> DeleteVoiceConsentBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_voice_consent_builder::IsSet,
+    S::ConsentId: delete_voice_consent_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VoiceConsentDeletedResource, Error<DeleteVoiceConsentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a voice consent recording.
 ///
 /// Sends the same request as [`delete_voice_consent`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VoiceConsentDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_voice_consent_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_voice_consent_response(
     configuration: &configuration::Configuration,
     consent_id: &str,
@@ -2668,8 +2988,27 @@ pub async fn delete_voice_consent_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_voice_consent_response_builder::State>
+    DeleteVoiceConsentResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_voice_consent_response_builder::IsSet,
+    S::ConsentId: delete_voice_consent_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::VoiceConsentDeletedResource>,
+        Error<DeleteVoiceConsentError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a voice consent recording.
-#[bon::builder]
+#[bon::builder(state_mod = get_voice_consent_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_voice_consent(
     configuration: &configuration::Configuration,
     consent_id: &str,
@@ -2744,13 +3083,26 @@ pub async fn get_voice_consent(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_voice_consent_builder::State> GetVoiceConsentBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_voice_consent_builder::IsSet,
+    S::ConsentId: get_voice_consent_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VoiceConsentResource, Error<GetVoiceConsentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a voice consent recording.
 ///
 /// Sends the same request as [`get_voice_consent`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VoiceConsentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_voice_consent_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_voice_consent_response(
     configuration: &configuration::Configuration,
     consent_id: &str,
@@ -2816,8 +3168,23 @@ pub async fn get_voice_consent_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_voice_consent_response_builder::State> GetVoiceConsentResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_voice_consent_response_builder::IsSet,
+    S::ConsentId: get_voice_consent_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VoiceConsentResource>, Error<GetVoiceConsentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of voice consent recordings.
-#[bon::builder]
+#[bon::builder(state_mod = list_voice_consents_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_voice_consents(
     configuration: &configuration::Configuration,
     after: Option<&str>,
@@ -2896,13 +3263,27 @@ pub async fn list_voice_consents(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_voice_consents_builder::State> ListVoiceConsentsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_voice_consents_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VoiceConsentListResource, Error<ListVoiceConsentsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of voice consent recordings.
 ///
 /// Sends the same request as [`list_voice_consents`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VoiceConsentListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_voice_consents_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_voice_consents_response(
     configuration: &configuration::Configuration,
     after: Option<&str>,
@@ -2972,8 +3353,23 @@ pub async fn list_voice_consents_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_voice_consents_response_builder::State> ListVoiceConsentsResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_voice_consents_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VoiceConsentListResource>, Error<ListVoiceConsentsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Updates a voice consent recording (metadata only).
-#[bon::builder]
+#[bon::builder(state_mod = update_voice_consent_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_voice_consent(
     configuration: &configuration::Configuration,
     consent_id: &str,
@@ -3051,13 +3447,29 @@ pub async fn update_voice_consent(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_voice_consent_builder::State> UpdateVoiceConsentBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_voice_consent_builder::IsSet,
+    S::ConsentId: update_voice_consent_builder::IsSet,
+    S::UpdateVoiceConsentRequest: update_voice_consent_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VoiceConsentResource, Error<UpdateVoiceConsentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates a voice consent recording (metadata only).
 ///
 /// Sends the same request as [`update_voice_consent`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VoiceConsentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_voice_consent_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_voice_consent_response(
     configuration: &configuration::Configuration,
     consent_id: &str,
@@ -3123,5 +3535,23 @@ pub async fn update_voice_consent_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: update_voice_consent_response_builder::State>
+    UpdateVoiceConsentResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_voice_consent_response_builder::IsSet,
+    S::ConsentId: update_voice_consent_response_builder::IsSet,
+    S::UpdateVoiceConsentRequest: update_voice_consent_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VoiceConsentResource>, Error<UpdateVoiceConsentError>>
+    {
+        self.call_internal().await
     }
 }

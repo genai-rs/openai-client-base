@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaWebSearchToolCall : The results of a web search tool call. See the [web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_web_search_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaWebSearchToolCall {
     /// The agent that produced this item.
     #[serde(
@@ -48,6 +49,19 @@ impl BetaWebSearchToolCall {
             status,
             action: None,
         }
+    }
+}
+
+impl<S: beta_web_search_tool_call_builder::State> BetaWebSearchToolCallBuilder<S>
+where
+    S::Id: beta_web_search_tool_call_builder::IsSet,
+    S::Type: beta_web_search_tool_call_builder::IsSet,
+    S::Status: beta_web_search_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaWebSearchToolCall {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaImageGenToolUsage : Token usage for image generation tool calls in a response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_image_gen_tool_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaImageGenToolUsage {
     /// The number of tokens (images and text) in the input prompt.
     #[serde(rename = "input_tokens")]
@@ -56,6 +57,20 @@ impl BetaImageGenToolUsage {
             cached_tokens: None,
             cached_tokens_details: None,
         }
+    }
+}
+
+impl<S: beta_image_gen_tool_usage_builder::State> BetaImageGenToolUsageBuilder<S>
+where
+    S::InputTokens: beta_image_gen_tool_usage_builder::IsSet,
+    S::TotalTokens: beta_image_gen_tool_usage_builder::IsSet,
+    S::OutputTokens: beta_image_gen_tool_usage_builder::IsSet,
+    S::InputTokensDetails: beta_image_gen_tool_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaImageGenToolUsage {
+        self.build_internal()
     }
 }
 

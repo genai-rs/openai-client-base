@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_content_text_annotations_file_citation_object_file_citation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageContentTextAnnotationsFileCitationObjectFileCitation {
     /// The ID of the specific File the citation is from.
     #[serde(rename = "file_id")]
@@ -20,6 +21,18 @@ pub struct MessageContentTextAnnotationsFileCitationObjectFileCitation {
 impl MessageContentTextAnnotationsFileCitationObjectFileCitation {
     pub fn new(file_id: String) -> MessageContentTextAnnotationsFileCitationObjectFileCitation {
         MessageContentTextAnnotationsFileCitationObjectFileCitation { file_id }
+    }
+}
+
+impl<S: message_content_text_annotations_file_citation_object_file_citation_builder::State>
+    MessageContentTextAnnotationsFileCitationObjectFileCitationBuilder<S>
+where
+    S::FileId: message_content_text_annotations_file_citation_object_file_citation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageContentTextAnnotationsFileCitationObjectFileCitation {
+        self.build_internal()
     }
 }
 

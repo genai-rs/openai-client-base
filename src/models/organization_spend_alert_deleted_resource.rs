@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// OrganizationSpendAlertDeletedResource : Confirmation payload returned after deleting an organization spend alert.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = organization_spend_alert_deleted_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct OrganizationSpendAlertDeletedResource {
     /// The deleted spend alert ID.
     #[serde(rename = "id")]
@@ -32,6 +33,20 @@ impl OrganizationSpendAlertDeletedResource {
             object,
             deleted,
         }
+    }
+}
+
+impl<S: organization_spend_alert_deleted_resource_builder::State>
+    OrganizationSpendAlertDeletedResourceBuilder<S>
+where
+    S::Id: organization_spend_alert_deleted_resource_builder::IsSet,
+    S::Object: organization_spend_alert_deleted_resource_builder::IsSet,
+    S::Deleted: organization_spend_alert_deleted_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> OrganizationSpendAlertDeletedResource {
+        self.build_internal()
     }
 }
 

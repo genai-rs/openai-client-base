@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogInviteSent : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_invite_sent_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogInviteSent {
     /// The ID of the invite.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,14 @@ impl AuditLogInviteSent {
             id: None,
             data: None,
         }
+    }
+}
+
+impl<S: audit_log_invite_sent_builder::State> AuditLogInviteSentBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogInviteSent {
+        self.build_internal()
     }
 }
 

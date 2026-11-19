@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FunctionToolCallOutput : The output of a function tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = function_tool_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FunctionToolCallOutput {
     /// The unique ID of the function tool call output. Populated when this item is returned via API.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -59,6 +60,18 @@ impl FunctionToolCallOutput {
             output,
             status: None,
         }
+    }
+}
+
+impl<S: function_tool_call_output_builder::State> FunctionToolCallOutputBuilder<S>
+where
+    S::Type: function_tool_call_output_builder::IsSet,
+    S::Output: function_tool_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FunctionToolCallOutput {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = invite_request_projects_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InviteRequestProjectsInner {
     /// Project's public ID
     #[serde(rename = "id")]
@@ -23,6 +24,18 @@ pub struct InviteRequestProjectsInner {
 impl InviteRequestProjectsInner {
     pub fn new(id: String, role: Role) -> InviteRequestProjectsInner {
         InviteRequestProjectsInner { id, role }
+    }
+}
+
+impl<S: invite_request_projects_inner_builder::State> InviteRequestProjectsInnerBuilder<S>
+where
+    S::Id: invite_request_projects_inner_builder::IsSet,
+    S::Role: invite_request_projects_inner_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InviteRequestProjectsInner {
+        self.build_internal()
     }
 }
 

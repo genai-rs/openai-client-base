@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// DeletedAgentResource : A deleted reusable agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = deleted_agent_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeletedAgentResource {
     /// The ID of the deleted agent.
     ///
@@ -34,6 +35,19 @@ impl DeletedAgentResource {
             object,
             deleted,
         }
+    }
+}
+
+impl<S: deleted_agent_resource_builder::State> DeletedAgentResourceBuilder<S>
+where
+    S::Id: deleted_agent_resource_builder::IsSet,
+    S::Object: deleted_agent_resource_builder::IsSet,
+    S::Deleted: deleted_agent_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeletedAgentResource {
+        self.build_internal()
     }
 }
 

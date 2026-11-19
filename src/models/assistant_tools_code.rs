@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = assistant_tools_code_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AssistantToolsCode {
     /// The type of tool being defined: `code_interpreter`
     #[serde(rename = "type")]
@@ -20,6 +21,17 @@ pub struct AssistantToolsCode {
 impl AssistantToolsCode {
     pub fn new(r#type: Type) -> AssistantToolsCode {
         AssistantToolsCode { r#type }
+    }
+}
+
+impl<S: assistant_tools_code_builder::State> AssistantToolsCodeBuilder<S>
+where
+    S::Type: assistant_tools_code_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AssistantToolsCode {
+        self.build_internal()
     }
 }
 

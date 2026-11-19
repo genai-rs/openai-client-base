@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_user_input_text_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionUserInputTextParam {
     /// Defaults to `\"input_text\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ pub struct LiveDecisionUserInputTextParam {
 impl LiveDecisionUserInputTextParam {
     pub fn new(r#type: Type, text: String) -> LiveDecisionUserInputTextParam {
         LiveDecisionUserInputTextParam { r#type, text }
+    }
+}
+
+impl<S: live_decision_user_input_text_param_builder::State> LiveDecisionUserInputTextParamBuilder<S>
+where
+    S::Type: live_decision_user_input_text_param_builder::IsSet,
+    S::Text: live_decision_user_input_text_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionUserInputTextParam {
+        self.build_internal()
     }
 }
 

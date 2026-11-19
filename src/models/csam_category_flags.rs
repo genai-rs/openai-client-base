@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = csam_category_flags_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CsamCategoryFlags {
     #[serde(rename = "likely-csam")]
     pub likely_csam: bool,
@@ -24,6 +25,18 @@ impl CsamCategoryFlags {
             likely_csam,
             likely_csam_slash_gen_ai,
         }
+    }
+}
+
+impl<S: csam_category_flags_builder::State> CsamCategoryFlagsBuilder<S>
+where
+    S::LikelyCsam: csam_category_flags_builder::IsSet,
+    S::LikelyCsamSlashGenAi: csam_category_flags_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CsamCategoryFlags {
+        self.build_internal()
     }
 }
 

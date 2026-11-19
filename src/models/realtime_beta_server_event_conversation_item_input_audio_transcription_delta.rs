@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventConversationItemInputAudioTranscriptionDelta : Returned when the text value of an input audio transcription content part is updated.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_conversation_item_input_audio_transcription_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventConversationItemInputAudioTranscriptionDelta {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -54,6 +55,24 @@ impl RealtimeBetaServerEventConversationItemInputAudioTranscriptionDelta {
             delta: None,
             logprobs: None,
         }
+    }
+}
+
+impl<
+        S: realtime_beta_server_event_conversation_item_input_audio_transcription_delta_builder::State,
+    > RealtimeBetaServerEventConversationItemInputAudioTranscriptionDeltaBuilder<S>
+where
+    S::EventId:
+        realtime_beta_server_event_conversation_item_input_audio_transcription_delta_builder::IsSet,
+    S::Type:
+        realtime_beta_server_event_conversation_item_input_audio_transcription_delta_builder::IsSet,
+    S::ItemId:
+        realtime_beta_server_event_conversation_item_input_audio_transcription_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventConversationItemInputAudioTranscriptionDelta {
+        self.build_internal()
     }
 }
 

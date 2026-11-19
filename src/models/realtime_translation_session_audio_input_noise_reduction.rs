@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationSessionAudioInputNoiseReduction : Optional input noise reduction.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_session_audio_input_noise_reduction_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationSessionAudioInputNoiseReduction {
     #[serde(rename = "type")]
     pub r#type: models::NoiseReductionType,
@@ -32,6 +33,18 @@ impl RealtimeTranslationSessionAudioInputNoiseReduction {
             r#type,
             strength: None,
         }
+    }
+}
+
+impl<S: realtime_translation_session_audio_input_noise_reduction_builder::State>
+    RealtimeTranslationSessionAudioInputNoiseReductionBuilder<S>
+where
+    S::Type: realtime_translation_session_audio_input_noise_reduction_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationSessionAudioInputNoiseReduction {
+        self.build_internal()
     }
 }
 

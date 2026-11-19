@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = c2_pa_provenance_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct C2PaProvenanceResult {
     /// The provenance signal type. Always `c2pa`.  Defaults to `\"c2pa\"`.
     #[serde(rename = "type")]
@@ -48,6 +49,20 @@ impl C2PaProvenanceResult {
             model,
             generated_at,
         }
+    }
+}
+
+impl<S: c2_pa_provenance_result_builder::State> C2PaProvenanceResultBuilder<S>
+where
+    S::Type: c2_pa_provenance_result_builder::IsSet,
+    S::Outcome: c2_pa_provenance_result_builder::IsSet,
+    S::ValidationState: c2_pa_provenance_result_builder::IsSet,
+    S::Model: c2_pa_provenance_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> C2PaProvenanceResult {
+        self.build_internal()
     }
 }
 

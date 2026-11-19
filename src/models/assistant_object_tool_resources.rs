@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AssistantObjectToolResources : A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = assistant_object_tool_resources_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AssistantObjectToolResources {
     #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
     pub code_interpreter: Option<models::AssistantObjectToolResourcesCodeInterpreter>,
@@ -27,6 +28,14 @@ impl AssistantObjectToolResources {
             code_interpreter: None,
             file_search: None,
         }
+    }
+}
+
+impl<S: assistant_object_tool_resources_builder::State> AssistantObjectToolResourcesBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AssistantObjectToolResources {
+        self.build_internal()
     }
 }
 

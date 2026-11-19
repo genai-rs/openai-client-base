@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = list_paginated_fine_tuning_jobs_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ListPaginatedFineTuningJobsResponse {
     #[serde(rename = "data")]
     pub data: Vec<models::FineTuningJob>,
@@ -32,6 +33,20 @@ impl ListPaginatedFineTuningJobsResponse {
             has_more,
             object,
         }
+    }
+}
+
+impl<S: list_paginated_fine_tuning_jobs_response_builder::State>
+    ListPaginatedFineTuningJobsResponseBuilder<S>
+where
+    S::Data: list_paginated_fine_tuning_jobs_response_builder::IsSet,
+    S::HasMore: list_paginated_fine_tuning_jobs_response_builder::IsSet,
+    S::Object: list_paginated_fine_tuning_jobs_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ListPaginatedFineTuningJobsResponse {
+        self.build_internal()
     }
 }
 

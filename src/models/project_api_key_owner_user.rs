@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectApiKeyOwnerUser : The user that owns a project API key.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_api_key_owner_user_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectApiKeyOwnerUser {
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
@@ -46,6 +47,21 @@ impl ProjectApiKeyOwnerUser {
             created_at,
             role,
         }
+    }
+}
+
+impl<S: project_api_key_owner_user_builder::State> ProjectApiKeyOwnerUserBuilder<S>
+where
+    S::Id: project_api_key_owner_user_builder::IsSet,
+    S::Email: project_api_key_owner_user_builder::IsSet,
+    S::Name: project_api_key_owner_user_builder::IsSet,
+    S::CreatedAt: project_api_key_owner_user_builder::IsSet,
+    S::Role: project_api_key_owner_user_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectApiKeyOwnerUser {
+        self.build_internal()
     }
 }
 

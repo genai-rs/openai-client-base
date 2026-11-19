@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RequiredToolSearchOutput : Supply `tools` using the tool search output input schema, retaining `execution: \"client\"`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = required_tool_search_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RequiredToolSearchOutput {
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -29,6 +30,19 @@ impl RequiredToolSearchOutput {
             call_id,
             execution,
         }
+    }
+}
+
+impl<S: required_tool_search_output_builder::State> RequiredToolSearchOutputBuilder<S>
+where
+    S::Type: required_tool_search_output_builder::IsSet,
+    S::CallId: required_tool_search_output_builder::IsSet,
+    S::Execution: required_tool_search_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RequiredToolSearchOutput {
+        self.build_internal()
     }
 }
 

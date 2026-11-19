@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CompactionTriggerItemParam : Compacts the current context. Must be the final input item.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = compaction_trigger_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CompactionTriggerItemParam {
     /// The unique ID of this compaction trigger.
     #[serde(
@@ -30,6 +31,17 @@ impl CompactionTriggerItemParam {
     /// Compacts the current context. Must be the final input item.
     pub fn new(r#type: Type) -> CompactionTriggerItemParam {
         CompactionTriggerItemParam { id: None, r#type }
+    }
+}
+
+impl<S: compaction_trigger_item_param_builder::State> CompactionTriggerItemParamBuilder<S>
+where
+    S::Type: compaction_trigger_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CompactionTriggerItemParam {
+        self.build_internal()
     }
 }
 

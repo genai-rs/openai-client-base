@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_certificates_deactivated_certificates_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogCertificatesDeactivatedCertificatesInner {
     /// The certificate ID.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -26,6 +27,16 @@ impl AuditLogCertificatesDeactivatedCertificatesInner {
             id: None,
             name: None,
         }
+    }
+}
+
+impl<S: audit_log_certificates_deactivated_certificates_inner_builder::State>
+    AuditLogCertificatesDeactivatedCertificatesInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogCertificatesDeactivatedCertificatesInner {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// OrganizationSpendLimitResource : Represents a hard spend limit configured at the organization level.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = organization_spend_limit_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct OrganizationSpendLimitResource {
     /// The object type, which is always `organization.spend_limit`.  Defaults to `\"organization.spend_limit\"`.
     #[serde(rename = "object")]
@@ -44,6 +45,21 @@ impl OrganizationSpendLimitResource {
             interval,
             enforcement,
         }
+    }
+}
+
+impl<S: organization_spend_limit_resource_builder::State> OrganizationSpendLimitResourceBuilder<S>
+where
+    S::Object: organization_spend_limit_resource_builder::IsSet,
+    S::ThresholdAmount: organization_spend_limit_resource_builder::IsSet,
+    S::Currency: organization_spend_limit_resource_builder::IsSet,
+    S::Interval: organization_spend_limit_resource_builder::IsSet,
+    S::Enforcement: organization_spend_limit_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> OrganizationSpendLimitResource {
+        self.build_internal()
     }
 }
 

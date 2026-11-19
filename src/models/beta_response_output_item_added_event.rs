@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseOutputItemAddedEvent : Emitted when a new output item is added.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_output_item_added_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseOutputItemAddedEvent {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -50,6 +51,21 @@ impl BetaResponseOutputItemAddedEvent {
             sequence_number,
             item,
         }
+    }
+}
+
+impl<S: beta_response_output_item_added_event_builder::State>
+    BetaResponseOutputItemAddedEventBuilder<S>
+where
+    S::Type: beta_response_output_item_added_event_builder::IsSet,
+    S::OutputIndex: beta_response_output_item_added_event_builder::IsSet,
+    S::SequenceNumber: beta_response_output_item_added_event_builder::IsSet,
+    S::Item: beta_response_output_item_added_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseOutputItemAddedEvent {
+        self.build_internal()
     }
 }
 

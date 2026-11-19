@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_jsonl_file_content_source_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalJsonlFileContentSource {
     /// The type of jsonl source. Always `file_content`.  Defaults to `\"file_content\"`.
     #[serde(rename = "type")]
@@ -27,6 +28,18 @@ impl EvalJsonlFileContentSource {
         content: Vec<models::EvalJsonlFileContentSourceContentInner>,
     ) -> EvalJsonlFileContentSource {
         EvalJsonlFileContentSource { r#type, content }
+    }
+}
+
+impl<S: eval_jsonl_file_content_source_builder::State> EvalJsonlFileContentSourceBuilder<S>
+where
+    S::Type: eval_jsonl_file_content_source_builder::IsSet,
+    S::Content: eval_jsonl_file_content_source_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalJsonlFileContentSource {
+        self.build_internal()
     }
 }
 

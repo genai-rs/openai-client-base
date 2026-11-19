@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decisions_settings_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionsSettingsInputParam {
     /// Native Decision API questions evaluated together, in order.
     ///
@@ -29,6 +30,19 @@ impl LiveDecisionsSettingsInputParam {
         model: String,
     ) -> LiveDecisionsSettingsInputParam {
         LiveDecisionsSettingsInputParam { questions, model }
+    }
+}
+
+impl<S: live_decisions_settings_input_param_builder::State>
+    LiveDecisionsSettingsInputParamBuilder<S>
+where
+    S::Questions: live_decisions_settings_input_param_builder::IsSet,
+    S::Model: live_decisions_settings_input_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionsSettingsInputParam {
+        self.build_internal()
     }
 }
 

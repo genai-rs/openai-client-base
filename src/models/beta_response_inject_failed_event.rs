@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseInjectFailedEvent : Emitted when injected input could not be committed to a response. The event returns the uncommitted raw input so the client can retry it in another response when appropriate.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_inject_failed_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseInjectFailedEvent {
     /// The event discriminator. Always `response.inject.failed`.
     #[serde(rename = "type")]
@@ -50,6 +51,21 @@ impl BetaResponseInjectFailedEvent {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_inject_failed_event_builder::State> BetaResponseInjectFailedEventBuilder<S>
+where
+    S::Type: beta_response_inject_failed_event_builder::IsSet,
+    S::ResponseId: beta_response_inject_failed_event_builder::IsSet,
+    S::Input: beta_response_inject_failed_event_builder::IsSet,
+    S::Error: beta_response_inject_failed_event_builder::IsSet,
+    S::SequenceNumber: beta_response_inject_failed_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseInjectFailedEvent {
+        self.build_internal()
     }
 }
 

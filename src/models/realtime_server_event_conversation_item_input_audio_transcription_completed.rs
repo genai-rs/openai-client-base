@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventConversationItemInputAudioTranscriptionCompleted : This event is the output of audio transcription for user audio written to the user audio buffer. Transcription begins when the input audio buffer is committed by the client or server (when VAD is enabled). Transcription runs asynchronously with Response creation, so this event may come before or after the Response events.  Realtime API models accept audio natively, and thus input transcription is a separate process run on a separate ASR (Automatic Speech Recognition) model. The transcript may diverge somewhat from the model's interpretation, and should be treated as a rough guide.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_conversation_item_input_audio_transcription_completed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventConversationItemInputAudioTranscriptionCompleted {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -64,6 +65,30 @@ impl RealtimeServerEventConversationItemInputAudioTranscriptionCompleted {
             logprobs: None,
             usage,
         }
+    }
+}
+
+impl<
+        S: realtime_server_event_conversation_item_input_audio_transcription_completed_builder::State,
+    > RealtimeServerEventConversationItemInputAudioTranscriptionCompletedBuilder<S>
+where
+    S::EventId:
+        realtime_server_event_conversation_item_input_audio_transcription_completed_builder::IsSet,
+    S::Type:
+        realtime_server_event_conversation_item_input_audio_transcription_completed_builder::IsSet,
+    S::ItemId:
+        realtime_server_event_conversation_item_input_audio_transcription_completed_builder::IsSet,
+    S::ContentIndex:
+        realtime_server_event_conversation_item_input_audio_transcription_completed_builder::IsSet,
+    S::Transcript:
+        realtime_server_event_conversation_item_input_audio_transcription_completed_builder::IsSet,
+    S::Usage:
+        realtime_server_event_conversation_item_input_audio_transcription_completed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventConversationItemInputAudioTranscriptionCompleted {
+        self.build_internal()
     }
 }
 

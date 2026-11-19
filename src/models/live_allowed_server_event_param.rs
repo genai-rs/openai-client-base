@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveAllowedServerEventParam : A Live server event selector for the WebRTC frontend data channel.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_allowed_server_event_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveAllowedServerEventParam {
     /// The outer Live server event type. Use 'response.event' for Responses events.
     ///
@@ -32,6 +33,17 @@ impl LiveAllowedServerEventParam {
             r#type,
             response_event: None,
         }
+    }
+}
+
+impl<S: live_allowed_server_event_param_builder::State> LiveAllowedServerEventParamBuilder<S>
+where
+    S::Type: live_allowed_server_event_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveAllowedServerEventParam {
+        self.build_internal()
     }
 }
 

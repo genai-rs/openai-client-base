@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseSteerPendingEvent : Emitted when accepted steering input remains queued after the target response completes. The server still owns the input. Do not resend it. The successor's `response.created` event is the commit point.  When `reason` is `waiting_for_required_input`, this event follows `response.completed` while the response waits for the tool results or approval decisions identified by `required_input`. Copy those stubs, fill their result fields using the ordinary `response.create` input schemas, and submit one continuation per parent with the same `previous_response_id` and WebSocket lane. Use saved results without rerunning tools. The queued steering input is prepended in submission order to the continuation's input. That explicit request retains its own settings.  This notification is emitted at most once per steering submission. Multiple submissions for the same parent can report the same required inputs; they do not each require a separate continuation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_steer_pending_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseSteerPendingEvent {
     /// The event discriminator. Always `response.steer.pending`.
     #[serde(rename = "type")]
@@ -51,6 +52,21 @@ impl ResponseSteerPendingEvent {
             required_input,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_steer_pending_event_builder::State> ResponseSteerPendingEventBuilder<S>
+where
+    S::Type: response_steer_pending_event_builder::IsSet,
+    S::SequenceNumber: response_steer_pending_event_builder::IsSet,
+    S::Steer: response_steer_pending_event_builder::IsSet,
+    S::Reason: response_steer_pending_event_builder::IsSet,
+    S::RequiredInput: response_steer_pending_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseSteerPendingEvent {
+        self.build_internal()
     }
 }
 

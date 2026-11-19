@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RotateVaultCredentialAuthParamEnvironmentVariable : Replace the secret for an OpenAI-hosted environment credential. The environment variable name and networking configuration remain unchanged.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = rotate_vault_credential_auth_param_environment_variable_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RotateVaultCredentialAuthParamEnvironmentVariable {
     /// The type of the object. Always `environment_variable`.  Defaults to `\"environment_variable\"`.
     #[serde(rename = "type")]
@@ -33,6 +34,19 @@ impl RotateVaultCredentialAuthParamEnvironmentVariable {
             r#type,
             secret_value,
         }
+    }
+}
+
+impl<S: rotate_vault_credential_auth_param_environment_variable_builder::State>
+    RotateVaultCredentialAuthParamEnvironmentVariableBuilder<S>
+where
+    S::Type: rotate_vault_credential_auth_param_environment_variable_builder::IsSet,
+    S::SecretValue: rotate_vault_credential_auth_param_environment_variable_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RotateVaultCredentialAuthParamEnvironmentVariable {
+        self.build_internal()
     }
 }
 

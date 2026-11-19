@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FileSearchToolCall : The results of a file search tool call. See the [file search guide](https://developers.openai.com/api/docs/guides/tools-file-search) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = file_search_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FileSearchToolCall {
     /// The unique ID of the file search tool call.
     #[serde(rename = "id")]
@@ -51,6 +52,20 @@ impl FileSearchToolCall {
             queries,
             results: None,
         }
+    }
+}
+
+impl<S: file_search_tool_call_builder::State> FileSearchToolCallBuilder<S>
+where
+    S::Id: file_search_tool_call_builder::IsSet,
+    S::Type: file_search_tool_call_builder::IsSet,
+    S::Status: file_search_tool_call_builder::IsSet,
+    S::Queries: file_search_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FileSearchToolCall {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSessionCreateParams : Initial configuration for a Live session, including its model, conversation instructions, audio, and delegated task handling.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_create_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionCreateParams {
     #[serde(rename = "model")]
     pub model: models::ModelIdsLive,
@@ -74,6 +75,17 @@ impl LiveSessionCreateParams {
             store: None,
             client: None,
         }
+    }
+}
+
+impl<S: live_session_create_params_builder::State> LiveSessionCreateParamsBuilder<S>
+where
+    S::Model: live_session_create_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionCreateParams {
+        self.build_internal()
     }
 }
 

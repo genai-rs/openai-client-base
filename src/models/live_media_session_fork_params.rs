@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveMediaSessionForkParams : Optional overrides for a stored Live session. Omitted settings are inherited. The model, voice, frontend instructions, and prior conversation come from the stored session. WebRTC negotiates its audio format; audio.format is only supported on WebSocket forks.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_media_session_fork_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveMediaSessionForkParams {
     /// Whether to store the forked session. Omission inherits the stored session's setting.
     #[serde(rename = "store", skip_serializing_if = "Option::is_none")]
@@ -31,6 +32,14 @@ impl LiveMediaSessionForkParams {
             delegation: None,
             client: None,
         }
+    }
+}
+
+impl<S: live_media_session_fork_params_builder::State> LiveMediaSessionForkParamsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveMediaSessionForkParams {
+        self.build_internal()
     }
 }
 

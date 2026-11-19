@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionList : An object representing a list of Chat Completions.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_list_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionList {
     /// The type of this object. It is always set to \"list\".  Defaults to `\"list\"`.
     #[serde(rename = "object")]
@@ -47,6 +48,19 @@ impl ChatCompletionList {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: chat_completion_list_builder::State> ChatCompletionListBuilder<S>
+where
+    S::Object: chat_completion_list_builder::IsSet,
+    S::Data: chat_completion_list_builder::IsSet,
+    S::HasMore: chat_completion_list_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionList {
+        self.build_internal()
     }
 }
 

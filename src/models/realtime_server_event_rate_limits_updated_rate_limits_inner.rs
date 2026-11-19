@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_rate_limits_updated_rate_limits_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventRateLimitsUpdatedRateLimitsInner {
     /// The name of the rate limit (`requests`, `tokens`).
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -34,6 +35,16 @@ impl RealtimeServerEventRateLimitsUpdatedRateLimitsInner {
             remaining: None,
             reset_seconds: None,
         }
+    }
+}
+
+impl<S: realtime_server_event_rate_limits_updated_rate_limits_inner_builder::State>
+    RealtimeServerEventRateLimitsUpdatedRateLimitsInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventRateLimitsUpdatedRateLimitsInner {
+        self.build_internal()
     }
 }
 

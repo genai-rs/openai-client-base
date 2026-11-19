@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// UserRoleAssignment : Role assignment linking a user to a role.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = user_role_assignment_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UserRoleAssignment {
     /// Always `user.role`.
     #[serde(rename = "object")]
@@ -27,6 +28,19 @@ impl UserRoleAssignment {
     /// Role assignment linking a user to a role.
     pub fn new(object: Object, user: models::User, role: models::Role) -> UserRoleAssignment {
         UserRoleAssignment { object, user, role }
+    }
+}
+
+impl<S: user_role_assignment_builder::State> UserRoleAssignmentBuilder<S>
+where
+    S::Object: user_role_assignment_builder::IsSet,
+    S::User: user_role_assignment_builder::IsSet,
+    S::Role: user_role_assignment_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UserRoleAssignment {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_container_network_policy_allowlist_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaContainerNetworkPolicyAllowlistParam {
     /// Allow outbound network access only to specified domains. Always `allowlist`.  Defaults to `\"allowlist\"`.
     #[serde(rename = "type")]
@@ -38,6 +39,19 @@ impl BetaContainerNetworkPolicyAllowlistParam {
             allowed_domains,
             domain_secrets: None,
         }
+    }
+}
+
+impl<S: beta_container_network_policy_allowlist_param_builder::State>
+    BetaContainerNetworkPolicyAllowlistParamBuilder<S>
+where
+    S::Type: beta_container_network_policy_allowlist_param_builder::IsSet,
+    S::AllowedDomains: beta_container_network_policy_allowlist_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaContainerNetworkPolicyAllowlistParam {
+        self.build_internal()
     }
 }
 

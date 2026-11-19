@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionRequiresAction : Emitted when a session is waiting for one or more required actions.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_requires_action_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionRequiresAction {
     /// The type of the object. Always `agent.session.requires_action`.  Defaults to `\"agent.session.requires_action\"`.
     #[serde(rename = "type")]
@@ -44,6 +45,20 @@ impl SessionEventAgentSessionRequiresAction {
             session,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_requires_action_builder::State>
+    SessionEventAgentSessionRequiresActionBuilder<S>
+where
+    S::Type: session_event_agent_session_requires_action_builder::IsSet,
+    S::EventId: session_event_agent_session_requires_action_builder::IsSet,
+    S::Session: session_event_agent_session_requires_action_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionRequiresAction {
+        self.build_internal()
     }
 }
 

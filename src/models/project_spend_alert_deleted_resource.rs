@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectSpendAlertDeletedResource : Confirmation payload returned after deleting a project spend alert.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_spend_alert_deleted_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectSpendAlertDeletedResource {
     /// The deleted spend alert ID.
     #[serde(rename = "id")]
@@ -32,6 +33,20 @@ impl ProjectSpendAlertDeletedResource {
             object,
             deleted,
         }
+    }
+}
+
+impl<S: project_spend_alert_deleted_resource_builder::State>
+    ProjectSpendAlertDeletedResourceBuilder<S>
+where
+    S::Id: project_spend_alert_deleted_resource_builder::IsSet,
+    S::Object: project_spend_alert_deleted_resource_builder::IsSet,
+    S::Deleted: project_spend_alert_deleted_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectSpendAlertDeletedResource {
+        self.build_internal()
     }
 }
 

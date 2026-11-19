@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SummaryTextResource : A reasoning summary content part.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = summary_text_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SummaryTextResource {
     /// The content type. Always `summary_text`.  Defaults to `\"summary_text\"`.
     #[serde(rename = "type")]
@@ -27,6 +28,18 @@ impl SummaryTextResource {
     /// A reasoning summary content part.
     pub fn new(r#type: Type, text: String) -> SummaryTextResource {
         SummaryTextResource { r#type, text }
+    }
+}
+
+impl<S: summary_text_resource_builder::State> SummaryTextResourceBuilder<S>
+where
+    S::Type: summary_text_resource_builder::IsSet,
+    S::Text: summary_text_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SummaryTextResource {
+        self.build_internal()
     }
 }
 

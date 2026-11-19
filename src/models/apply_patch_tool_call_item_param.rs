@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ApplyPatchToolCallItemParam : A tool call representing a request to create, delete, or update files using diff patches.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = apply_patch_tool_call_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ApplyPatchToolCallItemParam {
     /// The type of the item. Always `apply_patch_call`.  Defaults to `\"apply_patch_call\"`.
     #[serde(rename = "type")]
@@ -59,6 +60,20 @@ impl ApplyPatchToolCallItemParam {
             status,
             operation,
         }
+    }
+}
+
+impl<S: apply_patch_tool_call_item_param_builder::State> ApplyPatchToolCallItemParamBuilder<S>
+where
+    S::Type: apply_patch_tool_call_item_param_builder::IsSet,
+    S::CallId: apply_patch_tool_call_item_param_builder::IsSet,
+    S::Status: apply_patch_tool_call_item_param_builder::IsSet,
+    S::Operation: apply_patch_tool_call_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ApplyPatchToolCallItemParam {
+        self.build_internal()
     }
 }
 

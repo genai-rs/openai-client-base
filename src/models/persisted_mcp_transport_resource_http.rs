@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// PersistedMcpTransportResourceHttp : Connects to an MCP server over HTTP.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = persisted_mcp_transport_resource_http_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PersistedMcpTransportResourceHttp {
     /// The type of the object. Always `http`.  Defaults to `\"http\"`.
     #[serde(rename = "type")]
@@ -40,6 +41,20 @@ impl PersistedMcpTransportResourceHttp {
             server_url,
             headers,
         }
+    }
+}
+
+impl<S: persisted_mcp_transport_resource_http_builder::State>
+    PersistedMcpTransportResourceHttpBuilder<S>
+where
+    S::Type: persisted_mcp_transport_resource_http_builder::IsSet,
+    S::ServerUrl: persisted_mcp_transport_resource_http_builder::IsSet,
+    S::Headers: persisted_mcp_transport_resource_http_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PersistedMcpTransportResourceHttp {
+        self.build_internal()
     }
 }
 

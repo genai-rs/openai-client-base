@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranscriptionSessionCreateResponse : A new Realtime transcription session configuration.  When a session is created on the server via REST API, the session object also contains an ephemeral key. Default TTL for keys is 10 minutes. This property is not present when a session is updated via the WebSocket API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_transcription_session_create_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranscriptionSessionCreateResponse {
     #[serde(rename = "client_secret")]
     pub client_secret: models::RealtimeTranscriptionSessionCreateResponseClientSecret,
@@ -48,6 +49,18 @@ impl RealtimeTranscriptionSessionCreateResponse {
             input_audio_transcription: None,
             turn_detection: None,
         }
+    }
+}
+
+impl<S: realtime_transcription_session_create_response_builder::State>
+    RealtimeTranscriptionSessionCreateResponseBuilder<S>
+where
+    S::ClientSecret: realtime_transcription_session_create_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranscriptionSessionCreateResponse {
+        self.build_internal()
     }
 }
 

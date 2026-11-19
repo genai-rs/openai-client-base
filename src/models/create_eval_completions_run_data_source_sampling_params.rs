@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_eval_completions_run_data_source_sampling_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateEvalCompletionsRunDataSourceSamplingParams {
     #[serde(
         rename = "reasoning_effort",
@@ -54,6 +55,16 @@ impl CreateEvalCompletionsRunDataSourceSamplingParams {
             response_format: None,
             tools: None,
         }
+    }
+}
+
+impl<S: create_eval_completions_run_data_source_sampling_params_builder::State>
+    CreateEvalCompletionsRunDataSourceSamplingParamsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateEvalCompletionsRunDataSourceSamplingParams {
+        self.build_internal()
     }
 }
 

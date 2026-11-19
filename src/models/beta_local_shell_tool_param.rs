@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaLocalShellToolParam : A tool that allows the model to execute shell commands in a local environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_local_shell_tool_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaLocalShellToolParam {
     /// The type of the local shell tool. Always `local_shell`.  Defaults to `\"local_shell\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl BetaLocalShellToolParam {
     /// A tool that allows the model to execute shell commands in a local environment.
     pub fn new(r#type: Type) -> BetaLocalShellToolParam {
         BetaLocalShellToolParam { r#type }
+    }
+}
+
+impl<S: beta_local_shell_tool_param_builder::State> BetaLocalShellToolParamBuilder<S>
+where
+    S::Type: beta_local_shell_tool_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaLocalShellToolParam {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookFineTuningJobSucceeded : Sent when a fine-tuning job has succeeded.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_fine_tuning_job_succeeded_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookFineTuningJobSucceeded {
     /// The Unix timestamp (in seconds) of when the fine-tuning job succeeded.
     #[serde(rename = "created_at", with = "super::unix_time")]
@@ -45,6 +46,20 @@ impl WebhookFineTuningJobSucceeded {
             object: None,
             r#type,
         }
+    }
+}
+
+impl<S: webhook_fine_tuning_job_succeeded_builder::State> WebhookFineTuningJobSucceededBuilder<S>
+where
+    S::CreatedAt: webhook_fine_tuning_job_succeeded_builder::IsSet,
+    S::Id: webhook_fine_tuning_job_succeeded_builder::IsSet,
+    S::Data: webhook_fine_tuning_job_succeeded_builder::IsSet,
+    S::Type: webhook_fine_tuning_job_succeeded_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookFineTuningJobSucceeded {
+        self.build_internal()
     }
 }
 

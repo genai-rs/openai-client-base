@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ToolChoiceFunction : Use this option to force the model to call a specific function.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = tool_choice_function_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ToolChoiceFunction {
     /// For function calling, the type is always `function`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl ToolChoiceFunction {
     /// Use this option to force the model to call a specific function.
     pub fn new(r#type: Type, name: String) -> ToolChoiceFunction {
         ToolChoiceFunction { r#type, name }
+    }
+}
+
+impl<S: tool_choice_function_builder::State> ToolChoiceFunctionBuilder<S>
+where
+    S::Type: tool_choice_function_builder::IsSet,
+    S::Name: tool_choice_function_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ToolChoiceFunction {
+        self.build_internal()
     }
 }
 

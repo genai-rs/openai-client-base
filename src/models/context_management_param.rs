@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = context_management_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ContextManagementParam {
     /// The context management entry type. Currently only 'compaction' is supported.
     #[serde(rename = "type")]
@@ -33,6 +34,17 @@ impl ContextManagementParam {
             r#type,
             compact_threshold: None,
         }
+    }
+}
+
+impl<S: context_management_param_builder::State> ContextManagementParamBuilder<S>
+where
+    S::Type: context_management_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ContextManagementParam {
+        self.build_internal()
     }
 }
 

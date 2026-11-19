@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vector_store_search_result_item_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VectorStoreSearchResultItem {
     /// The ID of the vector store file.
     #[serde(rename = "file_id")]
@@ -52,6 +53,20 @@ impl VectorStoreSearchResultItem {
             attributes,
             content,
         }
+    }
+}
+
+impl<S: vector_store_search_result_item_builder::State> VectorStoreSearchResultItemBuilder<S>
+where
+    S::FileId: vector_store_search_result_item_builder::IsSet,
+    S::Filename: vector_store_search_result_item_builder::IsSet,
+    S::Score: vector_store_search_result_item_builder::IsSet,
+    S::Content: vector_store_search_result_item_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VectorStoreSearchResultItem {
+        self.build_internal()
     }
 }
 

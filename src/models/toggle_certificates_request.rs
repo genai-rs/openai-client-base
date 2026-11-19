@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = toggle_certificates_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ToggleCertificatesRequest {
     /// Validation: `minItems: 1`, `maxItems: 10`.
     #[serde(rename = "certificate_ids")]
@@ -20,6 +21,17 @@ pub struct ToggleCertificatesRequest {
 impl ToggleCertificatesRequest {
     pub fn new(certificate_ids: Vec<String>) -> ToggleCertificatesRequest {
         ToggleCertificatesRequest { certificate_ids }
+    }
+}
+
+impl<S: toggle_certificates_request_builder::State> ToggleCertificatesRequestBuilder<S>
+where
+    S::CertificateIds: toggle_certificates_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ToggleCertificatesRequest {
+        self.build_internal()
     }
 }
 

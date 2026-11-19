@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = static_chunking_strategy_response_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct StaticChunkingStrategyResponseParam {
     /// Always `static`.
     #[serde(rename = "type")]
@@ -26,6 +27,19 @@ impl StaticChunkingStrategyResponseParam {
         r#static: models::StaticChunkingStrategy,
     ) -> StaticChunkingStrategyResponseParam {
         StaticChunkingStrategyResponseParam { r#type, r#static }
+    }
+}
+
+impl<S: static_chunking_strategy_response_param_builder::State>
+    StaticChunkingStrategyResponseParamBuilder<S>
+where
+    S::Type: static_chunking_strategy_response_param_builder::IsSet,
+    S::Static: static_chunking_strategy_response_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> StaticChunkingStrategyResponseParam {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookEvalRunFailedData : Event data payload.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_eval_run_failed_data_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookEvalRunFailedData {
     /// The unique ID of the eval run.
     #[serde(rename = "id")]
@@ -22,6 +23,17 @@ impl WebhookEvalRunFailedData {
     /// Event data payload.
     pub fn new(id: String) -> WebhookEvalRunFailedData {
         WebhookEvalRunFailedData { id }
+    }
+}
+
+impl<S: webhook_eval_run_failed_data_builder::State> WebhookEvalRunFailedDataBuilder<S>
+where
+    S::Id: webhook_eval_run_failed_data_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookEvalRunFailedData {
+        self.build_internal()
     }
 }
 

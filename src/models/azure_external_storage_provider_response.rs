@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = azure_external_storage_provider_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AzureExternalStorageProviderResponse {
     /// Defaults to `\"azure\"`.
     #[serde(rename = "type")]
@@ -48,6 +49,24 @@ impl AzureExternalStorageProviderResponse {
             container,
             region,
         }
+    }
+}
+
+impl<S: azure_external_storage_provider_response_builder::State>
+    AzureExternalStorageProviderResponseBuilder<S>
+where
+    S::Type: azure_external_storage_provider_response_builder::IsSet,
+    S::TenantId: azure_external_storage_provider_response_builder::IsSet,
+    S::SubscriptionId: azure_external_storage_provider_response_builder::IsSet,
+    S::ResourceGroup: azure_external_storage_provider_response_builder::IsSet,
+    S::AccountName: azure_external_storage_provider_response_builder::IsSet,
+    S::Container: azure_external_storage_provider_response_builder::IsSet,
+    S::Region: azure_external_storage_provider_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AzureExternalStorageProviderResponse {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeReasoning : Configuration for reasoning-capable Realtime models such as `gpt-realtime-2`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_reasoning_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeReasoning {
     #[serde(rename = "effort", skip_serializing_if = "Option::is_none")]
     pub effort: Option<models::RealtimeReasoningEffort>,
@@ -22,6 +23,14 @@ impl RealtimeReasoning {
     /// Configuration for reasoning-capable Realtime models such as `gpt-realtime-2`.
     pub fn new() -> RealtimeReasoning {
         RealtimeReasoning { effort: None }
+    }
+}
+
+impl<S: realtime_reasoning_builder::State> RealtimeReasoningBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeReasoning {
+        self.build_internal()
     }
 }
 

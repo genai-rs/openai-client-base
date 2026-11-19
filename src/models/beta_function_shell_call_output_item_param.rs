@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaFunctionShellCallOutputItemParam : The streamed output items emitted by a shell tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_function_shell_call_output_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFunctionShellCallOutputItemParam {
     #[serde(
         rename = "agent",
@@ -81,6 +82,20 @@ impl BetaFunctionShellCallOutputItemParam {
             status: None,
             max_output_length: None,
         }
+    }
+}
+
+impl<S: beta_function_shell_call_output_item_param_builder::State>
+    BetaFunctionShellCallOutputItemParamBuilder<S>
+where
+    S::CallId: beta_function_shell_call_output_item_param_builder::IsSet,
+    S::Type: beta_function_shell_call_output_item_param_builder::IsSet,
+    S::Output: beta_function_shell_call_output_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFunctionShellCallOutputItemParam {
+        self.build_internal()
     }
 }
 

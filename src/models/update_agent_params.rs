@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// UpdateAgentParams : Fields to replace on an existing reusable agent.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_agent_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateAgentParams {
     #[serde(rename = "experimental", skip_serializing_if = "Option::is_none")]
     pub experimental: Option<models::ExperimentalConfigOverridesParam>,
@@ -119,6 +120,14 @@ impl UpdateAgentParams {
             name: None,
             tools: None,
         }
+    }
+}
+
+impl<S: update_agent_params_builder::State> UpdateAgentParamsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateAgentParams {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// InputMessageParam : A user message submitted to a session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = input_message_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InputMessageParam {
     /// The type of the input item. Always `message`.  Defaults to `\"message\"`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -35,6 +36,18 @@ impl InputMessageParam {
             role,
             content,
         }
+    }
+}
+
+impl<S: input_message_param_builder::State> InputMessageParamBuilder<S>
+where
+    S::Role: input_message_param_builder::IsSet,
+    S::Content: input_message_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InputMessageParam {
+        self.build_internal()
     }
 }
 

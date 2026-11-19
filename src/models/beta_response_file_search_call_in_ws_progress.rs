@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseFileSearchCallInWsProgress : Emitted when a file search call is initiated.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_file_search_call_in_ws_progress_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseFileSearchCallInWsProgress {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -55,6 +56,21 @@ impl BetaResponseFileSearchCallInWsProgress {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_file_search_call_in_ws_progress_builder::State>
+    BetaResponseFileSearchCallInWsProgressBuilder<S>
+where
+    S::Type: beta_response_file_search_call_in_ws_progress_builder::IsSet,
+    S::OutputIndex: beta_response_file_search_call_in_ws_progress_builder::IsSet,
+    S::ItemId: beta_response_file_search_call_in_ws_progress_builder::IsSet,
+    S::SequenceNumber: beta_response_file_search_call_in_ws_progress_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseFileSearchCallInWsProgress {
+        self.build_internal()
     }
 }
 

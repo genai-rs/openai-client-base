@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseShellCallCommandAddedStreamingEvent : A streaming event that indicated a shell command was added to a tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_shell_call_command_added_streaming_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseShellCallCommandAddedStreamingEvent {
     /// The type of the event, always `response.shell_call_command.added`.  Defaults to `\"response.shell_call_command.added\"`.
     #[serde(rename = "type")]
@@ -46,6 +47,22 @@ impl ResponseShellCallCommandAddedStreamingEvent {
             command_index,
             command,
         }
+    }
+}
+
+impl<S: response_shell_call_command_added_streaming_event_builder::State>
+    ResponseShellCallCommandAddedStreamingEventBuilder<S>
+where
+    S::Type: response_shell_call_command_added_streaming_event_builder::IsSet,
+    S::SequenceNumber: response_shell_call_command_added_streaming_event_builder::IsSet,
+    S::OutputIndex: response_shell_call_command_added_streaming_event_builder::IsSet,
+    S::CommandIndex: response_shell_call_command_added_streaming_event_builder::IsSet,
+    S::Command: response_shell_call_command_added_streaming_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseShellCallCommandAddedStreamingEvent {
+        self.build_internal()
     }
 }
 

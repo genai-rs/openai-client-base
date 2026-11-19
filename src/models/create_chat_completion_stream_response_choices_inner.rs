@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_chat_completion_stream_response_choices_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateChatCompletionStreamResponseChoicesInner {
     #[serde(rename = "delta")]
     pub delta: models::ChatCompletionStreamResponseDelta,
@@ -46,6 +47,19 @@ impl CreateChatCompletionStreamResponseChoicesInner {
             finish_reason: None,
             index,
         }
+    }
+}
+
+impl<S: create_chat_completion_stream_response_choices_inner_builder::State>
+    CreateChatCompletionStreamResponseChoicesInnerBuilder<S>
+where
+    S::Delta: create_chat_completion_stream_response_choices_inner_builder::IsSet,
+    S::Index: create_chat_completion_stream_response_choices_inner_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateChatCompletionStreamResponseChoicesInner {
+        self.build_internal()
     }
 }
 

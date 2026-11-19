@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_local_skill_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveLocalSkillParam {
     /// The name of the skill.
     #[serde(rename = "name")]
@@ -30,6 +31,19 @@ impl LiveLocalSkillParam {
             description,
             path,
         }
+    }
+}
+
+impl<S: live_local_skill_param_builder::State> LiveLocalSkillParamBuilder<S>
+where
+    S::Name: live_local_skill_param_builder::IsSet,
+    S::Description: live_local_skill_param_builder::IsSet,
+    S::Path: live_local_skill_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveLocalSkillParam {
+        self.build_internal()
     }
 }
 

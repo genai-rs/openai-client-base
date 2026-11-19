@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateVideoJsonBody : JSON parameters for creating a new video generation job.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_video_json_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateVideoJsonBody {
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<models::VideoModel>,
@@ -39,6 +40,17 @@ impl CreateVideoJsonBody {
             seconds: None,
             size: None,
         }
+    }
+}
+
+impl<S: create_video_json_body_builder::State> CreateVideoJsonBodyBuilder<S>
+where
+    S::Prompt: create_video_json_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateVideoJsonBody {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_thread_and_run_request_tool_resources_code_interpreter_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateThreadAndRunRequestToolResourcesCodeInterpreter {
     /// A list of [file](https://developers.openai.com/api/reference/resources/files) IDs made available to the `code_interpreter` tool. There can be a maximum of 20 files associated with the tool.  Defaults to `[]`.
     ///
@@ -22,6 +23,16 @@ pub struct CreateThreadAndRunRequestToolResourcesCodeInterpreter {
 impl CreateThreadAndRunRequestToolResourcesCodeInterpreter {
     pub fn new() -> CreateThreadAndRunRequestToolResourcesCodeInterpreter {
         CreateThreadAndRunRequestToolResourcesCodeInterpreter { file_ids: None }
+    }
+}
+
+impl<S: create_thread_and_run_request_tool_resources_code_interpreter_builder::State>
+    CreateThreadAndRunRequestToolResourcesCodeInterpreterBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateThreadAndRunRequestToolResourcesCodeInterpreter {
+        self.build_internal()
     }
 }
 

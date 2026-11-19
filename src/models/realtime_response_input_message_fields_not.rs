@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_response_input_message_fields_not_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeResponseInputMessageFieldsNot {
     #[serde(rename = "id")]
     pub id: Id,
@@ -19,6 +20,18 @@ pub struct RealtimeResponseInputMessageFieldsNot {
 impl RealtimeResponseInputMessageFieldsNot {
     pub fn new(id: Id) -> RealtimeResponseInputMessageFieldsNot {
         RealtimeResponseInputMessageFieldsNot { id }
+    }
+}
+
+impl<S: realtime_response_input_message_fields_not_builder::State>
+    RealtimeResponseInputMessageFieldsNotBuilder<S>
+where
+    S::Id: realtime_response_input_message_fields_not_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeResponseInputMessageFieldsNot {
+        self.build_internal()
     }
 }
 

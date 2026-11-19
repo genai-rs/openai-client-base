@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ComputerScreenshotImage : A computer screenshot image used with the computer use tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = computer_screenshot_image_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ComputerScreenshotImage {
     /// Specifies the event type. For a computer screenshot, this property is  always set to `computer_screenshot`.  Defaults to `\"computer_screenshot\"`.
     #[serde(rename = "type")]
@@ -32,6 +33,17 @@ impl ComputerScreenshotImage {
             image_url: None,
             file_id: None,
         }
+    }
+}
+
+impl<S: computer_screenshot_image_builder::State> ComputerScreenshotImageBuilder<S>
+where
+    S::Type: computer_screenshot_image_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ComputerScreenshotImage {
+        self.build_internal()
     }
 }
 

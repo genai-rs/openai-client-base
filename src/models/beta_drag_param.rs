@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaDragParam : A drag action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_drag_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaDragParam {
     /// Specifies the event type. For a drag action, this property is always set to `drag`.  Defaults to `\"drag\"`.
     #[serde(rename = "type")]
@@ -38,6 +39,18 @@ impl BetaDragParam {
             path,
             keys: None,
         }
+    }
+}
+
+impl<S: beta_drag_param_builder::State> BetaDragParamBuilder<S>
+where
+    S::Type: beta_drag_param_builder::IsSet,
+    S::Path: beta_drag_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaDragParam {
+        self.build_internal()
     }
 }
 

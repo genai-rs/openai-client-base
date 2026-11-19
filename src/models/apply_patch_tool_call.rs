@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ApplyPatchToolCall : A tool call that applies file diffs by creating, deleting, or updating files.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = apply_patch_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ApplyPatchToolCall {
     /// The type of the item. Always `apply_patch_call`.  Defaults to `\"apply_patch_call\"`.
     #[serde(rename = "type")]
@@ -57,6 +58,21 @@ impl ApplyPatchToolCall {
             operation,
             created_by: None,
         }
+    }
+}
+
+impl<S: apply_patch_tool_call_builder::State> ApplyPatchToolCallBuilder<S>
+where
+    S::Type: apply_patch_tool_call_builder::IsSet,
+    S::Id: apply_patch_tool_call_builder::IsSet,
+    S::CallId: apply_patch_tool_call_builder::IsSet,
+    S::Status: apply_patch_tool_call_builder::IsSet,
+    S::Operation: apply_patch_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ApplyPatchToolCall {
+        self.build_internal()
     }
 }
 

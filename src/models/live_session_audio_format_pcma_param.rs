@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSessionAudioFormatPcmaParam : Raw, mono G.711 A-law audio for a Live WebSocket connection.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_audio_format_pcma_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionAudioFormatPcmaParam {
     /// The audio encoding. Always `audio/pcma`.  Defaults to `\"audio/pcma\"`.
     #[serde(rename = "type")]
@@ -27,6 +28,19 @@ impl LiveSessionAudioFormatPcmaParam {
     /// Raw, mono G.711 A-law audio for a Live WebSocket connection.
     pub fn new(r#type: Type, rate: i64) -> LiveSessionAudioFormatPcmaParam {
         LiveSessionAudioFormatPcmaParam { r#type, rate }
+    }
+}
+
+impl<S: live_session_audio_format_pcma_param_builder::State>
+    LiveSessionAudioFormatPcmaParamBuilder<S>
+where
+    S::Type: live_session_audio_format_pcma_param_builder::IsSet,
+    S::Rate: live_session_audio_format_pcma_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionAudioFormatPcmaParam {
+        self.build_internal()
     }
 }
 

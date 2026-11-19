@@ -676,7 +676,7 @@ pub enum UpdateAgentSessionError {
 }
 
 /// Creates a reusable agent without storing credentials. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent(
     configuration: &configuration::Configuration,
     create_agent_params: Option<&models::CreateAgentParams>,
@@ -763,13 +763,25 @@ pub async fn create_agent(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_builder::State> CreateAgentBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_agent_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::AgentResource, Error<CreateAgentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a reusable agent without storing credentials. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
 ///
 /// Sends the same request as [`create_agent`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AgentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_response(
     configuration: &configuration::Configuration,
     create_agent_params: Option<&models::CreateAgentParams>,
@@ -847,8 +859,22 @@ pub async fn create_agent_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_response_builder::State> CreateAgentResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_agent_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AgentResource>, Error<CreateAgentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Saves an active automation without invoking it immediately.
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_automation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_automation(
     configuration: &configuration::Configuration,
     create_automation_params: &models::CreateAutomationParams,
@@ -935,13 +961,28 @@ pub async fn create_agent_automation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_automation_builder::State> CreateAgentAutomationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_agent_automation_builder::IsSet,
+    S::CreateAutomationParams: create_agent_automation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::AutomationResource, Error<CreateAgentAutomationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Saves an active automation without invoking it immediately.
 ///
 /// Sends the same request as [`create_agent_automation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AutomationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_automation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_automation_response(
     configuration: &configuration::Configuration,
     create_automation_params: &models::CreateAutomationParams,
@@ -1019,8 +1060,25 @@ pub async fn create_agent_automation_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_automation_response_builder::State>
+    CreateAgentAutomationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_agent_automation_response_builder::IsSet,
+    S::CreateAutomationParams: create_agent_automation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AutomationResource>, Error<CreateAgentAutomationError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Queues a manual delivery without changing the saved schedule.
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_automation_invocation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_automation_invocation(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -1110,13 +1168,30 @@ pub async fn create_agent_automation_invocation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_automation_invocation_builder::State>
+    CreateAgentAutomationInvocationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_agent_automation_invocation_builder::IsSet,
+    S::AutomationId: create_agent_automation_invocation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::AutomationInvocationResource, Error<CreateAgentAutomationInvocationError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Queues a manual delivery without changing the saved schedule.
 ///
 /// Sends the same request as [`create_agent_automation_invocation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AutomationInvocationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_automation_invocation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_automation_invocation_response(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -1200,8 +1275,27 @@ pub async fn create_agent_automation_invocation_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_automation_invocation_response_builder::State>
+    CreateAgentAutomationInvocationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_agent_automation_invocation_response_builder::IsSet,
+    S::AutomationId: create_agent_automation_invocation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::AutomationInvocationResource>,
+        Error<CreateAgentAutomationInvocationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Creates an OpenAI-hosted environment before creating a session. Requires access to the prewarming beta.
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_environment_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_environment(
     configuration: &configuration::Configuration,
     create_agent_environment_params: &models::CreateAgentEnvironmentParams,
@@ -1296,13 +1390,28 @@ pub async fn create_agent_environment(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_environment_builder::State> CreateAgentEnvironmentBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_agent_environment_builder::IsSet,
+    S::CreateAgentEnvironmentParams: create_agent_environment_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::PublicEnvironmentResource, Error<CreateAgentEnvironmentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates an OpenAI-hosted environment before creating a session. Requires access to the prewarming beta.
 ///
 /// Sends the same request as [`create_agent_environment`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PublicEnvironmentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_environment_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_environment_response(
     configuration: &configuration::Configuration,
     create_agent_environment_params: &models::CreateAgentEnvironmentParams,
@@ -1389,8 +1498,27 @@ pub async fn create_agent_environment_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_environment_response_builder::State>
+    CreateAgentEnvironmentResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_agent_environment_response_builder::IsSet,
+    S::CreateAgentEnvironmentParams: create_agent_environment_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::PublicEnvironmentResource>,
+        Error<CreateAgentEnvironmentError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Copies inline bytes or a Files API file into a connected execution environment, replacing an existing regular file at the same path. Upload between turns and wait for success before starting the next turn. See [environment files](https://developers.openai.com/api/docs/guides/agents-api/environments/files).
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_environment_file_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_environment_file(
     configuration: &configuration::Configuration,
     environment_id: &str,
@@ -1486,13 +1614,29 @@ pub async fn create_agent_environment_file(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_environment_file_builder::State>
+    CreateAgentEnvironmentFileBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_agent_environment_file_builder::IsSet,
+    S::EnvironmentId: create_agent_environment_file_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::EnvironmentFileResource, Error<CreateAgentEnvironmentFileError>> {
+        self.call_internal().await
+    }
+}
+
 /// Copies inline bytes or a Files API file into a connected execution environment, replacing an existing regular file at the same path. Upload between turns and wait for success before starting the next turn. See [environment files](https://developers.openai.com/api/docs/guides/agents-api/environments/files).
 ///
 /// Sends the same request as [`create_agent_environment_file`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::EnvironmentFileResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_environment_file_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_environment_file_response(
     configuration: &configuration::Configuration,
     environment_id: &str,
@@ -1582,8 +1726,27 @@ pub async fn create_agent_environment_file_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_environment_file_response_builder::State>
+    CreateAgentEnvironmentFileResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_agent_environment_file_response_builder::IsSet,
+    S::EnvironmentId: create_agent_environment_file_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::EnvironmentFileResource>,
+        Error<CreateAgentEnvironmentFileError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Creates reusable environment configuration without returning confidential setup commands or environment values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_environment_template_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_environment_template(
     configuration: &configuration::Configuration,
     create_environment_template_params: Option<&models::CreateEnvironmentTemplateParams>,
@@ -1667,13 +1830,29 @@ pub async fn create_agent_environment_template(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_environment_template_builder::State>
+    CreateAgentEnvironmentTemplateBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_agent_environment_template_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::EnvironmentTemplateResource, Error<CreateAgentEnvironmentTemplateError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Creates reusable environment configuration without returning confidential setup commands or environment values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
 ///
 /// Sends the same request as [`create_agent_environment_template`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::EnvironmentTemplateResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_environment_template_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_environment_template_response(
     configuration: &configuration::Configuration,
     create_environment_template_params: Option<&models::CreateEnvironmentTemplateParams>,
@@ -1751,8 +1930,26 @@ pub async fn create_agent_environment_template_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_environment_template_response_builder::State>
+    CreateAgentEnvironmentTemplateResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_agent_environment_template_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::EnvironmentTemplateResource>,
+        Error<CreateAgentEnvironmentTemplateError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Creates a managed agent session, optionally submits initial input, and returns the session or streams its events when stream is true. See [running sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions).
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_session_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_session(
     configuration: &configuration::Configuration,
     create_agent_session_params: Option<&models::CreateAgentSessionParams>,
@@ -1842,13 +2039,25 @@ pub async fn create_agent_session(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_session_builder::State> CreateAgentSessionBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_agent_session_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::SessionResource, Error<CreateAgentSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a managed agent session, optionally submits initial input, and returns the session or streams its events when stream is true. See [running sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions).
 ///
 /// Sends the same request as [`create_agent_session`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SessionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_session_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_session_response(
     configuration: &configuration::Configuration,
     create_agent_session_params: Option<&models::CreateAgentSessionParams>,
@@ -1929,8 +2138,23 @@ pub async fn create_agent_session_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_session_response_builder::State>
+    CreateAgentSessionResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_agent_session_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SessionResource>, Error<CreateAgentSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Submits message, cancellation, tool-result, or computer-use approval-response events to a managed agent session. Cancellation can recover a still-open turn whose backend execution has ended by marking it cancelled and abandoning unpublished outputs. Saved results, published files, and existing terminal outcomes are preserved. HTTP 202 confirms acceptance, not durable completion. See [session events](https://developers.openai.com/api/docs/guides/agents-api/sessions/events).
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_session_events_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_session_events(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -2017,13 +2241,27 @@ pub async fn create_agent_session_events(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_session_events_builder::State>
+    CreateAgentSessionEventsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_agent_session_events_builder::IsSet,
+    S::SessionId: create_agent_session_events_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<CreateAgentSessionEventsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Submits message, cancellation, tool-result, or computer-use approval-response events to a managed agent session. Cancellation can recover a still-open turn whose backend execution has ended by marking it cancelled and abandoning unpublished outputs. Saved results, published files, and existing terminal outcomes are preserved. HTTP 202 confirms acceptance, not durable completion. See [session events](https://developers.openai.com/api/docs/guides/agents-api/sessions/events).
 ///
 /// Sends the same request as [`create_agent_session_events`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_session_events_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_session_events_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -2112,10 +2350,26 @@ pub async fn create_agent_session_events_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_session_events_response_builder::State>
+    CreateAgentSessionEventsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_agent_session_events_response_builder::IsSet,
+    S::SessionId: create_agent_session_events_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<()>, Error<CreateAgentSessionEventsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a managed agent session, optionally submits initial input, and returns the session or streams its events when stream is true. See [running sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions).
 ///
 /// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::SessionEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
-#[bon::builder]
+#[bon::builder(state_mod = create_agent_session_stream_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_agent_session_stream(
     configuration: &configuration::Configuration,
     create_agent_session_params: Option<&models::CreateAgentSessionParams>,
@@ -2204,8 +2458,25 @@ pub async fn create_agent_session_stream(
     Ok(super::sse::EventStream::from_response(resp))
 }
 
+#[allow(deprecated)]
+impl<S: create_agent_session_stream_builder::State> CreateAgentSessionStreamBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_agent_session_stream_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::sse::EventStream<models::SessionEvent, CreateAgentSessionError>,
+        Error<CreateAgentSessionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a reusable agent. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
-#[bon::builder]
+#[bon::builder(state_mod = delete_agent_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_agent(
     configuration: &configuration::Configuration,
     agent_id: &str,
@@ -2295,13 +2566,26 @@ pub async fn delete_agent(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_agent_builder::State> DeleteAgentBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_agent_builder::IsSet,
+    S::AgentId: delete_agent_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::DeletedAgentResource, Error<DeleteAgentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a reusable agent. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
 ///
 /// Sends the same request as [`delete_agent`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeletedAgentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_agent_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_agent_response(
     configuration: &configuration::Configuration,
     agent_id: &str,
@@ -2382,8 +2666,23 @@ pub async fn delete_agent_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_agent_response_builder::State> DeleteAgentResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_agent_response_builder::IsSet,
+    S::AgentId: delete_agent_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeletedAgentResource>, Error<DeleteAgentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes the automation and prevents future invocations without deleting its target session.
-#[bon::builder]
+#[bon::builder(state_mod = delete_agent_automation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_agent_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -2473,13 +2772,28 @@ pub async fn delete_agent_automation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_agent_automation_builder::State> DeleteAgentAutomationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_agent_automation_builder::IsSet,
+    S::AutomationId: delete_agent_automation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeletedAutomationResource, Error<DeleteAgentAutomationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes the automation and prevents future invocations without deleting its target session.
 ///
 /// Sends the same request as [`delete_agent_automation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeletedAutomationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_agent_automation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_agent_automation_response(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -2561,8 +2875,27 @@ pub async fn delete_agent_automation_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_agent_automation_response_builder::State>
+    DeleteAgentAutomationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_agent_automation_response_builder::IsSet,
+    S::AutomationId: delete_agent_automation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::DeletedAutomationResource>,
+        Error<DeleteAgentAutomationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deletes reusable environment configuration and all confidential template inputs. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
-#[bon::builder]
+#[bon::builder(state_mod = delete_agent_environment_template_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_agent_environment_template(
     configuration: &configuration::Configuration,
     environment_template_id: &str,
@@ -2653,13 +2986,32 @@ pub async fn delete_agent_environment_template(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_agent_environment_template_builder::State>
+    DeleteAgentEnvironmentTemplateBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_agent_environment_template_builder::IsSet,
+    S::EnvironmentTemplateId: delete_agent_environment_template_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::DeletedEnvironmentTemplateResource,
+        Error<DeleteAgentEnvironmentTemplateError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deletes reusable environment configuration and all confidential template inputs. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
 ///
 /// Sends the same request as [`delete_agent_environment_template`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeletedEnvironmentTemplateResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_agent_environment_template_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_agent_environment_template_response(
     configuration: &configuration::Configuration,
     environment_template_id: &str,
@@ -2743,8 +3095,27 @@ pub async fn delete_agent_environment_template_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_agent_environment_template_response_builder::State>
+    DeleteAgentEnvironmentTemplateResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_agent_environment_template_response_builder::IsSet,
+    S::EnvironmentTemplateId: delete_agent_environment_template_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::DeletedEnvironmentTemplateResource>,
+        Error<DeleteAgentEnvironmentTemplateError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Removes a managed agent session from the public API and returns a deletion confirmation. If backend execution has ended, deletion can cancel a still-open public turn and abandon unpublished outputs. Running execution must be cancelled first. Physical cleanup may continue asynchronously. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
-#[bon::builder]
+#[bon::builder(state_mod = delete_agent_session_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_agent_session(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -2834,13 +3205,28 @@ pub async fn delete_agent_session(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_agent_session_builder::State> DeleteAgentSessionBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_agent_session_builder::IsSet,
+    S::SessionId: delete_agent_session_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeletedSessionResource, Error<DeleteAgentSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Removes a managed agent session from the public API and returns a deletion confirmation. If backend execution has ended, deletion can cancel a still-open public turn and abandon unpublished outputs. Running execution must be cancelled first. Physical cleanup may continue asynchronously. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
 ///
 /// Sends the same request as [`delete_agent_session`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeletedSessionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_agent_session_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_agent_session_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -2921,8 +3307,25 @@ pub async fn delete_agent_session_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_agent_session_response_builder::State>
+    DeleteAgentSessionResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_agent_session_response_builder::IsSet,
+    S::SessionId: delete_agent_session_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeletedSessionResource>, Error<DeleteAgentSessionError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Deletes an immutable session artifact without deleting its live environment file or original Files API object. See [session artifacts](https://developers.openai.com/api/docs/guides/agents-api/environments/files#openai-hosted-artifacts).
-#[bon::builder]
+#[bon::builder(state_mod = delete_agent_session_artifact_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_agent_session_artifact(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -3015,13 +3418,31 @@ pub async fn delete_agent_session_artifact(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_agent_session_artifact_builder::State>
+    DeleteAgentSessionArtifactBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_agent_session_artifact_builder::IsSet,
+    S::SessionId: delete_agent_session_artifact_builder::IsSet,
+    S::ArtifactId: delete_agent_session_artifact_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeletedSessionArtifactResource, Error<DeleteAgentSessionArtifactError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Deletes an immutable session artifact without deleting its live environment file or original Files API object. See [session artifacts](https://developers.openai.com/api/docs/guides/agents-api/environments/files#openai-hosted-artifacts).
 ///
 /// Sends the same request as [`delete_agent_session_artifact`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeletedSessionArtifactResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_agent_session_artifact_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_agent_session_artifact_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -3108,8 +3529,28 @@ pub async fn delete_agent_session_artifact_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_agent_session_artifact_response_builder::State>
+    DeleteAgentSessionArtifactResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_agent_session_artifact_response_builder::IsSet,
+    S::SessionId: delete_agent_session_artifact_response_builder::IsSet,
+    S::ArtifactId: delete_agent_session_artifact_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::DeletedSessionArtifactResource>,
+        Error<DeleteAgentSessionArtifactError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a project-owned automation.
-#[bon::builder]
+#[bon::builder(state_mod = get_agent_automation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_agent_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -3199,13 +3640,26 @@ pub async fn get_agent_automation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_agent_automation_builder::State> GetAgentAutomationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_agent_automation_builder::IsSet,
+    S::AutomationId: get_agent_automation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::AutomationResource, Error<GetAgentAutomationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a project-owned automation.
 ///
 /// Sends the same request as [`get_agent_automation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AutomationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_agent_automation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_agent_automation_response(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -3286,8 +3740,25 @@ pub async fn get_agent_automation_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_agent_automation_response_builder::State>
+    GetAgentAutomationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_agent_automation_response_builder::IsSet,
+    S::AutomationId: get_agent_automation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AutomationResource>, Error<GetAgentAutomationError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a delivery record for a project-owned automation.
-#[bon::builder]
+#[bon::builder(state_mod = get_agent_automation_invocation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_agent_automation_invocation(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -3380,13 +3851,31 @@ pub async fn get_agent_automation_invocation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_agent_automation_invocation_builder::State>
+    GetAgentAutomationInvocationBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_agent_automation_invocation_builder::IsSet,
+    S::AutomationId: get_agent_automation_invocation_builder::IsSet,
+    S::InvocationId: get_agent_automation_invocation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::AutomationInvocationResource, Error<GetAgentAutomationInvocationError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a delivery record for a project-owned automation.
 ///
 /// Sends the same request as [`get_agent_automation_invocation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AutomationInvocationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_agent_automation_invocation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_agent_automation_invocation_response(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -3473,8 +3962,28 @@ pub async fn get_agent_automation_invocation_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_agent_automation_invocation_response_builder::State>
+    GetAgentAutomationInvocationResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_agent_automation_invocation_response_builder::IsSet,
+    S::AutomationId: get_agent_automation_invocation_response_builder::IsSet,
+    S::InvocationId: get_agent_automation_invocation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::AutomationInvocationResource>,
+        Error<GetAgentAutomationInvocationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists delivery records for a project-owned automation.
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_automation_invocations_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_automation_invocations(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -3585,13 +4094,32 @@ pub async fn list_agent_automation_invocations(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_automation_invocations_builder::State>
+    ListAgentAutomationInvocationsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_automation_invocations_builder::IsSet,
+    S::AutomationId: list_agent_automation_invocations_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::ListAgentAutomationInvocations200Response,
+        Error<ListAgentAutomationInvocationsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists delivery records for a project-owned automation.
 ///
 /// Sends the same request as [`list_agent_automation_invocations`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListAgentAutomationInvocations200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_automation_invocations_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_automation_invocations_response(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -3693,8 +4221,27 @@ pub async fn list_agent_automation_invocations_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_automation_invocations_response_builder::State>
+    ListAgentAutomationInvocationsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_automation_invocations_response_builder::IsSet,
+    S::AutomationId: list_agent_automation_invocations_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ListAgentAutomationInvocations200Response>,
+        Error<ListAgentAutomationInvocationsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists project-owned automations, optionally filtered by target session.
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_automations_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_automations(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -3801,13 +4348,27 @@ pub async fn list_agent_automations(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_automations_builder::State> ListAgentAutomationsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_automations_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ListAgentAutomations200Response, Error<ListAgentAutomationsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists project-owned automations, optionally filtered by target session.
 ///
 /// Sends the same request as [`list_agent_automations`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListAgentAutomations200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_automations_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_automations_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -3908,8 +4469,26 @@ pub async fn list_agent_automations_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_automations_response_builder::State>
+    ListAgentAutomationsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_automations_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ListAgentAutomations200Response>,
+        Error<ListAgentAutomationsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists live files on a connected execution environment with optional directory filtering and opaque cursor pagination. See [environment files](https://developers.openai.com/api/docs/guides/agents-api/environments/files).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_environment_files_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_environment_files(
     configuration: &configuration::Configuration,
     environment_id: &str,
@@ -4019,13 +4598,29 @@ pub async fn list_agent_environment_files(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_environment_files_builder::State>
+    ListAgentEnvironmentFilesBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_environment_files_builder::IsSet,
+    S::EnvironmentId: list_agent_environment_files_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::EnvironmentFileListResource, Error<ListAgentEnvironmentFilesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists live files on a connected execution environment with optional directory filtering and opaque cursor pagination. See [environment files](https://developers.openai.com/api/docs/guides/agents-api/environments/files).
 ///
 /// Sends the same request as [`list_agent_environment_files`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::EnvironmentFileListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_environment_files_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_environment_files_response(
     configuration: &configuration::Configuration,
     environment_id: &str,
@@ -4129,8 +4724,27 @@ pub async fn list_agent_environment_files_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_environment_files_response_builder::State>
+    ListAgentEnvironmentFilesResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_environment_files_response_builder::IsSet,
+    S::EnvironmentId: list_agent_environment_files_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::EnvironmentFileListResource>,
+        Error<ListAgentEnvironmentFilesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists reusable environment templates without returning confidential values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_environment_templates_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_environment_templates(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -4226,13 +4840,29 @@ pub async fn list_agent_environment_templates(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_environment_templates_builder::State>
+    ListAgentEnvironmentTemplatesBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_agent_environment_templates_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::EnvironmentTemplateListResource, Error<ListAgentEnvironmentTemplatesError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Lists reusable environment templates without returning confidential values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
 ///
 /// Sends the same request as [`list_agent_environment_templates`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::EnvironmentTemplateListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_environment_templates_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_environment_templates_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -4322,8 +4952,26 @@ pub async fn list_agent_environment_templates_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_environment_templates_response_builder::State>
+    ListAgentEnvironmentTemplatesResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_agent_environment_templates_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::EnvironmentTemplateListResource>,
+        Error<ListAgentEnvironmentTemplatesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists OpenAI-hosted environments owned by the authenticated principal. Requires access to the prewarming beta.
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_environments_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_environments(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -4427,13 +5075,27 @@ pub async fn list_agent_environments(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_environments_builder::State> ListAgentEnvironmentsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_agent_environments_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::AgentEnvironmentListResource, Error<ListAgentEnvironmentsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists OpenAI-hosted environments owned by the authenticated principal. Requires access to the prewarming beta.
 ///
 /// Sends the same request as [`list_agent_environments`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AgentEnvironmentListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_environments_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_environments_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -4531,8 +5193,26 @@ pub async fn list_agent_environments_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_environments_response_builder::State>
+    ListAgentEnvironmentsResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_agent_environments_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::AgentEnvironmentListResource>,
+        Error<ListAgentEnvironmentsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists immutable artifacts published by completed hosted session turns. See [session artifacts](https://developers.openai.com/api/docs/guides/agents-api/environments/files#openai-hosted-artifacts).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_artifacts_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_artifacts(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -4642,13 +5322,29 @@ pub async fn list_agent_session_artifacts(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_artifacts_builder::State>
+    ListAgentSessionArtifactsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_artifacts_builder::IsSet,
+    S::SessionId: list_agent_session_artifacts_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SessionArtifactListResource, Error<ListAgentSessionArtifactsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists immutable artifacts published by completed hosted session turns. See [session artifacts](https://developers.openai.com/api/docs/guides/agents-api/environments/files#openai-hosted-artifacts).
 ///
 /// Sends the same request as [`list_agent_session_artifacts`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SessionArtifactListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_artifacts_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_artifacts_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -4752,10 +5448,29 @@ pub async fn list_agent_session_artifacts_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_artifacts_response_builder::State>
+    ListAgentSessionArtifactsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_artifacts_response_builder::IsSet,
+    S::SessionId: list_agent_session_artifacts_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::SessionArtifactListResource>,
+        Error<ListAgentSessionArtifactsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Streams live events for an agent session. See [session events](https://developers.openai.com/api/docs/guides/agents-api/sessions/events).
 ///
 /// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::SessionEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_events_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_events(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -4849,8 +5564,26 @@ pub async fn list_agent_session_events(
     Ok(super::sse::EventStream::from_response(resp))
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_events_builder::State> ListAgentSessionEventsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_events_builder::IsSet,
+    S::SessionId: list_agent_session_events_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::sse::EventStream<models::SessionEvent, ListAgentSessionEventsError>,
+        Error<ListAgentSessionEventsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists items produced by the session's root agent, including its interactions with subagents. Each subagent has its own item history. See [inspecting agent output](https://developers.openai.com/api/docs/guides/agents-api/observability).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_items_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_items(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -4955,13 +5688,28 @@ pub async fn list_agent_session_items(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_items_builder::State> ListAgentSessionItemsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_items_builder::IsSet,
+    S::SessionId: list_agent_session_items_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SessionItemListResource, Error<ListAgentSessionItemsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists items produced by the session's root agent, including its interactions with subagents. Each subagent has its own item history. See [inspecting agent output](https://developers.openai.com/api/docs/guides/agents-api/observability).
 ///
 /// Sends the same request as [`list_agent_session_items`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SessionItemListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_items_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_items_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -5058,8 +5806,27 @@ pub async fn list_agent_session_items_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_items_response_builder::State>
+    ListAgentSessionItemsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_items_response_builder::IsSet,
+    S::SessionId: list_agent_session_items_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::SessionItemListResource>,
+        Error<ListAgentSessionItemsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists this subagent's own items across all of its turns. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_subagent_items_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_subagent_items(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -5167,13 +5934,30 @@ pub async fn list_agent_session_subagent_items(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_subagent_items_builder::State>
+    ListAgentSessionSubagentItemsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_subagent_items_builder::IsSet,
+    S::SessionId: list_agent_session_subagent_items_builder::IsSet,
+    S::SubagentId: list_agent_session_subagent_items_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SessionItemListResource, Error<ListAgentSessionSubagentItemsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists this subagent's own items across all of its turns. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
 ///
 /// Sends the same request as [`list_agent_session_subagent_items`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SessionItemListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_subagent_items_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_subagent_items_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -5275,8 +6059,28 @@ pub async fn list_agent_session_subagent_items_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_subagent_items_response_builder::State>
+    ListAgentSessionSubagentItemsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_subagent_items_response_builder::IsSet,
+    S::SessionId: list_agent_session_subagent_items_response_builder::IsSet,
+    S::SubagentId: list_agent_session_subagent_items_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::SessionItemListResource>,
+        Error<ListAgentSessionSubagentItemsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists items belonging to one turn of this subagent. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_subagent_turn_items_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_subagent_turn_items(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -5387,13 +6191,32 @@ pub async fn list_agent_session_subagent_turn_items(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_subagent_turn_items_builder::State>
+    ListAgentSessionSubagentTurnItemsBuilder<'_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_subagent_turn_items_builder::IsSet,
+    S::SessionId: list_agent_session_subagent_turn_items_builder::IsSet,
+    S::SubagentId: list_agent_session_subagent_turn_items_builder::IsSet,
+    S::TurnId: list_agent_session_subagent_turn_items_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SessionItemListResource, Error<ListAgentSessionSubagentTurnItemsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Lists items belonging to one turn of this subagent. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
 ///
 /// Sends the same request as [`list_agent_session_subagent_turn_items`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SessionItemListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_subagent_turn_items_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_subagent_turn_items_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -5498,8 +6321,29 @@ pub async fn list_agent_session_subagent_turn_items_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_subagent_turn_items_response_builder::State>
+    ListAgentSessionSubagentTurnItemsResponseBuilder<'_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_subagent_turn_items_response_builder::IsSet,
+    S::SessionId: list_agent_session_subagent_turn_items_response_builder::IsSet,
+    S::SubagentId: list_agent_session_subagent_turn_items_response_builder::IsSet,
+    S::TurnId: list_agent_session_subagent_turn_items_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::SessionItemListResource>,
+        Error<ListAgentSessionSubagentTurnItemsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists all turns of this subagent, including turns after a resume. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_subagent_turns_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_subagent_turns(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -5607,13 +6451,30 @@ pub async fn list_agent_session_subagent_turns(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_subagent_turns_builder::State>
+    ListAgentSessionSubagentTurnsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_subagent_turns_builder::IsSet,
+    S::SessionId: list_agent_session_subagent_turns_builder::IsSet,
+    S::SubagentId: list_agent_session_subagent_turns_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SessionTurnListResource, Error<ListAgentSessionSubagentTurnsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists all turns of this subagent, including turns after a resume. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
 ///
 /// Sends the same request as [`list_agent_session_subagent_turns`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SessionTurnListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_subagent_turns_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_subagent_turns_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -5715,8 +6576,28 @@ pub async fn list_agent_session_subagent_turns_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_subagent_turns_response_builder::State>
+    ListAgentSessionSubagentTurnsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_subagent_turns_response_builder::IsSet,
+    S::SessionId: list_agent_session_subagent_turns_response_builder::IsSet,
+    S::SubagentId: list_agent_session_subagent_turns_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::SessionTurnListResource>,
+        Error<ListAgentSessionSubagentTurnsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists subagents in a session, including nested and closed subagents. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_subagents_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_subagents(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -5821,13 +6702,30 @@ pub async fn list_agent_session_subagents(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_subagents_builder::State>
+    ListAgentSessionSubagentsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_subagents_builder::IsSet,
+    S::SessionId: list_agent_session_subagents_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ListAgentSessionSubagents200Response, Error<ListAgentSessionSubagentsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Lists subagents in a session, including nested and closed subagents. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
 ///
 /// Sends the same request as [`list_agent_session_subagents`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListAgentSessionSubagents200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_subagents_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_subagents_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -5926,8 +6824,27 @@ pub async fn list_agent_session_subagents_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_subagents_response_builder::State>
+    ListAgentSessionSubagentsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_subagents_response_builder::IsSet,
+    S::SessionId: list_agent_session_subagents_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ListAgentSessionSubagents200Response>,
+        Error<ListAgentSessionSubagentsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists published root-turn traces as OTLP JSON, ordered by turn creation time and ID. Unpublished traces are skipped. Each page returns data available when read; it does not wait for late traces. Trace reads and the JSON response are limited to 16 MiB per request. If the limit is exceeded, request fewer traces.
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_traces_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_traces(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -6032,13 +6949,28 @@ pub async fn list_agent_session_traces(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_traces_builder::State> ListAgentSessionTracesBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_traces_builder::IsSet,
+    S::SessionId: list_agent_session_traces_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SessionTraceListResource, Error<ListAgentSessionTracesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists published root-turn traces as OTLP JSON, ordered by turn creation time and ID. Unpublished traces are skipped. Each page returns data available when read; it does not wait for late traces. Trace reads and the JSON response are limited to 16 MiB per request. If the limit is exceeded, request fewer traces.
 ///
 /// Sends the same request as [`list_agent_session_traces`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SessionTraceListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_traces_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_traces_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -6135,8 +7067,27 @@ pub async fn list_agent_session_traces_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_traces_response_builder::State>
+    ListAgentSessionTracesResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_traces_response_builder::IsSet,
+    S::SessionId: list_agent_session_traces_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::SessionTraceListResource>,
+        Error<ListAgentSessionTracesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists items belonging to one root-agent turn, including its interactions with subagents. See [inspecting agent output](https://developers.openai.com/api/docs/guides/agents-api/observability).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_turn_items_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_turn_items(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -6244,13 +7195,30 @@ pub async fn list_agent_session_turn_items(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_turn_items_builder::State>
+    ListAgentSessionTurnItemsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_turn_items_builder::IsSet,
+    S::SessionId: list_agent_session_turn_items_builder::IsSet,
+    S::TurnId: list_agent_session_turn_items_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SessionItemListResource, Error<ListAgentSessionTurnItemsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists items belonging to one root-agent turn, including its interactions with subagents. See [inspecting agent output](https://developers.openai.com/api/docs/guides/agents-api/observability).
 ///
 /// Sends the same request as [`list_agent_session_turn_items`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SessionItemListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_turn_items_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_turn_items_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -6352,8 +7320,28 @@ pub async fn list_agent_session_turn_items_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_turn_items_response_builder::State>
+    ListAgentSessionTurnItemsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_turn_items_response_builder::IsSet,
+    S::SessionId: list_agent_session_turn_items_response_builder::IsSet,
+    S::TurnId: list_agent_session_turn_items_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::SessionItemListResource>,
+        Error<ListAgentSessionTurnItemsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists turns by creation time and turn ID. The after cursor is exclusive in the selected order. See [session turns](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage#inspect-session-turns).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_turns_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_turns(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -6458,13 +7446,28 @@ pub async fn list_agent_session_turns(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_turns_builder::State> ListAgentSessionTurnsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_turns_builder::IsSet,
+    S::SessionId: list_agent_session_turns_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SessionTurnListResource, Error<ListAgentSessionTurnsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists turns by creation time and turn ID. The after cursor is exclusive in the selected order. See [session turns](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage#inspect-session-turns).
 ///
 /// Sends the same request as [`list_agent_session_turns`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SessionTurnListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_session_turns_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_turns_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -6561,8 +7564,27 @@ pub async fn list_agent_session_turns_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_session_turns_response_builder::State>
+    ListAgentSessionTurnsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_session_turns_response_builder::IsSet,
+    S::SessionId: list_agent_session_turns_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::SessionTurnListResource>,
+        Error<ListAgentSessionTurnsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists managed agent sessions using ID-based pagination and the requested sort order. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_sessions_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_sessions(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -6674,13 +7696,25 @@ pub async fn list_agent_sessions(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_sessions_builder::State> ListAgentSessionsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_sessions_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::SessionListResource, Error<ListAgentSessionsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists managed agent sessions using ID-based pagination and the requested sort order. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
 ///
 /// Sends the same request as [`list_agent_sessions`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SessionListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agent_sessions_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_sessions_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -6783,8 +7817,24 @@ pub async fn list_agent_sessions_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agent_sessions_response_builder::State>
+    ListAgentSessionsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_agent_sessions_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SessionListResource>, Error<ListAgentSessionsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Lists reusable agents in the current project. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
-#[bon::builder]
+#[bon::builder(state_mod = list_agents_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agents(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -6883,13 +7933,25 @@ pub async fn list_agents(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agents_builder::State> ListAgentsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_agents_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::AgentListResource, Error<ListAgentsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists reusable agents in the current project. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
 ///
 /// Sends the same request as [`list_agents`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AgentListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_agents_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agents_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -6979,8 +8041,22 @@ pub async fn list_agents_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_agents_response_builder::State> ListAgentsResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_agents_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AgentListResource>, Error<ListAgentsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Pauses future scheduled delivery without stopping an active session.
-#[bon::builder]
+#[bon::builder(state_mod = pause_agent_automation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn pause_agent_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -7070,13 +8146,28 @@ pub async fn pause_agent_automation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: pause_agent_automation_builder::State> PauseAgentAutomationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: pause_agent_automation_builder::IsSet,
+    S::AutomationId: pause_agent_automation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::AutomationResource, Error<PauseAgentAutomationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Pauses future scheduled delivery without stopping an active session.
 ///
 /// Sends the same request as [`pause_agent_automation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AutomationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = pause_agent_automation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn pause_agent_automation_response(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -7157,8 +8248,25 @@ pub async fn pause_agent_automation_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: pause_agent_automation_response_builder::State>
+    PauseAgentAutomationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: pause_agent_automation_response_builder::IsSet,
+    S::AutomationId: pause_agent_automation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AutomationResource>, Error<PauseAgentAutomationError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Resumes scheduled delivery; one-time automations without a pending invocation require a future run_at.
-#[bon::builder]
+#[bon::builder(state_mod = resume_agent_automation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn resume_agent_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -7248,13 +8356,28 @@ pub async fn resume_agent_automation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: resume_agent_automation_builder::State> ResumeAgentAutomationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: resume_agent_automation_builder::IsSet,
+    S::AutomationId: resume_agent_automation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::AutomationResource, Error<ResumeAgentAutomationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Resumes scheduled delivery; one-time automations without a pending invocation require a future run_at.
 ///
 /// Sends the same request as [`resume_agent_automation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AutomationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = resume_agent_automation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn resume_agent_automation_response(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -7335,8 +8458,25 @@ pub async fn resume_agent_automation_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: resume_agent_automation_response_builder::State>
+    ResumeAgentAutomationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: resume_agent_automation_response_builder::IsSet,
+    S::AutomationId: resume_agent_automation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AutomationResource>, Error<ResumeAgentAutomationError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a reusable agent by ID. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent(
     configuration: &configuration::Configuration,
     agent_id: &str,
@@ -7426,13 +8566,26 @@ pub async fn retrieve_agent(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_builder::State> RetrieveAgentBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_builder::IsSet,
+    S::AgentId: retrieve_agent_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::AgentResource, Error<RetrieveAgentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a reusable agent by ID. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
 ///
 /// Sends the same request as [`retrieve_agent`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AgentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_response(
     configuration: &configuration::Configuration,
     agent_id: &str,
@@ -7513,8 +8666,23 @@ pub async fn retrieve_agent_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_response_builder::State> RetrieveAgentResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_response_builder::IsSet,
+    S::AgentId: retrieve_agent_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AgentResource>, Error<RetrieveAgentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an execution environment's connection status and safe installed metadata. See [environment lifecycle](https://developers.openai.com/api/docs/guides/agents-api/environments/lifecycle).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_environment_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_environment(
     configuration: &configuration::Configuration,
     environment_id: &str,
@@ -7604,13 +8772,28 @@ pub async fn retrieve_agent_environment(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_environment_builder::State> RetrieveAgentEnvironmentBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_environment_builder::IsSet,
+    S::EnvironmentId: retrieve_agent_environment_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::PublicEnvironmentResource, Error<RetrieveAgentEnvironmentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an execution environment's connection status and safe installed metadata. See [environment lifecycle](https://developers.openai.com/api/docs/guides/agents-api/environments/lifecycle).
 ///
 /// Sends the same request as [`retrieve_agent_environment`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PublicEnvironmentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_environment_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_environment_response(
     configuration: &configuration::Configuration,
     environment_id: &str,
@@ -7694,8 +8877,27 @@ pub async fn retrieve_agent_environment_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_environment_response_builder::State>
+    RetrieveAgentEnvironmentResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_environment_response_builder::IsSet,
+    S::EnvironmentId: retrieve_agent_environment_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::PublicEnvironmentResource>,
+        Error<RetrieveAgentEnvironmentError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves reusable environment configuration without returning confidential values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_environment_template_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_environment_template(
     configuration: &configuration::Configuration,
     environment_template_id: &str,
@@ -7782,13 +8984,30 @@ pub async fn retrieve_agent_environment_template(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_environment_template_builder::State>
+    RetrieveAgentEnvironmentTemplateBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_environment_template_builder::IsSet,
+    S::EnvironmentTemplateId: retrieve_agent_environment_template_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::EnvironmentTemplateResource, Error<RetrieveAgentEnvironmentTemplateError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves reusable environment configuration without returning confidential values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
 ///
 /// Sends the same request as [`retrieve_agent_environment_template`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::EnvironmentTemplateResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_environment_template_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_environment_template_response(
     configuration: &configuration::Configuration,
     environment_template_id: &str,
@@ -7869,8 +9088,27 @@ pub async fn retrieve_agent_environment_template_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_environment_template_response_builder::State>
+    RetrieveAgentEnvironmentTemplateResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_environment_template_response_builder::IsSet,
+    S::EnvironmentTemplateId: retrieve_agent_environment_template_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::EnvironmentTemplateResource>,
+        Error<RetrieveAgentEnvironmentTemplateError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves the current state of a managed agent session. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_session_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_session(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -7960,13 +9198,26 @@ pub async fn retrieve_agent_session(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_session_builder::State> RetrieveAgentSessionBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_session_builder::IsSet,
+    S::SessionId: retrieve_agent_session_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::SessionResource, Error<RetrieveAgentSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves the current state of a managed agent session. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
 ///
 /// Sends the same request as [`retrieve_agent_session`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SessionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_session_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_session_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -8047,8 +9298,24 @@ pub async fn retrieve_agent_session_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_session_response_builder::State>
+    RetrieveAgentSessionResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_session_response_builder::IsSet,
+    S::SessionId: retrieve_agent_session_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SessionResource>, Error<RetrieveAgentSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves immutable metadata for one durable session artifact. See [session artifacts](https://developers.openai.com/api/docs/guides/agents-api/environments/files#openai-hosted-artifacts).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_session_artifact_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_session_artifact(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -8141,13 +9408,30 @@ pub async fn retrieve_agent_session_artifact(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_session_artifact_builder::State>
+    RetrieveAgentSessionArtifactBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_session_artifact_builder::IsSet,
+    S::SessionId: retrieve_agent_session_artifact_builder::IsSet,
+    S::ArtifactId: retrieve_agent_session_artifact_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SessionArtifactResource, Error<RetrieveAgentSessionArtifactError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves immutable metadata for one durable session artifact. See [session artifacts](https://developers.openai.com/api/docs/guides/agents-api/environments/files#openai-hosted-artifacts).
 ///
 /// Sends the same request as [`retrieve_agent_session_artifact`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SessionArtifactResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_session_artifact_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_session_artifact_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -8234,8 +9518,28 @@ pub async fn retrieve_agent_session_artifact_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_session_artifact_response_builder::State>
+    RetrieveAgentSessionArtifactResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_session_artifact_response_builder::IsSet,
+    S::SessionId: retrieve_agent_session_artifact_response_builder::IsSet,
+    S::ArtifactId: retrieve_agent_session_artifact_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::SessionArtifactResource>,
+        Error<RetrieveAgentSessionArtifactError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Downloads immutable session artifact bytes after the execution environment expires. See [session artifacts](https://developers.openai.com/api/docs/guides/agents-api/environments/files#openai-hosted-artifacts).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_session_artifact_content_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_session_artifact_content(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -8317,8 +9621,25 @@ pub async fn retrieve_agent_session_artifact_content(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_session_artifact_content_builder::State>
+    RetrieveAgentSessionArtifactContentBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_session_artifact_content_builder::IsSet,
+    S::SessionId: retrieve_agent_session_artifact_content_builder::IsSet,
+    S::ArtifactId: retrieve_agent_session_artifact_content_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<timvw_rust_runtime::Response, Error<RetrieveAgentSessionArtifactContentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a subagent belonging to this session. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_session_subagent_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_session_subagent(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -8411,13 +9732,30 @@ pub async fn retrieve_agent_session_subagent(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_session_subagent_builder::State>
+    RetrieveAgentSessionSubagentBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_session_subagent_builder::IsSet,
+    S::SessionId: retrieve_agent_session_subagent_builder::IsSet,
+    S::SubagentId: retrieve_agent_session_subagent_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SubagentResource, Error<RetrieveAgentSessionSubagentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a subagent belonging to this session. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
 ///
 /// Sends the same request as [`retrieve_agent_session_subagent`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SubagentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_session_subagent_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_session_subagent_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -8502,8 +9840,28 @@ pub async fn retrieve_agent_session_subagent_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_session_subagent_response_builder::State>
+    RetrieveAgentSessionSubagentResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_session_subagent_response_builder::IsSet,
+    S::SessionId: retrieve_agent_session_subagent_response_builder::IsSet,
+    S::SubagentId: retrieve_agent_session_subagent_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::SubagentResource>,
+        Error<RetrieveAgentSessionSubagentError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a turn belonging to this subagent. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_session_subagent_turn_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_session_subagent_turn(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -8599,13 +9957,31 @@ pub async fn retrieve_agent_session_subagent_turn(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_session_subagent_turn_builder::State>
+    RetrieveAgentSessionSubagentTurnBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_session_subagent_turn_builder::IsSet,
+    S::SessionId: retrieve_agent_session_subagent_turn_builder::IsSet,
+    S::SubagentId: retrieve_agent_session_subagent_turn_builder::IsSet,
+    S::TurnId: retrieve_agent_session_subagent_turn_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::TurnResource, Error<RetrieveAgentSessionSubagentTurnError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a turn belonging to this subagent. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
 ///
 /// Sends the same request as [`retrieve_agent_session_subagent_turn`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::TurnResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_session_subagent_turn_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_session_subagent_turn_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -8693,8 +10069,29 @@ pub async fn retrieve_agent_session_subagent_turn_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_session_subagent_turn_response_builder::State>
+    RetrieveAgentSessionSubagentTurnResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_session_subagent_turn_response_builder::IsSet,
+    S::SessionId: retrieve_agent_session_subagent_turn_response_builder::IsSet,
+    S::SubagentId: retrieve_agent_session_subagent_turn_response_builder::IsSet,
+    S::TurnId: retrieve_agent_session_subagent_turn_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::TurnResource>,
+        Error<RetrieveAgentSessionSubagentTurnError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a turn's current status, timestamps, usage, and error. Returns 404 if the turn does not belong to the session. See [session turns](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage#inspect-session-turns).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_session_turn_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_session_turn(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -8787,13 +10184,28 @@ pub async fn retrieve_agent_session_turn(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_session_turn_builder::State>
+    RetrieveAgentSessionTurnBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_session_turn_builder::IsSet,
+    S::SessionId: retrieve_agent_session_turn_builder::IsSet,
+    S::TurnId: retrieve_agent_session_turn_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::TurnResource, Error<RetrieveAgentSessionTurnError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a turn's current status, timestamps, usage, and error. Returns 404 if the turn does not belong to the session. See [session turns](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage#inspect-session-turns).
 ///
 /// Sends the same request as [`retrieve_agent_session_turn`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::TurnResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_agent_session_turn_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_agent_session_turn_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -8877,8 +10289,26 @@ pub async fn retrieve_agent_session_turn_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_agent_session_turn_response_builder::State>
+    RetrieveAgentSessionTurnResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_agent_session_turn_response_builder::IsSet,
+    S::SessionId: retrieve_agent_session_turn_response_builder::IsSet,
+    S::TurnId: retrieve_agent_session_turn_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::TurnResource>, Error<RetrieveAgentSessionTurnError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Updates a reusable agent. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
-#[bon::builder]
+#[bon::builder(state_mod = update_agent_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_agent(
     configuration: &configuration::Configuration,
     agent_id: &str,
@@ -8971,13 +10401,26 @@ pub async fn update_agent(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_agent_builder::State> UpdateAgentBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_agent_builder::IsSet,
+    S::AgentId: update_agent_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::AgentResource, Error<UpdateAgentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates a reusable agent. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
 ///
 /// Sends the same request as [`update_agent`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AgentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_agent_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_agent_response(
     configuration: &configuration::Configuration,
     agent_id: &str,
@@ -9061,8 +10504,23 @@ pub async fn update_agent_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_agent_response_builder::State> UpdateAgentResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_agent_response_builder::IsSet,
+    S::AgentId: update_agent_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AgentResource>, Error<UpdateAgentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates supplied fields; target and metadata replace the whole field.
-#[bon::builder]
+#[bon::builder(state_mod = update_agent_automation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_agent_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -9155,13 +10613,29 @@ pub async fn update_agent_automation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_agent_automation_builder::State> UpdateAgentAutomationBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_agent_automation_builder::IsSet,
+    S::AutomationId: update_agent_automation_builder::IsSet,
+    S::UpdateAutomationParams: update_agent_automation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::AutomationResource, Error<UpdateAgentAutomationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates supplied fields; target and metadata replace the whole field.
 ///
 /// Sends the same request as [`update_agent_automation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AutomationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_agent_automation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_agent_automation_response(
     configuration: &configuration::Configuration,
     automation_id: &str,
@@ -9245,8 +10719,26 @@ pub async fn update_agent_automation_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_agent_automation_response_builder::State>
+    UpdateAgentAutomationResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_agent_automation_response_builder::IsSet,
+    S::AutomationId: update_agent_automation_response_builder::IsSet,
+    S::UpdateAutomationParams: update_agent_automation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AutomationResource>, Error<UpdateAgentAutomationError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Updates reusable environment configuration without returning confidential values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
-#[bon::builder]
+#[bon::builder(state_mod = update_agent_environment_template_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_agent_environment_template(
     configuration: &configuration::Configuration,
     environment_template_id: &str,
@@ -9339,13 +10831,30 @@ pub async fn update_agent_environment_template(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_agent_environment_template_builder::State>
+    UpdateAgentEnvironmentTemplateBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_agent_environment_template_builder::IsSet,
+    S::EnvironmentTemplateId: update_agent_environment_template_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::EnvironmentTemplateResource, Error<UpdateAgentEnvironmentTemplateError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Updates reusable environment configuration without returning confidential values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
 ///
 /// Sends the same request as [`update_agent_environment_template`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::EnvironmentTemplateResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_agent_environment_template_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_agent_environment_template_response(
     configuration: &configuration::Configuration,
     environment_template_id: &str,
@@ -9432,8 +10941,27 @@ pub async fn update_agent_environment_template_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_agent_environment_template_response_builder::State>
+    UpdateAgentEnvironmentTemplateResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_agent_environment_template_response_builder::IsSet,
+    S::EnvironmentTemplateId: update_agent_environment_template_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::EnvironmentTemplateResource>,
+        Error<UpdateAgentEnvironmentTemplateError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Updates session tools, vaults, metadata, model, reasoning effort, service tier, or the default prompt cache lifetime. Model settings apply to subsequent turns. Omitted fields are unchanged. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
-#[bon::builder]
+#[bon::builder(state_mod = update_agent_session_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_agent_session(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -9526,13 +11054,26 @@ pub async fn update_agent_session(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_agent_session_builder::State> UpdateAgentSessionBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_agent_session_builder::IsSet,
+    S::SessionId: update_agent_session_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::SessionResource, Error<UpdateAgentSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates session tools, vaults, metadata, model, reasoning effort, service tier, or the default prompt cache lifetime. Model settings apply to subsequent turns. Omitted fields are unchanged. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
 ///
 /// Sends the same request as [`update_agent_session`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SessionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_agent_session_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_agent_session_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -9613,5 +11154,21 @@ pub async fn update_agent_session_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: update_agent_session_response_builder::State>
+    UpdateAgentSessionResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_agent_session_response_builder::IsSet,
+    S::SessionId: update_agent_session_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SessionResource>, Error<UpdateAgentSessionError>> {
+        self.call_internal().await
     }
 }

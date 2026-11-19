@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateVideoExtendJsonBody : JSON parameters for extending an existing generated video.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_video_extend_json_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateVideoExtendJsonBody {
     #[serde(rename = "video")]
     pub video: models::VideoReferenceInputParam,
@@ -37,6 +38,19 @@ impl CreateVideoExtendJsonBody {
             prompt,
             seconds,
         }
+    }
+}
+
+impl<S: create_video_extend_json_body_builder::State> CreateVideoExtendJsonBodyBuilder<S>
+where
+    S::Video: create_video_extend_json_body_builder::IsSet,
+    S::Prompt: create_video_extend_json_body_builder::IsSet,
+    S::Seconds: create_video_extend_json_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateVideoExtendJsonBody {
+        self.build_internal()
     }
 }
 

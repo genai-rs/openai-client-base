@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_output_text_content_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaOutputTextContentParam {
     /// The content type. Always `output_text`.  Defaults to `\"output_text\"`.
     #[serde(rename = "type")]
@@ -33,6 +34,18 @@ impl BetaOutputTextContentParam {
             text,
             annotations: None,
         }
+    }
+}
+
+impl<S: beta_output_text_content_param_builder::State> BetaOutputTextContentParamBuilder<S>
+where
+    S::Type: beta_output_text_content_param_builder::IsSet,
+    S::Text: beta_output_text_content_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaOutputTextContentParam {
+        self.build_internal()
     }
 }
 

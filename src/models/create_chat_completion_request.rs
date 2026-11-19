@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_chat_completion_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateChatCompletionRequest {
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
@@ -319,6 +320,18 @@ impl CreateChatCompletionRequest {
             function_call: None,
             functions: None,
         }
+    }
+}
+
+impl<S: create_chat_completion_request_builder::State> CreateChatCompletionRequestBuilder<S>
+where
+    S::Messages: create_chat_completion_request_builder::IsSet,
+    S::Model: create_chat_completion_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateChatCompletionRequest {
+        self.build_internal()
     }
 }
 

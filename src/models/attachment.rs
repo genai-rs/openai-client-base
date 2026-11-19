@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// Attachment : Attachment metadata included on thread items.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = attachment_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Attachment {
     #[serde(rename = "type")]
     pub r#type: models::AttachmentType,
@@ -46,6 +47,20 @@ impl Attachment {
             mime_type,
             preview_url,
         }
+    }
+}
+
+impl<S: attachment_builder::State> AttachmentBuilder<S>
+where
+    S::Type: attachment_builder::IsSet,
+    S::Id: attachment_builder::IsSet,
+    S::Name: attachment_builder::IsSet,
+    S::MimeType: attachment_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Attachment {
+        self.build_internal()
     }
 }
 

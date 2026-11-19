@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageDeltaContentRefusalObject : The refusal content that is part of a message.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_delta_content_refusal_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageDeltaContentRefusalObject {
     /// The index of the refusal part in the message.
     #[serde(rename = "index")]
@@ -31,6 +32,19 @@ impl MessageDeltaContentRefusalObject {
             r#type,
             refusal: None,
         }
+    }
+}
+
+impl<S: message_delta_content_refusal_object_builder::State>
+    MessageDeltaContentRefusalObjectBuilder<S>
+where
+    S::Index: message_delta_content_refusal_object_builder::IsSet,
+    S::Type: message_delta_content_refusal_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageDeltaContentRefusalObject {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeMcpApprovalResponse : A Realtime item responding to an MCP approval request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_mcp_approval_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeMcpApprovalResponse {
     /// The type of the item. Always `mcp_approval_response`.
     #[serde(rename = "type")]
@@ -50,6 +51,20 @@ impl RealtimeMcpApprovalResponse {
             approve,
             reason: None,
         }
+    }
+}
+
+impl<S: realtime_mcp_approval_response_builder::State> RealtimeMcpApprovalResponseBuilder<S>
+where
+    S::Type: realtime_mcp_approval_response_builder::IsSet,
+    S::Id: realtime_mcp_approval_response_builder::IsSet,
+    S::ApprovalRequestId: realtime_mcp_approval_response_builder::IsSet,
+    S::Approve: realtime_mcp_approval_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeMcpApprovalResponse {
+        self.build_internal()
     }
 }
 

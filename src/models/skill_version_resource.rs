@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = skill_version_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SkillVersionResource {
     /// The object type, which is `skill.version`.  Defaults to `\"skill.version\"`.
     #[serde(rename = "object")]
@@ -54,6 +55,23 @@ impl SkillVersionResource {
             name,
             description,
         }
+    }
+}
+
+impl<S: skill_version_resource_builder::State> SkillVersionResourceBuilder<S>
+where
+    S::Object: skill_version_resource_builder::IsSet,
+    S::Id: skill_version_resource_builder::IsSet,
+    S::SkillId: skill_version_resource_builder::IsSet,
+    S::Version: skill_version_resource_builder::IsSet,
+    S::CreatedAt: skill_version_resource_builder::IsSet,
+    S::Name: skill_version_resource_builder::IsSet,
+    S::Description: skill_version_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SkillVersionResource {
+        self.build_internal()
     }
 }
 

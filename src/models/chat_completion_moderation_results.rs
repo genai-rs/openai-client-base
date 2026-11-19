@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionModerationResults : Successful moderation results for the request input or generated output.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_moderation_results_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionModerationResults {
     /// The object type, which is always `moderation_results`.
     #[serde(rename = "type")]
@@ -37,6 +38,19 @@ impl ChatCompletionModerationResults {
             model,
             results,
         }
+    }
+}
+
+impl<S: chat_completion_moderation_results_builder::State> ChatCompletionModerationResultsBuilder<S>
+where
+    S::Type: chat_completion_moderation_results_builder::IsSet,
+    S::Model: chat_completion_moderation_results_builder::IsSet,
+    S::Results: chat_completion_moderation_results_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionModerationResults {
+        self.build_internal()
     }
 }
 

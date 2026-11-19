@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeClientEventInputAudioBufferAppend : Send this event to append audio bytes to the input audio buffer. The audio  buffer is temporary storage you can write to and later commit. A \"commit\" will create a new user message item in the conversation history from the buffer content and clear the buffer. Input audio transcription (if enabled) will be generated when the buffer is committed.  If VAD is enabled the audio buffer is used to detect speech and the server will decide  when to commit. When Server VAD is disabled, you must commit the audio buffer manually. Input audio noise reduction operates on writes to the audio buffer.  The client may choose how much audio to place in each event up to a maximum  of 15 MiB, for example streaming smaller chunks from the client may allow the  VAD to be more responsive. Unlike most other client events, the server will  not send a confirmation response to this event.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_client_event_input_audio_buffer_append_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeClientEventInputAudioBufferAppend {
     /// Optional client-generated ID used to identify this event.
     ///
@@ -34,6 +35,19 @@ impl RealtimeClientEventInputAudioBufferAppend {
             r#type,
             audio,
         }
+    }
+}
+
+impl<S: realtime_client_event_input_audio_buffer_append_builder::State>
+    RealtimeClientEventInputAudioBufferAppendBuilder<S>
+where
+    S::Type: realtime_client_event_input_audio_buffer_append_builder::IsSet,
+    S::Audio: realtime_client_event_input_audio_buffer_append_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeClientEventInputAudioBufferAppend {
+        self.build_internal()
     }
 }
 

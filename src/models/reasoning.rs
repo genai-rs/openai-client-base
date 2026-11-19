@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// Reasoning : Configuration options for [reasoning models](https://developers.openai.com/api/docs/guides/reasoning).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = reasoning_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Reasoning {
     #[serde(rename = "mode", skip_serializing_if = "Option::is_none")]
     pub mode: Option<models::ReasoningModeEnum>,
@@ -59,6 +60,14 @@ impl Reasoning {
             context: None,
             generate_summary: None,
         }
+    }
+}
+
+impl<S: reasoning_builder::State> ReasoningBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Reasoning {
+        self.build_internal()
     }
 }
 

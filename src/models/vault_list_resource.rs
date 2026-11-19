@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// VaultListResource : A page of Agents API resources, with IDs for retrieving additional pages.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vault_list_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VaultListResource {
     /// The object type, which is always `list`.  Defaults to `\"list\"`.
     #[serde(rename = "object")]
@@ -53,6 +54,19 @@ impl VaultListResource {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: vault_list_resource_builder::State> VaultListResourceBuilder<S>
+where
+    S::Object: vault_list_resource_builder::IsSet,
+    S::Data: vault_list_resource_builder::IsSet,
+    S::HasMore: vault_list_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VaultListResource {
+        self.build_internal()
     }
 }
 

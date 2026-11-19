@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = list_audit_logs_effective_at_parameter_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ListAuditLogsEffectiveAtParameter {
     /// Return only events whose `effective_at` (Unix seconds) is greater than this value.
     #[serde(rename = "gt", skip_serializing_if = "Option::is_none")]
@@ -34,6 +35,16 @@ impl ListAuditLogsEffectiveAtParameter {
             lt: None,
             lte: None,
         }
+    }
+}
+
+impl<S: list_audit_logs_effective_at_parameter_builder::State>
+    ListAuditLogsEffectiveAtParameterBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ListAuditLogsEffectiveAtParameter {
+        self.build_internal()
     }
 }
 

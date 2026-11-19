@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = input_messages_template_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InputMessagesTemplate {
     /// The type of input messages. Always `template`.
     #[serde(rename = "type")]
@@ -27,6 +28,18 @@ impl InputMessagesTemplate {
         template: Vec<models::InputMessagesTemplateTemplateInner>,
     ) -> InputMessagesTemplate {
         InputMessagesTemplate { r#type, template }
+    }
+}
+
+impl<S: input_messages_template_builder::State> InputMessagesTemplateBuilder<S>
+where
+    S::Type: input_messages_template_builder::IsSet,
+    S::Template: input_messages_template_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InputMessagesTemplate {
+        self.build_internal()
     }
 }
 

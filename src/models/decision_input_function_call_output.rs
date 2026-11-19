@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = decision_input_function_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DecisionInputFunctionCallOutput {
     /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
@@ -51,6 +52,20 @@ impl DecisionInputFunctionCallOutput {
             status: None,
             r#type,
         }
+    }
+}
+
+impl<S: decision_input_function_call_output_builder::State>
+    DecisionInputFunctionCallOutputBuilder<S>
+where
+    S::CallId: decision_input_function_call_output_builder::IsSet,
+    S::Output: decision_input_function_call_output_builder::IsSet,
+    S::Type: decision_input_function_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DecisionInputFunctionCallOutput {
+        self.build_internal()
     }
 }
 

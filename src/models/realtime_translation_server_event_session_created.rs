@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationServerEventSessionCreated : Returned when a translation session is created. Emitted automatically when a new connection is established as the first server event. This event contains the default translation session configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_server_event_session_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationServerEventSessionCreated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeTranslationServerEventSessionCreated {
             r#type,
             session,
         }
+    }
+}
+
+impl<S: realtime_translation_server_event_session_created_builder::State>
+    RealtimeTranslationServerEventSessionCreatedBuilder<S>
+where
+    S::EventId: realtime_translation_server_event_session_created_builder::IsSet,
+    S::Type: realtime_translation_server_event_session_created_builder::IsSet,
+    S::Session: realtime_translation_server_event_session_created_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationServerEventSessionCreated {
+        self.build_internal()
     }
 }
 

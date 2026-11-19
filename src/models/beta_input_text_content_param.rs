@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaInputTextContentParam : A text input to the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_input_text_content_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaInputTextContentParam {
     /// The type of the input item. Always `input_text`.  Defaults to `\"input_text\"`.
     #[serde(rename = "type")]
@@ -39,6 +40,18 @@ impl BetaInputTextContentParam {
             text,
             prompt_cache_breakpoint: None,
         }
+    }
+}
+
+impl<S: beta_input_text_content_param_builder::State> BetaInputTextContentParamBuilder<S>
+where
+    S::Type: beta_input_text_content_param_builder::IsSet,
+    S::Text: beta_input_text_content_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaInputTextContentParam {
+        self.build_internal()
     }
 }
 

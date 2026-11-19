@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LocalEnvironmentResource : Represents the use of a local environment to perform shell actions.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = local_environment_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LocalEnvironmentResource {
     /// The environment type. Always `local`.  Defaults to `\"local\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl LocalEnvironmentResource {
     /// Represents the use of a local environment to perform shell actions.
     pub fn new(r#type: Type) -> LocalEnvironmentResource {
         LocalEnvironmentResource { r#type }
+    }
+}
+
+impl<S: local_environment_resource_builder::State> LocalEnvironmentResourceBuilder<S>
+where
+    S::Type: local_environment_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LocalEnvironmentResource {
+        self.build_internal()
     }
 }
 

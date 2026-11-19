@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaFileSearchToolCall : The results of a file search tool call. See the [file search guide](https://developers.openai.com/api/docs/guides/tools-file-search) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_file_search_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFileSearchToolCall {
     /// The agent that produced this item.
     #[serde(
@@ -60,6 +61,20 @@ impl BetaFileSearchToolCall {
             queries,
             results: None,
         }
+    }
+}
+
+impl<S: beta_file_search_tool_call_builder::State> BetaFileSearchToolCallBuilder<S>
+where
+    S::Id: beta_file_search_tool_call_builder::IsSet,
+    S::Type: beta_file_search_tool_call_builder::IsSet,
+    S::Status: beta_file_search_tool_call_builder::IsSet,
+    S::Queries: beta_file_search_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFileSearchToolCall {
+        self.build_internal()
     }
 }
 

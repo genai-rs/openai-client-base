@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepDeltaObjectDelta : The delta containing the fields that have changed on the run step.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_delta_object_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDeltaObjectDelta {
     #[serde(rename = "step_details", skip_serializing_if = "Option::is_none")]
     pub step_details: Option<models::RunStepDeltaObjectDeltaStepDetails>,
@@ -22,6 +23,14 @@ impl RunStepDeltaObjectDelta {
     /// The delta containing the fields that have changed on the run step.
     pub fn new() -> RunStepDeltaObjectDelta {
         RunStepDeltaObjectDelta { step_details: None }
+    }
+}
+
+impl<S: run_step_delta_object_delta_builder::State> RunStepDeltaObjectDeltaBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDeltaObjectDelta {
+        self.build_internal()
     }
 }
 

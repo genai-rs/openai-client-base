@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseFormatJsonSchema : JSON Schema response format. Used to generate structured JSON responses. Learn more about [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_format_json_schema_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseFormatJsonSchema {
     /// The type of response format being defined. Always `json_schema`.
     #[serde(rename = "type")]
@@ -28,6 +29,18 @@ impl ResponseFormatJsonSchema {
             r#type,
             json_schema,
         }
+    }
+}
+
+impl<S: response_format_json_schema_builder::State> ResponseFormatJsonSchemaBuilder<S>
+where
+    S::Type: response_format_json_schema_builder::IsSet,
+    S::JsonSchema: response_format_json_schema_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseFormatJsonSchema {
+        self.build_internal()
     }
 }
 

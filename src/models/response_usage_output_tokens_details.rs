@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseUsageOutputTokensDetails : A detailed breakdown of the output tokens.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_usage_output_tokens_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseUsageOutputTokensDetails {
     /// The number of reasoning tokens.
     #[serde(rename = "reasoning_tokens")]
@@ -22,6 +23,18 @@ impl ResponseUsageOutputTokensDetails {
     /// A detailed breakdown of the output tokens.
     pub fn new(reasoning_tokens: i64) -> ResponseUsageOutputTokensDetails {
         ResponseUsageOutputTokensDetails { reasoning_tokens }
+    }
+}
+
+impl<S: response_usage_output_tokens_details_builder::State>
+    ResponseUsageOutputTokensDetailsBuilder<S>
+where
+    S::ReasoningTokens: response_usage_output_tokens_details_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseUsageOutputTokensDetails {
+        self.build_internal()
     }
 }
 

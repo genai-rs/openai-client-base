@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CostsResultAmount : The monetary value in its associated currency.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = costs_result_amount_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CostsResultAmount {
     /// The numeric value of the cost.
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,14 @@ impl CostsResultAmount {
             value: None,
             currency: None,
         }
+    }
+}
+
+impl<S: costs_result_amount_builder::State> CostsResultAmountBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CostsResultAmount {
+        self.build_internal()
     }
 }
 

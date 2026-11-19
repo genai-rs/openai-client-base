@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveMediaSessionCreateParams : Startup configuration for a Live media session. Follow the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) when writing frontend instructions and the backend prompt under delegation.responses.instructions.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_media_session_create_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveMediaSessionCreateParams {
     #[serde(rename = "model")]
     pub model: models::ModelIdsLive,
@@ -74,6 +75,17 @@ impl LiveMediaSessionCreateParams {
             input: None,
             client: None,
         }
+    }
+}
+
+impl<S: live_media_session_create_params_builder::State> LiveMediaSessionCreateParamsBuilder<S>
+where
+    S::Model: live_media_session_create_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveMediaSessionCreateParams {
+        self.build_internal()
     }
 }
 

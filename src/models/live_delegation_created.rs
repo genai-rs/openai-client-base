@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveDelegationCreated : Returned when the Live model delegates work to your application, Responses, or Decisions. Contains delegation metadata and the position on the session timeline where the work was delegated.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_delegation_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDelegationCreated {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -45,6 +46,20 @@ impl LiveDelegationCreated {
             offset_ms,
             delegation,
         }
+    }
+}
+
+impl<S: live_delegation_created_builder::State> LiveDelegationCreatedBuilder<S>
+where
+    S::EventId: live_delegation_created_builder::IsSet,
+    S::Type: live_delegation_created_builder::IsSet,
+    S::OffsetMs: live_delegation_created_builder::IsSet,
+    S::Delegation: live_delegation_created_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDelegationCreated {
+        self.build_internal()
     }
 }
 

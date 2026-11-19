@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CustomToolPropertiesFormatGrammarFormat : A grammar defined by the user.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = custom_tool_properties_format_grammar_format_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CustomToolPropertiesFormatGrammarFormat {
     /// Grammar format. Always `grammar`.
     #[serde(rename = "type")]
@@ -28,6 +29,19 @@ impl CustomToolPropertiesFormatGrammarFormat {
         grammar: models::CustomToolPropertiesFormatGrammarFormatGrammar,
     ) -> CustomToolPropertiesFormatGrammarFormat {
         CustomToolPropertiesFormatGrammarFormat { r#type, grammar }
+    }
+}
+
+impl<S: custom_tool_properties_format_grammar_format_builder::State>
+    CustomToolPropertiesFormatGrammarFormatBuilder<S>
+where
+    S::Type: custom_tool_properties_format_grammar_format_builder::IsSet,
+    S::Grammar: custom_tool_properties_format_grammar_format_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CustomToolPropertiesFormatGrammarFormat {
+        self.build_internal()
     }
 }
 

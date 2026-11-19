@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_responses_web_socket_stream_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponsesWebSocketStreamEvent {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -168,6 +169,38 @@ impl BetaResponsesWebSocketStreamEvent {
             input,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_responses_web_socket_stream_event_builder::State>
+    BetaResponsesWebSocketStreamEventBuilder<S>
+where
+    S::Type: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::SequenceNumber: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::Delta: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::OutputIndex: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::ItemId: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::Code: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::Response: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::ContentIndex: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::Part: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::Arguments: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::CommandIndex: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::Command: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::Output: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::Item: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::SummaryIndex: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::Text: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::Refusal: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::PartialImageIndex: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::PartialImageB64: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::AnnotationIndex: beta_responses_web_socket_stream_event_builder::IsSet,
+    S::Input: beta_responses_web_socket_stream_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponsesWebSocketStreamEvent {
+        self.build_internal()
     }
 }
 

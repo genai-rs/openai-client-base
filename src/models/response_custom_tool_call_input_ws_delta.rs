@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseCustomToolCallInputWsDelta : Event representing a delta (partial update) to the input of a custom tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_custom_tool_call_input_ws_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseCustomToolCallInputWsDelta {
     /// The event type identifier.
     #[serde(rename = "type")]
@@ -50,6 +51,22 @@ impl ResponseCustomToolCallInputWsDelta {
             delta,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_custom_tool_call_input_ws_delta_builder::State>
+    ResponseCustomToolCallInputWsDeltaBuilder<S>
+where
+    S::Type: response_custom_tool_call_input_ws_delta_builder::IsSet,
+    S::SequenceNumber: response_custom_tool_call_input_ws_delta_builder::IsSet,
+    S::OutputIndex: response_custom_tool_call_input_ws_delta_builder::IsSet,
+    S::ItemId: response_custom_tool_call_input_ws_delta_builder::IsSet,
+    S::Delta: response_custom_tool_call_input_ws_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseCustomToolCallInputWsDelta {
+        self.build_internal()
     }
 }
 

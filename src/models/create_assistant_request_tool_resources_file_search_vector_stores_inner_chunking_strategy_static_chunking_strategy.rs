@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_assistant_request_tool_resources_file_search_vector_stores_inner_chunking_strategy_static_chunking_strategy_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyStaticChunkingStrategy {
     /// Always `static`.
     #[serde(rename = "type")]
@@ -26,6 +27,18 @@ impl CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrat
             r#type,
             r#static,
         }
+    }
+}
+
+impl<S: create_assistant_request_tool_resources_file_search_vector_stores_inner_chunking_strategy_static_chunking_strategy_builder::State> CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyStaticChunkingStrategyBuilder<S>
+where
+    S::Type: create_assistant_request_tool_resources_file_search_vector_stores_inner_chunking_strategy_static_chunking_strategy_builder::IsSet,
+    S::Static: create_assistant_request_tool_resources_file_search_vector_stores_inner_chunking_strategy_static_chunking_strategy_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyStaticChunkingStrategy {
+        self.build_internal()
     }
 }
 

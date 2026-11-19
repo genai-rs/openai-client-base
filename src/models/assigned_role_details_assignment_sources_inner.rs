@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = assigned_role_details_assignment_sources_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AssignedRoleDetailsAssignmentSourcesInner {
     #[serde(rename = "principal_id")]
     pub principal_id: String,
@@ -27,6 +28,19 @@ impl AssignedRoleDetailsAssignmentSourcesInner {
             principal_id,
             principal_type,
         }
+    }
+}
+
+impl<S: assigned_role_details_assignment_sources_inner_builder::State>
+    AssignedRoleDetailsAssignmentSourcesInnerBuilder<S>
+where
+    S::PrincipalId: assigned_role_details_assignment_sources_inner_builder::IsSet,
+    S::PrincipalType: assigned_role_details_assignment_sources_inner_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AssignedRoleDetailsAssignmentSourcesInner {
+        self.build_internal()
     }
 }
 

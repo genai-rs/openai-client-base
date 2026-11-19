@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_thread_and_run_request_tool_resources_file_search_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateThreadAndRunRequestToolResourcesFileSearch {
     /// The ID of the [vector store](https://developers.openai.com/api/reference/resources/vector_stores) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
     ///
@@ -24,6 +25,16 @@ impl CreateThreadAndRunRequestToolResourcesFileSearch {
         CreateThreadAndRunRequestToolResourcesFileSearch {
             vector_store_ids: None,
         }
+    }
+}
+
+impl<S: create_thread_and_run_request_tool_resources_file_search_builder::State>
+    CreateThreadAndRunRequestToolResourcesFileSearchBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateThreadAndRunRequestToolResourcesFileSearch {
+        self.build_internal()
     }
 }
 

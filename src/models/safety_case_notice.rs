@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = safety_case_notice_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SafetyCaseNotice {
     #[serde(rename = "type")]
     pub r#type: models::SafetyCaseNoticeType,
@@ -20,6 +21,17 @@ pub struct SafetyCaseNotice {
 impl SafetyCaseNotice {
     pub fn new(r#type: models::SafetyCaseNoticeType) -> SafetyCaseNotice {
         SafetyCaseNotice { r#type }
+    }
+}
+
+impl<S: safety_case_notice_builder::State> SafetyCaseNoticeBuilder<S>
+where
+    S::Type: safety_case_notice_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SafetyCaseNotice {
+        self.build_internal()
     }
 }
 

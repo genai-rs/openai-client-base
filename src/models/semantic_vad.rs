@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SemanticVad : Server-side semantic turn detection which uses a model to determine when the user has finished speaking.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = semantic_vad_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SemanticVad {
     /// Type of turn detection, `semantic_vad` to turn on Semantic VAD.
     #[serde(rename = "type")]
@@ -36,6 +37,17 @@ impl SemanticVad {
             create_response: None,
             interrupt_response: None,
         }
+    }
+}
+
+impl<S: semantic_vad_builder::State> SemanticVadBuilder<S>
+where
+    S::Type: semantic_vad_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SemanticVad {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// VoiceIdsOrCustomVoiceObject1 : Custom voice reference.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = voice_ids_or_custom_voice_object1_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VoiceIdsOrCustomVoiceObject1 {
     /// The custom voice ID, e.g. `voice_1234`.
     #[serde(rename = "id")]
@@ -22,6 +23,17 @@ impl VoiceIdsOrCustomVoiceObject1 {
     /// Custom voice reference.
     pub fn new(id: String) -> VoiceIdsOrCustomVoiceObject1 {
         VoiceIdsOrCustomVoiceObject1 { id }
+    }
+}
+
+impl<S: voice_ids_or_custom_voice_object1_builder::State> VoiceIdsOrCustomVoiceObject1Builder<S>
+where
+    S::Id: voice_ids_or_custom_voice_object1_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VoiceIdsOrCustomVoiceObject1 {
+        self.build_internal()
     }
 }
 

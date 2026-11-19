@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// TaskItem : Task emitted by the workflow to show progress and status updates.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = task_item_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TaskItem {
     /// Identifier of the thread item.
     #[serde(rename = "id")]
@@ -61,6 +62,22 @@ impl TaskItem {
             heading,
             summary,
         }
+    }
+}
+
+impl<S: task_item_builder::State> TaskItemBuilder<S>
+where
+    S::Id: task_item_builder::IsSet,
+    S::Object: task_item_builder::IsSet,
+    S::CreatedAt: task_item_builder::IsSet,
+    S::ThreadId: task_item_builder::IsSet,
+    S::Type: task_item_builder::IsSet,
+    S::TaskType: task_item_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TaskItem {
+        self.build_internal()
     }
 }
 

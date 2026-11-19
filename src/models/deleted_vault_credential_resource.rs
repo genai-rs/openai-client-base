@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// DeletedVaultCredentialResource : Confirmation that a vault credential was deleted.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = deleted_vault_credential_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeletedVaultCredentialResource {
     /// The ID of the deleted credential.
     ///
@@ -34,6 +35,19 @@ impl DeletedVaultCredentialResource {
             object,
             deleted,
         }
+    }
+}
+
+impl<S: deleted_vault_credential_resource_builder::State> DeletedVaultCredentialResourceBuilder<S>
+where
+    S::Id: deleted_vault_credential_resource_builder::IsSet,
+    S::Object: deleted_vault_credential_resource_builder::IsSet,
+    S::Deleted: deleted_vault_credential_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeletedVaultCredentialResource {
+        self.build_internal()
     }
 }
 

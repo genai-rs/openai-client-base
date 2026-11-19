@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaInputImageContent : An image input to the model. Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_input_image_content_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaInputImageContent {
     /// The type of the input item. Always `input_image`.  Defaults to `\"input_image\"`.
     #[serde(rename = "type")]
@@ -52,6 +53,18 @@ impl BetaInputImageContent {
             detail,
             prompt_cache_breakpoint: None,
         }
+    }
+}
+
+impl<S: beta_input_image_content_builder::State> BetaInputImageContentBuilder<S>
+where
+    S::Type: beta_input_image_content_builder::IsSet,
+    S::Detail: beta_input_image_content_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaInputImageContent {
+        self.build_internal()
     }
 }
 

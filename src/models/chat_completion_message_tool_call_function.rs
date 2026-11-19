@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionMessageToolCallFunction : The function that the model called.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_message_tool_call_function_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionMessageToolCallFunction {
     /// The name of the function to call.
     #[serde(rename = "name")]
@@ -25,6 +26,19 @@ impl ChatCompletionMessageToolCallFunction {
     /// The function that the model called.
     pub fn new(name: String, arguments: String) -> ChatCompletionMessageToolCallFunction {
         ChatCompletionMessageToolCallFunction { name, arguments }
+    }
+}
+
+impl<S: chat_completion_message_tool_call_function_builder::State>
+    ChatCompletionMessageToolCallFunctionBuilder<S>
+where
+    S::Name: chat_completion_message_tool_call_function_builder::IsSet,
+    S::Arguments: chat_completion_message_tool_call_function_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionMessageToolCallFunction {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseFileSearchCallInProgressEvent : Emitted when a file search call is initiated.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_file_search_call_in_progress_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseFileSearchCallInProgressEvent {
     /// The type of the event. Always `response.file_search_call.in_progress`.
     #[serde(rename = "type")]
@@ -41,6 +42,21 @@ impl ResponseFileSearchCallInProgressEvent {
             item_id,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_file_search_call_in_progress_event_builder::State>
+    ResponseFileSearchCallInProgressEventBuilder<S>
+where
+    S::Type: response_file_search_call_in_progress_event_builder::IsSet,
+    S::OutputIndex: response_file_search_call_in_progress_event_builder::IsSet,
+    S::ItemId: response_file_search_call_in_progress_event_builder::IsSet,
+    S::SequenceNumber: response_file_search_call_in_progress_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseFileSearchCallInProgressEvent {
+        self.build_internal()
     }
 }
 

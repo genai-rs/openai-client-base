@@ -352,7 +352,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for UpdateConversationErrorHea
 }
 
 /// Create a conversation.
-#[bon::builder]
+#[bon::builder(state_mod = create_conversation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_conversation(
     configuration: &configuration::Configuration,
     create_conversation_body: Option<&models::CreateConversationBody>,
@@ -427,13 +427,27 @@ pub async fn create_conversation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_conversation_builder::State> CreateConversationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_conversation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ConversationResource, Error<CreateConversationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a conversation.
 ///
 /// Sends the same request as [`create_conversation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ConversationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_conversation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_conversation_response(
     configuration: &configuration::Configuration,
     create_conversation_body: Option<&models::CreateConversationBody>,
@@ -499,8 +513,24 @@ pub async fn create_conversation_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_conversation_response_builder::State>
+    CreateConversationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_conversation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ConversationResource>, Error<CreateConversationError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Create items in a conversation with the given ID.
-#[bon::builder]
+#[bon::builder(state_mod = create_conversation_items_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_conversation_items(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -592,13 +622,29 @@ pub async fn create_conversation_items(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_conversation_items_builder::State> CreateConversationItemsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_conversation_items_builder::IsSet,
+    S::ConversationId: create_conversation_items_builder::IsSet,
+    S::CreateConversationItemsRequest: create_conversation_items_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ConversationItemList, Error<CreateConversationItemsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create items in a conversation with the given ID.
 ///
 /// Sends the same request as [`create_conversation_items`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ConversationItemList` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_conversation_items_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_conversation_items_response(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -681,8 +727,26 @@ pub async fn create_conversation_items_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_conversation_items_response_builder::State>
+    CreateConversationItemsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_conversation_items_response_builder::IsSet,
+    S::ConversationId: create_conversation_items_response_builder::IsSet,
+    S::CreateConversationItemsRequest: create_conversation_items_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ConversationItemList>, Error<CreateConversationItemsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Delete a conversation. Items in the conversation will not be deleted.
-#[bon::builder]
+#[bon::builder(state_mod = delete_conversation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_conversation(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -757,13 +821,28 @@ pub async fn delete_conversation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_conversation_builder::State> DeleteConversationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_conversation_builder::IsSet,
+    S::ConversationId: delete_conversation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeletedConversationResource, Error<DeleteConversationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete a conversation. Items in the conversation will not be deleted.
 ///
 /// Sends the same request as [`delete_conversation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeletedConversationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_conversation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_conversation_response(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -830,8 +909,27 @@ pub async fn delete_conversation_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_conversation_response_builder::State>
+    DeleteConversationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_conversation_response_builder::IsSet,
+    S::ConversationId: delete_conversation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::DeletedConversationResource>,
+        Error<DeleteConversationError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Delete an item from a conversation with the given IDs.
-#[bon::builder]
+#[bon::builder(state_mod = delete_conversation_item_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_conversation_item(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -915,13 +1013,29 @@ pub async fn delete_conversation_item(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_conversation_item_builder::State> DeleteConversationItemBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_conversation_item_builder::IsSet,
+    S::ConversationId: delete_conversation_item_builder::IsSet,
+    S::ItemId: delete_conversation_item_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ConversationResource, Error<DeleteConversationItemError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete an item from a conversation with the given IDs.
 ///
 /// Sends the same request as [`delete_conversation_item`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ConversationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_conversation_item_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_conversation_item_response(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -996,8 +1110,26 @@ pub async fn delete_conversation_item_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_conversation_item_response_builder::State>
+    DeleteConversationItemResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_conversation_item_response_builder::IsSet,
+    S::ConversationId: delete_conversation_item_response_builder::IsSet,
+    S::ItemId: delete_conversation_item_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ConversationResource>, Error<DeleteConversationItemError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Get a conversation
-#[bon::builder]
+#[bon::builder(state_mod = get_conversation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_conversation(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -1072,13 +1204,26 @@ pub async fn get_conversation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_conversation_builder::State> GetConversationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_conversation_builder::IsSet,
+    S::ConversationId: get_conversation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ConversationResource, Error<GetConversationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get a conversation
 ///
 /// Sends the same request as [`get_conversation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ConversationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_conversation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_conversation_response(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -1144,8 +1289,23 @@ pub async fn get_conversation_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_conversation_response_builder::State> GetConversationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_conversation_response_builder::IsSet,
+    S::ConversationId: get_conversation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ConversationResource>, Error<GetConversationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get a single item from a conversation with the given IDs.
-#[bon::builder]
+#[bon::builder(state_mod = get_conversation_item_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_conversation_item(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -1231,13 +1391,27 @@ pub async fn get_conversation_item(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_conversation_item_builder::State> GetConversationItemBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_conversation_item_builder::IsSet,
+    S::ConversationId: get_conversation_item_builder::IsSet,
+    S::ItemId: get_conversation_item_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ConversationItem, Error<GetConversationItemError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get a single item from a conversation with the given IDs.
 ///
 /// Sends the same request as [`get_conversation_item`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ConversationItem` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_conversation_item_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_conversation_item_response(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -1314,8 +1488,25 @@ pub async fn get_conversation_item_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_conversation_item_response_builder::State>
+    GetConversationItemResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_conversation_item_response_builder::IsSet,
+    S::ConversationId: get_conversation_item_response_builder::IsSet,
+    S::ItemId: get_conversation_item_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ConversationItem>, Error<GetConversationItemError>> {
+        self.call_internal().await
+    }
+}
+
 /// List all items for a conversation with the given ID.
-#[bon::builder]
+#[bon::builder(state_mod = list_conversation_items_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_conversation_items(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -1416,13 +1607,28 @@ pub async fn list_conversation_items(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_conversation_items_builder::State> ListConversationItemsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_conversation_items_builder::IsSet,
+    S::ConversationId: list_conversation_items_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ConversationItemList, Error<ListConversationItemsError>> {
+        self.call_internal().await
+    }
+}
+
 /// List all items for a conversation with the given ID.
 ///
 /// Sends the same request as [`list_conversation_items`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ConversationItemList` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_conversation_items_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_conversation_items_response(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -1514,8 +1720,25 @@ pub async fn list_conversation_items_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_conversation_items_response_builder::State>
+    ListConversationItemsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_conversation_items_response_builder::IsSet,
+    S::ConversationId: list_conversation_items_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ConversationItemList>, Error<ListConversationItemsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Update a conversation
-#[bon::builder]
+#[bon::builder(state_mod = update_conversation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_conversation(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -1599,13 +1822,28 @@ pub async fn update_conversation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_conversation_builder::State> UpdateConversationBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_conversation_builder::IsSet,
+    S::ConversationId: update_conversation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ConversationResource, Error<UpdateConversationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Update a conversation
 ///
 /// Sends the same request as [`update_conversation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ConversationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_conversation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_conversation_response(
     configuration: &configuration::Configuration,
     conversation_id: &str,
@@ -1677,5 +1915,22 @@ pub async fn update_conversation_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: update_conversation_response_builder::State>
+    UpdateConversationResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_conversation_response_builder::IsSet,
+    S::ConversationId: update_conversation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ConversationResource>, Error<UpdateConversationError>>
+    {
+        self.call_internal().await
     }
 }

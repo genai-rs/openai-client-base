@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_fine_tuning_job_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateFineTuningJobRequest {
     /// The name of the model to fine-tune. You can select one of the [supported models](https://developers.openai.com/api/docs/guides/model-optimization#fine-tuning-methods).
     #[serde(rename = "model")]
@@ -82,6 +83,18 @@ impl CreateFineTuningJobRequest {
             method: None,
             metadata: None,
         }
+    }
+}
+
+impl<S: create_fine_tuning_job_request_builder::State> CreateFineTuningJobRequestBuilder<S>
+where
+    S::Model: create_fine_tuning_job_request_builder::IsSet,
+    S::TrainingFile: create_fine_tuning_job_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateFineTuningJobRequest {
+        self.build_internal()
     }
 }
 

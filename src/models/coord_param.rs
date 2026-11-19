@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CoordParam : An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = coord_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CoordParam {
     /// The x-coordinate.
     #[serde(rename = "x")]
@@ -25,6 +26,18 @@ impl CoordParam {
     /// An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.
     pub fn new(x: i64, y: i64) -> CoordParam {
         CoordParam { x, y }
+    }
+}
+
+impl<S: coord_param_builder::State> CoordParamBuilder<S>
+where
+    S::X: coord_param_builder::IsSet,
+    S::Y: coord_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CoordParam {
+        self.build_internal()
     }
 }
 

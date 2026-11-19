@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionResource : A Managed Agents session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionResource {
     /// Default prompt cache lifetime for turns in this session, when configured.
     #[serde(
@@ -101,6 +102,26 @@ impl SessionResource {
             vault_ids,
             usage,
         }
+    }
+}
+
+impl<S: session_resource_builder::State> SessionResourceBuilder<S>
+where
+    S::Metadata: session_resource_builder::IsSet,
+    S::Id: session_resource_builder::IsSet,
+    S::Object: session_resource_builder::IsSet,
+    S::CreatedAt: session_resource_builder::IsSet,
+    S::LastActiveAt: session_resource_builder::IsSet,
+    S::Status: session_resource_builder::IsSet,
+    S::RequiredActions: session_resource_builder::IsSet,
+    S::Agent: session_resource_builder::IsSet,
+    S::Environment: session_resource_builder::IsSet,
+    S::VaultIds: session_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionResource {
+        self.build_internal()
     }
 }
 

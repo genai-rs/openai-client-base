@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_run_per_model_usage_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalRunPerModelUsageInner {
     /// The name of the model.
     #[serde(rename = "model_name")]
@@ -49,6 +50,22 @@ impl EvalRunPerModelUsageInner {
             total_tokens,
             cached_tokens,
         }
+    }
+}
+
+impl<S: eval_run_per_model_usage_inner_builder::State> EvalRunPerModelUsageInnerBuilder<S>
+where
+    S::ModelName: eval_run_per_model_usage_inner_builder::IsSet,
+    S::InvocationCount: eval_run_per_model_usage_inner_builder::IsSet,
+    S::PromptTokens: eval_run_per_model_usage_inner_builder::IsSet,
+    S::CompletionTokens: eval_run_per_model_usage_inner_builder::IsSet,
+    S::TotalTokens: eval_run_per_model_usage_inner_builder::IsSet,
+    S::CachedTokens: eval_run_per_model_usage_inner_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalRunPerModelUsageInner {
+        self.build_internal()
     }
 }
 

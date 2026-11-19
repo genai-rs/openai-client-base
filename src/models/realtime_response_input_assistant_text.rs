@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_response_input_assistant_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeResponseInputAssistantText {
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -22,6 +23,19 @@ pub struct RealtimeResponseInputAssistantText {
 impl RealtimeResponseInputAssistantText {
     pub fn new(r#type: Type, text: String) -> RealtimeResponseInputAssistantText {
         RealtimeResponseInputAssistantText { r#type, text }
+    }
+}
+
+impl<S: realtime_response_input_assistant_text_builder::State>
+    RealtimeResponseInputAssistantTextBuilder<S>
+where
+    S::Type: realtime_response_input_assistant_text_builder::IsSet,
+    S::Text: realtime_response_input_assistant_text_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeResponseInputAssistantText {
+        self.build_internal()
     }
 }
 

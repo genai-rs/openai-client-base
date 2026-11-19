@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseAudioTranscriptWsDone : Emitted when the full audio transcript is completed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_audio_transcript_ws_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseAudioTranscriptWsDone {
     /// The type of the event. Always `response.audio.transcript.done`.
     #[serde(rename = "type")]
@@ -32,6 +33,18 @@ impl ResponseAudioTranscriptWsDone {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_audio_transcript_ws_done_builder::State> ResponseAudioTranscriptWsDoneBuilder<S>
+where
+    S::Type: response_audio_transcript_ws_done_builder::IsSet,
+    S::SequenceNumber: response_audio_transcript_ws_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseAudioTranscriptWsDone {
+        self.build_internal()
     }
 }
 

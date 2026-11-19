@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveResponsesDelegationSettingsInputParam : Model, prompt, and tool settings for tasks delegated by the Live session to a Responses backend.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_responses_delegation_settings_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveResponsesDelegationSettingsInputParam {
     /// The model used for server-owned Responses delegations.
     #[serde(rename = "model")]
@@ -85,6 +86,18 @@ impl LiveResponsesDelegationSettingsInputParam {
             tool_choice: None,
             parallel_tool_calls: None,
         }
+    }
+}
+
+impl<S: live_responses_delegation_settings_input_param_builder::State>
+    LiveResponsesDelegationSettingsInputParamBuilder<S>
+where
+    S::Model: live_responses_delegation_settings_input_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveResponsesDelegationSettingsInputParam {
+        self.build_internal()
     }
 }
 

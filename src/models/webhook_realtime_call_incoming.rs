@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookRealtimeCallIncoming : Sent when an incoming API SIP session is available for Realtime acceptance. The same pending session can also emit `live.transport.incoming`; the first successful Realtime or Live accept endpoint selects the runtime surface.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_realtime_call_incoming_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookRealtimeCallIncoming {
     /// The Unix timestamp (in seconds) of when the model response was completed.
     #[serde(rename = "created_at", with = "super::unix_time")]
@@ -45,6 +46,20 @@ impl WebhookRealtimeCallIncoming {
             object: None,
             r#type,
         }
+    }
+}
+
+impl<S: webhook_realtime_call_incoming_builder::State> WebhookRealtimeCallIncomingBuilder<S>
+where
+    S::CreatedAt: webhook_realtime_call_incoming_builder::IsSet,
+    S::Id: webhook_realtime_call_incoming_builder::IsSet,
+    S::Data: webhook_realtime_call_incoming_builder::IsSet,
+    S::Type: webhook_realtime_call_incoming_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookRealtimeCallIncoming {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = gcp_external_key_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GcpExternalKeyParams {
     /// A friendly name to identify this config
     #[serde(rename = "name")]
@@ -81,6 +82,26 @@ impl GcpExternalKeyParams {
             purpose: None,
             kms_key_version: None,
         }
+    }
+}
+
+impl<S: gcp_external_key_params_builder::State> GcpExternalKeyParamsBuilder<S>
+where
+    S::Name: gcp_external_key_params_builder::IsSet,
+    S::Type: gcp_external_key_params_builder::IsSet,
+    S::WorkloadIdentityProjectNumber: gcp_external_key_params_builder::IsSet,
+    S::WorkloadIdentityPoolId: gcp_external_key_params_builder::IsSet,
+    S::WorkloadIdentityProviderId: gcp_external_key_params_builder::IsSet,
+    S::KmsProjectId: gcp_external_key_params_builder::IsSet,
+    S::KmsKeyRingName: gcp_external_key_params_builder::IsSet,
+    S::KmsKeyName: gcp_external_key_params_builder::IsSet,
+    S::KmsKeyLocation: gcp_external_key_params_builder::IsSet,
+    S::Audience: gcp_external_key_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GcpExternalKeyParams {
+        self.build_internal()
     }
 }
 

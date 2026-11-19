@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_grader_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunGraderRequest {
     #[serde(rename = "grader")]
     pub grader: models::RunGraderRequestGrader,
@@ -30,6 +31,18 @@ impl RunGraderRequest {
             item: None,
             model_sample,
         }
+    }
+}
+
+impl<S: run_grader_request_builder::State> RunGraderRequestBuilder<S>
+where
+    S::Grader: run_grader_request_builder::IsSet,
+    S::ModelSample: run_grader_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunGraderRequest {
+        self.build_internal()
     }
 }
 

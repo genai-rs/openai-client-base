@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// OutputMessage : An output message from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = output_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct OutputMessage {
     /// The unique ID of the output message.
     #[serde(rename = "id")]
@@ -55,6 +56,21 @@ impl OutputMessage {
             phase: None,
             status,
         }
+    }
+}
+
+impl<S: output_message_builder::State> OutputMessageBuilder<S>
+where
+    S::Id: output_message_builder::IsSet,
+    S::Type: output_message_builder::IsSet,
+    S::Role: output_message_builder::IsSet,
+    S::Content: output_message_builder::IsSet,
+    S::Status: output_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> OutputMessage {
+        self.build_internal()
     }
 }
 

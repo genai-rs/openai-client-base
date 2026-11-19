@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_refusal_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionRefusalParam {
     /// Defaults to `\"refusal\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ pub struct LiveDecisionRefusalParam {
 impl LiveDecisionRefusalParam {
     pub fn new(r#type: Type, refusal: String) -> LiveDecisionRefusalParam {
         LiveDecisionRefusalParam { r#type, refusal }
+    }
+}
+
+impl<S: live_decision_refusal_param_builder::State> LiveDecisionRefusalParamBuilder<S>
+where
+    S::Type: live_decision_refusal_param_builder::IsSet,
+    S::Refusal: live_decision_refusal_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionRefusalParam {
+        self.build_internal()
     }
 }
 

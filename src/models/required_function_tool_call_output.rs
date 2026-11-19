@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RequiredFunctionToolCallOutput : Supply `output` using the function tool call output input schema.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = required_function_tool_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RequiredFunctionToolCallOutput {
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -29,6 +30,19 @@ impl RequiredFunctionToolCallOutput {
             call_id,
             name,
         }
+    }
+}
+
+impl<S: required_function_tool_call_output_builder::State> RequiredFunctionToolCallOutputBuilder<S>
+where
+    S::Type: required_function_tool_call_output_builder::IsSet,
+    S::CallId: required_function_tool_call_output_builder::IsSet,
+    S::Name: required_function_tool_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RequiredFunctionToolCallOutput {
+        self.build_internal()
     }
 }
 

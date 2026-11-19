@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeResponseCreateParamsAudio : Configuration for audio input and output.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_response_create_params_audio_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeResponseCreateParamsAudio {
     #[serde(rename = "output", skip_serializing_if = "Option::is_none")]
     pub output: Option<models::RealtimeResponseCreateParamsAudioOutput>,
@@ -22,6 +23,16 @@ impl RealtimeResponseCreateParamsAudio {
     /// Configuration for audio input and output.
     pub fn new() -> RealtimeResponseCreateParamsAudio {
         RealtimeResponseCreateParamsAudio { output: None }
+    }
+}
+
+impl<S: realtime_response_create_params_audio_builder::State>
+    RealtimeResponseCreateParamsAudioBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeResponseCreateParamsAudio {
+        self.build_internal()
     }
 }
 

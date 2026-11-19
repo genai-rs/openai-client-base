@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogRateLimitUpdatedChangesRequested : The payload used to update the rate limits.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_rate_limit_updated_changes_requested_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogRateLimitUpdatedChangesRequested {
     /// The maximum requests per minute.
     #[serde(
@@ -62,6 +63,16 @@ impl AuditLogRateLimitUpdatedChangesRequested {
             max_requests_per_1_day: None,
             batch_1_day_max_input_tokens: None,
         }
+    }
+}
+
+impl<S: audit_log_rate_limit_updated_changes_requested_builder::State>
+    AuditLogRateLimitUpdatedChangesRequestedBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogRateLimitUpdatedChangesRequested {
+        self.build_internal()
     }
 }
 

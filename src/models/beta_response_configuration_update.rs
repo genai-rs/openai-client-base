@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseConfigurationUpdate : A configuration update for subsequent responses. Each setting stays in effect until a later update replaces that setting.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_configuration_update_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseConfigurationUpdate {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
@@ -38,6 +39,18 @@ impl BetaResponseConfigurationUpdate {
             reasoning: None,
             text: None,
         }
+    }
+}
+
+impl<S: beta_response_configuration_update_builder::State> BetaResponseConfigurationUpdateBuilder<S>
+where
+    S::Id: beta_response_configuration_update_builder::IsSet,
+    S::Type: beta_response_configuration_update_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseConfigurationUpdate {
+        self.build_internal()
     }
 }
 

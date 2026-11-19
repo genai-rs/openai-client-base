@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookAgentEnvironmentExpired : Sent when an agent environment expires and can no longer resume from a snapshot.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_agent_environment_expired_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookAgentEnvironmentExpired {
     /// The unique ID of the event.
     #[serde(rename = "id")]
@@ -46,6 +47,21 @@ impl WebhookAgentEnvironmentExpired {
             r#type,
             data,
         }
+    }
+}
+
+impl<S: webhook_agent_environment_expired_builder::State> WebhookAgentEnvironmentExpiredBuilder<S>
+where
+    S::Id: webhook_agent_environment_expired_builder::IsSet,
+    S::Object: webhook_agent_environment_expired_builder::IsSet,
+    S::CreatedAt: webhook_agent_environment_expired_builder::IsSet,
+    S::Type: webhook_agent_environment_expired_builder::IsSet,
+    S::Data: webhook_agent_environment_expired_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookAgentEnvironmentExpired {
+        self.build_internal()
     }
 }
 

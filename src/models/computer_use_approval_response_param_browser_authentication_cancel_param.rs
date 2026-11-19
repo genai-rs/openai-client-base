@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = computer_use_approval_response_param_browser_authentication_cancel_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ComputerUseApprovalResponseParamBrowserAuthenticationCancelParam {
     /// Defaults to `\"browser_authentication\"`.
     #[serde(rename = "type")]
@@ -26,6 +27,22 @@ impl ComputerUseApprovalResponseParamBrowserAuthenticationCancelParam {
         action: Action,
     ) -> ComputerUseApprovalResponseParamBrowserAuthenticationCancelParam {
         ComputerUseApprovalResponseParamBrowserAuthenticationCancelParam { r#type, action }
+    }
+}
+
+impl<
+        S: computer_use_approval_response_param_browser_authentication_cancel_param_builder::State,
+    > ComputerUseApprovalResponseParamBrowserAuthenticationCancelParamBuilder<S>
+where
+    S::Type:
+        computer_use_approval_response_param_browser_authentication_cancel_param_builder::IsSet,
+    S::Action:
+        computer_use_approval_response_param_browser_authentication_cancel_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ComputerUseApprovalResponseParamBrowserAuthenticationCancelParam {
+        self.build_internal()
     }
 }
 

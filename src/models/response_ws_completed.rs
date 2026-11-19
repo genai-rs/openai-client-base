@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseWsCompleted : Emitted when the model response is complete.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_ws_completed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseWsCompleted {
     /// The type of the event. Always `response.completed`.
     #[serde(rename = "type")]
@@ -40,6 +41,19 @@ impl ResponseWsCompleted {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_ws_completed_builder::State> ResponseWsCompletedBuilder<S>
+where
+    S::Type: response_ws_completed_builder::IsSet,
+    S::Response: response_ws_completed_builder::IsSet,
+    S::SequenceNumber: response_ws_completed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseWsCompleted {
+        self.build_internal()
     }
 }
 

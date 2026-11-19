@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BrowserAuthenticationRequestItemResource : A credential-free history record of the emitted login request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = browser_authentication_request_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BrowserAuthenticationRequestItemResource {
     /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
@@ -48,6 +49,22 @@ impl BrowserAuthenticationRequestItemResource {
             id,
             r#type,
         }
+    }
+}
+
+impl<S: browser_authentication_request_item_resource_builder::State>
+    BrowserAuthenticationRequestItemResourceBuilder<S>
+where
+    S::TurnId: browser_authentication_request_item_resource_builder::IsSet,
+    S::RequestId: browser_authentication_request_item_resource_builder::IsSet,
+    S::Request: browser_authentication_request_item_resource_builder::IsSet,
+    S::Id: browser_authentication_request_item_resource_builder::IsSet,
+    S::Type: browser_authentication_request_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BrowserAuthenticationRequestItemResource {
+        self.build_internal()
     }
 }
 

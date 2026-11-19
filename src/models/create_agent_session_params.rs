@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateAgentSessionParams : Parameters for creating a Managed Agents session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_agent_session_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateAgentSessionParams {
     #[serde(rename = "environment")]
     pub environment: models::EnvironmentParam,
@@ -83,6 +84,17 @@ impl CreateAgentSessionParams {
             stream: None,
             stream_options: None,
         }
+    }
+}
+
+impl<S: create_agent_session_params_builder::State> CreateAgentSessionParamsBuilder<S>
+where
+    S::Environment: create_agent_session_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateAgentSessionParams {
+        self.build_internal()
     }
 }
 

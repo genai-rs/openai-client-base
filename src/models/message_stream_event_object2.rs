@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageStreamEventObject2 : Occurs when parts of a [Message](https://developers.openai.com/api/docs/assistants/migration) are being streamed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_stream_event_object2_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageStreamEventObject2 {
     #[serde(rename = "event")]
     pub event: Event,
@@ -24,6 +25,18 @@ impl MessageStreamEventObject2 {
     /// Occurs when parts of a [Message](https://developers.openai.com/api/docs/assistants/migration) are being streamed.
     pub fn new(event: Event, data: models::MessageDeltaObject) -> MessageStreamEventObject2 {
         MessageStreamEventObject2 { event, data }
+    }
+}
+
+impl<S: message_stream_event_object2_builder::State> MessageStreamEventObject2Builder<S>
+where
+    S::Event: message_stream_event_object2_builder::IsSet,
+    S::Data: message_stream_event_object2_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageStreamEventObject2 {
+        self.build_internal()
     }
 }
 

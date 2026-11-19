@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaInputMessage : A message input to the model with a role indicating instruction following hierarchy. Instructions given with the `developer` or `system` role take precedence over instructions given with the `user` role.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_input_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaInputMessage {
     /// The agent that produced this item.
     #[serde(
@@ -46,6 +47,18 @@ impl BetaInputMessage {
             status: None,
             content,
         }
+    }
+}
+
+impl<S: beta_input_message_builder::State> BetaInputMessageBuilder<S>
+where
+    S::Role: beta_input_message_builder::IsSet,
+    S::Content: beta_input_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaInputMessage {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseAudioTranscriptWsDelta : Emitted when there is a partial transcript of audio.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_audio_transcript_ws_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseAudioTranscriptWsDelta {
     /// The type of the event. Always `response.audio.transcript.delta`.
     #[serde(rename = "type")]
@@ -40,6 +41,19 @@ impl ResponseAudioTranscriptWsDelta {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_audio_transcript_ws_delta_builder::State> ResponseAudioTranscriptWsDeltaBuilder<S>
+where
+    S::Type: response_audio_transcript_ws_delta_builder::IsSet,
+    S::Delta: response_audio_transcript_ws_delta_builder::IsSet,
+    S::SequenceNumber: response_audio_transcript_ws_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseAudioTranscriptWsDelta {
+        self.build_internal()
     }
 }
 

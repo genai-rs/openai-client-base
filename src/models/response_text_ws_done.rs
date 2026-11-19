@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseTextWsDone : Emitted when text content is finalized.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_text_ws_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseTextWsDone {
     /// The type of the event. Always `response.output_text.done`.
     #[serde(rename = "type")]
@@ -60,6 +61,22 @@ impl ResponseTextWsDone {
             logprobs: None,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_text_ws_done_builder::State> ResponseTextWsDoneBuilder<S>
+where
+    S::Type: response_text_ws_done_builder::IsSet,
+    S::ItemId: response_text_ws_done_builder::IsSet,
+    S::OutputIndex: response_text_ws_done_builder::IsSet,
+    S::ContentIndex: response_text_ws_done_builder::IsSet,
+    S::Text: response_text_ws_done_builder::IsSet,
+    S::SequenceNumber: response_text_ws_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseTextWsDone {
+        self.build_internal()
     }
 }
 

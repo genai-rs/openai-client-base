@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveInfoEvent : An informational notice about the Live session, such as the event permissions applied to a frontend data channel.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_info_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveInfoEvent {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -40,6 +41,20 @@ impl LiveInfoEvent {
             code,
             message,
         }
+    }
+}
+
+impl<S: live_info_event_builder::State> LiveInfoEventBuilder<S>
+where
+    S::EventId: live_info_event_builder::IsSet,
+    S::Type: live_info_event_builder::IsSet,
+    S::Code: live_info_event_builder::IsSet,
+    S::Message: live_info_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveInfoEvent {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = custom_tool_call_output_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CustomToolCallOutputResource {
     /// The type of the custom tool call output. Always `custom_tool_call_output`.
     #[serde(rename = "type")]
@@ -55,6 +56,21 @@ impl CustomToolCallOutputResource {
             status,
             created_by: None,
         }
+    }
+}
+
+impl<S: custom_tool_call_output_resource_builder::State> CustomToolCallOutputResourceBuilder<S>
+where
+    S::Type: custom_tool_call_output_resource_builder::IsSet,
+    S::Id: custom_tool_call_output_resource_builder::IsSet,
+    S::CallId: custom_tool_call_output_resource_builder::IsSet,
+    S::Output: custom_tool_call_output_resource_builder::IsSet,
+    S::Status: custom_tool_call_output_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CustomToolCallOutputResource {
+        self.build_internal()
     }
 }
 

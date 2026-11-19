@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionItemListResource : A page of messages, reasoning, and tool calls from a session's item history.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_item_list_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionItemListResource {
     /// The object type, which is always `list`.  Defaults to `\"list\"`.
     #[serde(rename = "object")]
@@ -53,6 +54,19 @@ impl SessionItemListResource {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: session_item_list_resource_builder::State> SessionItemListResourceBuilder<S>
+where
+    S::Object: session_item_list_resource_builder::IsSet,
+    S::Data: session_item_list_resource_builder::IsSet,
+    S::HasMore: session_item_list_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionItemListResource {
+        self.build_internal()
     }
 }
 

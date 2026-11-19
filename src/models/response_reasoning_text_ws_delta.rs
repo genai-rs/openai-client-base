@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseReasoningTextWsDelta : Emitted when a delta is added to a reasoning text.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_reasoning_text_ws_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseReasoningTextWsDelta {
     /// The type of the event. Always `response.reasoning_text.delta`.
     #[serde(rename = "type")]
@@ -55,6 +56,22 @@ impl ResponseReasoningTextWsDelta {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_reasoning_text_ws_delta_builder::State> ResponseReasoningTextWsDeltaBuilder<S>
+where
+    S::Type: response_reasoning_text_ws_delta_builder::IsSet,
+    S::ItemId: response_reasoning_text_ws_delta_builder::IsSet,
+    S::OutputIndex: response_reasoning_text_ws_delta_builder::IsSet,
+    S::ContentIndex: response_reasoning_text_ws_delta_builder::IsSet,
+    S::Delta: response_reasoning_text_ws_delta_builder::IsSet,
+    S::SequenceNumber: response_reasoning_text_ws_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseReasoningTextWsDelta {
+        self.build_internal()
     }
 }
 

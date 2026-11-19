@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_message_list_data_inner_content_parts_inner_file_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionMessageListDataInnerContentPartsInnerFile {
     #[serde(
         rename = "file_data",
@@ -42,6 +43,16 @@ impl ChatCompletionMessageListDataInnerContentPartsInnerFile {
             filename: None,
             file_id: None,
         }
+    }
+}
+
+impl<S: chat_completion_message_list_data_inner_content_parts_inner_file_builder::State>
+    ChatCompletionMessageListDataInnerContentPartsInnerFileBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionMessageListDataInnerContentPartsInnerFile {
+        self.build_internal()
     }
 }
 

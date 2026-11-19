@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageContentResourceInputImage : An image supplied by the user.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_content_resource_input_image_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageContentResourceInputImage {
     /// The type of the object. Always `input_image`.  Defaults to `\"input_image\"`.
     #[serde(rename = "type")]
@@ -27,6 +28,19 @@ impl MessageContentResourceInputImage {
     /// An image supplied by the user.
     pub fn new(r#type: Type, image_url: String) -> MessageContentResourceInputImage {
         MessageContentResourceInputImage { r#type, image_url }
+    }
+}
+
+impl<S: message_content_resource_input_image_builder::State>
+    MessageContentResourceInputImageBuilder<S>
+where
+    S::Type: message_content_resource_input_image_builder::IsSet,
+    S::ImageUrl: message_content_resource_input_image_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageContentResourceInputImage {
+        self.build_internal()
     }
 }
 

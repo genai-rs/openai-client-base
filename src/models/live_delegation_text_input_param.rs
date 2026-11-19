@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveDelegationTextInputParam : Text generation options for the Live session’s Responses backend.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_delegation_text_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDelegationTextInputParam {
     #[serde(
         rename = "verbosity",
@@ -27,6 +28,14 @@ impl LiveDelegationTextInputParam {
     /// Text generation options for the Live session’s Responses backend.
     pub fn new() -> LiveDelegationTextInputParam {
         LiveDelegationTextInputParam { verbosity: None }
+    }
+}
+
+impl<S: live_delegation_text_input_param_builder::State> LiveDelegationTextInputParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDelegationTextInputParam {
+        self.build_internal()
     }
 }
 

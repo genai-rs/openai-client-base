@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SpeechAudioDeltaEvent : Emitted for each chunk of audio data generated during speech synthesis.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = speech_audio_delta_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SpeechAudioDeltaEvent {
     /// The type of the event. Always `speech.audio.delta`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl SpeechAudioDeltaEvent {
     /// Emitted for each chunk of audio data generated during speech synthesis.
     pub fn new(r#type: Type, audio: String) -> SpeechAudioDeltaEvent {
         SpeechAudioDeltaEvent { r#type, audio }
+    }
+}
+
+impl<S: speech_audio_delta_event_builder::State> SpeechAudioDeltaEventBuilder<S>
+where
+    S::Type: speech_audio_delta_event_builder::IsSet,
+    S::Audio: speech_audio_delta_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SpeechAudioDeltaEvent {
+        self.build_internal()
     }
 }
 

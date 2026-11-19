@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// Invite : Represents an individual `invite` to the organization.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = invite_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Invite {
     /// The object type, which is always `organization.invite`
     #[serde(rename = "object")]
@@ -75,6 +76,23 @@ impl Invite {
             accepted_at: None,
             projects,
         }
+    }
+}
+
+impl<S: invite_builder::State> InviteBuilder<S>
+where
+    S::Object: invite_builder::IsSet,
+    S::Id: invite_builder::IsSet,
+    S::Email: invite_builder::IsSet,
+    S::Role: invite_builder::IsSet,
+    S::Status: invite_builder::IsSet,
+    S::CreatedAt: invite_builder::IsSet,
+    S::Projects: invite_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Invite {
+        self.build_internal()
     }
 }
 

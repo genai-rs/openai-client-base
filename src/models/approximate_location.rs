@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = approximate_location_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ApproximateLocation {
     /// The type of location approximation. Always `approximate`.  Defaults to `\"approximate\"`.
     #[serde(rename = "type")]
@@ -58,6 +59,17 @@ impl ApproximateLocation {
             city: None,
             timezone: None,
         }
+    }
+}
+
+impl<S: approximate_location_builder::State> ApproximateLocationBuilder<S>
+where
+    S::Type: approximate_location_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ApproximateLocation {
+        self.build_internal()
     }
 }
 

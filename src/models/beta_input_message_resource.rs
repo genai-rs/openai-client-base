@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_input_message_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaInputMessageResource {
     /// The agent that produced this item.
     #[serde(
@@ -52,6 +53,19 @@ impl BetaInputMessageResource {
             content,
             id,
         }
+    }
+}
+
+impl<S: beta_input_message_resource_builder::State> BetaInputMessageResourceBuilder<S>
+where
+    S::Role: beta_input_message_resource_builder::IsSet,
+    S::Content: beta_input_message_resource_builder::IsSet,
+    S::Id: beta_input_message_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaInputMessageResource {
+        self.build_internal()
     }
 }
 

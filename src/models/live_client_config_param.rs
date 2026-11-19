@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveClientConfigParam : Startup-only capabilities for an untrusted frontend attached to a unified WebRTC session. Trusted sideband connections are unaffected.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_client_config_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveClientConfigParam {
     #[serde(rename = "data_channel")]
     pub data_channel: models::LiveDataChannelConfigParam,
@@ -22,6 +23,17 @@ impl LiveClientConfigParam {
     /// Startup-only capabilities for an untrusted frontend attached to a unified WebRTC session. Trusted sideband connections are unaffected.
     pub fn new(data_channel: models::LiveDataChannelConfigParam) -> LiveClientConfigParam {
         LiveClientConfigParam { data_channel }
+    }
+}
+
+impl<S: live_client_config_param_builder::State> LiveClientConfigParamBuilder<S>
+where
+    S::DataChannel: live_client_config_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveClientConfigParam {
+        self.build_internal()
     }
 }
 

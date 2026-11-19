@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AutoCodeInterpreterToolParam : Configuration for a code interpreter container. Optionally specify the IDs of the files to run the code on.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = auto_code_interpreter_tool_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutoCodeInterpreterToolParam {
     /// Always `auto`.  Defaults to `\"auto\"`.
     #[serde(rename = "type")]
@@ -42,6 +43,17 @@ impl AutoCodeInterpreterToolParam {
             memory_limit: None,
             network_policy: None,
         }
+    }
+}
+
+impl<S: auto_code_interpreter_tool_param_builder::State> AutoCodeInterpreterToolParamBuilder<S>
+where
+    S::Type: auto_code_interpreter_tool_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutoCodeInterpreterToolParam {
+        self.build_internal()
     }
 }
 

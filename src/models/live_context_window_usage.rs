@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveContextWindowUsage : The latest measured context-window usage of the Live model. This is separate from billing usage and delegated Responses token usage.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_context_window_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveContextWindowUsage {
     /// The latest active context token count divided by the Live model context limit. Can decrease after compaction and may lag between measured audio frames.
     #[serde(rename = "usage_ratio")]
@@ -22,6 +23,17 @@ impl LiveContextWindowUsage {
     /// The latest measured context-window usage of the Live model. This is separate from billing usage and delegated Responses token usage.
     pub fn new(usage_ratio: f64) -> LiveContextWindowUsage {
         LiveContextWindowUsage { usage_ratio }
+    }
+}
+
+impl<S: live_context_window_usage_builder::State> LiveContextWindowUsageBuilder<S>
+where
+    S::UsageRatio: live_context_window_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveContextWindowUsage {
+        self.build_internal()
     }
 }
 

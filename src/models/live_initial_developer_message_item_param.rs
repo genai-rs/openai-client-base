@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveInitialDeveloperMessageItemParam : A developer message included in the initial text history of a Live session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_initial_developer_message_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveInitialDeveloperMessageItemParam {
     /// An optional identifier for the supplied history message. Live uses the message’s role and text to initialize the conversation.
     #[serde(
@@ -55,6 +56,19 @@ impl LiveInitialDeveloperMessageItemParam {
             role,
             content,
         }
+    }
+}
+
+impl<S: live_initial_developer_message_item_param_builder::State>
+    LiveInitialDeveloperMessageItemParamBuilder<S>
+where
+    S::Role: live_initial_developer_message_item_param_builder::IsSet,
+    S::Content: live_initial_developer_message_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveInitialDeveloperMessageItemParam {
+        self.build_internal()
     }
 }
 

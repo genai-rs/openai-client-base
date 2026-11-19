@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateModerationResponseResultsInnerCategories : A list of the categories, and whether they are flagged or not.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_moderation_response_results_inner_categories_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateModerationResponseResultsInnerCategories {
     /// Content that expresses, incites, or promotes hate based on race, gender, ethnicity, religion, nationality, sexual orientation, disability status, or caste. Hateful content aimed at non-protected groups (e.g., chess players) is harassment.
     #[serde(rename = "hate")]
@@ -86,6 +87,30 @@ impl CreateModerationResponseResultsInnerCategories {
             violence,
             violence_slash_graphic,
         }
+    }
+}
+
+impl<S: create_moderation_response_results_inner_categories_builder::State>
+    CreateModerationResponseResultsInnerCategoriesBuilder<S>
+where
+    S::Hate: create_moderation_response_results_inner_categories_builder::IsSet,
+    S::HateSlashThreatening: create_moderation_response_results_inner_categories_builder::IsSet,
+    S::Harassment: create_moderation_response_results_inner_categories_builder::IsSet,
+    S::HarassmentSlashThreatening:
+        create_moderation_response_results_inner_categories_builder::IsSet,
+    S::SelfHarm: create_moderation_response_results_inner_categories_builder::IsSet,
+    S::SelfHarmSlashIntent: create_moderation_response_results_inner_categories_builder::IsSet,
+    S::SelfHarmSlashInstructions:
+        create_moderation_response_results_inner_categories_builder::IsSet,
+    S::Sexual: create_moderation_response_results_inner_categories_builder::IsSet,
+    S::SexualSlashMinors: create_moderation_response_results_inner_categories_builder::IsSet,
+    S::Violence: create_moderation_response_results_inner_categories_builder::IsSet,
+    S::ViolenceSlashGraphic: create_moderation_response_results_inner_categories_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateModerationResponseResultsInnerCategories {
+        self.build_internal()
     }
 }
 

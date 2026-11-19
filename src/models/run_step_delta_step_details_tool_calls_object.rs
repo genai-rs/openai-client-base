@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepDeltaStepDetailsToolCallsObject : Details of the tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_delta_step_details_tool_calls_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDeltaStepDetailsToolCallsObject {
     /// Always `tool_calls`.
     #[serde(rename = "type")]
@@ -29,6 +30,18 @@ impl RunStepDeltaStepDetailsToolCallsObject {
             r#type,
             tool_calls: None,
         }
+    }
+}
+
+impl<S: run_step_delta_step_details_tool_calls_object_builder::State>
+    RunStepDeltaStepDetailsToolCallsObjectBuilder<S>
+where
+    S::Type: run_step_delta_step_details_tool_calls_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDeltaStepDetailsToolCallsObject {
+        self.build_internal()
     }
 }
 

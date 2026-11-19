@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSipTrunkAuth : Credentials for SIP Digest authentication with your trunk provider.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_sip_trunk_auth_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSipTrunkAuth {
     /// Use `digest` for SIP Digest authentication. Handles 401 and 407 challenges.
     #[serde(rename = "type")]
@@ -36,6 +37,19 @@ impl LiveSipTrunkAuth {
             username,
             password,
         }
+    }
+}
+
+impl<S: live_sip_trunk_auth_builder::State> LiveSipTrunkAuthBuilder<S>
+where
+    S::Type: live_sip_trunk_auth_builder::IsSet,
+    S::Username: live_sip_trunk_auth_builder::IsSet,
+    S::Password: live_sip_trunk_auth_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSipTrunkAuth {
+        self.build_internal()
     }
 }
 

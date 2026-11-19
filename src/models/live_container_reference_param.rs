@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_container_reference_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveContainerReferenceParam {
     /// References a container created with the /v1/containers endpoint  Defaults to `\"container_reference\"`.
     #[serde(rename = "type")]
@@ -26,6 +27,18 @@ impl LiveContainerReferenceParam {
             r#type,
             container_id,
         }
+    }
+}
+
+impl<S: live_container_reference_param_builder::State> LiveContainerReferenceParamBuilder<S>
+where
+    S::Type: live_container_reference_param_builder::IsSet,
+    S::ContainerId: live_container_reference_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveContainerReferenceParam {
+        self.build_internal()
     }
 }
 

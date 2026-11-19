@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CodeInterpreterTool : A tool that runs Python code to help generate a response to a prompt.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = code_interpreter_tool_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CodeInterpreterTool {
     /// The type of the code interpreter tool. Always `code_interpreter`.
     #[serde(rename = "type")]
@@ -42,6 +43,18 @@ impl CodeInterpreterTool {
             container,
             allowed_callers: None,
         }
+    }
+}
+
+impl<S: code_interpreter_tool_builder::State> CodeInterpreterToolBuilder<S>
+where
+    S::Type: code_interpreter_tool_builder::IsSet,
+    S::Container: code_interpreter_tool_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CodeInterpreterTool {
+        self.build_internal()
     }
 }
 

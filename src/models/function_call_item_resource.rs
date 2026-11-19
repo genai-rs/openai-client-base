@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FunctionCallItemResource : A function call produced by the agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = function_call_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FunctionCallItemResource {
     /// The item type. Always `function_call`.  Defaults to `\"function_call\"`.
     #[serde(rename = "type")]
@@ -64,6 +65,22 @@ impl FunctionCallItemResource {
             arguments,
             status,
         }
+    }
+}
+
+impl<S: function_call_item_resource_builder::State> FunctionCallItemResourceBuilder<S>
+where
+    S::Type: function_call_item_resource_builder::IsSet,
+    S::Id: function_call_item_resource_builder::IsSet,
+    S::TurnId: function_call_item_resource_builder::IsSet,
+    S::CallId: function_call_item_resource_builder::IsSet,
+    S::Name: function_call_item_resource_builder::IsSet,
+    S::Status: function_call_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FunctionCallItemResource {
+        self.build_internal()
     }
 }
 

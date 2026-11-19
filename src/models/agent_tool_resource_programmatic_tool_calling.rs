@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AgentToolResourceProgrammaticToolCalling : Enables calling tools from model-generated code.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = agent_tool_resource_programmatic_tool_calling_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AgentToolResourceProgrammaticToolCalling {
     /// The type of the object. Always `programmatic_tool_calling`.  Defaults to `\"programmatic_tool_calling\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,19 @@ impl AgentToolResourceProgrammaticToolCalling {
     /// Enables calling tools from model-generated code.
     pub fn new(r#type: Type, enabled: bool) -> AgentToolResourceProgrammaticToolCalling {
         AgentToolResourceProgrammaticToolCalling { r#type, enabled }
+    }
+}
+
+impl<S: agent_tool_resource_programmatic_tool_calling_builder::State>
+    AgentToolResourceProgrammaticToolCallingBuilder<S>
+where
+    S::Type: agent_tool_resource_programmatic_tool_calling_builder::IsSet,
+    S::Enabled: agent_tool_resource_programmatic_tool_calling_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AgentToolResourceProgrammaticToolCalling {
+        self.build_internal()
     }
 }
 

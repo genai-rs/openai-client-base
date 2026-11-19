@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UsageFileSearchCallsResult : The aggregated file search calls usage details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = usage_file_search_calls_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UsageFileSearchCallsResult {
     #[serde(rename = "object")]
     pub object: Object,
@@ -63,6 +64,18 @@ impl UsageFileSearchCallsResult {
             api_key_id: None,
             vector_store_id: None,
         }
+    }
+}
+
+impl<S: usage_file_search_calls_result_builder::State> UsageFileSearchCallsResultBuilder<S>
+where
+    S::Object: usage_file_search_calls_result_builder::IsSet,
+    S::NumRequests: usage_file_search_calls_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UsageFileSearchCallsResult {
+        self.build_internal()
     }
 }
 

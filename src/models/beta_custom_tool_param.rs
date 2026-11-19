@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaCustomToolParam : A custom tool that processes input using a specified format. Learn more about   [custom tools](https://developers.openai.com/api/docs/guides/function-calling#custom-tools)
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_custom_tool_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaCustomToolParam {
     /// The type of the custom tool. Always `custom`.  Defaults to `\"custom\"`.
     #[serde(rename = "type")]
@@ -55,6 +56,18 @@ impl BetaCustomToolParam {
             defer_loading: None,
             allowed_callers: None,
         }
+    }
+}
+
+impl<S: beta_custom_tool_param_builder::State> BetaCustomToolParamBuilder<S>
+where
+    S::Type: beta_custom_tool_param_builder::IsSet,
+    S::Name: beta_custom_tool_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaCustomToolParam {
+        self.build_internal()
     }
 }
 

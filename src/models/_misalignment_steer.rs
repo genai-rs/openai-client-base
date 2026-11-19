@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = misalignment_steer_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MisalignmentSteer {
     /// The public continuation instruction.
     #[serde(rename = "message")]
@@ -20,6 +21,17 @@ pub struct MisalignmentSteer {
 impl MisalignmentSteer {
     pub fn new(message: String) -> MisalignmentSteer {
         MisalignmentSteer { message }
+    }
+}
+
+impl<S: misalignment_steer_builder::State> MisalignmentSteerBuilder<S>
+where
+    S::Message: misalignment_steer_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MisalignmentSteer {
+        self.build_internal()
     }
 }
 

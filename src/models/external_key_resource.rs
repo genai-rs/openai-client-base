@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = external_key_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ExternalKeyResource {
     #[serde(rename = "object")]
     pub object: String,
@@ -120,6 +121,23 @@ impl ExternalKeyResource {
             key_name: None,
             key_version: None,
         }
+    }
+}
+
+impl<S: external_key_resource_builder::State> ExternalKeyResourceBuilder<S>
+where
+    S::Object: external_key_resource_builder::IsSet,
+    S::Id: external_key_resource_builder::IsSet,
+    S::Type: external_key_resource_builder::IsSet,
+    S::Name: external_key_resource_builder::IsSet,
+    S::ApiProjectIds: external_key_resource_builder::IsSet,
+    S::WorkspaceId: external_key_resource_builder::IsSet,
+    S::CreatedAt: external_key_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ExternalKeyResource {
+        self.build_internal()
     }
 }
 

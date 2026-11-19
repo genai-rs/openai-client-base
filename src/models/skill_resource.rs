@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = skill_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SkillResource {
     /// Unique identifier for the skill.
     #[serde(rename = "id")]
@@ -54,6 +55,23 @@ impl SkillResource {
             default_version,
             latest_version,
         }
+    }
+}
+
+impl<S: skill_resource_builder::State> SkillResourceBuilder<S>
+where
+    S::Id: skill_resource_builder::IsSet,
+    S::Object: skill_resource_builder::IsSet,
+    S::Name: skill_resource_builder::IsSet,
+    S::Description: skill_resource_builder::IsSet,
+    S::CreatedAt: skill_resource_builder::IsSet,
+    S::DefaultVersion: skill_resource_builder::IsSet,
+    S::LatestVersion: skill_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SkillResource {
+        self.build_internal()
     }
 }
 

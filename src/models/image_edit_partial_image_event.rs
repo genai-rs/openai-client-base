@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ImageEditPartialImageEvent : Emitted when a partial image is available during image editing streaming.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = image_edit_partial_image_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ImageEditPartialImageEvent {
     /// The type of the event. Always `image_edit.partial_image`.
     #[serde(rename = "type")]
@@ -61,6 +62,24 @@ impl ImageEditPartialImageEvent {
             output_format,
             partial_image_index,
         }
+    }
+}
+
+impl<S: image_edit_partial_image_event_builder::State> ImageEditPartialImageEventBuilder<S>
+where
+    S::Type: image_edit_partial_image_event_builder::IsSet,
+    S::B64Json: image_edit_partial_image_event_builder::IsSet,
+    S::CreatedAt: image_edit_partial_image_event_builder::IsSet,
+    S::Size: image_edit_partial_image_event_builder::IsSet,
+    S::Quality: image_edit_partial_image_event_builder::IsSet,
+    S::Background: image_edit_partial_image_event_builder::IsSet,
+    S::OutputFormat: image_edit_partial_image_event_builder::IsSet,
+    S::PartialImageIndex: image_edit_partial_image_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ImageEditPartialImageEvent {
+        self.build_internal()
     }
 }
 

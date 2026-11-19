@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// Upload : The Upload object can accept byte chunks in the form of Parts.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = upload_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Upload {
     /// The Upload unique identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -70,6 +71,23 @@ impl Upload {
             object: None,
             file: None,
         }
+    }
+}
+
+impl<S: upload_builder::State> UploadBuilder<S>
+where
+    S::Id: upload_builder::IsSet,
+    S::CreatedAt: upload_builder::IsSet,
+    S::Filename: upload_builder::IsSet,
+    S::Bytes: upload_builder::IsSet,
+    S::Purpose: upload_builder::IsSet,
+    S::Status: upload_builder::IsSet,
+    S::ExpiresAt: upload_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Upload {
+        self.build_internal()
     }
 }
 

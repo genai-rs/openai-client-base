@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseAudioWsDone : Emitted when the audio response is complete.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_audio_ws_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseAudioWsDone {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -42,6 +43,18 @@ impl BetaResponseAudioWsDone {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_audio_ws_done_builder::State> BetaResponseAudioWsDoneBuilder<S>
+where
+    S::Type: beta_response_audio_ws_done_builder::IsSet,
+    S::SequenceNumber: beta_response_audio_ws_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseAudioWsDone {
+        self.build_internal()
     }
 }
 

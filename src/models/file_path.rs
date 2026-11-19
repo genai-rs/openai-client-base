@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// FilePath : A path to a file.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = file_path_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FilePath {
     /// The type of the file path. Always `file_path`.
     #[serde(rename = "type")]
@@ -32,6 +33,19 @@ impl FilePath {
             file_id,
             index,
         }
+    }
+}
+
+impl<S: file_path_builder::State> FilePathBuilder<S>
+where
+    S::Type: file_path_builder::IsSet,
+    S::FileId: file_path_builder::IsSet,
+    S::Index: file_path_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FilePath {
+        self.build_internal()
     }
 }
 

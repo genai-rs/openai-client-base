@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// GroupRoleAssignment : Role assignment linking a group to a role.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = group_role_assignment_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GroupRoleAssignment {
     /// Always `group.role`.
     #[serde(rename = "object")]
@@ -31,6 +32,19 @@ impl GroupRoleAssignment {
             group,
             role,
         }
+    }
+}
+
+impl<S: group_role_assignment_builder::State> GroupRoleAssignmentBuilder<S>
+where
+    S::Object: group_role_assignment_builder::IsSet,
+    S::Group: group_role_assignment_builder::IsSet,
+    S::Role: group_role_assignment_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GroupRoleAssignment {
+        self.build_internal()
     }
 }
 

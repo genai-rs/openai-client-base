@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = validate_external_key_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ValidateExternalKeyResource {
     #[serde(rename = "status")]
     pub status: String,
@@ -19,6 +20,17 @@ pub struct ValidateExternalKeyResource {
 impl ValidateExternalKeyResource {
     pub fn new(status: String) -> ValidateExternalKeyResource {
         ValidateExternalKeyResource { status }
+    }
+}
+
+impl<S: validate_external_key_resource_builder::State> ValidateExternalKeyResourceBuilder<S>
+where
+    S::Status: validate_external_key_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ValidateExternalKeyResource {
+        self.build_internal()
     }
 }
 

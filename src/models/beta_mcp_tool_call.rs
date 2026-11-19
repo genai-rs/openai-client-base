@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaMcpToolCall : An invocation of a tool on an MCP server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_mcp_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaMcpToolCall {
     /// The agent that produced this item.
     #[serde(
@@ -86,6 +87,21 @@ impl BetaMcpToolCall {
             status: None,
             approval_request_id: None,
         }
+    }
+}
+
+impl<S: beta_mcp_tool_call_builder::State> BetaMcpToolCallBuilder<S>
+where
+    S::Type: beta_mcp_tool_call_builder::IsSet,
+    S::Id: beta_mcp_tool_call_builder::IsSet,
+    S::ServerLabel: beta_mcp_tool_call_builder::IsSet,
+    S::Name: beta_mcp_tool_call_builder::IsSet,
+    S::Arguments: beta_mcp_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaMcpToolCall {
+        self.build_internal()
     }
 }
 

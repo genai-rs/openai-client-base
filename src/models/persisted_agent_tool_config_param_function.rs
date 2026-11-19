@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// PersistedAgentToolConfigParamFunction : A function defined by the application.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = persisted_agent_tool_config_param_function_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PersistedAgentToolConfigParamFunction {
     /// The type of the object. Always `function`.  Defaults to `\"function\"`.
     #[serde(rename = "type")]
@@ -55,6 +56,21 @@ impl PersistedAgentToolConfigParamFunction {
             defer_loading: None,
             r#async: None,
         }
+    }
+}
+
+impl<S: persisted_agent_tool_config_param_function_builder::State>
+    PersistedAgentToolConfigParamFunctionBuilder<S>
+where
+    S::Type: persisted_agent_tool_config_param_function_builder::IsSet,
+    S::Name: persisted_agent_tool_config_param_function_builder::IsSet,
+    S::Description: persisted_agent_tool_config_param_function_builder::IsSet,
+    S::Parameters: persisted_agent_tool_config_param_function_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PersistedAgentToolConfigParamFunction {
+        self.build_internal()
     }
 }
 

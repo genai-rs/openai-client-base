@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseConfigurationUpdateReasoning : The reasoning configuration applied by this update.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_configuration_update_reasoning_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseConfigurationUpdateReasoning {
     #[serde(
         rename = "effort",
@@ -27,6 +28,16 @@ impl ResponseConfigurationUpdateReasoning {
     /// The reasoning configuration applied by this update.
     pub fn new() -> ResponseConfigurationUpdateReasoning {
         ResponseConfigurationUpdateReasoning { effort: None }
+    }
+}
+
+impl<S: response_configuration_update_reasoning_builder::State>
+    ResponseConfigurationUpdateReasoningBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseConfigurationUpdateReasoning {
+        self.build_internal()
     }
 }
 

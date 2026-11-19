@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = compact_response_method_public_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CompactResponseMethodPublicBody {
     #[serde(rename = "model", default)]
     pub model: Option<models::ModelIdsCompaction>,
@@ -86,6 +87,16 @@ impl CompactResponseMethodPublicBody {
             prompt_cache_options: None,
             service_tier: None,
         }
+    }
+}
+
+impl<S: compact_response_method_public_body_builder::State>
+    CompactResponseMethodPublicBodyBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CompactResponseMethodPublicBody {
+        self.build_internal()
     }
 }
 

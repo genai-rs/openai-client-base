@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebSearchActionFind : Action type \"find_in_page\": Searches for a pattern within a loaded page.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = web_search_action_find_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebSearchActionFind {
     /// The action type.
     #[serde(rename = "type")]
@@ -37,6 +38,18 @@ impl WebSearchActionFind {
             url: None,
             pattern,
         }
+    }
+}
+
+impl<S: web_search_action_find_builder::State> WebSearchActionFindBuilder<S>
+where
+    S::Type: web_search_action_find_builder::IsSet,
+    S::Pattern: web_search_action_find_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebSearchActionFind {
+        self.build_internal()
     }
 }
 

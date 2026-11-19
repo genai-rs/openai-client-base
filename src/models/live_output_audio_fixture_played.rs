@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveOutputAudioFixturePlayed : The complete audio fixture has drained from the server mixer and normal inference has resumed. Transport buffers may still contain audio; this event does not prove listener-side completion. The optional client_event_id echoes the play command. This event is not emitted for canceled or failed playback.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_output_audio_fixture_played_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveOutputAudioFixturePlayed {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -32,6 +33,18 @@ impl LiveOutputAudioFixturePlayed {
             client_event_id: None,
             r#type,
         }
+    }
+}
+
+impl<S: live_output_audio_fixture_played_builder::State> LiveOutputAudioFixturePlayedBuilder<S>
+where
+    S::EventId: live_output_audio_fixture_played_builder::IsSet,
+    S::Type: live_output_audio_fixture_played_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveOutputAudioFixturePlayed {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResumeSubagentCallItemResource : A request to resume a subagent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = resume_subagent_call_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResumeSubagentCallItemResource {
     /// The item type. Always `resume_subagent_call`.  Defaults to `\"resume_subagent_call\"`.
     #[serde(rename = "type")]
@@ -59,6 +60,22 @@ impl ResumeSubagentCallItemResource {
             sender_agent_id,
             recipient_agent_id,
         }
+    }
+}
+
+impl<S: resume_subagent_call_item_resource_builder::State> ResumeSubagentCallItemResourceBuilder<S>
+where
+    S::Type: resume_subagent_call_item_resource_builder::IsSet,
+    S::Id: resume_subagent_call_item_resource_builder::IsSet,
+    S::TurnId: resume_subagent_call_item_resource_builder::IsSet,
+    S::Status: resume_subagent_call_item_resource_builder::IsSet,
+    S::SenderAgentId: resume_subagent_call_item_resource_builder::IsSet,
+    S::RecipientAgentId: resume_subagent_call_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResumeSubagentCallItemResource {
+        self.build_internal()
     }
 }
 

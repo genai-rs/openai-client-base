@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeClientEventConversationItemCreate : Add a new Item to the Conversation's context, including messages, function  calls, and function call responses. This event can be used both to populate a  \"history\" of the conversation and to add new items mid-stream, but has the  current limitation that it cannot populate assistant audio messages.  If successful, the server will emit a `conversation.item.added` event and, when the item is finalized, a `conversation.item.done` event. Otherwise, an `error` event will be sent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_client_event_conversation_item_create_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeClientEventConversationItemCreate {
     /// Optional client-generated ID used to identify this event.
     ///
@@ -41,6 +42,19 @@ impl RealtimeClientEventConversationItemCreate {
             previous_item_id: None,
             item,
         }
+    }
+}
+
+impl<S: realtime_client_event_conversation_item_create_builder::State>
+    RealtimeClientEventConversationItemCreateBuilder<S>
+where
+    S::Type: realtime_client_event_conversation_item_create_builder::IsSet,
+    S::Item: realtime_client_event_conversation_item_create_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeClientEventConversationItemCreate {
+        self.build_internal()
     }
 }
 

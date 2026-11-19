@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionResponseMessageAnnotationsInnerUrlCitation : A URL citation when using web search.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_response_message_annotations_inner_url_citation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionResponseMessageAnnotationsInnerUrlCitation {
     /// The index of the last character of the URL citation in the message.
     #[serde(rename = "end_index")]
@@ -41,6 +42,21 @@ impl ChatCompletionResponseMessageAnnotationsInnerUrlCitation {
             url,
             title,
         }
+    }
+}
+
+impl<S: chat_completion_response_message_annotations_inner_url_citation_builder::State>
+    ChatCompletionResponseMessageAnnotationsInnerUrlCitationBuilder<S>
+where
+    S::EndIndex: chat_completion_response_message_annotations_inner_url_citation_builder::IsSet,
+    S::StartIndex: chat_completion_response_message_annotations_inner_url_citation_builder::IsSet,
+    S::Url: chat_completion_response_message_annotations_inner_url_citation_builder::IsSet,
+    S::Title: chat_completion_response_message_annotations_inner_url_citation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionResponseMessageAnnotationsInnerUrlCitation {
+        self.build_internal()
     }
 }
 

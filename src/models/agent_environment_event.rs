@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AgentEnvironmentEvent : Identifies the environment whose lifecycle changed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = agent_environment_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AgentEnvironmentEvent {
     /// The ID of the environment.
     ///
@@ -24,6 +25,17 @@ impl AgentEnvironmentEvent {
     /// Identifies the environment whose lifecycle changed.
     pub fn new(id: String) -> AgentEnvironmentEvent {
         AgentEnvironmentEvent { id }
+    }
+}
+
+impl<S: agent_environment_event_builder::State> AgentEnvironmentEventBuilder<S>
+where
+    S::Id: agent_environment_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AgentEnvironmentEvent {
+        self.build_internal()
     }
 }
 

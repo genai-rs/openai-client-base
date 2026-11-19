@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventTranscriptionSessionCreated : Returned when a transcription session is created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_transcription_session_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventTranscriptionSessionCreated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeBetaServerEventTranscriptionSessionCreated {
             r#type,
             session,
         }
+    }
+}
+
+impl<S: realtime_beta_server_event_transcription_session_created_builder::State>
+    RealtimeBetaServerEventTranscriptionSessionCreatedBuilder<S>
+where
+    S::EventId: realtime_beta_server_event_transcription_session_created_builder::IsSet,
+    S::Type: realtime_beta_server_event_transcription_session_created_builder::IsSet,
+    S::Session: realtime_beta_server_event_transcription_session_created_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventTranscriptionSessionCreated {
+        self.build_internal()
     }
 }
 

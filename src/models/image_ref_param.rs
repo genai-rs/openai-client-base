@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ImageRefParam : Reference an input image by either URL or uploaded file ID. Provide exactly one of `image_url` or `file_id`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = image_ref_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ImageRefParam {
     /// A fully qualified URL or base64-encoded data URL.
     ///
@@ -30,6 +31,14 @@ impl ImageRefParam {
             image_url: None,
             file_id: None,
         }
+    }
+}
+
+impl<S: image_ref_param_builder::State> ImageRefParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ImageRefParam {
+        self.build_internal()
     }
 }
 

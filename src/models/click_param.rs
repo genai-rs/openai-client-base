@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ClickParam : A click action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = click_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ClickParam {
     /// Specifies the event type. For a click action, this property is always `click`.  Defaults to `\"click\"`.
     #[serde(rename = "type")]
@@ -45,6 +46,20 @@ impl ClickParam {
             y,
             keys: None,
         }
+    }
+}
+
+impl<S: click_param_builder::State> ClickParamBuilder<S>
+where
+    S::Type: click_param_builder::IsSet,
+    S::Button: click_param_builder::IsSet,
+    S::X: click_param_builder::IsSet,
+    S::Y: click_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ClickParam {
+        self.build_internal()
     }
 }
 

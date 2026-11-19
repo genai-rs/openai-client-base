@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventSessionCreated : Returned when a Session is created. Emitted automatically when a new connection is established as the first server event. This event will contain the default Session configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_session_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventSessionCreated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeServerEventSessionCreated {
             r#type,
             session,
         }
+    }
+}
+
+impl<S: realtime_server_event_session_created_builder::State>
+    RealtimeServerEventSessionCreatedBuilder<S>
+where
+    S::EventId: realtime_server_event_session_created_builder::IsSet,
+    S::Type: realtime_server_event_session_created_builder::IsSet,
+    S::Session: realtime_server_event_session_created_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventSessionCreated {
+        self.build_internal()
     }
 }
 

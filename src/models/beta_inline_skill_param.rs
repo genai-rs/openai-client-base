@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_inline_skill_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaInlineSkillParam {
     /// Defines an inline skill for this request.  Defaults to `\"inline\"`.
     #[serde(rename = "type")]
@@ -39,6 +40,20 @@ impl BetaInlineSkillParam {
             description,
             source,
         }
+    }
+}
+
+impl<S: beta_inline_skill_param_builder::State> BetaInlineSkillParamBuilder<S>
+where
+    S::Type: beta_inline_skill_param_builder::IsSet,
+    S::Name: beta_inline_skill_param_builder::IsSet,
+    S::Description: beta_inline_skill_param_builder::IsSet,
+    S::Source: beta_inline_skill_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaInlineSkillParam {
+        self.build_internal()
     }
 }
 

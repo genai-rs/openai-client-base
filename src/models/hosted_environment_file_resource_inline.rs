@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// HostedEnvironmentFileResourceInline : A file supplied inline when the session was created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = hosted_environment_file_resource_inline_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HostedEnvironmentFileResourceInline {
     /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
     #[serde(rename = "type")]
@@ -47,6 +48,21 @@ impl HostedEnvironmentFileResourceInline {
             path,
             size_bytes,
         }
+    }
+}
+
+impl<S: hosted_environment_file_resource_inline_builder::State>
+    HostedEnvironmentFileResourceInlineBuilder<S>
+where
+    S::Type: hosted_environment_file_resource_inline_builder::IsSet,
+    S::Id: hosted_environment_file_resource_inline_builder::IsSet,
+    S::Path: hosted_environment_file_resource_inline_builder::IsSet,
+    S::SizeBytes: hosted_environment_file_resource_inline_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HostedEnvironmentFileResourceInline {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventResponseContentPartAdded : Returned when a new content part is added to an assistant message item during response generation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_response_content_part_added_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventResponseContentPartAdded {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -56,6 +57,24 @@ impl RealtimeBetaServerEventResponseContentPartAdded {
             content_index,
             part,
         }
+    }
+}
+
+impl<S: realtime_beta_server_event_response_content_part_added_builder::State>
+    RealtimeBetaServerEventResponseContentPartAddedBuilder<S>
+where
+    S::EventId: realtime_beta_server_event_response_content_part_added_builder::IsSet,
+    S::Type: realtime_beta_server_event_response_content_part_added_builder::IsSet,
+    S::ResponseId: realtime_beta_server_event_response_content_part_added_builder::IsSet,
+    S::ItemId: realtime_beta_server_event_response_content_part_added_builder::IsSet,
+    S::OutputIndex: realtime_beta_server_event_response_content_part_added_builder::IsSet,
+    S::ContentIndex: realtime_beta_server_event_response_content_part_added_builder::IsSet,
+    S::Part: realtime_beta_server_event_response_content_part_added_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventResponseContentPartAdded {
+        self.build_internal()
     }
 }
 

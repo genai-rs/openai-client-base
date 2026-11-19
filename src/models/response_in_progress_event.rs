@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseInProgressEvent : Emitted when the response is in progress.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_in_progress_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseInProgressEvent {
     /// The type of the event. Always `response.in_progress`.
     #[serde(rename = "type")]
@@ -36,6 +37,19 @@ impl ResponseInProgressEvent {
             response,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_in_progress_event_builder::State> ResponseInProgressEventBuilder<S>
+where
+    S::Type: response_in_progress_event_builder::IsSet,
+    S::Response: response_in_progress_event_builder::IsSet,
+    S::SequenceNumber: response_in_progress_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseInProgressEvent {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ImageGenCompletedEvent : Emitted when image generation has completed and the final image is available.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = image_gen_completed_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ImageGenCompletedEvent {
     /// The effective safety identifier used for safety monitoring and abuse detection. This is the non-empty `safety_identifier` from the request, or the deprecated `user` value when `safety_identifier` is omitted, null, or empty.
     #[serde(
@@ -69,6 +70,24 @@ impl ImageGenCompletedEvent {
             output_format,
             usage,
         }
+    }
+}
+
+impl<S: image_gen_completed_event_builder::State> ImageGenCompletedEventBuilder<S>
+where
+    S::Type: image_gen_completed_event_builder::IsSet,
+    S::B64Json: image_gen_completed_event_builder::IsSet,
+    S::CreatedAt: image_gen_completed_event_builder::IsSet,
+    S::Size: image_gen_completed_event_builder::IsSet,
+    S::Quality: image_gen_completed_event_builder::IsSet,
+    S::Background: image_gen_completed_event_builder::IsSet,
+    S::OutputFormat: image_gen_completed_event_builder::IsSet,
+    S::Usage: image_gen_completed_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ImageGenCompletedEvent {
+        self.build_internal()
     }
 }
 

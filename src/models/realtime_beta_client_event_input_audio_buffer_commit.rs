@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaClientEventInputAudioBufferCommit : Send this event to commit the user input audio buffer, which will create a  new user message item in the conversation. This event will produce an error  if the input audio buffer is empty. When in Server VAD mode, the client does  not need to send this event, the server will commit the audio buffer  automatically.  Committing the input audio buffer will trigger input audio transcription  (if enabled in session configuration), but it will not create a response  from the model. The server will respond with an `input_audio_buffer.committed`  event.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_client_event_input_audio_buffer_commit_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaClientEventInputAudioBufferCommit {
     /// Optional client-generated ID used to identify this event.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,18 @@ impl RealtimeBetaClientEventInputAudioBufferCommit {
             event_id: None,
             r#type,
         }
+    }
+}
+
+impl<S: realtime_beta_client_event_input_audio_buffer_commit_builder::State>
+    RealtimeBetaClientEventInputAudioBufferCommitBuilder<S>
+where
+    S::Type: realtime_beta_client_event_input_audio_buffer_commit_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaClientEventInputAudioBufferCommit {
+        self.build_internal()
     }
 }
 

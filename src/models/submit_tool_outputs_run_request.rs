@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = submit_tool_outputs_run_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SubmitToolOutputsRunRequest {
     /// A list of tools for which the outputs are being submitted.
     #[serde(rename = "tool_outputs")]
@@ -34,6 +35,17 @@ impl SubmitToolOutputsRunRequest {
             tool_outputs,
             stream: None,
         }
+    }
+}
+
+impl<S: submit_tool_outputs_run_request_builder::State> SubmitToolOutputsRunRequestBuilder<S>
+where
+    S::ToolOutputs: submit_tool_outputs_run_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SubmitToolOutputsRunRequest {
+        self.build_internal()
     }
 }
 

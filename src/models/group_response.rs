@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// GroupResponse : Details about an organization group.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = group_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GroupResponse {
     /// Identifier for the group.
     #[serde(rename = "id")]
@@ -46,6 +47,21 @@ impl GroupResponse {
             is_scim_managed,
             group_type,
         }
+    }
+}
+
+impl<S: group_response_builder::State> GroupResponseBuilder<S>
+where
+    S::Id: group_response_builder::IsSet,
+    S::Name: group_response_builder::IsSet,
+    S::CreatedAt: group_response_builder::IsSet,
+    S::IsScimManaged: group_response_builder::IsSet,
+    S::GroupType: group_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GroupResponse {
+        self.build_internal()
     }
 }
 

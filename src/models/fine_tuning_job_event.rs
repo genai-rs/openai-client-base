@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// FineTuningJobEvent : Fine-tuning job event object
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tuning_job_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuningJobEvent {
     /// The object type, which is always \"fine_tuning.job.event\".
     #[serde(rename = "object")]
@@ -59,6 +60,21 @@ impl FineTuningJobEvent {
             r#type: None,
             data: None,
         }
+    }
+}
+
+impl<S: fine_tuning_job_event_builder::State> FineTuningJobEventBuilder<S>
+where
+    S::Object: fine_tuning_job_event_builder::IsSet,
+    S::Id: fine_tuning_job_event_builder::IsSet,
+    S::CreatedAt: fine_tuning_job_event_builder::IsSet,
+    S::Level: fine_tuning_job_event_builder::IsSet,
+    S::Message: fine_tuning_job_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuningJobEvent {
+        self.build_internal()
     }
 }
 

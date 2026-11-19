@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// InputMessage : A message input to the model with a role indicating instruction following hierarchy. Instructions given with the `developer` or `system` role take precedence over instructions given with the `user` role.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = input_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InputMessage {
     /// The type of the message input. Always set to `message`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -37,6 +38,18 @@ impl InputMessage {
             status: None,
             content,
         }
+    }
+}
+
+impl<S: input_message_builder::State> InputMessageBuilder<S>
+where
+    S::Role: input_message_builder::IsSet,
+    S::Content: input_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InputMessage {
+        self.build_internal()
     }
 }
 

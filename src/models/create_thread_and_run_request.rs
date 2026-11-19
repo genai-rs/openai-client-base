@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_thread_and_run_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateThreadAndRunRequest {
     /// The ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) to use to execute this run.
     #[serde(rename = "assistant_id")]
@@ -139,6 +140,17 @@ impl CreateThreadAndRunRequest {
             parallel_tool_calls: None,
             response_format: None,
         }
+    }
+}
+
+impl<S: create_thread_and_run_request_builder::State> CreateThreadAndRunRequestBuilder<S>
+where
+    S::AssistantId: create_thread_and_run_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateThreadAndRunRequest {
+        self.build_internal()
     }
 }
 

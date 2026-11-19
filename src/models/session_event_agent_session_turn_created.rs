@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionTurnCreated : Emitted when a turn is created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_turn_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionTurnCreated {
     /// The type of the object. Always `agent.session.turn.created`.  Defaults to `\"agent.session.turn.created\"`.
     #[serde(rename = "type")]
@@ -58,6 +59,22 @@ impl SessionEventAgentSessionTurnCreated {
             turn,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_turn_created_builder::State>
+    SessionEventAgentSessionTurnCreatedBuilder<S>
+where
+    S::Type: session_event_agent_session_turn_created_builder::IsSet,
+    S::EventId: session_event_agent_session_turn_created_builder::IsSet,
+    S::SessionId: session_event_agent_session_turn_created_builder::IsSet,
+    S::TurnId: session_event_agent_session_turn_created_builder::IsSet,
+    S::Turn: session_event_agent_session_turn_created_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionTurnCreated {
+        self.build_internal()
     }
 }
 

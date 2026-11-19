@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// McpCallItemResource : A call to a tool on an MCP server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_call_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpCallItemResource {
     /// The item type. Always `mcp_call`.  Defaults to `\"mcp_call\"`.
     #[serde(rename = "type")]
@@ -74,6 +75,22 @@ impl McpCallItemResource {
             output,
             error,
         }
+    }
+}
+
+impl<S: mcp_call_item_resource_builder::State> McpCallItemResourceBuilder<S>
+where
+    S::Type: mcp_call_item_resource_builder::IsSet,
+    S::Id: mcp_call_item_resource_builder::IsSet,
+    S::TurnId: mcp_call_item_resource_builder::IsSet,
+    S::ServerLabel: mcp_call_item_resource_builder::IsSet,
+    S::Name: mcp_call_item_resource_builder::IsSet,
+    S::Status: mcp_call_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpCallItemResource {
+        self.build_internal()
     }
 }
 

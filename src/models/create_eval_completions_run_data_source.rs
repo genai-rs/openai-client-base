@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateEvalCompletionsRunDataSource : A CompletionsRunDataSource object describing a model sampling configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_eval_completions_run_data_source_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateEvalCompletionsRunDataSource {
     /// The type of run data source. Always `completions`.  Defaults to `\"completions\"`.
     #[serde(rename = "type")]
@@ -41,6 +42,19 @@ impl CreateEvalCompletionsRunDataSource {
             model: None,
             source,
         }
+    }
+}
+
+impl<S: create_eval_completions_run_data_source_builder::State>
+    CreateEvalCompletionsRunDataSourceBuilder<S>
+where
+    S::Type: create_eval_completions_run_data_source_builder::IsSet,
+    S::Source: create_eval_completions_run_data_source_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateEvalCompletionsRunDataSource {
+        self.build_internal()
     }
 }
 

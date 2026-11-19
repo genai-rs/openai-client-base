@@ -55,7 +55,7 @@ pub enum UpdateProjectDataRetentionError {
 }
 
 /// Retrieves organization data retention controls.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_organization_data_retention_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_organization_data_retention(
     configuration: &configuration::Configuration,
     options: Option<&timvw_rust_runtime::RequestOptions>,
@@ -122,13 +122,29 @@ pub async fn retrieve_organization_data_retention(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_organization_data_retention_builder::State>
+    RetrieveOrganizationDataRetentionBuilder<'_, '_, S>
+where
+    S::Configuration: retrieve_organization_data_retention_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::OrganizationDataRetention, Error<RetrieveOrganizationDataRetentionError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves organization data retention controls.
 ///
 /// Sends the same request as [`retrieve_organization_data_retention`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OrganizationDataRetention` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_organization_data_retention_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_organization_data_retention_response(
     configuration: &configuration::Configuration,
     options: Option<&timvw_rust_runtime::RequestOptions>,
@@ -189,8 +205,26 @@ pub async fn retrieve_organization_data_retention_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_organization_data_retention_response_builder::State>
+    RetrieveOrganizationDataRetentionResponseBuilder<'_, '_, S>
+where
+    S::Configuration: retrieve_organization_data_retention_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::OrganizationDataRetention>,
+        Error<RetrieveOrganizationDataRetentionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves project data retention controls.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_data_retention_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_data_retention(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -268,13 +302,29 @@ pub async fn retrieve_project_data_retention(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_data_retention_builder::State>
+    RetrieveProjectDataRetentionBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_data_retention_builder::IsSet,
+    S::ProjectId: retrieve_project_data_retention_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectDataRetention, Error<RetrieveProjectDataRetentionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves project data retention controls.
 ///
 /// Sends the same request as [`retrieve_project_data_retention`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectDataRetention` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_data_retention_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_data_retention_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -346,8 +396,27 @@ pub async fn retrieve_project_data_retention_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_data_retention_response_builder::State>
+    RetrieveProjectDataRetentionResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_data_retention_response_builder::IsSet,
+    S::ProjectId: retrieve_project_data_retention_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectDataRetention>,
+        Error<RetrieveProjectDataRetentionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Updates organization data retention controls.
-#[bon::builder]
+#[bon::builder(state_mod = update_organization_data_retention_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_organization_data_retention(
     configuration: &configuration::Configuration,
     update_organization_data_retention_body: &models::UpdateOrganizationDataRetentionBody,
@@ -422,13 +491,30 @@ pub async fn update_organization_data_retention(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_organization_data_retention_builder::State>
+    UpdateOrganizationDataRetentionBuilder<'_, '_, '_, S>
+where
+    S::Configuration: update_organization_data_retention_builder::IsSet,
+    S::UpdateOrganizationDataRetentionBody: update_organization_data_retention_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::OrganizationDataRetention, Error<UpdateOrganizationDataRetentionError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Updates organization data retention controls.
 ///
 /// Sends the same request as [`update_organization_data_retention`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OrganizationDataRetention` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_organization_data_retention_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_organization_data_retention_response(
     configuration: &configuration::Configuration,
     update_organization_data_retention_body: &models::UpdateOrganizationDataRetentionBody,
@@ -497,8 +583,28 @@ pub async fn update_organization_data_retention_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_organization_data_retention_response_builder::State>
+    UpdateOrganizationDataRetentionResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: update_organization_data_retention_response_builder::IsSet,
+    S::UpdateOrganizationDataRetentionBody:
+        update_organization_data_retention_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::OrganizationDataRetention>,
+        Error<UpdateOrganizationDataRetentionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Updates project data retention controls.
-#[bon::builder]
+#[bon::builder(state_mod = update_project_data_retention_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_data_retention(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -579,13 +685,30 @@ pub async fn update_project_data_retention(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_project_data_retention_builder::State>
+    UpdateProjectDataRetentionBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_data_retention_builder::IsSet,
+    S::ProjectId: update_project_data_retention_builder::IsSet,
+    S::UpdateProjectDataRetentionBody: update_project_data_retention_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectDataRetention, Error<UpdateProjectDataRetentionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates project data retention controls.
 ///
 /// Sends the same request as [`update_project_data_retention`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectDataRetention` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_project_data_retention_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_data_retention_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -655,5 +778,25 @@ pub async fn update_project_data_retention_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: update_project_data_retention_response_builder::State>
+    UpdateProjectDataRetentionResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_data_retention_response_builder::IsSet,
+    S::ProjectId: update_project_data_retention_response_builder::IsSet,
+    S::UpdateProjectDataRetentionBody: update_project_data_retention_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectDataRetention>,
+        Error<UpdateProjectDataRetentionError>,
+    > {
+        self.call_internal().await
     }
 }

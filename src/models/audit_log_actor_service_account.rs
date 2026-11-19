@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogActorServiceAccount : The service account that performed the audit logged action.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_actor_service_account_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogActorServiceAccount {
     /// The service account id.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl AuditLogActorServiceAccount {
     /// The service account that performed the audit logged action.
     pub fn new() -> AuditLogActorServiceAccount {
         AuditLogActorServiceAccount { id: None }
+    }
+}
+
+impl<S: audit_log_actor_service_account_builder::State> AuditLogActorServiceAccountBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogActorServiceAccount {
+        self.build_internal()
     }
 }
 

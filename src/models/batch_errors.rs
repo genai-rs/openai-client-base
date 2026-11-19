@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = batch_errors_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BatchErrors {
     /// The object type, which is always `list`.
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
@@ -26,6 +27,14 @@ impl BatchErrors {
             object: None,
             data: None,
         }
+    }
+}
+
+impl<S: batch_errors_builder::State> BatchErrorsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BatchErrors {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunObjectLastError : The last error associated with this run. Will be `null` if there are no errors.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_object_last_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunObjectLastError {
     /// One of `server_error`, `rate_limit_exceeded`, or `invalid_prompt`.
     #[serde(rename = "code")]
@@ -25,6 +26,18 @@ impl RunObjectLastError {
     /// The last error associated with this run. Will be `null` if there are no errors.
     pub fn new(code: Code, message: String) -> RunObjectLastError {
         RunObjectLastError { code, message }
+    }
+}
+
+impl<S: run_object_last_error_builder::State> RunObjectLastErrorBuilder<S>
+where
+    S::Code: run_object_last_error_builder::IsSet,
+    S::Message: run_object_last_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunObjectLastError {
+        self.build_internal()
     }
 }
 

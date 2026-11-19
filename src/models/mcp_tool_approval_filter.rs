@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// McpToolApprovalFilter : Specify which of the MCP server's tools require approval. Can be `always`, `never`, or a filter object associated with tools that require approval.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_tool_approval_filter_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpToolApprovalFilter {
     #[serde(rename = "always", skip_serializing_if = "Option::is_none")]
     pub always: Option<models::McpToolFilter>,
@@ -27,6 +28,14 @@ impl McpToolApprovalFilter {
             always: None,
             never: None,
         }
+    }
+}
+
+impl<S: mcp_tool_approval_filter_builder::State> McpToolApprovalFilterBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpToolApprovalFilter {
+        self.build_internal()
     }
 }
 

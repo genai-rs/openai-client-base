@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaCoordParam : An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_coord_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaCoordParam {
     /// The x-coordinate.
     #[serde(rename = "x")]
@@ -25,6 +26,18 @@ impl BetaCoordParam {
     /// An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.
     pub fn new(x: i64, y: i64) -> BetaCoordParam {
         BetaCoordParam { x, y }
+    }
+}
+
+impl<S: beta_coord_param_builder::State> BetaCoordParamBuilder<S>
+where
+    S::X: beta_coord_param_builder::IsSet,
+    S::Y: beta_coord_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaCoordParam {
+        self.build_internal()
     }
 }
 

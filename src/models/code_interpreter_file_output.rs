@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CodeInterpreterFileOutput : The output of a code interpreter tool call that is a file.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = code_interpreter_file_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CodeInterpreterFileOutput {
     /// The type of the code interpreter file output. Always `files`.
     #[serde(rename = "type")]
@@ -28,6 +29,18 @@ impl CodeInterpreterFileOutput {
         files: Vec<models::CodeInterpreterFileOutputFilesInner>,
     ) -> CodeInterpreterFileOutput {
         CodeInterpreterFileOutput { r#type, files }
+    }
+}
+
+impl<S: code_interpreter_file_output_builder::State> CodeInterpreterFileOutputBuilder<S>
+where
+    S::Type: code_interpreter_file_output_builder::IsSet,
+    S::Files: code_interpreter_file_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CodeInterpreterFileOutput {
+        self.build_internal()
     }
 }
 

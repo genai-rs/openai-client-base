@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaWebSearchActionFind : Action type \"find_in_page\": Searches for a pattern within a loaded page.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_web_search_action_find_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaWebSearchActionFind {
     /// The action type.
     #[serde(rename = "type")]
@@ -37,6 +38,18 @@ impl BetaWebSearchActionFind {
             url: None,
             pattern,
         }
+    }
+}
+
+impl<S: beta_web_search_action_find_builder::State> BetaWebSearchActionFindBuilder<S>
+where
+    S::Type: beta_web_search_action_find_builder::IsSet,
+    S::Pattern: beta_web_search_action_find_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaWebSearchActionFind {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_completion_response_choices_inner_logprobs_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateCompletionResponseChoicesInnerLogprobs {
     #[serde(rename = "text_offset", skip_serializing_if = "Option::is_none")]
     pub text_offset: Option<Vec<i64>>,
@@ -30,6 +31,16 @@ impl CreateCompletionResponseChoicesInnerLogprobs {
             tokens: None,
             top_logprobs: None,
         }
+    }
+}
+
+impl<S: create_completion_response_choices_inner_logprobs_builder::State>
+    CreateCompletionResponseChoicesInnerLogprobsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateCompletionResponseChoicesInnerLogprobs {
+        self.build_internal()
     }
 }
 

@@ -596,7 +596,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for ListInputItemsErrorHeaders
 }
 
 /// Cancels a model response with the given ID. Only responses created with the `background` parameter set to `true` can be cancelled. [Learn more](https://developers.openai.com/api/docs/guides/background).
-#[bon::builder]
+#[bon::builder(state_mod = beta_cancel_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_cancel_response(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -676,13 +676,26 @@ pub async fn beta_cancel_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: beta_cancel_response_builder::State> BetaCancelResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: beta_cancel_response_builder::IsSet,
+    S::ResponseId: beta_cancel_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::BetaResponse, Error<BetaCancelResponseError>> {
+        self.call_internal().await
+    }
+}
+
 /// Cancels a model response with the given ID. Only responses created with the `background` parameter set to `true` can be cancelled. [Learn more](https://developers.openai.com/api/docs/guides/background).
 ///
 /// Sends the same request as [`beta_cancel_response`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::BetaResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = beta_cancel_response_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_cancel_response_response(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -753,8 +766,24 @@ pub async fn beta_cancel_response_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: beta_cancel_response_response_builder::State>
+    BetaCancelResponseResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: beta_cancel_response_response_builder::IsSet,
+    S::ResponseId: beta_cancel_response_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::BetaResponse>, Error<BetaCancelResponseError>> {
+        self.call_internal().await
+    }
+}
+
 /// Compact a conversation. Returns a compacted response object.  Learn when and how to compact long-running conversations in the [conversation state guide](https://developers.openai.com/api/docs/guides/conversation-state#managing-the-context-window). For ZDR-compatible compaction details, see [Compaction (advanced)](https://developers.openai.com/api/docs/guides/conversation-state#compaction-advanced).
-#[bon::builder]
+#[bon::builder(state_mod = beta_compactconversation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_compactconversation(
     configuration: &configuration::Configuration,
     openai_beta: Option<Vec<String>>,
@@ -834,13 +863,27 @@ pub async fn beta_compactconversation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: beta_compactconversation_builder::State> BetaCompactconversationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: beta_compactconversation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::BetaCompactResource, Error<BetaCompactconversationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Compact a conversation. Returns a compacted response object.  Learn when and how to compact long-running conversations in the [conversation state guide](https://developers.openai.com/api/docs/guides/conversation-state#managing-the-context-window). For ZDR-compatible compaction details, see [Compaction (advanced)](https://developers.openai.com/api/docs/guides/conversation-state#compaction-advanced).
 ///
 /// Sends the same request as [`beta_compactconversation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::BetaCompactResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = beta_compactconversation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_compactconversation_response(
     configuration: &configuration::Configuration,
     openai_beta: Option<Vec<String>>,
@@ -911,8 +954,24 @@ pub async fn beta_compactconversation_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: beta_compactconversation_response_builder::State>
+    BetaCompactconversationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: beta_compactconversation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::BetaCompactResource>, Error<BetaCompactconversationError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response.
-#[bon::builder]
+#[bon::builder(state_mod = beta_create_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_create_response(
     configuration: &configuration::Configuration,
     beta_create_response: &models::BetaCreateResponse,
@@ -995,13 +1054,26 @@ pub async fn beta_create_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: beta_create_response_builder::State> BetaCreateResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: beta_create_response_builder::IsSet,
+    S::BetaCreateResponse: beta_create_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::BetaResponse, Error<BetaCreateResponseError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response.
 ///
 /// Sends the same request as [`beta_create_response`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::BetaResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = beta_create_response_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_create_response_response(
     configuration: &configuration::Configuration,
     beta_create_response: &models::BetaCreateResponse,
@@ -1075,10 +1147,26 @@ pub async fn beta_create_response_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: beta_create_response_response_builder::State>
+    BetaCreateResponseResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: beta_create_response_response_builder::IsSet,
+    S::BetaCreateResponse: beta_create_response_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::BetaResponse>, Error<BetaCreateResponseError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response.
 ///
 /// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::BetaResponseStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
-#[bon::builder]
+#[bon::builder(state_mod = beta_create_response_stream_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_create_response_stream(
     configuration: &configuration::Configuration,
     beta_create_response: &models::BetaCreateResponse,
@@ -1160,8 +1248,26 @@ pub async fn beta_create_response_stream(
     Ok(super::sse::EventStream::from_response(resp))
 }
 
+#[allow(deprecated)]
+impl<S: beta_create_response_stream_builder::State> BetaCreateResponseStreamBuilder<'_, '_, '_, S>
+where
+    S::Configuration: beta_create_response_stream_builder::IsSet,
+    S::BetaCreateResponse: beta_create_response_stream_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::sse::EventStream<models::BetaResponseStreamEvent, BetaCreateResponseError>,
+        Error<BetaCreateResponseError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a model response with the given ID.
-#[bon::builder]
+#[bon::builder(state_mod = beta_delete_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_delete_response(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -1241,13 +1347,28 @@ pub async fn beta_delete_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: beta_delete_response_builder::State> BetaDeleteResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: beta_delete_response_builder::IsSet,
+    S::ResponseId: beta_delete_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::BetaDeleteResponse200Response, Error<BetaDeleteResponseError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a model response with the given ID.
 ///
 /// Sends the same request as [`beta_delete_response`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::BetaDeleteResponse200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = beta_delete_response_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_delete_response_response(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -1319,8 +1440,27 @@ pub async fn beta_delete_response_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: beta_delete_response_response_builder::State>
+    BetaDeleteResponseResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: beta_delete_response_response_builder::IsSet,
+    S::ResponseId: beta_delete_response_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::BetaDeleteResponse200Response>,
+        Error<BetaDeleteResponseError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a model response with the given ID.
-#[bon::builder]
+#[bon::builder(state_mod = beta_get_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_get_response(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -1423,13 +1563,26 @@ pub async fn beta_get_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: beta_get_response_builder::State> BetaGetResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: beta_get_response_builder::IsSet,
+    S::ResponseId: beta_get_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::BetaResponse, Error<BetaGetResponseError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a model response with the given ID.
 ///
 /// Sends the same request as [`beta_get_response`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::BetaResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = beta_get_response_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_get_response_response(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -1523,10 +1676,25 @@ pub async fn beta_get_response_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: beta_get_response_response_builder::State> BetaGetResponseResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: beta_get_response_response_builder::IsSet,
+    S::ResponseId: beta_get_response_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::BetaResponse>, Error<BetaGetResponseError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a model response with the given ID.
 ///
 /// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::BetaResponseStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
-#[bon::builder]
+#[bon::builder(state_mod = beta_get_response_stream_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_get_response_stream(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -1628,8 +1796,26 @@ pub async fn beta_get_response_stream(
     Ok(super::sse::EventStream::from_response(resp))
 }
 
+#[allow(deprecated)]
+impl<S: beta_get_response_stream_builder::State> BetaGetResponseStreamBuilder<'_, '_, '_, S>
+where
+    S::Configuration: beta_get_response_stream_builder::IsSet,
+    S::ResponseId: beta_get_response_stream_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::sse::EventStream<models::BetaResponseStreamEvent, BetaGetResponseError>,
+        Error<BetaGetResponseError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Returns input token counts of the request.  Returns an object with `object` set to `response.input_tokens` and an `input_tokens` count.
-#[bon::builder]
+#[bon::builder(state_mod = beta_getinputtokencounts_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_getinputtokencounts(
     configuration: &configuration::Configuration,
     openai_beta: Option<Vec<String>>,
@@ -1709,13 +1895,27 @@ pub async fn beta_getinputtokencounts(
     }
 }
 
+#[allow(deprecated)]
+impl<S: beta_getinputtokencounts_builder::State> BetaGetinputtokencountsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: beta_getinputtokencounts_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::BetaTokenCountsResource, Error<BetaGetinputtokencountsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns input token counts of the request.  Returns an object with `object` set to `response.input_tokens` and an `input_tokens` count.
 ///
 /// Sends the same request as [`beta_getinputtokencounts`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::BetaTokenCountsResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = beta_getinputtokencounts_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_getinputtokencounts_response(
     configuration: &configuration::Configuration,
     openai_beta: Option<Vec<String>>,
@@ -1787,8 +1987,26 @@ pub async fn beta_getinputtokencounts_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: beta_getinputtokencounts_response_builder::State>
+    BetaGetinputtokencountsResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: beta_getinputtokencounts_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::BetaTokenCountsResource>,
+        Error<BetaGetinputtokencountsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of input items for a given response.
-#[bon::builder]
+#[bon::builder(state_mod = beta_list_input_items_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_list_input_items(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -1891,13 +2109,28 @@ pub async fn beta_list_input_items(
     }
 }
 
+#[allow(deprecated)]
+impl<S: beta_list_input_items_builder::State> BetaListInputItemsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: beta_list_input_items_builder::IsSet,
+    S::ResponseId: beta_list_input_items_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::BetaResponseItemList, Error<BetaListInputItemsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of input items for a given response.
 ///
 /// Sends the same request as [`beta_list_input_items`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::BetaResponseItemList` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = beta_list_input_items_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn beta_list_input_items_response(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -1991,8 +2224,25 @@ pub async fn beta_list_input_items_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: beta_list_input_items_response_builder::State>
+    BetaListInputItemsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: beta_list_input_items_response_builder::IsSet,
+    S::ResponseId: beta_list_input_items_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::BetaResponseItemList>, Error<BetaListInputItemsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Cancels a model response with the given ID. Only responses created with the `background` parameter set to `true` can be cancelled. [Learn more](https://developers.openai.com/api/docs/guides/background).
-#[bon::builder]
+#[bon::builder(state_mod = cancel_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_response(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -2067,13 +2317,26 @@ pub async fn cancel_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: cancel_response_builder::State> CancelResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: cancel_response_builder::IsSet,
+    S::ResponseId: cancel_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Response, Error<CancelResponseError>> {
+        self.call_internal().await
+    }
+}
+
 /// Cancels a model response with the given ID. Only responses created with the `background` parameter set to `true` can be cancelled. [Learn more](https://developers.openai.com/api/docs/guides/background).
 ///
 /// Sends the same request as [`cancel_response`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = cancel_response_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_response_response(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -2139,8 +2402,23 @@ pub async fn cancel_response_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: cancel_response_response_builder::State> CancelResponseResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: cancel_response_response_builder::IsSet,
+    S::ResponseId: cancel_response_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Response>, Error<CancelResponseError>> {
+        self.call_internal().await
+    }
+}
+
 /// Compact a conversation. Returns a compacted response object.  Learn when and how to compact long-running conversations in the [conversation state guide](https://developers.openai.com/api/docs/guides/conversation-state#managing-the-context-window). For ZDR-compatible compaction details, see [Compaction (advanced)](https://developers.openai.com/api/docs/guides/conversation-state#compaction-advanced).
-#[bon::builder]
+#[bon::builder(state_mod = compactconversation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn compactconversation(
     configuration: &configuration::Configuration,
     compact_response_method_public_body: Option<&models::CompactResponseMethodPublicBody>,
@@ -2215,13 +2493,25 @@ pub async fn compactconversation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: compactconversation_builder::State> CompactconversationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: compactconversation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::CompactResource, Error<CompactconversationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Compact a conversation. Returns a compacted response object.  Learn when and how to compact long-running conversations in the [conversation state guide](https://developers.openai.com/api/docs/guides/conversation-state#managing-the-context-window). For ZDR-compatible compaction details, see [Compaction (advanced)](https://developers.openai.com/api/docs/guides/conversation-state#compaction-advanced).
 ///
 /// Sends the same request as [`compactconversation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::CompactResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = compactconversation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn compactconversation_response(
     configuration: &configuration::Configuration,
     compact_response_method_public_body: Option<&models::CompactResponseMethodPublicBody>,
@@ -2287,8 +2577,23 @@ pub async fn compactconversation_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: compactconversation_response_builder::State>
+    CompactconversationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: compactconversation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::CompactResource>, Error<CompactconversationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response.
-#[bon::builder]
+#[bon::builder(state_mod = create_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_response(
     configuration: &configuration::Configuration,
     create_response: &models::CreateResponse,
@@ -2366,13 +2671,26 @@ pub async fn create_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_response_builder::State> CreateResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_response_builder::IsSet,
+    S::CreateResponse: create_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Response, Error<CreateResponseError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response.
 ///
 /// Sends the same request as [`create_response`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_response_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_response_response(
     configuration: &configuration::Configuration,
     create_response: &models::CreateResponse,
@@ -2441,10 +2759,25 @@ pub async fn create_response_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_response_response_builder::State> CreateResponseResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_response_response_builder::IsSet,
+    S::CreateResponse: create_response_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Response>, Error<CreateResponseError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response.
 ///
 /// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::ResponseStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
-#[bon::builder]
+#[bon::builder(state_mod = create_response_stream_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_response_stream(
     configuration: &configuration::Configuration,
     create_response: &models::CreateResponse,
@@ -2521,8 +2854,26 @@ pub async fn create_response_stream(
     Ok(super::sse::EventStream::from_response(resp))
 }
 
+#[allow(deprecated)]
+impl<S: create_response_stream_builder::State> CreateResponseStreamBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_response_stream_builder::IsSet,
+    S::CreateResponse: create_response_stream_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::sse::EventStream<models::ResponseStreamEvent, CreateResponseError>,
+        Error<CreateResponseError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a model response with the given ID.
-#[bon::builder]
+#[bon::builder(state_mod = delete_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_response(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -2597,13 +2948,28 @@ pub async fn delete_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_response_builder::State> DeleteResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_response_builder::IsSet,
+    S::ResponseId: delete_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeleteResponse200Response, Error<DeleteResponseError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a model response with the given ID.
 ///
 /// Sends the same request as [`delete_response`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeleteResponse200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_response_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_response_response(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -2669,8 +3035,24 @@ pub async fn delete_response_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_response_response_builder::State> DeleteResponseResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_response_response_builder::IsSet,
+    S::ResponseId: delete_response_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeleteResponse200Response>, Error<DeleteResponseError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a model response with the given ID.
-#[bon::builder]
+#[bon::builder(state_mod = get_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_response(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -2768,13 +3150,26 @@ pub async fn get_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_response_builder::State> GetResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_response_builder::IsSet,
+    S::ResponseId: get_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Response, Error<GetResponseError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a model response with the given ID.
 ///
 /// Sends the same request as [`get_response`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_response_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_response_response(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -2863,10 +3258,25 @@ pub async fn get_response_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_response_response_builder::State> GetResponseResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_response_response_builder::IsSet,
+    S::ResponseId: get_response_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Response>, Error<GetResponseError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a model response with the given ID.
 ///
 /// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::ResponseStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
-#[bon::builder]
+#[bon::builder(state_mod = get_response_stream_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_response_stream(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -2963,8 +3373,26 @@ pub async fn get_response_stream(
     Ok(super::sse::EventStream::from_response(resp))
 }
 
+#[allow(deprecated)]
+impl<S: get_response_stream_builder::State> GetResponseStreamBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_response_stream_builder::IsSet,
+    S::ResponseId: get_response_stream_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::sse::EventStream<models::ResponseStreamEvent, GetResponseError>,
+        Error<GetResponseError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Returns input token counts of the request.  Returns an object with `object` set to `response.input_tokens` and an `input_tokens` count.
-#[bon::builder]
+#[bon::builder(state_mod = getinputtokencounts_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn getinputtokencounts(
     configuration: &configuration::Configuration,
     token_counts_body: Option<&models::TokenCountsBody>,
@@ -3036,13 +3464,27 @@ pub async fn getinputtokencounts(
     }
 }
 
+#[allow(deprecated)]
+impl<S: getinputtokencounts_builder::State> GetinputtokencountsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: getinputtokencounts_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::TokenCountsResource, Error<GetinputtokencountsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns input token counts of the request.  Returns an object with `object` set to `response.input_tokens` and an `input_tokens` count.
 ///
 /// Sends the same request as [`getinputtokencounts`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::TokenCountsResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = getinputtokencounts_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn getinputtokencounts_response(
     configuration: &configuration::Configuration,
     token_counts_body: Option<&models::TokenCountsBody>,
@@ -3105,8 +3547,24 @@ pub async fn getinputtokencounts_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: getinputtokencounts_response_builder::State>
+    GetinputtokencountsResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: getinputtokencounts_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::TokenCountsResource>, Error<GetinputtokencountsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of input items for a given response.
-#[bon::builder]
+#[bon::builder(state_mod = list_input_items_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_input_items(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -3204,13 +3662,26 @@ pub async fn list_input_items(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_input_items_builder::State> ListInputItemsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_input_items_builder::IsSet,
+    S::ResponseId: list_input_items_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ResponseItemList, Error<ListInputItemsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of input items for a given response.
 ///
 /// Sends the same request as [`list_input_items`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ResponseItemList` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_input_items_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_input_items_response(
     configuration: &configuration::Configuration,
     response_id: &str,
@@ -3296,5 +3767,21 @@ pub async fn list_input_items_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: list_input_items_response_builder::State>
+    ListInputItemsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_input_items_response_builder::IsSet,
+    S::ResponseId: list_input_items_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ResponseItemList>, Error<ListInputItemsError>> {
+        self.call_internal().await
     }
 }

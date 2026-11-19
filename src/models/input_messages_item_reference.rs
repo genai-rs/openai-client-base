@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = input_messages_item_reference_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InputMessagesItemReference {
     /// The type of input messages. Always `item_reference`.
     #[serde(rename = "type")]
@@ -26,6 +27,18 @@ impl InputMessagesItemReference {
             r#type,
             item_reference,
         }
+    }
+}
+
+impl<S: input_messages_item_reference_builder::State> InputMessagesItemReferenceBuilder<S>
+where
+    S::Type: input_messages_item_reference_builder::IsSet,
+    S::ItemReference: input_messages_item_reference_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InputMessagesItemReference {
+        self.build_internal()
     }
 }
 

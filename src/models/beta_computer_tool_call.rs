@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaComputerToolCall : A tool call to a computer use tool. See the [computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_computer_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaComputerToolCall {
     /// The agent that produced this item.
     #[serde(
@@ -63,6 +64,21 @@ impl BetaComputerToolCall {
             pending_safety_checks,
             status,
         }
+    }
+}
+
+impl<S: beta_computer_tool_call_builder::State> BetaComputerToolCallBuilder<S>
+where
+    S::Type: beta_computer_tool_call_builder::IsSet,
+    S::Id: beta_computer_tool_call_builder::IsSet,
+    S::CallId: beta_computer_tool_call_builder::IsSet,
+    S::PendingSafetyChecks: beta_computer_tool_call_builder::IsSet,
+    S::Status: beta_computer_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaComputerToolCall {
+        self.build_internal()
     }
 }
 

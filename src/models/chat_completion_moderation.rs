@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionModeration : Moderation results or errors for the request input and generated output.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_moderation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionModeration {
     #[serde(rename = "input")]
     pub input: models::ChatCompletionModerationInput,
@@ -27,6 +28,18 @@ impl ChatCompletionModeration {
         output: models::ChatCompletionModerationOutput,
     ) -> ChatCompletionModeration {
         ChatCompletionModeration { input, output }
+    }
+}
+
+impl<S: chat_completion_moderation_builder::State> ChatCompletionModerationBuilder<S>
+where
+    S::Input: chat_completion_moderation_builder::IsSet,
+    S::Output: chat_completion_moderation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionModeration {
+        self.build_internal()
     }
 }
 

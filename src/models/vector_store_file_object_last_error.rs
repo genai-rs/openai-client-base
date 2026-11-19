@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// VectorStoreFileObjectLastError : The last error associated with this vector store file. Will be `null` if there are no errors.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vector_store_file_object_last_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VectorStoreFileObjectLastError {
     /// One of `server_error`, `unsupported_file`, or `invalid_file`.
     #[serde(rename = "code")]
@@ -25,6 +26,18 @@ impl VectorStoreFileObjectLastError {
     /// The last error associated with this vector store file. Will be `null` if there are no errors.
     pub fn new(code: Code, message: String) -> VectorStoreFileObjectLastError {
         VectorStoreFileObjectLastError { code, message }
+    }
+}
+
+impl<S: vector_store_file_object_last_error_builder::State> VectorStoreFileObjectLastErrorBuilder<S>
+where
+    S::Code: vector_store_file_object_last_error_builder::IsSet,
+    S::Message: vector_store_file_object_last_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VectorStoreFileObjectLastError {
+        self.build_internal()
     }
 }
 

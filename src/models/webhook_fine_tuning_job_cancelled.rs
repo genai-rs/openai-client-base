@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookFineTuningJobCancelled : Sent when a fine-tuning job has been cancelled.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_fine_tuning_job_cancelled_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookFineTuningJobCancelled {
     /// The Unix timestamp (in seconds) of when the fine-tuning job was cancelled.
     #[serde(rename = "created_at", with = "super::unix_time")]
@@ -45,6 +46,20 @@ impl WebhookFineTuningJobCancelled {
             object: None,
             r#type,
         }
+    }
+}
+
+impl<S: webhook_fine_tuning_job_cancelled_builder::State> WebhookFineTuningJobCancelledBuilder<S>
+where
+    S::CreatedAt: webhook_fine_tuning_job_cancelled_builder::IsSet,
+    S::Id: webhook_fine_tuning_job_cancelled_builder::IsSet,
+    S::Data: webhook_fine_tuning_job_cancelled_builder::IsSet,
+    S::Type: webhook_fine_tuning_job_cancelled_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookFineTuningJobCancelled {
+        self.build_internal()
     }
 }
 

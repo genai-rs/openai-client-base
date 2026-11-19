@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = user_projects_data_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UserProjectsDataInner {
     #[serde(
         rename = "id",
@@ -42,6 +43,14 @@ impl UserProjectsDataInner {
             name: None,
             role: None,
         }
+    }
+}
+
+impl<S: user_projects_data_inner_builder::State> UserProjectsDataInnerBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UserProjectsDataInner {
+        self.build_internal()
     }
 }
 

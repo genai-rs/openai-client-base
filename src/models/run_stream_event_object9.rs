@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStreamEventObject9 : Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) expires.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_stream_event_object9_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStreamEventObject9 {
     #[serde(rename = "event")]
     pub event: Event,
@@ -24,6 +25,18 @@ impl RunStreamEventObject9 {
     /// Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) expires.
     pub fn new(event: Event, data: models::RunObject) -> RunStreamEventObject9 {
         RunStreamEventObject9 { event, data }
+    }
+}
+
+impl<S: run_stream_event_object9_builder::State> RunStreamEventObject9Builder<S>
+where
+    S::Event: run_stream_event_object9_builder::IsSet,
+    S::Data: run_stream_event_object9_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStreamEventObject9 {
+        self.build_internal()
     }
 }
 

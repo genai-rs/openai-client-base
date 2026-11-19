@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_live_transport_connected_data_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookLiveTransportConnectedData {
     /// The session transport.
     #[serde(rename = "type")]
@@ -23,6 +24,19 @@ pub struct WebhookLiveTransportConnectedData {
 impl WebhookLiveTransportConnectedData {
     pub fn new(r#type: Type, session_id: String) -> WebhookLiveTransportConnectedData {
         WebhookLiveTransportConnectedData { r#type, session_id }
+    }
+}
+
+impl<S: webhook_live_transport_connected_data_builder::State>
+    WebhookLiveTransportConnectedDataBuilder<S>
+where
+    S::Type: webhook_live_transport_connected_data_builder::IsSet,
+    S::SessionId: webhook_live_transport_connected_data_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookLiveTransportConnectedData {
+        self.build_internal()
     }
 }
 

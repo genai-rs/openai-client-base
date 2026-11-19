@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_api_key_list_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectApiKeyListResponse {
     #[serde(rename = "object")]
     pub object: Object,
@@ -48,6 +49,19 @@ impl ProjectApiKeyListResponse {
             last_id: None,
             has_more,
         }
+    }
+}
+
+impl<S: project_api_key_list_response_builder::State> ProjectApiKeyListResponseBuilder<S>
+where
+    S::Object: project_api_key_list_response_builder::IsSet,
+    S::Data: project_api_key_list_response_builder::IsSet,
+    S::HasMore: project_api_key_list_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectApiKeyListResponse {
+        self.build_internal()
     }
 }
 

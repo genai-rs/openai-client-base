@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunToolCallObject : Tool call objects
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_tool_call_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunToolCallObject {
     /// The ID of the tool call. This ID must be referenced when you submit the tool outputs in using the [Submit tool outputs to run](https://developers.openai.com/api/docs/assistants/migration) endpoint.
     #[serde(rename = "id")]
@@ -36,6 +37,19 @@ impl RunToolCallObject {
             r#type,
             function,
         }
+    }
+}
+
+impl<S: run_tool_call_object_builder::State> RunToolCallObjectBuilder<S>
+where
+    S::Id: run_tool_call_object_builder::IsSet,
+    S::Type: run_tool_call_object_builder::IsSet,
+    S::Function: run_tool_call_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunToolCallObject {
+        self.build_internal()
     }
 }
 

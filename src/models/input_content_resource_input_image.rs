@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// InputContentResourceInputImage : Image input recorded in a session item.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = input_content_resource_input_image_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InputContentResourceInputImage {
     /// The type of the object. Always `input_image`.  Defaults to `\"input_image\"`.
     #[serde(rename = "type")]
@@ -27,6 +28,18 @@ impl InputContentResourceInputImage {
     /// Image input recorded in a session item.
     pub fn new(r#type: Type, image_url: String) -> InputContentResourceInputImage {
         InputContentResourceInputImage { r#type, image_url }
+    }
+}
+
+impl<S: input_content_resource_input_image_builder::State> InputContentResourceInputImageBuilder<S>
+where
+    S::Type: input_content_resource_input_image_builder::IsSet,
+    S::ImageUrl: input_content_resource_input_image_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InputContentResourceInputImage {
+        self.build_internal()
     }
 }
 

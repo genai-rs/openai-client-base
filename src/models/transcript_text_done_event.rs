@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// TranscriptTextDoneEvent : Emitted when the transcription is complete. Contains the complete transcription text. Only emitted when you [create a transcription](https://developers.openai.com/api/reference/resources/audio/subresources/transcriptions/methods/create) with the `Stream` parameter set to `true`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = transcript_text_done_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TranscriptTextDoneEvent {
     /// The type of the event. Always `transcript.text.done`.
     #[serde(rename = "type")]
@@ -40,6 +41,18 @@ impl TranscriptTextDoneEvent {
             logprobs: None,
             usage: None,
         }
+    }
+}
+
+impl<S: transcript_text_done_event_builder::State> TranscriptTextDoneEventBuilder<S>
+where
+    S::Type: transcript_text_done_event_builder::IsSet,
+    S::Text: transcript_text_done_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TranscriptTextDoneEvent {
+        self.build_internal()
     }
 }
 

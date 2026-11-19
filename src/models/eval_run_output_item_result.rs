@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalRunOutputItemResult : A single grader result for an evaluation run output item.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_run_output_item_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalRunOutputItemResult {
     /// The name of the grader.
     #[serde(rename = "name")]
@@ -45,6 +46,19 @@ impl EvalRunOutputItemResult {
             passed,
             sample: None,
         }
+    }
+}
+
+impl<S: eval_run_output_item_result_builder::State> EvalRunOutputItemResultBuilder<S>
+where
+    S::Name: eval_run_output_item_result_builder::IsSet,
+    S::Score: eval_run_output_item_result_builder::IsSet,
+    S::Passed: eval_run_output_item_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalRunOutputItemResult {
+        self.build_internal()
     }
 }
 

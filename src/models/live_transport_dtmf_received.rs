@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveTransportDtmfReceived : A SIP DTMF keypress received from the caller. Delivered only to sideband observers.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_transport_dtmf_received_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveTransportDtmfReceived {
     /// Defaults to `\"transport.dtmf.received\"`.
     #[serde(rename = "type")]
@@ -31,6 +32,19 @@ impl LiveTransportDtmfReceived {
             event_id,
             event,
         }
+    }
+}
+
+impl<S: live_transport_dtmf_received_builder::State> LiveTransportDtmfReceivedBuilder<S>
+where
+    S::Type: live_transport_dtmf_received_builder::IsSet,
+    S::EventId: live_transport_dtmf_received_builder::IsSet,
+    S::Event: live_transport_dtmf_received_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveTransportDtmfReceived {
+        self.build_internal()
     }
 }
 

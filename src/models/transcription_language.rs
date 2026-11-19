@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// TranscriptionLanguage : A language detected in transcribed audio.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = transcription_language_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TranscriptionLanguage {
     /// The code of a language detected in the audio.
     #[serde(rename = "code")]
@@ -22,6 +23,17 @@ impl TranscriptionLanguage {
     /// A language detected in transcribed audio.
     pub fn new(code: String) -> TranscriptionLanguage {
         TranscriptionLanguage { code }
+    }
+}
+
+impl<S: transcription_language_builder::State> TranscriptionLanguageBuilder<S>
+where
+    S::Code: transcription_language_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TranscriptionLanguage {
+        self.build_internal()
     }
 }
 

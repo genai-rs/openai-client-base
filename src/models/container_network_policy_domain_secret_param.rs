@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = container_network_policy_domain_secret_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ContainerNetworkPolicyDomainSecretParam {
     /// The domain associated with the secret.
     ///
@@ -40,6 +41,20 @@ impl ContainerNetworkPolicyDomainSecretParam {
             name,
             value,
         }
+    }
+}
+
+impl<S: container_network_policy_domain_secret_param_builder::State>
+    ContainerNetworkPolicyDomainSecretParamBuilder<S>
+where
+    S::Domain: container_network_policy_domain_secret_param_builder::IsSet,
+    S::Name: container_network_policy_domain_secret_param_builder::IsSet,
+    S::Value: container_network_policy_domain_secret_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ContainerNetworkPolicyDomainSecretParam {
+        self.build_internal()
     }
 }
 

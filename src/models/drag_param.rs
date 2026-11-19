@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// DragParam : A drag action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = drag_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DragParam {
     /// Specifies the event type. For a drag action, this property is always set to `drag`.  Defaults to `\"drag\"`.
     #[serde(rename = "type")]
@@ -38,6 +39,18 @@ impl DragParam {
             path,
             keys: None,
         }
+    }
+}
+
+impl<S: drag_param_builder::State> DragParamBuilder<S>
+where
+    S::Type: drag_param_builder::IsSet,
+    S::Path: drag_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DragParam {
+        self.build_internal()
     }
 }
 

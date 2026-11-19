@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ImageGenTool : A tool that generates images using the GPT image models.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = image_gen_tool_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ImageGenTool {
     /// The type of the image generation tool. Always `image_generation`.
     #[serde(rename = "type")]
@@ -93,6 +94,17 @@ impl ImageGenTool {
             partial_images: None,
             action: None,
         }
+    }
+}
+
+impl<S: image_gen_tool_builder::State> ImageGenToolBuilder<S>
+where
+    S::Type: image_gen_tool_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ImageGenTool {
+        self.build_internal()
     }
 }
 

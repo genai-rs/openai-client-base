@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaPromptCacheOptionsParam : Options for prompt caching. Supported for `gpt-5.6` and later models. By default, OpenAI automatically chooses one implicit cache breakpoint. You can add explicit breakpoints to content blocks with `prompt_cache_breakpoint`. Each request can write up to four breakpoints. For cache matching, OpenAI considers up to the latest 80 breakpoints in the conversation, without a content-block lookback limit. Set `mode` to `explicit` to disable the implicit breakpoint. The `ttl` defaults to `30m`. Supported lifetimes depend on the API. See the [prompt caching guide](https://developers.openai.com/api/docs/guides/prompt-caching) for current details.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_prompt_cache_options_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaPromptCacheOptionsParam {
     #[serde(rename = "ttl", skip_serializing_if = "Option::is_none")]
     pub ttl: Option<models::BetaPromptCacheTtlEnum>,
@@ -27,6 +28,14 @@ impl BetaPromptCacheOptionsParam {
             ttl: None,
             mode: None,
         }
+    }
+}
+
+impl<S: beta_prompt_cache_options_param_builder::State> BetaPromptCacheOptionsParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaPromptCacheOptionsParam {
+        self.build_internal()
     }
 }
 

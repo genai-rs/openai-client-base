@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaItemReferenceParam : An internal identifier for an item to reference.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_item_reference_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaItemReferenceParam {
     #[serde(
         rename = "agent",
@@ -42,6 +43,17 @@ impl BetaItemReferenceParam {
             r#type: None,
             id,
         }
+    }
+}
+
+impl<S: beta_item_reference_param_builder::State> BetaItemReferenceParamBuilder<S>
+where
+    S::Id: beta_item_reference_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaItemReferenceParam {
+        self.build_internal()
     }
 }
 

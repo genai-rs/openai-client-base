@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaFunctionShellCallOutputExitOutcome : Indicates that the shell commands finished and returned an exit code.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_function_shell_call_output_exit_outcome_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFunctionShellCallOutputExitOutcome {
     /// The outcome type. Always `exit`.  Defaults to `\"exit\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,19 @@ impl BetaFunctionShellCallOutputExitOutcome {
     /// Indicates that the shell commands finished and returned an exit code.
     pub fn new(r#type: Type, exit_code: i64) -> BetaFunctionShellCallOutputExitOutcome {
         BetaFunctionShellCallOutputExitOutcome { r#type, exit_code }
+    }
+}
+
+impl<S: beta_function_shell_call_output_exit_outcome_builder::State>
+    BetaFunctionShellCallOutputExitOutcomeBuilder<S>
+where
+    S::Type: beta_function_shell_call_output_exit_outcome_builder::IsSet,
+    S::ExitCode: beta_function_shell_call_output_exit_outcome_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFunctionShellCallOutputExitOutcome {
+        self.build_internal()
     }
 }
 

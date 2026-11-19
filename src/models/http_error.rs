@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = http_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HttpError {
     /// Defaults to `\"http_error\"`.
     #[serde(rename = "type")]
@@ -28,6 +29,19 @@ impl HttpError {
             code,
             message,
         }
+    }
+}
+
+impl<S: http_error_builder::State> HttpErrorBuilder<S>
+where
+    S::Type: http_error_builder::IsSet,
+    S::Code: http_error_builder::IsSet,
+    S::Message: http_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HttpError {
+        self.build_internal()
     }
 }
 

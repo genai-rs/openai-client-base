@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// DoneEvent : Occurs when a stream ends.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = done_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DoneEvent {
     #[serde(rename = "event")]
     pub event: Event,
@@ -23,6 +24,18 @@ impl DoneEvent {
     /// Occurs when a stream ends.
     pub fn new(event: Event, data: Data) -> DoneEvent {
         DoneEvent { event, data }
+    }
+}
+
+impl<S: done_event_builder::State> DoneEventBuilder<S>
+where
+    S::Event: done_event_builder::IsSet,
+    S::Data: done_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DoneEvent {
+        self.build_internal()
     }
 }
 

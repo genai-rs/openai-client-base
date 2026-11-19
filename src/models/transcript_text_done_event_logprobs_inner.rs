@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = transcript_text_done_event_logprobs_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TranscriptTextDoneEventLogprobsInner {
     /// The token that was used to generate the log probability.
     #[serde(rename = "token", skip_serializing_if = "Option::is_none")]
@@ -30,6 +31,16 @@ impl TranscriptTextDoneEventLogprobsInner {
             logprob: None,
             bytes: None,
         }
+    }
+}
+
+impl<S: transcript_text_done_event_logprobs_inner_builder::State>
+    TranscriptTextDoneEventLogprobsInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TranscriptTextDoneEventLogprobsInner {
+        self.build_internal()
     }
 }
 

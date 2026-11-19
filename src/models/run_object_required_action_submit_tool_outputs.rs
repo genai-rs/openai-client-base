@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunObjectRequiredActionSubmitToolOutputs : Details on the tool outputs needed for this run to continue.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_object_required_action_submit_tool_outputs_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunObjectRequiredActionSubmitToolOutputs {
     /// A list of the relevant tool calls.
     #[serde(rename = "tool_calls")]
@@ -25,6 +26,18 @@ impl RunObjectRequiredActionSubmitToolOutputs {
         tool_calls: Vec<models::RunToolCallObject>,
     ) -> RunObjectRequiredActionSubmitToolOutputs {
         RunObjectRequiredActionSubmitToolOutputs { tool_calls }
+    }
+}
+
+impl<S: run_object_required_action_submit_tool_outputs_builder::State>
+    RunObjectRequiredActionSubmitToolOutputsBuilder<S>
+where
+    S::ToolCalls: run_object_required_action_submit_tool_outputs_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunObjectRequiredActionSubmitToolOutputs {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSessionUsage : Cumulative audio duration for a Live session. Values are totals for the session, not increments to sum across usage events.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionUsage {
     /// The cumulative Live audio duration in seconds. Do not sum this value across usage events.
     #[serde(rename = "seconds")]
@@ -22,6 +23,17 @@ impl LiveSessionUsage {
     /// Cumulative audio duration for a Live session. Values are totals for the session, not increments to sum across usage events.
     pub fn new(seconds: f64) -> LiveSessionUsage {
         LiveSessionUsage { seconds }
+    }
+}
+
+impl<S: live_session_usage_builder::State> LiveSessionUsageBuilder<S>
+where
+    S::Seconds: live_session_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionUsage {
+        self.build_internal()
     }
 }
 

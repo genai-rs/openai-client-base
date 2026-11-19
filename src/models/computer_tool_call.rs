@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ComputerToolCall : A tool call to a computer use tool. See the [computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = computer_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ComputerToolCall {
     /// The type of the computer call. Always `computer_call`.  Defaults to `\"computer_call\"`.
     #[serde(rename = "type")]
@@ -54,6 +55,21 @@ impl ComputerToolCall {
             pending_safety_checks,
             status,
         }
+    }
+}
+
+impl<S: computer_tool_call_builder::State> ComputerToolCallBuilder<S>
+where
+    S::Type: computer_tool_call_builder::IsSet,
+    S::Id: computer_tool_call_builder::IsSet,
+    S::CallId: computer_tool_call_builder::IsSet,
+    S::PendingSafetyChecks: computer_tool_call_builder::IsSet,
+    S::Status: computer_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ComputerToolCall {
+        self.build_internal()
     }
 }
 

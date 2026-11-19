@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_grader_string_check_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalGraderStringCheck {
     /// The object type, which is always `string_check`.
     #[serde(rename = "type")]
@@ -44,6 +45,21 @@ impl EvalGraderStringCheck {
             reference,
             operation,
         }
+    }
+}
+
+impl<S: eval_grader_string_check_builder::State> EvalGraderStringCheckBuilder<S>
+where
+    S::Type: eval_grader_string_check_builder::IsSet,
+    S::Name: eval_grader_string_check_builder::IsSet,
+    S::Input: eval_grader_string_check_builder::IsSet,
+    S::Reference: eval_grader_string_check_builder::IsSet,
+    S::Operation: eval_grader_string_check_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalGraderStringCheck {
+        self.build_internal()
     }
 }
 

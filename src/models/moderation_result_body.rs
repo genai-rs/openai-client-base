@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ModerationResultBody : A moderation result produced for the response input or output.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = moderation_result_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ModerationResultBody {
     /// The object type, which was always `moderation_result` for successful moderation results.  Defaults to `\"moderation_result\"`.
     #[serde(rename = "type")]
@@ -56,6 +57,22 @@ impl ModerationResultBody {
             category_scores,
             category_applied_input_types,
         }
+    }
+}
+
+impl<S: moderation_result_body_builder::State> ModerationResultBodyBuilder<S>
+where
+    S::Type: moderation_result_body_builder::IsSet,
+    S::Model: moderation_result_body_builder::IsSet,
+    S::Flagged: moderation_result_body_builder::IsSet,
+    S::Categories: moderation_result_body_builder::IsSet,
+    S::CategoryScores: moderation_result_body_builder::IsSet,
+    S::CategoryAppliedInputTypes: moderation_result_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ModerationResultBody {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// FineTuningJobErrorObject0 : For fine-tuning jobs that have `failed`, this will contain more information on the cause of the failure.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tuning_job_error_object0_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuningJobErrorObject0 {
     /// A machine-readable error code.
     #[serde(rename = "code")]
@@ -32,6 +33,18 @@ impl FineTuningJobErrorObject0 {
             message,
             param,
         }
+    }
+}
+
+impl<S: fine_tuning_job_error_object0_builder::State> FineTuningJobErrorObject0Builder<S>
+where
+    S::Code: fine_tuning_job_error_object0_builder::IsSet,
+    S::Message: fine_tuning_job_error_object0_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuningJobErrorObject0 {
+        self.build_internal()
     }
 }
 

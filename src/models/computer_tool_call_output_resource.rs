@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = computer_tool_call_output_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ComputerToolCallOutputResource {
     /// The type of the computer tool call output. Always `computer_call_output`.  Defaults to `\"computer_call_output\"`.
     #[serde(rename = "type")]
@@ -53,6 +54,20 @@ impl ComputerToolCallOutputResource {
             status,
             created_by: None,
         }
+    }
+}
+
+impl<S: computer_tool_call_output_resource_builder::State> ComputerToolCallOutputResourceBuilder<S>
+where
+    S::Type: computer_tool_call_output_resource_builder::IsSet,
+    S::CallId: computer_tool_call_output_resource_builder::IsSet,
+    S::Output: computer_tool_call_output_resource_builder::IsSet,
+    S::Status: computer_tool_call_output_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ComputerToolCallOutputResource {
+        self.build_internal()
     }
 }
 

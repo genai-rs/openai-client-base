@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// GraderPython : A PythonGrader object that runs a python script on the input.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = grader_python_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GraderPython {
     /// The object type, which is always `python`.
     #[serde(rename = "type")]
@@ -36,6 +37,19 @@ impl GraderPython {
             source,
             image_tag: None,
         }
+    }
+}
+
+impl<S: grader_python_builder::State> GraderPythonBuilder<S>
+where
+    S::Type: grader_python_builder::IsSet,
+    S::Name: grader_python_builder::IsSet,
+    S::Source: grader_python_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GraderPython {
+        self.build_internal()
     }
 }
 

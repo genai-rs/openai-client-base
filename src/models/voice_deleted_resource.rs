@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = voice_deleted_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VoiceDeletedResource {
     /// The voice identifier.
     #[serde(rename = "id")]
@@ -30,6 +31,19 @@ impl VoiceDeletedResource {
             object,
             deleted,
         }
+    }
+}
+
+impl<S: voice_deleted_resource_builder::State> VoiceDeletedResourceBuilder<S>
+where
+    S::Id: voice_deleted_resource_builder::IsSet,
+    S::Object: voice_deleted_resource_builder::IsSet,
+    S::Deleted: voice_deleted_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VoiceDeletedResource {
+        self.build_internal()
     }
 }
 

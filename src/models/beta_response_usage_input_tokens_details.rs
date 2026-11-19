@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseUsageInputTokensDetails : A detailed breakdown of the input tokens.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_usage_input_tokens_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseUsageInputTokensDetails {
     /// The number of tokens that were retrieved from the cache. [More on prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching).
     #[serde(rename = "cached_tokens")]
@@ -35,6 +36,18 @@ impl BetaResponseUsageInputTokensDetails {
             cache_write_tokens: None,
             cache_write_tokens_details: None,
         }
+    }
+}
+
+impl<S: beta_response_usage_input_tokens_details_builder::State>
+    BetaResponseUsageInputTokensDetailsBuilder<S>
+where
+    S::CachedTokens: beta_response_usage_input_tokens_details_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseUsageInputTokensDetails {
+        self.build_internal()
     }
 }
 

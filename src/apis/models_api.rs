@@ -42,7 +42,7 @@ pub enum RetrieveModelError {
 }
 
 /// Delete a fine-tuned model. You must have the Owner role in your organization to delete a model.
-#[bon::builder]
+#[bon::builder(state_mod = delete_model_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_model(
     configuration: &configuration::Configuration,
     model: &str,
@@ -117,13 +117,26 @@ pub async fn delete_model(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_model_builder::State> DeleteModelBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_model_builder::IsSet,
+    S::Model: delete_model_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::DeleteModelResponse, Error<DeleteModelError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete a fine-tuned model. You must have the Owner role in your organization to delete a model.
 ///
 /// Sends the same request as [`delete_model`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeleteModelResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_model_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_model_response(
     configuration: &configuration::Configuration,
     model: &str,
@@ -189,8 +202,23 @@ pub async fn delete_model_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_model_response_builder::State> DeleteModelResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_model_response_builder::IsSet,
+    S::Model: delete_model_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeleteModelResponse>, Error<DeleteModelError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists the currently available models, and provides basic information about each one such as the owner and availability.
-#[bon::builder]
+#[bon::builder(state_mod = list_models_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_models(
     configuration: &configuration::Configuration,
     options: Option<&timvw_rust_runtime::RequestOptions>,
@@ -254,13 +282,25 @@ pub async fn list_models(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_models_builder::State> ListModelsBuilder<'_, '_, S>
+where
+    S::Configuration: list_models_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ListModelsResponse, Error<ListModelsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists the currently available models, and provides basic information about each one such as the owner and availability.
 ///
 /// Sends the same request as [`list_models`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListModelsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_models_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_models_response(
     configuration: &configuration::Configuration,
     options: Option<&timvw_rust_runtime::RequestOptions>,
@@ -315,8 +355,22 @@ pub async fn list_models_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_models_response_builder::State> ListModelsResponseBuilder<'_, '_, S>
+where
+    S::Configuration: list_models_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ListModelsResponse>, Error<ListModelsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a model instance, providing basic information about the model such as the owner and permissioning.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_model_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_model(
     configuration: &configuration::Configuration,
     model: &str,
@@ -391,13 +445,26 @@ pub async fn retrieve_model(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_model_builder::State> RetrieveModelBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_model_builder::IsSet,
+    S::Model: retrieve_model_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Model, Error<RetrieveModelError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a model instance, providing basic information about the model such as the owner and permissioning.
 ///
 /// Sends the same request as [`retrieve_model`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Model` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_model_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_model_response(
     configuration: &configuration::Configuration,
     model: &str,
@@ -460,5 +527,20 @@ pub async fn retrieve_model_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: retrieve_model_response_builder::State> RetrieveModelResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_model_response_builder::IsSet,
+    S::Model: retrieve_model_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Model>, Error<RetrieveModelError>> {
+        self.call_internal().await
     }
 }

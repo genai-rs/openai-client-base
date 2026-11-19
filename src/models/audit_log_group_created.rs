@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogGroupCreated : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_group_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogGroupCreated {
     /// The ID of the group.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,14 @@ impl AuditLogGroupCreated {
             id: None,
             data: None,
         }
+    }
+}
+
+impl<S: audit_log_group_created_builder::State> AuditLogGroupCreatedBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogGroupCreated {
+        self.build_internal()
     }
 }
 

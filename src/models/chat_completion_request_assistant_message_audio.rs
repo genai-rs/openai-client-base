@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionRequestAssistantMessageAudio : Data about a previous audio response from the model. [Learn more](https://developers.openai.com/api/docs/guides/audio).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_request_assistant_message_audio_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionRequestAssistantMessageAudio {
     /// Unique identifier for a previous audio response from the model.
     #[serde(rename = "id")]
@@ -22,6 +23,18 @@ impl ChatCompletionRequestAssistantMessageAudio {
     /// Data about a previous audio response from the model. [Learn more](https://developers.openai.com/api/docs/guides/audio).
     pub fn new(id: String) -> ChatCompletionRequestAssistantMessageAudio {
         ChatCompletionRequestAssistantMessageAudio { id }
+    }
+}
+
+impl<S: chat_completion_request_assistant_message_audio_builder::State>
+    ChatCompletionRequestAssistantMessageAudioBuilder<S>
+where
+    S::Id: chat_completion_request_assistant_message_audio_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionRequestAssistantMessageAudio {
+        self.build_internal()
     }
 }
 

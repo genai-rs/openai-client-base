@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// Certificate : Represents an individual `certificate` uploaded to the organization.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = certificate_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Certificate {
     /// The object type.  - If creating, updating, or getting a specific certificate, the object type is `certificate`. - If listing, activating, or deactivating certificates for the organization, the object type is `organization.certificate`. - If listing, activating, or deactivating certificates for a project, the object type is `organization.project.certificate`.
     #[serde(rename = "object")]
@@ -50,6 +51,20 @@ impl Certificate {
             certificate_details,
             active: None,
         }
+    }
+}
+
+impl<S: certificate_builder::State> CertificateBuilder<S>
+where
+    S::Object: certificate_builder::IsSet,
+    S::Id: certificate_builder::IsSet,
+    S::CreatedAt: certificate_builder::IsSet,
+    S::CertificateDetails: certificate_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Certificate {
+        self.build_internal()
     }
 }
 

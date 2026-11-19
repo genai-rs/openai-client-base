@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// TranscriptTextDeltaEvent : Emitted when there is an additional text delta. This is also the first event emitted when the transcription starts. Only emitted when you [create a transcription](https://developers.openai.com/api/reference/resources/audio/subresources/transcriptions/methods/create) with the `Stream` parameter set to `true`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = transcript_text_delta_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TranscriptTextDeltaEvent {
     /// The type of the event. Always `transcript.text.delta`.
     #[serde(rename = "type")]
@@ -37,6 +38,18 @@ impl TranscriptTextDeltaEvent {
             logprobs: None,
             segment_id: None,
         }
+    }
+}
+
+impl<S: transcript_text_delta_event_builder::State> TranscriptTextDeltaEventBuilder<S>
+where
+    S::Type: transcript_text_delta_event_builder::IsSet,
+    S::Delta: transcript_text_delta_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TranscriptTextDeltaEvent {
+        self.build_internal()
     }
 }
 

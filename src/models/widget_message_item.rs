@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// WidgetMessageItem : Thread item that renders a widget payload.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = widget_message_item_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WidgetMessageItem {
     /// Identifier of the thread item.
     #[serde(rename = "id")]
@@ -51,6 +52,22 @@ impl WidgetMessageItem {
             r#type,
             widget,
         }
+    }
+}
+
+impl<S: widget_message_item_builder::State> WidgetMessageItemBuilder<S>
+where
+    S::Id: widget_message_item_builder::IsSet,
+    S::Object: widget_message_item_builder::IsSet,
+    S::CreatedAt: widget_message_item_builder::IsSet,
+    S::ThreadId: widget_message_item_builder::IsSet,
+    S::Type: widget_message_item_builder::IsSet,
+    S::Widget: widget_message_item_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WidgetMessageItem {
+        self.build_internal()
     }
 }
 

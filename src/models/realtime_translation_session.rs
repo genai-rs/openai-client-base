@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationSession : A Realtime translation session. Translation sessions continuously translate input audio into the configured output language.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_session_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationSession {
     /// Unique identifier for the session that looks like `sess_1234567890abcdef`.
     #[serde(rename = "id")]
@@ -46,6 +47,21 @@ impl RealtimeTranslationSession {
             model,
             audio,
         }
+    }
+}
+
+impl<S: realtime_translation_session_builder::State> RealtimeTranslationSessionBuilder<S>
+where
+    S::Id: realtime_translation_session_builder::IsSet,
+    S::Type: realtime_translation_session_builder::IsSet,
+    S::ExpiresAt: realtime_translation_session_builder::IsSet,
+    S::Model: realtime_translation_session_builder::IsSet,
+    S::Audio: realtime_translation_session_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationSession {
+        self.build_internal()
     }
 }
 

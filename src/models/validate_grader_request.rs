@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = validate_grader_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ValidateGraderRequest {
     #[serde(rename = "grader")]
     pub grader: models::ValidateGraderRequestGrader,
@@ -20,6 +21,17 @@ pub struct ValidateGraderRequest {
 impl ValidateGraderRequest {
     pub fn new(grader: models::ValidateGraderRequestGrader) -> ValidateGraderRequest {
         ValidateGraderRequest { grader }
+    }
+}
+
+impl<S: validate_grader_request_builder::State> ValidateGraderRequestBuilder<S>
+where
+    S::Grader: validate_grader_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ValidateGraderRequest {
+        self.build_internal()
     }
 }
 

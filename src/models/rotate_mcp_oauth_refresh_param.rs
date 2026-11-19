@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RotateMcpOauthRefreshParam : Updates to an MCP credential's existing OAuth refresh configuration.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = rotate_mcp_oauth_refresh_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RotateMcpOauthRefreshParam {
     /// The replacement refresh token. Omit or pass `null` to keep the stored token. This secret is never returned in resources.
     ///
@@ -52,6 +53,14 @@ impl RotateMcpOauthRefreshParam {
             scope: None,
             token_endpoint_auth: None,
         }
+    }
+}
+
+impl<S: rotate_mcp_oauth_refresh_param_builder::State> RotateMcpOauthRefreshParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RotateMcpOauthRefreshParam {
+        self.build_internal()
     }
 }
 

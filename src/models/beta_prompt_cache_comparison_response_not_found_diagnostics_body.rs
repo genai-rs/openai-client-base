@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_prompt_cache_comparison_response_not_found_diagnostics_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaPromptCacheComparisonResponseNotFoundDiagnosticsBody {
     /// Defaults to `\"comparison_response_not_found\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,18 @@ pub struct BetaPromptCacheComparisonResponseNotFoundDiagnosticsBody {
 impl BetaPromptCacheComparisonResponseNotFoundDiagnosticsBody {
     pub fn new(r#type: Type) -> BetaPromptCacheComparisonResponseNotFoundDiagnosticsBody {
         BetaPromptCacheComparisonResponseNotFoundDiagnosticsBody { r#type }
+    }
+}
+
+impl<S: beta_prompt_cache_comparison_response_not_found_diagnostics_body_builder::State>
+    BetaPromptCacheComparisonResponseNotFoundDiagnosticsBodyBuilder<S>
+where
+    S::Type: beta_prompt_cache_comparison_response_not_found_diagnostics_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaPromptCacheComparisonResponseNotFoundDiagnosticsBody {
+        self.build_internal()
     }
 }
 

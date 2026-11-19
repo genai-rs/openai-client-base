@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_tool_search_tool_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveToolSearchToolInputParam {
     /// Defaults to `\"tool_search\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,17 @@ pub struct LiveToolSearchToolInputParam {
 impl LiveToolSearchToolInputParam {
     pub fn new(r#type: Type) -> LiveToolSearchToolInputParam {
         LiveToolSearchToolInputParam { r#type }
+    }
+}
+
+impl<S: live_tool_search_tool_input_param_builder::State> LiveToolSearchToolInputParamBuilder<S>
+where
+    S::Type: live_tool_search_tool_input_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveToolSearchToolInputParam {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AssistantMessageItem : Assistant-authored message within a thread.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = assistant_message_item_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AssistantMessageItem {
     /// Identifier of the thread item.
     #[serde(rename = "id")]
@@ -52,6 +53,22 @@ impl AssistantMessageItem {
             r#type,
             content,
         }
+    }
+}
+
+impl<S: assistant_message_item_builder::State> AssistantMessageItemBuilder<S>
+where
+    S::Id: assistant_message_item_builder::IsSet,
+    S::Object: assistant_message_item_builder::IsSet,
+    S::CreatedAt: assistant_message_item_builder::IsSet,
+    S::ThreadId: assistant_message_item_builder::IsSet,
+    S::Type: assistant_message_item_builder::IsSet,
+    S::Content: assistant_message_item_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AssistantMessageItem {
+        self.build_internal()
     }
 }
 

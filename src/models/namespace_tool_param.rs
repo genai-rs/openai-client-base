@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// NamespaceToolParam : Groups function/custom tools under a shared namespace.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = namespace_tool_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct NamespaceToolParam {
     /// The type of the tool. Always `namespace`.  Defaults to `\"namespace\"`.
     #[serde(rename = "type")]
@@ -46,6 +47,20 @@ impl NamespaceToolParam {
             description,
             tools,
         }
+    }
+}
+
+impl<S: namespace_tool_param_builder::State> NamespaceToolParamBuilder<S>
+where
+    S::Type: namespace_tool_param_builder::IsSet,
+    S::Name: namespace_tool_param_builder::IsSet,
+    S::Description: namespace_tool_param_builder::IsSet,
+    S::Tools: namespace_tool_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> NamespaceToolParam {
+        self.build_internal()
     }
 }
 

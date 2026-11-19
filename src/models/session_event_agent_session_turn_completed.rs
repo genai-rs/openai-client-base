@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionTurnCompleted : Emitted when a turn completes.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_turn_completed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionTurnCompleted {
     /// The type of the object. Always `agent.session.turn.completed`.  Defaults to `\"agent.session.turn.completed\"`.
     #[serde(rename = "type")]
@@ -63,6 +64,22 @@ impl SessionEventAgentSessionTurnCompleted {
             usage,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_turn_completed_builder::State>
+    SessionEventAgentSessionTurnCompletedBuilder<S>
+where
+    S::Type: session_event_agent_session_turn_completed_builder::IsSet,
+    S::EventId: session_event_agent_session_turn_completed_builder::IsSet,
+    S::SessionId: session_event_agent_session_turn_completed_builder::IsSet,
+    S::TurnId: session_event_agent_session_turn_completed_builder::IsSet,
+    S::Turn: session_event_agent_session_turn_completed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionTurnCompleted {
+        self.build_internal()
     }
 }
 

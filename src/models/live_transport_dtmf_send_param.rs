@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveTransportDtmfSendParam : Send one DTMF keypress to the SIP trunk through a Live sideband connection. This command is supported only for SIP calls. A successful send emits `transport.dtmf.sent` on sideband. If you provide `event_id`, the success notification includes it as `client_event_id`; a failure includes it as `error.client_event_id`. Send separate events for multiple keypresses.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_transport_dtmf_send_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveTransportDtmfSendParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
     ///
@@ -41,6 +42,18 @@ impl LiveTransportDtmfSendParam {
             r#type,
             event,
         }
+    }
+}
+
+impl<S: live_transport_dtmf_send_param_builder::State> LiveTransportDtmfSendParamBuilder<S>
+where
+    S::Type: live_transport_dtmf_send_param_builder::IsSet,
+    S::Event: live_transport_dtmf_send_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveTransportDtmfSendParam {
+        self.build_internal()
     }
 }
 

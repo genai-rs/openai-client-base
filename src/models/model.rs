@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// Model : Describes an OpenAI model offering that can be used with the API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = model_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Model {
     /// The model identifier, which can be referenced in the API endpoints.
     #[serde(rename = "id")]
@@ -45,6 +46,20 @@ impl Model {
             owned_by,
             shutdown_date: None,
         }
+    }
+}
+
+impl<S: model_builder::State> ModelBuilder<S>
+where
+    S::Id: model_builder::IsSet,
+    S::Created: model_builder::IsSet,
+    S::Object: model_builder::IsSet,
+    S::OwnedBy: model_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Model {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepDeltaObject : Represents a run step delta i.e. any changed fields on a run step during streaming.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_delta_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDeltaObject {
     /// The identifier of the run step, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -32,6 +33,19 @@ impl RunStepDeltaObject {
         delta: models::RunStepDeltaObjectDelta,
     ) -> RunStepDeltaObject {
         RunStepDeltaObject { id, object, delta }
+    }
+}
+
+impl<S: run_step_delta_object_builder::State> RunStepDeltaObjectBuilder<S>
+where
+    S::Id: run_step_delta_object_builder::IsSet,
+    S::Object: run_step_delta_object_builder::IsSet,
+    S::Delta: run_step_delta_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDeltaObject {
+        self.build_internal()
     }
 }
 

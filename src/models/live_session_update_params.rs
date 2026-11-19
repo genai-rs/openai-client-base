@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSessionUpdateParams : Changes to an active Live session's delegation settings and transcript triggers.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_update_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionUpdateParams {
     #[serde(
         rename = "delegation",
@@ -35,6 +36,14 @@ impl LiveSessionUpdateParams {
             delegation: None,
             triggers: None,
         }
+    }
+}
+
+impl<S: live_session_update_params_builder::State> LiveSessionUpdateParamsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionUpdateParams {
+        self.build_internal()
     }
 }
 

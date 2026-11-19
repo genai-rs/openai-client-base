@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateAgentEnvironmentParams : Parameters for creating an execution environment before its sessions.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_agent_environment_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateAgentEnvironmentParams {
     #[serde(rename = "environment")]
     pub environment: models::CreateEnvironmentParam,
@@ -35,6 +36,17 @@ impl CreateAgentEnvironmentParams {
             environment,
             vault_ids: None,
         }
+    }
+}
+
+impl<S: create_agent_environment_params_builder::State> CreateAgentEnvironmentParamsBuilder<S>
+where
+    S::Environment: create_agent_environment_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateAgentEnvironmentParams {
+        self.build_internal()
     }
 }
 

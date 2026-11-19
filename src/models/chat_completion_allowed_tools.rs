@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionAllowedTools : Constrains the tools available to the model to a pre-defined set.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_allowed_tools_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionAllowedTools {
     /// Constrains the tools available to the model to a pre-defined set.  `auto` allows the model to pick from among the allowed tools and generate a message.  `required` requires the model to call one or more of the allowed tools.
     #[serde(rename = "mode")]
@@ -28,6 +29,18 @@ impl ChatCompletionAllowedTools {
         tools: Vec<std::collections::HashMap<String, serde_json::Value>>,
     ) -> ChatCompletionAllowedTools {
         ChatCompletionAllowedTools { mode, tools }
+    }
+}
+
+impl<S: chat_completion_allowed_tools_builder::State> ChatCompletionAllowedToolsBuilder<S>
+where
+    S::Mode: chat_completion_allowed_tools_builder::IsSet,
+    S::Tools: chat_completion_allowed_tools_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionAllowedTools {
+        self.build_internal()
     }
 }
 

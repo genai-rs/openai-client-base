@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalItemContentOutputText : A text output from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_item_content_output_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalItemContentOutputText {
     /// The type of the output text. Always `output_text`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl EvalItemContentOutputText {
     /// A text output from the model.
     pub fn new(r#type: Type, text: String) -> EvalItemContentOutputText {
         EvalItemContentOutputText { r#type, text }
+    }
+}
+
+impl<S: eval_item_content_output_text_builder::State> EvalItemContentOutputTextBuilder<S>
+where
+    S::Type: eval_item_content_output_text_builder::IsSet,
+    S::Text: eval_item_content_output_text_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalItemContentOutputText {
+        self.build_internal()
     }
 }
 

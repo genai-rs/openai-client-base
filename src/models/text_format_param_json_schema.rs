@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// TextFormatParamJsonSchema : Constrains generated text to a JSON Schema.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = text_format_param_json_schema_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TextFormatParamJsonSchema {
     /// The type of the object. Always `json_schema`.  Defaults to `\"json_schema\"`.
     #[serde(rename = "type")]
@@ -30,6 +31,18 @@ impl TextFormatParamJsonSchema {
         schema: std::collections::HashMap<String, serde_json::Value>,
     ) -> TextFormatParamJsonSchema {
         TextFormatParamJsonSchema { r#type, schema }
+    }
+}
+
+impl<S: text_format_param_json_schema_builder::State> TextFormatParamJsonSchemaBuilder<S>
+where
+    S::Type: text_format_param_json_schema_builder::IsSet,
+    S::Schema: text_format_param_json_schema_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TextFormatParamJsonSchema {
+        self.build_internal()
     }
 }
 

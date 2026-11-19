@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponsePromptCacheOptionsParam : Options for prompt caching. Supported for `gpt-5.6` and later models. By default, OpenAI automatically chooses one implicit cache breakpoint. You can add explicit breakpoints to content blocks with `prompt_cache_breakpoint`. Each request can write up to four breakpoints. For cache matching, OpenAI considers up to the latest 80 breakpoints in the conversation, without a content-block lookback limit. Set `mode` to `explicit` to disable the implicit breakpoint. The `ttl` defaults to `30m`. Supported lifetimes depend on the API. See the [prompt caching guide](https://developers.openai.com/api/docs/guides/prompt-caching) for current details.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_prompt_cache_options_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponsePromptCacheOptionsParam {
     /// The minimum lifetime applied to every implicit and explicit cache breakpoint written by the request. Supported values are `30m` (the default) and `12h`. The backend may retain cache entries for longer.
     #[serde(rename = "ttl", skip_serializing_if = "Option::is_none")]
@@ -41,6 +42,16 @@ impl ResponsePromptCacheOptionsParam {
             prewarm: None,
             comparison_response_id: None,
         }
+    }
+}
+
+impl<S: response_prompt_cache_options_param_builder::State>
+    ResponsePromptCacheOptionsParamBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponsePromptCacheOptionsParam {
+        self.build_internal()
     }
 }
 

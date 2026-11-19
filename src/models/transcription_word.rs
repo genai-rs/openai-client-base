@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = transcription_word_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TranscriptionWord {
     /// The text content of the word.
     #[serde(rename = "word")]
@@ -26,6 +27,19 @@ pub struct TranscriptionWord {
 impl TranscriptionWord {
     pub fn new(word: String, start: f64, end: f64) -> TranscriptionWord {
         TranscriptionWord { word, start, end }
+    }
+}
+
+impl<S: transcription_word_builder::State> TranscriptionWordBuilder<S>
+where
+    S::Word: transcription_word_builder::IsSet,
+    S::Start: transcription_word_builder::IsSet,
+    S::End: transcription_word_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TranscriptionWord {
+        self.build_internal()
     }
 }
 

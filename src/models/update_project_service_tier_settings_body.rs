@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_project_service_tier_settings_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateProjectServiceTierSettingsBody {
     #[serde(rename = "default", skip_serializing_if = "Option::is_none")]
     pub default: Option<models::ProjectDefaultServiceTier>,
@@ -25,6 +26,16 @@ impl UpdateProjectServiceTierSettingsBody {
             default: None,
             enabled_tiers: None,
         }
+    }
+}
+
+impl<S: update_project_service_tier_settings_body_builder::State>
+    UpdateProjectServiceTierSettingsBodyBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateProjectServiceTierSettingsBody {
+        self.build_internal()
     }
 }
 

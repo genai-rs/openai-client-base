@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatkitConfigurationParam : Optional per-session configuration settings for ChatKit behavior.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chatkit_configuration_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatkitConfigurationParam {
     #[serde(
         rename = "automatic_thread_titling",
@@ -33,6 +34,14 @@ impl ChatkitConfigurationParam {
             file_upload: None,
             history: None,
         }
+    }
+}
+
+impl<S: chatkit_configuration_param_builder::State> ChatkitConfigurationParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatkitConfigurationParam {
+        self.build_internal()
     }
 }
 

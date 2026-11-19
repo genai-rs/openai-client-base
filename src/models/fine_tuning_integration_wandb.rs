@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// FineTuningIntegrationWandb : The settings for your integration with Weights and Biases. This payload specifies the project that metrics will be sent to. Optionally, you can set an explicit display name for your run, add tags to your run, and set a default entity (team, username, etc) to be associated with your run.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tuning_integration_wandb_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuningIntegrationWandb {
     /// The name of the project that the new run will be created under.
     #[serde(rename = "project")]
@@ -46,6 +47,17 @@ impl FineTuningIntegrationWandb {
             entity: None,
             tags: None,
         }
+    }
+}
+
+impl<S: fine_tuning_integration_wandb_builder::State> FineTuningIntegrationWandbBuilder<S>
+where
+    S::Project: fine_tuning_integration_wandb_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuningIntegrationWandb {
+        self.build_internal()
     }
 }
 

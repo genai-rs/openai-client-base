@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalRunOutputItemSampleUsage : Token usage details for the sample.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_run_output_item_sample_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalRunOutputItemSampleUsage {
     /// The total number of tokens used.
     #[serde(rename = "total_tokens")]
@@ -41,6 +42,20 @@ impl EvalRunOutputItemSampleUsage {
             prompt_tokens,
             cached_tokens,
         }
+    }
+}
+
+impl<S: eval_run_output_item_sample_usage_builder::State> EvalRunOutputItemSampleUsageBuilder<S>
+where
+    S::TotalTokens: eval_run_output_item_sample_usage_builder::IsSet,
+    S::CompletionTokens: eval_run_output_item_sample_usage_builder::IsSet,
+    S::PromptTokens: eval_run_output_item_sample_usage_builder::IsSet,
+    S::CachedTokens: eval_run_output_item_sample_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalRunOutputItemSampleUsage {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// DoubleClickAction : A double click action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = double_click_action_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DoubleClickAction {
     /// Specifies the event type. For a double click action, this property is always set to `double_click`.  Defaults to `\"double_click\"`.
     #[serde(rename = "type")]
@@ -31,6 +32,19 @@ impl DoubleClickAction {
     /// A double click action.
     pub fn new(r#type: Type, x: i64, y: i64, keys: Option<Vec<String>>) -> DoubleClickAction {
         DoubleClickAction { r#type, x, y, keys }
+    }
+}
+
+impl<S: double_click_action_builder::State> DoubleClickActionBuilder<S>
+where
+    S::Type: double_click_action_builder::IsSet,
+    S::X: double_click_action_builder::IsSet,
+    S::Y: double_click_action_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DoubleClickAction {
+        self.build_internal()
     }
 }
 

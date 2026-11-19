@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// McpTool : Give the model access to additional tools via remote Model Context Protocol (MCP) servers. [Learn more about MCP](https://developers.openai.com/api/docs/guides/tools-connectors-mcp).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_tool_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpTool {
     /// The type of the MCP tool. Always `mcp`.
     #[serde(rename = "type")]
@@ -91,6 +92,18 @@ impl McpTool {
             require_approval: None,
             defer_loading: None,
         }
+    }
+}
+
+impl<S: mcp_tool_builder::State> McpToolBuilder<S>
+where
+    S::Type: mcp_tool_builder::IsSet,
+    S::ServerLabel: mcp_tool_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpTool {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_input_json_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionInputJsonParam {
     /// Defaults to `\"input_json\"`.
     #[serde(rename = "type")]
@@ -26,6 +27,18 @@ impl LiveDecisionInputJsonParam {
         data: models::LiveDecisionInputJsonParamData,
     ) -> LiveDecisionInputJsonParam {
         LiveDecisionInputJsonParam { r#type, data }
+    }
+}
+
+impl<S: live_decision_input_json_param_builder::State> LiveDecisionInputJsonParamBuilder<S>
+where
+    S::Type: live_decision_input_json_param_builder::IsSet,
+    S::Data: live_decision_input_json_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionInputJsonParam {
+        self.build_internal()
     }
 }
 

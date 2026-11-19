@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseConversation : The conversation that this response belonged to. Input items and output items from this response were automatically added to this conversation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_conversation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseConversation {
     /// The unique ID of the conversation that this response was associated with.
     #[serde(rename = "id")]
@@ -22,6 +23,17 @@ impl BetaResponseConversation {
     /// The conversation that this response belonged to. Input items and output items from this response were automatically added to this conversation.
     pub fn new(id: String) -> BetaResponseConversation {
         BetaResponseConversation { id }
+    }
+}
+
+impl<S: beta_response_conversation_builder::State> BetaResponseConversationBuilder<S>
+where
+    S::Id: beta_response_conversation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseConversation {
+        self.build_internal()
     }
 }
 

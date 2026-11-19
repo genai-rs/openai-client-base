@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionRequiredActionResourceFunctionCall : Run a function tool and submit its result.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_required_action_resource_function_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionRequiredActionResourceFunctionCall {
     /// The type of the object. Always `function_call`.  Defaults to `\"function_call\"`.
     #[serde(rename = "type")]
@@ -52,6 +53,21 @@ impl SessionRequiredActionResourceFunctionCall {
             name,
             arguments,
         }
+    }
+}
+
+impl<S: session_required_action_resource_function_call_builder::State>
+    SessionRequiredActionResourceFunctionCallBuilder<S>
+where
+    S::Type: session_required_action_resource_function_call_builder::IsSet,
+    S::TurnId: session_required_action_resource_function_call_builder::IsSet,
+    S::CallId: session_required_action_resource_function_call_builder::IsSet,
+    S::Name: session_required_action_resource_function_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionRequiredActionResourceFunctionCall {
+        self.build_internal()
     }
 }
 

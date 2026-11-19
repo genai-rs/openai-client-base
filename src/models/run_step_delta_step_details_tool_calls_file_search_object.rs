@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_delta_step_details_tool_calls_file_search_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDeltaStepDetailsToolCallsFileSearchObject {
     /// The index of the tool call in the tool calls array.
     #[serde(rename = "index")]
@@ -38,6 +39,20 @@ impl RunStepDeltaStepDetailsToolCallsFileSearchObject {
             r#type,
             file_search,
         }
+    }
+}
+
+impl<S: run_step_delta_step_details_tool_calls_file_search_object_builder::State>
+    RunStepDeltaStepDetailsToolCallsFileSearchObjectBuilder<S>
+where
+    S::Index: run_step_delta_step_details_tool_calls_file_search_object_builder::IsSet,
+    S::Type: run_step_delta_step_details_tool_calls_file_search_object_builder::IsSet,
+    S::FileSearch: run_step_delta_step_details_tool_calls_file_search_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDeltaStepDetailsToolCallsFileSearchObject {
+        self.build_internal()
     }
 }
 

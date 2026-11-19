@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ApplyPatchDeleteFileOperationParam : Instruction for deleting an existing file via the apply_patch tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = apply_patch_delete_file_operation_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ApplyPatchDeleteFileOperationParam {
     /// The operation type. Always `delete_file`.  Defaults to `\"delete_file\"`.
     #[serde(rename = "type")]
@@ -27,6 +28,19 @@ impl ApplyPatchDeleteFileOperationParam {
     /// Instruction for deleting an existing file via the apply_patch tool.
     pub fn new(r#type: Type, path: String) -> ApplyPatchDeleteFileOperationParam {
         ApplyPatchDeleteFileOperationParam { r#type, path }
+    }
+}
+
+impl<S: apply_patch_delete_file_operation_param_builder::State>
+    ApplyPatchDeleteFileOperationParamBuilder<S>
+where
+    S::Type: apply_patch_delete_file_operation_param_builder::IsSet,
+    S::Path: apply_patch_delete_file_operation_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ApplyPatchDeleteFileOperationParam {
+        self.build_internal()
     }
 }
 

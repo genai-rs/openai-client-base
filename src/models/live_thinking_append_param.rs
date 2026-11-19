@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveThinkingAppendParam : Provide silent reasoning or progress context to the Live model, optionally for an existing client delegation. Rejected while an audio fixture is active.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_thinking_append_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveThinkingAppendParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
     ///
@@ -49,6 +50,18 @@ impl LiveThinkingAppendParam {
             delegation_id,
             content,
         }
+    }
+}
+
+impl<S: live_thinking_append_param_builder::State> LiveThinkingAppendParamBuilder<S>
+where
+    S::Type: live_thinking_append_param_builder::IsSet,
+    S::Content: live_thinking_append_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveThinkingAppendParam {
+        self.build_internal()
     }
 }
 

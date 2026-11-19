@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// Svg : Selects the model and reasoning effort used to author SVG output. Requires output_format=svg and access to SVG model selection. When model selection is enabled, supply svg.model. When model selection is disabled, omit this object. The top-level model selects the image model that creates the reference image. SVG generation requires n=1 and does not support streaming, partial images, prompt_rewriter, or output_compression.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = svg_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Svg {
     /// Model used to author the SVG. Required when SVG model selection is enabled.
     ///
@@ -35,6 +36,17 @@ impl Svg {
             model,
             reasoning: None,
         }
+    }
+}
+
+impl<S: svg_builder::State> SvgBuilder<S>
+where
+    S::Model: svg_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Svg {
+        self.build_internal()
     }
 }
 

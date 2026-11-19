@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventResponseContentPartDonePart : The content part that is done.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_response_content_part_done_part_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventResponseContentPartDonePart {
     /// The content type (\"text\", \"audio\").
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -36,6 +37,16 @@ impl RealtimeBetaServerEventResponseContentPartDonePart {
             audio: None,
             transcript: None,
         }
+    }
+}
+
+impl<S: realtime_beta_server_event_response_content_part_done_part_builder::State>
+    RealtimeBetaServerEventResponseContentPartDonePartBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventResponseContentPartDonePart {
+        self.build_internal()
     }
 }
 

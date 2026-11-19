@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunObjectRequiredAction : Details on the action required to continue the run. Will be `null` if no action is required.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_object_required_action_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunObjectRequiredAction {
     /// For now, this is always `submit_tool_outputs`.
     #[serde(rename = "type")]
@@ -31,6 +32,18 @@ impl RunObjectRequiredAction {
             r#type,
             submit_tool_outputs,
         }
+    }
+}
+
+impl<S: run_object_required_action_builder::State> RunObjectRequiredActionBuilder<S>
+where
+    S::Type: run_object_required_action_builder::IsSet,
+    S::SubmitToolOutputs: run_object_required_action_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunObjectRequiredAction {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UpdateOrganizationDataRetentionBody : Parameters for updating organization data retention controls.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_organization_data_retention_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateOrganizationDataRetentionBody {
     /// The desired organization data retention type.
     #[serde(rename = "retention_type")]
@@ -22,6 +23,18 @@ impl UpdateOrganizationDataRetentionBody {
     /// Parameters for updating organization data retention controls.
     pub fn new(retention_type: RetentionType) -> UpdateOrganizationDataRetentionBody {
         UpdateOrganizationDataRetentionBody { retention_type }
+    }
+}
+
+impl<S: update_organization_data_retention_body_builder::State>
+    UpdateOrganizationDataRetentionBodyBuilder<S>
+where
+    S::RetentionType: update_organization_data_retention_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateOrganizationDataRetentionBody {
+        self.build_internal()
     }
 }
 

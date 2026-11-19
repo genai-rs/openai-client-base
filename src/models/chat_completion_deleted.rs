@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_deleted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionDeleted {
     /// The type of object being deleted.
     #[serde(rename = "object")]
@@ -30,6 +31,19 @@ impl ChatCompletionDeleted {
             id,
             deleted,
         }
+    }
+}
+
+impl<S: chat_completion_deleted_builder::State> ChatCompletionDeletedBuilder<S>
+where
+    S::Object: chat_completion_deleted_builder::IsSet,
+    S::Id: chat_completion_deleted_builder::IsSet,
+    S::Deleted: chat_completion_deleted_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionDeleted {
+        self.build_internal()
     }
 }
 

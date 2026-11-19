@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepDeltaStepDetailsToolCallsFunctionObjectFunction : The definition of the function that was called.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_delta_step_details_tool_calls_function_object_function_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDeltaStepDetailsToolCallsFunctionObjectFunction {
     /// The name of the function.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -37,6 +38,16 @@ impl RunStepDeltaStepDetailsToolCallsFunctionObjectFunction {
             arguments: None,
             output: None,
         }
+    }
+}
+
+impl<S: run_step_delta_step_details_tool_calls_function_object_function_builder::State>
+    RunStepDeltaStepDetailsToolCallsFunctionObjectFunctionBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDeltaStepDetailsToolCallsFunctionObjectFunction {
+        self.build_internal()
     }
 }
 

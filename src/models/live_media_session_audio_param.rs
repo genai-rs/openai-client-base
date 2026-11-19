@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveMediaSessionAudioParam : Startup audio output configuration. WebRTC and SIP negotiate the media format; audio.format is only accepted for primary WebSockets. Voice cannot change after startup.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_media_session_audio_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveMediaSessionAudioParam {
     #[serde(rename = "output", skip_serializing_if = "Option::is_none")]
     pub output: Option<models::LiveInitialSessionAudioOutputParam>,
@@ -22,6 +23,14 @@ impl LiveMediaSessionAudioParam {
     /// Startup audio output configuration. WebRTC and SIP negotiate the media format; audio.format is only accepted for primary WebSockets. Voice cannot change after startup.
     pub fn new() -> LiveMediaSessionAudioParam {
         LiveMediaSessionAudioParam { output: None }
+    }
+}
+
+impl<S: live_media_session_audio_param_builder::State> LiveMediaSessionAudioParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveMediaSessionAudioParam {
+        self.build_internal()
     }
 }
 

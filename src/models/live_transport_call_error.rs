@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_transport_call_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveTransportCallError {
     /// Defaults to `\"call_error\"`.
     #[serde(rename = "type")]
@@ -33,6 +34,19 @@ impl LiveTransportCallError {
             message,
             param: None,
         }
+    }
+}
+
+impl<S: live_transport_call_error_builder::State> LiveTransportCallErrorBuilder<S>
+where
+    S::Type: live_transport_call_error_builder::IsSet,
+    S::Code: live_transport_call_error_builder::IsSet,
+    S::Message: live_transport_call_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveTransportCallError {
+        self.build_internal()
     }
 }
 

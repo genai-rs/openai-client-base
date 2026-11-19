@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionInProgress : Emitted when a session starts processing a turn.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_in_progress_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionInProgress {
     /// The type of the object. Always `agent.session.in_progress`.  Defaults to `\"agent.session.in_progress\"`.
     #[serde(rename = "type")]
@@ -44,6 +45,20 @@ impl SessionEventAgentSessionInProgress {
             session,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_in_progress_builder::State>
+    SessionEventAgentSessionInProgressBuilder<S>
+where
+    S::Type: session_event_agent_session_in_progress_builder::IsSet,
+    S::EventId: session_event_agent_session_in_progress_builder::IsSet,
+    S::Session: session_event_agent_session_in_progress_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionInProgress {
+        self.build_internal()
     }
 }
 

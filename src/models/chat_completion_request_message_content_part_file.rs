@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionRequestMessageContentPartFile : Learn about [file inputs](https://developers.openai.com/api/docs/guides/text) for text generation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_request_message_content_part_file_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionRequestMessageContentPartFile {
     /// The type of the content part. Always `file`.
     #[serde(rename = "type")]
@@ -37,6 +38,19 @@ impl ChatCompletionRequestMessageContentPartFile {
             file,
             prompt_cache_breakpoint: None,
         }
+    }
+}
+
+impl<S: chat_completion_request_message_content_part_file_builder::State>
+    ChatCompletionRequestMessageContentPartFileBuilder<S>
+where
+    S::Type: chat_completion_request_message_content_part_file_builder::IsSet,
+    S::File: chat_completion_request_message_content_part_file_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionRequestMessageContentPartFile {
+        self.build_internal()
     }
 }
 

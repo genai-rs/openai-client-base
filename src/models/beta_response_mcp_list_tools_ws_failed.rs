@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseMcpListToolsWsFailed : Emitted when the attempt to list available MCP tools has failed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_mcp_list_tools_ws_failed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseMcpListToolsWsFailed {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -55,6 +56,21 @@ impl BetaResponseMcpListToolsWsFailed {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_mcp_list_tools_ws_failed_builder::State>
+    BetaResponseMcpListToolsWsFailedBuilder<S>
+where
+    S::Type: beta_response_mcp_list_tools_ws_failed_builder::IsSet,
+    S::ItemId: beta_response_mcp_list_tools_ws_failed_builder::IsSet,
+    S::OutputIndex: beta_response_mcp_list_tools_ws_failed_builder::IsSet,
+    S::SequenceNumber: beta_response_mcp_list_tools_ws_failed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseMcpListToolsWsFailed {
+        self.build_internal()
     }
 }
 

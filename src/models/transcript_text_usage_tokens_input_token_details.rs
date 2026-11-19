@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// TranscriptTextUsageTokensInputTokenDetails : Details about the input tokens billed for this request.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = transcript_text_usage_tokens_input_token_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TranscriptTextUsageTokensInputTokenDetails {
     /// Number of text tokens billed for this request.
     #[serde(rename = "text_tokens", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,16 @@ impl TranscriptTextUsageTokensInputTokenDetails {
             text_tokens: None,
             audio_tokens: None,
         }
+    }
+}
+
+impl<S: transcript_text_usage_tokens_input_token_details_builder::State>
+    TranscriptTextUsageTokensInputTokenDetailsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TranscriptTextUsageTokensInputTokenDetails {
+        self.build_internal()
     }
 }
 

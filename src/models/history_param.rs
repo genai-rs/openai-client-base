@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// HistoryParam : Controls how much historical context is retained for the session.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = history_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HistoryParam {
     /// Enables chat users to access previous ChatKit threads. Defaults to true.
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
@@ -30,6 +31,14 @@ impl HistoryParam {
             enabled: None,
             recent_threads: None,
         }
+    }
+}
+
+impl<S: history_param_builder::State> HistoryParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HistoryParam {
+        self.build_internal()
     }
 }
 

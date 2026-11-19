@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatSessionResource : Represents a ChatKit session and its resolved configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_session_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatSessionResource {
     /// Identifier for the ChatKit session.
     #[serde(rename = "id")]
@@ -68,6 +69,26 @@ impl ChatSessionResource {
             status,
             chatkit_configuration,
         }
+    }
+}
+
+impl<S: chat_session_resource_builder::State> ChatSessionResourceBuilder<S>
+where
+    S::Id: chat_session_resource_builder::IsSet,
+    S::Object: chat_session_resource_builder::IsSet,
+    S::ExpiresAt: chat_session_resource_builder::IsSet,
+    S::ClientSecret: chat_session_resource_builder::IsSet,
+    S::Workflow: chat_session_resource_builder::IsSet,
+    S::User: chat_session_resource_builder::IsSet,
+    S::RateLimits: chat_session_resource_builder::IsSet,
+    S::MaxRequestsPer1Minute: chat_session_resource_builder::IsSet,
+    S::Status: chat_session_resource_builder::IsSet,
+    S::ChatkitConfiguration: chat_session_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatSessionResource {
+        self.build_internal()
     }
 }
 

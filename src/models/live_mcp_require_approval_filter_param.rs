@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_mcp_require_approval_filter_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveMcpRequireApprovalFilterParam {
     #[serde(
         rename = "always",
@@ -35,6 +36,16 @@ impl LiveMcpRequireApprovalFilterParam {
             always: None,
             never: None,
         }
+    }
+}
+
+impl<S: live_mcp_require_approval_filter_param_builder::State>
+    LiveMcpRequireApprovalFilterParamBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveMcpRequireApprovalFilterParam {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSipTrunk : SIP trunk configuration supplied for this call. Keep trunk credentials on your server. The creation response does not return this configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_sip_trunk_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSipTrunk {
     /// Provider endpoint in the form `sips:host[:port][;transport=tcp]`. The default port is 5061. IPv6 addresses must be bracketed. TLS signaling is required; plaintext SIP is not supported. Do not include userinfo, a path, URI headers, or other URI parameters. Local hostnames and literal private, loopback, link-local, unspecified, multicast, and broadcast IP addresses are rejected.
     #[serde(rename = "provider_url")]
@@ -38,6 +39,19 @@ impl LiveSipTrunk {
             auth,
             caller_number,
         }
+    }
+}
+
+impl<S: live_sip_trunk_builder::State> LiveSipTrunkBuilder<S>
+where
+    S::ProviderUrl: live_sip_trunk_builder::IsSet,
+    S::Auth: live_sip_trunk_builder::IsSet,
+    S::CallerNumber: live_sip_trunk_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSipTrunk {
+        self.build_internal()
     }
 }
 

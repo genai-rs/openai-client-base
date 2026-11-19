@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeSessionCreateRequestInputAudioTranscription : Configuration for input audio transcription, defaults to off and can be set to `null` to turn off once on. Input audio transcription is not native to the model, since the model consumes audio directly. Transcription runs asynchronously and should be treated as rough guidance rather than the representation understood by the model.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_session_create_request_input_audio_transcription_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeSessionCreateRequestInputAudioTranscription {
     /// The model to use for transcription.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,16 @@ impl RealtimeSessionCreateRequestInputAudioTranscription {
     /// Configuration for input audio transcription, defaults to off and can be set to `null` to turn off once on. Input audio transcription is not native to the model, since the model consumes audio directly. Transcription runs asynchronously and should be treated as rough guidance rather than the representation understood by the model.
     pub fn new() -> RealtimeSessionCreateRequestInputAudioTranscription {
         RealtimeSessionCreateRequestInputAudioTranscription { model: None }
+    }
+}
+
+impl<S: realtime_session_create_request_input_audio_transcription_builder::State>
+    RealtimeSessionCreateRequestInputAudioTranscriptionBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeSessionCreateRequestInputAudioTranscription {
+        self.build_internal()
     }
 }
 

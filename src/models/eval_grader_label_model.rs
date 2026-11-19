@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_grader_label_model_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalGraderLabelModel {
     /// The object type, which is always `label_model`.
     #[serde(rename = "type")]
@@ -49,6 +50,22 @@ impl EvalGraderLabelModel {
             labels,
             passing_labels,
         }
+    }
+}
+
+impl<S: eval_grader_label_model_builder::State> EvalGraderLabelModelBuilder<S>
+where
+    S::Type: eval_grader_label_model_builder::IsSet,
+    S::Name: eval_grader_label_model_builder::IsSet,
+    S::Model: eval_grader_label_model_builder::IsSet,
+    S::Input: eval_grader_label_model_builder::IsSet,
+    S::Labels: eval_grader_label_model_builder::IsSet,
+    S::PassingLabels: eval_grader_label_model_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalGraderLabelModel {
+        self.build_internal()
     }
 }
 

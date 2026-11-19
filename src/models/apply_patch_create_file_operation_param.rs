@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ApplyPatchCreateFileOperationParam : Instruction for creating a new file via the apply_patch tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = apply_patch_create_file_operation_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ApplyPatchCreateFileOperationParam {
     /// The operation type. Always `create_file`.  Defaults to `\"create_file\"`.
     #[serde(rename = "type")]
@@ -32,6 +33,20 @@ impl ApplyPatchCreateFileOperationParam {
     /// Instruction for creating a new file via the apply_patch tool.
     pub fn new(r#type: Type, path: String, diff: String) -> ApplyPatchCreateFileOperationParam {
         ApplyPatchCreateFileOperationParam { r#type, path, diff }
+    }
+}
+
+impl<S: apply_patch_create_file_operation_param_builder::State>
+    ApplyPatchCreateFileOperationParamBuilder<S>
+where
+    S::Type: apply_patch_create_file_operation_param_builder::IsSet,
+    S::Path: apply_patch_create_file_operation_param_builder::IsSet,
+    S::Diff: apply_patch_create_file_operation_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ApplyPatchCreateFileOperationParam {
+        self.build_internal()
     }
 }
 

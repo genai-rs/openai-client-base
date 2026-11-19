@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventInputAudioBufferCleared : Returned when the input audio buffer is cleared by the client with a  `input_audio_buffer.clear` event.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_input_audio_buffer_cleared_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventInputAudioBufferCleared {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -25,6 +26,19 @@ impl RealtimeServerEventInputAudioBufferCleared {
     /// Returned when the input audio buffer is cleared by the client with a  `input_audio_buffer.clear` event.
     pub fn new(event_id: String, r#type: Type) -> RealtimeServerEventInputAudioBufferCleared {
         RealtimeServerEventInputAudioBufferCleared { event_id, r#type }
+    }
+}
+
+impl<S: realtime_server_event_input_audio_buffer_cleared_builder::State>
+    RealtimeServerEventInputAudioBufferClearedBuilder<S>
+where
+    S::EventId: realtime_server_event_input_audio_buffer_cleared_builder::IsSet,
+    S::Type: realtime_server_event_input_audio_buffer_cleared_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventInputAudioBufferCleared {
+        self.build_internal()
     }
 }
 

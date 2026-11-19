@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaApplyPatchCreateFileOperation : Instruction describing how to create a file via the apply_patch tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_apply_patch_create_file_operation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaApplyPatchCreateFileOperation {
     /// Create a new file with the provided diff.  Defaults to `\"create_file\"`.
     #[serde(rename = "type")]
@@ -28,6 +29,20 @@ impl BetaApplyPatchCreateFileOperation {
     /// Instruction describing how to create a file via the apply_patch tool.
     pub fn new(r#type: Type, path: String, diff: String) -> BetaApplyPatchCreateFileOperation {
         BetaApplyPatchCreateFileOperation { r#type, path, diff }
+    }
+}
+
+impl<S: beta_apply_patch_create_file_operation_builder::State>
+    BetaApplyPatchCreateFileOperationBuilder<S>
+where
+    S::Type: beta_apply_patch_create_file_operation_builder::IsSet,
+    S::Path: beta_apply_patch_create_file_operation_builder::IsSet,
+    S::Diff: beta_apply_patch_create_file_operation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaApplyPatchCreateFileOperation {
+        self.build_internal()
     }
 }
 

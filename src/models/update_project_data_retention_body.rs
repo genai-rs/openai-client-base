@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UpdateProjectDataRetentionBody : Parameters for updating project data retention controls.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_project_data_retention_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateProjectDataRetentionBody {
     /// The desired project data retention type.
     #[serde(rename = "retention_type")]
@@ -22,6 +23,17 @@ impl UpdateProjectDataRetentionBody {
     /// Parameters for updating project data retention controls.
     pub fn new(retention_type: RetentionType) -> UpdateProjectDataRetentionBody {
         UpdateProjectDataRetentionBody { retention_type }
+    }
+}
+
+impl<S: update_project_data_retention_body_builder::State> UpdateProjectDataRetentionBodyBuilder<S>
+where
+    S::RetentionType: update_project_data_retention_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateProjectDataRetentionBody {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EncryptedContentResource : Encrypted content exchanged between agents.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = encrypted_content_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EncryptedContentResource {
     /// The content type. Always `encrypted_content`.  Defaults to `\"encrypted_content\"`.
     #[serde(rename = "type")]
@@ -30,6 +31,18 @@ impl EncryptedContentResource {
             r#type,
             encrypted_content,
         }
+    }
+}
+
+impl<S: encrypted_content_resource_builder::State> EncryptedContentResourceBuilder<S>
+where
+    S::Type: encrypted_content_resource_builder::IsSet,
+    S::EncryptedContent: encrypted_content_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EncryptedContentResource {
+        self.build_internal()
     }
 }
 

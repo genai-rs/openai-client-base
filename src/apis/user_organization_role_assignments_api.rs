@@ -188,7 +188,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for UnassignUserRoleErrorHeade
 }
 
 /// Assigns an organization role to a user within the organization.
-#[bon::builder]
+#[bon::builder(state_mod = assign_user_role_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn assign_user_role(
     configuration: &configuration::Configuration,
     user_id: &str,
@@ -273,13 +273,27 @@ pub async fn assign_user_role(
     }
 }
 
+#[allow(deprecated)]
+impl<S: assign_user_role_builder::State> AssignUserRoleBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: assign_user_role_builder::IsSet,
+    S::UserId: assign_user_role_builder::IsSet,
+    S::PublicAssignOrganizationGroupRoleBody: assign_user_role_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UserRoleAssignment, Error<AssignUserRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Assigns an organization role to a user within the organization.
 ///
 /// Sends the same request as [`assign_user_role`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UserRoleAssignment` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = assign_user_role_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn assign_user_role_response(
     configuration: &configuration::Configuration,
     user_id: &str,
@@ -355,8 +369,24 @@ pub async fn assign_user_role_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: assign_user_role_response_builder::State> AssignUserRoleResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: assign_user_role_response_builder::IsSet,
+    S::UserId: assign_user_role_response_builder::IsSet,
+    S::PublicAssignOrganizationGroupRoleBody: assign_user_role_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UserRoleAssignment>, Error<AssignUserRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists the organization roles assigned to a user within the organization.
-#[bon::builder]
+#[bon::builder(state_mod = list_user_role_assignments_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_user_role_assignments(
     configuration: &configuration::Configuration,
     user_id: &str,
@@ -452,13 +482,29 @@ pub async fn list_user_role_assignments(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_user_role_assignments_builder::State>
+    ListUserRoleAssignmentsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_user_role_assignments_builder::IsSet,
+    S::UserId: list_user_role_assignments_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::RoleListResource, Error<ListUserRoleAssignmentsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists the organization roles assigned to a user within the organization.
 ///
 /// Sends the same request as [`list_user_role_assignments`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RoleListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_user_role_assignments_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_user_role_assignments_response(
     configuration: &configuration::Configuration,
     user_id: &str,
@@ -545,8 +591,25 @@ pub async fn list_user_role_assignments_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_user_role_assignments_response_builder::State>
+    ListUserRoleAssignmentsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_user_role_assignments_response_builder::IsSet,
+    S::UserId: list_user_role_assignments_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::RoleListResource>, Error<ListUserRoleAssignmentsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an organization role assigned to a user.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_user_role_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_user_role(
     configuration: &configuration::Configuration,
     user_id: &str,
@@ -630,13 +693,27 @@ pub async fn retrieve_user_role(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_user_role_builder::State> RetrieveUserRoleBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_user_role_builder::IsSet,
+    S::UserId: retrieve_user_role_builder::IsSet,
+    S::RoleId: retrieve_user_role_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::AssignedRoleDetails, Error<RetrieveUserRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an organization role assigned to a user.
 ///
 /// Sends the same request as [`retrieve_user_role`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AssignedRoleDetails` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_user_role_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_user_role_response(
     configuration: &configuration::Configuration,
     user_id: &str,
@@ -711,8 +788,25 @@ pub async fn retrieve_user_role_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_user_role_response_builder::State>
+    RetrieveUserRoleResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_user_role_response_builder::IsSet,
+    S::UserId: retrieve_user_role_response_builder::IsSet,
+    S::RoleId: retrieve_user_role_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AssignedRoleDetails>, Error<RetrieveUserRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Unassigns an organization role from a user within the organization.
-#[bon::builder]
+#[bon::builder(state_mod = unassign_user_role_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn unassign_user_role(
     configuration: &configuration::Configuration,
     user_id: &str,
@@ -796,13 +890,29 @@ pub async fn unassign_user_role(
     }
 }
 
+#[allow(deprecated)]
+impl<S: unassign_user_role_builder::State> UnassignUserRoleBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: unassign_user_role_builder::IsSet,
+    S::UserId: unassign_user_role_builder::IsSet,
+    S::RoleId: unassign_user_role_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeletedRoleAssignmentResource, Error<UnassignUserRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Unassigns an organization role from a user within the organization.
 ///
 /// Sends the same request as [`unassign_user_role`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeletedRoleAssignmentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = unassign_user_role_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn unassign_user_role_response(
     configuration: &configuration::Configuration,
     user_id: &str,
@@ -875,5 +985,25 @@ pub async fn unassign_user_role_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: unassign_user_role_response_builder::State>
+    UnassignUserRoleResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: unassign_user_role_response_builder::IsSet,
+    S::UserId: unassign_user_role_response_builder::IsSet,
+    S::RoleId: unassign_user_role_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::DeletedRoleAssignmentResource>,
+        Error<UnassignUserRoleError>,
+    > {
+        self.call_internal().await
     }
 }

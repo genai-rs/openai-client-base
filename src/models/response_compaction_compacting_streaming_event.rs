@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseCompactionCompactingStreamingEvent : Emitted when new summary content is sampled for a compaction trigger. Contains no summary content.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_compaction_compacting_streaming_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseCompactionCompactingStreamingEvent {
     /// The type of the event, always `response.compaction.compacting`.  Defaults to `\"response.compaction.compacting\"`.
     #[serde(rename = "type")]
@@ -41,6 +42,21 @@ impl ResponseCompactionCompactingStreamingEvent {
             output_index,
             item_id,
         }
+    }
+}
+
+impl<S: response_compaction_compacting_streaming_event_builder::State>
+    ResponseCompactionCompactingStreamingEventBuilder<S>
+where
+    S::Type: response_compaction_compacting_streaming_event_builder::IsSet,
+    S::SequenceNumber: response_compaction_compacting_streaming_event_builder::IsSet,
+    S::OutputIndex: response_compaction_compacting_streaming_event_builder::IsSet,
+    S::ItemId: response_compaction_compacting_streaming_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseCompactionCompactingStreamingEvent {
+        self.build_internal()
     }
 }
 

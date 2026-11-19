@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveCallAcceptSession : Startup configuration for accepting an incoming Live SIP call. Follow the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) when writing frontend and backend instructions.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_call_accept_session_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveCallAcceptSession {
     #[serde(rename = "model")]
     pub model: models::ModelIdsLive,
@@ -75,6 +76,18 @@ impl LiveCallAcceptSession {
             input: None,
             r#type,
         }
+    }
+}
+
+impl<S: live_call_accept_session_builder::State> LiveCallAcceptSessionBuilder<S>
+where
+    S::Model: live_call_accept_session_builder::IsSet,
+    S::Type: live_call_accept_session_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveCallAcceptSession {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseReasoningSummaryPartAddedEventPart : The summary part that was added.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_reasoning_summary_part_added_event_part_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseReasoningSummaryPartAddedEventPart {
     /// The type of the summary part. Always `summary_text`.
     #[serde(rename = "type")]
@@ -25,6 +26,19 @@ impl ResponseReasoningSummaryPartAddedEventPart {
     /// The summary part that was added.
     pub fn new(r#type: Type, text: String) -> ResponseReasoningSummaryPartAddedEventPart {
         ResponseReasoningSummaryPartAddedEventPart { r#type, text }
+    }
+}
+
+impl<S: response_reasoning_summary_part_added_event_part_builder::State>
+    ResponseReasoningSummaryPartAddedEventPartBuilder<S>
+where
+    S::Type: response_reasoning_summary_part_added_event_part_builder::IsSet,
+    S::Text: response_reasoning_summary_part_added_event_part_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseReasoningSummaryPartAddedEventPart {
+        self.build_internal()
     }
 }
 

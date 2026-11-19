@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionTurnOutputTextDelta : Emitted when text is appended to an output text content part.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_turn_output_text_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionTurnOutputTextDelta {
     /// The type of the object. Always `agent.session.turn.output_text.delta`.  Defaults to `\"agent.session.turn.output_text.delta\"`.
     #[serde(rename = "type")]
@@ -81,6 +82,24 @@ impl SessionEventAgentSessionTurnOutputTextDelta {
             delta,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_turn_output_text_delta_builder::State>
+    SessionEventAgentSessionTurnOutputTextDeltaBuilder<S>
+where
+    S::Type: session_event_agent_session_turn_output_text_delta_builder::IsSet,
+    S::EventId: session_event_agent_session_turn_output_text_delta_builder::IsSet,
+    S::SessionId: session_event_agent_session_turn_output_text_delta_builder::IsSet,
+    S::ItemId: session_event_agent_session_turn_output_text_delta_builder::IsSet,
+    S::OutputIndex: session_event_agent_session_turn_output_text_delta_builder::IsSet,
+    S::ContentIndex: session_event_agent_session_turn_output_text_delta_builder::IsSet,
+    S::Delta: session_event_agent_session_turn_output_text_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionTurnOutputTextDelta {
+        self.build_internal()
     }
 }
 

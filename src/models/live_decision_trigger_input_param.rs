@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_trigger_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionTriggerInputParam {
     /// Defaults to `\"decisions\"`.
     #[serde(rename = "type")]
@@ -33,6 +34,19 @@ impl LiveDecisionTriggerInputParam {
             event_type,
             decisions,
         }
+    }
+}
+
+impl<S: live_decision_trigger_input_param_builder::State> LiveDecisionTriggerInputParamBuilder<S>
+where
+    S::Type: live_decision_trigger_input_param_builder::IsSet,
+    S::EventType: live_decision_trigger_input_param_builder::IsSet,
+    S::Decisions: live_decision_trigger_input_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionTriggerInputParam {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatSessionRateLimits : Active per-minute request limit for the session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_session_rate_limits_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatSessionRateLimits {
     /// Maximum allowed requests per one-minute window.
     #[serde(rename = "max_requests_per_1_minute")]
@@ -24,6 +25,17 @@ impl ChatSessionRateLimits {
         ChatSessionRateLimits {
             max_requests_per_1_minute,
         }
+    }
+}
+
+impl<S: chat_session_rate_limits_builder::State> ChatSessionRateLimitsBuilder<S>
+where
+    S::MaxRequestsPer1Minute: chat_session_rate_limits_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatSessionRateLimits {
+        self.build_internal()
     }
 }
 

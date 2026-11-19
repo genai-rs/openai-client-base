@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionTurnErrorResource : A customer-safe error describing why a session request failed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_turn_error_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionTurnErrorResource {
     #[serde(rename = "code")]
     pub code: models::SessionTurnErrorCodeResource,
@@ -30,6 +31,18 @@ impl SessionTurnErrorResource {
         message: String,
     ) -> SessionTurnErrorResource {
         SessionTurnErrorResource { code, message }
+    }
+}
+
+impl<S: session_turn_error_resource_builder::State> SessionTurnErrorResourceBuilder<S>
+where
+    S::Code: session_turn_error_resource_builder::IsSet,
+    S::Message: session_turn_error_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionTurnErrorResource {
+        self.build_internal()
     }
 }
 

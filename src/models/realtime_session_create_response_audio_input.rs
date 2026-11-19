@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_session_create_response_audio_input_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeSessionCreateResponseAudioInput {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
     pub format: Option<models::RealtimeAudioFormats>,
@@ -43,6 +44,16 @@ impl RealtimeSessionCreateResponseAudioInput {
             noise_reduction: None,
             turn_detection: None,
         }
+    }
+}
+
+impl<S: realtime_session_create_response_audio_input_builder::State>
+    RealtimeSessionCreateResponseAudioInputBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeSessionCreateResponseAudioInput {
+        self.build_internal()
     }
 }
 

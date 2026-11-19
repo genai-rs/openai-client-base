@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaToolChoiceMcp : Use this option to force the model to call a specific tool on a remote MCP server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_tool_choice_mcp_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaToolChoiceMcp {
     /// For MCP tools, the type is always `mcp`.
     #[serde(rename = "type")]
@@ -37,6 +38,18 @@ impl BetaToolChoiceMcp {
             server_label,
             name: None,
         }
+    }
+}
+
+impl<S: beta_tool_choice_mcp_builder::State> BetaToolChoiceMcpBuilder<S>
+where
+    S::Type: beta_tool_choice_mcp_builder::IsSet,
+    S::ServerLabel: beta_tool_choice_mcp_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaToolChoiceMcp {
+        self.build_internal()
     }
 }
 

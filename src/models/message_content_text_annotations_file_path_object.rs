@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageContentTextAnnotationsFilePathObject : A URL for the file that's generated when the assistant used the `code_interpreter` tool to generate a file.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_content_text_annotations_file_path_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageContentTextAnnotationsFilePathObject {
     /// Always `file_path`.
     #[serde(rename = "type")]
@@ -46,6 +47,22 @@ impl MessageContentTextAnnotationsFilePathObject {
             start_index,
             end_index,
         }
+    }
+}
+
+impl<S: message_content_text_annotations_file_path_object_builder::State>
+    MessageContentTextAnnotationsFilePathObjectBuilder<S>
+where
+    S::Type: message_content_text_annotations_file_path_object_builder::IsSet,
+    S::Text: message_content_text_annotations_file_path_object_builder::IsSet,
+    S::FilePath: message_content_text_annotations_file_path_object_builder::IsSet,
+    S::StartIndex: message_content_text_annotations_file_path_object_builder::IsSet,
+    S::EndIndex: message_content_text_annotations_file_path_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageContentTextAnnotationsFilePathObject {
+        self.build_internal()
     }
 }
 

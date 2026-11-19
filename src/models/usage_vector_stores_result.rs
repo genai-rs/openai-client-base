@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UsageVectorStoresResult : The aggregated vector stores usage details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = usage_vector_stores_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UsageVectorStoresResult {
     #[serde(rename = "object")]
     pub object: Object,
@@ -36,6 +37,18 @@ impl UsageVectorStoresResult {
             usage_bytes,
             project_id: None,
         }
+    }
+}
+
+impl<S: usage_vector_stores_result_builder::State> UsageVectorStoresResultBuilder<S>
+where
+    S::Object: usage_vector_stores_result_builder::IsSet,
+    S::UsageBytes: usage_vector_stores_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UsageVectorStoresResult {
+        self.build_internal()
     }
 }
 

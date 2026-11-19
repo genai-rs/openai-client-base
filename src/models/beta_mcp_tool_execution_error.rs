@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_mcp_tool_execution_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaMcpToolExecutionError {
     /// Defaults to `\"mcp_tool_execution_error\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ pub struct BetaMcpToolExecutionError {
 impl BetaMcpToolExecutionError {
     pub fn new(r#type: Type, content: Option<serde_json::Value>) -> BetaMcpToolExecutionError {
         BetaMcpToolExecutionError { r#type, content }
+    }
+}
+
+impl<S: beta_mcp_tool_execution_error_builder::State> BetaMcpToolExecutionErrorBuilder<S>
+where
+    S::Type: beta_mcp_tool_execution_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaMcpToolExecutionError {
+        self.build_internal()
     }
 }
 

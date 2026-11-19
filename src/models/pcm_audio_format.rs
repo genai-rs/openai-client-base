@@ -14,6 +14,7 @@ use serde_repr::{Deserialize_repr, Serialize_repr};
 
 /// PcmAudioFormat : The PCM audio format. Only a 24kHz sample rate is supported.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = pcm_audio_format_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PcmAudioFormat {
     /// The audio format. Always `audio/pcm`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -30,6 +31,14 @@ impl PcmAudioFormat {
             r#type: None,
             rate: None,
         }
+    }
+}
+
+impl<S: pcm_audio_format_builder::State> PcmAudioFormatBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PcmAudioFormat {
+        self.build_internal()
     }
 }
 

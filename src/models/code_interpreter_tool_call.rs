@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CodeInterpreterToolCall : A tool call to run code.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = code_interpreter_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CodeInterpreterToolCall {
     /// The type of the code interpreter tool call. Always `code_interpreter_call`.  Defaults to `\"code_interpreter_call\"`.
     #[serde(rename = "type")]
@@ -52,6 +53,20 @@ impl CodeInterpreterToolCall {
             code,
             outputs,
         }
+    }
+}
+
+impl<S: code_interpreter_tool_call_builder::State> CodeInterpreterToolCallBuilder<S>
+where
+    S::Type: code_interpreter_tool_call_builder::IsSet,
+    S::Id: code_interpreter_tool_call_builder::IsSet,
+    S::Status: code_interpreter_tool_call_builder::IsSet,
+    S::ContainerId: code_interpreter_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CodeInterpreterToolCall {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseCompletedEvent : Emitted when the model response is complete.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_completed_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseCompletedEvent {
     /// The type of the event. Always `response.completed`.
     #[serde(rename = "type")]
@@ -36,6 +37,19 @@ impl ResponseCompletedEvent {
             response,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_completed_event_builder::State> ResponseCompletedEventBuilder<S>
+where
+    S::Type: response_completed_event_builder::IsSet,
+    S::Response: response_completed_event_builder::IsSet,
+    S::SequenceNumber: response_completed_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseCompletedEvent {
+        self.build_internal()
     }
 }
 

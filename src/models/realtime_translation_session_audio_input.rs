@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_session_audio_input_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationSessionAudioInput {
     #[serde(
         rename = "transcription",
@@ -35,6 +36,16 @@ impl RealtimeTranslationSessionAudioInput {
             transcription: None,
             noise_reduction: None,
         }
+    }
+}
+
+impl<S: realtime_translation_session_audio_input_builder::State>
+    RealtimeTranslationSessionAudioInputBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationSessionAudioInput {
+        self.build_internal()
     }
 }
 

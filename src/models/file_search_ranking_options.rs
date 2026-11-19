@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FileSearchRankingOptions : The ranking options for the file search. If not specified, the file search tool will use the `auto` ranker and a score_threshold of 0.  See the [file search tool documentation](https://developers.openai.com/api/docs/guides/tools-file-search#retrieval-customization) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = file_search_ranking_options_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FileSearchRankingOptions {
     #[serde(rename = "ranker", skip_serializing_if = "Option::is_none")]
     pub ranker: Option<models::FileSearchRanker>,
@@ -30,6 +31,17 @@ impl FileSearchRankingOptions {
             ranker: None,
             score_threshold,
         }
+    }
+}
+
+impl<S: file_search_ranking_options_builder::State> FileSearchRankingOptionsBuilder<S>
+where
+    S::ScoreThreshold: file_search_ranking_options_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FileSearchRankingOptions {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventResponseCreated : Returned when a new Response is created. The first event of response creation, where the response is in an initial state of `in_progress`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_response_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventResponseCreated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeBetaServerEventResponseCreated {
             r#type,
             response,
         }
+    }
+}
+
+impl<S: realtime_beta_server_event_response_created_builder::State>
+    RealtimeBetaServerEventResponseCreatedBuilder<S>
+where
+    S::EventId: realtime_beta_server_event_response_created_builder::IsSet,
+    S::Type: realtime_beta_server_event_response_created_builder::IsSet,
+    S::Response: realtime_beta_server_event_response_created_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventResponseCreated {
+        self.build_internal()
     }
 }
 

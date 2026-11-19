@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_function_tool_choice_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveFunctionToolChoiceParam {
     /// The tool to call. Always `function`.  Defaults to `\"function\"`.
     #[serde(rename = "type")]
@@ -23,6 +24,18 @@ pub struct LiveFunctionToolChoiceParam {
 impl LiveFunctionToolChoiceParam {
     pub fn new(r#type: Type, name: String) -> LiveFunctionToolChoiceParam {
         LiveFunctionToolChoiceParam { r#type, name }
+    }
+}
+
+impl<S: live_function_tool_choice_param_builder::State> LiveFunctionToolChoiceParamBuilder<S>
+where
+    S::Type: live_function_tool_choice_param_builder::IsSet,
+    S::Name: live_function_tool_choice_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveFunctionToolChoiceParam {
+        self.build_internal()
     }
 }
 

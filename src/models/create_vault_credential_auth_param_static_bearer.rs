@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateVaultCredentialAuthParamStaticBearer : A bearer token for an MCP server, without automatic OAuth refresh.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_vault_credential_auth_param_static_bearer_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateVaultCredentialAuthParamStaticBearer {
     /// The type of the object. Always `static_bearer`.  Defaults to `\"static_bearer\"`.
     #[serde(rename = "type")]
@@ -40,6 +41,20 @@ impl CreateVaultCredentialAuthParamStaticBearer {
             mcp_server_url,
             token,
         }
+    }
+}
+
+impl<S: create_vault_credential_auth_param_static_bearer_builder::State>
+    CreateVaultCredentialAuthParamStaticBearerBuilder<S>
+where
+    S::Type: create_vault_credential_auth_param_static_bearer_builder::IsSet,
+    S::McpServerUrl: create_vault_credential_auth_param_static_bearer_builder::IsSet,
+    S::Token: create_vault_credential_auth_param_static_bearer_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateVaultCredentialAuthParamStaticBearer {
+        self.build_internal()
     }
 }
 

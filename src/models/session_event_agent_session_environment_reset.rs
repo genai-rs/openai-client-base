@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionEnvironmentReset : Emitted after a hosted sandbox is replaced. Conversation history survives; changes to the previous sandbox's files and processes do not.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_environment_reset_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionEnvironmentReset {
     /// The type of the object. Always `agent.session.environment.reset`.  Defaults to `\"agent.session.environment.reset\"`.
     #[serde(rename = "type")]
@@ -67,6 +68,22 @@ impl SessionEventAgentSessionEnvironmentReset {
             reset_count,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_environment_reset_builder::State>
+    SessionEventAgentSessionEnvironmentResetBuilder<S>
+where
+    S::Type: session_event_agent_session_environment_reset_builder::IsSet,
+    S::EventId: session_event_agent_session_environment_reset_builder::IsSet,
+    S::SessionId: session_event_agent_session_environment_reset_builder::IsSet,
+    S::EnvironmentId: session_event_agent_session_environment_reset_builder::IsSet,
+    S::ResetCount: session_event_agent_session_environment_reset_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionEnvironmentReset {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = assistants_named_tool_choice_function_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AssistantsNamedToolChoiceFunction {
     /// The name of the function to call.
     #[serde(rename = "name")]
@@ -20,6 +21,18 @@ pub struct AssistantsNamedToolChoiceFunction {
 impl AssistantsNamedToolChoiceFunction {
     pub fn new(name: String) -> AssistantsNamedToolChoiceFunction {
         AssistantsNamedToolChoiceFunction { name }
+    }
+}
+
+impl<S: assistants_named_tool_choice_function_builder::State>
+    AssistantsNamedToolChoiceFunctionBuilder<S>
+where
+    S::Name: assistants_named_tool_choice_function_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AssistantsNamedToolChoiceFunction {
+        self.build_internal()
     }
 }
 

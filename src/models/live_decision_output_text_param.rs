@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_output_text_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionOutputTextParam {
     /// Defaults to `\"output_text\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ pub struct LiveDecisionOutputTextParam {
 impl LiveDecisionOutputTextParam {
     pub fn new(r#type: Type, text: String) -> LiveDecisionOutputTextParam {
         LiveDecisionOutputTextParam { r#type, text }
+    }
+}
+
+impl<S: live_decision_output_text_param_builder::State> LiveDecisionOutputTextParamBuilder<S>
+where
+    S::Type: live_decision_output_text_param_builder::IsSet,
+    S::Text: live_decision_output_text_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionOutputTextParam {
+        self.build_internal()
     }
 }
 

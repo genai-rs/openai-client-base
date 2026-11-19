@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaInputImageContentParamAutoParam : An image input to the model. Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision)
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_input_image_content_param_auto_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaInputImageContentParamAutoParam {
     /// The type of the input item. Always `input_image`.  Defaults to `\"input_image\"`.
     #[serde(rename = "type")]
@@ -61,6 +62,18 @@ impl BetaInputImageContentParamAutoParam {
             detail: None,
             prompt_cache_breakpoint: None,
         }
+    }
+}
+
+impl<S: beta_input_image_content_param_auto_param_builder::State>
+    BetaInputImageContentParamAutoParamBuilder<S>
+where
+    S::Type: beta_input_image_content_param_auto_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaInputImageContentParamAutoParam {
+        self.build_internal()
     }
 }
 

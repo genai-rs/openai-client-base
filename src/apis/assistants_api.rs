@@ -936,7 +936,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for SubmitToolOuputsToRunError
 }
 
 /// Cancels a run that is `in_progress`.
-#[bon::builder]
+#[bon::builder(state_mod = cancel_run_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_run(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -1011,13 +1011,27 @@ pub async fn cancel_run(
     }
 }
 
+#[allow(deprecated)]
+impl<S: cancel_run_builder::State> CancelRunBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: cancel_run_builder::IsSet,
+    S::ThreadId: cancel_run_builder::IsSet,
+    S::RunId: cancel_run_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::RunObject, Error<CancelRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Cancels a run that is `in_progress`.
 ///
 /// Sends the same request as [`cancel_run`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RunObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = cancel_run_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_run_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -1083,9 +1097,25 @@ pub async fn cancel_run_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: cancel_run_response_builder::State> CancelRunResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: cancel_run_response_builder::IsSet,
+    S::ThreadId: cancel_run_response_builder::IsSet,
+    S::RunId: cancel_run_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::RunObject>, Error<CancelRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create an assistant with a model and instructions.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_assistant_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_assistant(
     configuration: &configuration::Configuration,
     create_assistant_request: &models::CreateAssistantRequest,
@@ -1154,6 +1184,19 @@ pub async fn create_assistant(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_assistant_builder::State> CreateAssistantBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_assistant_builder::IsSet,
+    S::CreateAssistantRequest: create_assistant_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::AssistantObject, Error<CreateAssistantError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create an assistant with a model and instructions.
 ///
 /// Sends the same request as [`create_assistant`] and fails the same way, error status included, but returns the
@@ -1161,7 +1204,7 @@ pub async fn create_assistant(
 /// `models::AssistantObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_assistant_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_assistant_response(
     configuration: &configuration::Configuration,
     create_assistant_request: &models::CreateAssistantRequest,
@@ -1221,8 +1264,23 @@ pub async fn create_assistant_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_assistant_response_builder::State> CreateAssistantResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_assistant_response_builder::IsSet,
+    S::CreateAssistantRequest: create_assistant_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AssistantObject>, Error<CreateAssistantError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a message.
-#[bon::builder]
+#[bon::builder(state_mod = create_message_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_message(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -1297,13 +1355,27 @@ pub async fn create_message(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_message_builder::State> CreateMessageBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_message_builder::IsSet,
+    S::ThreadId: create_message_builder::IsSet,
+    S::CreateMessageRequest: create_message_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::MessageObject, Error<CreateMessageError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a message.
 ///
 /// Sends the same request as [`create_message`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::MessageObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_message_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_message_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -1369,8 +1441,24 @@ pub async fn create_message_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_message_response_builder::State> CreateMessageResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_message_response_builder::IsSet,
+    S::ThreadId: create_message_response_builder::IsSet,
+    S::CreateMessageRequest: create_message_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::MessageObject>, Error<CreateMessageError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a run.
-#[bon::builder]
+#[bon::builder(state_mod = create_run_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_run(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -1454,13 +1542,27 @@ pub async fn create_run(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_run_builder::State> CreateRunBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_run_builder::IsSet,
+    S::ThreadId: create_run_builder::IsSet,
+    S::CreateRunRequest: create_run_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::RunObject, Error<CreateRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a run.
 ///
 /// Sends the same request as [`create_run`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RunObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_run_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_run_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -1535,8 +1637,24 @@ pub async fn create_run_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_run_response_builder::State> CreateRunResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_run_response_builder::IsSet,
+    S::ThreadId: create_run_response_builder::IsSet,
+    S::CreateRunRequest: create_run_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::RunObject>, Error<CreateRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a thread.
-#[bon::builder]
+#[bon::builder(state_mod = create_thread_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_thread(
     configuration: &configuration::Configuration,
     create_thread_request: Option<&models::CreateThreadRequest>,
@@ -1605,13 +1723,25 @@ pub async fn create_thread(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_thread_builder::State> CreateThreadBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_thread_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ThreadObject, Error<CreateThreadError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a thread.
 ///
 /// Sends the same request as [`create_thread`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ThreadObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_thread_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_thread_response(
     configuration: &configuration::Configuration,
     create_thread_request: Option<&models::CreateThreadRequest>,
@@ -1671,8 +1801,22 @@ pub async fn create_thread_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_thread_response_builder::State> CreateThreadResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_thread_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ThreadObject>, Error<CreateThreadError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a thread and run it in one request.
-#[bon::builder]
+#[bon::builder(state_mod = create_thread_and_run_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_thread_and_run(
     configuration: &configuration::Configuration,
     create_thread_and_run_request: &models::CreateThreadAndRunRequest,
@@ -1741,13 +1885,26 @@ pub async fn create_thread_and_run(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_thread_and_run_builder::State> CreateThreadAndRunBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_thread_and_run_builder::IsSet,
+    S::CreateThreadAndRunRequest: create_thread_and_run_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::RunObject, Error<CreateThreadAndRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a thread and run it in one request.
 ///
 /// Sends the same request as [`create_thread_and_run`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RunObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_thread_and_run_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_thread_and_run_response(
     configuration: &configuration::Configuration,
     create_thread_and_run_request: &models::CreateThreadAndRunRequest,
@@ -1807,9 +1964,25 @@ pub async fn create_thread_and_run_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_thread_and_run_response_builder::State>
+    CreateThreadAndRunResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_thread_and_run_response_builder::IsSet,
+    S::CreateThreadAndRunRequest: create_thread_and_run_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::RunObject>, Error<CreateThreadAndRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete an assistant.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = delete_assistant_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_assistant(
     configuration: &configuration::Configuration,
     assistant_id: &str,
@@ -1881,6 +2054,21 @@ pub async fn delete_assistant(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_assistant_builder::State> DeleteAssistantBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_assistant_builder::IsSet,
+    S::AssistantId: delete_assistant_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeleteAssistantResponse, Error<DeleteAssistantError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete an assistant.
 ///
 /// Sends the same request as [`delete_assistant`] and fails the same way, error status included, but returns the
@@ -1888,7 +2076,7 @@ pub async fn delete_assistant(
 /// `models::DeleteAssistantResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = delete_assistant_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_assistant_response(
     configuration: &configuration::Configuration,
     assistant_id: &str,
@@ -1951,8 +2139,24 @@ pub async fn delete_assistant_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_assistant_response_builder::State> DeleteAssistantResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_assistant_response_builder::IsSet,
+    S::AssistantId: delete_assistant_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeleteAssistantResponse>, Error<DeleteAssistantError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a message.
-#[bon::builder]
+#[bon::builder(state_mod = delete_message_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_message(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -2027,13 +2231,27 @@ pub async fn delete_message(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_message_builder::State> DeleteMessageBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_message_builder::IsSet,
+    S::ThreadId: delete_message_builder::IsSet,
+    S::MessageId: delete_message_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::DeleteMessageResponse, Error<DeleteMessageError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a message.
 ///
 /// Sends the same request as [`delete_message`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeleteMessageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_message_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_message_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -2099,8 +2317,24 @@ pub async fn delete_message_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_message_response_builder::State> DeleteMessageResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_message_response_builder::IsSet,
+    S::ThreadId: delete_message_response_builder::IsSet,
+    S::MessageId: delete_message_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeleteMessageResponse>, Error<DeleteMessageError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete a thread.
-#[bon::builder]
+#[bon::builder(state_mod = delete_thread_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_thread(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -2172,13 +2406,26 @@ pub async fn delete_thread(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_thread_builder::State> DeleteThreadBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_thread_builder::IsSet,
+    S::ThreadId: delete_thread_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::DeleteThreadResponse, Error<DeleteThreadError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete a thread.
 ///
 /// Sends the same request as [`delete_thread`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeleteThreadResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_thread_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_thread_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -2241,9 +2488,24 @@ pub async fn delete_thread_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_thread_response_builder::State> DeleteThreadResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_thread_response_builder::IsSet,
+    S::ThreadId: delete_thread_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeleteThreadResponse>, Error<DeleteThreadError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an assistant.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = get_assistant_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_assistant(
     configuration: &configuration::Configuration,
     assistant_id: &str,
@@ -2315,6 +2577,19 @@ pub async fn get_assistant(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_assistant_builder::State> GetAssistantBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_assistant_builder::IsSet,
+    S::AssistantId: get_assistant_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::AssistantObject, Error<GetAssistantError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an assistant.
 ///
 /// Sends the same request as [`get_assistant`] and fails the same way, error status included, but returns the
@@ -2322,7 +2597,7 @@ pub async fn get_assistant(
 /// `models::AssistantObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = get_assistant_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_assistant_response(
     configuration: &configuration::Configuration,
     assistant_id: &str,
@@ -2385,8 +2660,23 @@ pub async fn get_assistant_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_assistant_response_builder::State> GetAssistantResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_assistant_response_builder::IsSet,
+    S::AssistantId: get_assistant_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AssistantObject>, Error<GetAssistantError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieve a message.
-#[bon::builder]
+#[bon::builder(state_mod = get_message_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_message(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -2461,13 +2751,27 @@ pub async fn get_message(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_message_builder::State> GetMessageBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_message_builder::IsSet,
+    S::ThreadId: get_message_builder::IsSet,
+    S::MessageId: get_message_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::MessageObject, Error<GetMessageError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieve a message.
 ///
 /// Sends the same request as [`get_message`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::MessageObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_message_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_message_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -2533,8 +2837,24 @@ pub async fn get_message_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_message_response_builder::State> GetMessageResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_message_response_builder::IsSet,
+    S::ThreadId: get_message_response_builder::IsSet,
+    S::MessageId: get_message_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::MessageObject>, Error<GetMessageError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a run.
-#[bon::builder]
+#[bon::builder(state_mod = get_run_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_run(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -2609,13 +2929,27 @@ pub async fn get_run(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_run_builder::State> GetRunBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_run_builder::IsSet,
+    S::ThreadId: get_run_builder::IsSet,
+    S::RunId: get_run_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::RunObject, Error<GetRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a run.
 ///
 /// Sends the same request as [`get_run`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RunObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_run_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_run_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -2681,8 +3015,22 @@ pub async fn get_run_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_run_response_builder::State> GetRunResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_run_response_builder::IsSet,
+    S::ThreadId: get_run_response_builder::IsSet,
+    S::RunId: get_run_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<models::RunObject>, Error<GetRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a run step.
-#[bon::builder]
+#[bon::builder(state_mod = get_run_step_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_run_step(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -2769,13 +3117,28 @@ pub async fn get_run_step(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_run_step_builder::State> GetRunStepBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: get_run_step_builder::IsSet,
+    S::ThreadId: get_run_step_builder::IsSet,
+    S::RunId: get_run_step_builder::IsSet,
+    S::StepId: get_run_step_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::RunStepObject, Error<GetRunStepError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a run step.
 ///
 /// Sends the same request as [`get_run_step`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RunStepObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_run_step_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_run_step_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -2853,8 +3216,25 @@ pub async fn get_run_step_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_run_step_response_builder::State> GetRunStepResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: get_run_step_response_builder::IsSet,
+    S::ThreadId: get_run_step_response_builder::IsSet,
+    S::RunId: get_run_step_response_builder::IsSet,
+    S::StepId: get_run_step_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::RunStepObject>, Error<GetRunStepError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a thread.
-#[bon::builder]
+#[bon::builder(state_mod = get_thread_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_thread(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -2926,13 +3306,26 @@ pub async fn get_thread(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_thread_builder::State> GetThreadBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_thread_builder::IsSet,
+    S::ThreadId: get_thread_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ThreadObject, Error<GetThreadError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a thread.
 ///
 /// Sends the same request as [`get_thread`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ThreadObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_thread_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_thread_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -2995,9 +3388,24 @@ pub async fn get_thread_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_thread_response_builder::State> GetThreadResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_thread_response_builder::IsSet,
+    S::ThreadId: get_thread_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ThreadObject>, Error<GetThreadError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of assistants.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = list_assistants_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_assistants(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -3083,6 +3491,18 @@ pub async fn list_assistants(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_assistants_builder::State> ListAssistantsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_assistants_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ListAssistantsResponse, Error<ListAssistantsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of assistants.
 ///
 /// Sends the same request as [`list_assistants`] and fails the same way, error status included, but returns the
@@ -3090,7 +3510,7 @@ pub async fn list_assistants(
 /// `models::ListAssistantsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = list_assistants_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_assistants_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -3167,8 +3587,24 @@ pub async fn list_assistants_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_assistants_response_builder::State>
+    ListAssistantsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_assistants_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ListAssistantsResponse>, Error<ListAssistantsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of messages for a given thread.
-#[bon::builder]
+#[bon::builder(state_mod = list_messages_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_messages(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -3265,13 +3701,26 @@ pub async fn list_messages(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_messages_builder::State> ListMessagesBuilder<'_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_messages_builder::IsSet,
+    S::ThreadId: list_messages_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ListMessagesResponse, Error<ListMessagesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of messages for a given thread.
 ///
 /// Sends the same request as [`list_messages`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListMessagesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_messages_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_messages_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -3359,8 +3808,24 @@ pub async fn list_messages_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_messages_response_builder::State>
+    ListMessagesResponseBuilder<'_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_messages_response_builder::IsSet,
+    S::ThreadId: list_messages_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ListMessagesResponse>, Error<ListMessagesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of run steps belonging to a run.
-#[bon::builder]
+#[bon::builder(state_mod = list_run_steps_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_run_steps(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -3464,13 +3929,27 @@ pub async fn list_run_steps(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_run_steps_builder::State> ListRunStepsBuilder<'_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_run_steps_builder::IsSet,
+    S::ThreadId: list_run_steps_builder::IsSet,
+    S::RunId: list_run_steps_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ListRunStepsResponse, Error<ListRunStepsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of run steps belonging to a run.
 ///
 /// Sends the same request as [`list_run_steps`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListRunStepsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_run_steps_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_run_steps_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -3565,8 +4044,25 @@ pub async fn list_run_steps_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_run_steps_response_builder::State>
+    ListRunStepsResponseBuilder<'_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_run_steps_response_builder::IsSet,
+    S::ThreadId: list_run_steps_response_builder::IsSet,
+    S::RunId: list_run_steps_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ListRunStepsResponse>, Error<ListRunStepsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of runs belonging to a thread.
-#[bon::builder]
+#[bon::builder(state_mod = list_runs_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_runs(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -3658,13 +4154,26 @@ pub async fn list_runs(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_runs_builder::State> ListRunsBuilder<'_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_runs_builder::IsSet,
+    S::ThreadId: list_runs_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ListRunsResponse, Error<ListRunsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of runs belonging to a thread.
 ///
 /// Sends the same request as [`list_runs`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListRunsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_runs_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_runs_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -3747,9 +4256,24 @@ pub async fn list_runs_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_runs_response_builder::State> ListRunsResponseBuilder<'_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_runs_response_builder::IsSet,
+    S::ThreadId: list_runs_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ListRunsResponse>, Error<ListRunsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies an assistant.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = modify_assistant_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_assistant(
     configuration: &configuration::Configuration,
     assistant_id: &str,
@@ -3824,6 +4348,20 @@ pub async fn modify_assistant(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_assistant_builder::State> ModifyAssistantBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: modify_assistant_builder::IsSet,
+    S::AssistantId: modify_assistant_builder::IsSet,
+    S::ModifyAssistantRequest: modify_assistant_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::AssistantObject, Error<ModifyAssistantError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies an assistant.
 ///
 /// Sends the same request as [`modify_assistant`] and fails the same way, error status included, but returns the
@@ -3831,7 +4369,7 @@ pub async fn modify_assistant(
 /// `models::AssistantObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = modify_assistant_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_assistant_response(
     configuration: &configuration::Configuration,
     assistant_id: &str,
@@ -3897,8 +4435,24 @@ pub async fn modify_assistant_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_assistant_response_builder::State> ModifyAssistantResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: modify_assistant_response_builder::IsSet,
+    S::AssistantId: modify_assistant_response_builder::IsSet,
+    S::ModifyAssistantRequest: modify_assistant_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AssistantObject>, Error<ModifyAssistantError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies a message.
-#[bon::builder]
+#[bon::builder(state_mod = modify_message_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_message(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -3976,13 +4530,28 @@ pub async fn modify_message(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_message_builder::State> ModifyMessageBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: modify_message_builder::IsSet,
+    S::ThreadId: modify_message_builder::IsSet,
+    S::MessageId: modify_message_builder::IsSet,
+    S::ModifyMessageRequest: modify_message_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::MessageObject, Error<ModifyMessageError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies a message.
 ///
 /// Sends the same request as [`modify_message`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::MessageObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = modify_message_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_message_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -4051,8 +4620,25 @@ pub async fn modify_message_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_message_response_builder::State> ModifyMessageResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: modify_message_response_builder::IsSet,
+    S::ThreadId: modify_message_response_builder::IsSet,
+    S::MessageId: modify_message_response_builder::IsSet,
+    S::ModifyMessageRequest: modify_message_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::MessageObject>, Error<ModifyMessageError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies a run.
-#[bon::builder]
+#[bon::builder(state_mod = modify_run_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_run(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -4130,13 +4716,28 @@ pub async fn modify_run(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_run_builder::State> ModifyRunBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: modify_run_builder::IsSet,
+    S::ThreadId: modify_run_builder::IsSet,
+    S::RunId: modify_run_builder::IsSet,
+    S::ModifyRunRequest: modify_run_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::RunObject, Error<ModifyRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies a run.
 ///
 /// Sends the same request as [`modify_run`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RunObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = modify_run_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_run_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -4205,8 +4806,25 @@ pub async fn modify_run_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_run_response_builder::State> ModifyRunResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: modify_run_response_builder::IsSet,
+    S::ThreadId: modify_run_response_builder::IsSet,
+    S::RunId: modify_run_response_builder::IsSet,
+    S::ModifyRunRequest: modify_run_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::RunObject>, Error<ModifyRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies a thread.
-#[bon::builder]
+#[bon::builder(state_mod = modify_thread_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_thread(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -4281,13 +4899,27 @@ pub async fn modify_thread(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_thread_builder::State> ModifyThreadBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: modify_thread_builder::IsSet,
+    S::ThreadId: modify_thread_builder::IsSet,
+    S::ModifyThreadRequest: modify_thread_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ThreadObject, Error<ModifyThreadError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies a thread.
 ///
 /// Sends the same request as [`modify_thread`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ThreadObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = modify_thread_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_thread_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -4353,8 +4985,24 @@ pub async fn modify_thread_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_thread_response_builder::State> ModifyThreadResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: modify_thread_response_builder::IsSet,
+    S::ThreadId: modify_thread_response_builder::IsSet,
+    S::ModifyThreadRequest: modify_thread_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ThreadObject>, Error<ModifyThreadError>> {
+        self.call_internal().await
+    }
+}
+
 /// When a run has the `status: \"requires_action\"` and `required_action.type` is `submit_tool_outputs`, this endpoint can be used to submit the outputs from the tool calls once they're all completed. All outputs must be submitted in a single request.
-#[bon::builder]
+#[bon::builder(state_mod = submit_tool_ouputs_to_run_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn submit_tool_ouputs_to_run(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -4432,13 +5080,29 @@ pub async fn submit_tool_ouputs_to_run(
     }
 }
 
+#[allow(deprecated)]
+impl<S: submit_tool_ouputs_to_run_builder::State>
+    SubmitToolOuputsToRunBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: submit_tool_ouputs_to_run_builder::IsSet,
+    S::ThreadId: submit_tool_ouputs_to_run_builder::IsSet,
+    S::RunId: submit_tool_ouputs_to_run_builder::IsSet,
+    S::SubmitToolOutputsRunRequest: submit_tool_ouputs_to_run_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::RunObject, Error<SubmitToolOuputsToRunError>> {
+        self.call_internal().await
+    }
+}
+
 /// When a run has the `status: \"requires_action\"` and `required_action.type` is `submit_tool_outputs`, this endpoint can be used to submit the outputs from the tool calls once they're all completed. All outputs must be submitted in a single request.
 ///
 /// Sends the same request as [`submit_tool_ouputs_to_run`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RunObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = submit_tool_ouputs_to_run_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn submit_tool_ouputs_to_run_response(
     configuration: &configuration::Configuration,
     thread_id: &str,
@@ -4504,5 +5168,23 @@ pub async fn submit_tool_ouputs_to_run_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: submit_tool_ouputs_to_run_response_builder::State>
+    SubmitToolOuputsToRunResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: submit_tool_ouputs_to_run_response_builder::IsSet,
+    S::ThreadId: submit_tool_ouputs_to_run_response_builder::IsSet,
+    S::RunId: submit_tool_ouputs_to_run_response_builder::IsSet,
+    S::SubmitToolOutputsRunRequest: submit_tool_ouputs_to_run_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::RunObject>, Error<SubmitToolOuputsToRunError>> {
+        self.call_internal().await
     }
 }

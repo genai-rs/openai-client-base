@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ToolChoice : Tool selection that the assistant should honor when executing the item.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = tool_choice_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ToolChoice {
     /// Identifier of the requested tool.
     #[serde(rename = "id")]
@@ -22,6 +23,17 @@ impl ToolChoice {
     /// Tool selection that the assistant should honor when executing the item.
     pub fn new(id: String) -> ToolChoice {
         ToolChoice { id }
+    }
+}
+
+impl<S: tool_choice_builder::State> ToolChoiceBuilder<S>
+where
+    S::Id: tool_choice_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ToolChoice {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_translation_response_verbose_json_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateTranslationResponseVerboseJson {
     /// The language of the output translation (always `english`).
     #[serde(rename = "language")]
@@ -39,6 +40,20 @@ impl CreateTranslationResponseVerboseJson {
             text,
             segments: None,
         }
+    }
+}
+
+impl<S: create_translation_response_verbose_json_builder::State>
+    CreateTranslationResponseVerboseJsonBuilder<S>
+where
+    S::Language: create_translation_response_verbose_json_builder::IsSet,
+    S::Duration: create_translation_response_verbose_json_builder::IsSet,
+    S::Text: create_translation_response_verbose_json_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateTranslationResponseVerboseJson {
+        self.build_internal()
     }
 }
 

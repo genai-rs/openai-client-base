@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SetDefaultSkillVersionBody : Updates the default version pointer for a skill.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = set_default_skill_version_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SetDefaultSkillVersionBody {
     /// The skill version number to set as default.
     #[serde(rename = "default_version")]
@@ -22,6 +23,17 @@ impl SetDefaultSkillVersionBody {
     /// Updates the default version pointer for a skill.
     pub fn new(default_version: String) -> SetDefaultSkillVersionBody {
         SetDefaultSkillVersionBody { default_version }
+    }
+}
+
+impl<S: set_default_skill_version_body_builder::State> SetDefaultSkillVersionBodyBuilder<S>
+where
+    S::DefaultVersion: set_default_skill_version_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SetDefaultSkillVersionBody {
+        self.build_internal()
     }
 }
 

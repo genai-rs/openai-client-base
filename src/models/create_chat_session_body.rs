@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateChatSessionBody : Parameters for provisioning a new ChatKit session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_chat_session_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateChatSessionBody {
     #[serde(rename = "workflow")]
     pub workflow: models::WorkflowParam,
@@ -42,6 +43,18 @@ impl CreateChatSessionBody {
             rate_limits: None,
             chatkit_configuration: None,
         }
+    }
+}
+
+impl<S: create_chat_session_body_builder::State> CreateChatSessionBodyBuilder<S>
+where
+    S::Workflow: create_chat_session_body_builder::IsSet,
+    S::User: create_chat_session_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateChatSessionBody {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_conversation_items_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateConversationItemsRequest {
     /// The items to add to the conversation. You may add up to 20 items at a time.
     ///
@@ -23,6 +24,17 @@ pub struct CreateConversationItemsRequest {
 impl CreateConversationItemsRequest {
     pub fn new(items: Vec<models::InputItem>) -> CreateConversationItemsRequest {
         CreateConversationItemsRequest { items }
+    }
+}
+
+impl<S: create_conversation_items_request_builder::State> CreateConversationItemsRequestBuilder<S>
+where
+    S::Items: create_conversation_items_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateConversationItemsRequest {
+        self.build_internal()
     }
 }
 

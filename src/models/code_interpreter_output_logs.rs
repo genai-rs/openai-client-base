@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CodeInterpreterOutputLogs : The logs output from the code interpreter.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = code_interpreter_output_logs_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CodeInterpreterOutputLogs {
     /// The type of the output. Always `logs`.  Defaults to `\"logs\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl CodeInterpreterOutputLogs {
     /// The logs output from the code interpreter.
     pub fn new(r#type: Type, logs: String) -> CodeInterpreterOutputLogs {
         CodeInterpreterOutputLogs { r#type, logs }
+    }
+}
+
+impl<S: code_interpreter_output_logs_builder::State> CodeInterpreterOutputLogsBuilder<S>
+where
+    S::Type: code_interpreter_output_logs_builder::IsSet,
+    S::Logs: code_interpreter_output_logs_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CodeInterpreterOutputLogs {
+        self.build_internal()
     }
 }
 

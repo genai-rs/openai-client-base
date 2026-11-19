@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = local_environment_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LocalEnvironmentParam {
     /// Use a local computer environment.  Defaults to `\"local\"`.
     #[serde(rename = "type")]
@@ -29,6 +30,17 @@ impl LocalEnvironmentParam {
             r#type,
             skills: None,
         }
+    }
+}
+
+impl<S: local_environment_param_builder::State> LocalEnvironmentParamBuilder<S>
+where
+    S::Type: local_environment_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LocalEnvironmentParam {
+        self.build_internal()
     }
 }
 

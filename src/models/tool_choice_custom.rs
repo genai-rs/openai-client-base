@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ToolChoiceCustom : Use this option to force the model to call a specific custom tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = tool_choice_custom_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ToolChoiceCustom {
     /// For custom tool calling, the type is always `custom`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl ToolChoiceCustom {
     /// Use this option to force the model to call a specific custom tool.
     pub fn new(r#type: Type, name: String) -> ToolChoiceCustom {
         ToolChoiceCustom { r#type, name }
+    }
+}
+
+impl<S: tool_choice_custom_builder::State> ToolChoiceCustomBuilder<S>
+where
+    S::Type: tool_choice_custom_builder::IsSet,
+    S::Name: tool_choice_custom_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ToolChoiceCustom {
+        self.build_internal()
     }
 }
 

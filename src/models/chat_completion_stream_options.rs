@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionStreamOptions : Options for streaming response. Only set this when you set `stream: true`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_stream_options_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionStreamOptions {
     /// If set, an additional chunk will be streamed before the `data: [DONE]` message. The `usage` field on this chunk shows the token usage statistics for the entire request, and the `choices` field will always be an empty array.  All other chunks will also include a `usage` field, but with a null value. **NOTE:** If the stream is interrupted, you may not receive the final usage chunk which contains the total token usage for the request.
     #[serde(rename = "include_usage", skip_serializing_if = "Option::is_none")]
@@ -31,6 +32,14 @@ impl ChatCompletionStreamOptions {
             include_usage: None,
             include_obfuscation: None,
         }
+    }
+}
+
+impl<S: chat_completion_stream_options_builder::State> ChatCompletionStreamOptionsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionStreamOptions {
+        self.build_internal()
     }
 }
 

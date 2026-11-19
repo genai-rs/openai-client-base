@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = service_account_api_key_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ServiceAccountApiKeyBody {
     /// The object type, which is always `organization.project.service_account.api_key`  Defaults to `\"organization.project.service_account.api_key\"`.
     #[serde(rename = "object")]
@@ -53,6 +54,21 @@ impl ServiceAccountApiKeyBody {
             expires_at: None,
             id,
         }
+    }
+}
+
+impl<S: service_account_api_key_body_builder::State> ServiceAccountApiKeyBodyBuilder<S>
+where
+    S::Object: service_account_api_key_body_builder::IsSet,
+    S::Value: service_account_api_key_body_builder::IsSet,
+    S::Name: service_account_api_key_body_builder::IsSet,
+    S::CreatedAt: service_account_api_key_body_builder::IsSet,
+    S::Id: service_account_api_key_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ServiceAccountApiKeyBody {
+        self.build_internal()
     }
 }
 

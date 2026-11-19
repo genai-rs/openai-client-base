@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// PublicCreateOrganizationRoleBody : Request payload for creating a custom role.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = public_create_organization_role_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PublicCreateOrganizationRoleBody {
     /// Unique name for the role.
     #[serde(rename = "role_name")]
@@ -37,6 +38,19 @@ impl PublicCreateOrganizationRoleBody {
             permissions,
             description: None,
         }
+    }
+}
+
+impl<S: public_create_organization_role_body_builder::State>
+    PublicCreateOrganizationRoleBodyBuilder<S>
+where
+    S::RoleName: public_create_organization_role_body_builder::IsSet,
+    S::Permissions: public_create_organization_role_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PublicCreateOrganizationRoleBody {
+        self.build_internal()
     }
 }
 

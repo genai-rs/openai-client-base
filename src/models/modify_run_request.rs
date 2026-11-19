@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = modify_run_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ModifyRunRequest {
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
@@ -25,6 +26,14 @@ pub struct ModifyRunRequest {
 impl ModifyRunRequest {
     pub fn new() -> ModifyRunRequest {
         ModifyRunRequest { metadata: None }
+    }
+}
+
+impl<S: modify_run_request_builder::State> ModifyRunRequestBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ModifyRunRequest {
+        self.build_internal()
     }
 }
 

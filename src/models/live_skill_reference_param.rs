@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_skill_reference_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSkillReferenceParam {
     /// References a skill created with the /v1/skills endpoint.  Defaults to `\"skill_reference\"`.
     #[serde(rename = "type")]
@@ -37,6 +38,18 @@ impl LiveSkillReferenceParam {
             skill_id,
             version: None,
         }
+    }
+}
+
+impl<S: live_skill_reference_param_builder::State> LiveSkillReferenceParamBuilder<S>
+where
+    S::Type: live_skill_reference_param_builder::IsSet,
+    S::SkillId: live_skill_reference_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSkillReferenceParam {
+        self.build_internal()
     }
 }
 

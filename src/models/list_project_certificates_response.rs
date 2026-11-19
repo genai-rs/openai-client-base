@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = list_project_certificates_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ListProjectCertificatesResponse {
     #[serde(rename = "data")]
     pub data: Vec<models::OrganizationProjectCertificate>,
@@ -40,6 +41,19 @@ impl ListProjectCertificatesResponse {
             has_more,
             object,
         }
+    }
+}
+
+impl<S: list_project_certificates_response_builder::State> ListProjectCertificatesResponseBuilder<S>
+where
+    S::Data: list_project_certificates_response_builder::IsSet,
+    S::HasMore: list_project_certificates_response_builder::IsSet,
+    S::Object: list_project_certificates_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ListProjectCertificatesResponse {
+        self.build_internal()
     }
 }
 

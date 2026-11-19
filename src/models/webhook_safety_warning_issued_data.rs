@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_safety_warning_issued_data_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookSafetyWarningIssuedData {
     /// The safety case ID to pass to `GET /v1/safety/cases/{id}`.
     #[serde(rename = "id")]
@@ -20,6 +21,17 @@ pub struct WebhookSafetyWarningIssuedData {
 impl WebhookSafetyWarningIssuedData {
     pub fn new(id: String) -> WebhookSafetyWarningIssuedData {
         WebhookSafetyWarningIssuedData { id }
+    }
+}
+
+impl<S: webhook_safety_warning_issued_data_builder::State> WebhookSafetyWarningIssuedDataBuilder<S>
+where
+    S::Id: webhook_safety_warning_issued_data_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookSafetyWarningIssuedData {
+        self.build_internal()
     }
 }
 

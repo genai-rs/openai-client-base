@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_endpoint_with_secret_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookEndpointWithSecretResource {
     /// The unique ID of the webhook endpoint.
     #[serde(rename = "id")]
@@ -68,6 +69,24 @@ impl WebhookEndpointWithSecretResource {
             signing_secret_hint,
             signing_secret,
         }
+    }
+}
+
+impl<S: webhook_endpoint_with_secret_resource_builder::State>
+    WebhookEndpointWithSecretResourceBuilder<S>
+where
+    S::Id: webhook_endpoint_with_secret_resource_builder::IsSet,
+    S::Object: webhook_endpoint_with_secret_resource_builder::IsSet,
+    S::CreatedAt: webhook_endpoint_with_secret_resource_builder::IsSet,
+    S::Name: webhook_endpoint_with_secret_resource_builder::IsSet,
+    S::Url: webhook_endpoint_with_secret_resource_builder::IsSet,
+    S::EventTypes: webhook_endpoint_with_secret_resource_builder::IsSet,
+    S::SigningSecret: webhook_endpoint_with_secret_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookEndpointWithSecretResource {
+        self.build_internal()
     }
 }
 

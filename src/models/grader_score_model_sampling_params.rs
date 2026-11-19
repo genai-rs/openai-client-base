@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// GraderScoreModelSamplingParams : The sampling parameters for the model.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = grader_score_model_sampling_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GraderScoreModelSamplingParams {
     /// A seed value to initialize the randomness, during sampling.
     #[serde(
@@ -67,6 +68,16 @@ impl GraderScoreModelSamplingParams {
             max_completions_tokens: None,
             reasoning_effort: None,
         }
+    }
+}
+
+impl<S: grader_score_model_sampling_params_builder::State>
+    GraderScoreModelSamplingParamsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GraderScoreModelSamplingParams {
+        self.build_internal()
     }
 }
 

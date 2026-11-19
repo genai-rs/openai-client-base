@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// FileCitationBody : A citation to a file.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = file_citation_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FileCitationBody {
     /// The type of the file citation. Always `file_citation`.  Defaults to `\"file_citation\"`.
     #[serde(rename = "type")]
@@ -36,6 +37,20 @@ impl FileCitationBody {
             index,
             filename,
         }
+    }
+}
+
+impl<S: file_citation_body_builder::State> FileCitationBodyBuilder<S>
+where
+    S::Type: file_citation_body_builder::IsSet,
+    S::FileId: file_citation_body_builder::IsSet,
+    S::Index: file_citation_body_builder::IsSet,
+    S::Filename: file_citation_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FileCitationBody {
+        self.build_internal()
     }
 }
 

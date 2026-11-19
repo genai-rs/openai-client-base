@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_eval_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateEvalRequest {
     /// Rename the evaluation.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -31,6 +32,14 @@ impl UpdateEvalRequest {
             name: None,
             metadata: None,
         }
+    }
+}
+
+impl<S: update_eval_request_builder::State> UpdateEvalRequestBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateEvalRequest {
+        self.build_internal()
     }
 }
 

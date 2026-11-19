@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveClientDelegationParam : Delegate tasks to your application. The Live session emits delegation events that your backend handles.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_client_delegation_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveClientDelegationParam {
     /// Milliseconds to wait before requesting an automatic spoken acknowledgement for a delegation. The model may still speak before this delay. Any commentary or thinking appended to the session cancels all pending acknowledgements, including those for other delegations. Defaults to 400 for Decisions sessions and 0 (request immediately) for other sessions. Omission in a session update preserves the current value. Updates apply to subsequent delegations.
     ///
@@ -33,6 +34,17 @@ impl LiveClientDelegationParam {
             acknowledgement_delay_ms: None,
             r#type,
         }
+    }
+}
+
+impl<S: live_client_delegation_param_builder::State> LiveClientDelegationParamBuilder<S>
+where
+    S::Type: live_client_delegation_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveClientDelegationParam {
+        self.build_internal()
     }
 }
 

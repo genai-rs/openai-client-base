@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaSpecificApplyPatchParam : Forces the model to call the apply_patch tool when executing a tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_specific_apply_patch_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaSpecificApplyPatchParam {
     /// The tool to call. Always `apply_patch`.  Defaults to `\"apply_patch\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl BetaSpecificApplyPatchParam {
     /// Forces the model to call the apply_patch tool when executing a tool call.
     pub fn new(r#type: Type) -> BetaSpecificApplyPatchParam {
         BetaSpecificApplyPatchParam { r#type }
+    }
+}
+
+impl<S: beta_specific_apply_patch_param_builder::State> BetaSpecificApplyPatchParamBuilder<S>
+where
+    S::Type: beta_specific_apply_patch_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaSpecificApplyPatchParam {
+        self.build_internal()
     }
 }
 

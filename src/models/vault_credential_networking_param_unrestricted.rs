@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// VaultCredentialNetworkingParamUnrestricted : Allows substitution for destinations permitted by the environment network policy. Requires `environment.network.access` to be `restricted`, with explicit `allowed_domains`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vault_credential_networking_param_unrestricted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VaultCredentialNetworkingParamUnrestricted {
     /// The type of the object. Always `unrestricted`.  Defaults to `\"unrestricted\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,18 @@ impl VaultCredentialNetworkingParamUnrestricted {
     /// Allows substitution for destinations permitted by the environment network policy. Requires `environment.network.access` to be `restricted`, with explicit `allowed_domains`.
     pub fn new(r#type: Type) -> VaultCredentialNetworkingParamUnrestricted {
         VaultCredentialNetworkingParamUnrestricted { r#type }
+    }
+}
+
+impl<S: vault_credential_networking_param_unrestricted_builder::State>
+    VaultCredentialNetworkingParamUnrestrictedBuilder<S>
+where
+    S::Type: vault_credential_networking_param_unrestricted_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VaultCredentialNetworkingParamUnrestricted {
+        self.build_internal()
     }
 }
 

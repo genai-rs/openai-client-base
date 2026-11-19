@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogOrganizationUpdatedChangesRequested : The payload used to update the organization settings.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_organization_updated_changes_requested_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogOrganizationUpdatedChangesRequested {
     /// The organization title.
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
@@ -57,6 +58,16 @@ impl AuditLogOrganizationUpdatedChangesRequested {
             api_call_logging: None,
             api_call_logging_project_ids: None,
         }
+    }
+}
+
+impl<S: audit_log_organization_updated_changes_requested_builder::State>
+    AuditLogOrganizationUpdatedChangesRequestedBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogOrganizationUpdatedChangesRequested {
+        self.build_internal()
     }
 }
 

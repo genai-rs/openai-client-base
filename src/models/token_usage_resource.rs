@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// TokenUsageResource : Recorded token usage for a session or turn. Usage is best effort and may change.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = token_usage_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TokenUsageResource {
     /// The number of input tokens used by the agent.
     #[serde(rename = "input_tokens")]
@@ -45,6 +46,21 @@ impl TokenUsageResource {
             output_tokens_details,
             total_tokens,
         }
+    }
+}
+
+impl<S: token_usage_resource_builder::State> TokenUsageResourceBuilder<S>
+where
+    S::InputTokens: token_usage_resource_builder::IsSet,
+    S::InputTokensDetails: token_usage_resource_builder::IsSet,
+    S::OutputTokens: token_usage_resource_builder::IsSet,
+    S::OutputTokensDetails: token_usage_resource_builder::IsSet,
+    S::TotalTokens: token_usage_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TokenUsageResource {
+        self.build_internal()
     }
 }
 

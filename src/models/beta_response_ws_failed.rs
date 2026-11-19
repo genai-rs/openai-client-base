@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseWsFailed : An event that is emitted when a response fails.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_ws_failed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseWsFailed {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -49,6 +50,19 @@ impl BetaResponseWsFailed {
             response,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_ws_failed_builder::State> BetaResponseWsFailedBuilder<S>
+where
+    S::Type: beta_response_ws_failed_builder::IsSet,
+    S::SequenceNumber: beta_response_ws_failed_builder::IsSet,
+    S::Response: beta_response_ws_failed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseWsFailed {
+        self.build_internal()
     }
 }
 

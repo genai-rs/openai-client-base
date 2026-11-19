@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveTransportFailed : An asynchronous outbound SIP setup failure. Delivered only to sideband observers.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_transport_failed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveTransportFailed {
     #[serde(rename = "event_id")]
     pub event_id: String,
@@ -40,6 +41,20 @@ impl LiveTransportFailed {
             r#type,
             error,
         }
+    }
+}
+
+impl<S: live_transport_failed_builder::State> LiveTransportFailedBuilder<S>
+where
+    S::EventId: live_transport_failed_builder::IsSet,
+    S::SessionId: live_transport_failed_builder::IsSet,
+    S::Type: live_transport_failed_builder::IsSet,
+    S::Error: live_transport_failed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveTransportFailed {
+        self.build_internal()
     }
 }
 

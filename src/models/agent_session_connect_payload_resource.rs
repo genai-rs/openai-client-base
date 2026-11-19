@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = agent_session_connect_payload_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AgentSessionConnectPayloadResource {
     /// The URL used to connect the self-hosted environment.
     ///
@@ -22,6 +23,18 @@ pub struct AgentSessionConnectPayloadResource {
 impl AgentSessionConnectPayloadResource {
     pub fn new(remote_url: String) -> AgentSessionConnectPayloadResource {
         AgentSessionConnectPayloadResource { remote_url }
+    }
+}
+
+impl<S: agent_session_connect_payload_resource_builder::State>
+    AgentSessionConnectPayloadResourceBuilder<S>
+where
+    S::RemoteUrl: agent_session_connect_payload_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AgentSessionConnectPayloadResource {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaCustomToolCallOutput : The output of a custom tool call from your code, being sent back to the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_custom_tool_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaCustomToolCallOutput {
     /// The agent that produced this item.
     #[serde(
@@ -57,6 +58,19 @@ impl BetaCustomToolCallOutput {
             caller: None,
             output,
         }
+    }
+}
+
+impl<S: beta_custom_tool_call_output_builder::State> BetaCustomToolCallOutputBuilder<S>
+where
+    S::Type: beta_custom_tool_call_output_builder::IsSet,
+    S::CallId: beta_custom_tool_call_output_builder::IsSet,
+    S::Output: beta_custom_tool_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaCustomToolCallOutput {
+        self.build_internal()
     }
 }
 

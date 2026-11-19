@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseTextWsDone : Emitted when text content is finalized.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_text_ws_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseTextWsDone {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -69,6 +70,22 @@ impl BetaResponseTextWsDone {
             logprobs: None,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_text_ws_done_builder::State> BetaResponseTextWsDoneBuilder<S>
+where
+    S::Type: beta_response_text_ws_done_builder::IsSet,
+    S::ItemId: beta_response_text_ws_done_builder::IsSet,
+    S::OutputIndex: beta_response_text_ws_done_builder::IsSet,
+    S::ContentIndex: beta_response_text_ws_done_builder::IsSet,
+    S::Text: beta_response_text_ws_done_builder::IsSet,
+    S::SequenceNumber: beta_response_text_ws_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseTextWsDone {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// InlineCapabilitySourceParam : The encoded ZIP archive for an inline skill or plugin.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = inline_capability_source_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InlineCapabilitySourceParam {
     /// The type of the object. Always `base64`.  Defaults to `\"base64\"`.
     #[serde(rename = "type")]
@@ -34,6 +35,19 @@ impl InlineCapabilitySourceParam {
             media_type,
             data,
         }
+    }
+}
+
+impl<S: inline_capability_source_param_builder::State> InlineCapabilitySourceParamBuilder<S>
+where
+    S::Type: inline_capability_source_param_builder::IsSet,
+    S::MediaType: inline_capability_source_param_builder::IsSet,
+    S::Data: inline_capability_source_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InlineCapabilitySourceParam {
+        self.build_internal()
     }
 }
 

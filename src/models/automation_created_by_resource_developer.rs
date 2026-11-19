@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_created_by_resource_developer_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationCreatedByResourceDeveloper {
     /// The type of the object. Always `developer`.  Defaults to `\"developer\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,18 @@ pub struct AutomationCreatedByResourceDeveloper {
 impl AutomationCreatedByResourceDeveloper {
     pub fn new(r#type: Type) -> AutomationCreatedByResourceDeveloper {
         AutomationCreatedByResourceDeveloper { r#type }
+    }
+}
+
+impl<S: automation_created_by_resource_developer_builder::State>
+    AutomationCreatedByResourceDeveloperBuilder<S>
+where
+    S::Type: automation_created_by_resource_developer_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationCreatedByResourceDeveloper {
+        self.build_internal()
     }
 }
 

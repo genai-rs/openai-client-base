@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseRefusalDeltaEvent : Emitted when there is a partial refusal text.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_refusal_delta_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseRefusalDeltaEvent {
     /// The type of the event. Always `response.refusal.delta`.
     #[serde(rename = "type")]
@@ -51,6 +52,22 @@ impl ResponseRefusalDeltaEvent {
             delta,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_refusal_delta_event_builder::State> ResponseRefusalDeltaEventBuilder<S>
+where
+    S::Type: response_refusal_delta_event_builder::IsSet,
+    S::ItemId: response_refusal_delta_event_builder::IsSet,
+    S::OutputIndex: response_refusal_delta_event_builder::IsSet,
+    S::ContentIndex: response_refusal_delta_event_builder::IsSet,
+    S::Delta: response_refusal_delta_event_builder::IsSet,
+    S::SequenceNumber: response_refusal_delta_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseRefusalDeltaEvent {
+        self.build_internal()
     }
 }
 

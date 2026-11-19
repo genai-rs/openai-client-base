@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_endpoint_test_result_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookEndpointTestResultResource {
     /// The object type, which is always webhook_endpoint.test.  Defaults to `\"webhook_endpoint.test\"`.
     #[serde(rename = "object")]
@@ -44,6 +45,22 @@ impl WebhookEndpointTestResultResource {
             status_code,
             success,
         }
+    }
+}
+
+impl<S: webhook_endpoint_test_result_resource_builder::State>
+    WebhookEndpointTestResultResourceBuilder<S>
+where
+    S::Object: webhook_endpoint_test_result_resource_builder::IsSet,
+    S::WebhookEndpointId: webhook_endpoint_test_result_resource_builder::IsSet,
+    S::EventType: webhook_endpoint_test_result_resource_builder::IsSet,
+    S::StatusCode: webhook_endpoint_test_result_resource_builder::IsSet,
+    S::Success: webhook_endpoint_test_result_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookEndpointTestResultResource {
+        self.build_internal()
     }
 }
 

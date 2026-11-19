@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveInputTranscriptDelta : A transcript fragment for user input audio in the Live session. Accumulate fragments in delivery order; these events do not define complete turns or include a transcript-done event.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_input_transcript_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveInputTranscriptDelta {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -50,6 +51,21 @@ impl LiveInputTranscriptDelta {
             delta,
             r#type,
         }
+    }
+}
+
+impl<S: live_input_transcript_delta_builder::State> LiveInputTranscriptDeltaBuilder<S>
+where
+    S::EventId: live_input_transcript_delta_builder::IsSet,
+    S::StartMs: live_input_transcript_delta_builder::IsSet,
+    S::EndMs: live_input_transcript_delta_builder::IsSet,
+    S::Delta: live_input_transcript_delta_builder::IsSet,
+    S::Type: live_input_transcript_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveInputTranscriptDelta {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FineTuneSupervisedHyperparameters : The hyperparameters used for the fine-tuning job.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tune_supervised_hyperparameters_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuneSupervisedHyperparameters {
     #[serde(rename = "batch_size", skip_serializing_if = "Option::is_none")]
     pub batch_size: Option<models::FineTuneSupervisedHyperparametersBatchSize>,
@@ -34,6 +35,16 @@ impl FineTuneSupervisedHyperparameters {
             learning_rate_multiplier: None,
             n_epochs: None,
         }
+    }
+}
+
+impl<S: fine_tune_supervised_hyperparameters_builder::State>
+    FineTuneSupervisedHyperparametersBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuneSupervisedHyperparameters {
+        self.build_internal()
     }
 }
 

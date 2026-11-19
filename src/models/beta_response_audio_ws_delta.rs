@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseAudioWsDelta : Emitted when there is a partial audio response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_audio_ws_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseAudioWsDelta {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -46,6 +47,19 @@ impl BetaResponseAudioWsDelta {
             delta,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_audio_ws_delta_builder::State> BetaResponseAudioWsDeltaBuilder<S>
+where
+    S::Type: beta_response_audio_ws_delta_builder::IsSet,
+    S::SequenceNumber: beta_response_audio_ws_delta_builder::IsSet,
+    S::Delta: beta_response_audio_ws_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseAudioWsDelta {
+        self.build_internal()
     }
 }
 

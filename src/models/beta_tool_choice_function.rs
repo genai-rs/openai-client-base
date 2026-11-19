@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaToolChoiceFunction : Use this option to force the model to call a specific function.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_tool_choice_function_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaToolChoiceFunction {
     /// For function calling, the type is always `function`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl BetaToolChoiceFunction {
     /// Use this option to force the model to call a specific function.
     pub fn new(r#type: Type, name: String) -> BetaToolChoiceFunction {
         BetaToolChoiceFunction { r#type, name }
+    }
+}
+
+impl<S: beta_tool_choice_function_builder::State> BetaToolChoiceFunctionBuilder<S>
+where
+    S::Type: beta_tool_choice_function_builder::IsSet,
+    S::Name: beta_tool_choice_function_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaToolChoiceFunction {
+        self.build_internal()
     }
 }
 

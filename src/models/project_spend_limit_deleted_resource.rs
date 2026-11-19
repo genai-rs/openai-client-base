@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectSpendLimitDeletedResource : Confirmation payload returned after deleting a project hard spend limit.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_spend_limit_deleted_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectSpendLimitDeletedResource {
     /// The object type, which is always `project.spend_limit.deleted`.  Defaults to `\"project.spend_limit.deleted\"`.
     #[serde(rename = "object")]
@@ -25,6 +26,19 @@ impl ProjectSpendLimitDeletedResource {
     /// Confirmation payload returned after deleting a project hard spend limit.
     pub fn new(object: Object, deleted: bool) -> ProjectSpendLimitDeletedResource {
         ProjectSpendLimitDeletedResource { object, deleted }
+    }
+}
+
+impl<S: project_spend_limit_deleted_resource_builder::State>
+    ProjectSpendLimitDeletedResourceBuilder<S>
+where
+    S::Object: project_spend_limit_deleted_resource_builder::IsSet,
+    S::Deleted: project_spend_limit_deleted_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectSpendLimitDeletedResource {
+        self.build_internal()
     }
 }
 

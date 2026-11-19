@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_direct_tool_call_caller_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaDirectToolCallCallerParam {
     /// The caller type. Always `direct`.  Defaults to `\"direct\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,17 @@ pub struct BetaDirectToolCallCallerParam {
 impl BetaDirectToolCallCallerParam {
     pub fn new(r#type: Type) -> BetaDirectToolCallCallerParam {
         BetaDirectToolCallCallerParam { r#type }
+    }
+}
+
+impl<S: beta_direct_tool_call_caller_param_builder::State> BetaDirectToolCallCallerParamBuilder<S>
+where
+    S::Type: beta_direct_tool_call_caller_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaDirectToolCallCallerParam {
+        self.build_internal()
     }
 }
 

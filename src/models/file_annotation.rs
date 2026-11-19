@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FileAnnotation : Annotation that references an uploaded file.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = file_annotation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FileAnnotation {
     /// Type discriminator that is always `file` for this annotation.  Defaults to `\"file\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl FileAnnotation {
     /// Annotation that references an uploaded file.
     pub fn new(r#type: Type, source: models::FileAnnotationSource) -> FileAnnotation {
         FileAnnotation { r#type, source }
+    }
+}
+
+impl<S: file_annotation_builder::State> FileAnnotationBuilder<S>
+where
+    S::Type: file_annotation_builder::IsSet,
+    S::Source: file_annotation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FileAnnotation {
+        self.build_internal()
     }
 }
 

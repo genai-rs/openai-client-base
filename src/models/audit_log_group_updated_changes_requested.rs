@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogGroupUpdatedChangesRequested : The payload used to update the group.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_group_updated_changes_requested_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogGroupUpdatedChangesRequested {
     /// The updated group name.
     #[serde(rename = "group_name", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,16 @@ impl AuditLogGroupUpdatedChangesRequested {
     /// The payload used to update the group.
     pub fn new() -> AuditLogGroupUpdatedChangesRequested {
         AuditLogGroupUpdatedChangesRequested { group_name: None }
+    }
+}
+
+impl<S: audit_log_group_updated_changes_requested_builder::State>
+    AuditLogGroupUpdatedChangesRequestedBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogGroupUpdatedChangesRequested {
+        self.build_internal()
     }
 }
 

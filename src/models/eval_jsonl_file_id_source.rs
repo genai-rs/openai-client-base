@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_jsonl_file_id_source_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalJsonlFileIdSource {
     /// The type of jsonl source. Always `file_id`.  Defaults to `\"file_id\"`.
     #[serde(rename = "type")]
@@ -23,6 +24,18 @@ pub struct EvalJsonlFileIdSource {
 impl EvalJsonlFileIdSource {
     pub fn new(r#type: Type, id: String) -> EvalJsonlFileIdSource {
         EvalJsonlFileIdSource { r#type, id }
+    }
+}
+
+impl<S: eval_jsonl_file_id_source_builder::State> EvalJsonlFileIdSourceBuilder<S>
+where
+    S::Type: eval_jsonl_file_id_source_builder::IsSet,
+    S::Id: eval_jsonl_file_id_source_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalJsonlFileIdSource {
+        self.build_internal()
     }
 }
 

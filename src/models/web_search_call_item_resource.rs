@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebSearchCallItemResource : A web search call produced by the agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = web_search_call_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebSearchCallItemResource {
     /// The item type. Always `web_search_call`.  Defaults to `\"web_search_call\"`.
     #[serde(rename = "type")]
@@ -50,6 +51,20 @@ impl WebSearchCallItemResource {
             status,
             action,
         }
+    }
+}
+
+impl<S: web_search_call_item_resource_builder::State> WebSearchCallItemResourceBuilder<S>
+where
+    S::Type: web_search_call_item_resource_builder::IsSet,
+    S::Id: web_search_call_item_resource_builder::IsSet,
+    S::TurnId: web_search_call_item_resource_builder::IsSet,
+    S::Status: web_search_call_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebSearchCallItemResource {
+        self.build_internal()
     }
 }
 

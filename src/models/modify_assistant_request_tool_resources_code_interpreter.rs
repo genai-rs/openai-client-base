@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = modify_assistant_request_tool_resources_code_interpreter_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ModifyAssistantRequestToolResourcesCodeInterpreter {
     /// Overrides the list of [file](https://developers.openai.com/api/reference/resources/files) IDs made available to the `code_interpreter` tool. There can be a maximum of 20 files associated with the tool.  Defaults to `[]`.
     ///
@@ -22,6 +23,16 @@ pub struct ModifyAssistantRequestToolResourcesCodeInterpreter {
 impl ModifyAssistantRequestToolResourcesCodeInterpreter {
     pub fn new() -> ModifyAssistantRequestToolResourcesCodeInterpreter {
         ModifyAssistantRequestToolResourcesCodeInterpreter { file_ids: None }
+    }
+}
+
+impl<S: modify_assistant_request_tool_resources_code_interpreter_builder::State>
+    ModifyAssistantRequestToolResourcesCodeInterpreterBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ModifyAssistantRequestToolResourcesCodeInterpreter {
+        self.build_internal()
     }
 }
 

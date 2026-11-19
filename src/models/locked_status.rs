@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LockedStatus : Indicates that a thread is locked and cannot accept new input.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = locked_status_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LockedStatus {
     /// Status discriminator that is always `locked`.  Defaults to `\"locked\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,17 @@ impl LockedStatus {
     /// Indicates that a thread is locked and cannot accept new input.
     pub fn new(r#type: Type, reason: Option<String>) -> LockedStatus {
         LockedStatus { r#type, reason }
+    }
+}
+
+impl<S: locked_status_builder::State> LockedStatusBuilder<S>
+where
+    S::Type: locked_status_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LockedStatus {
+        self.build_internal()
     }
 }
 

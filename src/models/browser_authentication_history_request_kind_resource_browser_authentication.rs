@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BrowserAuthenticationHistoryRequestKindResourceBrowserAuthentication : A registered form awaiting the application's response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = browser_authentication_history_request_kind_resource_browser_authentication_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BrowserAuthenticationHistoryRequestKindResourceBrowserAuthentication {
     /// The type of the object. Always `browser_authentication`.  Defaults to `\"browser_authentication\"`.
     #[serde(rename = "type")]
@@ -55,6 +56,24 @@ impl BrowserAuthenticationHistoryRequestKindResourceBrowserAuthentication {
             fields,
             options,
         }
+    }
+}
+
+impl<
+        S: browser_authentication_history_request_kind_resource_browser_authentication_builder::State,
+    > BrowserAuthenticationHistoryRequestKindResourceBrowserAuthenticationBuilder<S>
+where
+    S::Type:
+        browser_authentication_history_request_kind_resource_browser_authentication_builder::IsSet,
+    S::Fields:
+        browser_authentication_history_request_kind_resource_browser_authentication_builder::IsSet,
+    S::Options:
+        browser_authentication_history_request_kind_resource_browser_authentication_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BrowserAuthenticationHistoryRequestKindResourceBrowserAuthentication {
+        self.build_internal()
     }
 }
 

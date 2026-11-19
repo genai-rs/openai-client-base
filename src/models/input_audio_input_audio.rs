@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = input_audio_input_audio_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InputAudioInputAudio {
     /// Base64-encoded audio data.
     #[serde(rename = "data")]
@@ -23,6 +24,18 @@ pub struct InputAudioInputAudio {
 impl InputAudioInputAudio {
     pub fn new(data: String, format: Format) -> InputAudioInputAudio {
         InputAudioInputAudio { data, format }
+    }
+}
+
+impl<S: input_audio_input_audio_builder::State> InputAudioInputAudioBuilder<S>
+where
+    S::Data: input_audio_input_audio_builder::IsSet,
+    S::Format: input_audio_input_audio_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InputAudioInputAudio {
+        self.build_internal()
     }
 }
 

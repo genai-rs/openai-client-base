@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_details_tool_calls_file_search_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDetailsToolCallsFileSearchObject {
     /// The ID of the tool call object.
     #[serde(rename = "id")]
@@ -34,6 +35,20 @@ impl RunStepDetailsToolCallsFileSearchObject {
             r#type,
             file_search,
         }
+    }
+}
+
+impl<S: run_step_details_tool_calls_file_search_object_builder::State>
+    RunStepDetailsToolCallsFileSearchObjectBuilder<S>
+where
+    S::Id: run_step_details_tool_calls_file_search_object_builder::IsSet,
+    S::Type: run_step_details_tool_calls_file_search_object_builder::IsSet,
+    S::FileSearch: run_step_details_tool_calls_file_search_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDetailsToolCallsFileSearchObject {
+        self.build_internal()
     }
 }
 

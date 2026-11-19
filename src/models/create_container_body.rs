@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_container_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateContainerBody {
     /// Name of the container to create.
     #[serde(rename = "name")]
@@ -41,6 +42,17 @@ impl CreateContainerBody {
             memory_limit: None,
             network_policy: None,
         }
+    }
+}
+
+impl<S: create_container_body_builder::State> CreateContainerBodyBuilder<S>
+where
+    S::Name: create_container_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateContainerBody {
+        self.build_internal()
     }
 }
 

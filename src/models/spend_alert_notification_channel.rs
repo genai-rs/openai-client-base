@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SpendAlertNotificationChannel : Email notification settings for a spend alert.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = spend_alert_notification_channel_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SpendAlertNotificationChannel {
     /// The notification channel type. Currently only `email` is supported.
     #[serde(rename = "type")]
@@ -37,6 +38,18 @@ impl SpendAlertNotificationChannel {
             recipients,
             subject_prefix: None,
         }
+    }
+}
+
+impl<S: spend_alert_notification_channel_builder::State> SpendAlertNotificationChannelBuilder<S>
+where
+    S::Type: spend_alert_notification_channel_builder::IsSet,
+    S::Recipients: spend_alert_notification_channel_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SpendAlertNotificationChannel {
+        self.build_internal()
     }
 }
 

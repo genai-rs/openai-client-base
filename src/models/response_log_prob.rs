@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseLogProb : A logprob is the logarithmic probability that the model assigns to producing  a particular token at a given position in the sequence. Less-negative (higher)  logprob values indicate greater model confidence in that token choice.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_log_prob_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseLogProb {
     /// A possible text token.
     #[serde(rename = "token")]
@@ -33,6 +34,18 @@ impl ResponseLogProb {
             logprob,
             top_logprobs: None,
         }
+    }
+}
+
+impl<S: response_log_prob_builder::State> ResponseLogProbBuilder<S>
+where
+    S::Token: response_log_prob_builder::IsSet,
+    S::Logprob: response_log_prob_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseLogProb {
+        self.build_internal()
     }
 }
 

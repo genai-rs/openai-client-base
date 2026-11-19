@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// PromptCacheBreakpointParam : Marks the exact end of a reusable prompt prefix. When `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = prompt_cache_breakpoint_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PromptCacheBreakpointParam {
     /// The breakpoint mode. Always `explicit`.  Defaults to `\"explicit\"`.
     #[serde(rename = "mode")]
@@ -25,6 +26,17 @@ impl PromptCacheBreakpointParam {
     /// Marks the exact end of a reusable prompt prefix. When `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
     pub fn new(mode: Mode) -> PromptCacheBreakpointParam {
         PromptCacheBreakpointParam { mode, ttl: None }
+    }
+}
+
+impl<S: prompt_cache_breakpoint_param_builder::State> PromptCacheBreakpointParamBuilder<S>
+where
+    S::Mode: prompt_cache_breakpoint_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PromptCacheBreakpointParam {
+        self.build_internal()
     }
 }
 

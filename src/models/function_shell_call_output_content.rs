@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FunctionShellCallOutputContent : The content of a shell tool call output that was emitted.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = function_shell_call_output_content_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FunctionShellCallOutputContent {
     /// The standard output that was captured.
     #[serde(rename = "stdout")]
@@ -40,6 +41,19 @@ impl FunctionShellCallOutputContent {
             outcome,
             created_by: None,
         }
+    }
+}
+
+impl<S: function_shell_call_output_content_builder::State> FunctionShellCallOutputContentBuilder<S>
+where
+    S::Stdout: function_shell_call_output_content_builder::IsSet,
+    S::Stderr: function_shell_call_output_content_builder::IsSet,
+    S::Outcome: function_shell_call_output_content_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FunctionShellCallOutputContent {
+        self.build_internal()
     }
 }
 

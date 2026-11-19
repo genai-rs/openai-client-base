@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = uploaded_jwks_verification_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UploadedJwksVerification {
     /// Defaults to `\"uploaded_jwks\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl UploadedJwksVerification {
         jwks: std::collections::HashMap<String, serde_json::Value>,
     ) -> UploadedJwksVerification {
         UploadedJwksVerification { r#type, jwks }
+    }
+}
+
+impl<S: uploaded_jwks_verification_builder::State> UploadedJwksVerificationBuilder<S>
+where
+    S::Type: uploaded_jwks_verification_builder::IsSet,
+    S::Jwks: uploaded_jwks_verification_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UploadedJwksVerification {
+        self.build_internal()
     }
 }
 

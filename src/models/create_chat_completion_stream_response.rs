@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateChatCompletionStreamResponse : Represents a streamed chunk of a chat completion response returned by the model, based on the provided input. [Learn more](https://developers.openai.com/api/docs/guides/streaming-responses).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_chat_completion_stream_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateChatCompletionStreamResponse {
     /// A unique identifier for the chat completion. Each chunk has the same ID.
     #[serde(rename = "id")]
@@ -80,6 +81,22 @@ impl CreateChatCompletionStreamResponse {
             usage: None,
             moderation: None,
         }
+    }
+}
+
+impl<S: create_chat_completion_stream_response_builder::State>
+    CreateChatCompletionStreamResponseBuilder<S>
+where
+    S::Id: create_chat_completion_stream_response_builder::IsSet,
+    S::Choices: create_chat_completion_stream_response_builder::IsSet,
+    S::Created: create_chat_completion_stream_response_builder::IsSet,
+    S::Model: create_chat_completion_stream_response_builder::IsSet,
+    S::Object: create_chat_completion_stream_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateChatCompletionStreamResponse {
+        self.build_internal()
     }
 }
 

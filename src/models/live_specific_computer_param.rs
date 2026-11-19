@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_specific_computer_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSpecificComputerParam {
     /// The tool to call. Always `computer`.  Defaults to `\"computer\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,17 @@ pub struct LiveSpecificComputerParam {
 impl LiveSpecificComputerParam {
     pub fn new(r#type: Type) -> LiveSpecificComputerParam {
         LiveSpecificComputerParam { r#type }
+    }
+}
+
+impl<S: live_specific_computer_param_builder::State> LiveSpecificComputerParamBuilder<S>
+where
+    S::Type: live_specific_computer_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSpecificComputerParam {
+        self.build_internal()
     }
 }
 

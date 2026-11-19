@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateFineTuningJobRequestIntegrationsInnerWandb : The settings for your integration with Weights and Biases. This payload specifies the project that metrics will be sent to. Optionally, you can set an explicit display name for your run, add tags to your run, and set a default entity (team, username, etc) to be associated with your run.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_fine_tuning_job_request_integrations_inner_wandb_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateFineTuningJobRequestIntegrationsInnerWandb {
     /// The name of the project that the new run will be created under.
     #[serde(rename = "project")]
@@ -46,6 +47,18 @@ impl CreateFineTuningJobRequestIntegrationsInnerWandb {
             entity: None,
             tags: None,
         }
+    }
+}
+
+impl<S: create_fine_tuning_job_request_integrations_inner_wandb_builder::State>
+    CreateFineTuningJobRequestIntegrationsInnerWandbBuilder<S>
+where
+    S::Project: create_fine_tuning_job_request_integrations_inner_wandb_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateFineTuningJobRequestIntegrationsInnerWandb {
+        self.build_internal()
     }
 }
 

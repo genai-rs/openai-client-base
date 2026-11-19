@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = list_fine_tuning_job_checkpoints_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ListFineTuningJobCheckpointsResponse {
     #[serde(rename = "data")]
     pub data: Vec<models::FineTuningJobCheckpoint>,
@@ -48,6 +49,20 @@ impl ListFineTuningJobCheckpointsResponse {
             last_id: None,
             has_more,
         }
+    }
+}
+
+impl<S: list_fine_tuning_job_checkpoints_response_builder::State>
+    ListFineTuningJobCheckpointsResponseBuilder<S>
+where
+    S::Data: list_fine_tuning_job_checkpoints_response_builder::IsSet,
+    S::Object: list_fine_tuning_job_checkpoints_response_builder::IsSet,
+    S::HasMore: list_fine_tuning_job_checkpoints_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ListFineTuningJobCheckpointsResponse {
+        self.build_internal()
     }
 }
 

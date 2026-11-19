@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_upload_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateUploadRequest {
     /// The name of the file to upload.
     #[serde(rename = "filename")]
@@ -43,6 +44,20 @@ impl CreateUploadRequest {
             mime_type,
             expires_after: None,
         }
+    }
+}
+
+impl<S: create_upload_request_builder::State> CreateUploadRequestBuilder<S>
+where
+    S::Filename: create_upload_request_builder::IsSet,
+    S::Purpose: create_upload_request_builder::IsSet,
+    S::Bytes: create_upload_request_builder::IsSet,
+    S::MimeType: create_upload_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateUploadRequest {
+        self.build_internal()
     }
 }
 

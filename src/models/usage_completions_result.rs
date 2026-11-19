@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UsageCompletionsResult : The aggregated completions usage details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = usage_completions_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UsageCompletionsResult {
     /// When grouped by `api_source`, `agents_api` identifies attributed Agents API activity and `unlabeled` includes all records without published source attribution, including historical and unknown origins. Unlabeled does not imply direct API usage. Without source grouping, this field is null.
     #[serde(
@@ -186,6 +187,20 @@ impl UsageCompletionsResult {
             batch: None,
             service_tier: None,
         }
+    }
+}
+
+impl<S: usage_completions_result_builder::State> UsageCompletionsResultBuilder<S>
+where
+    S::Object: usage_completions_result_builder::IsSet,
+    S::InputTokens: usage_completions_result_builder::IsSet,
+    S::OutputTokens: usage_completions_result_builder::IsSet,
+    S::NumModelRequests: usage_completions_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UsageCompletionsResult {
+        self.build_internal()
     }
 }
 

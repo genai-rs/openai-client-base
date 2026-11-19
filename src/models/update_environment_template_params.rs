@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// UpdateEnvironmentTemplateParams : Fields to replace on an existing reusable OpenAI-hosted environment template.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_environment_template_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateEnvironmentTemplateParams {
     /// A replacement human-readable display name, or `null` to clear the name.
     ///
@@ -125,6 +126,16 @@ impl UpdateEnvironmentTemplateParams {
             plugins: None,
             files: None,
         }
+    }
+}
+
+impl<S: update_environment_template_params_builder::State>
+    UpdateEnvironmentTemplateParamsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateEnvironmentTemplateParams {
+        self.build_internal()
     }
 }
 

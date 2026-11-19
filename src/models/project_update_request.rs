@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_update_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectUpdateRequest {
     /// The updated name of the project, this name appears in reports.
     #[serde(
@@ -45,6 +46,14 @@ impl ProjectUpdateRequest {
             external_key_id: None,
             geography: None,
         }
+    }
+}
+
+impl<S: project_update_request_builder::State> ProjectUpdateRequestBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectUpdateRequest {
+        self.build_internal()
     }
 }
 

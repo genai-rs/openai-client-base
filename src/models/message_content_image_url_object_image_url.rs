@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_content_image_url_object_image_url_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageContentImageUrlObjectImageUrl {
     /// The external URL of the image, must be a supported image types: jpeg, jpg, png, gif, webp.
     #[serde(rename = "url")]
@@ -23,6 +24,18 @@ pub struct MessageContentImageUrlObjectImageUrl {
 impl MessageContentImageUrlObjectImageUrl {
     pub fn new(url: String) -> MessageContentImageUrlObjectImageUrl {
         MessageContentImageUrlObjectImageUrl { url, detail: None }
+    }
+}
+
+impl<S: message_content_image_url_object_image_url_builder::State>
+    MessageContentImageUrlObjectImageUrlBuilder<S>
+where
+    S::Url: message_content_image_url_object_image_url_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageContentImageUrlObjectImageUrl {
+        self.build_internal()
     }
 }
 

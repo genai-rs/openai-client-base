@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ThreadResource : Represents a ChatKit thread and its current status.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = thread_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ThreadResource {
     /// Identifier of the thread.
     #[serde(rename = "id")]
@@ -51,6 +52,21 @@ impl ThreadResource {
             status,
             user,
         }
+    }
+}
+
+impl<S: thread_resource_builder::State> ThreadResourceBuilder<S>
+where
+    S::Id: thread_resource_builder::IsSet,
+    S::Object: thread_resource_builder::IsSet,
+    S::CreatedAt: thread_resource_builder::IsSet,
+    S::Status: thread_resource_builder::IsSet,
+    S::User: thread_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ThreadResource {
+        self.build_internal()
     }
 }
 

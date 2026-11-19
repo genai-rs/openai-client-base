@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EnvironmentParamSelfHosted : An application-hosted environment configured inline.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = environment_param_self_hosted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EnvironmentParamSelfHosted {
     /// The type of the object. Always `self_hosted`.  Defaults to `\"self_hosted\"`.
     #[serde(rename = "type")]
@@ -41,6 +42,18 @@ impl EnvironmentParamSelfHosted {
             capability_directories: None,
             workspace_directory,
         }
+    }
+}
+
+impl<S: environment_param_self_hosted_builder::State> EnvironmentParamSelfHostedBuilder<S>
+where
+    S::Type: environment_param_self_hosted_builder::IsSet,
+    S::WorkspaceDirectory: environment_param_self_hosted_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EnvironmentParamSelfHosted {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaComparisonFilter : A filter used to compare a specified attribute key to a given value using a defined comparison operation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_comparison_filter_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaComparisonFilter {
     /// Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin`. - `eq`: equals - `ne`: not equal - `gt`: greater than - `gte`: greater than or equal - `lt`: less than - `lte`: less than or equal - `in`: in - `nin`: not in  Defaults to `\"eq\"`.
     #[serde(rename = "type")]
@@ -32,6 +33,19 @@ impl BetaComparisonFilter {
         value: models::BetaComparisonFilterValue,
     ) -> BetaComparisonFilter {
         BetaComparisonFilter { r#type, key, value }
+    }
+}
+
+impl<S: beta_comparison_filter_builder::State> BetaComparisonFilterBuilder<S>
+where
+    S::Type: beta_comparison_filter_builder::IsSet,
+    S::Key: beta_comparison_filter_builder::IsSet,
+    S::Value: beta_comparison_filter_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaComparisonFilter {
+        self.build_internal()
     }
 }
 

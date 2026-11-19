@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalRunResultCounts : Counters summarizing the outcomes of the evaluation run.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_run_result_counts_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalRunResultCounts {
     /// Total number of executed output items.
     #[serde(rename = "total")]
@@ -36,6 +37,20 @@ impl EvalRunResultCounts {
             failed,
             passed,
         }
+    }
+}
+
+impl<S: eval_run_result_counts_builder::State> EvalRunResultCountsBuilder<S>
+where
+    S::Total: eval_run_result_counts_builder::IsSet,
+    S::Errored: eval_run_result_counts_builder::IsSet,
+    S::Failed: eval_run_result_counts_builder::IsSet,
+    S::Passed: eval_run_result_counts_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalRunResultCounts {
+        self.build_internal()
     }
 }
 

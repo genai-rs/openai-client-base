@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ReasoningItem : A description of the chain of thought used by a reasoning model while generating a response. Be sure to include these items in your `input` to the Responses API for subsequent turns of a conversation if you are manually [managing context](https://developers.openai.com/api/docs/guides/conversation-state).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = reasoning_item_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ReasoningItem {
     /// The type of the object. Always `reasoning`.
     #[serde(rename = "type")]
@@ -54,6 +55,19 @@ impl ReasoningItem {
             content: None,
             status: None,
         }
+    }
+}
+
+impl<S: reasoning_item_builder::State> ReasoningItemBuilder<S>
+where
+    S::Type: reasoning_item_builder::IsSet,
+    S::Id: reasoning_item_builder::IsSet,
+    S::Summary: reasoning_item_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ReasoningItem {
+        self.build_internal()
     }
 }
 

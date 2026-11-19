@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// VectorStoreFileBatchObject : A batch of files attached to a vector store.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vector_store_file_batch_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VectorStoreFileBatchObject {
     /// The identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -51,6 +52,22 @@ impl VectorStoreFileBatchObject {
             status,
             file_counts,
         }
+    }
+}
+
+impl<S: vector_store_file_batch_object_builder::State> VectorStoreFileBatchObjectBuilder<S>
+where
+    S::Id: vector_store_file_batch_object_builder::IsSet,
+    S::Object: vector_store_file_batch_object_builder::IsSet,
+    S::CreatedAt: vector_store_file_batch_object_builder::IsSet,
+    S::VectorStoreId: vector_store_file_batch_object_builder::IsSet,
+    S::Status: vector_store_file_batch_object_builder::IsSet,
+    S::FileCounts: vector_store_file_batch_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VectorStoreFileBatchObject {
+        self.build_internal()
     }
 }
 

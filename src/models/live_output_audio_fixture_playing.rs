@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveOutputAudioFixturePlaying : The existing playback path has accepted the validated audio fixture. This acknowledgment does not identify when the listener receives the first sample. The optional client_event_id echoes the play command.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_output_audio_fixture_playing_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveOutputAudioFixturePlaying {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -32,6 +33,18 @@ impl LiveOutputAudioFixturePlaying {
             client_event_id: None,
             r#type,
         }
+    }
+}
+
+impl<S: live_output_audio_fixture_playing_builder::State> LiveOutputAudioFixturePlayingBuilder<S>
+where
+    S::EventId: live_output_audio_fixture_playing_builder::IsSet,
+    S::Type: live_output_audio_fixture_playing_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveOutputAudioFixturePlaying {
+        self.build_internal()
     }
 }
 

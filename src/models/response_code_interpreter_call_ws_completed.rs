@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseCodeInterpreterCallWsCompleted : Emitted when the code interpreter call is completed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_code_interpreter_call_ws_completed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseCodeInterpreterCallWsCompleted {
     /// The type of the event. Always `response.code_interpreter_call.completed`.
     #[serde(rename = "type")]
@@ -45,6 +46,21 @@ impl ResponseCodeInterpreterCallWsCompleted {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_code_interpreter_call_ws_completed_builder::State>
+    ResponseCodeInterpreterCallWsCompletedBuilder<S>
+where
+    S::Type: response_code_interpreter_call_ws_completed_builder::IsSet,
+    S::OutputIndex: response_code_interpreter_call_ws_completed_builder::IsSet,
+    S::ItemId: response_code_interpreter_call_ws_completed_builder::IsSet,
+    S::SequenceNumber: response_code_interpreter_call_ws_completed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseCodeInterpreterCallWsCompleted {
+        self.build_internal()
     }
 }
 

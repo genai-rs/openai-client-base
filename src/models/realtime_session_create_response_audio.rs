@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeSessionCreateResponseAudio : Configuration for input and output audio for the session.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_session_create_response_audio_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeSessionCreateResponseAudio {
     #[serde(rename = "input", skip_serializing_if = "Option::is_none")]
     pub input: Option<models::RealtimeSessionCreateResponseAudioInput>,
@@ -27,6 +28,16 @@ impl RealtimeSessionCreateResponseAudio {
             input: None,
             output: None,
         }
+    }
+}
+
+impl<S: realtime_session_create_response_audio_builder::State>
+    RealtimeSessionCreateResponseAudioBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeSessionCreateResponseAudio {
+        self.build_internal()
     }
 }
 

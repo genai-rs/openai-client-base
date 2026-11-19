@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = decision_input_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DecisionInputText {
     /// Defaults to `\"input_text\"`.
     #[serde(rename = "type")]
@@ -35,6 +36,18 @@ impl DecisionInputText {
             text,
             prompt_cache_breakpoint: None,
         }
+    }
+}
+
+impl<S: decision_input_text_builder::State> DecisionInputTextBuilder<S>
+where
+    S::Type: decision_input_text_builder::IsSet,
+    S::Text: decision_input_text_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DecisionInputText {
+        self.build_internal()
     }
 }
 

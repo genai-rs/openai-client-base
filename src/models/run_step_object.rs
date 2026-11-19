@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepObject : Represents a step in execution of a run.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepObject {
     /// The identifier of the run step, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -99,6 +100,25 @@ impl RunStepObject {
             metadata,
             usage,
         }
+    }
+}
+
+impl<S: run_step_object_builder::State> RunStepObjectBuilder<S>
+where
+    S::Id: run_step_object_builder::IsSet,
+    S::Object: run_step_object_builder::IsSet,
+    S::CreatedAt: run_step_object_builder::IsSet,
+    S::AssistantId: run_step_object_builder::IsSet,
+    S::ThreadId: run_step_object_builder::IsSet,
+    S::RunId: run_step_object_builder::IsSet,
+    S::Type: run_step_object_builder::IsSet,
+    S::Status: run_step_object_builder::IsSet,
+    S::StepDetails: run_step_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepObject {
+        self.build_internal()
     }
 }
 

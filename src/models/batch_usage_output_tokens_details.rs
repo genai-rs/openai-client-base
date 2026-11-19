@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BatchUsageOutputTokensDetails : A detailed breakdown of the output tokens.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = batch_usage_output_tokens_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BatchUsageOutputTokensDetails {
     /// The number of reasoning tokens.
     #[serde(rename = "reasoning_tokens")]
@@ -22,6 +23,17 @@ impl BatchUsageOutputTokensDetails {
     /// A detailed breakdown of the output tokens.
     pub fn new(reasoning_tokens: i64) -> BatchUsageOutputTokensDetails {
         BatchUsageOutputTokensDetails { reasoning_tokens }
+    }
+}
+
+impl<S: batch_usage_output_tokens_details_builder::State> BatchUsageOutputTokensDetailsBuilder<S>
+where
+    S::ReasoningTokens: batch_usage_output_tokens_details_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BatchUsageOutputTokensDetails {
+        self.build_internal()
     }
 }
 

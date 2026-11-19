@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectHostedToolPermissions : Represents hosted tool permissions for a project.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_hosted_tool_permissions_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectHostedToolPermissions {
     #[serde(rename = "file_search")]
     pub file_search: models::HostedToolPermission,
@@ -42,6 +43,21 @@ impl ProjectHostedToolPermissions {
             mcp,
             code_interpreter,
         }
+    }
+}
+
+impl<S: project_hosted_tool_permissions_builder::State> ProjectHostedToolPermissionsBuilder<S>
+where
+    S::FileSearch: project_hosted_tool_permissions_builder::IsSet,
+    S::WebSearch: project_hosted_tool_permissions_builder::IsSet,
+    S::ImageGeneration: project_hosted_tool_permissions_builder::IsSet,
+    S::Mcp: project_hosted_tool_permissions_builder::IsSet,
+    S::CodeInterpreter: project_hosted_tool_permissions_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectHostedToolPermissions {
+        self.build_internal()
     }
 }
 

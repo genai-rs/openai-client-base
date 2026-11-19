@@ -60,7 +60,7 @@ pub enum RetrieveInviteError {
 }
 
 /// Delete an invite. If the invite has already been accepted, it cannot be deleted.
-#[bon::builder]
+#[bon::builder(state_mod = delete_invite_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_invite(
     configuration: &configuration::Configuration,
     invite_id: &str,
@@ -141,13 +141,26 @@ pub async fn delete_invite(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_invite_builder::State> DeleteInviteBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_invite_builder::IsSet,
+    S::InviteId: delete_invite_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::InviteDeleteResponse, Error<DeleteInviteError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete an invite. If the invite has already been accepted, it cannot be deleted.
 ///
 /// Sends the same request as [`delete_invite`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::InviteDeleteResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_invite_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_invite_response(
     configuration: &configuration::Configuration,
     invite_id: &str,
@@ -219,8 +232,23 @@ pub async fn delete_invite_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_invite_response_builder::State> DeleteInviteResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_invite_response_builder::IsSet,
+    S::InviteId: delete_invite_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::InviteDeleteResponse>, Error<DeleteInviteError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create an invite for a user to the organization. The invite must be accepted by the user before they have access to the organization.
-#[bon::builder]
+#[bon::builder(state_mod = invite_user_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn invite_user(
     configuration: &configuration::Configuration,
     invite_request: &models::InviteRequest,
@@ -295,13 +323,26 @@ pub async fn invite_user(
     }
 }
 
+#[allow(deprecated)]
+impl<S: invite_user_builder::State> InviteUserBuilder<'_, '_, '_, S>
+where
+    S::Configuration: invite_user_builder::IsSet,
+    S::InviteRequest: invite_user_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Invite, Error<InviteUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create an invite for a user to the organization. The invite must be accepted by the user before they have access to the organization.
 ///
 /// Sends the same request as [`invite_user`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Invite` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = invite_user_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn invite_user_response(
     configuration: &configuration::Configuration,
     invite_request: &models::InviteRequest,
@@ -367,8 +408,21 @@ pub async fn invite_user_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: invite_user_response_builder::State> InviteUserResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: invite_user_response_builder::IsSet,
+    S::InviteRequest: invite_user_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<models::Invite>, Error<InviteUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of invites in the organization.
-#[bon::builder]
+#[bon::builder(state_mod = list_invites_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_invites(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -453,13 +507,25 @@ pub async fn list_invites(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_invites_builder::State> ListInvitesBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_invites_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::InviteListResponse, Error<ListInvitesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of invites in the organization.
 ///
 /// Sends the same request as [`list_invites`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::InviteListResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_invites_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_invites_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -535,8 +601,22 @@ pub async fn list_invites_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_invites_response_builder::State> ListInvitesResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_invites_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::InviteListResponse>, Error<ListInvitesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an invite.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_invite_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_invite(
     configuration: &configuration::Configuration,
     invite_id: &str,
@@ -620,13 +700,26 @@ pub async fn retrieve_invite(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_invite_builder::State> RetrieveInviteBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_invite_builder::IsSet,
+    S::InviteId: retrieve_invite_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Invite, Error<RetrieveInviteError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an invite.
 ///
 /// Sends the same request as [`retrieve_invite`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Invite` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_invite_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_invite_response(
     configuration: &configuration::Configuration,
     invite_id: &str,
@@ -698,5 +791,20 @@ pub async fn retrieve_invite_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: retrieve_invite_response_builder::State> RetrieveInviteResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_invite_response_builder::IsSet,
+    S::InviteId: retrieve_invite_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Invite>, Error<RetrieveInviteError>> {
+        self.call_internal().await
     }
 }

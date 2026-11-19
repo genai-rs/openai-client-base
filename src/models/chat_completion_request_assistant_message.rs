@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionRequestAssistantMessage : Messages sent by the model in response to user messages.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_request_assistant_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionRequestAssistantMessage {
     #[serde(
         rename = "content",
@@ -66,6 +67,18 @@ impl ChatCompletionRequestAssistantMessage {
             tool_calls: None,
             function_call: None,
         }
+    }
+}
+
+impl<S: chat_completion_request_assistant_message_builder::State>
+    ChatCompletionRequestAssistantMessageBuilder<S>
+where
+    S::Role: chat_completion_request_assistant_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionRequestAssistantMessage {
+        self.build_internal()
     }
 }
 

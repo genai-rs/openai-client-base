@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// McpApprovalResponse : A response to an MCP approval request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_approval_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpApprovalResponse {
     /// The type of the item. Always `mcp_approval_response`.
     #[serde(rename = "type")]
@@ -50,6 +51,19 @@ impl McpApprovalResponse {
             approve,
             reason: None,
         }
+    }
+}
+
+impl<S: mcp_approval_response_builder::State> McpApprovalResponseBuilder<S>
+where
+    S::Type: mcp_approval_response_builder::IsSet,
+    S::ApprovalRequestId: mcp_approval_response_builder::IsSet,
+    S::Approve: mcp_approval_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpApprovalResponse {
+        self.build_internal()
     }
 }
 

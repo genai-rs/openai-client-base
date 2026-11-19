@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionAgentConfigParam : Agent configuration for a session. Omitted fields inherit from `agent_id` when supplied. Supplied objects and arrays replace the whole field, except experimental settings, which merge by key. Null resets nullable fields.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_agent_config_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionAgentConfigParam {
     #[serde(rename = "experimental", skip_serializing_if = "Option::is_none")]
     pub experimental: Option<models::ExperimentalConfigOverridesParam>,
@@ -97,6 +98,14 @@ impl SessionAgentConfigParam {
             compaction: None,
             tools: None,
         }
+    }
+}
+
+impl<S: session_agent_config_param_builder::State> SessionAgentConfigParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionAgentConfigParam {
+        self.build_internal()
     }
 }
 

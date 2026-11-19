@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseWsQueued : Emitted when a response is queued and waiting to be processed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_ws_queued_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseWsQueued {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -49,6 +50,19 @@ impl BetaResponseWsQueued {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_ws_queued_builder::State> BetaResponseWsQueuedBuilder<S>
+where
+    S::Type: beta_response_ws_queued_builder::IsSet,
+    S::Response: beta_response_ws_queued_builder::IsSet,
+    S::SequenceNumber: beta_response_ws_queued_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseWsQueued {
+        self.build_internal()
     }
 }
 

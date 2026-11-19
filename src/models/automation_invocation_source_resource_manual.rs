@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_invocation_source_resource_manual_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationInvocationSourceResourceManual {
     /// The type of the object. Always `manual`.  Defaults to `\"manual\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,18 @@ pub struct AutomationInvocationSourceResourceManual {
 impl AutomationInvocationSourceResourceManual {
     pub fn new(r#type: Type) -> AutomationInvocationSourceResourceManual {
         AutomationInvocationSourceResourceManual { r#type }
+    }
+}
+
+impl<S: automation_invocation_source_resource_manual_builder::State>
+    AutomationInvocationSourceResourceManualBuilder<S>
+where
+    S::Type: automation_invocation_source_resource_manual_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationInvocationSourceResourceManual {
+        self.build_internal()
     }
 }
 

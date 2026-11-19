@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeConversationItemWithReference : The item to add to the conversation.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_conversation_item_with_reference_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeConversationItemWithReference {
     /// For an item of type (`message` | `function_call` | `function_call_output`) this field allows the client to assign the unique ID of the item. It is not required because the server will generate one if not provided.  For an item of type `item_reference`, this field is required and is a reference to any item that has previously existed in the conversation.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -61,6 +62,16 @@ impl RealtimeConversationItemWithReference {
             arguments: None,
             output: None,
         }
+    }
+}
+
+impl<S: realtime_conversation_item_with_reference_builder::State>
+    RealtimeConversationItemWithReferenceBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeConversationItemWithReference {
+        self.build_internal()
     }
 }
 

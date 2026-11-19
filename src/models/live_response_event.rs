@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveResponseEvent : A streaming Responses API event from a backend delegated to by the Live session. Use the outer delegation_id to associate the nested stream with its Live delegation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_response_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveResponseEvent {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -49,6 +50,19 @@ impl LiveResponseEvent {
             delegation_id: None,
             event,
         }
+    }
+}
+
+impl<S: live_response_event_builder::State> LiveResponseEventBuilder<S>
+where
+    S::EventId: live_response_event_builder::IsSet,
+    S::Type: live_response_event_builder::IsSet,
+    S::Event: live_response_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveResponseEvent {
+        self.build_internal()
     }
 }
 

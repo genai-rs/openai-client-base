@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveWebRtcTransport : WebRTC transport carrying the offer SDP in a creation request or answer SDP in its response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_web_rtc_transport_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveWebRtcTransport {
     /// The transport used for the Live session. Always `webrtc`.
     #[serde(rename = "type")]
@@ -27,6 +28,18 @@ impl LiveWebRtcTransport {
     /// WebRTC transport carrying the offer SDP in a creation request or answer SDP in its response.
     pub fn new(r#type: Type, sdp: String) -> LiveWebRtcTransport {
         LiveWebRtcTransport { r#type, sdp }
+    }
+}
+
+impl<S: live_web_rtc_transport_builder::State> LiveWebRtcTransportBuilder<S>
+where
+    S::Type: live_web_rtc_transport_builder::IsSet,
+    S::Sdp: live_web_rtc_transport_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveWebRtcTransport {
+        self.build_internal()
     }
 }
 

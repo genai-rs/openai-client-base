@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = computer_use_approval_response_param_browser_authentication_submit_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ComputerUseApprovalResponseParamBrowserAuthenticationSubmitParam {
     /// Defaults to `\"browser_authentication\"`.
     #[serde(rename = "type")]
@@ -48,6 +49,24 @@ impl ComputerUseApprovalResponseParamBrowserAuthenticationSubmitParam {
             fields,
             selected_option: None,
         }
+    }
+}
+
+impl<
+        S: computer_use_approval_response_param_browser_authentication_submit_param_builder::State,
+    > ComputerUseApprovalResponseParamBrowserAuthenticationSubmitParamBuilder<S>
+where
+    S::Type:
+        computer_use_approval_response_param_browser_authentication_submit_param_builder::IsSet,
+    S::Action:
+        computer_use_approval_response_param_browser_authentication_submit_param_builder::IsSet,
+    S::Fields:
+        computer_use_approval_response_param_browser_authentication_submit_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ComputerUseApprovalResponseParamBrowserAuthenticationSubmitParam {
+        self.build_internal()
     }
 }
 

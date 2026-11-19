@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// McpListTools : A list of tools available on an MCP server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_list_tools_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpListTools {
     /// The type of the item. Always `mcp_list_tools`.
     #[serde(rename = "type")]
@@ -51,6 +52,20 @@ impl McpListTools {
             tools,
             error: None,
         }
+    }
+}
+
+impl<S: mcp_list_tools_builder::State> McpListToolsBuilder<S>
+where
+    S::Type: mcp_list_tools_builder::IsSet,
+    S::Id: mcp_list_tools_builder::IsSet,
+    S::ServerLabel: mcp_list_tools_builder::IsSet,
+    S::Tools: mcp_list_tools_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpListTools {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectModelPermissionsDeleteResponse : Confirmation payload returned after deleting project model permissions.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_model_permissions_delete_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectModelPermissionsDeleteResponse {
     /// The object type, which is always `project.model_permissions.deleted`.
     #[serde(rename = "object")]
@@ -25,6 +26,19 @@ impl ProjectModelPermissionsDeleteResponse {
     /// Confirmation payload returned after deleting project model permissions.
     pub fn new(object: Object, deleted: bool) -> ProjectModelPermissionsDeleteResponse {
         ProjectModelPermissionsDeleteResponse { object, deleted }
+    }
+}
+
+impl<S: project_model_permissions_delete_response_builder::State>
+    ProjectModelPermissionsDeleteResponseBuilder<S>
+where
+    S::Object: project_model_permissions_delete_response_builder::IsSet,
+    S::Deleted: project_model_permissions_delete_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectModelPermissionsDeleteResponse {
+        self.build_internal()
     }
 }
 

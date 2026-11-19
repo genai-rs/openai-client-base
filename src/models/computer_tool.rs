@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ComputerTool : A tool that controls a virtual computer. Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = computer_tool_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ComputerTool {
     /// The type of the computer tool. Always `computer`.  Defaults to `\"computer\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl ComputerTool {
     /// A tool that controls a virtual computer. Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
     pub fn new(r#type: Type) -> ComputerTool {
         ComputerTool { r#type }
+    }
+}
+
+impl<S: computer_tool_builder::State> ComputerToolBuilder<S>
+where
+    S::Type: computer_tool_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ComputerTool {
+        self.build_internal()
     }
 }
 

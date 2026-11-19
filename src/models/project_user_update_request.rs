@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_user_update_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectUserUpdateRequest {
     /// `owner` or `member`
     #[serde(
@@ -25,6 +26,14 @@ pub struct ProjectUserUpdateRequest {
 impl ProjectUserUpdateRequest {
     pub fn new() -> ProjectUserUpdateRequest {
         ProjectUserUpdateRequest { role: None }
+    }
+}
+
+impl<S: project_user_update_request_builder::State> ProjectUserUpdateRequestBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectUserUpdateRequest {
+        self.build_internal()
     }
 }
 

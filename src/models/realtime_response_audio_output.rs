@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_response_audio_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeResponseAudioOutput {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
     pub format: Option<models::RealtimeAudioFormats>,
@@ -26,6 +27,14 @@ impl RealtimeResponseAudioOutput {
             format: None,
             voice: None,
         }
+    }
+}
+
+impl<S: realtime_response_audio_output_builder::State> RealtimeResponseAudioOutputBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeResponseAudioOutput {
+        self.build_internal()
     }
 }
 

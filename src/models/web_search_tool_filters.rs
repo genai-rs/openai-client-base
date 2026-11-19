@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebSearchToolFilters : Filters for the search.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = web_search_tool_filters_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebSearchToolFilters {
     /// Allowed domains for the search. If not provided, all domains are allowed. Subdomains of the provided domains are allowed as well.  Example: `[\"pubmed.ncbi.nlm.nih.gov\"]`
     #[serde(
@@ -29,6 +30,14 @@ impl WebSearchToolFilters {
         WebSearchToolFilters {
             allowed_domains: None,
         }
+    }
+}
+
+impl<S: web_search_tool_filters_builder::State> WebSearchToolFiltersBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebSearchToolFilters {
+        self.build_internal()
     }
 }
 

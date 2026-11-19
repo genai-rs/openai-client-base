@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSessionCreateRequest : Create a Live session with a WebRTC SDP offer or place an outbound SIP call. Follow the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) before choosing frontend and backend instructions. The request starts the session; do not send session.start again on the data channel or sideband.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_create_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionCreateRequest {
     #[serde(rename = "session")]
     pub session: models::LiveMediaSessionCreateParams,
@@ -27,6 +28,18 @@ impl LiveSessionCreateRequest {
         transport: models::LiveSessionCreateRequestTransport,
     ) -> LiveSessionCreateRequest {
         LiveSessionCreateRequest { session, transport }
+    }
+}
+
+impl<S: live_session_create_request_builder::State> LiveSessionCreateRequestBuilder<S>
+where
+    S::Session: live_session_create_request_builder::IsSet,
+    S::Transport: live_session_create_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionCreateRequest {
+        self.build_internal()
     }
 }
 

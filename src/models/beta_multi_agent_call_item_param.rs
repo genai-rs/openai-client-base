@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_multi_agent_call_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaMultiAgentCallItemParam {
     #[serde(
         rename = "agent",
@@ -58,6 +59,20 @@ impl BetaMultiAgentCallItemParam {
             action,
             arguments,
         }
+    }
+}
+
+impl<S: beta_multi_agent_call_item_param_builder::State> BetaMultiAgentCallItemParamBuilder<S>
+where
+    S::CallId: beta_multi_agent_call_item_param_builder::IsSet,
+    S::Type: beta_multi_agent_call_item_param_builder::IsSet,
+    S::Action: beta_multi_agent_call_item_param_builder::IsSet,
+    S::Arguments: beta_multi_agent_call_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaMultiAgentCallItemParam {
+        self.build_internal()
     }
 }
 

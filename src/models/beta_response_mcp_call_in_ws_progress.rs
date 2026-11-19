@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseMcpCallInWsProgress : Emitted when an MCP  tool call is in progress.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_mcp_call_in_ws_progress_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseMcpCallInWsProgress {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -55,6 +56,21 @@ impl BetaResponseMcpCallInWsProgress {
             item_id,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_mcp_call_in_ws_progress_builder::State>
+    BetaResponseMcpCallInWsProgressBuilder<S>
+where
+    S::Type: beta_response_mcp_call_in_ws_progress_builder::IsSet,
+    S::SequenceNumber: beta_response_mcp_call_in_ws_progress_builder::IsSet,
+    S::OutputIndex: beta_response_mcp_call_in_ws_progress_builder::IsSet,
+    S::ItemId: beta_response_mcp_call_in_ws_progress_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseMcpCallInWsProgress {
+        self.build_internal()
     }
 }
 

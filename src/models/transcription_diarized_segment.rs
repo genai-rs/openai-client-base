@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// TranscriptionDiarizedSegment : A segment of diarized transcript text with speaker metadata.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = transcription_diarized_segment_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TranscriptionDiarizedSegment {
     /// The type of the segment. Always `transcript.text.segment`.
     #[serde(rename = "type")]
@@ -51,6 +52,22 @@ impl TranscriptionDiarizedSegment {
             text,
             speaker,
         }
+    }
+}
+
+impl<S: transcription_diarized_segment_builder::State> TranscriptionDiarizedSegmentBuilder<S>
+where
+    S::Type: transcription_diarized_segment_builder::IsSet,
+    S::Id: transcription_diarized_segment_builder::IsSet,
+    S::Start: transcription_diarized_segment_builder::IsSet,
+    S::End: transcription_diarized_segment_builder::IsSet,
+    S::Text: transcription_diarized_segment_builder::IsSet,
+    S::Speaker: transcription_diarized_segment_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TranscriptionDiarizedSegment {
+        self.build_internal()
     }
 }
 

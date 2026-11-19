@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// HostedTemplateFileResourceFileId : A project-scoped Files API reference resolved separately for each session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = hosted_template_file_resource_file_id_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HostedTemplateFileResourceFileId {
     /// The type of the object. Always `file_id`.  Defaults to `\"file_id\"`.
     #[serde(rename = "type")]
@@ -36,6 +37,20 @@ impl HostedTemplateFileResourceFileId {
             file_id,
             path,
         }
+    }
+}
+
+impl<S: hosted_template_file_resource_file_id_builder::State>
+    HostedTemplateFileResourceFileIdBuilder<S>
+where
+    S::Type: hosted_template_file_resource_file_id_builder::IsSet,
+    S::FileId: hosted_template_file_resource_file_id_builder::IsSet,
+    S::Path: hosted_template_file_resource_file_id_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HostedTemplateFileResourceFileId {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UrlAnnotationSource : URL backing an annotation entry.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = url_annotation_source_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UrlAnnotationSource {
     /// Type discriminator that is always `url`.  Defaults to `\"url\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl UrlAnnotationSource {
     /// URL backing an annotation entry.
     pub fn new(r#type: Type, url: String) -> UrlAnnotationSource {
         UrlAnnotationSource { r#type, url }
+    }
+}
+
+impl<S: url_annotation_source_builder::State> UrlAnnotationSourceBuilder<S>
+where
+    S::Type: url_annotation_source_builder::IsSet,
+    S::Url: url_annotation_source_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UrlAnnotationSource {
+        self.build_internal()
     }
 }
 

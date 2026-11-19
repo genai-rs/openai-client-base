@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = function_tool_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FunctionToolParam {
     /// Validation: `minLength: 1`, `maxLength: 128`, `pattern: ^[a-zA-Z0-9_-]+$`.
     #[serde(rename = "name")]
@@ -80,6 +81,18 @@ impl FunctionToolParam {
             defer_loading: None,
             allowed_callers: None,
         }
+    }
+}
+
+impl<S: function_tool_param_builder::State> FunctionToolParamBuilder<S>
+where
+    S::Name: function_tool_param_builder::IsSet,
+    S::Type: function_tool_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FunctionToolParam {
+        self.build_internal()
     }
 }
 

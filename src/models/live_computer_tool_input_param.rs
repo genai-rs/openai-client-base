@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_computer_tool_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveComputerToolInputParam {
     /// Defaults to `\"computer\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,17 @@ pub struct LiveComputerToolInputParam {
 impl LiveComputerToolInputParam {
     pub fn new(r#type: Type) -> LiveComputerToolInputParam {
         LiveComputerToolInputParam { r#type }
+    }
+}
+
+impl<S: live_computer_tool_input_param_builder::State> LiveComputerToolInputParamBuilder<S>
+where
+    S::Type: live_computer_tool_input_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveComputerToolInputParam {
+        self.build_internal()
     }
 }
 

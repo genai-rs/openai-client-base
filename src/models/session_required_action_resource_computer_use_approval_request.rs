@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionRequiredActionResourceComputerUseApprovalRequest : Respond to a computer-use request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_required_action_resource_computer_use_approval_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionRequiredActionResourceComputerUseApprovalRequest {
     /// The type of the object. Always `computer_use_approval_request`.  Defaults to `\"computer_use_approval_request\"`.
     #[serde(rename = "type")]
@@ -45,6 +46,21 @@ impl SessionRequiredActionResourceComputerUseApprovalRequest {
             request_id,
             request,
         }
+    }
+}
+
+impl<S: session_required_action_resource_computer_use_approval_request_builder::State>
+    SessionRequiredActionResourceComputerUseApprovalRequestBuilder<S>
+where
+    S::Type: session_required_action_resource_computer_use_approval_request_builder::IsSet,
+    S::TurnId: session_required_action_resource_computer_use_approval_request_builder::IsSet,
+    S::RequestId: session_required_action_resource_computer_use_approval_request_builder::IsSet,
+    S::Request: session_required_action_resource_computer_use_approval_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionRequiredActionResourceComputerUseApprovalRequest {
+        self.build_internal()
     }
 }
 

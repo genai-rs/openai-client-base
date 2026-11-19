@@ -697,7 +697,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for UpdateVectorStoreFileAttri
 }
 
 /// Cancel a vector store file batch. This attempts to cancel the processing of files in this batch as soon as possible.
-#[bon::builder]
+#[bon::builder(state_mod = cancel_vector_store_file_batch_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_vector_store_file_batch(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -781,13 +781,30 @@ pub async fn cancel_vector_store_file_batch(
     }
 }
 
+#[allow(deprecated)]
+impl<S: cancel_vector_store_file_batch_builder::State>
+    CancelVectorStoreFileBatchBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: cancel_vector_store_file_batch_builder::IsSet,
+    S::VectorStoreId: cancel_vector_store_file_batch_builder::IsSet,
+    S::BatchId: cancel_vector_store_file_batch_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VectorStoreFileBatchObject, Error<CancelVectorStoreFileBatchError>> {
+        self.call_internal().await
+    }
+}
+
 /// Cancel a vector store file batch. This attempts to cancel the processing of files in this batch as soon as possible.
 ///
 /// Sends the same request as [`cancel_vector_store_file_batch`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VectorStoreFileBatchObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = cancel_vector_store_file_batch_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_vector_store_file_batch_response(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -865,8 +882,28 @@ pub async fn cancel_vector_store_file_batch_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: cancel_vector_store_file_batch_response_builder::State>
+    CancelVectorStoreFileBatchResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: cancel_vector_store_file_batch_response_builder::IsSet,
+    S::VectorStoreId: cancel_vector_store_file_batch_response_builder::IsSet,
+    S::BatchId: cancel_vector_store_file_batch_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::VectorStoreFileBatchObject>,
+        Error<CancelVectorStoreFileBatchError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Create a vector store.
-#[bon::builder]
+#[bon::builder(state_mod = create_vector_store_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_vector_store(
     configuration: &configuration::Configuration,
     create_vector_store_request: &models::CreateVectorStoreRequest,
@@ -941,13 +978,26 @@ pub async fn create_vector_store(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_vector_store_builder::State> CreateVectorStoreBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_vector_store_builder::IsSet,
+    S::CreateVectorStoreRequest: create_vector_store_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VectorStoreObject, Error<CreateVectorStoreError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a vector store.
 ///
 /// Sends the same request as [`create_vector_store`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VectorStoreObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_vector_store_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_vector_store_response(
     configuration: &configuration::Configuration,
     create_vector_store_request: &models::CreateVectorStoreRequest,
@@ -1013,8 +1063,23 @@ pub async fn create_vector_store_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_vector_store_response_builder::State> CreateVectorStoreResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_vector_store_response_builder::IsSet,
+    S::CreateVectorStoreRequest: create_vector_store_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VectorStoreObject>, Error<CreateVectorStoreError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a vector store file by attaching a [File](https://developers.openai.com/api/reference/resources/files) to a [vector store](https://developers.openai.com/api/reference/resources/vector_stores).
-#[bon::builder]
+#[bon::builder(state_mod = create_vector_store_file_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_vector_store_file(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -1101,13 +1166,29 @@ pub async fn create_vector_store_file(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_vector_store_file_builder::State> CreateVectorStoreFileBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_vector_store_file_builder::IsSet,
+    S::VectorStoreId: create_vector_store_file_builder::IsSet,
+    S::CreateVectorStoreFileRequest: create_vector_store_file_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VectorStoreFileObject, Error<CreateVectorStoreFileError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a vector store file by attaching a [File](https://developers.openai.com/api/reference/resources/files) to a [vector store](https://developers.openai.com/api/reference/resources/vector_stores).
 ///
 /// Sends the same request as [`create_vector_store_file`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VectorStoreFileObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_vector_store_file_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_vector_store_file_response(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -1185,8 +1266,26 @@ pub async fn create_vector_store_file_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_vector_store_file_response_builder::State>
+    CreateVectorStoreFileResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_vector_store_file_response_builder::IsSet,
+    S::VectorStoreId: create_vector_store_file_response_builder::IsSet,
+    S::CreateVectorStoreFileRequest: create_vector_store_file_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VectorStoreFileObject>, Error<CreateVectorStoreFileError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Create a vector store file batch.
-#[bon::builder]
+#[bon::builder(state_mod = create_vector_store_file_batch_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_vector_store_file_batch(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -1273,13 +1372,30 @@ pub async fn create_vector_store_file_batch(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_vector_store_file_batch_builder::State>
+    CreateVectorStoreFileBatchBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_vector_store_file_batch_builder::IsSet,
+    S::VectorStoreId: create_vector_store_file_batch_builder::IsSet,
+    S::CreateVectorStoreFileBatchRequest: create_vector_store_file_batch_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VectorStoreFileBatchObject, Error<CreateVectorStoreFileBatchError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a vector store file batch.
 ///
 /// Sends the same request as [`create_vector_store_file_batch`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VectorStoreFileBatchObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_vector_store_file_batch_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_vector_store_file_batch_response(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -1360,8 +1476,28 @@ pub async fn create_vector_store_file_batch_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_vector_store_file_batch_response_builder::State>
+    CreateVectorStoreFileBatchResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_vector_store_file_batch_response_builder::IsSet,
+    S::VectorStoreId: create_vector_store_file_batch_response_builder::IsSet,
+    S::CreateVectorStoreFileBatchRequest: create_vector_store_file_batch_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::VectorStoreFileBatchObject>,
+        Error<CreateVectorStoreFileBatchError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Delete a vector store.
-#[bon::builder]
+#[bon::builder(state_mod = delete_vector_store_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_vector_store(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -1439,13 +1575,28 @@ pub async fn delete_vector_store(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_vector_store_builder::State> DeleteVectorStoreBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_vector_store_builder::IsSet,
+    S::VectorStoreId: delete_vector_store_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeleteVectorStoreResponse, Error<DeleteVectorStoreError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete a vector store.
 ///
 /// Sends the same request as [`delete_vector_store`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeleteVectorStoreResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_vector_store_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_vector_store_response(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -1514,8 +1665,24 @@ pub async fn delete_vector_store_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_vector_store_response_builder::State> DeleteVectorStoreResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_vector_store_response_builder::IsSet,
+    S::VectorStoreId: delete_vector_store_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeleteVectorStoreResponse>, Error<DeleteVectorStoreError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Delete a vector store file. This will remove the file from the vector store but the file itself will not be deleted. To delete the file, use the [delete file](https://developers.openai.com/api/reference/resources/files/methods/delete) endpoint.
-#[bon::builder]
+#[bon::builder(state_mod = delete_vector_store_file_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_vector_store_file(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -1602,13 +1769,29 @@ pub async fn delete_vector_store_file(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_vector_store_file_builder::State> DeleteVectorStoreFileBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_vector_store_file_builder::IsSet,
+    S::VectorStoreId: delete_vector_store_file_builder::IsSet,
+    S::FileId: delete_vector_store_file_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeleteVectorStoreFileResponse, Error<DeleteVectorStoreFileError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete a vector store file. This will remove the file from the vector store but the file itself will not be deleted. To delete the file, use the [delete file](https://developers.openai.com/api/reference/resources/files/methods/delete) endpoint.
 ///
 /// Sends the same request as [`delete_vector_store_file`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeleteVectorStoreFileResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_vector_store_file_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_vector_store_file_response(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -1689,8 +1872,28 @@ pub async fn delete_vector_store_file_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_vector_store_file_response_builder::State>
+    DeleteVectorStoreFileResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_vector_store_file_response_builder::IsSet,
+    S::VectorStoreId: delete_vector_store_file_response_builder::IsSet,
+    S::FileId: delete_vector_store_file_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::DeleteVectorStoreFileResponse>,
+        Error<DeleteVectorStoreFileError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a vector store.
-#[bon::builder]
+#[bon::builder(state_mod = get_vector_store_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_vector_store(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -1765,13 +1968,26 @@ pub async fn get_vector_store(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_vector_store_builder::State> GetVectorStoreBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_vector_store_builder::IsSet,
+    S::VectorStoreId: get_vector_store_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VectorStoreObject, Error<GetVectorStoreError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a vector store.
 ///
 /// Sends the same request as [`get_vector_store`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VectorStoreObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_vector_store_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_vector_store_response(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -1837,8 +2053,23 @@ pub async fn get_vector_store_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_vector_store_response_builder::State> GetVectorStoreResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_vector_store_response_builder::IsSet,
+    S::VectorStoreId: get_vector_store_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VectorStoreObject>, Error<GetVectorStoreError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a vector store file.
-#[bon::builder]
+#[bon::builder(state_mod = get_vector_store_file_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_vector_store_file(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -1919,13 +2150,29 @@ pub async fn get_vector_store_file(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_vector_store_file_builder::State> GetVectorStoreFileBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_vector_store_file_builder::IsSet,
+    S::VectorStoreId: get_vector_store_file_builder::IsSet,
+    S::FileId: get_vector_store_file_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VectorStoreFileObject, Error<GetVectorStoreFileError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a vector store file.
 ///
 /// Sends the same request as [`get_vector_store_file`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VectorStoreFileObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_vector_store_file_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_vector_store_file_response(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -1997,8 +2244,26 @@ pub async fn get_vector_store_file_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_vector_store_file_response_builder::State>
+    GetVectorStoreFileResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_vector_store_file_response_builder::IsSet,
+    S::VectorStoreId: get_vector_store_file_response_builder::IsSet,
+    S::FileId: get_vector_store_file_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VectorStoreFileObject>, Error<GetVectorStoreFileError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a vector store file batch.
-#[bon::builder]
+#[bon::builder(state_mod = get_vector_store_file_batch_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_vector_store_file_batch(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -2079,13 +2344,30 @@ pub async fn get_vector_store_file_batch(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_vector_store_file_batch_builder::State>
+    GetVectorStoreFileBatchBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_vector_store_file_batch_builder::IsSet,
+    S::VectorStoreId: get_vector_store_file_batch_builder::IsSet,
+    S::BatchId: get_vector_store_file_batch_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VectorStoreFileBatchObject, Error<GetVectorStoreFileBatchError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a vector store file batch.
 ///
 /// Sends the same request as [`get_vector_store_file_batch`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VectorStoreFileBatchObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_vector_store_file_batch_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_vector_store_file_batch_response(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -2160,8 +2442,28 @@ pub async fn get_vector_store_file_batch_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_vector_store_file_batch_response_builder::State>
+    GetVectorStoreFileBatchResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_vector_store_file_batch_response_builder::IsSet,
+    S::VectorStoreId: get_vector_store_file_batch_response_builder::IsSet,
+    S::BatchId: get_vector_store_file_batch_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::VectorStoreFileBatchObject>,
+        Error<GetVectorStoreFileBatchError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of vector store files in a batch.
-#[bon::builder]
+#[bon::builder(state_mod = list_files_in_vector_store_batch_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_files_in_vector_store_batch(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -2267,13 +2569,30 @@ pub async fn list_files_in_vector_store_batch(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_files_in_vector_store_batch_builder::State>
+    ListFilesInVectorStoreBatchBuilder<'_, '_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_files_in_vector_store_batch_builder::IsSet,
+    S::VectorStoreId: list_files_in_vector_store_batch_builder::IsSet,
+    S::BatchId: list_files_in_vector_store_batch_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ListVectorStoreFilesResponse, Error<ListFilesInVectorStoreBatchError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of vector store files in a batch.
 ///
 /// Sends the same request as [`list_files_in_vector_store_batch`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListVectorStoreFilesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_files_in_vector_store_batch_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_files_in_vector_store_batch_response(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -2373,8 +2692,28 @@ pub async fn list_files_in_vector_store_batch_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_files_in_vector_store_batch_response_builder::State>
+    ListFilesInVectorStoreBatchResponseBuilder<'_, '_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_files_in_vector_store_batch_response_builder::IsSet,
+    S::VectorStoreId: list_files_in_vector_store_batch_response_builder::IsSet,
+    S::BatchId: list_files_in_vector_store_batch_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ListVectorStoreFilesResponse>,
+        Error<ListFilesInVectorStoreBatchError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of vector store files.
-#[bon::builder]
+#[bon::builder(state_mod = list_vector_store_files_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_vector_store_files(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -2477,13 +2816,29 @@ pub async fn list_vector_store_files(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_vector_store_files_builder::State>
+    ListVectorStoreFilesBuilder<'_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_vector_store_files_builder::IsSet,
+    S::VectorStoreId: list_vector_store_files_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ListVectorStoreFilesResponse, Error<ListVectorStoreFilesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of vector store files.
 ///
 /// Sends the same request as [`list_vector_store_files`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListVectorStoreFilesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_vector_store_files_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_vector_store_files_response(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -2580,8 +2935,27 @@ pub async fn list_vector_store_files_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_vector_store_files_response_builder::State>
+    ListVectorStoreFilesResponseBuilder<'_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_vector_store_files_response_builder::IsSet,
+    S::VectorStoreId: list_vector_store_files_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ListVectorStoreFilesResponse>,
+        Error<ListVectorStoreFilesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of vector stores.
-#[bon::builder]
+#[bon::builder(state_mod = list_vector_stores_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_vector_stores(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -2670,13 +3044,27 @@ pub async fn list_vector_stores(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_vector_stores_builder::State> ListVectorStoresBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_vector_stores_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ListVectorStoresResponse, Error<ListVectorStoresError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of vector stores.
 ///
 /// Sends the same request as [`list_vector_stores`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListVectorStoresResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_vector_stores_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_vector_stores_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -2756,8 +3144,24 @@ pub async fn list_vector_stores_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_vector_stores_response_builder::State>
+    ListVectorStoresResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_vector_stores_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ListVectorStoresResponse>, Error<ListVectorStoresError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Modifies a vector store.
-#[bon::builder]
+#[bon::builder(state_mod = modify_vector_store_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_vector_store(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -2841,13 +3245,27 @@ pub async fn modify_vector_store(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_vector_store_builder::State> ModifyVectorStoreBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: modify_vector_store_builder::IsSet,
+    S::VectorStoreId: modify_vector_store_builder::IsSet,
+    S::UpdateVectorStoreRequest: modify_vector_store_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VectorStoreObject, Error<ModifyVectorStoreError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies a vector store.
 ///
 /// Sends the same request as [`modify_vector_store`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VectorStoreObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = modify_vector_store_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_vector_store_response(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -2922,8 +3340,25 @@ pub async fn modify_vector_store_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_vector_store_response_builder::State>
+    ModifyVectorStoreResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: modify_vector_store_response_builder::IsSet,
+    S::VectorStoreId: modify_vector_store_response_builder::IsSet,
+    S::UpdateVectorStoreRequest: modify_vector_store_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VectorStoreObject>, Error<ModifyVectorStoreError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieve the parsed contents of a vector store file.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_vector_store_file_content_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_vector_store_file_content(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -3007,13 +3442,31 @@ pub async fn retrieve_vector_store_file_content(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_vector_store_file_content_builder::State>
+    RetrieveVectorStoreFileContentBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_vector_store_file_content_builder::IsSet,
+    S::VectorStoreId: retrieve_vector_store_file_content_builder::IsSet,
+    S::FileId: retrieve_vector_store_file_content_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VectorStoreFileContentResponse, Error<RetrieveVectorStoreFileContentError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Retrieve the parsed contents of a vector store file.
 ///
 /// Sends the same request as [`retrieve_vector_store_file_content`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VectorStoreFileContentResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_vector_store_file_content_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_vector_store_file_content_response(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -3091,8 +3544,28 @@ pub async fn retrieve_vector_store_file_content_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_vector_store_file_content_response_builder::State>
+    RetrieveVectorStoreFileContentResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_vector_store_file_content_response_builder::IsSet,
+    S::VectorStoreId: retrieve_vector_store_file_content_response_builder::IsSet,
+    S::FileId: retrieve_vector_store_file_content_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::VectorStoreFileContentResponse>,
+        Error<RetrieveVectorStoreFileContentError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Search a vector store for relevant chunks based on a query and file attributes filter.
-#[bon::builder]
+#[bon::builder(state_mod = search_vector_store_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn search_vector_store(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -3173,13 +3646,29 @@ pub async fn search_vector_store(
     }
 }
 
+#[allow(deprecated)]
+impl<S: search_vector_store_builder::State> SearchVectorStoreBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: search_vector_store_builder::IsSet,
+    S::VectorStoreId: search_vector_store_builder::IsSet,
+    S::VectorStoreSearchRequest: search_vector_store_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VectorStoreSearchResultsPage, Error<SearchVectorStoreError>> {
+        self.call_internal().await
+    }
+}
+
 /// Search a vector store for relevant chunks based on a query and file attributes filter.
 ///
 /// Sends the same request as [`search_vector_store`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VectorStoreSearchResultsPage` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = search_vector_store_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn search_vector_store_response(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -3252,8 +3741,28 @@ pub async fn search_vector_store_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: search_vector_store_response_builder::State>
+    SearchVectorStoreResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: search_vector_store_response_builder::IsSet,
+    S::VectorStoreId: search_vector_store_response_builder::IsSet,
+    S::VectorStoreSearchRequest: search_vector_store_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::VectorStoreSearchResultsPage>,
+        Error<SearchVectorStoreError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Update attributes on a vector store file.
-#[bon::builder]
+#[bon::builder(state_mod = update_vector_store_file_attributes_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_vector_store_file_attributes(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -3344,13 +3853,31 @@ pub async fn update_vector_store_file_attributes(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_vector_store_file_attributes_builder::State>
+    UpdateVectorStoreFileAttributesBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: update_vector_store_file_attributes_builder::IsSet,
+    S::VectorStoreId: update_vector_store_file_attributes_builder::IsSet,
+    S::FileId: update_vector_store_file_attributes_builder::IsSet,
+    S::UpdateVectorStoreFileAttributesRequest: update_vector_store_file_attributes_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VectorStoreFileObject, Error<UpdateVectorStoreFileAttributesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Update attributes on a vector store file.
 ///
 /// Sends the same request as [`update_vector_store_file_attributes`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VectorStoreFileObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_vector_store_file_attributes_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_vector_store_file_attributes_response(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
@@ -3432,5 +3959,27 @@ pub async fn update_vector_store_file_attributes_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: update_vector_store_file_attributes_response_builder::State>
+    UpdateVectorStoreFileAttributesResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: update_vector_store_file_attributes_response_builder::IsSet,
+    S::VectorStoreId: update_vector_store_file_attributes_response_builder::IsSet,
+    S::FileId: update_vector_store_file_attributes_response_builder::IsSet,
+    S::UpdateVectorStoreFileAttributesRequest:
+        update_vector_store_file_attributes_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::VectorStoreFileObject>,
+        Error<UpdateVectorStoreFileAttributesError>,
+    > {
+        self.call_internal().await
     }
 }

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateModerationResponseResultsInnerCategoryScores : A list of the categories along with their scores as predicted by model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_moderation_response_results_inner_category_scores_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateModerationResponseResultsInnerCategoryScores {
     /// The score for the category 'hate'.
     #[serde(rename = "hate")]
@@ -86,6 +87,34 @@ impl CreateModerationResponseResultsInnerCategoryScores {
             violence,
             violence_slash_graphic,
         }
+    }
+}
+
+impl<S: create_moderation_response_results_inner_category_scores_builder::State>
+    CreateModerationResponseResultsInnerCategoryScoresBuilder<S>
+where
+    S::Hate: create_moderation_response_results_inner_category_scores_builder::IsSet,
+    S::HateSlashThreatening:
+        create_moderation_response_results_inner_category_scores_builder::IsSet,
+    S::Harassment: create_moderation_response_results_inner_category_scores_builder::IsSet,
+    S::HarassmentSlashThreatening:
+        create_moderation_response_results_inner_category_scores_builder::IsSet,
+    S::Illicit: create_moderation_response_results_inner_category_scores_builder::IsSet,
+    S::IllicitSlashViolent: create_moderation_response_results_inner_category_scores_builder::IsSet,
+    S::SelfHarm: create_moderation_response_results_inner_category_scores_builder::IsSet,
+    S::SelfHarmSlashIntent: create_moderation_response_results_inner_category_scores_builder::IsSet,
+    S::SelfHarmSlashInstructions:
+        create_moderation_response_results_inner_category_scores_builder::IsSet,
+    S::Sexual: create_moderation_response_results_inner_category_scores_builder::IsSet,
+    S::SexualSlashMinors: create_moderation_response_results_inner_category_scores_builder::IsSet,
+    S::Violence: create_moderation_response_results_inner_category_scores_builder::IsSet,
+    S::ViolenceSlashGraphic:
+        create_moderation_response_results_inner_category_scores_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateModerationResponseResultsInnerCategoryScores {
+        self.build_internal()
     }
 }
 

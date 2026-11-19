@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationServerEventSessionInputTranscriptDelta : Returned when optional source-language transcript text is available. This event is emitted only when `audio.input.transcription` is configured.  Transcript deltas are append-only text fragments. Clients should not insert unconditional spaces between deltas.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_server_event_session_input_transcript_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationServerEventSessionInputTranscriptDelta {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -45,6 +46,20 @@ impl RealtimeTranslationServerEventSessionInputTranscriptDelta {
             delta,
             elapsed_ms: None,
         }
+    }
+}
+
+impl<S: realtime_translation_server_event_session_input_transcript_delta_builder::State>
+    RealtimeTranslationServerEventSessionInputTranscriptDeltaBuilder<S>
+where
+    S::EventId: realtime_translation_server_event_session_input_transcript_delta_builder::IsSet,
+    S::Type: realtime_translation_server_event_session_input_transcript_delta_builder::IsSet,
+    S::Delta: realtime_translation_server_event_session_input_transcript_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationServerEventSessionInputTranscriptDelta {
+        self.build_internal()
     }
 }
 

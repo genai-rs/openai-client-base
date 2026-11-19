@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ComputerScreenshotResource : A browser screenshot emitted by the model during computer use.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = computer_screenshot_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ComputerScreenshotResource {
     /// The content type. Always `computer_screenshot`.  Defaults to `\"computer_screenshot\"`.
     #[serde(rename = "type")]
@@ -27,6 +28,18 @@ impl ComputerScreenshotResource {
     /// A browser screenshot emitted by the model during computer use.
     pub fn new(r#type: Type, image_url: String) -> ComputerScreenshotResource {
         ComputerScreenshotResource { r#type, image_url }
+    }
+}
+
+impl<S: computer_screenshot_resource_builder::State> ComputerScreenshotResourceBuilder<S>
+where
+    S::Type: computer_screenshot_resource_builder::IsSet,
+    S::ImageUrl: computer_screenshot_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ComputerScreenshotResource {
+        self.build_internal()
     }
 }
 

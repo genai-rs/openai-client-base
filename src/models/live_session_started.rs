@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSessionStarted : Returned when a Live session has started. Contains the resolved session configuration, including server defaults.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_started_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionStarted {
     /// The event type, always `session.started`.  Defaults to `\"session.started\"`.
     #[serde(rename = "type")]
@@ -40,6 +41,19 @@ impl LiveSessionStarted {
             client_event_id: None,
             session,
         }
+    }
+}
+
+impl<S: live_session_started_builder::State> LiveSessionStartedBuilder<S>
+where
+    S::Type: live_session_started_builder::IsSet,
+    S::EventId: live_session_started_builder::IsSet,
+    S::Session: live_session_started_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionStarted {
+        self.build_internal()
     }
 }
 

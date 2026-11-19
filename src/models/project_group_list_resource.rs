@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectGroupListResource : Paginated list of groups that have access to a project.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_group_list_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectGroupListResource {
     /// Always `list`.
     #[serde(rename = "object")]
@@ -42,6 +43,19 @@ impl ProjectGroupListResource {
             has_more,
             next,
         }
+    }
+}
+
+impl<S: project_group_list_resource_builder::State> ProjectGroupListResourceBuilder<S>
+where
+    S::Object: project_group_list_resource_builder::IsSet,
+    S::Data: project_group_list_resource_builder::IsSet,
+    S::HasMore: project_group_list_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectGroupListResource {
+        self.build_internal()
     }
 }
 

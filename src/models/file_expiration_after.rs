@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// FileExpirationAfter : The expiration policy for a file. By default, files with `purpose=batch` expire after 30 days and all other files are persisted until they are manually deleted.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = file_expiration_after_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FileExpirationAfter {
     /// Anchor timestamp after which the expiration policy applies. Supported anchors: `created_at`.
     #[serde(rename = "anchor")]
@@ -27,6 +28,18 @@ impl FileExpirationAfter {
     /// The expiration policy for a file. By default, files with `purpose=batch` expire after 30 days and all other files are persisted until they are manually deleted.
     pub fn new(anchor: Anchor, seconds: i64) -> FileExpirationAfter {
         FileExpirationAfter { anchor, seconds }
+    }
+}
+
+impl<S: file_expiration_after_builder::State> FileExpirationAfterBuilder<S>
+where
+    S::Anchor: file_expiration_after_builder::IsSet,
+    S::Seconds: file_expiration_after_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FileExpirationAfter {
+        self.build_internal()
     }
 }
 

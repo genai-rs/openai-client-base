@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectModelPermissions : Represents the model allowlist or denylist policy for a project.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_model_permissions_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectModelPermissions {
     /// The object type, which is always `project.model_permissions`.
     #[serde(rename = "object")]
@@ -32,6 +33,19 @@ impl ProjectModelPermissions {
             mode,
             model_ids,
         }
+    }
+}
+
+impl<S: project_model_permissions_builder::State> ProjectModelPermissionsBuilder<S>
+where
+    S::Object: project_model_permissions_builder::IsSet,
+    S::Mode: project_model_permissions_builder::IsSet,
+    S::ModelIds: project_model_permissions_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectModelPermissions {
+        self.build_internal()
     }
 }
 

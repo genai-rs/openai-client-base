@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FunctionShellToolParam : A tool that allows the model to execute shell commands.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = function_shell_tool_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FunctionShellToolParam {
     /// The type of the shell tool. Always `shell`.  Defaults to `\"shell\"`.
     #[serde(rename = "type")]
@@ -44,6 +45,17 @@ impl FunctionShellToolParam {
             environment: None,
             allowed_callers: None,
         }
+    }
+}
+
+impl<S: function_shell_tool_param_builder::State> FunctionShellToolParamBuilder<S>
+where
+    S::Type: function_shell_tool_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FunctionShellToolParam {
+        self.build_internal()
     }
 }
 

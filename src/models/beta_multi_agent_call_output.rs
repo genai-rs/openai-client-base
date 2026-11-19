@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_multi_agent_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaMultiAgentCallOutput {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
@@ -47,6 +48,21 @@ impl BetaMultiAgentCallOutput {
             action,
             output,
         }
+    }
+}
+
+impl<S: beta_multi_agent_call_output_builder::State> BetaMultiAgentCallOutputBuilder<S>
+where
+    S::Type: beta_multi_agent_call_output_builder::IsSet,
+    S::Id: beta_multi_agent_call_output_builder::IsSet,
+    S::CallId: beta_multi_agent_call_output_builder::IsSet,
+    S::Action: beta_multi_agent_call_output_builder::IsSet,
+    S::Output: beta_multi_agent_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaMultiAgentCallOutput {
+        self.build_internal()
     }
 }
 

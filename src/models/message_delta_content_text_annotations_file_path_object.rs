@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageDeltaContentTextAnnotationsFilePathObject : A URL for the file that's generated when the assistant used the `code_interpreter` tool to generate a file.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_delta_content_text_annotations_file_path_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageDeltaContentTextAnnotationsFilePathObject {
     /// The index of the annotation in the text content part.
     #[serde(rename = "index")]
@@ -44,6 +45,19 @@ impl MessageDeltaContentTextAnnotationsFilePathObject {
             start_index: None,
             end_index: None,
         }
+    }
+}
+
+impl<S: message_delta_content_text_annotations_file_path_object_builder::State>
+    MessageDeltaContentTextAnnotationsFilePathObjectBuilder<S>
+where
+    S::Index: message_delta_content_text_annotations_file_path_object_builder::IsSet,
+    S::Type: message_delta_content_text_annotations_file_path_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageDeltaContentTextAnnotationsFilePathObject {
+        self.build_internal()
     }
 }
 

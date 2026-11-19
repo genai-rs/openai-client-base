@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionNamedToolChoiceCustom : Specifies a tool the model should use. Use to force the model to call a specific custom tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_named_tool_choice_custom_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionNamedToolChoiceCustom {
     /// For custom tool calling, the type is always `custom`.
     #[serde(rename = "type")]
@@ -28,6 +29,19 @@ impl ChatCompletionNamedToolChoiceCustom {
         custom: models::ChatCompletionNamedToolChoiceCustomCustom,
     ) -> ChatCompletionNamedToolChoiceCustom {
         ChatCompletionNamedToolChoiceCustom { r#type, custom }
+    }
+}
+
+impl<S: chat_completion_named_tool_choice_custom_builder::State>
+    ChatCompletionNamedToolChoiceCustomBuilder<S>
+where
+    S::Type: chat_completion_named_tool_choice_custom_builder::IsSet,
+    S::Custom: chat_completion_named_tool_choice_custom_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionNamedToolChoiceCustom {
+        self.build_internal()
     }
 }
 

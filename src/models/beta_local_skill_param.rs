@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_local_skill_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaLocalSkillParam {
     /// The name of the skill.
     #[serde(rename = "name")]
@@ -30,6 +31,19 @@ impl BetaLocalSkillParam {
             description,
             path,
         }
+    }
+}
+
+impl<S: beta_local_skill_param_builder::State> BetaLocalSkillParamBuilder<S>
+where
+    S::Name: beta_local_skill_param_builder::IsSet,
+    S::Description: beta_local_skill_param_builder::IsSet,
+    S::Path: beta_local_skill_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaLocalSkillParam {
+        self.build_internal()
     }
 }
 

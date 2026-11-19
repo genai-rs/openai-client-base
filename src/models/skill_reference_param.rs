@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = skill_reference_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SkillReferenceParam {
     /// References a skill created with the /v1/skills endpoint.  Defaults to `\"skill_reference\"`.
     #[serde(rename = "type")]
@@ -32,6 +33,18 @@ impl SkillReferenceParam {
             skill_id,
             version: None,
         }
+    }
+}
+
+impl<S: skill_reference_param_builder::State> SkillReferenceParamBuilder<S>
+where
+    S::Type: skill_reference_param_builder::IsSet,
+    S::SkillId: skill_reference_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SkillReferenceParam {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionTool : A function tool that can be used to generate a response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_tool_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionTool {
     /// The type of the tool. Currently, only `function` is supported.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl ChatCompletionTool {
     /// A function tool that can be used to generate a response.
     pub fn new(r#type: Type, function: models::FunctionObject) -> ChatCompletionTool {
         ChatCompletionTool { r#type, function }
+    }
+}
+
+impl<S: chat_completion_tool_builder::State> ChatCompletionToolBuilder<S>
+where
+    S::Type: chat_completion_tool_builder::IsSet,
+    S::Function: chat_completion_tool_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionTool {
+        self.build_internal()
     }
 }
 

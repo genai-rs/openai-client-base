@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSessionUpdated : Returned when a Live session update is accepted. Contains the resolved session configuration after the update.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_updated_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionUpdated {
     /// The event type, always `session.updated`.  Defaults to `\"session.updated\"`.
     #[serde(rename = "type")]
@@ -40,6 +41,19 @@ impl LiveSessionUpdated {
             client_event_id: None,
             session,
         }
+    }
+}
+
+impl<S: live_session_updated_builder::State> LiveSessionUpdatedBuilder<S>
+where
+    S::Type: live_session_updated_builder::IsSet,
+    S::EventId: live_session_updated_builder::IsSet,
+    S::Session: live_session_updated_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionUpdated {
+        self.build_internal()
     }
 }
 

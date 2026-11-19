@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AssistantsNamedToolChoice : Specifies a tool the model should use. Use to force the model to call a specific tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = assistants_named_tool_choice_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AssistantsNamedToolChoice {
     /// The type of the tool. If type is `function`, the function name must be set
     #[serde(rename = "type")]
@@ -28,6 +29,17 @@ impl AssistantsNamedToolChoice {
             r#type,
             function: None,
         }
+    }
+}
+
+impl<S: assistants_named_tool_choice_builder::State> AssistantsNamedToolChoiceBuilder<S>
+where
+    S::Type: assistants_named_tool_choice_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AssistantsNamedToolChoice {
+        self.build_internal()
     }
 }
 

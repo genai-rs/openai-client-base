@@ -277,7 +277,7 @@ pub enum UpdateProjectServiceAccountError {
 }
 
 /// Archives a project in the organization. Archived projects cannot be used or updated.
-#[bon::builder]
+#[bon::builder(state_mod = archive_project_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn archive_project(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -358,13 +358,26 @@ pub async fn archive_project(
     }
 }
 
+#[allow(deprecated)]
+impl<S: archive_project_builder::State> ArchiveProjectBuilder<'_, '_, '_, S>
+where
+    S::Configuration: archive_project_builder::IsSet,
+    S::ProjectId: archive_project_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Project, Error<ArchiveProjectError>> {
+        self.call_internal().await
+    }
+}
+
 /// Archives a project in the organization. Archived projects cannot be used or updated.
 ///
 /// Sends the same request as [`archive_project`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Project` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = archive_project_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn archive_project_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -436,8 +449,23 @@ pub async fn archive_project_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: archive_project_response_builder::State> ArchiveProjectResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: archive_project_response_builder::IsSet,
+    S::ProjectId: archive_project_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Project>, Error<ArchiveProjectError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new project in the organization. Projects can be created and archived, but cannot be deleted.
-#[bon::builder]
+#[bon::builder(state_mod = create_project_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_project(
     configuration: &configuration::Configuration,
     project_create_request: &models::ProjectCreateRequest,
@@ -512,13 +540,26 @@ pub async fn create_project(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_project_builder::State> CreateProjectBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_project_builder::IsSet,
+    S::ProjectCreateRequest: create_project_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Project, Error<CreateProjectError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new project in the organization. Projects can be created and archived, but cannot be deleted.
 ///
 /// Sends the same request as [`create_project`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Project` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_project_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_project_response(
     configuration: &configuration::Configuration,
     project_create_request: &models::ProjectCreateRequest,
@@ -584,8 +625,23 @@ pub async fn create_project_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_project_response_builder::State> CreateProjectResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_project_response_builder::IsSet,
+    S::ProjectCreateRequest: create_project_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Project>, Error<CreateProjectError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a new service account in the project. By default, this also returns an unredacted API key for the service account.
-#[bon::builder]
+#[bon::builder(state_mod = create_project_service_account_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_project_service_account(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -669,13 +725,31 @@ pub async fn create_project_service_account(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_project_service_account_builder::State>
+    CreateProjectServiceAccountBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_project_service_account_builder::IsSet,
+    S::ProjectId: create_project_service_account_builder::IsSet,
+    S::ProjectServiceAccountCreateRequest: create_project_service_account_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectServiceAccountCreateResponse, Error<CreateProjectServiceAccountError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Creates a new service account in the project. By default, this also returns an unredacted API key for the service account.
 ///
 /// Sends the same request as [`create_project_service_account`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectServiceAccountCreateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_project_service_account_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_project_service_account_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -753,8 +827,28 @@ pub async fn create_project_service_account_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_project_service_account_response_builder::State>
+    CreateProjectServiceAccountResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_project_service_account_response_builder::IsSet,
+    S::ProjectId: create_project_service_account_response_builder::IsSet,
+    S::ProjectServiceAccountCreateRequest: create_project_service_account_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectServiceAccountCreateResponse>,
+        Error<CreateProjectServiceAccountError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Adds a user to the project. Users must already be members of the organization to be added to a project.
-#[bon::builder]
+#[bon::builder(state_mod = create_project_user_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_project_user(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -841,13 +935,27 @@ pub async fn create_project_user(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_project_user_builder::State> CreateProjectUserBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_project_user_builder::IsSet,
+    S::ProjectId: create_project_user_builder::IsSet,
+    S::ProjectUserCreateRequest: create_project_user_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ProjectUser, Error<CreateProjectUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Adds a user to the project. Users must already be members of the organization to be added to a project.
 ///
 /// Sends the same request as [`create_project_user`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectUser` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_project_user_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_project_user_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -925,8 +1033,25 @@ pub async fn create_project_user_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_project_user_response_builder::State>
+    CreateProjectUserResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_project_user_response_builder::IsSet,
+    S::ProjectId: create_project_user_response_builder::IsSet,
+    S::ProjectUserCreateRequest: create_project_user_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectUser>, Error<CreateProjectUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes an API key from the project, including keys owned by service accounts.  Requires permission to write project API keys. Deleting a service-account key does not delete the service account or its other keys.  Returns confirmation of the key deletion.
-#[bon::builder]
+#[bon::builder(state_mod = delete_project_api_key_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_project_api_key(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1010,13 +1135,29 @@ pub async fn delete_project_api_key(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_project_api_key_builder::State> DeleteProjectApiKeyBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_project_api_key_builder::IsSet,
+    S::ProjectId: delete_project_api_key_builder::IsSet,
+    S::ApiKeyId: delete_project_api_key_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectApiKeyDeleteResponse, Error<DeleteProjectApiKeyError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes an API key from the project, including keys owned by service accounts.  Requires permission to write project API keys. Deleting a service-account key does not delete the service account or its other keys.  Returns confirmation of the key deletion.
 ///
 /// Sends the same request as [`delete_project_api_key`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectApiKeyDeleteResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_project_api_key_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_project_api_key_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1092,8 +1233,28 @@ pub async fn delete_project_api_key_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_project_api_key_response_builder::State>
+    DeleteProjectApiKeyResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_project_api_key_response_builder::IsSet,
+    S::ProjectId: delete_project_api_key_response_builder::IsSet,
+    S::ApiKeyId: delete_project_api_key_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectApiKeyDeleteResponse>,
+        Error<DeleteProjectApiKeyError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deletes model permissions for a project.
-#[bon::builder]
+#[bon::builder(state_mod = delete_project_model_permissions_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_project_model_permissions(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1175,13 +1336,32 @@ pub async fn delete_project_model_permissions(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_project_model_permissions_builder::State>
+    DeleteProjectModelPermissionsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_project_model_permissions_builder::IsSet,
+    S::ProjectId: delete_project_model_permissions_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::ProjectModelPermissionsDeleteResponse,
+        Error<DeleteProjectModelPermissionsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deletes model permissions for a project.
 ///
 /// Sends the same request as [`delete_project_model_permissions`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectModelPermissionsDeleteResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_project_model_permissions_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_project_model_permissions_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1256,8 +1436,27 @@ pub async fn delete_project_model_permissions_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_project_model_permissions_response_builder::State>
+    DeleteProjectModelPermissionsResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_project_model_permissions_response_builder::IsSet,
+    S::ProjectId: delete_project_model_permissions_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectModelPermissionsDeleteResponse>,
+        Error<DeleteProjectModelPermissionsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a service account from the project.  Returns confirmation of service account deletion, or an error if the project is archived (archived projects have no service accounts).
-#[bon::builder]
+#[bon::builder(state_mod = delete_project_service_account_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_project_service_account(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1341,13 +1540,31 @@ pub async fn delete_project_service_account(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_project_service_account_builder::State>
+    DeleteProjectServiceAccountBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_project_service_account_builder::IsSet,
+    S::ProjectId: delete_project_service_account_builder::IsSet,
+    S::ServiceAccountId: delete_project_service_account_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectServiceAccountDeleteResponse, Error<DeleteProjectServiceAccountError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a service account from the project.  Returns confirmation of service account deletion, or an error if the project is archived (archived projects have no service accounts).
 ///
 /// Sends the same request as [`delete_project_service_account`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectServiceAccountDeleteResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_project_service_account_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_project_service_account_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1425,8 +1642,28 @@ pub async fn delete_project_service_account_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_project_service_account_response_builder::State>
+    DeleteProjectServiceAccountResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_project_service_account_response_builder::IsSet,
+    S::ProjectId: delete_project_service_account_response_builder::IsSet,
+    S::ServiceAccountId: delete_project_service_account_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectServiceAccountDeleteResponse>,
+        Error<DeleteProjectServiceAccountError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a user from the project.  Returns confirmation of project user deletion, or an error if the project is archived (archived projects have no users).
-#[bon::builder]
+#[bon::builder(state_mod = delete_project_user_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_project_user(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1510,13 +1747,29 @@ pub async fn delete_project_user(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_project_user_builder::State> DeleteProjectUserBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_project_user_builder::IsSet,
+    S::ProjectId: delete_project_user_builder::IsSet,
+    S::UserId: delete_project_user_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectUserDeleteResponse, Error<DeleteProjectUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a user from the project.  Returns confirmation of project user deletion, or an error if the project is archived (archived projects have no users).
 ///
 /// Sends the same request as [`delete_project_user`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectUserDeleteResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_project_user_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_project_user_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1591,8 +1844,26 @@ pub async fn delete_project_user_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_project_user_response_builder::State>
+    DeleteProjectUserResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_project_user_response_builder::IsSet,
+    S::ProjectId: delete_project_user_response_builder::IsSet,
+    S::UserId: delete_project_user_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectUserDeleteResponse>, Error<DeleteProjectUserError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of API keys in the project.
-#[bon::builder]
+#[bon::builder(state_mod = list_project_api_keys_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_api_keys(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1688,13 +1959,28 @@ pub async fn list_project_api_keys(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_api_keys_builder::State> ListProjectApiKeysBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_api_keys_builder::IsSet,
+    S::ProjectId: list_project_api_keys_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectApiKeyListResponse, Error<ListProjectApiKeysError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of API keys in the project.
 ///
 /// Sends the same request as [`list_project_api_keys`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectApiKeyListResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_project_api_keys_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_api_keys_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1781,8 +2067,25 @@ pub async fn list_project_api_keys_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_api_keys_response_builder::State>
+    ListProjectApiKeysResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_api_keys_response_builder::IsSet,
+    S::ProjectId: list_project_api_keys_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectApiKeyListResponse>, Error<ListProjectApiKeysError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Returns the rate limits per model for a project.
-#[bon::builder]
+#[bon::builder(state_mod = list_project_rate_limits_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_rate_limits(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1875,13 +2178,28 @@ pub async fn list_project_rate_limits(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_rate_limits_builder::State> ListProjectRateLimitsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_rate_limits_builder::IsSet,
+    S::ProjectId: list_project_rate_limits_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectRateLimitListResponse, Error<ListProjectRateLimitsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns the rate limits per model for a project.
 ///
 /// Sends the same request as [`list_project_rate_limits`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectRateLimitListResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_project_rate_limits_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_rate_limits_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1968,8 +2286,27 @@ pub async fn list_project_rate_limits_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_rate_limits_response_builder::State>
+    ListProjectRateLimitsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_rate_limits_response_builder::IsSet,
+    S::ProjectId: list_project_rate_limits_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectRateLimitListResponse>,
+        Error<ListProjectRateLimitsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of service accounts in the project.
-#[bon::builder]
+#[bon::builder(state_mod = list_project_service_accounts_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_service_accounts(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -2060,13 +2397,30 @@ pub async fn list_project_service_accounts(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_service_accounts_builder::State>
+    ListProjectServiceAccountsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_service_accounts_builder::IsSet,
+    S::ProjectId: list_project_service_accounts_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectServiceAccountListResponse, Error<ListProjectServiceAccountsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of service accounts in the project.
 ///
 /// Sends the same request as [`list_project_service_accounts`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectServiceAccountListResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_project_service_accounts_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_service_accounts_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -2151,8 +2505,27 @@ pub async fn list_project_service_accounts_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_service_accounts_response_builder::State>
+    ListProjectServiceAccountsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_service_accounts_response_builder::IsSet,
+    S::ProjectId: list_project_service_accounts_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectServiceAccountListResponse>,
+        Error<ListProjectServiceAccountsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of users in the project.
-#[bon::builder]
+#[bon::builder(state_mod = list_project_users_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_users(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -2243,13 +2616,28 @@ pub async fn list_project_users(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_users_builder::State> ListProjectUsersBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_users_builder::IsSet,
+    S::ProjectId: list_project_users_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectUserListResponse, Error<ListProjectUsersError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of users in the project.
 ///
 /// Sends the same request as [`list_project_users`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectUserListResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_project_users_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_users_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -2331,8 +2719,25 @@ pub async fn list_project_users_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_users_response_builder::State>
+    ListProjectUsersResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_users_response_builder::IsSet,
+    S::ProjectId: list_project_users_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectUserListResponse>, Error<ListProjectUsersError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of projects.
-#[bon::builder]
+#[bon::builder(state_mod = list_projects_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_projects(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -2422,13 +2827,25 @@ pub async fn list_projects(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_projects_builder::State> ListProjectsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_projects_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ProjectListResponse, Error<ListProjectsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of projects.
 ///
 /// Sends the same request as [`list_projects`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectListResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_projects_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_projects_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -2509,8 +2926,22 @@ pub async fn list_projects_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_projects_response_builder::State> ListProjectsResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_projects_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectListResponse>, Error<ListProjectsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies a project in the organization.
-#[bon::builder]
+#[bon::builder(state_mod = modify_project_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_project(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -2594,13 +3025,27 @@ pub async fn modify_project(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_project_builder::State> ModifyProjectBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: modify_project_builder::IsSet,
+    S::ProjectId: modify_project_builder::IsSet,
+    S::ProjectUpdateRequest: modify_project_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Project, Error<ModifyProjectError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies a project in the organization.
 ///
 /// Sends the same request as [`modify_project`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Project` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = modify_project_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_project_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -2675,8 +3120,24 @@ pub async fn modify_project_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_project_response_builder::State> ModifyProjectResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: modify_project_response_builder::IsSet,
+    S::ProjectId: modify_project_response_builder::IsSet,
+    S::ProjectUpdateRequest: modify_project_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Project>, Error<ModifyProjectError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies a user's role in the project.
-#[bon::builder]
+#[bon::builder(state_mod = modify_project_user_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_project_user(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -2763,13 +3224,28 @@ pub async fn modify_project_user(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_project_user_builder::State> ModifyProjectUserBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: modify_project_user_builder::IsSet,
+    S::ProjectId: modify_project_user_builder::IsSet,
+    S::UserId: modify_project_user_builder::IsSet,
+    S::ProjectUserUpdateRequest: modify_project_user_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ProjectUser, Error<ModifyProjectUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies a user's role in the project.
 ///
 /// Sends the same request as [`modify_project_user`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectUser` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = modify_project_user_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_project_user_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -2847,8 +3323,26 @@ pub async fn modify_project_user_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_project_user_response_builder::State>
+    ModifyProjectUserResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: modify_project_user_response_builder::IsSet,
+    S::ProjectId: modify_project_user_response_builder::IsSet,
+    S::UserId: modify_project_user_response_builder::IsSet,
+    S::ProjectUserUpdateRequest: modify_project_user_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectUser>, Error<ModifyProjectUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a project.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -2926,13 +3420,26 @@ pub async fn retrieve_project(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_builder::State> RetrieveProjectBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_builder::IsSet,
+    S::ProjectId: retrieve_project_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Project, Error<RetrieveProjectError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a project.
 ///
 /// Sends the same request as [`retrieve_project`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Project` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -3001,8 +3508,23 @@ pub async fn retrieve_project_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_response_builder::State> RetrieveProjectResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_response_builder::IsSet,
+    S::ProjectId: retrieve_project_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Project>, Error<RetrieveProjectError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an API key in the project.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_api_key_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_api_key(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -3086,13 +3608,27 @@ pub async fn retrieve_project_api_key(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_api_key_builder::State> RetrieveProjectApiKeyBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_api_key_builder::IsSet,
+    S::ProjectId: retrieve_project_api_key_builder::IsSet,
+    S::ApiKeyId: retrieve_project_api_key_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ProjectApiKey, Error<RetrieveProjectApiKeyError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an API key in the project.
 ///
 /// Sends the same request as [`retrieve_project_api_key`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectApiKey` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_api_key_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_api_key_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -3167,8 +3703,25 @@ pub async fn retrieve_project_api_key_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_api_key_response_builder::State>
+    RetrieveProjectApiKeyResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_api_key_response_builder::IsSet,
+    S::ProjectId: retrieve_project_api_key_response_builder::IsSet,
+    S::ApiKeyId: retrieve_project_api_key_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectApiKey>, Error<RetrieveProjectApiKeyError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns model permissions for a project.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_model_permissions_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_model_permissions(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -3249,13 +3802,29 @@ pub async fn retrieve_project_model_permissions(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_model_permissions_builder::State>
+    RetrieveProjectModelPermissionsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_model_permissions_builder::IsSet,
+    S::ProjectId: retrieve_project_model_permissions_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectModelPermissions, Error<RetrieveProjectModelPermissionsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns model permissions for a project.
 ///
 /// Sends the same request as [`retrieve_project_model_permissions`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectModelPermissions` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_model_permissions_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_model_permissions_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -3330,8 +3899,27 @@ pub async fn retrieve_project_model_permissions_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_model_permissions_response_builder::State>
+    RetrieveProjectModelPermissionsResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_model_permissions_response_builder::IsSet,
+    S::ProjectId: retrieve_project_model_permissions_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectModelPermissions>,
+        Error<RetrieveProjectModelPermissionsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a service account in the project.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_service_account_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_service_account(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -3415,13 +4003,30 @@ pub async fn retrieve_project_service_account(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_service_account_builder::State>
+    RetrieveProjectServiceAccountBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_service_account_builder::IsSet,
+    S::ProjectId: retrieve_project_service_account_builder::IsSet,
+    S::ServiceAccountId: retrieve_project_service_account_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectServiceAccount, Error<RetrieveProjectServiceAccountError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a service account in the project.
 ///
 /// Sends the same request as [`retrieve_project_service_account`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectServiceAccount` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_service_account_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_service_account_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -3499,8 +4104,28 @@ pub async fn retrieve_project_service_account_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_service_account_response_builder::State>
+    RetrieveProjectServiceAccountResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_service_account_response_builder::IsSet,
+    S::ProjectId: retrieve_project_service_account_response_builder::IsSet,
+    S::ServiceAccountId: retrieve_project_service_account_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectServiceAccount>,
+        Error<RetrieveProjectServiceAccountError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a user in the project.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_user_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_user(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -3584,13 +4209,27 @@ pub async fn retrieve_project_user(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_user_builder::State> RetrieveProjectUserBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_user_builder::IsSet,
+    S::ProjectId: retrieve_project_user_builder::IsSet,
+    S::UserId: retrieve_project_user_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ProjectUser, Error<RetrieveProjectUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a user in the project.
 ///
 /// Sends the same request as [`retrieve_project_user`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectUser` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_user_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_user_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -3665,8 +4304,25 @@ pub async fn retrieve_project_user_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_user_response_builder::State>
+    RetrieveProjectUserResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_user_response_builder::IsSet,
+    S::ProjectId: retrieve_project_user_response_builder::IsSet,
+    S::UserId: retrieve_project_user_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectUser>, Error<RetrieveProjectUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates the scopes and/or expiration of an existing API key in the project, including a service-account-owned key. Requires permission to write project API keys.  Provide at least one of `scopes` or `expires_in_seconds`. Omitted fields stay unchanged; neither field accepts `null`. Both changes are saved together.  `scopes` replaces the key's scope restrictions using the same scope identifiers as the dashboard. An empty array means All permissions, subject to the owner's effective access; it does not mean no access. Use `[\"api.all.read\"]` for read-only access or specific scopes such as `[\"api.files.read\"]` for restricted access. This does not change user or service-account roles or grant admin permissions. Scope changes follow the same authentication-cache propagation as dashboard edits.  Provide `expires_in_seconds` to set the expiration relative to this request. The value must satisfy the organization's and project's expiry policies. Expired keys cannot be updated. Retrying resets the expiration relative to the new request. The response contains only the redacted key, not its secret.
-#[bon::builder]
+#[bon::builder(state_mod = update_project_api_key_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_api_key(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -3753,13 +4409,28 @@ pub async fn update_project_api_key(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_project_api_key_builder::State> UpdateProjectApiKeyBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_api_key_builder::IsSet,
+    S::ProjectId: update_project_api_key_builder::IsSet,
+    S::ApiKeyId: update_project_api_key_builder::IsSet,
+    S::UpdateProjectApiKeyBody: update_project_api_key_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ProjectApiKey, Error<UpdateProjectApiKeyError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates the scopes and/or expiration of an existing API key in the project, including a service-account-owned key. Requires permission to write project API keys.  Provide at least one of `scopes` or `expires_in_seconds`. Omitted fields stay unchanged; neither field accepts `null`. Both changes are saved together.  `scopes` replaces the key's scope restrictions using the same scope identifiers as the dashboard. An empty array means All permissions, subject to the owner's effective access; it does not mean no access. Use `[\"api.all.read\"]` for read-only access or specific scopes such as `[\"api.files.read\"]` for restricted access. This does not change user or service-account roles or grant admin permissions. Scope changes follow the same authentication-cache propagation as dashboard edits.  Provide `expires_in_seconds` to set the expiration relative to this request. The value must satisfy the organization's and project's expiry policies. Expired keys cannot be updated. Retrying resets the expiration relative to the new request. The response contains only the redacted key, not its secret.
 ///
 /// Sends the same request as [`update_project_api_key`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectApiKey` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_project_api_key_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_api_key_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -3837,8 +4508,26 @@ pub async fn update_project_api_key_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_project_api_key_response_builder::State>
+    UpdateProjectApiKeyResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_api_key_response_builder::IsSet,
+    S::ProjectId: update_project_api_key_response_builder::IsSet,
+    S::ApiKeyId: update_project_api_key_response_builder::IsSet,
+    S::UpdateProjectApiKeyBody: update_project_api_key_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectApiKey>, Error<UpdateProjectApiKeyError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates model permissions for a project.
-#[bon::builder]
+#[bon::builder(state_mod = update_project_model_permissions_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_model_permissions(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -3922,13 +4611,30 @@ pub async fn update_project_model_permissions(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_project_model_permissions_builder::State>
+    UpdateProjectModelPermissionsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_model_permissions_builder::IsSet,
+    S::ProjectId: update_project_model_permissions_builder::IsSet,
+    S::ProjectModelPermissionsUpdateRequest: update_project_model_permissions_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectModelPermissions, Error<UpdateProjectModelPermissionsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates model permissions for a project.
 ///
 /// Sends the same request as [`update_project_model_permissions`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectModelPermissions` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_project_model_permissions_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_model_permissions_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -4006,8 +4712,29 @@ pub async fn update_project_model_permissions_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_project_model_permissions_response_builder::State>
+    UpdateProjectModelPermissionsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_model_permissions_response_builder::IsSet,
+    S::ProjectId: update_project_model_permissions_response_builder::IsSet,
+    S::ProjectModelPermissionsUpdateRequest:
+        update_project_model_permissions_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectModelPermissions>,
+        Error<UpdateProjectModelPermissionsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Updates a project rate limit.
-#[bon::builder]
+#[bon::builder(state_mod = update_project_rate_limits_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_rate_limits(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -4091,13 +4818,31 @@ pub async fn update_project_rate_limits(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_project_rate_limits_builder::State>
+    UpdateProjectRateLimitsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_rate_limits_builder::IsSet,
+    S::ProjectId: update_project_rate_limits_builder::IsSet,
+    S::RateLimitId: update_project_rate_limits_builder::IsSet,
+    S::ProjectRateLimitUpdateRequest: update_project_rate_limits_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectRateLimit, Error<UpdateProjectRateLimitsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates a project rate limit.
 ///
 /// Sends the same request as [`update_project_rate_limits`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectRateLimit` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_project_rate_limits_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_rate_limits_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -4172,8 +4917,27 @@ pub async fn update_project_rate_limits_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_project_rate_limits_response_builder::State>
+    UpdateProjectRateLimitsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_rate_limits_response_builder::IsSet,
+    S::ProjectId: update_project_rate_limits_response_builder::IsSet,
+    S::RateLimitId: update_project_rate_limits_response_builder::IsSet,
+    S::ProjectRateLimitUpdateRequest: update_project_rate_limits_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectRateLimit>, Error<UpdateProjectRateLimitsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Updates a service account in the project.
-#[bon::builder]
+#[bon::builder(state_mod = update_project_service_account_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_service_account(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -4260,13 +5024,31 @@ pub async fn update_project_service_account(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_project_service_account_builder::State>
+    UpdateProjectServiceAccountBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_service_account_builder::IsSet,
+    S::ProjectId: update_project_service_account_builder::IsSet,
+    S::ServiceAccountId: update_project_service_account_builder::IsSet,
+    S::UpdateProjectServiceAccountBody: update_project_service_account_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectServiceAccount, Error<UpdateProjectServiceAccountError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates a service account in the project.
 ///
 /// Sends the same request as [`update_project_service_account`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectServiceAccount` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_project_service_account_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_service_account_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -4344,5 +5126,26 @@ pub async fn update_project_service_account_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: update_project_service_account_response_builder::State>
+    UpdateProjectServiceAccountResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_service_account_response_builder::IsSet,
+    S::ProjectId: update_project_service_account_response_builder::IsSet,
+    S::ServiceAccountId: update_project_service_account_response_builder::IsSet,
+    S::UpdateProjectServiceAccountBody: update_project_service_account_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectServiceAccount>,
+        Error<UpdateProjectServiceAccountError>,
+    > {
+        self.call_internal().await
     }
 }

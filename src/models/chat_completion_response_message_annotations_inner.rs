@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionResponseMessageAnnotationsInner : A URL citation when using web search.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_response_message_annotations_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionResponseMessageAnnotationsInner {
     /// The type of the URL citation. Always `url_citation`.
     #[serde(rename = "type")]
@@ -31,6 +32,19 @@ impl ChatCompletionResponseMessageAnnotationsInner {
             r#type,
             url_citation,
         }
+    }
+}
+
+impl<S: chat_completion_response_message_annotations_inner_builder::State>
+    ChatCompletionResponseMessageAnnotationsInnerBuilder<S>
+where
+    S::Type: chat_completion_response_message_annotations_inner_builder::IsSet,
+    S::UrlCitation: chat_completion_response_message_annotations_inner_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionResponseMessageAnnotationsInner {
+        self.build_internal()
     }
 }
 

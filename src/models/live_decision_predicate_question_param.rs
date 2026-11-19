@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_predicate_question_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionPredicateQuestionParam {
     /// Defaults to `\"predicate\"`.
     #[serde(rename = "type")]
@@ -32,6 +33,19 @@ impl LiveDecisionPredicateQuestionParam {
             name: None,
             instructions,
         }
+    }
+}
+
+impl<S: live_decision_predicate_question_param_builder::State>
+    LiveDecisionPredicateQuestionParamBuilder<S>
+where
+    S::Type: live_decision_predicate_question_param_builder::IsSet,
+    S::Instructions: live_decision_predicate_question_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionPredicateQuestionParam {
+        self.build_internal()
     }
 }
 

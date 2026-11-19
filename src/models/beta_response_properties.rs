@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_properties_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseProperties {
     /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://developers.openai.com/api/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
     #[serde(
@@ -68,6 +69,14 @@ impl BetaResponseProperties {
             tool_choice: None,
             prompt: None,
         }
+    }
+}
+
+impl<S: beta_response_properties_builder::State> BetaResponsePropertiesBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseProperties {
+        self.build_internal()
     }
 }
 

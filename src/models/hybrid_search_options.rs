@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = hybrid_search_options_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HybridSearchOptions {
     /// The weight of the embedding in the reciprocal ranking fusion.
     #[serde(rename = "embedding_weight")]
@@ -26,6 +27,18 @@ impl HybridSearchOptions {
             embedding_weight,
             text_weight,
         }
+    }
+}
+
+impl<S: hybrid_search_options_builder::State> HybridSearchOptionsBuilder<S>
+where
+    S::EmbeddingWeight: hybrid_search_options_builder::IsSet,
+    S::TextWeight: hybrid_search_options_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HybridSearchOptions {
+        self.build_internal()
     }
 }
 

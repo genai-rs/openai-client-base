@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// InputTokensDetailsResource2 : A breakdown of input token usage for a session or turn.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = input_tokens_details_resource2_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InputTokensDetailsResource2 {
     /// The number of input tokens retrieved from the prompt cache.
     #[serde(rename = "cached_tokens")]
@@ -22,6 +23,17 @@ impl InputTokensDetailsResource2 {
     /// A breakdown of input token usage for a session or turn.
     pub fn new(cached_tokens: i64) -> InputTokensDetailsResource2 {
         InputTokensDetailsResource2 { cached_tokens }
+    }
+}
+
+impl<S: input_tokens_details_resource2_builder::State> InputTokensDetailsResource2Builder<S>
+where
+    S::CachedTokens: input_tokens_details_resource2_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InputTokensDetailsResource2 {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = platform_provider_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PlatformProvider {
     /// Defaults to `\"organization.workload_identity_provider\"`.
     #[serde(rename = "object")]
@@ -70,6 +71,27 @@ impl PlatformProvider {
             created_at,
             updated_at,
         }
+    }
+}
+
+impl<S: platform_provider_builder::State> PlatformProviderBuilder<S>
+where
+    S::Object: platform_provider_builder::IsSet,
+    S::Id: platform_provider_builder::IsSet,
+    S::Type: platform_provider_builder::IsSet,
+    S::Name: platform_provider_builder::IsSet,
+    S::Issuer: platform_provider_builder::IsSet,
+    S::Audience: platform_provider_builder::IsSet,
+    S::Verification: platform_provider_builder::IsSet,
+    S::AttributeTransformations: platform_provider_builder::IsSet,
+    S::Enabled: platform_provider_builder::IsSet,
+    S::CreatedAt: platform_provider_builder::IsSet,
+    S::UpdatedAt: platform_provider_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PlatformProvider {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeClientEventInputAudioBufferClear : Send this event to clear the audio bytes in the buffer. The server will  respond with an `input_audio_buffer.cleared` event.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_client_event_input_audio_buffer_clear_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeClientEventInputAudioBufferClear {
     /// Optional client-generated ID used to identify this event.
     ///
@@ -30,6 +31,18 @@ impl RealtimeClientEventInputAudioBufferClear {
             event_id: None,
             r#type,
         }
+    }
+}
+
+impl<S: realtime_client_event_input_audio_buffer_clear_builder::State>
+    RealtimeClientEventInputAudioBufferClearBuilder<S>
+where
+    S::Type: realtime_client_event_input_audio_buffer_clear_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeClientEventInputAudioBufferClear {
+        self.build_internal()
     }
 }
 

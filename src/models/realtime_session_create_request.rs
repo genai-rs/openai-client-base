@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeSessionCreateRequest : A new Realtime session configuration, with an ephemeral key. Default TTL for keys is one minute.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_session_create_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeSessionCreateRequest {
     #[serde(rename = "client_secret")]
     pub client_secret: models::RealtimeSessionCreateRequestClientSecret,
@@ -97,6 +98,17 @@ impl RealtimeSessionCreateRequest {
             truncation: None,
             prompt: None,
         }
+    }
+}
+
+impl<S: realtime_session_create_request_builder::State> RealtimeSessionCreateRequestBuilder<S>
+where
+    S::ClientSecret: realtime_session_create_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeSessionCreateRequest {
+        self.build_internal()
     }
 }
 

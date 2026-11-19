@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_delta_content_image_url_object_image_url_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageDeltaContentImageUrlObjectImageUrl {
     /// The URL of the image, must be a supported image types: jpeg, jpg, png, gif, webp.
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
@@ -26,6 +27,16 @@ impl MessageDeltaContentImageUrlObjectImageUrl {
             url: None,
             detail: None,
         }
+    }
+}
+
+impl<S: message_delta_content_image_url_object_image_url_builder::State>
+    MessageDeltaContentImageUrlObjectImageUrlBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageDeltaContentImageUrlObjectImageUrl {
+        self.build_internal()
     }
 }
 

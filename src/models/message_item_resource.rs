@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageItemResource : A user or assistant message recorded in a session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageItemResource {
     /// The item type. Always `message`.  Defaults to `\"message\"`.
     #[serde(rename = "type")]
@@ -61,6 +62,21 @@ impl MessageItemResource {
             status,
             phase,
         }
+    }
+}
+
+impl<S: message_item_resource_builder::State> MessageItemResourceBuilder<S>
+where
+    S::Type: message_item_resource_builder::IsSet,
+    S::TurnId: message_item_resource_builder::IsSet,
+    S::Role: message_item_resource_builder::IsSet,
+    S::Content: message_item_resource_builder::IsSet,
+    S::Status: message_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageItemResource {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseFunctionCallArgumentsDoneEvent : Emitted when function-call arguments are finalized.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_function_call_arguments_done_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseFunctionCallArgumentsDoneEvent {
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -45,6 +46,22 @@ impl ResponseFunctionCallArgumentsDoneEvent {
             sequence_number,
             arguments,
         }
+    }
+}
+
+impl<S: response_function_call_arguments_done_event_builder::State>
+    ResponseFunctionCallArgumentsDoneEventBuilder<S>
+where
+    S::Type: response_function_call_arguments_done_event_builder::IsSet,
+    S::ItemId: response_function_call_arguments_done_event_builder::IsSet,
+    S::OutputIndex: response_function_call_arguments_done_event_builder::IsSet,
+    S::SequenceNumber: response_function_call_arguments_done_event_builder::IsSet,
+    S::Arguments: response_function_call_arguments_done_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseFunctionCallArgumentsDoneEvent {
+        self.build_internal()
     }
 }
 

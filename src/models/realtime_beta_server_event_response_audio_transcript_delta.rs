@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventResponseAudioTranscriptDelta : Returned when the model-generated transcription of audio output is updated.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_response_audio_transcript_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventResponseAudioTranscriptDelta {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -56,6 +57,24 @@ impl RealtimeBetaServerEventResponseAudioTranscriptDelta {
             content_index,
             delta,
         }
+    }
+}
+
+impl<S: realtime_beta_server_event_response_audio_transcript_delta_builder::State>
+    RealtimeBetaServerEventResponseAudioTranscriptDeltaBuilder<S>
+where
+    S::EventId: realtime_beta_server_event_response_audio_transcript_delta_builder::IsSet,
+    S::Type: realtime_beta_server_event_response_audio_transcript_delta_builder::IsSet,
+    S::ResponseId: realtime_beta_server_event_response_audio_transcript_delta_builder::IsSet,
+    S::ItemId: realtime_beta_server_event_response_audio_transcript_delta_builder::IsSet,
+    S::OutputIndex: realtime_beta_server_event_response_audio_transcript_delta_builder::IsSet,
+    S::ContentIndex: realtime_beta_server_event_response_audio_transcript_delta_builder::IsSet,
+    S::Delta: realtime_beta_server_event_response_audio_transcript_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventResponseAudioTranscriptDelta {
+        self.build_internal()
     }
 }
 

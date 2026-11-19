@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebSearchActionResourceOther : Another web search action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = web_search_action_resource_other_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebSearchActionResourceOther {
     /// The type of the object. Always `other`.  Defaults to `\"other\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl WebSearchActionResourceOther {
     /// Another web search action.
     pub fn new(r#type: Type) -> WebSearchActionResourceOther {
         WebSearchActionResourceOther { r#type }
+    }
+}
+
+impl<S: web_search_action_resource_other_builder::State> WebSearchActionResourceOtherBuilder<S>
+where
+    S::Type: web_search_action_resource_other_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebSearchActionResourceOther {
+        self.build_internal()
     }
 }
 

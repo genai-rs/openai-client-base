@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseSteerFailedEventSteer : The steering submission that could not be committed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_steer_failed_event_steer_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseSteerFailedEventSteer {
     /// The ID assigned to the steering submission, if one was allocated.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -35,6 +36,19 @@ impl BetaResponseSteerFailedEventSteer {
             previous_response_id,
             input,
         }
+    }
+}
+
+impl<S: beta_response_steer_failed_event_steer_builder::State>
+    BetaResponseSteerFailedEventSteerBuilder<S>
+where
+    S::PreviousResponseId: beta_response_steer_failed_event_steer_builder::IsSet,
+    S::Input: beta_response_steer_failed_event_steer_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseSteerFailedEventSteer {
+        self.build_internal()
     }
 }
 

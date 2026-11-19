@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_session_create_request_audio_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationSessionCreateRequestAudioOutput {
     /// Target language for translated output audio and transcript deltas.
     #[serde(rename = "language", skip_serializing_if = "Option::is_none")]
@@ -20,6 +21,16 @@ pub struct RealtimeTranslationSessionCreateRequestAudioOutput {
 impl RealtimeTranslationSessionCreateRequestAudioOutput {
     pub fn new() -> RealtimeTranslationSessionCreateRequestAudioOutput {
         RealtimeTranslationSessionCreateRequestAudioOutput { language: None }
+    }
+}
+
+impl<S: realtime_translation_session_create_request_audio_output_builder::State>
+    RealtimeTranslationSessionCreateRequestAudioOutputBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationSessionCreateRequestAudioOutput {
+        self.build_internal()
     }
 }
 

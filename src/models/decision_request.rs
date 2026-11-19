@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = decision_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DecisionRequest {
     /// The model to use. Only `gpt-6-luna` is supported.
     ///
@@ -68,6 +69,19 @@ impl DecisionRequest {
             prompt_cache_key: None,
             prompt_cache_options: None,
         }
+    }
+}
+
+impl<S: decision_request_builder::State> DecisionRequestBuilder<S>
+where
+    S::Model: decision_request_builder::IsSet,
+    S::Input: decision_request_builder::IsSet,
+    S::Questions: decision_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DecisionRequest {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = input_message_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InputMessageResource {
     /// The type of the message input. Always set to `message`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -39,6 +40,19 @@ impl InputMessageResource {
             content,
             id,
         }
+    }
+}
+
+impl<S: input_message_resource_builder::State> InputMessageResourceBuilder<S>
+where
+    S::Role: input_message_resource_builder::IsSet,
+    S::Content: input_message_resource_builder::IsSet,
+    S::Id: input_message_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InputMessageResource {
+        self.build_internal()
     }
 }
 

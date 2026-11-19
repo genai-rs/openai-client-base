@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaCompoundFilter : Combine multiple filters using `and` or `or`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_compound_filter_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaCompoundFilter {
     /// Type of operation: `and` or `or`.
     #[serde(rename = "type")]
@@ -29,6 +30,18 @@ impl BetaCompoundFilter {
         filters: Vec<models::BetaCompoundFilterFiltersInner>,
     ) -> BetaCompoundFilter {
         BetaCompoundFilter { r#type, filters }
+    }
+}
+
+impl<S: beta_compound_filter_builder::State> BetaCompoundFilterBuilder<S>
+where
+    S::Type: beta_compound_filter_builder::IsSet,
+    S::Filters: beta_compound_filter_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaCompoundFilter {
+        self.build_internal()
     }
 }
 

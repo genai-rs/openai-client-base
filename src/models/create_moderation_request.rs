@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_moderation_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateModerationRequest {
     #[serde(rename = "input")]
     pub input: models::CreateModerationRequestInput,
@@ -22,6 +23,17 @@ pub struct CreateModerationRequest {
 impl CreateModerationRequest {
     pub fn new(input: models::CreateModerationRequestInput) -> CreateModerationRequest {
         CreateModerationRequest { input, model: None }
+    }
+}
+
+impl<S: create_moderation_request_builder::State> CreateModerationRequestBuilder<S>
+where
+    S::Input: create_moderation_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateModerationRequest {
+        self.build_internal()
     }
 }
 

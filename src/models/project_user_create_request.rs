@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_user_create_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectUserCreateRequest {
     /// The ID of the user.
     #[serde(
@@ -40,6 +41,17 @@ impl ProjectUserCreateRequest {
             email: None,
             role,
         }
+    }
+}
+
+impl<S: project_user_create_request_builder::State> ProjectUserCreateRequestBuilder<S>
+where
+    S::Role: project_user_create_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectUserCreateRequest {
+        self.build_internal()
     }
 }
 

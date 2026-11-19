@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseAllOfIncompleteDetails : Details about why the response is incomplete.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_all_of_incomplete_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseAllOfIncompleteDetails {
     /// The reason why the response is incomplete. `steered` means the response stopped at a safe output boundary after a WebSocket `response.steer` event. The server can then create a successor response automatically with the queued input.
     #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,16 @@ impl ResponseAllOfIncompleteDetails {
     /// Details about why the response is incomplete.
     pub fn new() -> ResponseAllOfIncompleteDetails {
         ResponseAllOfIncompleteDetails { reason: None }
+    }
+}
+
+impl<S: response_all_of_incomplete_details_builder::State>
+    ResponseAllOfIncompleteDetailsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseAllOfIncompleteDetails {
+        self.build_internal()
     }
 }
 

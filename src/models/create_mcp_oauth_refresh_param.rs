@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateMcpOauthRefreshParam : Configuration for refreshing the access token of an MCP OAuth credential.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_mcp_oauth_refresh_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateMcpOauthRefreshParam {
     /// The HTTPS OAuth token endpoint used to exchange the refresh token for a new access token.
     ///
@@ -69,6 +70,20 @@ impl CreateMcpOauthRefreshParam {
             refresh_token,
             token_endpoint_auth,
         }
+    }
+}
+
+impl<S: create_mcp_oauth_refresh_param_builder::State> CreateMcpOauthRefreshParamBuilder<S>
+where
+    S::TokenEndpoint: create_mcp_oauth_refresh_param_builder::IsSet,
+    S::ClientId: create_mcp_oauth_refresh_param_builder::IsSet,
+    S::RefreshToken: create_mcp_oauth_refresh_param_builder::IsSet,
+    S::TokenEndpointAuth: create_mcp_oauth_refresh_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateMcpOauthRefreshParam {
+        self.build_internal()
     }
 }
 

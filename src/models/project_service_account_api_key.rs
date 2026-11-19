@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_service_account_api_key_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectServiceAccountApiKey {
     /// The object type, which is always `organization.project.service_account.api_key`
     #[serde(rename = "object")]
@@ -49,6 +50,21 @@ impl ProjectServiceAccountApiKey {
             expires_at: None,
             id,
         }
+    }
+}
+
+impl<S: project_service_account_api_key_builder::State> ProjectServiceAccountApiKeyBuilder<S>
+where
+    S::Object: project_service_account_api_key_builder::IsSet,
+    S::Value: project_service_account_api_key_builder::IsSet,
+    S::Name: project_service_account_api_key_builder::IsSet,
+    S::CreatedAt: project_service_account_api_key_builder::IsSet,
+    S::Id: project_service_account_api_key_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectServiceAccountApiKey {
+        self.build_internal()
     }
 }
 

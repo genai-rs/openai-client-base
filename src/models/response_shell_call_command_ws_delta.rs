@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseShellCallCommandWsDelta : A streaming event that indicated a shell command was incrementally updated.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_shell_call_command_ws_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseShellCallCommandWsDelta {
     /// The type of the event, always `response.shell_call_command.delta`.  Defaults to `\"response.shell_call_command.delta\"`.
     #[serde(rename = "type")]
@@ -54,6 +55,22 @@ impl ResponseShellCallCommandWsDelta {
             obfuscation: None,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_shell_call_command_ws_delta_builder::State>
+    ResponseShellCallCommandWsDeltaBuilder<S>
+where
+    S::Type: response_shell_call_command_ws_delta_builder::IsSet,
+    S::SequenceNumber: response_shell_call_command_ws_delta_builder::IsSet,
+    S::OutputIndex: response_shell_call_command_ws_delta_builder::IsSet,
+    S::CommandIndex: response_shell_call_command_ws_delta_builder::IsSet,
+    S::Delta: response_shell_call_command_ws_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseShellCallCommandWsDelta {
+        self.build_internal()
     }
 }
 

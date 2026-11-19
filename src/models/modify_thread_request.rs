@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = modify_thread_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ModifyThreadRequest {
     #[serde(
         rename = "tool_resources",
@@ -36,6 +37,14 @@ impl ModifyThreadRequest {
             tool_resources: None,
             metadata: None,
         }
+    }
+}
+
+impl<S: modify_thread_request_builder::State> ModifyThreadRequestBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ModifyThreadRequest {
+        self.build_internal()
     }
 }
 

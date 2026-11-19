@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSidebandPathParams : Identifies the Live session to observe and control through a sideband WebSocket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_sideband_path_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSidebandPathParams {
     /// The ID of the existing Live session to attach to.
     #[serde(rename = "session_id")]
@@ -22,6 +23,17 @@ impl LiveSidebandPathParams {
     /// Identifies the Live session to observe and control through a sideband WebSocket.
     pub fn new(session_id: String) -> LiveSidebandPathParams {
         LiveSidebandPathParams { session_id }
+    }
+}
+
+impl<S: live_sideband_path_params_builder::State> LiveSidebandPathParamsBuilder<S>
+where
+    S::SessionId: live_sideband_path_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSidebandPathParams {
+        self.build_internal()
     }
 }
 

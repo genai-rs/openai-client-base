@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseReasoningSummaryTextDoneEvent : Emitted when a reasoning summary text is completed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_reasoning_summary_text_done_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseReasoningSummaryTextDoneEvent {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -61,6 +62,23 @@ impl BetaResponseReasoningSummaryTextDoneEvent {
             text,
             sequence_number,
         }
+    }
+}
+
+impl<S: beta_response_reasoning_summary_text_done_event_builder::State>
+    BetaResponseReasoningSummaryTextDoneEventBuilder<S>
+where
+    S::Type: beta_response_reasoning_summary_text_done_event_builder::IsSet,
+    S::ItemId: beta_response_reasoning_summary_text_done_event_builder::IsSet,
+    S::OutputIndex: beta_response_reasoning_summary_text_done_event_builder::IsSet,
+    S::SummaryIndex: beta_response_reasoning_summary_text_done_event_builder::IsSet,
+    S::Text: beta_response_reasoning_summary_text_done_event_builder::IsSet,
+    S::SequenceNumber: beta_response_reasoning_summary_text_done_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseReasoningSummaryTextDoneEvent {
+        self.build_internal()
     }
 }
 

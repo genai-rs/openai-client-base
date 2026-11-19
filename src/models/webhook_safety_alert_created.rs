@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookSafetyAlertCreated : Sent when an approved safety alert is available for an API project.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_safety_alert_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookSafetyAlertCreated {
     /// The unique ID of the webhook event.
     #[serde(rename = "id")]
@@ -46,6 +47,21 @@ impl WebhookSafetyAlertCreated {
             r#type,
             data,
         }
+    }
+}
+
+impl<S: webhook_safety_alert_created_builder::State> WebhookSafetyAlertCreatedBuilder<S>
+where
+    S::Id: webhook_safety_alert_created_builder::IsSet,
+    S::Object: webhook_safety_alert_created_builder::IsSet,
+    S::CreatedAt: webhook_safety_alert_created_builder::IsSet,
+    S::Type: webhook_safety_alert_created_builder::IsSet,
+    S::Data: webhook_safety_alert_created_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookSafetyAlertCreated {
+        self.build_internal()
     }
 }
 

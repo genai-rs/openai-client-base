@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// HostedToolPermission : Permission state for a single hosted tool on a project.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = hosted_tool_permission_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HostedToolPermission {
     /// Whether the hosted tool is enabled for the project.
     #[serde(rename = "enabled")]
@@ -22,6 +23,17 @@ impl HostedToolPermission {
     /// Permission state for a single hosted tool on a project.
     pub fn new(enabled: bool) -> HostedToolPermission {
         HostedToolPermission { enabled }
+    }
+}
+
+impl<S: hosted_tool_permission_builder::State> HostedToolPermissionBuilder<S>
+where
+    S::Enabled: hosted_tool_permission_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HostedToolPermission {
+        self.build_internal()
     }
 }
 

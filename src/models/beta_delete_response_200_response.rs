@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_delete_response200_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaDeleteResponse200Response {
     #[serde(rename = "object")]
     pub object: Object,
@@ -27,6 +28,19 @@ impl BetaDeleteResponse200Response {
             deleted,
             id,
         }
+    }
+}
+
+impl<S: beta_delete_response200_response_builder::State> BetaDeleteResponse200ResponseBuilder<S>
+where
+    S::Object: beta_delete_response200_response_builder::IsSet,
+    S::Deleted: beta_delete_response200_response_builder::IsSet,
+    S::Id: beta_delete_response200_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaDeleteResponse200Response {
+        self.build_internal()
     }
 }
 

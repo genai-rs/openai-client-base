@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AutoChunkingStrategyRequestParam : The default strategy. This strategy currently uses a `max_chunk_size_tokens` of `800` and `chunk_overlap_tokens` of `400`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = auto_chunking_strategy_request_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutoChunkingStrategyRequestParam {
     /// Always `auto`.
     #[serde(rename = "type")]
@@ -22,6 +23,18 @@ impl AutoChunkingStrategyRequestParam {
     /// The default strategy. This strategy currently uses a `max_chunk_size_tokens` of `800` and `chunk_overlap_tokens` of `400`.
     pub fn new(r#type: Type) -> AutoChunkingStrategyRequestParam {
         AutoChunkingStrategyRequestParam { r#type }
+    }
+}
+
+impl<S: auto_chunking_strategy_request_param_builder::State>
+    AutoChunkingStrategyRequestParamBuilder<S>
+where
+    S::Type: auto_chunking_strategy_request_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutoChunkingStrategyRequestParam {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ImagesResponse : The response from the image generation endpoint.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = images_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ImagesResponse {
     /// The effective safety identifier used for safety monitoring and abuse detection. This is the non-empty `safety_identifier` from the request, or the deprecated `user` value when `safety_identifier` is omitted, null, or empty.
     #[serde(
@@ -58,6 +59,17 @@ impl ImagesResponse {
             usage: None,
             svg_usage: None,
         }
+    }
+}
+
+impl<S: images_response_builder::State> ImagesResponseBuilder<S>
+where
+    S::Created: images_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ImagesResponse {
+        self.build_internal()
     }
 }
 

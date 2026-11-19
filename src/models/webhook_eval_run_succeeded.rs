@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookEvalRunSucceeded : Sent when an eval run has succeeded.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_eval_run_succeeded_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookEvalRunSucceeded {
     /// The Unix timestamp (in seconds) of when the eval run succeeded.
     #[serde(rename = "created_at", with = "super::unix_time")]
@@ -45,6 +46,20 @@ impl WebhookEvalRunSucceeded {
             object: None,
             r#type,
         }
+    }
+}
+
+impl<S: webhook_eval_run_succeeded_builder::State> WebhookEvalRunSucceededBuilder<S>
+where
+    S::CreatedAt: webhook_eval_run_succeeded_builder::IsSet,
+    S::Id: webhook_eval_run_succeeded_builder::IsSet,
+    S::Data: webhook_eval_run_succeeded_builder::IsSet,
+    S::Type: webhook_eval_run_succeeded_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookEvalRunSucceeded {
+        self.build_internal()
     }
 }
 

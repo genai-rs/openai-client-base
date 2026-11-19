@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ImageGenToolCall : An image generation request made by the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = image_gen_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ImageGenToolCall {
     /// The type of the image generation call. Always `image_generation_call`.
     #[serde(rename = "type")]
@@ -98,6 +99,19 @@ impl ImageGenToolCall {
             svg_usage: None,
             revised_prompt: None,
         }
+    }
+}
+
+impl<S: image_gen_tool_call_builder::State> ImageGenToolCallBuilder<S>
+where
+    S::Type: image_gen_tool_call_builder::IsSet,
+    S::Id: image_gen_tool_call_builder::IsSet,
+    S::Status: image_gen_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ImageGenToolCall {
+        self.build_internal()
     }
 }
 

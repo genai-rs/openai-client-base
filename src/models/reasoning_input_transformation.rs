@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = reasoning_input_transformation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ReasoningInputTransformation {
     /// Defaults to `\"reasoning\"`.
     #[serde(rename = "type")]
@@ -39,6 +40,20 @@ impl ReasoningInputTransformation {
             action,
             reason,
         }
+    }
+}
+
+impl<S: reasoning_input_transformation_builder::State> ReasoningInputTransformationBuilder<S>
+where
+    S::Type: reasoning_input_transformation_builder::IsSet,
+    S::Id: reasoning_input_transformation_builder::IsSet,
+    S::Action: reasoning_input_transformation_builder::IsSet,
+    S::Reason: reasoning_input_transformation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ReasoningInputTransformation {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseCreatedEvent : An event that is emitted when a response is created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_created_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseCreatedEvent {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -45,6 +46,19 @@ impl BetaResponseCreatedEvent {
             response,
             sequence_number,
         }
+    }
+}
+
+impl<S: beta_response_created_event_builder::State> BetaResponseCreatedEventBuilder<S>
+where
+    S::Type: beta_response_created_event_builder::IsSet,
+    S::Response: beta_response_created_event_builder::IsSet,
+    S::SequenceNumber: beta_response_created_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseCreatedEvent {
+        self.build_internal()
     }
 }
 

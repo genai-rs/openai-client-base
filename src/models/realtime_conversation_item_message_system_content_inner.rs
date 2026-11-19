@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_conversation_item_message_system_content_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeConversationItemMessageSystemContentInner {
     /// The content type. Always `input_text` for system messages.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -26,6 +27,16 @@ impl RealtimeConversationItemMessageSystemContentInner {
             r#type: None,
             text: None,
         }
+    }
+}
+
+impl<S: realtime_conversation_item_message_system_content_inner_builder::State>
+    RealtimeConversationItemMessageSystemContentInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeConversationItemMessageSystemContentInner {
+        self.build_internal()
     }
 }
 

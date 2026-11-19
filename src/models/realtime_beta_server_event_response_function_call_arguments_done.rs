@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventResponseFunctionCallArgumentsDone : Returned when the model-generated function call arguments are done streaming. Also emitted when a Response is interrupted, incomplete, or cancelled.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_response_function_call_arguments_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventResponseFunctionCallArgumentsDone {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -61,6 +62,25 @@ impl RealtimeBetaServerEventResponseFunctionCallArgumentsDone {
             name,
             arguments,
         }
+    }
+}
+
+impl<S: realtime_beta_server_event_response_function_call_arguments_done_builder::State>
+    RealtimeBetaServerEventResponseFunctionCallArgumentsDoneBuilder<S>
+where
+    S::EventId: realtime_beta_server_event_response_function_call_arguments_done_builder::IsSet,
+    S::Type: realtime_beta_server_event_response_function_call_arguments_done_builder::IsSet,
+    S::ResponseId: realtime_beta_server_event_response_function_call_arguments_done_builder::IsSet,
+    S::ItemId: realtime_beta_server_event_response_function_call_arguments_done_builder::IsSet,
+    S::OutputIndex: realtime_beta_server_event_response_function_call_arguments_done_builder::IsSet,
+    S::CallId: realtime_beta_server_event_response_function_call_arguments_done_builder::IsSet,
+    S::Name: realtime_beta_server_event_response_function_call_arguments_done_builder::IsSet,
+    S::Arguments: realtime_beta_server_event_response_function_call_arguments_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventResponseFunctionCallArgumentsDone {
+        self.build_internal()
     }
 }
 

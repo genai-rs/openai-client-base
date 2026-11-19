@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogProject : The project that the action was scoped to. Absent for actions not scoped to projects. Note that any admin actions taken via Admin API keys are associated with the default project.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_project_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogProject {
     /// The project ID.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,14 @@ impl AuditLogProject {
             id: None,
             name: None,
         }
+    }
+}
+
+impl<S: audit_log_project_builder::State> AuditLogProjectBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogProject {
+        self.build_internal()
     }
 }
 

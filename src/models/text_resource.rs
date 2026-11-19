@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// TextResource : The text configuration used by an agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = text_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TextResource {
     #[serde(rename = "format")]
     pub format: models::TextFormatResource,
@@ -27,6 +28,18 @@ impl TextResource {
         verbosity: models::VerbosityResource,
     ) -> TextResource {
         TextResource { format, verbosity }
+    }
+}
+
+impl<S: text_resource_builder::State> TextResourceBuilder<S>
+where
+    S::Format: text_resource_builder::IsSet,
+    S::Verbosity: text_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TextResource {
+        self.build_internal()
     }
 }
 

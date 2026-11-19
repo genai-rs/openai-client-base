@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// TypeParam : An action to type in text.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = type_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TypeParam {
     /// Specifies the event type. For a type action, this property is always set to `type`.  Defaults to `\"type\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl TypeParam {
     /// An action to type in text.
     pub fn new(r#type: Type, text: String) -> TypeParam {
         TypeParam { r#type, text }
+    }
+}
+
+impl<S: type_param_builder::State> TypeParamBuilder<S>
+where
+    S::Type: type_param_builder::IsSet,
+    S::Text: type_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TypeParam {
+        self.build_internal()
     }
 }
 

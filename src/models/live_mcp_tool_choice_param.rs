@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_mcp_tool_choice_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveMcpToolChoiceParam {
     /// The tool to call. Always `mcp`.  Defaults to `\"mcp\"`.
     #[serde(rename = "type")]
@@ -35,6 +36,18 @@ impl LiveMcpToolChoiceParam {
             server_label,
             name: None,
         }
+    }
+}
+
+impl<S: live_mcp_tool_choice_param_builder::State> LiveMcpToolChoiceParamBuilder<S>
+where
+    S::Type: live_mcp_tool_choice_param_builder::IsSet,
+    S::ServerLabel: live_mcp_tool_choice_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveMcpToolChoiceParam {
+        self.build_internal()
     }
 }
 

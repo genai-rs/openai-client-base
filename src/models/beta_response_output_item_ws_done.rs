@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseOutputItemWsDone : Emitted when an output item is marked done.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_output_item_ws_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseOutputItemWsDone {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -54,6 +55,20 @@ impl BetaResponseOutputItemWsDone {
             item,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_output_item_ws_done_builder::State> BetaResponseOutputItemWsDoneBuilder<S>
+where
+    S::Type: beta_response_output_item_ws_done_builder::IsSet,
+    S::OutputIndex: beta_response_output_item_ws_done_builder::IsSet,
+    S::SequenceNumber: beta_response_output_item_ws_done_builder::IsSet,
+    S::Item: beta_response_output_item_ws_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseOutputItemWsDone {
+        self.build_internal()
     }
 }
 

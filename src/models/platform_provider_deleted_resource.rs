@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = platform_provider_deleted_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PlatformProviderDeletedResource {
     /// Defaults to `\"organization.workload_identity_provider.deleted\"`.
     #[serde(rename = "object")]
@@ -28,6 +29,19 @@ impl PlatformProviderDeletedResource {
             id,
             deleted,
         }
+    }
+}
+
+impl<S: platform_provider_deleted_resource_builder::State> PlatformProviderDeletedResourceBuilder<S>
+where
+    S::Object: platform_provider_deleted_resource_builder::IsSet,
+    S::Id: platform_provider_deleted_resource_builder::IsSet,
+    S::Deleted: platform_provider_deleted_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PlatformProviderDeletedResource {
+        self.build_internal()
     }
 }
 

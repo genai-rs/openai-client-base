@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// HostedEnvironmentFileResourceFileId : A file copied from the OpenAI Files API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = hosted_environment_file_resource_file_id_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HostedEnvironmentFileResourceFileId {
     /// The type of the object. Always `file_id`.  Defaults to `\"file_id\"`.
     #[serde(rename = "type")]
@@ -54,6 +55,22 @@ impl HostedEnvironmentFileResourceFileId {
             path,
             size_bytes,
         }
+    }
+}
+
+impl<S: hosted_environment_file_resource_file_id_builder::State>
+    HostedEnvironmentFileResourceFileIdBuilder<S>
+where
+    S::Type: hosted_environment_file_resource_file_id_builder::IsSet,
+    S::Id: hosted_environment_file_resource_file_id_builder::IsSet,
+    S::FileId: hosted_environment_file_resource_file_id_builder::IsSet,
+    S::Path: hosted_environment_file_resource_file_id_builder::IsSet,
+    S::SizeBytes: hosted_environment_file_resource_file_id_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HostedEnvironmentFileResourceFileId {
+        self.build_internal()
     }
 }
 

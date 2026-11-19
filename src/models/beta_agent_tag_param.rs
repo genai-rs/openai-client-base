@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaAgentTagParam : The agent that produced this item.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_agent_tag_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaAgentTagParam {
     /// The canonical name of the agent that produced this item.
     #[serde(rename = "agent_name")]
@@ -22,6 +23,17 @@ impl BetaAgentTagParam {
     /// The agent that produced this item.
     pub fn new(agent_name: String) -> BetaAgentTagParam {
         BetaAgentTagParam { agent_name }
+    }
+}
+
+impl<S: beta_agent_tag_param_builder::State> BetaAgentTagParamBuilder<S>
+where
+    S::AgentName: beta_agent_tag_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaAgentTagParam {
+        self.build_internal()
     }
 }
 

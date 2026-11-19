@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateProjectServiceAccountApiKeyBody : The service account API key create request payload.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_project_service_account_api_key_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateProjectServiceAccountApiKeyBody {
     /// API key name.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -39,6 +40,16 @@ impl CreateProjectServiceAccountApiKeyBody {
             scopes: None,
             expires_in_seconds: None,
         }
+    }
+}
+
+impl<S: create_project_service_account_api_key_body_builder::State>
+    CreateProjectServiceAccountApiKeyBodyBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateProjectServiceAccountApiKeyBody {
+        self.build_internal()
     }
 }
 

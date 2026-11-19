@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseShellCallOutputContentWsDelta : A streaming event that indicated shell call output was incrementally added.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_shell_call_output_content_ws_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseShellCallOutputContentWsDelta {
     /// The type of the event, always `response.shell_call_output_content.delta`.  Defaults to `\"response.shell_call_output_content.delta\"`.
     #[serde(rename = "type")]
@@ -55,6 +56,23 @@ impl ResponseShellCallOutputContentWsDelta {
             delta,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_shell_call_output_content_ws_delta_builder::State>
+    ResponseShellCallOutputContentWsDeltaBuilder<S>
+where
+    S::Type: response_shell_call_output_content_ws_delta_builder::IsSet,
+    S::SequenceNumber: response_shell_call_output_content_ws_delta_builder::IsSet,
+    S::ItemId: response_shell_call_output_content_ws_delta_builder::IsSet,
+    S::OutputIndex: response_shell_call_output_content_ws_delta_builder::IsSet,
+    S::CommandIndex: response_shell_call_output_content_ws_delta_builder::IsSet,
+    S::Delta: response_shell_call_output_content_ws_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseShellCallOutputContentWsDelta {
+        self.build_internal()
     }
 }
 

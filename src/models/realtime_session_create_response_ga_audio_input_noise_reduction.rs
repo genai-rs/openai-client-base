@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeSessionCreateResponseGaAudioInputNoiseReduction : Configuration for input audio noise reduction. This can be set to `null` to turn off. Noise reduction filters audio added to the input audio buffer before it is sent to VAD and the model. Filtering the audio can improve VAD and turn detection accuracy (reducing false positives) and model performance by improving perception of the input audio.  Defaults to `null`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_session_create_response_ga_audio_input_noise_reduction_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeSessionCreateResponseGaAudioInputNoiseReduction {
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<models::NoiseReductionType>,
@@ -30,6 +31,16 @@ impl RealtimeSessionCreateResponseGaAudioInputNoiseReduction {
             r#type: None,
             strength: None,
         }
+    }
+}
+
+impl<S: realtime_session_create_response_ga_audio_input_noise_reduction_builder::State>
+    RealtimeSessionCreateResponseGaAudioInputNoiseReductionBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeSessionCreateResponseGaAudioInputNoiseReduction {
+        self.build_internal()
     }
 }
 

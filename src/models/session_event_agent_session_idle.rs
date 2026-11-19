@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionIdle : Emitted when a session becomes idle.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_idle_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionIdle {
     /// The type of the object. Always `agent.session.idle`.  Defaults to `\"agent.session.idle\"`.
     #[serde(rename = "type")]
@@ -44,6 +45,19 @@ impl SessionEventAgentSessionIdle {
             session,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_idle_builder::State> SessionEventAgentSessionIdleBuilder<S>
+where
+    S::Type: session_event_agent_session_idle_builder::IsSet,
+    S::EventId: session_event_agent_session_idle_builder::IsSet,
+    S::Session: session_event_agent_session_idle_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionIdle {
+        self.build_internal()
     }
 }
 

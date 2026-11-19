@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RoleDeletedResource : Confirmation payload returned after deleting a role.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = role_deleted_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RoleDeletedResource {
     /// Always `role.deleted`.
     #[serde(rename = "object")]
@@ -32,6 +33,19 @@ impl RoleDeletedResource {
             id,
             deleted,
         }
+    }
+}
+
+impl<S: role_deleted_resource_builder::State> RoleDeletedResourceBuilder<S>
+where
+    S::Object: role_deleted_resource_builder::IsSet,
+    S::Id: role_deleted_resource_builder::IsSet,
+    S::Deleted: role_deleted_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RoleDeletedResource {
+        self.build_internal()
     }
 }
 

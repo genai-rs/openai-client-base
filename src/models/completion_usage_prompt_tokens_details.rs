@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CompletionUsagePromptTokensDetails : Breakdown of tokens used in the prompt.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = completion_usage_prompt_tokens_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CompletionUsagePromptTokensDetails {
     /// Audio input tokens present in the prompt.  Defaults to `0`.
     #[serde(rename = "audio_tokens", skip_serializing_if = "Option::is_none")]
@@ -40,6 +41,16 @@ impl CompletionUsagePromptTokensDetails {
             image_tokens: None,
             cache_write_tokens: None,
         }
+    }
+}
+
+impl<S: completion_usage_prompt_tokens_details_builder::State>
+    CompletionUsagePromptTokensDetailsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CompletionUsagePromptTokensDetails {
+        self.build_internal()
     }
 }
 

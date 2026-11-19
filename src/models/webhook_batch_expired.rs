@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookBatchExpired : Sent when a batch API request has expired.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_batch_expired_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookBatchExpired {
     /// The Unix timestamp (in seconds) of when the batch API request expired.
     #[serde(rename = "created_at", with = "super::unix_time")]
@@ -45,6 +46,20 @@ impl WebhookBatchExpired {
             object: None,
             r#type,
         }
+    }
+}
+
+impl<S: webhook_batch_expired_builder::State> WebhookBatchExpiredBuilder<S>
+where
+    S::CreatedAt: webhook_batch_expired_builder::IsSet,
+    S::Id: webhook_batch_expired_builder::IsSet,
+    S::Data: webhook_batch_expired_builder::IsSet,
+    S::Type: webhook_batch_expired_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookBatchExpired {
+        self.build_internal()
     }
 }
 

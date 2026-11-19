@@ -189,7 +189,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for RetrieveProjectGroupErrorH
 }
 
 /// Grants a group access to a project.
-#[bon::builder]
+#[bon::builder(state_mod = add_project_group_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn add_project_group(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -276,13 +276,27 @@ pub async fn add_project_group(
     }
 }
 
+#[allow(deprecated)]
+impl<S: add_project_group_builder::State> AddProjectGroupBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: add_project_group_builder::IsSet,
+    S::ProjectId: add_project_group_builder::IsSet,
+    S::InviteProjectGroupBody: add_project_group_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ProjectGroup, Error<AddProjectGroupError>> {
+        self.call_internal().await
+    }
+}
+
 /// Grants a group access to a project.
 ///
 /// Sends the same request as [`add_project_group`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectGroup` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = add_project_group_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn add_project_group_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -360,8 +374,24 @@ pub async fn add_project_group_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: add_project_group_response_builder::State> AddProjectGroupResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: add_project_group_response_builder::IsSet,
+    S::ProjectId: add_project_group_response_builder::IsSet,
+    S::InviteProjectGroupBody: add_project_group_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectGroup>, Error<AddProjectGroupError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists the groups that have access to a project.
-#[bon::builder]
+#[bon::builder(state_mod = list_project_groups_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_groups(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -457,13 +487,28 @@ pub async fn list_project_groups(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_groups_builder::State> ListProjectGroupsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_groups_builder::IsSet,
+    S::ProjectId: list_project_groups_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectGroupListResource, Error<ListProjectGroupsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists the groups that have access to a project.
 ///
 /// Sends the same request as [`list_project_groups`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectGroupListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_project_groups_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_groups_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -550,8 +595,25 @@ pub async fn list_project_groups_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_groups_response_builder::State>
+    ListProjectGroupsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_groups_response_builder::IsSet,
+    S::ProjectId: list_project_groups_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectGroupListResource>, Error<ListProjectGroupsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Revokes a group's access to a project.
-#[bon::builder]
+#[bon::builder(state_mod = remove_project_group_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn remove_project_group(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -635,13 +697,29 @@ pub async fn remove_project_group(
     }
 }
 
+#[allow(deprecated)]
+impl<S: remove_project_group_builder::State> RemoveProjectGroupBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: remove_project_group_builder::IsSet,
+    S::ProjectId: remove_project_group_builder::IsSet,
+    S::GroupId: remove_project_group_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectGroupDeletedResource, Error<RemoveProjectGroupError>> {
+        self.call_internal().await
+    }
+}
+
 /// Revokes a group's access to a project.
 ///
 /// Sends the same request as [`remove_project_group`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectGroupDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = remove_project_group_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn remove_project_group_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -717,8 +795,28 @@ pub async fn remove_project_group_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: remove_project_group_response_builder::State>
+    RemoveProjectGroupResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: remove_project_group_response_builder::IsSet,
+    S::ProjectId: remove_project_group_response_builder::IsSet,
+    S::GroupId: remove_project_group_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectGroupDeletedResource>,
+        Error<RemoveProjectGroupError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a project's group.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_group_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_group(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -807,13 +905,27 @@ pub async fn retrieve_project_group(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_group_builder::State> RetrieveProjectGroupBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_group_builder::IsSet,
+    S::ProjectId: retrieve_project_group_builder::IsSet,
+    S::GroupId: retrieve_project_group_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ProjectGroup, Error<RetrieveProjectGroupError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a project's group.
 ///
 /// Sends the same request as [`retrieve_project_group`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectGroup` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_group_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_group_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -890,5 +1002,22 @@ pub async fn retrieve_project_group_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: retrieve_project_group_response_builder::State>
+    RetrieveProjectGroupResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_group_response_builder::IsSet,
+    S::ProjectId: retrieve_project_group_response_builder::IsSet,
+    S::GroupId: retrieve_project_group_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectGroup>, Error<RetrieveProjectGroupError>> {
+        self.call_internal().await
     }
 }

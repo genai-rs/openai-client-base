@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tuning_integration_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuningIntegration {
     /// The type of the integration being enabled for the fine-tuning job
     #[serde(rename = "type")]
@@ -23,6 +24,18 @@ pub struct FineTuningIntegration {
 impl FineTuningIntegration {
     pub fn new(r#type: Type, wandb: models::FineTuningIntegrationWandb) -> FineTuningIntegration {
         FineTuningIntegration { r#type, wandb }
+    }
+}
+
+impl<S: fine_tuning_integration_builder::State> FineTuningIntegrationBuilder<S>
+where
+    S::Type: fine_tuning_integration_builder::IsSet,
+    S::Wandb: fine_tuning_integration_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuningIntegration {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranscriptionSessionCreateResponseGaAudioInputTurnDetection : Configuration for turn detection. Can be set to `null` to turn off. Server VAD means that the model will detect the start and end of speech based on audio volume and respond at the end of user speech. For `gpt-realtime-whisper`, this must be `null`; VAD is not supported.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_transcription_session_create_response_ga_audio_input_turn_detection_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranscriptionSessionCreateResponseGaAudioInputTurnDetection {
     /// Type of turn detection, only `server_vad` is currently supported.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -39,6 +40,17 @@ impl RealtimeTranscriptionSessionCreateResponseGaAudioInputTurnDetection {
             prefix_padding_ms: None,
             silence_duration_ms: None,
         }
+    }
+}
+
+impl<
+        S: realtime_transcription_session_create_response_ga_audio_input_turn_detection_builder::State,
+    > RealtimeTranscriptionSessionCreateResponseGaAudioInputTurnDetectionBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranscriptionSessionCreateResponseGaAudioInputTurnDetection {
+        self.build_internal()
     }
 }
 

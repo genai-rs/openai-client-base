@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// EnvironmentTemplateListResource : A page of Agents API resources, with IDs for retrieving additional pages.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = environment_template_list_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EnvironmentTemplateListResource {
     /// The object type, which is always `list`.  Defaults to `\"list\"`.
     #[serde(rename = "object")]
@@ -53,6 +54,19 @@ impl EnvironmentTemplateListResource {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: environment_template_list_resource_builder::State> EnvironmentTemplateListResourceBuilder<S>
+where
+    S::Object: environment_template_list_resource_builder::IsSet,
+    S::Data: environment_template_list_resource_builder::IsSet,
+    S::HasMore: environment_template_list_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EnvironmentTemplateListResource {
+        self.build_internal()
     }
 }
 

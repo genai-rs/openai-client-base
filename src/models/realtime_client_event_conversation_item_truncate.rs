@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeClientEventConversationItemTruncate : Send this event to truncate a previous assistant message’s audio. The server  will produce audio faster than realtime, so this event is useful when the user  interrupts to truncate audio that has already been sent to the client but not  yet played. This will synchronize the server's understanding of the audio with  the client's playback.  Truncating audio will delete the server-side text transcript to ensure there  is not text in the context that hasn't been heard by the user.  If successful, the server will respond with a `conversation.item.truncated`  event.  
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_client_event_conversation_item_truncate_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeClientEventConversationItemTruncate {
     /// Optional client-generated ID used to identify this event.
     ///
@@ -47,6 +48,21 @@ impl RealtimeClientEventConversationItemTruncate {
             content_index,
             audio_end_ms,
         }
+    }
+}
+
+impl<S: realtime_client_event_conversation_item_truncate_builder::State>
+    RealtimeClientEventConversationItemTruncateBuilder<S>
+where
+    S::Type: realtime_client_event_conversation_item_truncate_builder::IsSet,
+    S::ItemId: realtime_client_event_conversation_item_truncate_builder::IsSet,
+    S::ContentIndex: realtime_client_event_conversation_item_truncate_builder::IsSet,
+    S::AudioEndMs: realtime_client_event_conversation_item_truncate_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeClientEventConversationItemTruncate {
+        self.build_internal()
     }
 }
 

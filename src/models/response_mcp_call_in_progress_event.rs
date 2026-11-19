@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseMcpCallInProgressEvent : Emitted when an MCP  tool call is in progress.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_mcp_call_in_progress_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseMcpCallInProgressEvent {
     /// The type of the event. Always 'response.mcp_call.in_progress'.
     #[serde(rename = "type")]
@@ -41,6 +42,20 @@ impl ResponseMcpCallInProgressEvent {
             output_index,
             item_id,
         }
+    }
+}
+
+impl<S: response_mcp_call_in_progress_event_builder::State> ResponseMcpCallInProgressEventBuilder<S>
+where
+    S::Type: response_mcp_call_in_progress_event_builder::IsSet,
+    S::SequenceNumber: response_mcp_call_in_progress_event_builder::IsSet,
+    S::OutputIndex: response_mcp_call_in_progress_event_builder::IsSet,
+    S::ItemId: response_mcp_call_in_progress_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseMcpCallInProgressEvent {
+        self.build_internal()
     }
 }
 

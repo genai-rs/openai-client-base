@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseMcpListToolsFailedEvent : Emitted when the attempt to list available MCP tools has failed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_mcp_list_tools_failed_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseMcpListToolsFailedEvent {
     /// The type of the event. Always 'response.mcp_list_tools.failed'.
     #[serde(rename = "type")]
@@ -41,6 +42,21 @@ impl ResponseMcpListToolsFailedEvent {
             output_index,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_mcp_list_tools_failed_event_builder::State>
+    ResponseMcpListToolsFailedEventBuilder<S>
+where
+    S::Type: response_mcp_list_tools_failed_event_builder::IsSet,
+    S::ItemId: response_mcp_list_tools_failed_event_builder::IsSet,
+    S::OutputIndex: response_mcp_list_tools_failed_event_builder::IsSet,
+    S::SequenceNumber: response_mcp_list_tools_failed_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseMcpListToolsFailedEvent {
+        self.build_internal()
     }
 }
 

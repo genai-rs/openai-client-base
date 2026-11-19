@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventResponseAudioDone : Returned when the model-generated audio is done. Also emitted when a Response is interrupted, incomplete, or cancelled.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_response_audio_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventResponseAudioDone {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -51,6 +52,23 @@ impl RealtimeServerEventResponseAudioDone {
             output_index,
             content_index,
         }
+    }
+}
+
+impl<S: realtime_server_event_response_audio_done_builder::State>
+    RealtimeServerEventResponseAudioDoneBuilder<S>
+where
+    S::EventId: realtime_server_event_response_audio_done_builder::IsSet,
+    S::Type: realtime_server_event_response_audio_done_builder::IsSet,
+    S::ResponseId: realtime_server_event_response_audio_done_builder::IsSet,
+    S::ItemId: realtime_server_event_response_audio_done_builder::IsSet,
+    S::OutputIndex: realtime_server_event_response_audio_done_builder::IsSet,
+    S::ContentIndex: realtime_server_event_response_audio_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventResponseAudioDone {
+        self.build_internal()
     }
 }
 

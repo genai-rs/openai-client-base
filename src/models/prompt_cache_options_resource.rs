@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = prompt_cache_options_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PromptCacheOptionsResource {
     #[serde(rename = "ttl")]
     pub ttl: models::PromptCacheTtlResource,
@@ -20,6 +21,17 @@ pub struct PromptCacheOptionsResource {
 impl PromptCacheOptionsResource {
     pub fn new(ttl: models::PromptCacheTtlResource) -> PromptCacheOptionsResource {
         PromptCacheOptionsResource { ttl }
+    }
+}
+
+impl<S: prompt_cache_options_resource_builder::State> PromptCacheOptionsResourceBuilder<S>
+where
+    S::Ttl: prompt_cache_options_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PromptCacheOptionsResource {
+        self.build_internal()
     }
 }
 

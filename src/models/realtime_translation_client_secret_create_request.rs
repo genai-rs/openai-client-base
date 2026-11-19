@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationClientSecretCreateRequest : Create a translation session and client secret for the Realtime API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_client_secret_create_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationClientSecretCreateRequest {
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
     pub expires_after: Option<models::ClientSecretExpiration>,
@@ -29,6 +30,18 @@ impl RealtimeTranslationClientSecretCreateRequest {
             expires_after: None,
             session,
         }
+    }
+}
+
+impl<S: realtime_translation_client_secret_create_request_builder::State>
+    RealtimeTranslationClientSecretCreateRequestBuilder<S>
+where
+    S::Session: realtime_translation_client_secret_create_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationClientSecretCreateRequest {
+        self.build_internal()
     }
 }
 

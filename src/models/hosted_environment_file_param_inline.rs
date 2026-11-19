@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// HostedEnvironmentFileParamInline : A file supplied directly as standard-base64 data.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = hosted_environment_file_param_inline_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HostedEnvironmentFileParamInline {
     /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
     #[serde(rename = "type")]
@@ -32,6 +33,20 @@ impl HostedEnvironmentFileParamInline {
     /// A file supplied directly as standard-base64 data.
     pub fn new(r#type: Type, data: String, path: String) -> HostedEnvironmentFileParamInline {
         HostedEnvironmentFileParamInline { r#type, data, path }
+    }
+}
+
+impl<S: hosted_environment_file_param_inline_builder::State>
+    HostedEnvironmentFileParamInlineBuilder<S>
+where
+    S::Type: hosted_environment_file_param_inline_builder::IsSet,
+    S::Data: hosted_environment_file_param_inline_builder::IsSet,
+    S::Path: hosted_environment_file_param_inline_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HostedEnvironmentFileParamInline {
+        self.build_internal()
     }
 }
 

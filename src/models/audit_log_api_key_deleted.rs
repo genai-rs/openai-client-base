@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogApiKeyDeleted : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_api_key_deleted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogApiKeyDeleted {
     /// The tracking ID of the API key.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl AuditLogApiKeyDeleted {
     /// The details for events with this `type`.
     pub fn new() -> AuditLogApiKeyDeleted {
         AuditLogApiKeyDeleted { id: None }
+    }
+}
+
+impl<S: audit_log_api_key_deleted_builder::State> AuditLogApiKeyDeletedBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogApiKeyDeleted {
+        self.build_internal()
     }
 }
 

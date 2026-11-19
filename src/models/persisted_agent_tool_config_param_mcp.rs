@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// PersistedAgentToolConfigParamMcp : Tools provided by a remote MCP server without stored credentials.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = persisted_agent_tool_config_param_mcp_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PersistedAgentToolConfigParamMcp {
     /// The type of the object. Always `mcp`.  Defaults to `\"mcp\"`.
     #[serde(rename = "type")]
@@ -84,6 +85,20 @@ impl PersistedAgentToolConfigParamMcp {
             required: None,
             connection_origin: None,
         }
+    }
+}
+
+impl<S: persisted_agent_tool_config_param_mcp_builder::State>
+    PersistedAgentToolConfigParamMcpBuilder<S>
+where
+    S::Type: persisted_agent_tool_config_param_mcp_builder::IsSet,
+    S::ServerLabel: persisted_agent_tool_config_param_mcp_builder::IsSet,
+    S::Transport: persisted_agent_tool_config_param_mcp_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PersistedAgentToolConfigParamMcp {
+        self.build_internal()
     }
 }
 

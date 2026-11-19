@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = delete_message_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeleteMessageResponse {
     #[serde(rename = "id")]
     pub id: String,
@@ -27,6 +28,19 @@ impl DeleteMessageResponse {
             deleted,
             object,
         }
+    }
+}
+
+impl<S: delete_message_response_builder::State> DeleteMessageResponseBuilder<S>
+where
+    S::Id: delete_message_response_builder::IsSet,
+    S::Deleted: delete_message_response_builder::IsSet,
+    S::Object: delete_message_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeleteMessageResponse {
+        self.build_internal()
     }
 }
 

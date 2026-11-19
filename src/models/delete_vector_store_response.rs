@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = delete_vector_store_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeleteVectorStoreResponse {
     #[serde(rename = "id")]
     pub id: String,
@@ -27,6 +28,19 @@ impl DeleteVectorStoreResponse {
             deleted,
             object,
         }
+    }
+}
+
+impl<S: delete_vector_store_response_builder::State> DeleteVectorStoreResponseBuilder<S>
+where
+    S::Id: delete_vector_store_response_builder::IsSet,
+    S::Deleted: delete_vector_store_response_builder::IsSet,
+    S::Object: delete_vector_store_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeleteVectorStoreResponse {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AgentToolConfigParamComputerUse : Browser use in an OpenAI-hosted session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = agent_tool_config_param_computer_use_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AgentToolConfigParamComputerUse {
     /// The type of the object. Always `computer_use`.  Defaults to `\"computer_use\"`.
     #[serde(rename = "type")]
@@ -31,6 +32,18 @@ impl AgentToolConfigParamComputerUse {
             r#type,
             include_screenshots: None,
         }
+    }
+}
+
+impl<S: agent_tool_config_param_computer_use_builder::State>
+    AgentToolConfigParamComputerUseBuilder<S>
+where
+    S::Type: agent_tool_config_param_computer_use_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AgentToolConfigParamComputerUse {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateEmbeddingResponseUsage : The usage information for the request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_embedding_response_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateEmbeddingResponseUsage {
     /// The number of tokens used by the prompt.
     #[serde(rename = "prompt_tokens")]
@@ -28,6 +29,18 @@ impl CreateEmbeddingResponseUsage {
             prompt_tokens,
             total_tokens,
         }
+    }
+}
+
+impl<S: create_embedding_response_usage_builder::State> CreateEmbeddingResponseUsageBuilder<S>
+where
+    S::PromptTokens: create_embedding_response_usage_builder::IsSet,
+    S::TotalTokens: create_embedding_response_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateEmbeddingResponseUsage {
+        self.build_internal()
     }
 }
 

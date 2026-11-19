@@ -251,7 +251,7 @@ pub enum RetrieveVideoContentError {
 
 /// Create a new video generation job from a prompt and optional reference assets.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video(
     configuration: &configuration::Configuration,
     prompt: &str,
@@ -368,6 +368,19 @@ pub async fn create_video(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_builder::State> CreateVideoBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_video_builder::IsSet,
+    S::Prompt: create_video_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VideoResource, Error<CreateVideoError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new video generation job from a prompt and optional reference assets.
 ///
 /// Sends the same request as [`create_video`] and fails the same way, error status included, but returns the
@@ -375,7 +388,7 @@ pub async fn create_video(
 /// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_response(
     configuration: &configuration::Configuration,
     prompt: &str,
@@ -483,9 +496,24 @@ pub async fn create_video_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_response_builder::State> CreateVideoResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_video_response_builder::IsSet,
+    S::Prompt: create_video_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a character from an uploaded video.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_character_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_character(
     configuration: &configuration::Configuration,
     #[builder(into)] video: timvw_rust_runtime::Upload,
@@ -570,6 +598,22 @@ pub async fn create_video_character(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_character_builder::State> CreateVideoCharacterBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_video_character_builder::IsSet,
+    S::Video: create_video_character_builder::IsSet,
+    S::Name: create_video_character_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VideoCharacterResource, Error<CreateVideoCharacterError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a character from an uploaded video.
 ///
 /// Sends the same request as [`create_video_character`] and fails the same way, error status included, but returns the
@@ -577,7 +621,7 @@ pub async fn create_video_character(
 /// `models::VideoCharacterResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_character_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_character_response(
     configuration: &configuration::Configuration,
     #[builder(into)] video: timvw_rust_runtime::Upload,
@@ -653,9 +697,27 @@ pub async fn create_video_character_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_character_response_builder::State>
+    CreateVideoCharacterResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_video_character_response_builder::IsSet,
+    S::Video: create_video_character_response_builder::IsSet,
+    S::Name: create_video_character_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VideoCharacterResource>, Error<CreateVideoCharacterError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Create a new video generation job by editing a source video or existing generated video.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_edit_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_edit(
     configuration: &configuration::Configuration,
     #[builder(into)] video: models::CreateVideoEditMultipartBodyVideo,
@@ -754,6 +816,20 @@ pub async fn create_video_edit(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_edit_builder::State> CreateVideoEditBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_video_edit_builder::IsSet,
+    S::Video: create_video_edit_builder::IsSet,
+    S::Prompt: create_video_edit_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VideoResource, Error<CreateVideoEditError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new video generation job by editing a source video or existing generated video.
 ///
 /// Sends the same request as [`create_video_edit`] and fails the same way, error status included, but returns the
@@ -761,7 +837,7 @@ pub async fn create_video_edit(
 /// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_edit_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_edit_response(
     configuration: &configuration::Configuration,
     #[builder(into)] video: models::CreateVideoEditMultipartBodyVideo,
@@ -851,11 +927,27 @@ pub async fn create_video_edit_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_edit_response_builder::State> CreateVideoEditResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_video_edit_response_builder::IsSet,
+    S::Video: create_video_edit_response_builder::IsSet,
+    S::Prompt: create_video_edit_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoEditError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new video generation job by editing a source video or existing generated video.
 ///
 /// Sends the request body as `application/json`; `create_video_edit` sends it as `multipart/form-data`.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_edit_json_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_edit_json(
     configuration: &configuration::Configuration,
     create_video_edit_json_body: Option<&models::CreateVideoEditJsonBody>,
@@ -936,6 +1028,18 @@ pub async fn create_video_edit_json(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_edit_json_builder::State> CreateVideoEditJsonBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_video_edit_json_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VideoResource, Error<CreateVideoEditError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new video generation job by editing a source video or existing generated video.
 ///
 /// Sends the request body as `application/json`; `create_video_edit` sends it as `multipart/form-data`.
@@ -945,7 +1049,7 @@ pub async fn create_video_edit_json(
 /// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_edit_json_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_edit_json_response(
     configuration: &configuration::Configuration,
     create_video_edit_json_body: Option<&models::CreateVideoEditJsonBody>,
@@ -1017,9 +1121,24 @@ pub async fn create_video_edit_json_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_edit_json_response_builder::State>
+    CreateVideoEditJsonResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_video_edit_json_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoEditError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create an extension of a completed video.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_extend_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_extend(
     configuration: &configuration::Configuration,
     #[builder(into)] video: models::CreateVideoExtendMultipartBodyVideo,
@@ -1121,6 +1240,21 @@ pub async fn create_video_extend(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_extend_builder::State> CreateVideoExtendBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_video_extend_builder::IsSet,
+    S::Video: create_video_extend_builder::IsSet,
+    S::Prompt: create_video_extend_builder::IsSet,
+    S::Seconds: create_video_extend_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VideoResource, Error<CreateVideoExtendError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create an extension of a completed video.
 ///
 /// Sends the same request as [`create_video_extend`] and fails the same way, error status included, but returns the
@@ -1128,7 +1262,7 @@ pub async fn create_video_extend(
 /// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_extend_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_extend_response(
     configuration: &configuration::Configuration,
     #[builder(into)] video: models::CreateVideoExtendMultipartBodyVideo,
@@ -1221,11 +1355,28 @@ pub async fn create_video_extend_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_extend_response_builder::State> CreateVideoExtendResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_video_extend_response_builder::IsSet,
+    S::Video: create_video_extend_response_builder::IsSet,
+    S::Prompt: create_video_extend_response_builder::IsSet,
+    S::Seconds: create_video_extend_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoExtendError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create an extension of a completed video.
 ///
 /// Sends the request body as `application/json`; `create_video_extend` sends it as `multipart/form-data`.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_extend_json_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_extend_json(
     configuration: &configuration::Configuration,
     create_video_extend_json_body: Option<&models::CreateVideoExtendJsonBody>,
@@ -1306,6 +1457,18 @@ pub async fn create_video_extend_json(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_extend_json_builder::State> CreateVideoExtendJsonBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_video_extend_json_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VideoResource, Error<CreateVideoExtendError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create an extension of a completed video.
 ///
 /// Sends the request body as `application/json`; `create_video_extend` sends it as `multipart/form-data`.
@@ -1315,7 +1478,7 @@ pub async fn create_video_extend_json(
 /// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_extend_json_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_extend_json_response(
     configuration: &configuration::Configuration,
     create_video_extend_json_body: Option<&models::CreateVideoExtendJsonBody>,
@@ -1387,11 +1550,26 @@ pub async fn create_video_extend_json_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_extend_json_response_builder::State>
+    CreateVideoExtendJsonResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_video_extend_json_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoExtendError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new video generation job from a prompt and optional reference assets.
 ///
 /// Sends the request body as `application/json`; `create_video` sends it as `multipart/form-data`.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_json_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_json(
     configuration: &configuration::Configuration,
     create_video_json_body: Option<&models::CreateVideoJsonBody>,
@@ -1472,6 +1650,18 @@ pub async fn create_video_json(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_json_builder::State> CreateVideoJsonBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_video_json_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VideoResource, Error<CreateVideoError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new video generation job from a prompt and optional reference assets.
 ///
 /// Sends the request body as `application/json`; `create_video` sends it as `multipart/form-data`.
@@ -1481,7 +1671,7 @@ pub async fn create_video_json(
 /// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_json_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_json_response(
     configuration: &configuration::Configuration,
     create_video_json_body: Option<&models::CreateVideoJsonBody>,
@@ -1553,9 +1743,23 @@ pub async fn create_video_json_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_json_response_builder::State> CreateVideoJsonResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_video_json_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a remix of a completed video using a refreshed prompt.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_remix_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_remix(
     configuration: &configuration::Configuration,
     video_id: &str,
@@ -1644,6 +1848,20 @@ pub async fn create_video_remix(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_remix_builder::State> CreateVideoRemixBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_video_remix_builder::IsSet,
+    S::VideoId: create_video_remix_builder::IsSet,
+    S::Prompt: create_video_remix_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VideoResource, Error<CreateVideoRemixError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a remix of a completed video using a refreshed prompt.
 ///
 /// Sends the same request as [`create_video_remix`] and fails the same way, error status included, but returns the
@@ -1651,7 +1869,7 @@ pub async fn create_video_remix(
 /// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_remix_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_remix_response(
     configuration: &configuration::Configuration,
     video_id: &str,
@@ -1731,11 +1949,28 @@ pub async fn create_video_remix_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_remix_response_builder::State>
+    CreateVideoRemixResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_video_remix_response_builder::IsSet,
+    S::VideoId: create_video_remix_response_builder::IsSet,
+    S::Prompt: create_video_remix_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoRemixError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a remix of a completed video using a refreshed prompt.
 ///
 /// Sends the request body as `application/json`; `create_video_remix` sends it as `multipart/form-data`.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_remix_json_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_remix_json(
     configuration: &configuration::Configuration,
     video_id: &str,
@@ -1822,6 +2057,19 @@ pub async fn create_video_remix_json(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_remix_json_builder::State> CreateVideoRemixJsonBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_video_remix_json_builder::IsSet,
+    S::VideoId: create_video_remix_json_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VideoResource, Error<CreateVideoRemixError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a remix of a completed video using a refreshed prompt.
 ///
 /// Sends the request body as `application/json`; `create_video_remix` sends it as `multipart/form-data`.
@@ -1831,7 +2079,7 @@ pub async fn create_video_remix_json(
 /// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_video_remix_json_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_video_remix_json_response(
     configuration: &configuration::Configuration,
     video_id: &str,
@@ -1909,9 +2157,25 @@ pub async fn create_video_remix_json_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_video_remix_json_response_builder::State>
+    CreateVideoRemixJsonResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_video_remix_json_response_builder::IsSet,
+    S::VideoId: create_video_remix_json_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoRemixError>> {
+        self.call_internal().await
+    }
+}
+
 /// Permanently delete a completed or failed video and its stored assets.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = delete_video_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_video(
     configuration: &configuration::Configuration,
     video_id: &str,
@@ -1989,6 +2253,19 @@ pub async fn delete_video(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_video_builder::State> DeleteVideoBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_video_builder::IsSet,
+    S::VideoId: delete_video_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::DeletedVideoResource, Error<DeleteVideoError>> {
+        self.call_internal().await
+    }
+}
+
 /// Permanently delete a completed or failed video and its stored assets.
 ///
 /// Sends the same request as [`delete_video`] and fails the same way, error status included, but returns the
@@ -1996,7 +2273,7 @@ pub async fn delete_video(
 /// `models::DeletedVideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = delete_video_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_video_response(
     configuration: &configuration::Configuration,
     video_id: &str,
@@ -2065,9 +2342,24 @@ pub async fn delete_video_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_video_response_builder::State> DeleteVideoResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_video_response_builder::IsSet,
+    S::VideoId: delete_video_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeletedVideoResource>, Error<DeleteVideoError>> {
+        self.call_internal().await
+    }
+}
+
 /// Fetch the latest metadata for a generated video.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = get_video_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_video(
     configuration: &configuration::Configuration,
     video_id: &str,
@@ -2142,6 +2434,19 @@ pub async fn get_video(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_video_builder::State> GetVideoBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_video_builder::IsSet,
+    S::VideoId: get_video_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VideoResource, Error<GetVideoError>> {
+        self.call_internal().await
+    }
+}
+
 /// Fetch the latest metadata for a generated video.
 ///
 /// Sends the same request as [`get_video`] and fails the same way, error status included, but returns the
@@ -2149,7 +2454,7 @@ pub async fn get_video(
 /// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = get_video_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_video_response(
     configuration: &configuration::Configuration,
     video_id: &str,
@@ -2215,9 +2520,24 @@ pub async fn get_video_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_video_response_builder::State> GetVideoResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_video_response_builder::IsSet,
+    S::VideoId: get_video_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VideoResource>, Error<GetVideoError>> {
+        self.call_internal().await
+    }
+}
+
 /// Fetch a character.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = get_video_character_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_video_character(
     configuration: &configuration::Configuration,
     character_id: &str,
@@ -2292,6 +2612,21 @@ pub async fn get_video_character(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_video_character_builder::State> GetVideoCharacterBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_video_character_builder::IsSet,
+    S::CharacterId: get_video_character_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VideoCharacterResource, Error<GetVideoCharacterError>> {
+        self.call_internal().await
+    }
+}
+
 /// Fetch a character.
 ///
 /// Sends the same request as [`get_video_character`] and fails the same way, error status included, but returns the
@@ -2299,7 +2634,7 @@ pub async fn get_video_character(
 /// `models::VideoCharacterResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = get_video_character_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_video_character_response(
     configuration: &configuration::Configuration,
     character_id: &str,
@@ -2365,9 +2700,25 @@ pub async fn get_video_character_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_video_character_response_builder::State> GetVideoCharacterResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_video_character_response_builder::IsSet,
+    S::CharacterId: get_video_character_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VideoCharacterResource>, Error<GetVideoCharacterError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// List recently generated videos for the current project.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = list_videos_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_videos(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -2451,6 +2802,18 @@ pub async fn list_videos(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_videos_builder::State> ListVideosBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_videos_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VideoListResource, Error<ListVideosError>> {
+        self.call_internal().await
+    }
+}
+
 /// List recently generated videos for the current project.
 ///
 /// Sends the same request as [`list_videos`] and fails the same way, error status included, but returns the
@@ -2458,7 +2821,7 @@ pub async fn list_videos(
 /// `models::VideoListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = list_videos_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_videos_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -2533,9 +2896,23 @@ pub async fn list_videos_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_videos_response_builder::State> ListVideosResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_videos_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VideoListResource>, Error<ListVideosError>> {
+        self.call_internal().await
+    }
+}
+
 /// Download the generated video bytes or a derived preview asset.  Streams the rendered video content for the specified video job.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_video_content_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_video_content(
     configuration: &configuration::Configuration,
     video_id: &str,
@@ -2607,11 +2984,26 @@ pub async fn retrieve_video_content(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_video_content_builder::State> RetrieveVideoContentBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_video_content_builder::IsSet,
+    S::VideoId: retrieve_video_content_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<timvw_rust_runtime::Response, Error<RetrieveVideoContentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Download the generated video bytes or a derived preview asset.  Streams the rendered video content for the specified video job.
 ///
 /// Decodes the `application/json` form of the response; `retrieve_video_content` decodes `video/mp4`.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_video_content_json_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_video_content_json(
     configuration: &configuration::Configuration,
     video_id: &str,
@@ -2694,6 +3086,19 @@ pub async fn retrieve_video_content_json(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_video_content_json_builder::State> RetrieveVideoContentJsonBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_video_content_json_builder::IsSet,
+    S::VideoId: retrieve_video_content_json_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<String, Error<RetrieveVideoContentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Download the generated video bytes or a derived preview asset.  Streams the rendered video content for the specified video job.
 ///
 /// Decodes the `application/json` form of the response; `retrieve_video_content` decodes `video/mp4`.
@@ -2703,7 +3108,7 @@ pub async fn retrieve_video_content_json(
 /// `String` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_video_content_json_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_video_content_json_response(
     configuration: &configuration::Configuration,
     video_id: &str,
@@ -2774,5 +3179,21 @@ pub async fn retrieve_video_content_json_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: retrieve_video_content_json_response_builder::State>
+    RetrieveVideoContentJsonResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_video_content_json_response_builder::IsSet,
+    S::VideoId: retrieve_video_content_json_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<String>, Error<RetrieveVideoContentError>> {
+        self.call_internal().await
     }
 }

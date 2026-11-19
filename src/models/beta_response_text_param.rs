@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseTextParam : Configuration options for a text response from the model. Can be plain text or structured JSON data. Learn more: - [Text inputs and outputs](https://developers.openai.com/api/docs/guides/text) - [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_text_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseTextParam {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
     pub format: Option<models::BetaTextResponseFormatConfiguration>,
@@ -32,6 +33,14 @@ impl BetaResponseTextParam {
             format: None,
             verbosity: None,
         }
+    }
+}
+
+impl<S: beta_response_text_param_builder::State> BetaResponseTextParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseTextParam {
+        self.build_internal()
     }
 }
 

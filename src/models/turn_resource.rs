@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// TurnResource : The canonical public representation of a session turn.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = turn_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TurnResource {
     /// Prompt cache lifetime selected when this turn started, including an inherited session TTL. Null when the turn used the model default or no TTL was recorded.
     #[serde(
@@ -92,6 +93,22 @@ impl TurnResource {
             error,
             usage,
         }
+    }
+}
+
+impl<S: turn_resource_builder::State> TurnResourceBuilder<S>
+where
+    S::Id: turn_resource_builder::IsSet,
+    S::Object: turn_resource_builder::IsSet,
+    S::SessionId: turn_resource_builder::IsSet,
+    S::AgentId: turn_resource_builder::IsSet,
+    S::Status: turn_resource_builder::IsSet,
+    S::CreatedAt: turn_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TurnResource {
+        self.build_internal()
     }
 }
 

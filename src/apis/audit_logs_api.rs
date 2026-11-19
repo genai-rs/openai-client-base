@@ -58,7 +58,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for ListAuditLogsErrorHeaders 
 }
 
 /// List user actions and configuration changes within this organization.
-#[bon::builder]
+#[bon::builder(state_mod = list_audit_logs_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_audit_logs(
     configuration: &configuration::Configuration,
     effective_at: Option<models::ListAuditLogsEffectiveAtParameter>,
@@ -203,13 +203,25 @@ pub async fn list_audit_logs(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_audit_logs_builder::State> ListAuditLogsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_audit_logs_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ListAuditLogsResponse, Error<ListAuditLogsError>> {
+        self.call_internal().await
+    }
+}
+
 /// List user actions and configuration changes within this organization.
 ///
 /// Sends the same request as [`list_audit_logs`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListAuditLogsResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_audit_logs_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_audit_logs_response(
     configuration: &configuration::Configuration,
     effective_at: Option<models::ListAuditLogsEffectiveAtParameter>,
@@ -342,5 +354,19 @@ pub async fn list_audit_logs_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: list_audit_logs_response_builder::State> ListAuditLogsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_audit_logs_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ListAuditLogsResponse>, Error<ListAuditLogsError>> {
+        self.call_internal().await
     }
 }

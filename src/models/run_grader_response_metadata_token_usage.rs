@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_grader_response_metadata_token_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunGraderResponseMetadataTokenUsage {
     #[serde(rename = "prompt_tokens")]
     pub prompt_tokens: i64,
@@ -40,6 +41,19 @@ impl RunGraderResponseMetadataTokenUsage {
             completion_tokens: None,
             cached_tokens: None,
         }
+    }
+}
+
+impl<S: run_grader_response_metadata_token_usage_builder::State>
+    RunGraderResponseMetadataTokenUsageBuilder<S>
+where
+    S::PromptTokens: run_grader_response_metadata_token_usage_builder::IsSet,
+    S::TotalTokens: run_grader_response_metadata_token_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunGraderResponseMetadataTokenUsage {
+        self.build_internal()
     }
 }
 

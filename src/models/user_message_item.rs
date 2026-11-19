@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// UserMessageItem : User-authored messages within a thread.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = user_message_item_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UserMessageItem {
     /// Identifier of the thread item.
     #[serde(rename = "id")]
@@ -61,6 +62,23 @@ impl UserMessageItem {
             attachments,
             inference_options,
         }
+    }
+}
+
+impl<S: user_message_item_builder::State> UserMessageItemBuilder<S>
+where
+    S::Id: user_message_item_builder::IsSet,
+    S::Object: user_message_item_builder::IsSet,
+    S::CreatedAt: user_message_item_builder::IsSet,
+    S::ThreadId: user_message_item_builder::IsSet,
+    S::Type: user_message_item_builder::IsSet,
+    S::Content: user_message_item_builder::IsSet,
+    S::Attachments: user_message_item_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UserMessageItem {
+        self.build_internal()
     }
 }
 

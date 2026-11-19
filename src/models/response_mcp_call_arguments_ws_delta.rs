@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseMcpCallArgumentsWsDelta : Emitted when there is a delta (partial update) to the arguments of an MCP tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_mcp_call_arguments_ws_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseMcpCallArgumentsWsDelta {
     /// The type of the event. Always 'response.mcp_call_arguments.delta'.
     #[serde(rename = "type")]
@@ -50,6 +51,22 @@ impl ResponseMcpCallArgumentsWsDelta {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_mcp_call_arguments_ws_delta_builder::State>
+    ResponseMcpCallArgumentsWsDeltaBuilder<S>
+where
+    S::Type: response_mcp_call_arguments_ws_delta_builder::IsSet,
+    S::OutputIndex: response_mcp_call_arguments_ws_delta_builder::IsSet,
+    S::ItemId: response_mcp_call_arguments_ws_delta_builder::IsSet,
+    S::Delta: response_mcp_call_arguments_ws_delta_builder::IsSet,
+    S::SequenceNumber: response_mcp_call_arguments_ws_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseMcpCallArgumentsWsDelta {
+        self.build_internal()
     }
 }
 

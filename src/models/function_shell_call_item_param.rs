@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FunctionShellCallItemParam : A tool representing a request to execute one or more shell commands.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = function_shell_call_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FunctionShellCallItemParam {
     /// The unique ID of the shell tool call. Populated when this item is returned via API.
     #[serde(
@@ -71,6 +72,19 @@ impl FunctionShellCallItemParam {
             status: None,
             environment: None,
         }
+    }
+}
+
+impl<S: function_shell_call_item_param_builder::State> FunctionShellCallItemParamBuilder<S>
+where
+    S::CallId: function_shell_call_item_param_builder::IsSet,
+    S::Type: function_shell_call_item_param_builder::IsSet,
+    S::Action: function_shell_call_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FunctionShellCallItemParam {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EnvironmentParamNone : Runs the agent without an execution environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = environment_param_none_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EnvironmentParamNone {
     /// The type of the object. Always `none`.  Defaults to `\"none\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl EnvironmentParamNone {
     /// Runs the agent without an execution environment.
     pub fn new(r#type: Type) -> EnvironmentParamNone {
         EnvironmentParamNone { r#type }
+    }
+}
+
+impl<S: environment_param_none_builder::State> EnvironmentParamNoneBuilder<S>
+where
+    S::Type: environment_param_none_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EnvironmentParamNone {
+        self.build_internal()
     }
 }
 

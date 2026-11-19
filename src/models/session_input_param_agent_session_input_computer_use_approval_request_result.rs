@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionInputParamAgentSessionInputComputerUseApprovalRequestResult : Responds to a pending Computer Use approval request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_input_param_agent_session_input_computer_use_approval_request_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionInputParamAgentSessionInputComputerUseApprovalRequestResult {
     /// The type of the object. Always `agent.session.input.computer_use_approval_request_result`.  Defaults to `\"agent.session.input.computer_use_approval_request_result\"`.
     #[serde(rename = "type")]
@@ -38,6 +39,24 @@ impl SessionInputParamAgentSessionInputComputerUseApprovalRequestResult {
             request_id,
             response,
         }
+    }
+}
+
+impl<
+        S: session_input_param_agent_session_input_computer_use_approval_request_result_builder::State,
+    > SessionInputParamAgentSessionInputComputerUseApprovalRequestResultBuilder<S>
+where
+    S::Type:
+        session_input_param_agent_session_input_computer_use_approval_request_result_builder::IsSet,
+    S::RequestId:
+        session_input_param_agent_session_input_computer_use_approval_request_result_builder::IsSet,
+    S::Response:
+        session_input_param_agent_session_input_computer_use_approval_request_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionInputParamAgentSessionInputComputerUseApprovalRequestResult {
+        self.build_internal()
     }
 }
 

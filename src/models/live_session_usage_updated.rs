@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSessionUsageUpdated : Reports cumulative Live audio usage and, when available, the most recent context-window usage. Delegated Responses token usage is reported separately in response.event events.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_usage_updated_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionUsageUpdated {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -43,6 +44,19 @@ impl LiveSessionUsageUpdated {
             usage,
             context_window: None,
         }
+    }
+}
+
+impl<S: live_session_usage_updated_builder::State> LiveSessionUsageUpdatedBuilder<S>
+where
+    S::EventId: live_session_usage_updated_builder::IsSet,
+    S::Type: live_session_usage_updated_builder::IsSet,
+    S::Usage: live_session_usage_updated_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionUsageUpdated {
+        self.build_internal()
     }
 }
 

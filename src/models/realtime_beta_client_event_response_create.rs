@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaClientEventResponseCreate : This event instructs the server to create a Response, which means triggering  model inference. When in Server VAD mode, the server will create Responses  automatically.  A Response will include at least one Item, and may have two, in which case  the second will be a function call. These Items will be appended to the  conversation history.  The server will respond with a `response.created` event, events for Items  and content created, and finally a `response.done` event to indicate the  Response is complete.  The `response.create` event can optionally include inference configuration like  `instructions`, and `temperature`. These fields will override the Session's  configuration for this Response only.  Responses can be created out-of-band of the default Conversation, meaning that they can have arbitrary input, and it's possible to disable writing the output to the Conversation. Only one Response can write to the default Conversation at a time, but otherwise multiple Responses can be created in parallel.  Clients can set `conversation` to `none` to create a Response that does not write to the default Conversation. Arbitrary input can be provided with the `input` field, which is an array accepting raw Items and references to existing Items.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_client_event_response_create_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaClientEventResponseCreate {
     /// Optional client-generated ID used to identify this event.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
@@ -32,6 +33,18 @@ impl RealtimeBetaClientEventResponseCreate {
             r#type,
             response: None,
         }
+    }
+}
+
+impl<S: realtime_beta_client_event_response_create_builder::State>
+    RealtimeBetaClientEventResponseCreateBuilder<S>
+where
+    S::Type: realtime_beta_client_event_response_create_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaClientEventResponseCreate {
+        self.build_internal()
     }
 }
 

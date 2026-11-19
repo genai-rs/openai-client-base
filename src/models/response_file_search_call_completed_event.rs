@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseFileSearchCallCompletedEvent : Emitted when a file search call is completed (results found).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_file_search_call_completed_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseFileSearchCallCompletedEvent {
     /// The type of the event. Always `response.file_search_call.completed`.
     #[serde(rename = "type")]
@@ -41,6 +42,21 @@ impl ResponseFileSearchCallCompletedEvent {
             item_id,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_file_search_call_completed_event_builder::State>
+    ResponseFileSearchCallCompletedEventBuilder<S>
+where
+    S::Type: response_file_search_call_completed_event_builder::IsSet,
+    S::OutputIndex: response_file_search_call_completed_event_builder::IsSet,
+    S::ItemId: response_file_search_call_completed_event_builder::IsSet,
+    S::SequenceNumber: response_file_search_call_completed_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseFileSearchCallCompletedEvent {
+        self.build_internal()
     }
 }
 

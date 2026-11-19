@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// FunctionShellCallOutputExitOutcome : Indicates that the shell commands finished and returned an exit code.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = function_shell_call_output_exit_outcome_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FunctionShellCallOutputExitOutcome {
     /// The outcome type. Always `exit`.  Defaults to `\"exit\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,19 @@ impl FunctionShellCallOutputExitOutcome {
     /// Indicates that the shell commands finished and returned an exit code.
     pub fn new(r#type: Type, exit_code: i64) -> FunctionShellCallOutputExitOutcome {
         FunctionShellCallOutputExitOutcome { r#type, exit_code }
+    }
+}
+
+impl<S: function_shell_call_output_exit_outcome_builder::State>
+    FunctionShellCallOutputExitOutcomeBuilder<S>
+where
+    S::Type: function_shell_call_output_exit_outcome_builder::IsSet,
+    S::ExitCode: function_shell_call_output_exit_outcome_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FunctionShellCallOutputExitOutcome {
+        self.build_internal()
     }
 }
 

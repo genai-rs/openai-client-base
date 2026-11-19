@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookSafetyWarningIssued : Sent when a warning is issued for a safety identifier in your organization.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_safety_warning_issued_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookSafetyWarningIssued {
     /// The unique ID of the webhook event.
     #[serde(rename = "id")]
@@ -46,6 +47,21 @@ impl WebhookSafetyWarningIssued {
             r#type,
             data,
         }
+    }
+}
+
+impl<S: webhook_safety_warning_issued_builder::State> WebhookSafetyWarningIssuedBuilder<S>
+where
+    S::Id: webhook_safety_warning_issued_builder::IsSet,
+    S::Object: webhook_safety_warning_issued_builder::IsSet,
+    S::CreatedAt: webhook_safety_warning_issued_builder::IsSet,
+    S::Type: webhook_safety_warning_issued_builder::IsSet,
+    S::Data: webhook_safety_warning_issued_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookSafetyWarningIssued {
+        self.build_internal()
     }
 }
 

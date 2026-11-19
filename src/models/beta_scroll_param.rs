@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaScrollParam : A scroll action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_scroll_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaScrollParam {
     /// Specifies the event type. For a scroll action, this property is always set to `scroll`.  Defaults to `\"scroll\"`.
     #[serde(rename = "type")]
@@ -49,6 +50,21 @@ impl BetaScrollParam {
             scroll_y,
             keys: None,
         }
+    }
+}
+
+impl<S: beta_scroll_param_builder::State> BetaScrollParamBuilder<S>
+where
+    S::Type: beta_scroll_param_builder::IsSet,
+    S::X: beta_scroll_param_builder::IsSet,
+    S::Y: beta_scroll_param_builder::IsSet,
+    S::ScrollX: beta_scroll_param_builder::IsSet,
+    S::ScrollY: beta_scroll_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaScrollParam {
+        self.build_internal()
     }
 }
 

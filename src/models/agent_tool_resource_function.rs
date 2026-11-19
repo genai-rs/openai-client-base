@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AgentToolResourceFunction : A function defined by the application.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = agent_tool_resource_function_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AgentToolResourceFunction {
     /// The type of the object. Always `function`.  Defaults to `\"function\"`.
     #[serde(rename = "type")]
@@ -56,6 +57,21 @@ impl AgentToolResourceFunction {
             defer_loading,
             r#async: None,
         }
+    }
+}
+
+impl<S: agent_tool_resource_function_builder::State> AgentToolResourceFunctionBuilder<S>
+where
+    S::Type: agent_tool_resource_function_builder::IsSet,
+    S::Name: agent_tool_resource_function_builder::IsSet,
+    S::Description: agent_tool_resource_function_builder::IsSet,
+    S::Parameters: agent_tool_resource_function_builder::IsSet,
+    S::DeferLoading: agent_tool_resource_function_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AgentToolResourceFunction {
+        self.build_internal()
     }
 }
 

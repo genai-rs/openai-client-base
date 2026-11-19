@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaLocalShellToolCall : A tool call to run a command on the local shell.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_local_shell_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaLocalShellToolCall {
     /// The agent that produced this item.
     #[serde(
@@ -55,6 +56,21 @@ impl BetaLocalShellToolCall {
             action,
             status,
         }
+    }
+}
+
+impl<S: beta_local_shell_tool_call_builder::State> BetaLocalShellToolCallBuilder<S>
+where
+    S::Type: beta_local_shell_tool_call_builder::IsSet,
+    S::Id: beta_local_shell_tool_call_builder::IsSet,
+    S::CallId: beta_local_shell_tool_call_builder::IsSet,
+    S::Action: beta_local_shell_tool_call_builder::IsSet,
+    S::Status: beta_local_shell_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaLocalShellToolCall {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseCustomToolCallInputDoneEvent : Event indicating that input for a custom tool call is complete.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_custom_tool_call_input_done_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseCustomToolCallInputDoneEvent {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -56,6 +57,22 @@ impl BetaResponseCustomToolCallInputDoneEvent {
             item_id,
             input,
         }
+    }
+}
+
+impl<S: beta_response_custom_tool_call_input_done_event_builder::State>
+    BetaResponseCustomToolCallInputDoneEventBuilder<S>
+where
+    S::Type: beta_response_custom_tool_call_input_done_event_builder::IsSet,
+    S::SequenceNumber: beta_response_custom_tool_call_input_done_event_builder::IsSet,
+    S::OutputIndex: beta_response_custom_tool_call_input_done_event_builder::IsSet,
+    S::ItemId: beta_response_custom_tool_call_input_done_event_builder::IsSet,
+    S::Input: beta_response_custom_tool_call_input_done_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseCustomToolCallInputDoneEvent {
+        self.build_internal()
     }
 }
 

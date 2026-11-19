@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// McpApprovalRequestResource : Information for presenting an MCP approval.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_approval_request_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpApprovalRequestResource {
     /// The type of the object. Always `mcp_tool_call`.  Defaults to `\"mcp_tool_call\"`.
     #[serde(rename = "type")]
@@ -48,6 +49,19 @@ impl McpApprovalRequestResource {
             arguments,
             message,
         }
+    }
+}
+
+impl<S: mcp_approval_request_resource_builder::State> McpApprovalRequestResourceBuilder<S>
+where
+    S::Type: mcp_approval_request_resource_builder::IsSet,
+    S::ServerLabel: mcp_approval_request_resource_builder::IsSet,
+    S::Message: mcp_approval_request_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpApprovalRequestResource {
+        self.build_internal()
     }
 }
 

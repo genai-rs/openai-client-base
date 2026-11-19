@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogCertificateDeleted : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_certificate_deleted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogCertificateDeleted {
     /// The certificate ID.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -32,6 +33,14 @@ impl AuditLogCertificateDeleted {
             name: None,
             certificate: None,
         }
+    }
+}
+
+impl<S: audit_log_certificate_deleted_builder::State> AuditLogCertificateDeletedBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogCertificateDeleted {
+        self.build_internal()
     }
 }
 

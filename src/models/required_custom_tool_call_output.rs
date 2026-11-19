@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RequiredCustomToolCallOutput : Supply `output` using the custom tool call output input schema. The original custom tool call supplies the tool's name.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = required_custom_tool_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RequiredCustomToolCallOutput {
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -23,6 +24,18 @@ impl RequiredCustomToolCallOutput {
     /// Supply `output` using the custom tool call output input schema. The original custom tool call supplies the tool's name.
     pub fn new(r#type: Type, call_id: String) -> RequiredCustomToolCallOutput {
         RequiredCustomToolCallOutput { r#type, call_id }
+    }
+}
+
+impl<S: required_custom_tool_call_output_builder::State> RequiredCustomToolCallOutputBuilder<S>
+where
+    S::Type: required_custom_tool_call_output_builder::IsSet,
+    S::CallId: required_custom_tool_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RequiredCustomToolCallOutput {
+        self.build_internal()
     }
 }
 

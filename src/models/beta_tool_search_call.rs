@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_tool_search_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaToolSearchCall {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
@@ -55,6 +56,20 @@ impl BetaToolSearchCall {
             status,
             created_by: None,
         }
+    }
+}
+
+impl<S: beta_tool_search_call_builder::State> BetaToolSearchCallBuilder<S>
+where
+    S::Type: beta_tool_search_call_builder::IsSet,
+    S::Id: beta_tool_search_call_builder::IsSet,
+    S::Execution: beta_tool_search_call_builder::IsSet,
+    S::Status: beta_tool_search_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaToolSearchCall {
+        self.build_internal()
     }
 }
 

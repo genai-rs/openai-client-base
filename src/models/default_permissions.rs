@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = default_permissions_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DefaultPermissions {
     /// Defaults to `\"service_account_default\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,17 @@ pub struct DefaultPermissions {
 impl DefaultPermissions {
     pub fn new(r#type: Type) -> DefaultPermissions {
         DefaultPermissions { r#type }
+    }
+}
+
+impl<S: default_permissions_builder::State> DefaultPermissionsBuilder<S>
+where
+    S::Type: default_permissions_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DefaultPermissions {
+        self.build_internal()
     }
 }
 

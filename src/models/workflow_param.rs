@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WorkflowParam : Workflow reference and overrides applied to the chat session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = workflow_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WorkflowParam {
     /// Identifier for the workflow invoked by the session.
     #[serde(rename = "id")]
@@ -39,6 +40,17 @@ impl WorkflowParam {
             state_variables: None,
             tracing: None,
         }
+    }
+}
+
+impl<S: workflow_param_builder::State> WorkflowParamBuilder<S>
+where
+    S::Id: workflow_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WorkflowParam {
+        self.build_internal()
     }
 }
 

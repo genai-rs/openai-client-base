@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseFormatTextGrammar : A custom grammar for the model to follow when generating text. Learn more in the [custom grammars guide](https://developers.openai.com/api/docs/guides/function-calling#context-free-grammars).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_format_text_grammar_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseFormatTextGrammar {
     /// The type of response format being defined. Always `grammar`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl ResponseFormatTextGrammar {
     /// A custom grammar for the model to follow when generating text. Learn more in the [custom grammars guide](https://developers.openai.com/api/docs/guides/function-calling#context-free-grammars).
     pub fn new(r#type: Type, grammar: String) -> ResponseFormatTextGrammar {
         ResponseFormatTextGrammar { r#type, grammar }
+    }
+}
+
+impl<S: response_format_text_grammar_builder::State> ResponseFormatTextGrammarBuilder<S>
+where
+    S::Type: response_format_text_grammar_builder::IsSet,
+    S::Grammar: response_format_text_grammar_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseFormatTextGrammar {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationSessionCreateRequest : Realtime translation session configuration. Translation sessions stream source audio in and translated audio plus transcript deltas out continuously.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_session_create_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationSessionCreateRequest {
     /// The Realtime translation model used for this session.
     #[serde(rename = "model")]
@@ -25,6 +26,18 @@ impl RealtimeTranslationSessionCreateRequest {
     /// Realtime translation session configuration. Translation sessions stream source audio in and translated audio plus transcript deltas out continuously.
     pub fn new(model: String) -> RealtimeTranslationSessionCreateRequest {
         RealtimeTranslationSessionCreateRequest { model, audio: None }
+    }
+}
+
+impl<S: realtime_translation_session_create_request_builder::State>
+    RealtimeTranslationSessionCreateRequestBuilder<S>
+where
+    S::Model: realtime_translation_session_create_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationSessionCreateRequest {
+        self.build_internal()
     }
 }
 

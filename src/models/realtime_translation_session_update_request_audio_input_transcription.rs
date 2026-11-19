@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationSessionUpdateRequestAudioInputTranscription : Optional source-language transcription. When configured, the server emits `session.input_transcript.delta` events. Translation itself still runs from the input audio stream.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_session_update_request_audio_input_transcription_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationSessionUpdateRequestAudioInputTranscription {
     /// The transcription model to use for source transcript deltas.
     #[serde(rename = "model")]
@@ -22,6 +23,18 @@ impl RealtimeTranslationSessionUpdateRequestAudioInputTranscription {
     /// Optional source-language transcription. When configured, the server emits `session.input_transcript.delta` events. Translation itself still runs from the input audio stream.
     pub fn new(model: String) -> RealtimeTranslationSessionUpdateRequestAudioInputTranscription {
         RealtimeTranslationSessionUpdateRequestAudioInputTranscription { model }
+    }
+}
+
+impl<S: realtime_translation_session_update_request_audio_input_transcription_builder::State>
+    RealtimeTranslationSessionUpdateRequestAudioInputTranscriptionBuilder<S>
+where
+    S::Model: realtime_translation_session_update_request_audio_input_transcription_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationSessionUpdateRequestAudioInputTranscription {
+        self.build_internal()
     }
 }
 

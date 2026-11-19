@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_rate_limit_list_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectRateLimitListResponse {
     #[serde(rename = "object")]
     pub object: Object,
@@ -48,6 +49,19 @@ impl ProjectRateLimitListResponse {
             last_id: None,
             has_more,
         }
+    }
+}
+
+impl<S: project_rate_limit_list_response_builder::State> ProjectRateLimitListResponseBuilder<S>
+where
+    S::Object: project_rate_limit_list_response_builder::IsSet,
+    S::Data: project_rate_limit_list_response_builder::IsSet,
+    S::HasMore: project_rate_limit_list_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectRateLimitListResponse {
+        self.build_internal()
     }
 }
 

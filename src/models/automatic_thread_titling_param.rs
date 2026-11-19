@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AutomaticThreadTitlingParam : Controls whether ChatKit automatically generates thread titles.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automatic_thread_titling_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomaticThreadTitlingParam {
     /// Enable automatic thread title generation. Defaults to true.
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl AutomaticThreadTitlingParam {
     /// Controls whether ChatKit automatically generates thread titles.
     pub fn new() -> AutomaticThreadTitlingParam {
         AutomaticThreadTitlingParam { enabled: None }
+    }
+}
+
+impl<S: automatic_thread_titling_param_builder::State> AutomaticThreadTitlingParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomaticThreadTitlingParam {
+        self.build_internal()
     }
 }
 

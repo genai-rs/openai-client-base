@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaClientEventSessionUpdate : Send this event to update the session’s default configuration. The client may send this event at any time to update any field, except for `voice`. However, note that once a session has been initialized with a particular `model`, it can’t be changed to another model using `session.update`.  When the server receives a `session.update`, it will respond with a `session.updated` event showing the full, effective configuration. Only the fields that are present are updated. To clear a field like `instructions`, pass an empty string.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_client_event_session_update_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaClientEventSessionUpdate {
     /// Optional client-generated ID used to identify this event.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
@@ -35,6 +36,19 @@ impl RealtimeBetaClientEventSessionUpdate {
             r#type,
             session,
         }
+    }
+}
+
+impl<S: realtime_beta_client_event_session_update_builder::State>
+    RealtimeBetaClientEventSessionUpdateBuilder<S>
+where
+    S::Type: realtime_beta_client_event_session_update_builder::IsSet,
+    S::Session: realtime_beta_client_event_session_update_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaClientEventSessionUpdate {
+        self.build_internal()
     }
 }
 

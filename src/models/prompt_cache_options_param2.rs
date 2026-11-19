@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = prompt_cache_options_param2_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PromptCacheOptionsParam2 {
     #[serde(rename = "ttl", skip_serializing_if = "Option::is_none")]
     pub ttl: Option<models::PromptCacheTtlParam>,
@@ -20,6 +21,14 @@ pub struct PromptCacheOptionsParam2 {
 impl PromptCacheOptionsParam2 {
     pub fn new() -> PromptCacheOptionsParam2 {
         PromptCacheOptionsParam2 { ttl: None }
+    }
+}
+
+impl<S: prompt_cache_options_param2_builder::State> PromptCacheOptionsParam2Builder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PromptCacheOptionsParam2 {
+        self.build_internal()
     }
 }
 

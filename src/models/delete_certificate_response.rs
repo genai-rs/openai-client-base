@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = delete_certificate_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeleteCertificateResponse {
     /// The object type, must be `certificate.deleted`.
     #[serde(rename = "object")]
@@ -23,6 +24,18 @@ pub struct DeleteCertificateResponse {
 impl DeleteCertificateResponse {
     pub fn new(object: Object, id: String) -> DeleteCertificateResponse {
         DeleteCertificateResponse { object, id }
+    }
+}
+
+impl<S: delete_certificate_response_builder::State> DeleteCertificateResponseBuilder<S>
+where
+    S::Object: delete_certificate_response_builder::IsSet,
+    S::Id: delete_certificate_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeleteCertificateResponse {
+        self.build_internal()
     }
 }
 

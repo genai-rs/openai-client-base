@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_custom_tool_call_output_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionCustomToolCallOutputParam {
     /// The local Decision item ID.
     #[serde(
@@ -53,6 +54,20 @@ impl LiveDecisionCustomToolCallOutputParam {
             r#type,
             output,
         }
+    }
+}
+
+impl<S: live_decision_custom_tool_call_output_param_builder::State>
+    LiveDecisionCustomToolCallOutputParamBuilder<S>
+where
+    S::CallId: live_decision_custom_tool_call_output_param_builder::IsSet,
+    S::Type: live_decision_custom_tool_call_output_param_builder::IsSet,
+    S::Output: live_decision_custom_tool_call_output_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionCustomToolCallOutputParam {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_vector_store_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateVectorStoreRequest {
     /// A list of [File](https://developers.openai.com/api/reference/resources/files) IDs that the vector store should use. Useful for tools like `file_search` that can access files.
     ///
@@ -48,6 +49,14 @@ impl CreateVectorStoreRequest {
             chunking_strategy: None,
             metadata: None,
         }
+    }
+}
+
+impl<S: create_vector_store_request_builder::State> CreateVectorStoreRequestBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateVectorStoreRequest {
+        self.build_internal()
     }
 }
 

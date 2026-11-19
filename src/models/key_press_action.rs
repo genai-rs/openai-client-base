@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// KeyPressAction : A collection of keypresses the model would like to perform.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = key_press_action_builder, finish_fn(vis = "", name = build_internal))]
 pub struct KeyPressAction {
     /// Specifies the event type. For a keypress action, this property is always set to `keypress`.  Defaults to `\"keypress\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl KeyPressAction {
     /// A collection of keypresses the model would like to perform.
     pub fn new(r#type: Type, keys: Vec<String>) -> KeyPressAction {
         KeyPressAction { r#type, keys }
+    }
+}
+
+impl<S: key_press_action_builder::State> KeyPressActionBuilder<S>
+where
+    S::Type: key_press_action_builder::IsSet,
+    S::Keys: key_press_action_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> KeyPressAction {
+        self.build_internal()
     }
 }
 

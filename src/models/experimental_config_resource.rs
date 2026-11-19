@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ExperimentalConfigResource : The effective experimental settings for an agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = experimental_config_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ExperimentalConfigResource {
     /// Whether the model receives periodic current-time reminders.
     #[serde(rename = "time_awareness")]
@@ -22,6 +23,17 @@ impl ExperimentalConfigResource {
     /// The effective experimental settings for an agent.
     pub fn new(time_awareness: bool) -> ExperimentalConfigResource {
         ExperimentalConfigResource { time_awareness }
+    }
+}
+
+impl<S: experimental_config_resource_builder::State> ExperimentalConfigResourceBuilder<S>
+where
+    S::TimeAwareness: experimental_config_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ExperimentalConfigResource {
+        self.build_internal()
     }
 }
 

@@ -62,7 +62,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for CreateCompletionErrorHeade
 }
 
 /// Creates a completion for the provided prompt and parameters.  Returns a completion object, or a sequence of completion objects if the request is streamed.
-#[bon::builder]
+#[bon::builder(state_mod = create_completion_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_completion(
     configuration: &configuration::Configuration,
     create_completion_request: &models::CreateCompletionRequest,
@@ -147,13 +147,28 @@ pub async fn create_completion(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_completion_builder::State> CreateCompletionBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_completion_builder::IsSet,
+    S::CreateCompletionRequest: create_completion_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::CreateCompletionResponse, Error<CreateCompletionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a completion for the provided prompt and parameters.  Returns a completion object, or a sequence of completion objects if the request is streamed.
 ///
 /// Sends the same request as [`create_completion`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::CreateCompletionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_completion_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_completion_response(
     configuration: &configuration::Configuration,
     create_completion_request: &models::CreateCompletionRequest,
@@ -229,10 +244,26 @@ pub async fn create_completion_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_completion_response_builder::State> CreateCompletionResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_completion_response_builder::IsSet,
+    S::CreateCompletionRequest: create_completion_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::CreateCompletionResponse>, Error<CreateCompletionError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Creates a completion for the provided prompt and parameters.  Returns a completion object, or a sequence of completion objects if the request is streamed.
 ///
 /// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::CreateCompletionResponse`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
-#[bon::builder]
+#[bon::builder(state_mod = create_completion_stream_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_completion_stream(
     configuration: &configuration::Configuration,
     create_completion_request: &models::CreateCompletionRequest,
@@ -314,4 +345,22 @@ pub async fn create_completion_stream(
         return Err(Error::from(serde_json::Error::custom(format!("Received `{content_type}` content type response where a `text/event-stream` of `models::CreateCompletionResponse` was expected (does the request ask for a stream?)"))));
     }
     Ok(super::sse::EventStream::from_response(resp))
+}
+
+#[allow(deprecated)]
+impl<S: create_completion_stream_builder::State> CreateCompletionStreamBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_completion_stream_builder::IsSet,
+    S::CreateCompletionRequest: create_completion_stream_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::sse::EventStream<models::CreateCompletionResponse, CreateCompletionError>,
+        Error<CreateCompletionError>,
+    > {
+        self.call_internal().await
+    }
 }

@@ -129,7 +129,7 @@ pub enum RejectLiveSessionError {
 }
 
 /// Accept an incoming SIP call. Supply session with type live, the model, and startup configuration. Before accepting calls, follow the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) to write frontend conversation instructions and a separate backend prompt. SIP media format is negotiated; omit audio.format.
-#[bon::builder]
+#[bon::builder(state_mod = accept_live_session_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn accept_live_session(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -206,13 +206,27 @@ pub async fn accept_live_session(
     }
 }
 
+#[allow(deprecated)]
+impl<S: accept_live_session_builder::State> AcceptLiveSessionBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: accept_live_session_builder::IsSet,
+    S::SessionId: accept_live_session_builder::IsSet,
+    S::LiveCallAcceptRequest: accept_live_session_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<AcceptLiveSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Accept an incoming SIP call. Supply session with type live, the model, and startup configuration. Before accepting calls, follow the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) to write frontend conversation instructions and a separate backend prompt. SIP media format is negotiated; omit audio.format.
 ///
 /// Sends the same request as [`accept_live_session`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = accept_live_session_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn accept_live_session_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -291,8 +305,23 @@ pub async fn accept_live_session_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: accept_live_session_response_builder::State>
+    AcceptLiveSessionResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: accept_live_session_response_builder::IsSet,
+    S::SessionId: accept_live_session_response_builder::IsSet,
+    S::LiveCallAcceptRequest: accept_live_session_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<()>, Error<AcceptLiveSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a Live WebRTC session or place an outbound SIP call. Start with the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) for session configuration and [Telephony and SIP](https://developers.openai.com/api/docs/guides/voice-sip?api=live#place-an-outbound-call) for trunk setup and call monitoring.  Set transport.type to `webrtc` and supply an SDP offer, or set it to `sip` and supply an E.164 destination and trunk credentials. Ringing is limited to 3 minutes and connected calls to 2 hours; these limits are not configurable in the request.  Returns `201 Created` after session initialization. WebRTC responses include an SDP answer. SIP responses do not wait for the callee to answer. Attach a sideband connection using session.id to monitor SIP call progress.  Each SIP request creates a new call. If a request times out or the connection fails, retry with caution: the original request may have succeeded, and a retry can place another call.
-#[bon::builder]
+#[bon::builder(state_mod = create_live_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_live(
     configuration: &configuration::Configuration,
     live_session_create_request: &models::LiveSessionCreateRequest,
@@ -375,13 +404,26 @@ pub async fn create_live(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_live_builder::State> CreateLiveBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_live_builder::IsSet,
+    S::LiveSessionCreateRequest: create_live_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::LiveSessionCreateResponse, Error<CreateLiveError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a Live WebRTC session or place an outbound SIP call. Start with the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) for session configuration and [Telephony and SIP](https://developers.openai.com/api/docs/guides/voice-sip?api=live#place-an-outbound-call) for trunk setup and call monitoring.  Set transport.type to `webrtc` and supply an SDP offer, or set it to `sip` and supply an E.164 destination and trunk credentials. Ringing is limited to 3 minutes and connected calls to 2 hours; these limits are not configurable in the request.  Returns `201 Created` after session initialization. WebRTC responses include an SDP answer. SIP responses do not wait for the callee to answer. Attach a sideband connection using session.id to monitor SIP call progress.  Each SIP request creates a new call. If a request times out or the connection fails, retry with caution: the original request may have succeeded, and a retry can place another call.
 ///
 /// Sends the same request as [`create_live`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::LiveSessionCreateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_live_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_live_response(
     configuration: &configuration::Configuration,
     live_session_create_request: &models::LiveSessionCreateRequest,
@@ -455,8 +497,23 @@ pub async fn create_live_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_live_response_builder::State> CreateLiveResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_live_response_builder::IsSet,
+    S::LiveSessionCreateRequest: create_live_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::LiveSessionCreateResponse>, Error<CreateLiveError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get Live session content
-#[bon::builder]
+#[bon::builder(state_mod = download_live_recording_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn download_live_recording(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -529,8 +586,23 @@ pub async fn download_live_recording(
     }
 }
 
+#[allow(deprecated)]
+impl<S: download_live_recording_builder::State> DownloadLiveRecordingBuilder<'_, '_, '_, S>
+where
+    S::Configuration: download_live_recording_builder::IsSet,
+    S::SessionId: download_live_recording_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<timvw_rust_runtime::Response, Error<DownloadLiveRecordingError>> {
+        self.call_internal().await
+    }
+}
+
 /// Fork a stored Live session onto a new WebRTC connection.
-#[bon::builder]
+#[bon::builder(state_mod = fork_live_session_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn fork_live_session(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -616,13 +688,27 @@ pub async fn fork_live_session(
     }
 }
 
+#[allow(deprecated)]
+impl<S: fork_live_session_builder::State> ForkLiveSessionBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: fork_live_session_builder::IsSet,
+    S::SessionId: fork_live_session_builder::IsSet,
+    S::LiveForkRequest: fork_live_session_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::LiveCreateResponse, Error<ForkLiveSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Fork a stored Live session onto a new WebRTC connection.
 ///
 /// Sends the same request as [`fork_live_session`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::LiveCreateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = fork_live_session_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn fork_live_session_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -699,8 +785,24 @@ pub async fn fork_live_session_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: fork_live_session_response_builder::State> ForkLiveSessionResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: fork_live_session_response_builder::IsSet,
+    S::SessionId: fork_live_session_response_builder::IsSet,
+    S::LiveForkRequest: fork_live_session_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::LiveCreateResponse>, Error<ForkLiveSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// End a SIP call identified by session_id.
-#[bon::builder]
+#[bon::builder(state_mod = hangup_live_session_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn hangup_live_session(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -761,13 +863,26 @@ pub async fn hangup_live_session(
     }
 }
 
+#[allow(deprecated)]
+impl<S: hangup_live_session_builder::State> HangupLiveSessionBuilder<'_, '_, '_, S>
+where
+    S::Configuration: hangup_live_session_builder::IsSet,
+    S::SessionId: hangup_live_session_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<HangupLiveSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// End a SIP call identified by session_id.
 ///
 /// Sends the same request as [`hangup_live_session`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = hangup_live_session_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn hangup_live_session_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -830,8 +945,21 @@ pub async fn hangup_live_session_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: hangup_live_session_response_builder::State> HangupLiveSessionResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: hangup_live_session_response_builder::IsSet,
+    S::SessionId: hangup_live_session_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<()>, Error<HangupLiveSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Transfer a SIP call to another destination. Supply a nonblank target_uri for the SIP Refer-To header.
-#[bon::builder]
+#[bon::builder(state_mod = refer_live_session_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn refer_live_session(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -899,13 +1027,27 @@ pub async fn refer_live_session(
     }
 }
 
+#[allow(deprecated)]
+impl<S: refer_live_session_builder::State> ReferLiveSessionBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: refer_live_session_builder::IsSet,
+    S::SessionId: refer_live_session_builder::IsSet,
+    S::LiveCallReferRequest: refer_live_session_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<ReferLiveSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Transfer a SIP call to another destination. Supply a nonblank target_uri for the SIP Refer-To header.
 ///
 /// Sends the same request as [`refer_live_session`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = refer_live_session_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn refer_live_session_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -975,8 +1117,23 @@ pub async fn refer_live_session_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: refer_live_session_response_builder::State>
+    ReferLiveSessionResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: refer_live_session_response_builder::IsSet,
+    S::SessionId: refer_live_session_response_builder::IsSet,
+    S::LiveCallReferRequest: refer_live_session_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<()>, Error<ReferLiveSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Reject an incoming SIP call. Send a required SIP rejection status_code between 300 and 699.
-#[bon::builder]
+#[bon::builder(state_mod = reject_live_session_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn reject_live_session(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -1047,13 +1204,27 @@ pub async fn reject_live_session(
     }
 }
 
+#[allow(deprecated)]
+impl<S: reject_live_session_builder::State> RejectLiveSessionBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: reject_live_session_builder::IsSet,
+    S::SessionId: reject_live_session_builder::IsSet,
+    S::LiveCallRejectRequest: reject_live_session_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<RejectLiveSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Reject an incoming SIP call. Send a required SIP rejection status_code between 300 and 699.
 ///
 /// Sends the same request as [`reject_live_session`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = reject_live_session_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn reject_live_session_response(
     configuration: &configuration::Configuration,
     session_id: &str,
@@ -1123,5 +1294,20 @@ pub async fn reject_live_session_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: reject_live_session_response_builder::State>
+    RejectLiveSessionResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: reject_live_session_response_builder::IsSet,
+    S::SessionId: reject_live_session_response_builder::IsSet,
+    S::LiveCallRejectRequest: reject_live_session_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<()>, Error<RejectLiveSessionError>> {
+        self.call_internal().await
     }
 }

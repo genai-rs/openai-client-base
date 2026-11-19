@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogWorkloadIdentityProviderDeleted : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_workload_identity_provider_deleted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogWorkloadIdentityProviderDeleted {
     /// The workload identity provider ID.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,16 @@ impl AuditLogWorkloadIdentityProviderDeleted {
             id: None,
             name: None,
         }
+    }
+}
+
+impl<S: audit_log_workload_identity_provider_deleted_builder::State>
+    AuditLogWorkloadIdentityProviderDeletedBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogWorkloadIdentityProviderDeleted {
+        self.build_internal()
     }
 }
 

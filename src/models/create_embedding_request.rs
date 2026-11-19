@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_embedding_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateEmbeddingRequest {
     #[serde(rename = "input")]
     pub input: models::CreateEmbeddingRequestInput,
@@ -42,6 +43,18 @@ impl CreateEmbeddingRequest {
             dimensions: None,
             user: None,
         }
+    }
+}
+
+impl<S: create_embedding_request_builder::State> CreateEmbeddingRequestBuilder<S>
+where
+    S::Input: create_embedding_request_builder::IsSet,
+    S::Model: create_embedding_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateEmbeddingRequest {
+        self.build_internal()
     }
 }
 

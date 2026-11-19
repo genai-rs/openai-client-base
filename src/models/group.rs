@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// Group : Summary information about a group returned in role assignment responses.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = group_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Group {
     /// Always `group`.
     #[serde(rename = "object")]
@@ -46,6 +47,21 @@ impl Group {
             created_at,
             scim_managed,
         }
+    }
+}
+
+impl<S: group_builder::State> GroupBuilder<S>
+where
+    S::Object: group_builder::IsSet,
+    S::Id: group_builder::IsSet,
+    S::Name: group_builder::IsSet,
+    S::CreatedAt: group_builder::IsSet,
+    S::ScimManaged: group_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Group {
+        self.build_internal()
     }
 }
 

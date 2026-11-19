@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decisions_settings_update_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionsSettingsUpdateParam {
     /// Validation: `minLength: 1`.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
@@ -29,6 +30,16 @@ impl LiveDecisionsSettingsUpdateParam {
             model: None,
             questions: None,
         }
+    }
+}
+
+impl<S: live_decisions_settings_update_param_builder::State>
+    LiveDecisionsSettingsUpdateParamBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionsSettingsUpdateParam {
+        self.build_internal()
     }
 }
 

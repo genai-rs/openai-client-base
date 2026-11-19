@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectDataRetention : Represents a project's data retention control setting.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_data_retention_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectDataRetention {
     /// The object type, which is always `project.data_retention`.
     #[serde(rename = "object")]
@@ -25,6 +26,18 @@ impl ProjectDataRetention {
     /// Represents a project's data retention control setting.
     pub fn new(object: Object, r#type: Type) -> ProjectDataRetention {
         ProjectDataRetention { object, r#type }
+    }
+}
+
+impl<S: project_data_retention_builder::State> ProjectDataRetentionBuilder<S>
+where
+    S::Object: project_data_retention_builder::IsSet,
+    S::Type: project_data_retention_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectDataRetention {
+        self.build_internal()
     }
 }
 

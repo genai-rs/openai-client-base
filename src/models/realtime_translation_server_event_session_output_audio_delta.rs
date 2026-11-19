@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationServerEventSessionOutputAudioDelta : Returned when translated output audio is available. The `delta` contains a PCM16 audio chunk whose length can vary. Clients should decode and queue the complete delta instead of assuming a fixed byte or sample count.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_server_event_session_output_audio_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationServerEventSessionOutputAudioDelta {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -57,6 +58,20 @@ impl RealtimeTranslationServerEventSessionOutputAudioDelta {
             format: None,
             elapsed_ms: None,
         }
+    }
+}
+
+impl<S: realtime_translation_server_event_session_output_audio_delta_builder::State>
+    RealtimeTranslationServerEventSessionOutputAudioDeltaBuilder<S>
+where
+    S::EventId: realtime_translation_server_event_session_output_audio_delta_builder::IsSet,
+    S::Type: realtime_translation_server_event_session_output_audio_delta_builder::IsSet,
+    S::Delta: realtime_translation_server_event_session_output_audio_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationServerEventSessionOutputAudioDelta {
+        self.build_internal()
     }
 }
 

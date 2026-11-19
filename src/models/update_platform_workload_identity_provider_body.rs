@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_platform_workload_identity_provider_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdatePlatformWorkloadIdentityProviderBody {
     /// Validation: `minLength: 1`.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -52,6 +53,16 @@ impl UpdatePlatformWorkloadIdentityProviderBody {
             attribute_transformations: None,
             enabled: None,
         }
+    }
+}
+
+impl<S: update_platform_workload_identity_provider_body_builder::State>
+    UpdatePlatformWorkloadIdentityProviderBodyBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdatePlatformWorkloadIdentityProviderBody {
+        self.build_internal()
     }
 }
 

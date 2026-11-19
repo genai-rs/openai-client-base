@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateChatCompletionResponse : Represents a chat completion response returned by model, based on the provided input.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_chat_completion_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateChatCompletionResponse {
     /// A unique identifier for the chat completion.
     #[serde(rename = "id")]
@@ -79,6 +80,21 @@ impl CreateChatCompletionResponse {
             usage: None,
             moderation: None,
         }
+    }
+}
+
+impl<S: create_chat_completion_response_builder::State> CreateChatCompletionResponseBuilder<S>
+where
+    S::Id: create_chat_completion_response_builder::IsSet,
+    S::Choices: create_chat_completion_response_builder::IsSet,
+    S::Created: create_chat_completion_response_builder::IsSet,
+    S::Model: create_chat_completion_response_builder::IsSet,
+    S::Object: create_chat_completion_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateChatCompletionResponse {
+        self.build_internal()
     }
 }
 

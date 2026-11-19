@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveInstructionsAppended : Returned when a session.instructions.append command is accepted into the Live session timeline. Acknowledges the appended instructions without guaranteeing that the model has acted on them.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_instructions_appended_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveInstructionsAppended {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -45,6 +46,20 @@ impl LiveInstructionsAppended {
             end_ms,
             r#type,
         }
+    }
+}
+
+impl<S: live_instructions_appended_builder::State> LiveInstructionsAppendedBuilder<S>
+where
+    S::EventId: live_instructions_appended_builder::IsSet,
+    S::StartMs: live_instructions_appended_builder::IsSet,
+    S::EndMs: live_instructions_appended_builder::IsSet,
+    S::Type: live_instructions_appended_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveInstructionsAppended {
+        self.build_internal()
     }
 }
 

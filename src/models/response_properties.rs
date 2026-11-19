@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_properties_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseProperties {
     /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://developers.openai.com/api/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
     #[serde(
@@ -68,6 +69,14 @@ impl ResponseProperties {
             tool_choice: None,
             prompt: None,
         }
+    }
+}
+
+impl<S: response_properties_builder::State> ResponsePropertiesBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseProperties {
+        self.build_internal()
     }
 }
 

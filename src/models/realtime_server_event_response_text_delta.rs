@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventResponseTextDelta : Returned when the text value of an \"output_text\" content part is updated.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_response_text_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventResponseTextDelta {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -56,6 +57,24 @@ impl RealtimeServerEventResponseTextDelta {
             content_index,
             delta,
         }
+    }
+}
+
+impl<S: realtime_server_event_response_text_delta_builder::State>
+    RealtimeServerEventResponseTextDeltaBuilder<S>
+where
+    S::EventId: realtime_server_event_response_text_delta_builder::IsSet,
+    S::Type: realtime_server_event_response_text_delta_builder::IsSet,
+    S::ResponseId: realtime_server_event_response_text_delta_builder::IsSet,
+    S::ItemId: realtime_server_event_response_text_delta_builder::IsSet,
+    S::OutputIndex: realtime_server_event_response_text_delta_builder::IsSet,
+    S::ContentIndex: realtime_server_event_response_text_delta_builder::IsSet,
+    S::Delta: realtime_server_event_response_text_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventResponseTextDelta {
+        self.build_internal()
     }
 }
 

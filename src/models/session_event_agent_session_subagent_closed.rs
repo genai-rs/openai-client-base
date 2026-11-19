@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionSubagentClosed : Emitted when a subagent is closed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_subagent_closed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionSubagentClosed {
     /// The type of the object. Always `agent.session.subagent.closed`.  Defaults to `\"agent.session.subagent.closed\"`.
     #[serde(rename = "type")]
@@ -44,6 +45,20 @@ impl SessionEventAgentSessionSubagentClosed {
             subagent,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_subagent_closed_builder::State>
+    SessionEventAgentSessionSubagentClosedBuilder<S>
+where
+    S::Type: session_event_agent_session_subagent_closed_builder::IsSet,
+    S::EventId: session_event_agent_session_subagent_closed_builder::IsSet,
+    S::Subagent: session_event_agent_session_subagent_closed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionSubagentClosed {
+        self.build_internal()
     }
 }
 

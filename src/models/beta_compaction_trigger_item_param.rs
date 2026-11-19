@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaCompactionTriggerItemParam : Compacts the current context. Must be the final input item.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_compaction_trigger_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaCompactionTriggerItemParam {
     #[serde(
         rename = "agent",
@@ -42,6 +43,17 @@ impl BetaCompactionTriggerItemParam {
             id: None,
             r#type,
         }
+    }
+}
+
+impl<S: beta_compaction_trigger_item_param_builder::State> BetaCompactionTriggerItemParamBuilder<S>
+where
+    S::Type: beta_compaction_trigger_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaCompactionTriggerItemParam {
+        self.build_internal()
     }
 }
 

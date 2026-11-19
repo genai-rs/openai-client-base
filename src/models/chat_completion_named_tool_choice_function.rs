@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_named_tool_choice_function_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionNamedToolChoiceFunction {
     /// The name of the function to call.
     #[serde(rename = "name")]
@@ -20,6 +21,18 @@ pub struct ChatCompletionNamedToolChoiceFunction {
 impl ChatCompletionNamedToolChoiceFunction {
     pub fn new(name: String) -> ChatCompletionNamedToolChoiceFunction {
         ChatCompletionNamedToolChoiceFunction { name }
+    }
+}
+
+impl<S: chat_completion_named_tool_choice_function_builder::State>
+    ChatCompletionNamedToolChoiceFunctionBuilder<S>
+where
+    S::Name: chat_completion_named_tool_choice_function_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionNamedToolChoiceFunction {
+        self.build_internal()
     }
 }
 

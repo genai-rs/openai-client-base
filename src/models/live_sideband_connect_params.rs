@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSidebandConnectParams : Connection options for a sideband WebSocket attached to an existing Live session.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_sideband_connect_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSidebandConnectParams {
     /// Opt in to the graceful WebSocket closing handshake when the session ends. The server may also enable this behavior by default.
     #[serde(rename = "graceful_close", skip_serializing_if = "Option::is_none")]
@@ -24,6 +25,14 @@ impl LiveSidebandConnectParams {
         LiveSidebandConnectParams {
             graceful_close: None,
         }
+    }
+}
+
+impl<S: live_sideband_connect_params_builder::State> LiveSidebandConnectParamsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSidebandConnectParams {
+        self.build_internal()
     }
 }
 

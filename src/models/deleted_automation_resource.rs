@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = deleted_automation_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeletedAutomationResource {
     /// The deleted automation ID.
     ///
@@ -32,6 +33,19 @@ impl DeletedAutomationResource {
             object,
             deleted,
         }
+    }
+}
+
+impl<S: deleted_automation_resource_builder::State> DeletedAutomationResourceBuilder<S>
+where
+    S::Id: deleted_automation_resource_builder::IsSet,
+    S::Object: deleted_automation_resource_builder::IsSet,
+    S::Deleted: deleted_automation_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeletedAutomationResource {
+        self.build_internal()
     }
 }
 

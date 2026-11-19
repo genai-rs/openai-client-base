@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatSessionAutomaticThreadTitling : Automatic thread title preferences for the session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_session_automatic_thread_titling_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatSessionAutomaticThreadTitling {
     /// Whether automatic thread titling is enabled.
     #[serde(rename = "enabled")]
@@ -22,6 +23,18 @@ impl ChatSessionAutomaticThreadTitling {
     /// Automatic thread title preferences for the session.
     pub fn new(enabled: bool) -> ChatSessionAutomaticThreadTitling {
         ChatSessionAutomaticThreadTitling { enabled }
+    }
+}
+
+impl<S: chat_session_automatic_thread_titling_builder::State>
+    ChatSessionAutomaticThreadTitlingBuilder<S>
+where
+    S::Enabled: chat_session_automatic_thread_titling_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatSessionAutomaticThreadTitling {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogRoleCreated : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_role_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogRoleCreated {
     /// The role ID.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -40,6 +41,14 @@ impl AuditLogRoleCreated {
             resource_type: None,
             resource_id: None,
         }
+    }
+}
+
+impl<S: audit_log_role_created_builder::State> AuditLogRoleCreatedBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogRoleCreated {
+        self.build_internal()
     }
 }
 

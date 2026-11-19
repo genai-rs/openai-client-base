@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogIpAllowlistCreated : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_ip_allowlist_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogIpAllowlistCreated {
     /// The ID of the IP allowlist configuration.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -32,6 +33,14 @@ impl AuditLogIpAllowlistCreated {
             name: None,
             allowed_ips: None,
         }
+    }
+}
+
+impl<S: audit_log_ip_allowlist_created_builder::State> AuditLogIpAllowlistCreatedBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogIpAllowlistCreated {
+        self.build_internal()
     }
 }
 

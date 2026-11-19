@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AnswerResourceRefusal : The model declined to answer this question. Other questions in the same request can still receive answers.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = answer_resource_refusal_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AnswerResourceRefusal {
     /// The type of the object. Always `refusal`.  Defaults to `\"refusal\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,17 @@ impl AnswerResourceRefusal {
     /// The model declined to answer this question. Other questions in the same request can still receive answers.
     pub fn new(r#type: Type, name: Option<String>) -> AnswerResourceRefusal {
         AnswerResourceRefusal { r#type, name }
+    }
+}
+
+impl<S: answer_resource_refusal_builder::State> AnswerResourceRefusalBuilder<S>
+where
+    S::Type: answer_resource_refusal_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AnswerResourceRefusal {
+        self.build_internal()
     }
 }
 

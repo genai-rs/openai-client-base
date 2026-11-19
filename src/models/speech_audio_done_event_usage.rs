@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SpeechAudioDoneEventUsage : Token usage statistics for the request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = speech_audio_done_event_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SpeechAudioDoneEventUsage {
     /// Number of input tokens in the prompt.
     #[serde(rename = "input_tokens")]
@@ -36,6 +37,19 @@ impl SpeechAudioDoneEventUsage {
             output_tokens,
             total_tokens,
         }
+    }
+}
+
+impl<S: speech_audio_done_event_usage_builder::State> SpeechAudioDoneEventUsageBuilder<S>
+where
+    S::InputTokens: speech_audio_done_event_usage_builder::IsSet,
+    S::OutputTokens: speech_audio_done_event_usage_builder::IsSet,
+    S::TotalTokens: speech_audio_done_event_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SpeechAudioDoneEventUsage {
+        self.build_internal()
     }
 }
 

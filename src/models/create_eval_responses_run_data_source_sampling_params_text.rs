@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateEvalResponsesRunDataSourceSamplingParamsText : Configuration options for a text response from the model. Can be plain text or structured JSON data. Learn more: - [Text inputs and outputs](https://developers.openai.com/api/docs/guides/text) - [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_eval_responses_run_data_source_sampling_params_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateEvalResponsesRunDataSourceSamplingParamsText {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
     pub format: Option<models::TextResponseFormatConfiguration>,
@@ -22,6 +23,16 @@ impl CreateEvalResponsesRunDataSourceSamplingParamsText {
     /// Configuration options for a text response from the model. Can be plain text or structured JSON data. Learn more: - [Text inputs and outputs](https://developers.openai.com/api/docs/guides/text) - [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
     pub fn new() -> CreateEvalResponsesRunDataSourceSamplingParamsText {
         CreateEvalResponsesRunDataSourceSamplingParamsText { format: None }
+    }
+}
+
+impl<S: create_eval_responses_run_data_source_sampling_params_text_builder::State>
+    CreateEvalResponsesRunDataSourceSamplingParamsTextBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateEvalResponsesRunDataSourceSamplingParamsText {
+        self.build_internal()
     }
 }
 

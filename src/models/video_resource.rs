@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// VideoResource : Structured information describing a generated video job.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = video_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VideoResource {
     /// Unique identifier for the video job.
     #[serde(rename = "id")]
@@ -83,6 +84,24 @@ impl VideoResource {
             remixed_from_video_id,
             error,
         }
+    }
+}
+
+impl<S: video_resource_builder::State> VideoResourceBuilder<S>
+where
+    S::Id: video_resource_builder::IsSet,
+    S::Object: video_resource_builder::IsSet,
+    S::Model: video_resource_builder::IsSet,
+    S::Status: video_resource_builder::IsSet,
+    S::Progress: video_resource_builder::IsSet,
+    S::CreatedAt: video_resource_builder::IsSet,
+    S::Size: video_resource_builder::IsSet,
+    S::Seconds: video_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VideoResource {
+        self.build_internal()
     }
 }
 

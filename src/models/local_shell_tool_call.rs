@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LocalShellToolCall : A tool call to run a command on the local shell.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = local_shell_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LocalShellToolCall {
     /// The type of the local shell call. Always `local_shell_call`.
     #[serde(rename = "type")]
@@ -46,6 +47,21 @@ impl LocalShellToolCall {
             action,
             status,
         }
+    }
+}
+
+impl<S: local_shell_tool_call_builder::State> LocalShellToolCallBuilder<S>
+where
+    S::Type: local_shell_tool_call_builder::IsSet,
+    S::Id: local_shell_tool_call_builder::IsSet,
+    S::CallId: local_shell_tool_call_builder::IsSet,
+    S::Action: local_shell_tool_call_builder::IsSet,
+    S::Status: local_shell_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LocalShellToolCall {
+        self.build_internal()
     }
 }
 

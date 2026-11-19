@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_compact_response_method_public_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaCompactResponseMethodPublicBody {
     /// ID of the model to use
     #[serde(rename = "model")]
@@ -87,6 +88,18 @@ impl BetaCompactResponseMethodPublicBody {
             prompt_cache_options: None,
             service_tier: None,
         }
+    }
+}
+
+impl<S: beta_compact_response_method_public_body_builder::State>
+    BetaCompactResponseMethodPublicBodyBuilder<S>
+where
+    S::Model: beta_compact_response_method_public_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaCompactResponseMethodPublicBody {
+        self.build_internal()
     }
 }
 

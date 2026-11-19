@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = computer_use_approval_response_param_browser_origin_access_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ComputerUseApprovalResponseParamBrowserOriginAccessParam {
     /// Defaults to `\"browser_origin_access\"`.
     #[serde(rename = "type")]
@@ -26,6 +27,19 @@ impl ComputerUseApprovalResponseParamBrowserOriginAccessParam {
         decision: models::BrowserOriginAccessDecisionParam,
     ) -> ComputerUseApprovalResponseParamBrowserOriginAccessParam {
         ComputerUseApprovalResponseParamBrowserOriginAccessParam { r#type, decision }
+    }
+}
+
+impl<S: computer_use_approval_response_param_browser_origin_access_param_builder::State>
+    ComputerUseApprovalResponseParamBrowserOriginAccessParamBuilder<S>
+where
+    S::Type: computer_use_approval_response_param_browser_origin_access_param_builder::IsSet,
+    S::Decision: computer_use_approval_response_param_browser_origin_access_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ComputerUseApprovalResponseParamBrowserOriginAccessParam {
+        self.build_internal()
     }
 }
 

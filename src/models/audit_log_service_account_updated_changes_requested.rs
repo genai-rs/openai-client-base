@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogServiceAccountUpdatedChangesRequested : The payload used to updated the service account.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_service_account_updated_changes_requested_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogServiceAccountUpdatedChangesRequested {
     /// The role of the service account. Is either `owner` or `member`.
     #[serde(rename = "role", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,16 @@ impl AuditLogServiceAccountUpdatedChangesRequested {
     /// The payload used to updated the service account.
     pub fn new() -> AuditLogServiceAccountUpdatedChangesRequested {
         AuditLogServiceAccountUpdatedChangesRequested { role: None }
+    }
+}
+
+impl<S: audit_log_service_account_updated_changes_requested_builder::State>
+    AuditLogServiceAccountUpdatedChangesRequestedBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogServiceAccountUpdatedChangesRequested {
+        self.build_internal()
     }
 }
 

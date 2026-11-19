@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ImageGenPartialImageEvent : Emitted when a partial image is available during image generation streaming.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = image_gen_partial_image_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ImageGenPartialImageEvent {
     /// The type of the event. Always `image_generation.partial_image`.
     #[serde(rename = "type")]
@@ -61,6 +62,24 @@ impl ImageGenPartialImageEvent {
             output_format,
             partial_image_index,
         }
+    }
+}
+
+impl<S: image_gen_partial_image_event_builder::State> ImageGenPartialImageEventBuilder<S>
+where
+    S::Type: image_gen_partial_image_event_builder::IsSet,
+    S::B64Json: image_gen_partial_image_event_builder::IsSet,
+    S::CreatedAt: image_gen_partial_image_event_builder::IsSet,
+    S::Size: image_gen_partial_image_event_builder::IsSet,
+    S::Quality: image_gen_partial_image_event_builder::IsSet,
+    S::Background: image_gen_partial_image_event_builder::IsSet,
+    S::OutputFormat: image_gen_partial_image_event_builder::IsSet,
+    S::PartialImageIndex: image_gen_partial_image_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ImageGenPartialImageEvent {
+        self.build_internal()
     }
 }
 

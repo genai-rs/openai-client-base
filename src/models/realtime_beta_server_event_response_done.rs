@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventResponseDone : Returned when a Response is done streaming. Always emitted, no matter the  final state. The Response object included in the `response.done` event will  include all output Items in the Response but will omit the raw audio data.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_response_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventResponseDone {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeBetaServerEventResponseDone {
             r#type,
             response,
         }
+    }
+}
+
+impl<S: realtime_beta_server_event_response_done_builder::State>
+    RealtimeBetaServerEventResponseDoneBuilder<S>
+where
+    S::EventId: realtime_beta_server_event_response_done_builder::IsSet,
+    S::Type: realtime_beta_server_event_response_done_builder::IsSet,
+    S::Response: realtime_beta_server_event_response_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventResponseDone {
+        self.build_internal()
     }
 }
 

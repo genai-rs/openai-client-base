@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveInlineSkillSourceParam : Inline skill payload
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_inline_skill_source_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveInlineSkillSourceParam {
     /// The type of the inline skill source. Must be `base64`.  Defaults to `\"base64\"`.
     #[serde(rename = "type")]
@@ -34,6 +35,19 @@ impl LiveInlineSkillSourceParam {
             media_type,
             data,
         }
+    }
+}
+
+impl<S: live_inline_skill_source_param_builder::State> LiveInlineSkillSourceParamBuilder<S>
+where
+    S::Type: live_inline_skill_source_param_builder::IsSet,
+    S::MediaType: live_inline_skill_source_param_builder::IsSet,
+    S::Data: live_inline_skill_source_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveInlineSkillSourceParam {
+        self.build_internal()
     }
 }
 

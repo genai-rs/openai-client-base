@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseInjectEvent : Injects input items into an active response over a WebSocket connection. The items are validated and committed atomically. Currently, the server accepts client-owned tool outputs that resume a waiting agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_inject_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseInjectEvent {
     /// The event discriminator. Always `response.inject`.
     #[serde(rename = "type")]
@@ -39,6 +40,19 @@ impl BetaResponseInjectEvent {
             response_id,
             input,
         }
+    }
+}
+
+impl<S: beta_response_inject_event_builder::State> BetaResponseInjectEventBuilder<S>
+where
+    S::Type: beta_response_inject_event_builder::IsSet,
+    S::ResponseId: beta_response_inject_event_builder::IsSet,
+    S::Input: beta_response_inject_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseInjectEvent {
+        self.build_internal()
     }
 }
 

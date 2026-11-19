@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ThreadStreamEvent : Occurs when a new [thread](https://developers.openai.com/api/docs/assistants/migration) is created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = thread_stream_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ThreadStreamEvent {
     /// Whether to enable input audio transcription.
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
@@ -31,6 +32,18 @@ impl ThreadStreamEvent {
             event,
             data,
         }
+    }
+}
+
+impl<S: thread_stream_event_builder::State> ThreadStreamEventBuilder<S>
+where
+    S::Event: thread_stream_event_builder::IsSet,
+    S::Data: thread_stream_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ThreadStreamEvent {
+        self.build_internal()
     }
 }
 

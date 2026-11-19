@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// TextFormatParamText : Generates ordinary text without a structured-output constraint.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = text_format_param_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TextFormatParamText {
     /// The type of the object. Always `text`.  Defaults to `\"text\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl TextFormatParamText {
     /// Generates ordinary text without a structured-output constraint.
     pub fn new(r#type: Type) -> TextFormatParamText {
         TextFormatParamText { r#type }
+    }
+}
+
+impl<S: text_format_param_text_builder::State> TextFormatParamTextBuilder<S>
+where
+    S::Type: text_format_param_text_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TextFormatParamText {
+        self.build_internal()
     }
 }
 

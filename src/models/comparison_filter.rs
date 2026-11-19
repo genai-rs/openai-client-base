@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ComparisonFilter : A filter used to compare a specified attribute key to a given value using a defined comparison operation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = comparison_filter_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ComparisonFilter {
     /// Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin`. - `eq`: equals - `ne`: not equal - `gt`: greater than - `gte`: greater than or equal - `lt`: less than - `lte`: less than or equal - `in`: in - `nin`: not in  Defaults to `\"eq\"`.
     #[serde(rename = "type")]
@@ -32,6 +33,19 @@ impl ComparisonFilter {
         value: models::ComparisonFilterValue,
     ) -> ComparisonFilter {
         ComparisonFilter { r#type, key, value }
+    }
+}
+
+impl<S: comparison_filter_builder::State> ComparisonFilterBuilder<S>
+where
+    S::Type: comparison_filter_builder::IsSet,
+    S::Key: comparison_filter_builder::IsSet,
+    S::Value: comparison_filter_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ComparisonFilter {
+        self.build_internal()
     }
 }
 

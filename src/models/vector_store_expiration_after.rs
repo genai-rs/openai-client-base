@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// VectorStoreExpirationAfter : The expiration policy for a vector store.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vector_store_expiration_after_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VectorStoreExpirationAfter {
     /// Anchor timestamp after which the expiration policy applies. Supported anchors: `last_active_at`.
     #[serde(rename = "anchor")]
@@ -27,6 +28,18 @@ impl VectorStoreExpirationAfter {
     /// The expiration policy for a vector store.
     pub fn new(anchor: Anchor, days: i64) -> VectorStoreExpirationAfter {
         VectorStoreExpirationAfter { anchor, days }
+    }
+}
+
+impl<S: vector_store_expiration_after_builder::State> VectorStoreExpirationAfterBuilder<S>
+where
+    S::Anchor: vector_store_expiration_after_builder::IsSet,
+    S::Days: vector_store_expiration_after_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VectorStoreExpirationAfter {
+        self.build_internal()
     }
 }
 

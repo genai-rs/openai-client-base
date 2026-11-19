@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = list_models_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ListModelsResponse {
     #[serde(rename = "object")]
     pub object: Object,
@@ -22,6 +23,18 @@ pub struct ListModelsResponse {
 impl ListModelsResponse {
     pub fn new(object: Object, data: Vec<models::Model>) -> ListModelsResponse {
         ListModelsResponse { object, data }
+    }
+}
+
+impl<S: list_models_response_builder::State> ListModelsResponseBuilder<S>
+where
+    S::Object: list_models_response_builder::IsSet,
+    S::Data: list_models_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ListModelsResponse {
+        self.build_internal()
     }
 }
 

@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tune_chat_completion_request_assistant_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuneChatCompletionRequestAssistantMessage {
     #[serde(
         rename = "content",
@@ -70,6 +71,18 @@ impl FineTuneChatCompletionRequestAssistantMessage {
             function_call: None,
             weight: None,
         }
+    }
+}
+
+impl<S: fine_tune_chat_completion_request_assistant_message_builder::State>
+    FineTuneChatCompletionRequestAssistantMessageBuilder<S>
+where
+    S::Role: fine_tune_chat_completion_request_assistant_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuneChatCompletionRequestAssistantMessage {
+        self.build_internal()
     }
 }
 

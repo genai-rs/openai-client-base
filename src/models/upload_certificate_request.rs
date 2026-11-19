@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = upload_certificate_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UploadCertificateRequest {
     /// An optional name for the certificate
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -26,6 +27,17 @@ impl UploadCertificateRequest {
             name: None,
             certificate,
         }
+    }
+}
+
+impl<S: upload_certificate_request_builder::State> UploadCertificateRequestBuilder<S>
+where
+    S::Certificate: upload_certificate_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UploadCertificateRequest {
+        self.build_internal()
     }
 }
 

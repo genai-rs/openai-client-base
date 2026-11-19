@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepDetailsToolCallsFileSearchRankingOptionsObject : The ranking options for the file search.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_details_tool_calls_file_search_ranking_options_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDetailsToolCallsFileSearchRankingOptionsObject {
     #[serde(rename = "ranker")]
     pub ranker: models::FileSearchRanker,
@@ -33,6 +34,20 @@ impl RunStepDetailsToolCallsFileSearchRankingOptionsObject {
             ranker,
             score_threshold,
         }
+    }
+}
+
+impl<S: run_step_details_tool_calls_file_search_ranking_options_object_builder::State>
+    RunStepDetailsToolCallsFileSearchRankingOptionsObjectBuilder<S>
+where
+    S::Ranker: run_step_details_tool_calls_file_search_ranking_options_object_builder::IsSet,
+    S::ScoreThreshold:
+        run_step_details_tool_calls_file_search_ranking_options_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDetailsToolCallsFileSearchRankingOptionsObject {
+        self.build_internal()
     }
 }
 

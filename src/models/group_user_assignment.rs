@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// GroupUserAssignment : Confirmation payload returned after adding a user to a group.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = group_user_assignment_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GroupUserAssignment {
     /// Always `group.user`.
     #[serde(rename = "object")]
@@ -32,6 +33,19 @@ impl GroupUserAssignment {
             user_id,
             group_id,
         }
+    }
+}
+
+impl<S: group_user_assignment_builder::State> GroupUserAssignmentBuilder<S>
+where
+    S::Object: group_user_assignment_builder::IsSet,
+    S::UserId: group_user_assignment_builder::IsSet,
+    S::GroupId: group_user_assignment_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GroupUserAssignment {
+        self.build_internal()
     }
 }
 

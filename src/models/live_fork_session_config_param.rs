@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveForkSessionConfigParam : Overrides for a stored session after connecting to the fork WebSocket. An empty object inherits the stored configuration; do not supply a new model. audio.format applies only to the new WebSocket connection. client overrides are only supported for WebRTC forks.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_fork_session_config_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveForkSessionConfigParam {
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
     pub audio: Option<models::LiveForkAudioParam>,
@@ -34,6 +35,14 @@ impl LiveForkSessionConfigParam {
             store: None,
             client: None,
         }
+    }
+}
+
+impl<S: live_fork_session_config_param_builder::State> LiveForkSessionConfigParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveForkSessionConfigParam {
+        self.build_internal()
     }
 }
 

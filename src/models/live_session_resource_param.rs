@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSessionResourceParam : The resolved Live session configuration and server-assigned session metadata.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_resource_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionResourceParam {
     #[serde(rename = "model")]
     pub model: models::ModelIdsLive,
@@ -91,6 +92,20 @@ impl LiveSessionResourceParam {
             expires_at,
             status,
         }
+    }
+}
+
+impl<S: live_session_resource_param_builder::State> LiveSessionResourceParamBuilder<S>
+where
+    S::Model: live_session_resource_param_builder::IsSet,
+    S::Id: live_session_resource_param_builder::IsSet,
+    S::ExpiresAt: live_session_resource_param_builder::IsSet,
+    S::Status: live_session_resource_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionResourceParam {
+        self.build_internal()
     }
 }
 

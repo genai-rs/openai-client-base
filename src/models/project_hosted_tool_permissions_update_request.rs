@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_hosted_tool_permissions_update_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectHostedToolPermissionsUpdateRequest {
     /// The file search permission update.
     #[serde(
@@ -64,6 +65,16 @@ impl ProjectHostedToolPermissionsUpdateRequest {
             mcp: None,
             code_interpreter: None,
         }
+    }
+}
+
+impl<S: project_hosted_tool_permissions_update_request_builder::State>
+    ProjectHostedToolPermissionsUpdateRequestBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectHostedToolPermissionsUpdateRequest {
+        self.build_internal()
     }
 }
 

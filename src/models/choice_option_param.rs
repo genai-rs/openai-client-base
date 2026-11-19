@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = choice_option_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChoiceOptionParam {
     #[serde(rename = "value")]
     pub value: models::ChoiceValueParam,
@@ -26,6 +27,17 @@ impl ChoiceOptionParam {
             value,
             description: None,
         }
+    }
+}
+
+impl<S: choice_option_param_builder::State> ChoiceOptionParamBuilder<S>
+where
+    S::Value: choice_option_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChoiceOptionParam {
+        self.build_internal()
     }
 }
 

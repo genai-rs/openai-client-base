@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RotateVaultCredentialAuthParamStaticBearer : Replace the bearer token for the credential's MCP server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = rotate_vault_credential_auth_param_static_bearer_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RotateVaultCredentialAuthParamStaticBearer {
     /// The type of the object. Always `static_bearer`.  Defaults to `\"static_bearer\"`.
     #[serde(rename = "type")]
@@ -27,6 +28,19 @@ impl RotateVaultCredentialAuthParamStaticBearer {
     /// Replace the bearer token for the credential's MCP server.
     pub fn new(r#type: Type, token: String) -> RotateVaultCredentialAuthParamStaticBearer {
         RotateVaultCredentialAuthParamStaticBearer { r#type, token }
+    }
+}
+
+impl<S: rotate_vault_credential_auth_param_static_bearer_builder::State>
+    RotateVaultCredentialAuthParamStaticBearerBuilder<S>
+where
+    S::Type: rotate_vault_credential_auth_param_static_bearer_builder::IsSet,
+    S::Token: rotate_vault_credential_auth_param_static_bearer_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RotateVaultCredentialAuthParamStaticBearer {
+        self.build_internal()
     }
 }
 

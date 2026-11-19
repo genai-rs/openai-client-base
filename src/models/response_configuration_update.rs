@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseConfigurationUpdate : A configuration update for subsequent responses. Each setting stays in effect until a later update replaces that setting.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_configuration_update_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseConfigurationUpdate {
     /// The unique ID of the configuration update item.
     #[serde(rename = "id")]
@@ -35,6 +36,18 @@ impl ResponseConfigurationUpdate {
             reasoning: None,
             text: None,
         }
+    }
+}
+
+impl<S: response_configuration_update_builder::State> ResponseConfigurationUpdateBuilder<S>
+where
+    S::Id: response_configuration_update_builder::IsSet,
+    S::Type: response_configuration_update_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseConfigurationUpdate {
+        self.build_internal()
     }
 }
 

@@ -58,7 +58,7 @@ pub enum RetrieveBatchError {
 }
 
 /// Cancels an in-progress batch. The batch will be in status `cancelling` for up to 10 minutes, before changing to `cancelled`, where it will have partial results (if any) available in the output file.
-#[bon::builder]
+#[bon::builder(state_mod = cancel_batch_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_batch(
     configuration: &configuration::Configuration,
     batch_id: &str,
@@ -139,13 +139,26 @@ pub async fn cancel_batch(
     }
 }
 
+#[allow(deprecated)]
+impl<S: cancel_batch_builder::State> CancelBatchBuilder<'_, '_, '_, S>
+where
+    S::Configuration: cancel_batch_builder::IsSet,
+    S::BatchId: cancel_batch_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Batch, Error<CancelBatchError>> {
+        self.call_internal().await
+    }
+}
+
 /// Cancels an in-progress batch. The batch will be in status `cancelling` for up to 10 minutes, before changing to `cancelled`, where it will have partial results (if any) available in the output file.
 ///
 /// Sends the same request as [`cancel_batch`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Batch` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = cancel_batch_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_batch_response(
     configuration: &configuration::Configuration,
     batch_id: &str,
@@ -217,8 +230,21 @@ pub async fn cancel_batch_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: cancel_batch_response_builder::State> CancelBatchResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: cancel_batch_response_builder::IsSet,
+    S::BatchId: cancel_batch_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<models::Batch>, Error<CancelBatchError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates and executes a batch from an uploaded file of requests
-#[bon::builder]
+#[bon::builder(state_mod = create_batch_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_batch(
     configuration: &configuration::Configuration,
     create_batch_request: &models::CreateBatchRequest,
@@ -296,13 +322,26 @@ pub async fn create_batch(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_batch_builder::State> CreateBatchBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_batch_builder::IsSet,
+    S::CreateBatchRequest: create_batch_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Batch, Error<CreateBatchError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates and executes a batch from an uploaded file of requests
 ///
 /// Sends the same request as [`create_batch`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Batch` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_batch_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_batch_response(
     configuration: &configuration::Configuration,
     create_batch_request: &models::CreateBatchRequest,
@@ -371,8 +410,21 @@ pub async fn create_batch_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_batch_response_builder::State> CreateBatchResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_batch_response_builder::IsSet,
+    S::CreateBatchRequest: create_batch_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<models::Batch>, Error<CreateBatchError>> {
+        self.call_internal().await
+    }
+}
+
 /// List your organization's batches.
-#[bon::builder]
+#[bon::builder(state_mod = list_batches_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_batches(
     configuration: &configuration::Configuration,
     after: Option<&str>,
@@ -454,13 +506,25 @@ pub async fn list_batches(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_batches_builder::State> ListBatchesBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_batches_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ListBatchesResponse, Error<ListBatchesError>> {
+        self.call_internal().await
+    }
+}
+
 /// List your organization's batches.
 ///
 /// Sends the same request as [`list_batches`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListBatchesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_batches_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_batches_response(
     configuration: &configuration::Configuration,
     after: Option<&str>,
@@ -533,8 +597,22 @@ pub async fn list_batches_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_batches_response_builder::State> ListBatchesResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_batches_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ListBatchesResponse>, Error<ListBatchesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a batch.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_batch_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_batch(
     configuration: &configuration::Configuration,
     batch_id: &str,
@@ -612,13 +690,26 @@ pub async fn retrieve_batch(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_batch_builder::State> RetrieveBatchBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_batch_builder::IsSet,
+    S::BatchId: retrieve_batch_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Batch, Error<RetrieveBatchError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a batch.
 ///
 /// Sends the same request as [`retrieve_batch`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Batch` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_batch_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_batch_response(
     configuration: &configuration::Configuration,
     batch_id: &str,
@@ -684,5 +775,20 @@ pub async fn retrieve_batch_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: retrieve_batch_response_builder::State> RetrieveBatchResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_batch_response_builder::IsSet,
+    S::BatchId: retrieve_batch_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Batch>, Error<RetrieveBatchError>> {
+        self.call_internal().await
     }
 }

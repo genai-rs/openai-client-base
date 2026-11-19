@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// WorkflowTracingParam : Controls diagnostic tracing during the session.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = workflow_tracing_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WorkflowTracingParam {
     /// Whether tracing is enabled during the session. Defaults to true.
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl WorkflowTracingParam {
     /// Controls diagnostic tracing during the session.
     pub fn new() -> WorkflowTracingParam {
         WorkflowTracingParam { enabled: None }
+    }
+}
+
+impl<S: workflow_tracing_param_builder::State> WorkflowTracingParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WorkflowTracingParam {
+        self.build_internal()
     }
 }
 

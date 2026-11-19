@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeCallRejectRequest : Parameters used to decline an incoming SIP call handled by the Realtime API.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_call_reject_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeCallRejectRequest {
     /// SIP response code to send back to the caller. Defaults to `603` (Decline) when omitted.
     #[serde(rename = "status_code", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl RealtimeCallRejectRequest {
     /// Parameters used to decline an incoming SIP call handled by the Realtime API.
     pub fn new() -> RealtimeCallRejectRequest {
         RealtimeCallRejectRequest { status_code: None }
+    }
+}
+
+impl<S: realtime_call_reject_request_builder::State> RealtimeCallRejectRequestBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeCallRejectRequest {
+        self.build_internal()
     }
 }
 

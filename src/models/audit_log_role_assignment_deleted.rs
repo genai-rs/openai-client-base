@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogRoleAssignmentDeleted : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_role_assignment_deleted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogRoleAssignmentDeleted {
     /// The identifier of the role assignment.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -40,6 +41,14 @@ impl AuditLogRoleAssignmentDeleted {
             resource_id: None,
             resource_type: None,
         }
+    }
+}
+
+impl<S: audit_log_role_assignment_deleted_builder::State> AuditLogRoleAssignmentDeletedBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogRoleAssignmentDeleted {
+        self.build_internal()
     }
 }
 
