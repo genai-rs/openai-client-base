@@ -32,7 +32,7 @@ pub struct VectorStoreFileObject {
     /// The status of the vector store file, which can be either `in_progress`, `completed`, `cancelled`, or `failed`. The status `completed` indicates that the vector store file is ready for use.
     #[serde(rename = "status")]
     pub status: Status,
-    #[serde(rename = "last_error", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "last_error", default)]
     pub last_error: Option<models::VectorStoreFileObjectLastError>,
     #[serde(rename = "chunking_strategy", skip_serializing_if = "Option::is_none")]
     pub chunking_strategy: Option<models::VectorStoreFileObjectChunkingStrategy>,

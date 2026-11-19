@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImageGenToolCallError {
     /// The error code.
-    #[serde(rename = "code", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "code", default)]
     pub code: Option<String>,
     /// The error type.
     #[serde(rename = "type")]
@@ -23,7 +23,7 @@ pub struct ImageGenToolCallError {
     #[serde(rename = "message")]
     pub message: String,
     /// The related request parameter.
-    #[serde(rename = "param", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "param", default)]
     pub param: Option<String>,
     #[serde(rename = "moderation_details", skip_serializing_if = "Option::is_none")]
     pub moderation_details: Option<models::ImageGenToolCallModerationDetails>,

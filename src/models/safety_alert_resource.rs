@@ -32,7 +32,7 @@ pub struct SafetyAlertResource {
     #[serde(rename = "error_type")]
     pub error_type: models::SafetyAlertErrorType,
     /// A customer-safe description derived from error_type, or null for zero data retention requests.
-    #[serde(rename = "reason", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "reason", default)]
     pub reason: Option<String>,
     /// A generated explanation, temporarily available for eligible zero data retention alerts. Omitted when unavailable.
     #[serde(

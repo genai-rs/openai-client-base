@@ -31,7 +31,7 @@ pub struct AgentResource {
     /// A human-readable name for the agent, or null if it is unnamed.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "name", default)]
     pub name: Option<String>,
     /// Custom string key-value pairs attached to the agent.
     ///
@@ -52,7 +52,7 @@ pub struct AgentResource {
     /// Custom instructions appended to the agent's default base instructions.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "instructions", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "instructions", default)]
     pub instructions: Option<String>,
     /// Tools available to the agent.
     ///

@@ -21,13 +21,13 @@ pub struct C2PaProvenanceResult {
     #[serde(rename = "validation_state")]
     pub validation_state: models::C2PaValidationStateApi,
     /// The C2PA manifest issuer, when available.
-    #[serde(rename = "issuer", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "issuer", default)]
     pub issuer: Option<String>,
     /// ID of the model to use
     #[serde(rename = "model")]
     pub model: String,
     /// The UTC RFC 3339 timestamp recorded by the provenance signal for when the asset was generated, when available.
-    #[serde(rename = "generated_at", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "generated_at", default)]
     pub generated_at: Option<String>,
 }
 

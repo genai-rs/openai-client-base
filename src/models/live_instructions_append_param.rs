@@ -29,7 +29,7 @@ pub struct LiveInstructionsAppendParam {
     /// Required, nullable. Set null for general session context, or use the ID from session.delegation.created for an existing client delegation. Non-null IDs are not accepted with Responses delegation.
     ///
     /// Validation: `minLength: 1`.
-    #[serde(rename = "delegation_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "delegation_id", default)]
     pub delegation_id: Option<String>,
     /// Instruction text to append, limited to 500 tokens. This is a plain string, not an array of content parts.
     #[serde(rename = "content")]

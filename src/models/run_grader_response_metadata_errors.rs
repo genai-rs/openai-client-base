@@ -26,17 +26,11 @@ pub struct RunGraderResponseMetadataErrors {
     pub other_error: bool,
     #[serde(rename = "python_grader_server_error")]
     pub python_grader_server_error: bool,
-    #[serde(
-        rename = "python_grader_server_error_type",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "python_grader_server_error_type", default)]
     pub python_grader_server_error_type: Option<String>,
     #[serde(rename = "python_grader_runtime_error")]
     pub python_grader_runtime_error: bool,
-    #[serde(
-        rename = "python_grader_runtime_error_details",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "python_grader_runtime_error_details", default)]
     pub python_grader_runtime_error_details: Option<String>,
     #[serde(rename = "model_grader_server_error")]
     pub model_grader_server_error: bool,
@@ -44,10 +38,7 @@ pub struct RunGraderResponseMetadataErrors {
     pub model_grader_refusal_error: bool,
     #[serde(rename = "model_grader_parse_error")]
     pub model_grader_parse_error: bool,
-    #[serde(
-        rename = "model_grader_server_error_details",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "model_grader_server_error_details", default)]
     pub model_grader_server_error_details: Option<String>,
 }
 

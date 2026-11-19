@@ -35,7 +35,7 @@ pub struct ProjectApiKey {
     )]
     pub expires_at: Option<Option<jiff::Timestamp>>,
     /// The Unix timestamp (in seconds) of when the API key was last used.
-    #[serde(rename = "last_used_at", with = "super::unix_time::option")]
+    #[serde(rename = "last_used_at", default, with = "super::unix_time::option")]
     pub last_used_at: Option<jiff::Timestamp>,
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]

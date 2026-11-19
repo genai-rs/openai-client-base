@@ -29,7 +29,7 @@ pub struct SessionEventAgentSessionEnvironmentReset {
     /// The associated turn, when applicable.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "turn_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "turn_id", default)]
     pub turn_id: Option<String>,
     /// The stable environment ID, retained across sandbox replacements.
     ///

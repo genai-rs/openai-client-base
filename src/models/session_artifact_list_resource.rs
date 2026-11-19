@@ -25,12 +25,12 @@ pub struct SessionArtifactListResource {
     /// The ID of the first resource in `data`, or `null` if the page is empty.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "first_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "first_id", default)]
     pub first_id: Option<String>,
     /// The ID of the last resource in `data`, or `null` if the page is empty. Pass this as `after` with the same order and filters.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "last_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "last_id", default)]
     pub last_id: Option<String>,
     /// Whether there are more resources to retrieve after this page.
     #[serde(rename = "has_more")]

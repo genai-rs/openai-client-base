@@ -21,7 +21,7 @@ pub struct SessionErrorResource {
     /// The machine-readable error code, if any.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "code", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "code", default)]
     pub code: Option<String>,
     /// A customer-safe explanation of the error.
     ///
@@ -31,7 +31,7 @@ pub struct SessionErrorResource {
     /// The request parameter associated with the error, if any.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "param", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "param", default)]
     pub param: Option<String>,
 }
 

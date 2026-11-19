@@ -25,10 +25,10 @@ pub struct VaultCredentialAuthResourceMcpOauth {
     /// When the OAuth access token expires, as an RFC 3339 timestamp, if known.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "expires_at", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "expires_at", default)]
     pub expires_at: Option<String>,
     /// Public refresh metadata without refresh tokens or OAuth client secrets.
-    #[serde(rename = "refresh", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "refresh", default)]
     pub refresh: Option<models::McpOauthRefreshResource>,
 }
 

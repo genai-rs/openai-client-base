@@ -21,10 +21,10 @@ pub struct ProjectSpendAlertListResource {
     #[serde(rename = "data")]
     pub data: Vec<models::ProjectSpendAlert>,
     /// The ID of the first spend alert in this page.
-    #[serde(rename = "first_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "first_id", default)]
     pub first_id: Option<String>,
     /// The ID of the last spend alert in this page.
-    #[serde(rename = "last_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "last_id", default)]
     pub last_id: Option<String>,
     /// Whether more spend alerts are available when paginating.
     #[serde(rename = "has_more")]

@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ReasoningResource {
     /// The requested reasoning effort, or `null` when the model selects its own default.
-    #[serde(rename = "effort", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "effort", default)]
     pub effort: Option<models::ReasoningEffortResource>,
     /// The requested reasoning summary format, or `null` when summaries are disabled.
-    #[serde(rename = "summary", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "summary", default)]
     pub summary: Option<models::ReasoningSummaryResource>,
 }
 

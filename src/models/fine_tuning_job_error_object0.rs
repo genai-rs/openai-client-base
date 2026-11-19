@@ -20,7 +20,7 @@ pub struct FineTuningJobErrorObject0 {
     #[serde(rename = "message")]
     pub message: String,
     /// The parameter that was invalid, usually `training_file` or `validation_file`. This field will be null if the failure was not parameter-specific.
-    #[serde(rename = "param", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "param", default)]
     pub param: Option<String>,
 }
 

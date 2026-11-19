@@ -21,7 +21,7 @@ pub struct OrganizationProjectCertificate {
     #[serde(rename = "id")]
     pub id: String,
     /// The name of the certificate.
-    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "name", default)]
     pub name: Option<String>,
     /// The Unix timestamp (in seconds) of when the certificate was uploaded.
     #[serde(rename = "created_at", with = "super::unix_time")]

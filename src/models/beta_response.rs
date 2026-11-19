@@ -170,12 +170,9 @@ pub struct BetaResponse {
         with = "super::unix_time::fractional::double_option"
     )]
     pub completed_at: Option<Option<jiff::Timestamp>>,
-    #[serde(rename = "error", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "error", default)]
     pub error: Option<models::BetaResponseError>,
-    #[serde(
-        rename = "incomplete_details",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "incomplete_details", default)]
     pub incomplete_details: Option<models::BetaResponseAllOfIncompleteDetails>,
     /// Reasoning inputs withheld from the model, in input order.
     #[serde(
@@ -193,7 +190,7 @@ pub struct BetaResponse {
         skip_serializing_if = "Option::is_none"
     )]
     pub reasoning: Option<Option<models::BetaReasoning>>,
-    #[serde(rename = "instructions", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "instructions", default)]
     pub instructions: Option<models::BetaResponseAllOfInstructions>,
     /// SDK-only convenience property that contains the aggregated text output from all `output_text` items in the `output` array, if any are present. Supported in the Python and JavaScript SDKs.
     #[serde(

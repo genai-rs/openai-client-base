@@ -16,10 +16,10 @@ pub struct FunctionShellAction {
     #[serde(rename = "commands")]
     pub commands: Vec<String>,
     /// Optional timeout in milliseconds for the commands.
-    #[serde(rename = "timeout_ms", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "timeout_ms", default)]
     pub timeout_ms: Option<i64>,
     /// Optional maximum number of characters to return from each command.
-    #[serde(rename = "max_output_length", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "max_output_length", default)]
     pub max_output_length: Option<i64>,
 }
 

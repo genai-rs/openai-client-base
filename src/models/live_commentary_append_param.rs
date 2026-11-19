@@ -29,7 +29,7 @@ pub struct LiveCommentaryAppendParam {
     /// Required, nullable. Set null for general session context, or use the ID from session.delegation.created for an existing client delegation. Non-null IDs are not accepted with Responses delegation.
     ///
     /// Validation: `minLength: 1`.
-    #[serde(rename = "delegation_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "delegation_id", default)]
     pub delegation_id: Option<String>,
     /// Speakable context for the Live model, limited to 500 tokens. Use this for a result the model should communicate; use session.thinking.append for silent context.
     #[serde(rename = "content")]

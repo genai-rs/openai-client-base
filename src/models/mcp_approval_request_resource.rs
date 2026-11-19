@@ -22,10 +22,10 @@ pub struct McpApprovalRequestResource {
     /// The tool name, or null when CCA does not provide it.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "name", default)]
     pub name: Option<String>,
     /// The tool arguments as JSON, or null when CCA does not provide them.
-    #[serde(rename = "arguments", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "arguments", default)]
     pub arguments: Option<serde_json::Value>,
     /// Validation: `minLength: 0`.
     #[serde(rename = "message")]

@@ -18,9 +18,9 @@ pub struct PlatformFederationRuleListResource {
     pub object: Object,
     #[serde(rename = "data")]
     pub data: Vec<models::PlatformFederationRule>,
-    #[serde(rename = "first_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "first_id", default)]
     pub first_id: Option<String>,
-    #[serde(rename = "last_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "last_id", default)]
     pub last_id: Option<String>,
     #[serde(rename = "has_more")]
     pub has_more: bool,

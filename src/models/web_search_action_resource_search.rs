@@ -19,12 +19,12 @@ pub struct WebSearchActionResourceSearch {
     /// The search query, when a single query was used.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "query", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "query", default)]
     pub query: Option<String>,
     /// The search queries, when multiple queries were used.
     ///
     /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
-    #[serde(rename = "queries", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "queries", default)]
     pub queries: Option<Vec<String>>,
 }
 

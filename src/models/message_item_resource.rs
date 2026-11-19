@@ -20,7 +20,7 @@ pub struct MessageItemResource {
     /// The ID of this item, or null for legacy user messages whose ID was not recorded.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "id", default)]
     pub id: Option<String>,
     /// The ID of the turn that contains this item.
     ///
@@ -37,7 +37,7 @@ pub struct MessageItemResource {
     #[serde(rename = "status")]
     pub status: models::OutputItemStatusResource,
     /// The phase of an assistant message. Null for user messages.
-    #[serde(rename = "phase", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "phase", default)]
     pub phase: Option<models::MessagePhaseResource>,
 }
 

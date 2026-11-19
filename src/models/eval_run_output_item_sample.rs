@@ -28,7 +28,7 @@ pub struct EvalRunOutputItemSample {
     pub model: String,
     #[serde(rename = "usage")]
     pub usage: models::EvalRunOutputItemSampleUsage,
-    #[serde(rename = "error", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "error", default)]
     pub error: Option<models::EvalApiError>,
     /// The sampling temperature used.
     #[serde(rename = "temperature")]

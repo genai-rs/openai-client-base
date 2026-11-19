@@ -22,7 +22,7 @@ pub struct SynthIdProvenanceResult {
     #[serde(rename = "model")]
     pub model: String,
     /// The UTC RFC 3339 timestamp recorded by the provenance signal for when the asset was generated, when available.
-    #[serde(rename = "generated_at", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "generated_at", default)]
     pub generated_at: Option<String>,
 }
 

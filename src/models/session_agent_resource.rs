@@ -22,7 +22,7 @@ pub struct SessionAgentResource {
     /// The reusable agent's name when the session was created, or null if no name was saved. Later changes to the agent's name do not affect this value.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "name", default)]
     pub name: Option<String>,
     /// The model used by the agent.
     ///
@@ -38,7 +38,7 @@ pub struct SessionAgentResource {
     /// Custom instructions appended to the agent's default base instructions.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "instructions", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "instructions", default)]
     pub instructions: Option<String>,
     /// Tools available to the agent.
     ///

@@ -38,15 +38,15 @@ pub struct McpCallItemResource {
     #[serde(rename = "name")]
     pub name: String,
     /// The arguments passed to the MCP tool.
-    #[serde(rename = "arguments", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "arguments", default)]
     pub arguments: Option<serde_json::Value>,
     #[serde(rename = "status")]
     pub status: models::FunctionCallStatusResource,
     /// The output returned by the MCP tool, if any.
-    #[serde(rename = "output", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "output", default)]
     pub output: Option<serde_json::Value>,
     /// The error returned by the MCP tool, if any.
-    #[serde(rename = "error", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "error", default)]
     pub error: Option<serde_json::Value>,
 }
 

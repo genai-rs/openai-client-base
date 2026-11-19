@@ -16,22 +16,22 @@ pub struct WebSearchLocationResource {
     /// The two-letter ISO country code, such as `US`.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "country", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "country", default)]
     pub country: Option<String>,
     /// The region or state name.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "region", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "region", default)]
     pub region: Option<String>,
     /// The city name.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "city", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "city", default)]
     pub city: Option<String>,
     /// The IANA timezone, such as `America/Los_Angeles`.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "timezone", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "timezone", default)]
     pub timezone: Option<String>,
 }
 

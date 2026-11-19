@@ -34,7 +34,7 @@ pub struct AdminApiKeyCreateResponse {
     #[serde(rename = "created_at", with = "super::unix_time")]
     pub created_at: jiff::Timestamp,
     /// The Unix timestamp (in seconds) of when the API key expires
-    #[serde(rename = "expires_at", with = "super::unix_time::option")]
+    #[serde(rename = "expires_at", default, with = "super::unix_time::option")]
     pub expires_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) of when the API key was last used
     #[serde(

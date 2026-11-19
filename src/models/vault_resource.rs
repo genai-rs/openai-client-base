@@ -24,7 +24,7 @@ pub struct VaultResource {
     /// The human-readable name of the vault, if set.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "name", default)]
     pub name: Option<String>,
     /// Key-value pairs associated with the vault, such as an application or team identifier.
     ///

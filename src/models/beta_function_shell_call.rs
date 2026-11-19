@@ -36,7 +36,7 @@ pub struct BetaFunctionShellCall {
     pub action: models::BetaFunctionShellAction,
     #[serde(rename = "status")]
     pub status: models::BetaFunctionShellCallStatus,
-    #[serde(rename = "environment", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "environment", default)]
     pub environment: Option<models::BetaFunctionShellCallEnvironment>,
     /// The ID of the entity that created this tool call.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]

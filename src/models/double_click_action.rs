@@ -23,7 +23,7 @@ pub struct DoubleClickAction {
     #[serde(rename = "y")]
     pub y: i64,
     /// The keys being held while double-clicking.
-    #[serde(rename = "keys", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "keys", default)]
     pub keys: Option<Vec<String>>,
 }
 

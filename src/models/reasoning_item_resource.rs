@@ -33,7 +33,7 @@ pub struct ReasoningItemResource {
     #[serde(rename = "summary")]
     pub summary: Vec<models::SummaryTextResource>,
     /// The status of the reasoning item.
-    #[serde(rename = "status", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "status", default)]
     pub status: Option<models::OutputItemStatusResource>,
 }
 

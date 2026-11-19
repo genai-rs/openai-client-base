@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CompactResponseMethodPublicBody {
-    #[serde(rename = "model", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "model", default)]
     pub model: Option<models::ModelIdsCompaction>,
     #[serde(
         rename = "input",

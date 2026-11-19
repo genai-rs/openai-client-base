@@ -32,10 +32,10 @@ pub struct TaskItem {
     #[serde(rename = "task_type")]
     pub task_type: models::TaskType,
     /// Optional heading for the task. Defaults to null when not provided.
-    #[serde(rename = "heading", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "heading", default)]
     pub heading: Option<String>,
     /// Optional summary that describes the task. Defaults to null when omitted.
-    #[serde(rename = "summary", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "summary", default)]
     pub summary: Option<String>,
 }
 

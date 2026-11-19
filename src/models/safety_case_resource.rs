@@ -22,7 +22,7 @@ pub struct SafetyCaseResource {
     pub created_at: jiff::Timestamp,
     #[serde(rename = "entity_identifier")]
     pub entity_identifier: String,
-    #[serde(rename = "reason", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "reason", default)]
     pub reason: Option<String>,
     #[serde(rename = "notice")]
     pub notice: models::SafetyCaseNotice,

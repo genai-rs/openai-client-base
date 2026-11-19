@@ -20,10 +20,10 @@ pub struct WebhookEndpointListResource {
     #[serde(rename = "data")]
     pub data: Vec<models::WebhookEndpointBody>,
     /// The ID of the first endpoint in this page.
-    #[serde(rename = "first_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "first_id", default)]
     pub first_id: Option<String>,
     /// The ID of the last endpoint in this page.
-    #[serde(rename = "last_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "last_id", default)]
     pub last_id: Option<String>,
     /// Whether more webhook endpoints are available.
     #[serde(rename = "has_more")]

@@ -17,7 +17,7 @@ pub struct AnswerResourceScore {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Validation: `minLength: 0`.
-    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "name", default)]
     pub name: Option<String>,
     #[serde(rename = "score")]
     pub score: f64,

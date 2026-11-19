@@ -21,7 +21,7 @@ pub struct CreateChatCompletionResponseChoicesInner {
     pub index: i64,
     #[serde(rename = "message")]
     pub message: models::ChatCompletionResponseMessage,
-    #[serde(rename = "logprobs", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "logprobs", default)]
     pub logprobs: Option<models::CreateChatCompletionResponseChoicesInnerLogprobs>,
 }
 

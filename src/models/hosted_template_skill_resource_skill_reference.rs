@@ -24,7 +24,7 @@ pub struct HostedTemplateSkillResourceSkillReference {
     /// The requested version selector, including `latest`.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "version", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "version", default)]
     pub version: Option<String>,
 }
 

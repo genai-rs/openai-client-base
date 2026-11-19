@@ -19,12 +19,12 @@ pub struct WebSearchActionResourceFindInPage {
     /// The URL of the page that was searched.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "url", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "url", default)]
     pub url: Option<String>,
     /// The text pattern that was searched for.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "pattern", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "pattern", default)]
     pub pattern: Option<String>,
 }
 

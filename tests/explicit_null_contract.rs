@@ -362,7 +362,13 @@ fn affected_models_reject_missing_required_fields() {
 
     let completion = json!({"model": "text-davinci-003", "prompt": ""});
     assert_required_field::<CreateCompletionRequest>(completion.clone(), "model");
-    assert_required_field::<CreateCompletionRequest>(completion, "prompt");
+    // `prompt` is required and nullable: lenient on input (missing reads as None), strict on
+    // output (None is written as null)
+    let mut missing = completion;
+    missing.as_object_mut().unwrap().remove("prompt");
+    let parsed: CreateCompletionRequest = serde_json::from_value(missing).unwrap();
+    assert_eq!(parsed.prompt, None);
+    assert_eq!(serde_json::to_value(parsed).unwrap()["prompt"], Value::Null);
 
     let image = json!({"prompt": "", "model": "gpt-image-1"});
     assert_required_field::<CreateImageRequest>(image.clone(), "prompt");

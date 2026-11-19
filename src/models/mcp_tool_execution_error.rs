@@ -15,7 +15,7 @@ pub struct McpToolExecutionError {
     /// Defaults to `\"mcp_tool_execution_error\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    #[serde(rename = "content", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "content", default)]
     pub content: Option<serde_json::Value>,
 }
 

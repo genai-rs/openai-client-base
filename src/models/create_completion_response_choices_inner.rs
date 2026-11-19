@@ -14,11 +14,11 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateCompletionResponseChoicesInner {
     /// The reason the model stopped generating tokens. This will be `stop` if the model hit a natural stop point or a provided stop sequence, `length` if the maximum number of tokens specified in the request was reached, or `content_filter` if content was omitted due to a flag from our content filters. The value is null while a streamed completion is unfinished.
-    #[serde(rename = "finish_reason", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "finish_reason", default)]
     pub finish_reason: Option<FinishReason>,
     #[serde(rename = "index")]
     pub index: i64,
-    #[serde(rename = "logprobs", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "logprobs", default)]
     pub logprobs: Option<models::CreateCompletionResponseChoicesInnerLogprobs>,
     #[serde(rename = "text")]
     pub text: String,

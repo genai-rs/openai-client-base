@@ -35,20 +35,20 @@ pub struct CommandExecutionItemResource {
     /// The working directory used to execute the command.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "cwd", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "cwd", default)]
     pub cwd: Option<String>,
     #[serde(rename = "status")]
     pub status: models::FunctionCallStatusResource,
     /// The command output, if available.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "output", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "output", default)]
     pub output: Option<String>,
     /// The process exit code, if the command completed.
-    #[serde(rename = "exit_code", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "exit_code", default)]
     pub exit_code: Option<i64>,
     /// The command duration in milliseconds.
-    #[serde(rename = "duration_ms", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "duration_ms", default)]
     pub duration_ms: Option<i64>,
 }
 

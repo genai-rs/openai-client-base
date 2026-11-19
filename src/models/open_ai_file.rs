@@ -17,7 +17,7 @@ pub struct OpenAiFile {
     #[serde(rename = "id")]
     pub id: String,
     /// The size of the file, in bytes. In a completed file upload response, this can be null when the file size is not yet available.
-    #[serde(rename = "bytes", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "bytes", default)]
     pub bytes: Option<i64>,
     /// The Unix timestamp (in seconds) for when the file was created.
     #[serde(rename = "created_at", with = "super::unix_time")]

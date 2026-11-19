@@ -32,29 +32,26 @@ pub struct RunObject {
     /// The status of the run, which can be either `queued`, `in_progress`, `requires_action`, `cancelling`, `cancelled`, `failed`, `completed`, `incomplete`, or `expired`.
     #[serde(rename = "status")]
     pub status: Status,
-    #[serde(rename = "required_action", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "required_action", default)]
     pub required_action: Option<models::RunObjectRequiredAction>,
-    #[serde(rename = "last_error", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "last_error", default)]
     pub last_error: Option<models::RunObjectLastError>,
     /// The Unix timestamp (in seconds) for when the run will expire.
-    #[serde(rename = "expires_at", with = "super::unix_time::option")]
+    #[serde(rename = "expires_at", default, with = "super::unix_time::option")]
     pub expires_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) for when the run was started.
-    #[serde(rename = "started_at", with = "super::unix_time::option")]
+    #[serde(rename = "started_at", default, with = "super::unix_time::option")]
     pub started_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) for when the run was cancelled.
-    #[serde(rename = "cancelled_at", with = "super::unix_time::option")]
+    #[serde(rename = "cancelled_at", default, with = "super::unix_time::option")]
     pub cancelled_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) for when the run failed.
-    #[serde(rename = "failed_at", with = "super::unix_time::option")]
+    #[serde(rename = "failed_at", default, with = "super::unix_time::option")]
     pub failed_at: Option<jiff::Timestamp>,
     /// The Unix timestamp (in seconds) for when the run was completed.
-    #[serde(rename = "completed_at", with = "super::unix_time::option")]
+    #[serde(rename = "completed_at", default, with = "super::unix_time::option")]
     pub completed_at: Option<jiff::Timestamp>,
-    #[serde(
-        rename = "incomplete_details",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "incomplete_details", default)]
     pub incomplete_details: Option<models::RunObjectIncompleteDetails>,
     /// The model that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run.
     #[serde(rename = "model")]
@@ -68,9 +65,9 @@ pub struct RunObject {
     #[serde(rename = "tools")]
     pub tools: Vec<models::RunObjectToolsInner>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
-    #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "metadata", default)]
     pub metadata: Option<std::collections::HashMap<String, String>>,
-    #[serde(rename = "usage", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "usage", default)]
     pub usage: Option<models::RunCompletionUsage>,
     /// The sampling temperature used for this run. If not set, defaults to 1.
     #[serde(
@@ -91,27 +88,21 @@ pub struct RunObject {
     /// The maximum number of prompt tokens specified to have been used over the course of the run.
     ///
     /// Validation: `minimum: 256`.
-    #[serde(rename = "max_prompt_tokens", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "max_prompt_tokens", default)]
     pub max_prompt_tokens: Option<i64>,
     /// The maximum number of completion tokens specified to have been used over the course of the run.
     ///
     /// Validation: `minimum: 256`.
-    #[serde(
-        rename = "max_completion_tokens",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "max_completion_tokens", default)]
     pub max_completion_tokens: Option<i64>,
-    #[serde(
-        rename = "truncation_strategy",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "truncation_strategy", default)]
     pub truncation_strategy: Option<models::TruncationObject>,
-    #[serde(rename = "tool_choice", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "tool_choice", default)]
     pub tool_choice: Option<models::AssistantsApiToolChoiceOption>,
     /// Whether to enable [parallel function calling](https://developers.openai.com/api/docs/guides/function-calling#parallel-function-calling) during tool use.
     #[serde(rename = "parallel_tool_calls")]
     pub parallel_tool_calls: bool,
-    #[serde(rename = "response_format", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "response_format", default)]
     pub response_format: Option<models::AssistantsApiResponseFormatOption>,
 }
 

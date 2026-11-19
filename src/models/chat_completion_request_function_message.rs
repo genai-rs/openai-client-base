@@ -16,7 +16,7 @@ pub struct ChatCompletionRequestFunctionMessage {
     #[serde(rename = "role")]
     pub role: Role,
     /// The contents of the function message.
-    #[serde(rename = "content", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "content", default)]
     pub content: Option<String>,
     /// The name of the function to call.
     #[serde(rename = "name")]

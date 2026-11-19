@@ -27,12 +27,12 @@ pub struct McpOauthRefreshResource {
     /// The resource URI sent to the OAuth token endpoint during refresh, if configured.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "resource", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "resource", default)]
     pub resource: Option<String>,
     /// Space-separated OAuth scopes requested during refresh, if configured.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "scope", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "scope", default)]
     pub scope: Option<String>,
     #[serde(rename = "token_endpoint_auth")]
     pub token_endpoint_auth: models::McpOauthTokenEndpointAuthResource,

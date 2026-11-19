@@ -31,7 +31,7 @@ pub struct ErrorBodyResource {
     /// The request parameter that caused the error, or null for a request-wide error.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "param", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "param", default)]
     pub param: Option<String>,
 }
 

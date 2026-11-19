@@ -20,50 +20,44 @@ pub struct AutomationEnvironmentResourceOpenaiHosted {
     /// An existing environment reference, or null when provisioning a new environment.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "environment_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "environment_id", default)]
     pub environment_id: Option<String>,
     /// A template reference, or null when no template is selected.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(
-        rename = "environment_template_id",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "environment_template_id", default)]
     pub environment_template_id: Option<String>,
     /// The configured container size, or null to use the creation default.
-    #[serde(rename = "container_size", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "container_size", default)]
     pub container_size: Option<models::ContainerSizeResource>,
     /// Package overrides, or null to inherit the template or creation default.
-    #[serde(rename = "packages", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "packages", default)]
     pub packages: Option<models::EnvironmentPackagesResource>,
     /// Network overrides, or null to inherit the template or creation default.
-    #[serde(rename = "network", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "network", default)]
     pub network: Option<models::NetworkPolicyResource>,
     /// Desktop overrides, or null to inherit the template or creation default.
-    #[serde(rename = "desktop", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "desktop", default)]
     pub desktop: Option<models::DesktopResource>,
     /// Directory overrides, or null to inherit the template or creation default.
     ///
     /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
-    #[serde(
-        rename = "capability_directories",
-        deserialize_with = "Option::deserialize"
-    )]
+    #[serde(rename = "capability_directories", default)]
     pub capability_directories: Option<Vec<String>>,
     /// Skill overrides, excluding archive contents, or null to inherit.
     ///
     /// Validation: `minItems: 0`, `maxItems: 2000`.
-    #[serde(rename = "skills", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "skills", default)]
     pub skills: Option<Vec<models::HostedTemplateSkillResource>>,
     /// Plugin overrides, excluding archive contents, or null to inherit.
     ///
     /// Validation: `minItems: 0`, `maxItems: 2000`.
-    #[serde(rename = "plugins", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "plugins", default)]
     pub plugins: Option<Vec<models::HostedPluginResource>>,
     /// File overrides, excluding contents, or null to inherit.
     ///
     /// Validation: `minItems: 0`, `maxItems: 2000`.
-    #[serde(rename = "files", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "files", default)]
     pub files: Option<Vec<models::HostedTemplateFileResource>>,
 }
 

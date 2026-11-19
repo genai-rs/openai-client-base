@@ -17,9 +17,9 @@ pub struct ChatCompletionMessageListDataInner {
     pub id: String,
     #[serde(rename = "role")]
     pub role: Role,
-    #[serde(rename = "content", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "content", default)]
     pub content: Option<String>,
-    #[serde(rename = "content_parts", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "content_parts", default)]
     pub content_parts: Option<Vec<models::ChatCompletionMessageListDataInnerContentPartsInner>>,
     #[serde(
         rename = "name",

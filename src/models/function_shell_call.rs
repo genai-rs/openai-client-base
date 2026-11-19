@@ -34,7 +34,7 @@ pub struct FunctionShellCall {
     pub action: models::FunctionShellAction,
     #[serde(rename = "status")]
     pub status: models::FunctionShellCallStatus,
-    #[serde(rename = "environment", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "environment", default)]
     pub environment: Option<models::FunctionShellCallEnvironment>,
     /// The ID of the entity that created this tool call.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]

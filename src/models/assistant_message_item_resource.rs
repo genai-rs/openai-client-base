@@ -38,7 +38,7 @@ pub struct AssistantMessageItemResource {
     #[serde(rename = "content")]
     pub content: Vec<models::OutputTextResource>,
     /// The phase of the assistant message.
-    #[serde(rename = "phase", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "phase", default)]
     pub phase: Option<models::MessagePhaseResource>,
 }
 

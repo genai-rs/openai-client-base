@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// InferenceOptions : Model and tool overrides applied when generating the assistant response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InferenceOptions {
-    #[serde(rename = "tool_choice", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "tool_choice", default)]
     pub tool_choice: Option<models::ToolChoice>,
     /// ID of the model to use
     #[serde(rename = "model")]

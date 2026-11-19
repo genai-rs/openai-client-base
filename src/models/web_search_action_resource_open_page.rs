@@ -19,7 +19,7 @@ pub struct WebSearchActionResourceOpenPage {
     /// The URL of the page that was opened.
     ///
     /// Validation: `minLength: 0`.
-    #[serde(rename = "url", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "url", default)]
     pub url: Option<String>,
 }
 
