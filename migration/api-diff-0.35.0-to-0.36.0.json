@@ -1,0 +1,821 @@
+{
+  "source_heads": {
+    "reference": "git:v0.35.0",
+    "candidate": "working-tree"
+  },
+  "method": "Source declaration census of public model exports, struct fields, enum variants (names and tuple/struct payloads, generic enums such as apis::Error<T> included), function signatures, and hand-written trait impls (e.g. From) on public types, plus derive and serde-field-attribute differences. This is not an exhaustive Rust public API or semver check: it does not expand derives or macros, resolve blanket impls, or resolve every visibility/re-export interaction.",
+  "registry_source_rs_files": 3192,
+  "current_source_rs_files": 3202,
+  "source_files_added": [
+    "models/background_completion_window_enum.rs",
+    "models/background_options_param.rs",
+    "models/beta_background_completion_window_enum.rs",
+    "models/beta_background_options_param.rs",
+    "models/create_csam_moderation_response.rs",
+    "models/create_moderation_200_response.rs",
+    "models/csam_category_applied_input_types.rs",
+    "models/csam_category_flags.rs",
+    "models/csam_category_scores.rs",
+    "models/csam_moderation_result.rs"
+  ],
+  "source_files_removed": [],
+  "source_files_modified": [
+    "apis/agents_api.rs",
+    "apis/moderations_api.rs",
+    "models/batch.rs",
+    "models/beta_create_response.rs",
+    "models/beta_response_properties.rs",
+    "models/beta_responses_client_event_response_create.rs",
+    "models/create_batch_request.rs",
+    "models/create_eval_completions_run_data_source.rs",
+    "models/create_eval_responses_run_data_source.rs",
+    "models/create_fine_tuning_job_request.rs",
+    "models/create_response.rs",
+    "models/eval.rs",
+    "models/mod.rs",
+    "models/model_ids_compaction.rs",
+    "models/response_properties.rs",
+    "models/responses_client_event_response_create.rs",
+    "models/session_turn_error_code_resource.rs",
+    "models/stop_configuration.rs",
+    "models/update_agent_session_params.rs"
+  ],
+  "model_exports_added": [
+    "BackgroundCompletionWindowEnum",
+    "BackgroundOptionsParam",
+    "BetaBackgroundCompletionWindowEnum",
+    "BetaBackgroundOptionsParam",
+    "CreateCsamModerationResponse",
+    "CreateModeration200Response",
+    "CsamCategoryAppliedInputTypes",
+    "CsamCategoryFlags",
+    "CsamCategoryScores",
+    "CsamModerationResult"
+  ],
+  "model_exports_removed": [],
+  "public_functions_added_or_signature_changed": [
+    {
+      "file": "apis/moderations_api.rs",
+      "name": "create_moderation",
+      "signature": "pub async fn create_moderation( configuration: &configuration::Configuration, create_moderation_request: &models::CreateModerationRequest, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::CreateModeration200Response, Error<CreateModerationError>>"
+    },
+    {
+      "file": "apis/moderations_api.rs",
+      "name": "create_moderation_response",
+      "signature": "pub async fn create_moderation_response( configuration: &configuration::Configuration, create_moderation_request: &models::CreateModerationRequest, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<super::ApiResponse<models::CreateModeration200Response>, Error<CreateModerationError>>"
+    },
+    {
+      "file": "models/background_options_param.rs",
+      "name": "new",
+      "signature": "pub fn new() -> BackgroundOptionsParam"
+    },
+    {
+      "file": "models/beta_background_options_param.rs",
+      "name": "new",
+      "signature": "pub fn new() -> BetaBackgroundOptionsParam"
+    },
+    {
+      "file": "models/create_csam_moderation_response.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, model: Model, results: Vec<models::CsamModerationResult>, ) -> CreateCsamModerationResponse"
+    },
+    {
+      "file": "models/csam_category_applied_input_types.rs",
+      "name": "new",
+      "signature": "pub fn new( likely_csam: Vec<LikelyCsam>, likely_csam_slash_gen_ai: Vec<LikelyCsamSlashGenAi>, ) -> CsamCategoryAppliedInputTypes"
+    },
+    {
+      "file": "models/csam_category_flags.rs",
+      "name": "new",
+      "signature": "pub fn new(likely_csam: bool, likely_csam_slash_gen_ai: bool) -> CsamCategoryFlags"
+    },
+    {
+      "file": "models/csam_category_scores.rs",
+      "name": "new",
+      "signature": "pub fn new(likely_csam: f64, likely_csam_slash_gen_ai: f64) -> CsamCategoryScores"
+    },
+    {
+      "file": "models/csam_moderation_result.rs",
+      "name": "new",
+      "signature": "pub fn new( flagged: bool, categories: models::CsamCategoryFlags, category_scores: models::CsamCategoryScores, category_applied_input_types: models::CsamCategoryAppliedInputTypes, ) -> CsamModerationResult"
+    }
+  ],
+  "public_functions_removed_or_signature_changed": [
+    {
+      "file": "apis/moderations_api.rs",
+      "name": "create_moderation",
+      "signature": "pub async fn create_moderation( configuration: &configuration::Configuration, create_moderation_request: &models::CreateModerationRequest, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::CreateModerationResponse, Error<CreateModerationError>>"
+    },
+    {
+      "file": "apis/moderations_api.rs",
+      "name": "create_moderation_response",
+      "signature": "pub async fn create_moderation_response( configuration: &configuration::Configuration, create_moderation_request: &models::CreateModerationRequest, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<super::ApiResponse<models::CreateModerationResponse>, Error<CreateModerationError>>"
+    }
+  ],
+  "public_model_field_changes": [
+    {
+      "file": "models/background_options_param.rs",
+      "model": "BackgroundOptionsParam",
+      "field": "completion_window",
+      "registry": null,
+      "current": "Option<models::BackgroundCompletionWindowEnum>"
+    },
+    {
+      "file": "models/background_options_param.rs",
+      "model": "BackgroundOptionsParam",
+      "field": "continuation_id",
+      "registry": null,
+      "current": "Option<String>"
+    },
+    {
+      "file": "models/beta_background_options_param.rs",
+      "model": "BetaBackgroundOptionsParam",
+      "field": "completion_window",
+      "registry": null,
+      "current": "Option<models::BetaBackgroundCompletionWindowEnum>"
+    },
+    {
+      "file": "models/beta_background_options_param.rs",
+      "model": "BetaBackgroundOptionsParam",
+      "field": "continuation_id",
+      "registry": null,
+      "current": "Option<String>"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "background_options",
+      "registry": null,
+      "current": "Option<models::BetaBackgroundOptionsParam>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "background_options",
+      "registry": null,
+      "current": "Option<models::BetaBackgroundOptionsParam>"
+    },
+    {
+      "file": "models/create_csam_moderation_response.rs",
+      "model": "CreateCsamModerationResponse",
+      "field": "id",
+      "registry": null,
+      "current": "String"
+    },
+    {
+      "file": "models/create_csam_moderation_response.rs",
+      "model": "CreateCsamModerationResponse",
+      "field": "model",
+      "registry": null,
+      "current": "Model"
+    },
+    {
+      "file": "models/create_csam_moderation_response.rs",
+      "model": "CreateCsamModerationResponse",
+      "field": "results",
+      "registry": null,
+      "current": "Vec<models::CsamModerationResult>"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "background_options",
+      "registry": null,
+      "current": "Option<models::BackgroundOptionsParam>"
+    },
+    {
+      "file": "models/csam_category_applied_input_types.rs",
+      "model": "CsamCategoryAppliedInputTypes",
+      "field": "likely_csam",
+      "registry": null,
+      "current": "Vec<LikelyCsam>"
+    },
+    {
+      "file": "models/csam_category_applied_input_types.rs",
+      "model": "CsamCategoryAppliedInputTypes",
+      "field": "likely_csam_slash_gen_ai",
+      "registry": null,
+      "current": "Vec<LikelyCsamSlashGenAi>"
+    },
+    {
+      "file": "models/csam_category_flags.rs",
+      "model": "CsamCategoryFlags",
+      "field": "likely_csam",
+      "registry": null,
+      "current": "bool"
+    },
+    {
+      "file": "models/csam_category_flags.rs",
+      "model": "CsamCategoryFlags",
+      "field": "likely_csam_slash_gen_ai",
+      "registry": null,
+      "current": "bool"
+    },
+    {
+      "file": "models/csam_category_scores.rs",
+      "model": "CsamCategoryScores",
+      "field": "likely_csam",
+      "registry": null,
+      "current": "f64"
+    },
+    {
+      "file": "models/csam_category_scores.rs",
+      "model": "CsamCategoryScores",
+      "field": "likely_csam_slash_gen_ai",
+      "registry": null,
+      "current": "f64"
+    },
+    {
+      "file": "models/csam_moderation_result.rs",
+      "model": "CsamModerationResult",
+      "field": "categories",
+      "registry": null,
+      "current": "models::CsamCategoryFlags"
+    },
+    {
+      "file": "models/csam_moderation_result.rs",
+      "model": "CsamModerationResult",
+      "field": "category_applied_input_types",
+      "registry": null,
+      "current": "models::CsamCategoryAppliedInputTypes"
+    },
+    {
+      "file": "models/csam_moderation_result.rs",
+      "model": "CsamModerationResult",
+      "field": "category_scores",
+      "registry": null,
+      "current": "models::CsamCategoryScores"
+    },
+    {
+      "file": "models/csam_moderation_result.rs",
+      "model": "CsamModerationResult",
+      "field": "flagged",
+      "registry": null,
+      "current": "bool"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "background_options",
+      "registry": null,
+      "current": "Option<models::BackgroundOptionsParam>"
+    },
+    {
+      "file": "models/update_agent_session_params.rs",
+      "model": "UpdateAgentSessionParams",
+      "field": "vault_ids",
+      "registry": null,
+      "current": "Option<Option<Vec<String>>>"
+    }
+  ],
+  "public_enum_variant_changes": [
+    {
+      "file": "models/background_completion_window_enum.rs",
+      "enum": "BackgroundCompletionWindowEnum",
+      "added": [
+        "Soonest",
+        "Variant2h",
+        "Variant8h"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/beta_background_completion_window_enum.rs",
+      "enum": "BetaBackgroundCompletionWindowEnum",
+      "added": [
+        "Soonest",
+        "Variant2h",
+        "Variant8h"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/create_csam_moderation_response.rs",
+      "enum": "Model",
+      "added": [
+        "OmniModerationCsamLatest",
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/create_moderation_200_response.rs",
+      "enum": "CreateModeration200Response",
+      "added": [
+        "CreateCsamModerationResponse",
+        "CreateModerationResponse"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/csam_category_applied_input_types.rs",
+      "enum": "LikelyCsam",
+      "added": [
+        "Image",
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/csam_category_applied_input_types.rs",
+      "enum": "LikelyCsamSlashGenAi",
+      "added": [
+        "Image",
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/session_turn_error_code_resource.rs",
+      "enum": "SessionTurnErrorCodeResource",
+      "added": [
+        "ApiKeySpendLimitExceeded"
+      ],
+      "removed": [
+        "SessionBudgetExceeded"
+      ]
+    }
+  ],
+  "public_derive_changes": [
+    {
+      "file": "models/background_completion_window_enum.rs",
+      "type": "BackgroundCompletionWindowEnum",
+      "registry": null,
+      "current": [
+        "Clone",
+        "Copy",
+        "Debug",
+        "Deserialize",
+        "Eq",
+        "Hash",
+        "Ord",
+        "PartialEq",
+        "PartialOrd",
+        "Serialize"
+      ]
+    },
+    {
+      "file": "models/background_options_param.rs",
+      "type": "BackgroundOptionsParam",
+      "registry": null,
+      "current": [
+        "Clone",
+        "Debug",
+        "Default",
+        "Deserialize",
+        "PartialEq",
+        "Serialize",
+        "bon::Builder"
+      ]
+    },
+    {
+      "file": "models/beta_background_completion_window_enum.rs",
+      "type": "BetaBackgroundCompletionWindowEnum",
+      "registry": null,
+      "current": [
+        "Clone",
+        "Copy",
+        "Debug",
+        "Deserialize",
+        "Eq",
+        "Hash",
+        "Ord",
+        "PartialEq",
+        "PartialOrd",
+        "Serialize"
+      ]
+    },
+    {
+      "file": "models/beta_background_options_param.rs",
+      "type": "BetaBackgroundOptionsParam",
+      "registry": null,
+      "current": [
+        "Clone",
+        "Debug",
+        "Default",
+        "Deserialize",
+        "PartialEq",
+        "Serialize",
+        "bon::Builder"
+      ]
+    },
+    {
+      "file": "models/create_csam_moderation_response.rs",
+      "type": "CreateCsamModerationResponse",
+      "registry": null,
+      "current": [
+        "Clone",
+        "Debug",
+        "Deserialize",
+        "PartialEq",
+        "Serialize",
+        "bon::Builder"
+      ]
+    },
+    {
+      "file": "models/create_csam_moderation_response.rs",
+      "type": "Model",
+      "registry": null,
+      "current": [
+        "Clone",
+        "Copy",
+        "Debug",
+        "Deserialize",
+        "Eq",
+        "Hash",
+        "Ord",
+        "PartialEq",
+        "PartialOrd",
+        "Serialize"
+      ]
+    },
+    {
+      "file": "models/csam_category_applied_input_types.rs",
+      "type": "CsamCategoryAppliedInputTypes",
+      "registry": null,
+      "current": [
+        "Clone",
+        "Debug",
+        "Deserialize",
+        "PartialEq",
+        "Serialize",
+        "bon::Builder"
+      ]
+    },
+    {
+      "file": "models/csam_category_applied_input_types.rs",
+      "type": "LikelyCsam",
+      "registry": null,
+      "current": [
+        "Clone",
+        "Copy",
+        "Debug",
+        "Deserialize",
+        "Eq",
+        "Hash",
+        "Ord",
+        "PartialEq",
+        "PartialOrd",
+        "Serialize"
+      ]
+    },
+    {
+      "file": "models/csam_category_applied_input_types.rs",
+      "type": "LikelyCsamSlashGenAi",
+      "registry": null,
+      "current": [
+        "Clone",
+        "Copy",
+        "Debug",
+        "Deserialize",
+        "Eq",
+        "Hash",
+        "Ord",
+        "PartialEq",
+        "PartialOrd",
+        "Serialize"
+      ]
+    },
+    {
+      "file": "models/csam_category_flags.rs",
+      "type": "CsamCategoryFlags",
+      "registry": null,
+      "current": [
+        "Clone",
+        "Debug",
+        "Deserialize",
+        "PartialEq",
+        "Serialize",
+        "bon::Builder"
+      ]
+    },
+    {
+      "file": "models/csam_category_scores.rs",
+      "type": "CsamCategoryScores",
+      "registry": null,
+      "current": [
+        "Clone",
+        "Debug",
+        "Deserialize",
+        "PartialEq",
+        "Serialize",
+        "bon::Builder"
+      ]
+    },
+    {
+      "file": "models/csam_moderation_result.rs",
+      "type": "CsamModerationResult",
+      "registry": null,
+      "current": [
+        "Clone",
+        "Debug",
+        "Deserialize",
+        "PartialEq",
+        "Serialize",
+        "bon::Builder"
+      ]
+    }
+  ],
+  "serde_field_attribute_changes": [
+    {
+      "file": "models/background_options_param.rs",
+      "model": "BackgroundOptionsParam",
+      "field": "completion_window",
+      "registry": null,
+      "current": "#[serde(rename = \"completion_window\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/background_options_param.rs",
+      "model": "BackgroundOptionsParam",
+      "field": "continuation_id",
+      "registry": null,
+      "current": "#[serde(rename = \"continuation_id\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/beta_background_options_param.rs",
+      "model": "BetaBackgroundOptionsParam",
+      "field": "completion_window",
+      "registry": null,
+      "current": "#[serde(rename = \"completion_window\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/beta_background_options_param.rs",
+      "model": "BetaBackgroundOptionsParam",
+      "field": "continuation_id",
+      "registry": null,
+      "current": "#[serde(rename = \"continuation_id\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "background_options",
+      "registry": null,
+      "current": "#[serde(rename = \"background_options\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "background_options",
+      "registry": null,
+      "current": "#[serde(rename = \"background_options\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/create_csam_moderation_response.rs",
+      "model": "CreateCsamModerationResponse",
+      "field": "id",
+      "registry": null,
+      "current": "#[serde(rename = \"id\")]"
+    },
+    {
+      "file": "models/create_csam_moderation_response.rs",
+      "model": "CreateCsamModerationResponse",
+      "field": "model",
+      "registry": null,
+      "current": "#[serde(rename = \"model\")]"
+    },
+    {
+      "file": "models/create_csam_moderation_response.rs",
+      "model": "CreateCsamModerationResponse",
+      "field": "results",
+      "registry": null,
+      "current": "#[serde(rename = \"results\")]"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "background_options",
+      "registry": null,
+      "current": "#[serde(rename = \"background_options\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/csam_category_applied_input_types.rs",
+      "model": "CsamCategoryAppliedInputTypes",
+      "field": "likely_csam",
+      "registry": null,
+      "current": "#[serde(rename = \"likely-csam\")]"
+    },
+    {
+      "file": "models/csam_category_applied_input_types.rs",
+      "model": "CsamCategoryAppliedInputTypes",
+      "field": "likely_csam_slash_gen_ai",
+      "registry": null,
+      "current": "#[serde(rename = \"likely-csam/gen-ai\")]"
+    },
+    {
+      "file": "models/csam_category_flags.rs",
+      "model": "CsamCategoryFlags",
+      "field": "likely_csam",
+      "registry": null,
+      "current": "#[serde(rename = \"likely-csam\")]"
+    },
+    {
+      "file": "models/csam_category_flags.rs",
+      "model": "CsamCategoryFlags",
+      "field": "likely_csam_slash_gen_ai",
+      "registry": null,
+      "current": "#[serde(rename = \"likely-csam/gen-ai\")]"
+    },
+    {
+      "file": "models/csam_category_scores.rs",
+      "model": "CsamCategoryScores",
+      "field": "likely_csam",
+      "registry": null,
+      "current": "#[serde(rename = \"likely-csam\")]"
+    },
+    {
+      "file": "models/csam_category_scores.rs",
+      "model": "CsamCategoryScores",
+      "field": "likely_csam_slash_gen_ai",
+      "registry": null,
+      "current": "#[serde(rename = \"likely-csam/gen-ai\")]"
+    },
+    {
+      "file": "models/csam_moderation_result.rs",
+      "model": "CsamModerationResult",
+      "field": "categories",
+      "registry": null,
+      "current": "#[serde(rename = \"categories\")]"
+    },
+    {
+      "file": "models/csam_moderation_result.rs",
+      "model": "CsamModerationResult",
+      "field": "category_applied_input_types",
+      "registry": null,
+      "current": "#[serde(rename = \"category_applied_input_types\")]"
+    },
+    {
+      "file": "models/csam_moderation_result.rs",
+      "model": "CsamModerationResult",
+      "field": "category_scores",
+      "registry": null,
+      "current": "#[serde(rename = \"category_scores\")]"
+    },
+    {
+      "file": "models/csam_moderation_result.rs",
+      "model": "CsamModerationResult",
+      "field": "flagged",
+      "registry": null,
+      "current": "#[serde(rename = \"flagged\")]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "background_options",
+      "registry": null,
+      "current": "#[serde(rename = \"background_options\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/update_agent_session_params.rs",
+      "model": "UpdateAgentSessionParams",
+      "field": "vault_ids",
+      "registry": null,
+      "current": "#[serde( rename = \"vault_ids\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    }
+  ],
+  "public_enum_variant_payload_changes": [],
+  "public_trait_impl_changes": [
+    {
+      "file": "models/background_completion_window_enum.rs",
+      "type": "BackgroundCompletionWindowEnum",
+      "added": [
+        "impl crate::models::validation::Validate for BackgroundCompletionWindowEnum",
+        "impl std::fmt::Display for BackgroundCompletionWindowEnum",
+        "impl::std::convert::TryFrom<&::std::string::String> for BackgroundCompletionWindowEnum",
+        "impl::std::convert::TryFrom<&str> for BackgroundCompletionWindowEnum",
+        "impl::std::convert::TryFrom<::std::string::String> for BackgroundCompletionWindowEnum",
+        "impl::std::str::FromStr for BackgroundCompletionWindowEnum"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/background_options_param.rs",
+      "type": "BackgroundOptionsParam",
+      "added": [
+        "impl crate::models::validation::Validate for BackgroundOptionsParam"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/beta_background_completion_window_enum.rs",
+      "type": "BetaBackgroundCompletionWindowEnum",
+      "added": [
+        "impl crate::models::validation::Validate for BetaBackgroundCompletionWindowEnum",
+        "impl std::fmt::Display for BetaBackgroundCompletionWindowEnum",
+        "impl::std::convert::TryFrom<&::std::string::String> for BetaBackgroundCompletionWindowEnum",
+        "impl::std::convert::TryFrom<&str> for BetaBackgroundCompletionWindowEnum",
+        "impl::std::convert::TryFrom<::std::string::String> for BetaBackgroundCompletionWindowEnum",
+        "impl::std::str::FromStr for BetaBackgroundCompletionWindowEnum"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/beta_background_options_param.rs",
+      "type": "BetaBackgroundOptionsParam",
+      "added": [
+        "impl crate::models::validation::Validate for BetaBackgroundOptionsParam"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/create_csam_moderation_response.rs",
+      "type": "CreateCsamModerationResponse",
+      "added": [
+        "impl crate::models::validation::Validate for CreateCsamModerationResponse"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/create_csam_moderation_response.rs",
+      "type": "Model",
+      "added": [
+        "impl::std::convert::TryFrom<&::std::string::String> for Model",
+        "impl::std::convert::TryFrom<&str> for Model",
+        "impl::std::convert::TryFrom<::std::string::String> for Model",
+        "impl::std::fmt::Display for Model",
+        "impl::std::str::FromStr for Model"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/create_moderation_200_response.rs",
+      "type": "CreateModeration200Response",
+      "added": [
+        "impl crate::models::validation::Validate for CreateModeration200Response",
+        "impl std::fmt::Display for CreateModeration200Response"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/csam_category_applied_input_types.rs",
+      "type": "CsamCategoryAppliedInputTypes",
+      "added": [
+        "impl crate::models::validation::Validate for CsamCategoryAppliedInputTypes"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/csam_category_applied_input_types.rs",
+      "type": "LikelyCsam",
+      "added": [
+        "impl::std::convert::TryFrom<&::std::string::String> for LikelyCsam",
+        "impl::std::convert::TryFrom<&str> for LikelyCsam",
+        "impl::std::convert::TryFrom<::std::string::String> for LikelyCsam",
+        "impl::std::fmt::Display for LikelyCsam",
+        "impl::std::str::FromStr for LikelyCsam"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/csam_category_applied_input_types.rs",
+      "type": "LikelyCsamSlashGenAi",
+      "added": [
+        "impl::std::convert::TryFrom<&::std::string::String> for LikelyCsamSlashGenAi",
+        "impl::std::convert::TryFrom<&str> for LikelyCsamSlashGenAi",
+        "impl::std::convert::TryFrom<::std::string::String> for LikelyCsamSlashGenAi",
+        "impl::std::fmt::Display for LikelyCsamSlashGenAi",
+        "impl::std::str::FromStr for LikelyCsamSlashGenAi"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/csam_category_flags.rs",
+      "type": "CsamCategoryFlags",
+      "added": [
+        "impl crate::models::validation::Validate for CsamCategoryFlags"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/csam_category_scores.rs",
+      "type": "CsamCategoryScores",
+      "added": [
+        "impl crate::models::validation::Validate for CsamCategoryScores"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/csam_moderation_result.rs",
+      "type": "CsamModerationResult",
+      "added": [
+        "impl crate::models::validation::Validate for CsamModerationResult"
+      ],
+      "removed": []
+    }
+  ],
+  "counts": {
+    "model_exports_added": 10,
+    "model_exports_removed": 0,
+    "public_functions_added_or_signature_changed": 9,
+    "public_functions_removed_or_signature_changed": 2,
+    "public_model_field_changes": 22,
+    "public_enum_types_with_variant_changes": 7,
+    "public_enum_variants_added": 15,
+    "public_enum_variants_removed": 1,
+    "public_derive_changes": 12,
+    "serde_field_attribute_changes": 22,
+    "public_enum_variant_payload_changes": 0,
+    "public_types_with_trait_impl_changes": 13,
+    "public_trait_impls_added": 36,
+    "public_trait_impls_removed": 0
+  }
+}
