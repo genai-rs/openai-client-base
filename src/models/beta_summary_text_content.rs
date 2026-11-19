@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaSummaryTextContent : A summary text from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_summary_text_content_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaSummaryTextContent {
     /// The type of the object. Always `summary_text`.  Defaults to `\"summary_text\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl BetaSummaryTextContent {
     /// A summary text from the model.
     pub fn new(r#type: Type, text: String) -> BetaSummaryTextContent {
         BetaSummaryTextContent { r#type, text }
+    }
+}
+
+impl<S: beta_summary_text_content_builder::State> BetaSummaryTextContentBuilder<S>
+where
+    S::Type: beta_summary_text_content_builder::IsSet,
+    S::Text: beta_summary_text_content_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaSummaryTextContent {
+        self.build_internal()
     }
 }
 

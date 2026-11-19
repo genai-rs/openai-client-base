@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeMcpApprovalRequest : A Realtime item requesting human approval of a tool invocation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_mcp_approval_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeMcpApprovalRequest {
     /// The type of the item. Always `mcp_approval_request`.
     #[serde(rename = "type")]
@@ -46,6 +47,21 @@ impl RealtimeMcpApprovalRequest {
             name,
             arguments,
         }
+    }
+}
+
+impl<S: realtime_mcp_approval_request_builder::State> RealtimeMcpApprovalRequestBuilder<S>
+where
+    S::Type: realtime_mcp_approval_request_builder::IsSet,
+    S::Id: realtime_mcp_approval_request_builder::IsSet,
+    S::ServerLabel: realtime_mcp_approval_request_builder::IsSet,
+    S::Name: realtime_mcp_approval_request_builder::IsSet,
+    S::Arguments: realtime_mcp_approval_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeMcpApprovalRequest {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// PersistedAgentToolConfigParamProgrammaticToolCalling : Enables calling tools from model-generated code.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = persisted_agent_tool_config_param_programmatic_tool_calling_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PersistedAgentToolConfigParamProgrammaticToolCalling {
     /// The type of the object. Always `programmatic_tool_calling`.  Defaults to `\"programmatic_tool_calling\"`.
     #[serde(rename = "type")]
@@ -28,6 +29,18 @@ impl PersistedAgentToolConfigParamProgrammaticToolCalling {
             r#type,
             enabled: None,
         }
+    }
+}
+
+impl<S: persisted_agent_tool_config_param_programmatic_tool_calling_builder::State>
+    PersistedAgentToolConfigParamProgrammaticToolCallingBuilder<S>
+where
+    S::Type: persisted_agent_tool_config_param_programmatic_tool_calling_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PersistedAgentToolConfigParamProgrammaticToolCalling {
+        self.build_internal()
     }
 }
 

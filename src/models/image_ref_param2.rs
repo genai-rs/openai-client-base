@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = image_ref_param2_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ImageRefParam2 {
     /// A fully qualified URL or base64-encoded data URL.
     ///
@@ -27,6 +28,14 @@ impl ImageRefParam2 {
             image_url: None,
             file_id: None,
         }
+    }
+}
+
+impl<S: image_ref_param2_builder::State> ImageRefParam2Builder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ImageRefParam2 {
+        self.build_internal()
     }
 }
 

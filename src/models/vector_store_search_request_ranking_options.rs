@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// VectorStoreSearchRequestRankingOptions : Ranking options for search.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vector_store_search_request_ranking_options_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VectorStoreSearchRequestRankingOptions {
     /// Enable re-ranking; set to `none` to disable, which can help reduce latency.  Defaults to `\"auto\"`.
     #[serde(rename = "ranker", skip_serializing_if = "Option::is_none")]
@@ -30,6 +31,16 @@ impl VectorStoreSearchRequestRankingOptions {
             ranker: None,
             score_threshold: None,
         }
+    }
+}
+
+impl<S: vector_store_search_request_ranking_options_builder::State>
+    VectorStoreSearchRequestRankingOptionsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VectorStoreSearchRequestRankingOptions {
+        self.build_internal()
     }
 }
 

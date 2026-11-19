@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AgentToolConfigParamWebSearch : Web search.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = agent_tool_config_param_web_search_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AgentToolConfigParamWebSearch {
     /// The type of the object. Always `web_search`.  Defaults to `\"web_search\"`.
     #[serde(rename = "type")]
@@ -63,6 +64,17 @@ impl AgentToolConfigParamWebSearch {
             allowed_domains: None,
             location: None,
         }
+    }
+}
+
+impl<S: agent_tool_config_param_web_search_builder::State> AgentToolConfigParamWebSearchBuilder<S>
+where
+    S::Type: agent_tool_config_param_web_search_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AgentToolConfigParamWebSearch {
+        self.build_internal()
     }
 }
 

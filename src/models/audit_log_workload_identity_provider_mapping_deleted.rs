@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogWorkloadIdentityProviderMappingDeleted : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_workload_identity_provider_mapping_deleted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogWorkloadIdentityProviderMappingDeleted {
     /// The workload identity provider mapping ID.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -39,6 +40,16 @@ impl AuditLogWorkloadIdentityProviderMappingDeleted {
             project_id: None,
             service_account_id: None,
         }
+    }
+}
+
+impl<S: audit_log_workload_identity_provider_mapping_deleted_builder::State>
+    AuditLogWorkloadIdentityProviderMappingDeletedBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogWorkloadIdentityProviderMappingDeleted {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// DeletedSessionArtifactResource : Confirmation that an immutable session artifact was deleted.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = deleted_session_artifact_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeletedSessionArtifactResource {
     /// The ID of the deleted session artifact.
     ///
@@ -34,6 +35,19 @@ impl DeletedSessionArtifactResource {
             object,
             deleted,
         }
+    }
+}
+
+impl<S: deleted_session_artifact_resource_builder::State> DeletedSessionArtifactResourceBuilder<S>
+where
+    S::Id: deleted_session_artifact_resource_builder::IsSet,
+    S::Object: deleted_session_artifact_resource_builder::IsSet,
+    S::Deleted: deleted_session_artifact_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeletedSessionArtifactResource {
+        self.build_internal()
     }
 }
 

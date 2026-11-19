@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveTransportRinging : The outbound SIP provider leg is ringing or providing early media. Delivered only to sideband observers.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_transport_ringing_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveTransportRinging {
     #[serde(rename = "event_id")]
     pub event_id: String,
@@ -31,6 +32,19 @@ impl LiveTransportRinging {
             session_id,
             r#type,
         }
+    }
+}
+
+impl<S: live_transport_ringing_builder::State> LiveTransportRingingBuilder<S>
+where
+    S::EventId: live_transport_ringing_builder::IsSet,
+    S::SessionId: live_transport_ringing_builder::IsSet,
+    S::Type: live_transport_ringing_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveTransportRinging {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = csam_category_scores_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CsamCategoryScores {
     #[serde(rename = "likely-csam")]
     pub likely_csam: f64,
@@ -24,6 +25,18 @@ impl CsamCategoryScores {
             likely_csam,
             likely_csam_slash_gen_ai,
         }
+    }
+}
+
+impl<S: csam_category_scores_builder::State> CsamCategoryScoresBuilder<S>
+where
+    S::LikelyCsam: csam_category_scores_builder::IsSet,
+    S::LikelyCsamSlashGenAi: csam_category_scores_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CsamCategoryScores {
+        self.build_internal()
     }
 }
 

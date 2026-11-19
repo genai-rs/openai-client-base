@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_created_by_resource_agent_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationCreatedByResourceAgent {
     /// The type of the object. Always `agent`.  Defaults to `\"agent\"`.
     #[serde(rename = "type")]
@@ -38,6 +39,20 @@ impl AutomationCreatedByResourceAgent {
             session_id,
             tool_call_id,
         }
+    }
+}
+
+impl<S: automation_created_by_resource_agent_builder::State>
+    AutomationCreatedByResourceAgentBuilder<S>
+where
+    S::Type: automation_created_by_resource_agent_builder::IsSet,
+    S::SessionId: automation_created_by_resource_agent_builder::IsSet,
+    S::ToolCallId: automation_created_by_resource_agent_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationCreatedByResourceAgent {
+        self.build_internal()
     }
 }
 

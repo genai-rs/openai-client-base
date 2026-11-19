@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventResponseMcpCallFailed : Returned when an MCP tool call has failed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_response_mcp_call_failed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventResponseMcpCallFailed {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -41,6 +42,21 @@ impl RealtimeServerEventResponseMcpCallFailed {
             output_index,
             item_id,
         }
+    }
+}
+
+impl<S: realtime_server_event_response_mcp_call_failed_builder::State>
+    RealtimeServerEventResponseMcpCallFailedBuilder<S>
+where
+    S::EventId: realtime_server_event_response_mcp_call_failed_builder::IsSet,
+    S::Type: realtime_server_event_response_mcp_call_failed_builder::IsSet,
+    S::OutputIndex: realtime_server_event_response_mcp_call_failed_builder::IsSet,
+    S::ItemId: realtime_server_event_response_mcp_call_failed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventResponseMcpCallFailed {
+        self.build_internal()
     }
 }
 

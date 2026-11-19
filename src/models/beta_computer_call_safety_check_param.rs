@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaComputerCallSafetyCheckParam : A pending safety check for the computer call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_computer_call_safety_check_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaComputerCallSafetyCheckParam {
     /// The ID of the pending safety check.
     #[serde(rename = "id")]
@@ -42,6 +43,18 @@ impl BetaComputerCallSafetyCheckParam {
             code: None,
             message: None,
         }
+    }
+}
+
+impl<S: beta_computer_call_safety_check_param_builder::State>
+    BetaComputerCallSafetyCheckParamBuilder<S>
+where
+    S::Id: beta_computer_call_safety_check_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaComputerCallSafetyCheckParam {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageStreamEventObject0 : Occurs when a [message](https://developers.openai.com/api/docs/assistants/migration) is created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_stream_event_object0_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageStreamEventObject0 {
     #[serde(rename = "event")]
     pub event: Event,
@@ -24,6 +25,18 @@ impl MessageStreamEventObject0 {
     /// Occurs when a [message](https://developers.openai.com/api/docs/assistants/migration) is created.
     pub fn new(event: Event, data: models::MessageObject) -> MessageStreamEventObject0 {
         MessageStreamEventObject0 { event, data }
+    }
+}
+
+impl<S: message_stream_event_object0_builder::State> MessageStreamEventObject0Builder<S>
+where
+    S::Event: message_stream_event_object0_builder::IsSet,
+    S::Data: message_stream_event_object0_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageStreamEventObject0 {
+        self.build_internal()
     }
 }
 

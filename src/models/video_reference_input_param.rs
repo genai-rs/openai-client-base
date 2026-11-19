@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// VideoReferenceInputParam : Reference to the completed video.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = video_reference_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VideoReferenceInputParam {
     /// The identifier of the completed video.
     #[serde(rename = "id")]
@@ -22,6 +23,17 @@ impl VideoReferenceInputParam {
     /// Reference to the completed video.
     pub fn new(id: String) -> VideoReferenceInputParam {
         VideoReferenceInputParam { id }
+    }
+}
+
+impl<S: video_reference_input_param_builder::State> VideoReferenceInputParamBuilder<S>
+where
+    S::Id: video_reference_input_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VideoReferenceInputParam {
+        self.build_internal()
     }
 }
 

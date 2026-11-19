@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventResponseTextDone : Returned when the text value of an \"output_text\" content part is done streaming. Also emitted when a Response is interrupted, incomplete, or cancelled.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_response_text_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventResponseTextDone {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -56,6 +57,24 @@ impl RealtimeBetaServerEventResponseTextDone {
             content_index,
             text,
         }
+    }
+}
+
+impl<S: realtime_beta_server_event_response_text_done_builder::State>
+    RealtimeBetaServerEventResponseTextDoneBuilder<S>
+where
+    S::EventId: realtime_beta_server_event_response_text_done_builder::IsSet,
+    S::Type: realtime_beta_server_event_response_text_done_builder::IsSet,
+    S::ResponseId: realtime_beta_server_event_response_text_done_builder::IsSet,
+    S::ItemId: realtime_beta_server_event_response_text_done_builder::IsSet,
+    S::OutputIndex: realtime_beta_server_event_response_text_done_builder::IsSet,
+    S::ContentIndex: realtime_beta_server_event_response_text_done_builder::IsSet,
+    S::Text: realtime_beta_server_event_response_text_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventResponseTextDone {
+        self.build_internal()
     }
 }
 

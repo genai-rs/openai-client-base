@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = prompt_cache_miss_diagnostics_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PromptCacheMissDiagnosticsBody {
     /// Defaults to `\"cache_miss\"`.
     #[serde(rename = "type")]
@@ -41,6 +42,19 @@ impl PromptCacheMissDiagnosticsBody {
             cache_missed_tokens,
             comparison_reusable_tokens: None,
         }
+    }
+}
+
+impl<S: prompt_cache_miss_diagnostics_body_builder::State> PromptCacheMissDiagnosticsBodyBuilder<S>
+where
+    S::Type: prompt_cache_miss_diagnostics_body_builder::IsSet,
+    S::Reason: prompt_cache_miss_diagnostics_body_builder::IsSet,
+    S::CacheMissedTokens: prompt_cache_miss_diagnostics_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PromptCacheMissDiagnosticsBody {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogActorSession : The session in which the audit logged action was performed.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_actor_session_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogActorSession {
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
     pub user: Option<models::AuditLogActorUser>,
@@ -28,6 +29,14 @@ impl AuditLogActorSession {
             user: None,
             ip_address: None,
         }
+    }
+}
+
+impl<S: audit_log_actor_session_builder::State> AuditLogActorSessionBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogActorSession {
+        self.build_internal()
     }
 }
 

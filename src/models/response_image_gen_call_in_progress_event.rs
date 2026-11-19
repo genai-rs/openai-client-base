@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseImageGenCallInProgressEvent : Emitted when an image generation tool call is in progress.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_image_gen_call_in_progress_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseImageGenCallInProgressEvent {
     /// The type of the event. Always 'response.image_generation_call.in_progress'.
     #[serde(rename = "type")]
@@ -41,6 +42,21 @@ impl ResponseImageGenCallInProgressEvent {
             item_id,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_image_gen_call_in_progress_event_builder::State>
+    ResponseImageGenCallInProgressEventBuilder<S>
+where
+    S::Type: response_image_gen_call_in_progress_event_builder::IsSet,
+    S::OutputIndex: response_image_gen_call_in_progress_event_builder::IsSet,
+    S::ItemId: response_image_gen_call_in_progress_event_builder::IsSet,
+    S::SequenceNumber: response_image_gen_call_in_progress_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseImageGenCallInProgressEvent {
+        self.build_internal()
     }
 }
 

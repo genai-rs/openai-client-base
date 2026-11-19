@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookResponseCompleted : Sent when a background response has been completed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_response_completed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookResponseCompleted {
     /// The Unix timestamp (in seconds) of when the model response was completed.
     #[serde(rename = "created_at", with = "super::unix_time")]
@@ -45,6 +46,20 @@ impl WebhookResponseCompleted {
             object: None,
             r#type,
         }
+    }
+}
+
+impl<S: webhook_response_completed_builder::State> WebhookResponseCompletedBuilder<S>
+where
+    S::CreatedAt: webhook_response_completed_builder::IsSet,
+    S::Id: webhook_response_completed_builder::IsSet,
+    S::Data: webhook_response_completed_builder::IsSet,
+    S::Type: webhook_response_completed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookResponseCompleted {
+        self.build_internal()
     }
 }
 

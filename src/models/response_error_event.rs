@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseErrorEvent : Emitted when an error occurs.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_error_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseErrorEvent {
     /// The type of the event. Always `error`.
     #[serde(rename = "type")]
@@ -46,6 +47,19 @@ impl ResponseErrorEvent {
             param,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_error_event_builder::State> ResponseErrorEventBuilder<S>
+where
+    S::Type: response_error_event_builder::IsSet,
+    S::Message: response_error_event_builder::IsSet,
+    S::SequenceNumber: response_error_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseErrorEvent {
+        self.build_internal()
     }
 }
 

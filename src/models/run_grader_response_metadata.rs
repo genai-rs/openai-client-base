@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_grader_response_metadata_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunGraderResponseMetadata {
     #[serde(rename = "name")]
     pub name: String,
@@ -48,6 +49,21 @@ impl RunGraderResponseMetadata {
             token_usage,
             sampled_model_name,
         }
+    }
+}
+
+impl<S: run_grader_response_metadata_builder::State> RunGraderResponseMetadataBuilder<S>
+where
+    S::Name: run_grader_response_metadata_builder::IsSet,
+    S::Type: run_grader_response_metadata_builder::IsSet,
+    S::Errors: run_grader_response_metadata_builder::IsSet,
+    S::ExecutionTime: run_grader_response_metadata_builder::IsSet,
+    S::Scores: run_grader_response_metadata_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunGraderResponseMetadata {
+        self.build_internal()
     }
 }
 

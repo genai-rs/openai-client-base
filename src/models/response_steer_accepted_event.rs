@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseSteerAcceptedEvent : Emitted when steering input has been validated and queued. Acceptance means the server owns the input, not that it has been applied. The successor's `response.created` event is the commit point. If accepted input cannot be committed, `response.steer.failed` returns it with the same steering ID.  When the response stops for client-owned tool output or approval, the input remains queued and `response.steer.pending` is emitted after `response.completed`. Fill the pending event's `required_input` stubs with saved results and send one matching explicit `response.create` per parent. Do not resend accepted input while it is still queued.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_steer_accepted_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseSteerAcceptedEvent {
     /// The event discriminator. Always `response.steer.accepted`.
     #[serde(rename = "type")]
@@ -40,6 +41,19 @@ impl ResponseSteerAcceptedEvent {
             steer,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_steer_accepted_event_builder::State> ResponseSteerAcceptedEventBuilder<S>
+where
+    S::Type: response_steer_accepted_event_builder::IsSet,
+    S::SequenceNumber: response_steer_accepted_event_builder::IsSet,
+    S::Steer: response_steer_accepted_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseSteerAcceptedEvent {
+        self.build_internal()
     }
 }
 

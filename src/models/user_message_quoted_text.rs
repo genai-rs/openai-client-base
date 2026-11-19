@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UserMessageQuotedText : Quoted snippet that the user referenced in their message.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = user_message_quoted_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UserMessageQuotedText {
     /// Type discriminator that is always `quoted_text`.  Defaults to `\"quoted_text\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl UserMessageQuotedText {
     /// Quoted snippet that the user referenced in their message.
     pub fn new(r#type: Type, text: String) -> UserMessageQuotedText {
         UserMessageQuotedText { r#type, text }
+    }
+}
+
+impl<S: user_message_quoted_text_builder::State> UserMessageQuotedTextBuilder<S>
+where
+    S::Type: user_message_quoted_text_builder::IsSet,
+    S::Text: user_message_quoted_text_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UserMessageQuotedText {
+        self.build_internal()
     }
 }
 

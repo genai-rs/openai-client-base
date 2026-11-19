@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaMoveParam : A mouse move action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_move_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaMoveParam {
     /// Specifies the event type. For a move action, this property is always set to `move`.  Defaults to `\"move\"`.
     #[serde(rename = "type")]
@@ -41,6 +42,19 @@ impl BetaMoveParam {
             y,
             keys: None,
         }
+    }
+}
+
+impl<S: beta_move_param_builder::State> BetaMoveParamBuilder<S>
+where
+    S::Type: beta_move_param_builder::IsSet,
+    S::X: beta_move_param_builder::IsSet,
+    S::Y: beta_move_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaMoveParam {
+        self.build_internal()
     }
 }
 

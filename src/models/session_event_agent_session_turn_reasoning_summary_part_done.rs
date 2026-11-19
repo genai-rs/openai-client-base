@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionTurnReasoningSummaryPartDone : Emitted when a reasoning summary part is complete.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_turn_reasoning_summary_part_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionTurnReasoningSummaryPartDone {
     /// The type of the object. Always `agent.session.turn.reasoning_summary_part.done`.  Defaults to `\"agent.session.turn.reasoning_summary_part.done\"`.
     #[serde(rename = "type")]
@@ -84,6 +85,24 @@ impl SessionEventAgentSessionTurnReasoningSummaryPartDone {
             status,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_turn_reasoning_summary_part_done_builder::State>
+    SessionEventAgentSessionTurnReasoningSummaryPartDoneBuilder<S>
+where
+    S::Type: session_event_agent_session_turn_reasoning_summary_part_done_builder::IsSet,
+    S::EventId: session_event_agent_session_turn_reasoning_summary_part_done_builder::IsSet,
+    S::SessionId: session_event_agent_session_turn_reasoning_summary_part_done_builder::IsSet,
+    S::ItemId: session_event_agent_session_turn_reasoning_summary_part_done_builder::IsSet,
+    S::OutputIndex: session_event_agent_session_turn_reasoning_summary_part_done_builder::IsSet,
+    S::SummaryIndex: session_event_agent_session_turn_reasoning_summary_part_done_builder::IsSet,
+    S::Part: session_event_agent_session_turn_reasoning_summary_part_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionTurnReasoningSummaryPartDone {
+        self.build_internal()
     }
 }
 

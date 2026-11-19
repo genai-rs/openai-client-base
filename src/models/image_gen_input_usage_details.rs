@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ImageGenInputUsageDetails : The input tokens detailed information for the image generation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = image_gen_input_usage_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ImageGenInputUsageDetails {
     /// The number of text tokens in the input prompt.
     #[serde(rename = "text_tokens")]
@@ -28,6 +29,18 @@ impl ImageGenInputUsageDetails {
             text_tokens,
             image_tokens,
         }
+    }
+}
+
+impl<S: image_gen_input_usage_details_builder::State> ImageGenInputUsageDetailsBuilder<S>
+where
+    S::TextTokens: image_gen_input_usage_details_builder::IsSet,
+    S::ImageTokens: image_gen_input_usage_details_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ImageGenInputUsageDetails {
+        self.build_internal()
     }
 }
 

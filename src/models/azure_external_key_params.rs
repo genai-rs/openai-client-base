@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = azure_external_key_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AzureExternalKeyParams {
     /// A friendly name to identify this config
     #[serde(rename = "name")]
@@ -60,6 +61,21 @@ impl AzureExternalKeyParams {
             purpose: None,
             key_version: None,
         }
+    }
+}
+
+impl<S: azure_external_key_params_builder::State> AzureExternalKeyParamsBuilder<S>
+where
+    S::Name: azure_external_key_params_builder::IsSet,
+    S::Type: azure_external_key_params_builder::IsSet,
+    S::TenantId: azure_external_key_params_builder::IsSet,
+    S::VaultUri: azure_external_key_params_builder::IsSet,
+    S::KeyName: azure_external_key_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AzureExternalKeyParams {
+        self.build_internal()
     }
 }
 

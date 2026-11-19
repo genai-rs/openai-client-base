@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateEvalResponsesRunDataSource : A ResponsesRunDataSource object describing a model sampling configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_eval_responses_run_data_source_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateEvalResponsesRunDataSource {
     /// The type of run data source. Always `responses`.  Defaults to `\"responses\"`.
     #[serde(rename = "type")]
@@ -41,6 +42,19 @@ impl CreateEvalResponsesRunDataSource {
             model: None,
             source,
         }
+    }
+}
+
+impl<S: create_eval_responses_run_data_source_builder::State>
+    CreateEvalResponsesRunDataSourceBuilder<S>
+where
+    S::Type: create_eval_responses_run_data_source_builder::IsSet,
+    S::Source: create_eval_responses_run_data_source_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateEvalResponsesRunDataSource {
+        self.build_internal()
     }
 }
 

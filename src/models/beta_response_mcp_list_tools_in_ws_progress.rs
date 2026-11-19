@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseMcpListToolsInWsProgress : Emitted when the system is in the process of retrieving the list of available MCP tools.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_mcp_list_tools_in_ws_progress_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseMcpListToolsInWsProgress {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -55,6 +56,21 @@ impl BetaResponseMcpListToolsInWsProgress {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_mcp_list_tools_in_ws_progress_builder::State>
+    BetaResponseMcpListToolsInWsProgressBuilder<S>
+where
+    S::Type: beta_response_mcp_list_tools_in_ws_progress_builder::IsSet,
+    S::ItemId: beta_response_mcp_list_tools_in_ws_progress_builder::IsSet,
+    S::OutputIndex: beta_response_mcp_list_tools_in_ws_progress_builder::IsSet,
+    S::SequenceNumber: beta_response_mcp_list_tools_in_ws_progress_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseMcpListToolsInWsProgress {
+        self.build_internal()
     }
 }
 

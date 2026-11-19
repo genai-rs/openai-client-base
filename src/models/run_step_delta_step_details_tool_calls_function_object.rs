@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_delta_step_details_tool_calls_function_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDeltaStepDetailsToolCallsFunctionObject {
     /// The index of the tool call in the tool calls array.
     #[serde(rename = "index")]
@@ -34,6 +35,19 @@ impl RunStepDeltaStepDetailsToolCallsFunctionObject {
             r#type,
             function: None,
         }
+    }
+}
+
+impl<S: run_step_delta_step_details_tool_calls_function_object_builder::State>
+    RunStepDeltaStepDetailsToolCallsFunctionObjectBuilder<S>
+where
+    S::Index: run_step_delta_step_details_tool_calls_function_object_builder::IsSet,
+    S::Type: run_step_delta_step_details_tool_calls_function_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDeltaStepDetailsToolCallsFunctionObject {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaToolChoiceCustom : Use this option to force the model to call a specific custom tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_tool_choice_custom_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaToolChoiceCustom {
     /// For custom tool calling, the type is always `custom`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl BetaToolChoiceCustom {
     /// Use this option to force the model to call a specific custom tool.
     pub fn new(r#type: Type, name: String) -> BetaToolChoiceCustom {
         BetaToolChoiceCustom { r#type, name }
+    }
+}
+
+impl<S: beta_tool_choice_custom_builder::State> BetaToolChoiceCustomBuilder<S>
+where
+    S::Type: beta_tool_choice_custom_builder::IsSet,
+    S::Name: beta_tool_choice_custom_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaToolChoiceCustom {
+        self.build_internal()
     }
 }
 

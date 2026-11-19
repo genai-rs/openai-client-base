@@ -274,7 +274,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for UpdateChatCompletionErrorH
 }
 
 /// **Starting a new project?** We recommend trying [Responses](https://developers.openai.com/api/reference/resources/responses) to take advantage of the latest OpenAI platform features. Compare [Chat Completions with Responses](https://developers.openai.com/api/docs/guides/migrate-to-responses?api-mode=responses).  ---  Creates a model response for the given chat conversation. Learn more in the [text generation](https://developers.openai.com/api/docs/guides/text), [vision](https://developers.openai.com/api/docs/guides/images-vision), and [audio](https://developers.openai.com/api/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of unsupported parameters in reasoning models, [refer to the reasoning guide](https://developers.openai.com/api/docs/guides/reasoning).  Returns a chat completion object, or a streamed sequence of chat completion chunk objects if the request is streamed.
-#[bon::builder]
+#[bon::builder(state_mod = create_chat_completion_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_chat_completion(
     configuration: &configuration::Configuration,
     create_chat_completion_request: &models::CreateChatCompletionRequest,
@@ -359,13 +359,28 @@ pub async fn create_chat_completion(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_chat_completion_builder::State> CreateChatCompletionBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_chat_completion_builder::IsSet,
+    S::CreateChatCompletionRequest: create_chat_completion_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::CreateChatCompletionResponse, Error<CreateChatCompletionError>> {
+        self.call_internal().await
+    }
+}
+
 /// **Starting a new project?** We recommend trying [Responses](https://developers.openai.com/api/reference/resources/responses) to take advantage of the latest OpenAI platform features. Compare [Chat Completions with Responses](https://developers.openai.com/api/docs/guides/migrate-to-responses?api-mode=responses).  ---  Creates a model response for the given chat conversation. Learn more in the [text generation](https://developers.openai.com/api/docs/guides/text), [vision](https://developers.openai.com/api/docs/guides/images-vision), and [audio](https://developers.openai.com/api/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of unsupported parameters in reasoning models, [refer to the reasoning guide](https://developers.openai.com/api/docs/guides/reasoning).  Returns a chat completion object, or a streamed sequence of chat completion chunk objects if the request is streamed.
 ///
 /// Sends the same request as [`create_chat_completion`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::CreateChatCompletionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_chat_completion_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_chat_completion_response(
     configuration: &configuration::Configuration,
     create_chat_completion_request: &models::CreateChatCompletionRequest,
@@ -444,10 +459,29 @@ pub async fn create_chat_completion_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_chat_completion_response_builder::State>
+    CreateChatCompletionResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_chat_completion_response_builder::IsSet,
+    S::CreateChatCompletionRequest: create_chat_completion_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::CreateChatCompletionResponse>,
+        Error<CreateChatCompletionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// **Starting a new project?** We recommend trying [Responses](https://developers.openai.com/api/reference/resources/responses) to take advantage of the latest OpenAI platform features. Compare [Chat Completions with Responses](https://developers.openai.com/api/docs/guides/migrate-to-responses?api-mode=responses).  ---  Creates a model response for the given chat conversation. Learn more in the [text generation](https://developers.openai.com/api/docs/guides/text), [vision](https://developers.openai.com/api/docs/guides/images-vision), and [audio](https://developers.openai.com/api/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of unsupported parameters in reasoning models, [refer to the reasoning guide](https://developers.openai.com/api/docs/guides/reasoning).  Returns a chat completion object, or a streamed sequence of chat completion chunk objects if the request is streamed.
 ///
 /// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::CreateChatCompletionStreamResponse`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
-#[bon::builder]
+#[bon::builder(state_mod = create_chat_completion_stream_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_chat_completion_stream(
     configuration: &configuration::Configuration,
     create_chat_completion_request: &models::CreateChatCompletionRequest,
@@ -531,8 +565,30 @@ pub async fn create_chat_completion_stream(
     Ok(super::sse::EventStream::from_response(resp))
 }
 
+#[allow(deprecated)]
+impl<S: create_chat_completion_stream_builder::State>
+    CreateChatCompletionStreamBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_chat_completion_stream_builder::IsSet,
+    S::CreateChatCompletionRequest: create_chat_completion_stream_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::sse::EventStream<
+            models::CreateChatCompletionStreamResponse,
+            CreateChatCompletionError,
+        >,
+        Error<CreateChatCompletionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Delete a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` can be deleted.
-#[bon::builder]
+#[bon::builder(state_mod = delete_chat_completion_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_chat_completion(
     configuration: &configuration::Configuration,
     completion_id: &str,
@@ -610,13 +666,28 @@ pub async fn delete_chat_completion(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_chat_completion_builder::State> DeleteChatCompletionBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_chat_completion_builder::IsSet,
+    S::CompletionId: delete_chat_completion_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ChatCompletionDeleted, Error<DeleteChatCompletionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` can be deleted.
 ///
 /// Sends the same request as [`delete_chat_completion`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ChatCompletionDeleted` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_chat_completion_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_chat_completion_response(
     configuration: &configuration::Configuration,
     completion_id: &str,
@@ -685,8 +756,25 @@ pub async fn delete_chat_completion_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_chat_completion_response_builder::State>
+    DeleteChatCompletionResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_chat_completion_response_builder::IsSet,
+    S::CompletionId: delete_chat_completion_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ChatCompletionDeleted>, Error<DeleteChatCompletionError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Get a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` will be returned.
-#[bon::builder]
+#[bon::builder(state_mod = get_chat_completion_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_chat_completion(
     configuration: &configuration::Configuration,
     completion_id: &str,
@@ -764,13 +852,28 @@ pub async fn get_chat_completion(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_chat_completion_builder::State> GetChatCompletionBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_chat_completion_builder::IsSet,
+    S::CompletionId: get_chat_completion_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::CreateChatCompletionResponse, Error<GetChatCompletionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` will be returned.
 ///
 /// Sends the same request as [`get_chat_completion`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::CreateChatCompletionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_chat_completion_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_chat_completion_response(
     configuration: &configuration::Configuration,
     completion_id: &str,
@@ -840,8 +943,26 @@ pub async fn get_chat_completion_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_chat_completion_response_builder::State> GetChatCompletionResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_chat_completion_response_builder::IsSet,
+    S::CompletionId: get_chat_completion_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::CreateChatCompletionResponse>,
+        Error<GetChatCompletionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Get the messages in a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` will be returned.
-#[bon::builder]
+#[bon::builder(state_mod = get_chat_completion_messages_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_chat_completion_messages(
     configuration: &configuration::Configuration,
     completion_id: &str,
@@ -937,13 +1058,29 @@ pub async fn get_chat_completion_messages(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_chat_completion_messages_builder::State>
+    GetChatCompletionMessagesBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: get_chat_completion_messages_builder::IsSet,
+    S::CompletionId: get_chat_completion_messages_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ChatCompletionMessageList, Error<GetChatCompletionMessagesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get the messages in a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` will be returned.
 ///
 /// Sends the same request as [`get_chat_completion_messages`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ChatCompletionMessageList` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_chat_completion_messages_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_chat_completion_messages_response(
     configuration: &configuration::Configuration,
     completion_id: &str,
@@ -1033,8 +1170,27 @@ pub async fn get_chat_completion_messages_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_chat_completion_messages_response_builder::State>
+    GetChatCompletionMessagesResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: get_chat_completion_messages_response_builder::IsSet,
+    S::CompletionId: get_chat_completion_messages_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ChatCompletionMessageList>,
+        Error<GetChatCompletionMessagesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// List stored Chat Completions. Only Chat Completions that have been stored with the `store` parameter set to `true` will be returned.
-#[bon::builder]
+#[bon::builder(state_mod = list_chat_completions_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_chat_completions(
     configuration: &configuration::Configuration,
     model: Option<&str>,
@@ -1131,13 +1287,25 @@ pub async fn list_chat_completions(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_chat_completions_builder::State> ListChatCompletionsBuilder<'_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_chat_completions_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ChatCompletionList, Error<ListChatCompletionsError>> {
+        self.call_internal().await
+    }
+}
+
 /// List stored Chat Completions. Only Chat Completions that have been stored with the `store` parameter set to `true` will be returned.
 ///
 /// Sends the same request as [`list_chat_completions`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ChatCompletionList` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_chat_completions_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_chat_completions_response(
     configuration: &configuration::Configuration,
     model: Option<&str>,
@@ -1225,8 +1393,24 @@ pub async fn list_chat_completions_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_chat_completions_response_builder::State>
+    ListChatCompletionsResponseBuilder<'_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_chat_completions_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ChatCompletionList>, Error<ListChatCompletionsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Modify a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` can be modified. Currently, the only supported modification is to update the `metadata` field.
-#[bon::builder]
+#[bon::builder(state_mod = update_chat_completion_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_chat_completion(
     configuration: &configuration::Configuration,
     completion_id: &str,
@@ -1310,13 +1494,29 @@ pub async fn update_chat_completion(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_chat_completion_builder::State> UpdateChatCompletionBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_chat_completion_builder::IsSet,
+    S::CompletionId: update_chat_completion_builder::IsSet,
+    S::UpdateChatCompletionRequest: update_chat_completion_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::CreateChatCompletionResponse, Error<UpdateChatCompletionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modify a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` can be modified. Currently, the only supported modification is to update the `metadata` field.
 ///
 /// Sends the same request as [`update_chat_completion`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::CreateChatCompletionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_chat_completion_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_chat_completion_response(
     configuration: &configuration::Configuration,
     completion_id: &str,
@@ -1391,5 +1591,25 @@ pub async fn update_chat_completion_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: update_chat_completion_response_builder::State>
+    UpdateChatCompletionResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_chat_completion_response_builder::IsSet,
+    S::CompletionId: update_chat_completion_response_builder::IsSet,
+    S::UpdateChatCompletionRequest: update_chat_completion_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::CreateChatCompletionResponse>,
+        Error<UpdateChatCompletionError>,
+    > {
+        self.call_internal().await
     }
 }

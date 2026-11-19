@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventMcpListToolsInProgress : Returned when listing MCP tools is in progress for an item.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_mcp_list_tools_in_progress_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventMcpListToolsInProgress {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeServerEventMcpListToolsInProgress {
             r#type,
             item_id,
         }
+    }
+}
+
+impl<S: realtime_server_event_mcp_list_tools_in_progress_builder::State>
+    RealtimeServerEventMcpListToolsInProgressBuilder<S>
+where
+    S::EventId: realtime_server_event_mcp_list_tools_in_progress_builder::IsSet,
+    S::Type: realtime_server_event_mcp_list_tools_in_progress_builder::IsSet,
+    S::ItemId: realtime_server_event_mcp_list_tools_in_progress_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventMcpListToolsInProgress {
+        self.build_internal()
     }
 }
 

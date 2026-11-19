@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseWebSearchCallWsSearching : Emitted when a web search call is executing.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_web_search_call_ws_searching_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseWebSearchCallWsSearching {
     /// The type of the event. Always `response.web_search_call.searching`.
     #[serde(rename = "type")]
@@ -45,6 +46,21 @@ impl ResponseWebSearchCallWsSearching {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_web_search_call_ws_searching_builder::State>
+    ResponseWebSearchCallWsSearchingBuilder<S>
+where
+    S::Type: response_web_search_call_ws_searching_builder::IsSet,
+    S::OutputIndex: response_web_search_call_ws_searching_builder::IsSet,
+    S::ItemId: response_web_search_call_ws_searching_builder::IsSet,
+    S::SequenceNumber: response_web_search_call_ws_searching_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseWebSearchCallWsSearching {
+        self.build_internal()
     }
 }
 

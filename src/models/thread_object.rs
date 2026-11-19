@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ThreadObject : Represents a thread that contains [messages](https://developers.openai.com/api/docs/assistants/migration).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = thread_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ThreadObject {
     /// The identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -46,6 +47,19 @@ impl ThreadObject {
             tool_resources,
             metadata,
         }
+    }
+}
+
+impl<S: thread_object_builder::State> ThreadObjectBuilder<S>
+where
+    S::Id: thread_object_builder::IsSet,
+    S::Object: thread_object_builder::IsSet,
+    S::CreatedAt: thread_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ThreadObject {
+        self.build_internal()
     }
 }
 

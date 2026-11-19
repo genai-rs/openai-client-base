@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateVaultCredentialParams : Parameters for storing a credential for an MCP server or an OpenAI-hosted environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_vault_credential_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateVaultCredentialParams {
     /// The name is trimmed before storage. It must contain 1 to 256 UTF-8 bytes after trimming.
     ///
@@ -39,6 +40,18 @@ impl CreateVaultCredentialParams {
             auth,
             metadata: None,
         }
+    }
+}
+
+impl<S: create_vault_credential_params_builder::State> CreateVaultCredentialParamsBuilder<S>
+where
+    S::Name: create_vault_credential_params_builder::IsSet,
+    S::Auth: create_vault_credential_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateVaultCredentialParams {
+        self.build_internal()
     }
 }
 

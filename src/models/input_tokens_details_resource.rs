@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = input_tokens_details_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InputTokensDetailsResource {
     /// Validation: `minimum: -2147483648`, `maximum: 2147483647`.
     #[serde(rename = "cached_tokens")]
@@ -26,6 +27,17 @@ impl InputTokensDetailsResource {
             cached_tokens,
             cache_write_tokens: None,
         }
+    }
+}
+
+impl<S: input_tokens_details_resource_builder::State> InputTokensDetailsResourceBuilder<S>
+where
+    S::CachedTokens: input_tokens_details_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InputTokensDetailsResource {
+        self.build_internal()
     }
 }
 

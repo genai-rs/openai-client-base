@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_program_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaProgram {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
@@ -48,6 +49,21 @@ impl BetaProgram {
             code,
             fingerprint,
         }
+    }
+}
+
+impl<S: beta_program_builder::State> BetaProgramBuilder<S>
+where
+    S::Type: beta_program_builder::IsSet,
+    S::Id: beta_program_builder::IsSet,
+    S::CallId: beta_program_builder::IsSet,
+    S::Code: beta_program_builder::IsSet,
+    S::Fingerprint: beta_program_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaProgram {
+        self.build_internal()
     }
 }
 

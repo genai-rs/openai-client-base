@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebSearchSource : A source used in the search.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = web_search_source_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebSearchSource {
     /// The type of source. Always `url`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl WebSearchSource {
     /// A source used in the search.
     pub fn new(r#type: Type, url: String) -> WebSearchSource {
         WebSearchSource { r#type, url }
+    }
+}
+
+impl<S: web_search_source_builder::State> WebSearchSourceBuilder<S>
+where
+    S::Type: web_search_source_builder::IsSet,
+    S::Url: web_search_source_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebSearchSource {
+        self.build_internal()
     }
 }
 

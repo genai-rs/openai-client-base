@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ModerationPolicyParam : The policy to apply to moderated response input and output.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = moderation_policy_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ModerationPolicyParam {
     #[serde(
         rename = "input",
@@ -37,6 +38,14 @@ impl ModerationPolicyParam {
             input: None,
             output: None,
         }
+    }
+}
+
+impl<S: moderation_policy_param_builder::State> ModerationPolicyParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ModerationPolicyParam {
+        self.build_internal()
     }
 }
 

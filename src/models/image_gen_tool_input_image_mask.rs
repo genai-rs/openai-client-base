@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ImageGenToolInputImageMask : Optional mask for inpainting. Contains `image_url` (string, optional) and `file_id` (string, optional).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = image_gen_tool_input_image_mask_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ImageGenToolInputImageMask {
     /// Base64-encoded mask image.
     #[serde(rename = "image_url", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,14 @@ impl ImageGenToolInputImageMask {
             image_url: None,
             file_id: None,
         }
+    }
+}
+
+impl<S: image_gen_tool_input_image_mask_builder::State> ImageGenToolInputImageMaskBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ImageGenToolInputImageMask {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = gcp_external_storage_provider_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GcpExternalStorageProviderResponse {
     /// Defaults to `\"gcp\"`.
     #[serde(rename = "type")]
@@ -48,6 +49,24 @@ impl GcpExternalStorageProviderResponse {
             region,
             audience,
         }
+    }
+}
+
+impl<S: gcp_external_storage_provider_response_builder::State>
+    GcpExternalStorageProviderResponseBuilder<S>
+where
+    S::Type: gcp_external_storage_provider_response_builder::IsSet,
+    S::Bucket: gcp_external_storage_provider_response_builder::IsSet,
+    S::WorkloadIdentityProjectNumber: gcp_external_storage_provider_response_builder::IsSet,
+    S::WorkloadIdentityPoolId: gcp_external_storage_provider_response_builder::IsSet,
+    S::WorkloadIdentityProviderId: gcp_external_storage_provider_response_builder::IsSet,
+    S::Region: gcp_external_storage_provider_response_builder::IsSet,
+    S::Audience: gcp_external_storage_provider_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GcpExternalStorageProviderResponse {
+        self.build_internal()
     }
 }
 

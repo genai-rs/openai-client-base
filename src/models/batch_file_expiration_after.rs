@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BatchFileExpirationAfter : The expiration policy for the output and/or error file that are generated for a batch.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = batch_file_expiration_after_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BatchFileExpirationAfter {
     /// Anchor timestamp after which the expiration policy applies. Supported anchors: `created_at`. Note that the anchor is the file creation time, not the time the batch is created.
     #[serde(rename = "anchor")]
@@ -27,6 +28,18 @@ impl BatchFileExpirationAfter {
     /// The expiration policy for the output and/or error file that are generated for a batch.
     pub fn new(anchor: Anchor, seconds: i64) -> BatchFileExpirationAfter {
         BatchFileExpirationAfter { anchor, seconds }
+    }
+}
+
+impl<S: batch_file_expiration_after_builder::State> BatchFileExpirationAfterBuilder<S>
+where
+    S::Anchor: batch_file_expiration_after_builder::IsSet,
+    S::Seconds: batch_file_expiration_after_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BatchFileExpirationAfter {
+        self.build_internal()
     }
 }
 

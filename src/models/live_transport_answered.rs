@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveTransportAnswered : The outbound SIP provider leg answered and media is established. Delivered only to sideband observers.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_transport_answered_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveTransportAnswered {
     #[serde(rename = "event_id")]
     pub event_id: String,
@@ -31,6 +32,19 @@ impl LiveTransportAnswered {
             session_id,
             r#type,
         }
+    }
+}
+
+impl<S: live_transport_answered_builder::State> LiveTransportAnsweredBuilder<S>
+where
+    S::EventId: live_transport_answered_builder::IsSet,
+    S::SessionId: live_transport_answered_builder::IsSet,
+    S::Type: live_transport_answered_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveTransportAnswered {
+        self.build_internal()
     }
 }
 

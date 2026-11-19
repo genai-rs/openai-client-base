@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// HostedTemplateSkillResourceSkillReference : A skill resolved afresh from the Skills API whenever a session starts.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = hosted_template_skill_resource_skill_reference_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HostedTemplateSkillResourceSkillReference {
     /// The type of the object. Always `skill_reference`.  Defaults to `\"skill_reference\"`.
     #[serde(rename = "type")]
@@ -40,6 +41,19 @@ impl HostedTemplateSkillResourceSkillReference {
             skill_id,
             version,
         }
+    }
+}
+
+impl<S: hosted_template_skill_resource_skill_reference_builder::State>
+    HostedTemplateSkillResourceSkillReferenceBuilder<S>
+where
+    S::Type: hosted_template_skill_resource_skill_reference_builder::IsSet,
+    S::SkillId: hosted_template_skill_resource_skill_reference_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HostedTemplateSkillResourceSkillReference {
+        self.build_internal()
     }
 }
 

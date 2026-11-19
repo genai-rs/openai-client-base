@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogGroupCreatedData : Information about the created group.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_group_created_data_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogGroupCreatedData {
     /// The group name.
     #[serde(rename = "group_name", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl AuditLogGroupCreatedData {
     /// Information about the created group.
     pub fn new() -> AuditLogGroupCreatedData {
         AuditLogGroupCreatedData { group_name: None }
+    }
+}
+
+impl<S: audit_log_group_created_data_builder::State> AuditLogGroupCreatedDataBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogGroupCreatedData {
+        self.build_internal()
     }
 }
 

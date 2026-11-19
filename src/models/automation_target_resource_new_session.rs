@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_target_resource_new_session_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationTargetResourceNewSession {
     /// The type of the object. Always `new_session`.  Defaults to `\"new_session\"`.
     #[serde(rename = "type")]
@@ -62,6 +63,22 @@ impl AutomationTargetResourceNewSession {
             vault_ids,
             metadata,
         }
+    }
+}
+
+impl<S: automation_target_resource_new_session_builder::State>
+    AutomationTargetResourceNewSessionBuilder<S>
+where
+    S::Type: automation_target_resource_new_session_builder::IsSet,
+    S::Environment: automation_target_resource_new_session_builder::IsSet,
+    S::Input: automation_target_resource_new_session_builder::IsSet,
+    S::VaultIds: automation_target_resource_new_session_builder::IsSet,
+    S::Metadata: automation_target_resource_new_session_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationTargetResourceNewSession {
+        self.build_internal()
     }
 }
 

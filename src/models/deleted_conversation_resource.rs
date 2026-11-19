@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = deleted_conversation_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeletedConversationResource {
     /// Defaults to `\"conversation.deleted\"`.
     #[serde(rename = "object")]
@@ -28,6 +29,19 @@ impl DeletedConversationResource {
             deleted,
             id,
         }
+    }
+}
+
+impl<S: deleted_conversation_resource_builder::State> DeletedConversationResourceBuilder<S>
+where
+    S::Object: deleted_conversation_resource_builder::IsSet,
+    S::Deleted: deleted_conversation_resource_builder::IsSet,
+    S::Id: deleted_conversation_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeletedConversationResource {
+        self.build_internal()
     }
 }
 

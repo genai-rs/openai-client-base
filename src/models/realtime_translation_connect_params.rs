@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_connect_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationConnectParams {
     #[serde(rename = "model")]
     pub model: String,
@@ -19,6 +20,18 @@ pub struct RealtimeTranslationConnectParams {
 impl RealtimeTranslationConnectParams {
     pub fn new(model: String) -> RealtimeTranslationConnectParams {
         RealtimeTranslationConnectParams { model }
+    }
+}
+
+impl<S: realtime_translation_connect_params_builder::State>
+    RealtimeTranslationConnectParamsBuilder<S>
+where
+    S::Model: realtime_translation_connect_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationConnectParams {
+        self.build_internal()
     }
 }
 

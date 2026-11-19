@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_resolved_image_options_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResolvedImageOptions {
     #[serde(rename = "context_compression")]
     pub context_compression: models::BetaResolvedImageContextCompressionEnum,
@@ -24,6 +25,17 @@ impl BetaResolvedImageOptions {
         BetaResolvedImageOptions {
             context_compression,
         }
+    }
+}
+
+impl<S: beta_resolved_image_options_builder::State> BetaResolvedImageOptionsBuilder<S>
+where
+    S::ContextCompression: beta_resolved_image_options_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResolvedImageOptions {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CompletionUsageCompletionTokensDetails : Breakdown of tokens used in a completion.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = completion_usage_completion_tokens_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CompletionUsageCompletionTokensDetails {
     /// When using Predicted Outputs, the number of tokens in the prediction that appeared in the completion.  Defaults to `0`.
     #[serde(
@@ -46,6 +47,16 @@ impl CompletionUsageCompletionTokensDetails {
             text_tokens: None,
             rejected_prediction_tokens: None,
         }
+    }
+}
+
+impl<S: completion_usage_completion_tokens_details_builder::State>
+    CompletionUsageCompletionTokensDetailsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CompletionUsageCompletionTokensDetails {
+        self.build_internal()
     }
 }
 

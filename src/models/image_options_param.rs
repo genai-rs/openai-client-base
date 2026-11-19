@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ImageOptionsParam : Request level image options.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = image_options_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ImageOptionsParam {
     #[serde(
         rename = "context_compression",
@@ -27,6 +28,14 @@ impl ImageOptionsParam {
         ImageOptionsParam {
             context_compression: None,
         }
+    }
+}
+
+impl<S: image_options_param_builder::State> ImageOptionsParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ImageOptionsParam {
+        self.build_internal()
     }
 }
 

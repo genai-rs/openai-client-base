@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// DesktopResource : The effective desktop configuration for an OpenAI-hosted environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = desktop_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DesktopResource {
     /// Whether the environment provisions a desktop and browser proxy.
     #[serde(rename = "enabled")]
@@ -22,6 +23,17 @@ impl DesktopResource {
     /// The effective desktop configuration for an OpenAI-hosted environment.
     pub fn new(enabled: bool) -> DesktopResource {
         DesktopResource { enabled }
+    }
+}
+
+impl<S: desktop_resource_builder::State> DesktopResourceBuilder<S>
+where
+    S::Enabled: desktop_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DesktopResource {
+        self.build_internal()
     }
 }
 

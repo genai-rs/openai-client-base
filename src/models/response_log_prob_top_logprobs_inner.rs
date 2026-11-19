@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_log_prob_top_logprobs_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseLogProbTopLogprobsInner {
     /// A possible text token.
     #[serde(rename = "token", skip_serializing_if = "Option::is_none")]
@@ -26,6 +27,16 @@ impl ResponseLogProbTopLogprobsInner {
             token: None,
             logprob: None,
         }
+    }
+}
+
+impl<S: response_log_prob_top_logprobs_inner_builder::State>
+    ResponseLogProbTopLogprobsInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseLogProbTopLogprobsInner {
+        self.build_internal()
     }
 }
 

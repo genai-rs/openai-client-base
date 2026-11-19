@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveDecisionItemCreateParam : Append an input item for future decisions without starting an evaluation or changing Live voice context.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_item_create_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionItemCreateParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
     ///
@@ -42,6 +43,18 @@ impl LiveDecisionItemCreateParam {
             r#type,
             item,
         }
+    }
+}
+
+impl<S: live_decision_item_create_param_builder::State> LiveDecisionItemCreateParamBuilder<S>
+where
+    S::Type: live_decision_item_create_param_builder::IsSet,
+    S::Item: live_decision_item_create_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionItemCreateParam {
+        self.build_internal()
     }
 }
 

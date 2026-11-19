@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeSessionCreateResponse : A Realtime session configuration object.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_session_create_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeSessionCreateResponse {
     /// Unique identifier for the session that looks like `sess_1234567890abcdef`.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -84,6 +85,14 @@ impl RealtimeSessionCreateResponse {
             tool_choice: None,
             max_output_tokens: None,
         }
+    }
+}
+
+impl<S: realtime_session_create_response_builder::State> RealtimeSessionCreateResponseBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeSessionCreateResponse {
+        self.build_internal()
     }
 }
 

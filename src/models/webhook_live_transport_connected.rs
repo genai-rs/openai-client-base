@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookLiveTransportConnected : Sent when a direct Live WebRTC session is created or an Instant Connect session activates. Use its session ID to attach a sideband observer.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_live_transport_connected_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookLiveTransportConnected {
     /// The webhook event ID.
     #[serde(rename = "id")]
@@ -44,6 +45,21 @@ impl WebhookLiveTransportConnected {
             r#type,
             data,
         }
+    }
+}
+
+impl<S: webhook_live_transport_connected_builder::State> WebhookLiveTransportConnectedBuilder<S>
+where
+    S::Id: webhook_live_transport_connected_builder::IsSet,
+    S::Object: webhook_live_transport_connected_builder::IsSet,
+    S::CreatedAt: webhook_live_transport_connected_builder::IsSet,
+    S::Type: webhook_live_transport_connected_builder::IsSet,
+    S::Data: webhook_live_transport_connected_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookLiveTransportConnected {
+        self.build_internal()
     }
 }
 

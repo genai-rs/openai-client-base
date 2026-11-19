@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaMessage : A message to or from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaMessage {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
@@ -56,6 +57,21 @@ impl BetaMessage {
             content,
             phase: None,
         }
+    }
+}
+
+impl<S: beta_message_builder::State> BetaMessageBuilder<S>
+where
+    S::Type: beta_message_builder::IsSet,
+    S::Id: beta_message_builder::IsSet,
+    S::Status: beta_message_builder::IsSet,
+    S::Role: beta_message_builder::IsSet,
+    S::Content: beta_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaMessage {
+        self.build_internal()
     }
 }
 

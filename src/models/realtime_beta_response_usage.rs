@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaResponseUsage : Usage statistics for the Response, this will correspond to billing. A  Realtime API session will maintain a conversation context and append new  Items to the Conversation, thus output from previous turns (text and  audio tokens) will become the input for later turns.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_response_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaResponseUsage {
     /// The total number of tokens in the Response including input and output  text and audio tokens.
     #[serde(rename = "total_tokens", skip_serializing_if = "Option::is_none")]
@@ -45,6 +46,14 @@ impl RealtimeBetaResponseUsage {
             input_token_details: None,
             output_token_details: None,
         }
+    }
+}
+
+impl<S: realtime_beta_response_usage_builder::State> RealtimeBetaResponseUsageBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaResponseUsage {
+        self.build_internal()
     }
 }
 

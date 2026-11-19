@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = decision_question_input_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DecisionQuestionInputText {
     /// Defaults to `\"input_text\"`.
     #[serde(rename = "type")]
@@ -23,6 +24,18 @@ pub struct DecisionQuestionInputText {
 impl DecisionQuestionInputText {
     pub fn new(r#type: Type, text: String) -> DecisionQuestionInputText {
         DecisionQuestionInputText { r#type, text }
+    }
+}
+
+impl<S: decision_question_input_text_builder::State> DecisionQuestionInputTextBuilder<S>
+where
+    S::Type: decision_question_input_text_builder::IsSet,
+    S::Text: decision_question_input_text_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DecisionQuestionInputText {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionTurnFailed : Emitted when a turn fails.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_turn_failed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionTurnFailed {
     /// The type of the object. Always `agent.session.turn.failed`.  Defaults to `\"agent.session.turn.failed\"`.
     #[serde(rename = "type")]
@@ -63,6 +64,22 @@ impl SessionEventAgentSessionTurnFailed {
             usage,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_turn_failed_builder::State>
+    SessionEventAgentSessionTurnFailedBuilder<S>
+where
+    S::Type: session_event_agent_session_turn_failed_builder::IsSet,
+    S::EventId: session_event_agent_session_turn_failed_builder::IsSet,
+    S::SessionId: session_event_agent_session_turn_failed_builder::IsSet,
+    S::TurnId: session_event_agent_session_turn_failed_builder::IsSet,
+    S::Turn: session_event_agent_session_turn_failed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionTurnFailed {
+        self.build_internal()
     }
 }
 

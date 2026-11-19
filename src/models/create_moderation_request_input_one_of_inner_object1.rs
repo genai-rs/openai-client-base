@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateModerationRequestInputOneOfInnerObject1 : An object describing text to classify.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_moderation_request_input_one_of_inner_object1_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateModerationRequestInputOneOfInnerObject1 {
     /// Always `text`.
     #[serde(rename = "type")]
@@ -25,6 +26,19 @@ impl CreateModerationRequestInputOneOfInnerObject1 {
     /// An object describing text to classify.
     pub fn new(r#type: Type, text: String) -> CreateModerationRequestInputOneOfInnerObject1 {
         CreateModerationRequestInputOneOfInnerObject1 { r#type, text }
+    }
+}
+
+impl<S: create_moderation_request_input_one_of_inner_object1_builder::State>
+    CreateModerationRequestInputOneOfInnerObject1Builder<S>
+where
+    S::Type: create_moderation_request_input_one_of_inner_object1_builder::IsSet,
+    S::Text: create_moderation_request_input_one_of_inner_object1_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateModerationRequestInputOneOfInnerObject1 {
+        self.build_internal()
     }
 }
 

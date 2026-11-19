@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionRequestMessageContentPartImage : Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_request_message_content_part_image_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionRequestMessageContentPartImage {
     /// The type of the content part.
     #[serde(rename = "type")]
@@ -37,6 +38,19 @@ impl ChatCompletionRequestMessageContentPartImage {
             image_url,
             prompt_cache_breakpoint: None,
         }
+    }
+}
+
+impl<S: chat_completion_request_message_content_part_image_builder::State>
+    ChatCompletionRequestMessageContentPartImageBuilder<S>
+where
+    S::Type: chat_completion_request_message_content_part_image_builder::IsSet,
+    S::ImageUrl: chat_completion_request_message_content_part_image_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionRequestMessageContentPartImage {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseInWsProgress : Emitted when the response is in progress.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_in_ws_progress_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseInWsProgress {
     /// The type of the event. Always `response.in_progress`.
     #[serde(rename = "type")]
@@ -40,6 +41,19 @@ impl ResponseInWsProgress {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_in_ws_progress_builder::State> ResponseInWsProgressBuilder<S>
+where
+    S::Type: response_in_ws_progress_builder::IsSet,
+    S::Response: response_in_ws_progress_builder::IsSet,
+    S::SequenceNumber: response_in_ws_progress_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseInWsProgress {
+        self.build_internal()
     }
 }
 

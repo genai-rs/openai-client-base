@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_session_create_request_tools_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeSessionCreateRequestToolsInner {
     /// The type of the tool, i.e. `function`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -34,6 +35,16 @@ impl RealtimeSessionCreateRequestToolsInner {
             description: None,
             parameters: None,
         }
+    }
+}
+
+impl<S: realtime_session_create_request_tools_inner_builder::State>
+    RealtimeSessionCreateRequestToolsInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeSessionCreateRequestToolsInner {
+        self.build_internal()
     }
 }
 

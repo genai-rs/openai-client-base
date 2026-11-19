@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RetentionRatioTruncation : Retain a fraction of the conversation tokens when the conversation exceeds the input token limit. This allows you to amortize truncations across multiple turns, which can help improve cached token usage.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = retention_ratio_truncation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RetentionRatioTruncation {
     /// Use retention ratio truncation.
     #[serde(rename = "type")]
@@ -34,6 +35,18 @@ impl RetentionRatioTruncation {
             retention_ratio,
             token_limits: None,
         }
+    }
+}
+
+impl<S: retention_ratio_truncation_builder::State> RetentionRatioTruncationBuilder<S>
+where
+    S::Type: retention_ratio_truncation_builder::IsSet,
+    S::RetentionRatio: retention_ratio_truncation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RetentionRatioTruncation {
+        self.build_internal()
     }
 }
 

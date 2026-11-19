@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_session_create_request_ga_audio_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeSessionCreateRequestGaAudioOutput {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
     pub format: Option<models::RealtimeAudioFormats>,
@@ -31,6 +32,16 @@ impl RealtimeSessionCreateRequestGaAudioOutput {
             voice: None,
             speed: None,
         }
+    }
+}
+
+impl<S: realtime_session_create_request_ga_audio_output_builder::State>
+    RealtimeSessionCreateRequestGaAudioOutputBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeSessionCreateRequestGaAudioOutput {
+        self.build_internal()
     }
 }
 

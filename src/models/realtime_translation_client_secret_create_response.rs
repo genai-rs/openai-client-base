@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationClientSecretCreateResponse : Response from creating a translation session and client secret for the Realtime API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_client_secret_create_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationClientSecretCreateResponse {
     /// The generated client secret value.
     #[serde(rename = "value")]
@@ -36,6 +37,20 @@ impl RealtimeTranslationClientSecretCreateResponse {
             expires_at,
             session,
         }
+    }
+}
+
+impl<S: realtime_translation_client_secret_create_response_builder::State>
+    RealtimeTranslationClientSecretCreateResponseBuilder<S>
+where
+    S::Value: realtime_translation_client_secret_create_response_builder::IsSet,
+    S::ExpiresAt: realtime_translation_client_secret_create_response_builder::IsSet,
+    S::Session: realtime_translation_client_secret_create_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationClientSecretCreateResponse {
+        self.build_internal()
     }
 }
 

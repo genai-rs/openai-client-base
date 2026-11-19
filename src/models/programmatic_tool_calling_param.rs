@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = programmatic_tool_calling_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProgrammaticToolCallingParam {
     /// The type of the tool. Always `programmatic_tool_calling`.  Defaults to `\"programmatic_tool_calling\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,17 @@ pub struct ProgrammaticToolCallingParam {
 impl ProgrammaticToolCallingParam {
     pub fn new(r#type: Type) -> ProgrammaticToolCallingParam {
         ProgrammaticToolCallingParam { r#type }
+    }
+}
+
+impl<S: programmatic_tool_calling_param_builder::State> ProgrammaticToolCallingParamBuilder<S>
+where
+    S::Type: programmatic_tool_calling_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProgrammaticToolCallingParam {
+        self.build_internal()
     }
 }
 

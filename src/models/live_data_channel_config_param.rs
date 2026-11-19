@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveDataChannelConfigParam : Control which Live events an untrusted WebRTC frontend can send and receive over its data channel. These restrictions do not apply to trusted sideband connections.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_data_channel_config_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDataChannelConfigParam {
     #[serde(
         rename = "allowed_client_events",
@@ -33,6 +34,14 @@ impl LiveDataChannelConfigParam {
             allowed_client_events: None,
             allowed_server_events: None,
         }
+    }
+}
+
+impl<S: live_data_channel_config_param_builder::State> LiveDataChannelConfigParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDataChannelConfigParam {
+        self.build_internal()
     }
 }
 

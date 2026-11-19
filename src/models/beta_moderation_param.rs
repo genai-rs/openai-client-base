@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaModerationParam : Configuration for running moderation on the input and output of this response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_moderation_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaModerationParam {
     /// The moderation model to use for moderated completions, e.g. 'omni-moderation-latest'.
     #[serde(rename = "model")]
@@ -33,6 +34,17 @@ impl BetaModerationParam {
             model,
             policy: None,
         }
+    }
+}
+
+impl<S: beta_moderation_param_builder::State> BetaModerationParamBuilder<S>
+where
+    S::Model: beta_moderation_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaModerationParam {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateAgentParams : Parameters for creating a reusable agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_agent_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateAgentParams {
     #[serde(rename = "experimental", skip_serializing_if = "Option::is_none")]
     pub experimental: Option<models::ExperimentalConfigParam>,
@@ -119,6 +120,17 @@ impl CreateAgentParams {
             multi_agent: None,
             compaction: None,
         }
+    }
+}
+
+impl<S: create_agent_params_builder::State> CreateAgentParamsBuilder<S>
+where
+    S::Model: create_agent_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateAgentParams {
+        self.build_internal()
     }
 }
 

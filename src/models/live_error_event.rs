@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveErrorEvent : Reports an error in the Live session, such as an invalid client command. Use error.client_event_id, when present, to identify the command that caused the error.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_error_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveErrorEvent {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,19 @@ impl LiveErrorEvent {
             r#type,
             error,
         }
+    }
+}
+
+impl<S: live_error_event_builder::State> LiveErrorEventBuilder<S>
+where
+    S::EventId: live_error_event_builder::IsSet,
+    S::Type: live_error_event_builder::IsSet,
+    S::Error: live_error_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveErrorEvent {
+        self.build_internal()
     }
 }
 

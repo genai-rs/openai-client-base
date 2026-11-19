@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UsageWebSearchCallsResult : The aggregated web search calls usage details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = usage_web_search_calls_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UsageWebSearchCallsResult {
     /// When grouped by `api_source`, `agents_api` identifies attributed Agents API activity and `unlabeled` includes all records without published source attribution, including historical and unknown origins. Unlabeled does not imply direct API usage. Without source grouping, this field is null.
     #[serde(
@@ -84,6 +85,19 @@ impl UsageWebSearchCallsResult {
             model: None,
             context_level: None,
         }
+    }
+}
+
+impl<S: usage_web_search_calls_result_builder::State> UsageWebSearchCallsResultBuilder<S>
+where
+    S::Object: usage_web_search_calls_result_builder::IsSet,
+    S::NumModelRequests: usage_web_search_calls_result_builder::IsSet,
+    S::NumRequests: usage_web_search_calls_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UsageWebSearchCallsResult {
+        self.build_internal()
     }
 }
 

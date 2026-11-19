@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveForkAudioParam : Audio format for the new WebSocket connection to a forked Live session. The stored voice is preserved.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_fork_audio_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveForkAudioParam {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
     pub format: Option<models::LiveAudioFormat>,
@@ -22,6 +23,14 @@ impl LiveForkAudioParam {
     /// Audio format for the new WebSocket connection to a forked Live session. The stored voice is preserved.
     pub fn new() -> LiveForkAudioParam {
         LiveForkAudioParam { format: None }
+    }
+}
+
+impl<S: live_fork_audio_param_builder::State> LiveForkAudioParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveForkAudioParam {
+        self.build_internal()
     }
 }
 

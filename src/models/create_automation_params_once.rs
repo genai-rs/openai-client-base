@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_automation_params_once_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateAutomationParamsOnce {
     /// The type of the object. Always `once`.  Defaults to `\"once\"`.
     #[serde(rename = "type")]
@@ -45,6 +46,20 @@ impl CreateAutomationParamsOnce {
             metadata: None,
             run_at,
         }
+    }
+}
+
+impl<S: create_automation_params_once_builder::State> CreateAutomationParamsOnceBuilder<S>
+where
+    S::Type: create_automation_params_once_builder::IsSet,
+    S::Name: create_automation_params_once_builder::IsSet,
+    S::Target: create_automation_params_once_builder::IsSet,
+    S::RunAt: create_automation_params_once_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateAutomationParamsOnce {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionRequiredActionResourceEnvironmentConnection : Reconnect a session environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_required_action_resource_environment_connection_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionRequiredActionResourceEnvironmentConnection {
     /// The type of the object. Always `environment_connection`.  Defaults to `\"environment_connection\"`.
     #[serde(rename = "type")]
@@ -33,6 +34,19 @@ impl SessionRequiredActionResourceEnvironmentConnection {
             r#type,
             environment_id,
         }
+    }
+}
+
+impl<S: session_required_action_resource_environment_connection_builder::State>
+    SessionRequiredActionResourceEnvironmentConnectionBuilder<S>
+where
+    S::Type: session_required_action_resource_environment_connection_builder::IsSet,
+    S::EnvironmentId: session_required_action_resource_environment_connection_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionRequiredActionResourceEnvironmentConnection {
+        self.build_internal()
     }
 }
 

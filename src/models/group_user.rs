@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// GroupUser : Represents an individual user returned when inspecting group membership.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = group_user_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GroupUser {
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
@@ -28,6 +29,18 @@ impl GroupUser {
     /// Represents an individual user returned when inspecting group membership.
     pub fn new(id: String, name: String, email: Option<String>) -> GroupUser {
         GroupUser { id, name, email }
+    }
+}
+
+impl<S: group_user_builder::State> GroupUserBuilder<S>
+where
+    S::Id: group_user_builder::IsSet,
+    S::Name: group_user_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GroupUser {
+        self.build_internal()
     }
 }
 

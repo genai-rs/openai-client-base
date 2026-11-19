@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_model_permissions_update_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectModelPermissionsUpdateRequest {
     /// The model permissions mode to apply.
     #[serde(rename = "mode")]
@@ -23,6 +24,19 @@ pub struct ProjectModelPermissionsUpdateRequest {
 impl ProjectModelPermissionsUpdateRequest {
     pub fn new(mode: Mode, model_ids: Vec<String>) -> ProjectModelPermissionsUpdateRequest {
         ProjectModelPermissionsUpdateRequest { mode, model_ids }
+    }
+}
+
+impl<S: project_model_permissions_update_request_builder::State>
+    ProjectModelPermissionsUpdateRequestBuilder<S>
+where
+    S::Mode: project_model_permissions_update_request_builder::IsSet,
+    S::ModelIds: project_model_permissions_update_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectModelPermissionsUpdateRequest {
+        self.build_internal()
     }
 }
 

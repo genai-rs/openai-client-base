@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaFunctionShellCallOutputContentParam : Captured stdout and stderr for a portion of a shell tool call output.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_function_shell_call_output_content_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFunctionShellCallOutputContentParam {
     /// Captured stdout output for the shell call.
     ///
@@ -40,6 +41,20 @@ impl BetaFunctionShellCallOutputContentParam {
             stderr,
             outcome,
         }
+    }
+}
+
+impl<S: beta_function_shell_call_output_content_param_builder::State>
+    BetaFunctionShellCallOutputContentParamBuilder<S>
+where
+    S::Stdout: beta_function_shell_call_output_content_param_builder::IsSet,
+    S::Stderr: beta_function_shell_call_output_content_param_builder::IsSet,
+    S::Outcome: beta_function_shell_call_output_content_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFunctionShellCallOutputContentParam {
+        self.build_internal()
     }
 }
 

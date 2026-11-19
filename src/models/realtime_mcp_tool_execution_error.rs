@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_mcp_tool_execution_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeMcpToolExecutionError {
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -21,6 +22,18 @@ pub struct RealtimeMcpToolExecutionError {
 impl RealtimeMcpToolExecutionError {
     pub fn new(r#type: Type, message: String) -> RealtimeMcpToolExecutionError {
         RealtimeMcpToolExecutionError { r#type, message }
+    }
+}
+
+impl<S: realtime_mcp_tool_execution_error_builder::State> RealtimeMcpToolExecutionErrorBuilder<S>
+where
+    S::Type: realtime_mcp_tool_execution_error_builder::IsSet,
+    S::Message: realtime_mcp_tool_execution_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeMcpToolExecutionError {
+        self.build_internal()
     }
 }
 

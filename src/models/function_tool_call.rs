@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FunctionToolCall : A tool call to run a function. See the [function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = function_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FunctionToolCall {
     /// The unique ID of the function tool call.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -61,6 +62,20 @@ impl FunctionToolCall {
             status: None,
             r#async: None,
         }
+    }
+}
+
+impl<S: function_tool_call_builder::State> FunctionToolCallBuilder<S>
+where
+    S::Type: function_tool_call_builder::IsSet,
+    S::CallId: function_tool_call_builder::IsSet,
+    S::Name: function_tool_call_builder::IsSet,
+    S::Arguments: function_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FunctionToolCall {
+        self.build_internal()
     }
 }
 

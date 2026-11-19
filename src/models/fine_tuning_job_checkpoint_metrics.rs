@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// FineTuningJobCheckpointMetrics : Metrics at the step number during the fine-tuning job.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tuning_job_checkpoint_metrics_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuningJobCheckpointMetrics {
     #[serde(rename = "step", skip_serializing_if = "Option::is_none")]
     pub step: Option<f64>,
@@ -50,6 +51,16 @@ impl FineTuningJobCheckpointMetrics {
             full_valid_loss: None,
             full_valid_mean_token_accuracy: None,
         }
+    }
+}
+
+impl<S: fine_tuning_job_checkpoint_metrics_builder::State>
+    FineTuningJobCheckpointMetricsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuningJobCheckpointMetrics {
+        self.build_internal()
     }
 }
 

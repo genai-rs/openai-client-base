@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveDecisionItemCreated : An input item was appended for future decisions.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_item_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionItemCreated {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -40,6 +41,19 @@ impl LiveDecisionItemCreated {
             r#type,
             item,
         }
+    }
+}
+
+impl<S: live_decision_item_created_builder::State> LiveDecisionItemCreatedBuilder<S>
+where
+    S::EventId: live_decision_item_created_builder::IsSet,
+    S::Type: live_decision_item_created_builder::IsSet,
+    S::Item: live_decision_item_created_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionItemCreated {
+        self.build_internal()
     }
 }
 

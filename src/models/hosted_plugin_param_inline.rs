@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// HostedPluginParamInline : Supplies a plugin ZIP directly in the session request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = hosted_plugin_param_inline_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HostedPluginParamInline {
     /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
     #[serde(rename = "type")]
@@ -45,6 +46,20 @@ impl HostedPluginParamInline {
             description,
             source,
         }
+    }
+}
+
+impl<S: hosted_plugin_param_inline_builder::State> HostedPluginParamInlineBuilder<S>
+where
+    S::Type: hosted_plugin_param_inline_builder::IsSet,
+    S::Name: hosted_plugin_param_inline_builder::IsSet,
+    S::Description: hosted_plugin_param_inline_builder::IsSet,
+    S::Source: hosted_plugin_param_inline_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HostedPluginParamInline {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_api_key_delete_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectApiKeyDeleteResponse {
     #[serde(rename = "object")]
     pub object: Object,
@@ -27,6 +28,19 @@ impl ProjectApiKeyDeleteResponse {
             id,
             deleted,
         }
+    }
+}
+
+impl<S: project_api_key_delete_response_builder::State> ProjectApiKeyDeleteResponseBuilder<S>
+where
+    S::Object: project_api_key_delete_response_builder::IsSet,
+    S::Id: project_api_key_delete_response_builder::IsSet,
+    S::Deleted: project_api_key_delete_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectApiKeyDeleteResponse {
+        self.build_internal()
     }
 }
 

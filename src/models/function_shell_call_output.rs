@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FunctionShellCallOutput : The output of a shell tool call that was emitted.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = function_shell_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FunctionShellCallOutput {
     /// The type of the shell call output. Always `shell_call_output`.  Defaults to `\"shell_call_output\"`.
     #[serde(rename = "type")]
@@ -63,6 +64,21 @@ impl FunctionShellCallOutput {
             max_output_length,
             created_by: None,
         }
+    }
+}
+
+impl<S: function_shell_call_output_builder::State> FunctionShellCallOutputBuilder<S>
+where
+    S::Type: function_shell_call_output_builder::IsSet,
+    S::Id: function_shell_call_output_builder::IsSet,
+    S::CallId: function_shell_call_output_builder::IsSet,
+    S::Status: function_shell_call_output_builder::IsSet,
+    S::Output: function_shell_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FunctionShellCallOutput {
+        self.build_internal()
     }
 }
 

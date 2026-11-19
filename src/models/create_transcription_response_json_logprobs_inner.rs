@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_transcription_response_json_logprobs_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateTranscriptionResponseJsonLogprobsInner {
     /// The token in the transcription.
     #[serde(rename = "token", skip_serializing_if = "Option::is_none")]
@@ -30,6 +31,16 @@ impl CreateTranscriptionResponseJsonLogprobsInner {
             logprob: None,
             bytes: None,
         }
+    }
+}
+
+impl<S: create_transcription_response_json_logprobs_inner_builder::State>
+    CreateTranscriptionResponseJsonLogprobsInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateTranscriptionResponseJsonLogprobsInner {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateSkillBody : Uploads a skill either as a directory (multipart `files[]`) or as a single zip file.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_skill_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateSkillBody {
     #[serde(rename = "files")]
     pub files: models::CreateSkillBodyFiles,
@@ -22,6 +23,17 @@ impl CreateSkillBody {
     /// Uploads a skill either as a directory (multipart `files[]`) or as a single zip file.
     pub fn new(files: models::CreateSkillBodyFiles) -> CreateSkillBody {
         CreateSkillBody { files }
+    }
+}
+
+impl<S: create_skill_body_builder::State> CreateSkillBodyBuilder<S>
+where
+    S::Files: create_skill_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateSkillBody {
+        self.build_internal()
     }
 }
 

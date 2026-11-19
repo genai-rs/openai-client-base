@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SvgReasoning : Reasoning settings for the SVG author, independent of image complexity. Omitted or null effort uses the author model's default. Supported efforts depend on the selected author model.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = svg_reasoning_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SvgReasoning {
     /// Controls how much effort the SVG author spends on reasoning. Uses the author model's default when omitted or null.
     #[serde(
@@ -28,6 +29,14 @@ impl SvgReasoning {
     /// Reasoning settings for the SVG author, independent of image complexity. Omitted or null effort uses the author model's default. Supported efforts depend on the selected author model.
     pub fn new() -> SvgReasoning {
         SvgReasoning { effort: None }
+    }
+}
+
+impl<S: svg_reasoning_builder::State> SvgReasoningBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SvgReasoning {
+        self.build_internal()
     }
 }
 

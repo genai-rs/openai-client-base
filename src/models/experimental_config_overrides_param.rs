@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ExperimentalConfigOverridesParam : Experimental settings to update. Omitted settings keep their current values.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = experimental_config_overrides_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ExperimentalConfigOverridesParam {
     /// Whether to give the model periodic current-time reminders. Omit to keep the current setting.
     #[serde(rename = "time_awareness", skip_serializing_if = "Option::is_none")]
@@ -24,6 +25,16 @@ impl ExperimentalConfigOverridesParam {
         ExperimentalConfigOverridesParam {
             time_awareness: None,
         }
+    }
+}
+
+impl<S: experimental_config_overrides_param_builder::State>
+    ExperimentalConfigOverridesParamBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ExperimentalConfigOverridesParam {
+        self.build_internal()
     }
 }
 

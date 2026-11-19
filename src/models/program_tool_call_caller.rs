@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = program_tool_call_caller_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProgramToolCallCaller {
     /// Defaults to `\"program\"`.
     #[serde(rename = "type")]
@@ -23,6 +24,18 @@ pub struct ProgramToolCallCaller {
 impl ProgramToolCallCaller {
     pub fn new(r#type: Type, caller_id: String) -> ProgramToolCallCaller {
         ProgramToolCallCaller { r#type, caller_id }
+    }
+}
+
+impl<S: program_tool_call_caller_builder::State> ProgramToolCallCallerBuilder<S>
+where
+    S::Type: program_tool_call_caller_builder::IsSet,
+    S::CallerId: program_tool_call_caller_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProgramToolCallCaller {
+        self.build_internal()
     }
 }
 

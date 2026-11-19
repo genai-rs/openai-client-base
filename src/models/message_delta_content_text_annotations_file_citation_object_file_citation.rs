@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_delta_content_text_annotations_file_citation_object_file_citation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageDeltaContentTextAnnotationsFileCitationObjectFileCitation {
     /// The ID of the specific File the citation is from.
     #[serde(rename = "file_id", skip_serializing_if = "Option::is_none")]
@@ -26,6 +27,17 @@ impl MessageDeltaContentTextAnnotationsFileCitationObjectFileCitation {
             file_id: None,
             quote: None,
         }
+    }
+}
+
+impl<
+        S: message_delta_content_text_annotations_file_citation_object_file_citation_builder::State,
+    > MessageDeltaContentTextAnnotationsFileCitationObjectFileCitationBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageDeltaContentTextAnnotationsFileCitationObjectFileCitation {
+        self.build_internal()
     }
 }
 

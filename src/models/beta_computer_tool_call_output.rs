@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaComputerToolCallOutput : The output of a computer tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_computer_tool_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaComputerToolCallOutput {
     /// The agent that produced this item.
     #[serde(
@@ -60,6 +61,19 @@ impl BetaComputerToolCallOutput {
             output,
             status: None,
         }
+    }
+}
+
+impl<S: beta_computer_tool_call_output_builder::State> BetaComputerToolCallOutputBuilder<S>
+where
+    S::Type: beta_computer_tool_call_output_builder::IsSet,
+    S::CallId: beta_computer_tool_call_output_builder::IsSet,
+    S::Output: beta_computer_tool_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaComputerToolCallOutput {
+        self.build_internal()
     }
 }
 

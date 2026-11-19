@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaApplyPatchToolCallOutput : The output emitted by an apply patch tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_apply_patch_tool_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaApplyPatchToolCallOutput {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
@@ -65,6 +66,20 @@ impl BetaApplyPatchToolCallOutput {
             output: None,
             created_by: None,
         }
+    }
+}
+
+impl<S: beta_apply_patch_tool_call_output_builder::State> BetaApplyPatchToolCallOutputBuilder<S>
+where
+    S::Type: beta_apply_patch_tool_call_output_builder::IsSet,
+    S::Id: beta_apply_patch_tool_call_output_builder::IsSet,
+    S::CallId: beta_apply_patch_tool_call_output_builder::IsSet,
+    S::Status: beta_apply_patch_tool_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaApplyPatchToolCallOutput {
+        self.build_internal()
     }
 }
 

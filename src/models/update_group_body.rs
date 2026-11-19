@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UpdateGroupBody : Request payload for updating the details of an existing group.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_group_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateGroupBody {
     /// New display name for the group.
     ///
@@ -24,6 +25,17 @@ impl UpdateGroupBody {
     /// Request payload for updating the details of an existing group.
     pub fn new(name: String) -> UpdateGroupBody {
         UpdateGroupBody { name }
+    }
+}
+
+impl<S: update_group_body_builder::State> UpdateGroupBodyBuilder<S>
+where
+    S::Name: update_group_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateGroupBody {
+        self.build_internal()
     }
 }
 

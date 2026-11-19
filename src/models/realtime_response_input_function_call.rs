@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeResponseInputFunctionCall : A function call supplied as input to a Realtime response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_response_input_function_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeResponseInputFunctionCall {
     /// Validation: `minLength: 1`, `maxLength: 32`, `pattern: ^[a-zA-Z0-9_-]+$`.
     #[serde(
@@ -58,6 +59,21 @@ impl RealtimeResponseInputFunctionCall {
             name,
             arguments,
         }
+    }
+}
+
+impl<S: realtime_response_input_function_call_builder::State>
+    RealtimeResponseInputFunctionCallBuilder<S>
+where
+    S::Type: realtime_response_input_function_call_builder::IsSet,
+    S::CallId: realtime_response_input_function_call_builder::IsSet,
+    S::Name: realtime_response_input_function_call_builder::IsSet,
+    S::Arguments: realtime_response_input_function_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeResponseInputFunctionCall {
+        self.build_internal()
     }
 }
 

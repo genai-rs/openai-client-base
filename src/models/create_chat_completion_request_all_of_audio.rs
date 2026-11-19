@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateChatCompletionRequestAllOfAudio : Parameters for audio output. Required when audio output is requested with `modalities: [\"audio\"]`. [Learn more](https://developers.openai.com/api/docs/guides/audio).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_chat_completion_request_all_of_audio_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateChatCompletionRequestAllOfAudio {
     #[serde(rename = "voice")]
     pub voice: models::VoiceIdsOrCustomVoice,
@@ -28,6 +29,19 @@ impl CreateChatCompletionRequestAllOfAudio {
         format: Format,
     ) -> CreateChatCompletionRequestAllOfAudio {
         CreateChatCompletionRequestAllOfAudio { voice, format }
+    }
+}
+
+impl<S: create_chat_completion_request_all_of_audio_builder::State>
+    CreateChatCompletionRequestAllOfAudioBuilder<S>
+where
+    S::Voice: create_chat_completion_request_all_of_audio_builder::IsSet,
+    S::Format: create_chat_completion_request_all_of_audio_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateChatCompletionRequestAllOfAudio {
+        self.build_internal()
     }
 }
 

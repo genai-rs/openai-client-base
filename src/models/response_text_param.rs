@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseTextParam : Configuration options for a text response from the model. Can be plain text or structured JSON data. Learn more: - [Text inputs and outputs](https://developers.openai.com/api/docs/guides/text) - [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_text_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseTextParam {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
     pub format: Option<models::TextResponseFormatConfiguration>,
@@ -32,6 +33,14 @@ impl ResponseTextParam {
             format: None,
             verbosity: None,
         }
+    }
+}
+
+impl<S: response_text_param_builder::State> ResponseTextParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseTextParam {
+        self.build_internal()
     }
 }
 

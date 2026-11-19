@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = modify_certificate_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ModifyCertificateRequest {
     /// The updated name for the certificate
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -20,6 +21,14 @@ pub struct ModifyCertificateRequest {
 impl ModifyCertificateRequest {
     pub fn new() -> ModifyCertificateRequest {
         ModifyCertificateRequest { name: None }
+    }
+}
+
+impl<S: modify_certificate_request_builder::State> ModifyCertificateRequestBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ModifyCertificateRequest {
+        self.build_internal()
     }
 }
 

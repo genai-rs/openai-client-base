@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SvgReasoningParam : Reasoning effort for SVG authoring. When omitted, uses the author model's default in both Images and Responses.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = svg_reasoning_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SvgReasoningParam {
     #[serde(rename = "effort", skip_serializing_if = "Option::is_none")]
     pub effort: Option<models::ReasoningEffortEnum>,
@@ -22,6 +23,14 @@ impl SvgReasoningParam {
     /// Reasoning effort for SVG authoring. When omitted, uses the author model's default in both Images and Responses.
     pub fn new() -> SvgReasoningParam {
         SvgReasoningParam { effort: None }
+    }
+}
+
+impl<S: svg_reasoning_param_builder::State> SvgReasoningParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SvgReasoningParam {
+        self.build_internal()
     }
 }
 

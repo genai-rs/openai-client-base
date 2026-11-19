@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogRoleDeleted : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_role_deleted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogRoleDeleted {
     /// The role ID.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl AuditLogRoleDeleted {
     /// The details for events with this `type`.
     pub fn new() -> AuditLogRoleDeleted {
         AuditLogRoleDeleted { id: None }
+    }
+}
+
+impl<S: audit_log_role_deleted_builder::State> AuditLogRoleDeletedBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogRoleDeleted {
+        self.build_internal()
     }
 }
 

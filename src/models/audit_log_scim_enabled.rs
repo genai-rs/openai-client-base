@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogScimEnabled : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_scim_enabled_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogScimEnabled {
     /// The ID of the SCIM was enabled for.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl AuditLogScimEnabled {
     /// The details for events with this `type`.
     pub fn new() -> AuditLogScimEnabled {
         AuditLogScimEnabled { id: None }
+    }
+}
+
+impl<S: audit_log_scim_enabled_builder::State> AuditLogScimEnabledBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogScimEnabled {
+        self.build_internal()
     }
 }
 

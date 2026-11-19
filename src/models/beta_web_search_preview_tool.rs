@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaWebSearchPreviewTool : This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_web_search_preview_tool_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaWebSearchPreviewTool {
     /// The type of the web search tool. One of `web_search_preview` or `web_search_preview_2025_03_11`.  Defaults to `\"web_search_preview\"`.
     #[serde(rename = "type")]
@@ -45,6 +46,17 @@ impl BetaWebSearchPreviewTool {
             search_context_size: None,
             search_content_types: None,
         }
+    }
+}
+
+impl<S: beta_web_search_preview_tool_builder::State> BetaWebSearchPreviewToolBuilder<S>
+where
+    S::Type: beta_web_search_preview_tool_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaWebSearchPreviewTool {
+        self.build_internal()
     }
 }
 

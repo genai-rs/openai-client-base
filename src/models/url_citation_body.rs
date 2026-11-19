@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UrlCitationBody : A citation for a web resource used to generate a model response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = url_citation_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UrlCitationBody {
     /// The type of the URL citation. Always `url_citation`.  Defaults to `\"url_citation\"`.
     #[serde(rename = "type")]
@@ -46,6 +47,21 @@ impl UrlCitationBody {
             end_index,
             title,
         }
+    }
+}
+
+impl<S: url_citation_body_builder::State> UrlCitationBodyBuilder<S>
+where
+    S::Type: url_citation_body_builder::IsSet,
+    S::Url: url_citation_body_builder::IsSet,
+    S::StartIndex: url_citation_body_builder::IsSet,
+    S::EndIndex: url_citation_body_builder::IsSet,
+    S::Title: url_citation_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UrlCitationBody {
+        self.build_internal()
     }
 }
 

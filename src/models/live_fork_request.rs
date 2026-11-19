@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveForkRequest : Fork a stored Live session onto a new WebRTC connection. Omit session or send an empty object to inherit its configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_fork_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveForkRequest {
     #[serde(rename = "session", skip_serializing_if = "Option::is_none")]
     pub session: Option<models::LiveMediaSessionForkParams>,
@@ -27,6 +28,17 @@ impl LiveForkRequest {
             session: None,
             transport,
         }
+    }
+}
+
+impl<S: live_fork_request_builder::State> LiveForkRequestBuilder<S>
+where
+    S::Transport: live_fork_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveForkRequest {
+        self.build_internal()
     }
 }
 

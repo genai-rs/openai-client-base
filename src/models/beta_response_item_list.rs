@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseItemList : A list of Response items.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_item_list_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseItemList {
     /// The type of object returned, must be `list`.
     #[serde(rename = "object")]
@@ -47,6 +48,21 @@ impl BetaResponseItemList {
             first_id,
             last_id,
         }
+    }
+}
+
+impl<S: beta_response_item_list_builder::State> BetaResponseItemListBuilder<S>
+where
+    S::Object: beta_response_item_list_builder::IsSet,
+    S::Data: beta_response_item_list_builder::IsSet,
+    S::HasMore: beta_response_item_list_builder::IsSet,
+    S::FirstId: beta_response_item_list_builder::IsSet,
+    S::LastId: beta_response_item_list_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseItemList {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateEvalLabelModelGrader : A LabelModelGrader object which uses a model to assign labels to each item in the evaluation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_eval_label_model_grader_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateEvalLabelModelGrader {
     /// The object type, which is always `label_model`.
     #[serde(rename = "type")]
@@ -52,6 +53,22 @@ impl CreateEvalLabelModelGrader {
             labels,
             passing_labels,
         }
+    }
+}
+
+impl<S: create_eval_label_model_grader_builder::State> CreateEvalLabelModelGraderBuilder<S>
+where
+    S::Type: create_eval_label_model_grader_builder::IsSet,
+    S::Name: create_eval_label_model_grader_builder::IsSet,
+    S::Model: create_eval_label_model_grader_builder::IsSet,
+    S::Input: create_eval_label_model_grader_builder::IsSet,
+    S::Labels: create_eval_label_model_grader_builder::IsSet,
+    S::PassingLabels: create_eval_label_model_grader_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateEvalLabelModelGrader {
+        self.build_internal()
     }
 }
 

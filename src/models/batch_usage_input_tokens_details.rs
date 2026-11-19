@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BatchUsageInputTokensDetails : A detailed breakdown of the input tokens.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = batch_usage_input_tokens_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BatchUsageInputTokensDetails {
     /// The number of tokens that were retrieved from the cache. [More on prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching).
     #[serde(rename = "cached_tokens")]
@@ -22,6 +23,17 @@ impl BatchUsageInputTokensDetails {
     /// A detailed breakdown of the input tokens.
     pub fn new(cached_tokens: i64) -> BatchUsageInputTokensDetails {
         BatchUsageInputTokensDetails { cached_tokens }
+    }
+}
+
+impl<S: batch_usage_input_tokens_details_builder::State> BatchUsageInputTokensDetailsBuilder<S>
+where
+    S::CachedTokens: batch_usage_input_tokens_details_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BatchUsageInputTokensDetails {
+        self.build_internal()
     }
 }
 

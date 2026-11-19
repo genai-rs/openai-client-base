@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AutomationResourcePeriodic : Fields shared by periodic and one-time automations.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_resource_periodic_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationResourcePeriodic {
     /// The type of the object. Always `periodic`.  Defaults to `\"periodic\"`.
     #[serde(rename = "type")]
@@ -93,6 +94,27 @@ impl AutomationResourcePeriodic {
             timezone,
             status,
         }
+    }
+}
+
+impl<S: automation_resource_periodic_builder::State> AutomationResourcePeriodicBuilder<S>
+where
+    S::Type: automation_resource_periodic_builder::IsSet,
+    S::Id: automation_resource_periodic_builder::IsSet,
+    S::Object: automation_resource_periodic_builder::IsSet,
+    S::CreatedAt: automation_resource_periodic_builder::IsSet,
+    S::Name: automation_resource_periodic_builder::IsSet,
+    S::Target: automation_resource_periodic_builder::IsSet,
+    S::Metadata: automation_resource_periodic_builder::IsSet,
+    S::CreatedBy: automation_resource_periodic_builder::IsSet,
+    S::Expression: automation_resource_periodic_builder::IsSet,
+    S::Timezone: automation_resource_periodic_builder::IsSet,
+    S::Status: automation_resource_periodic_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationResourcePeriodic {
+        self.build_internal()
     }
 }
 

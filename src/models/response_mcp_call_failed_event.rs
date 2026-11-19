@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseMcpCallFailedEvent : Emitted when an MCP  tool call has failed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_mcp_call_failed_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseMcpCallFailedEvent {
     /// The type of the event. Always 'response.mcp_call.failed'.
     #[serde(rename = "type")]
@@ -41,6 +42,20 @@ impl ResponseMcpCallFailedEvent {
             output_index,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_mcp_call_failed_event_builder::State> ResponseMcpCallFailedEventBuilder<S>
+where
+    S::Type: response_mcp_call_failed_event_builder::IsSet,
+    S::ItemId: response_mcp_call_failed_event_builder::IsSet,
+    S::OutputIndex: response_mcp_call_failed_event_builder::IsSet,
+    S::SequenceNumber: response_mcp_call_failed_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseMcpCallFailedEvent {
+        self.build_internal()
     }
 }
 

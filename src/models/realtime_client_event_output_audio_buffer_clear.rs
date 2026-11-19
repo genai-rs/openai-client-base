@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeClientEventOutputAudioBufferClear : **WebRTC/SIP Only:** Emit to cut off the current audio response. This will trigger the server to stop generating audio and emit a `output_audio_buffer.cleared` event. This event should be preceded by a `response.cancel` client event to stop the generation of the current response. [Learn more](https://developers.openai.com/api/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_client_event_output_audio_buffer_clear_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeClientEventOutputAudioBufferClear {
     /// The unique ID of the client event used for error handling.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,18 @@ impl RealtimeClientEventOutputAudioBufferClear {
             event_id: None,
             r#type,
         }
+    }
+}
+
+impl<S: realtime_client_event_output_audio_buffer_clear_builder::State>
+    RealtimeClientEventOutputAudioBufferClearBuilder<S>
+where
+    S::Type: realtime_client_event_output_audio_buffer_clear_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeClientEventOutputAudioBufferClear {
+        self.build_internal()
     }
 }
 

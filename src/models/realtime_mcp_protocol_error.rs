@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_mcp_protocol_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeMcpProtocolError {
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -27,6 +28,19 @@ impl RealtimeMcpProtocolError {
             code,
             message,
         }
+    }
+}
+
+impl<S: realtime_mcp_protocol_error_builder::State> RealtimeMcpProtocolErrorBuilder<S>
+where
+    S::Type: realtime_mcp_protocol_error_builder::IsSet,
+    S::Code: realtime_mcp_protocol_error_builder::IsSet,
+    S::Message: realtime_mcp_protocol_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeMcpProtocolError {
+        self.build_internal()
     }
 }
 

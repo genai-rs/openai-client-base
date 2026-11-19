@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionEnvironmentSuspended : Emitted after an idle hosted session environment is checkpointed and stopped.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_environment_suspended_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionEnvironmentSuspended {
     /// The type of the object. Always `agent.session.environment.suspended`.  Defaults to `\"agent.session.environment.suspended\"`.
     #[serde(rename = "type")]
@@ -58,6 +59,21 @@ impl SessionEventAgentSessionEnvironmentSuspended {
             environment,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_environment_suspended_builder::State>
+    SessionEventAgentSessionEnvironmentSuspendedBuilder<S>
+where
+    S::Type: session_event_agent_session_environment_suspended_builder::IsSet,
+    S::EventId: session_event_agent_session_environment_suspended_builder::IsSet,
+    S::SessionId: session_event_agent_session_environment_suspended_builder::IsSet,
+    S::Environment: session_event_agent_session_environment_suspended_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionEnvironmentSuspended {
+        self.build_internal()
     }
 }
 

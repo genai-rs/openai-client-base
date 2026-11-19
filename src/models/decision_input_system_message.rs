@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// DecisionInputSystemMessage : A system message containing input text.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = decision_input_system_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DecisionInputSystemMessage {
     /// Defaults to `\"system\"`.
     #[serde(rename = "role")]
@@ -35,6 +36,18 @@ impl DecisionInputSystemMessage {
             content,
             r#type: None,
         }
+    }
+}
+
+impl<S: decision_input_system_message_builder::State> DecisionInputSystemMessageBuilder<S>
+where
+    S::Role: decision_input_system_message_builder::IsSet,
+    S::Content: decision_input_system_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DecisionInputSystemMessage {
+        self.build_internal()
     }
 }
 

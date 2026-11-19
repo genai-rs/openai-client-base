@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogActor : The actor who performed the audit logged action.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_actor_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogActor {
     /// The type of actor. Is either `session` or `api_key`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -31,6 +32,14 @@ impl AuditLogActor {
             session: None,
             api_key: None,
         }
+    }
+}
+
+impl<S: audit_log_actor_builder::State> AuditLogActorBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogActor {
+        self.build_internal()
     }
 }
 

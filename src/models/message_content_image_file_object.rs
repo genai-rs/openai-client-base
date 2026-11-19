@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageContentImageFileObject : References an image [File](https://developers.openai.com/api/reference/resources/files) in the content of a message.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_content_image_file_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageContentImageFileObject {
     /// Always `image_file`.
     #[serde(rename = "type")]
@@ -28,6 +29,18 @@ impl MessageContentImageFileObject {
         image_file: models::MessageContentImageFileObjectImageFile,
     ) -> MessageContentImageFileObject {
         MessageContentImageFileObject { r#type, image_file }
+    }
+}
+
+impl<S: message_content_image_file_object_builder::State> MessageContentImageFileObjectBuilder<S>
+where
+    S::Type: message_content_image_file_object_builder::IsSet,
+    S::ImageFile: message_content_image_file_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageContentImageFileObject {
+        self.build_internal()
     }
 }
 

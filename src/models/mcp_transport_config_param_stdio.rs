@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// McpTransportConfigParamStdio : Starts an MCP server as a local process.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_transport_config_param_stdio_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpTransportConfigParamStdio {
     /// The type of the object. Always `stdio`.  Defaults to `\"stdio\"`.
     #[serde(rename = "type")]
@@ -69,6 +70,19 @@ impl McpTransportConfigParamStdio {
             env: None,
             env_vars: None,
         }
+    }
+}
+
+impl<S: mcp_transport_config_param_stdio_builder::State> McpTransportConfigParamStdioBuilder<S>
+where
+    S::Type: mcp_transport_config_param_stdio_builder::IsSet,
+    S::Command: mcp_transport_config_param_stdio_builder::IsSet,
+    S::Cwd: mcp_transport_config_param_stdio_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpTransportConfigParamStdio {
+        self.build_internal()
     }
 }
 

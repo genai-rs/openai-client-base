@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionInputParamAgentSessionInputCancel : Cancels the session's active turn.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_input_param_agent_session_input_cancel_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionInputParamAgentSessionInputCancel {
     /// The type of the object. Always `agent.session.input.cancel`.  Defaults to `\"agent.session.input.cancel\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,18 @@ impl SessionInputParamAgentSessionInputCancel {
     /// Cancels the session's active turn.
     pub fn new(r#type: Type) -> SessionInputParamAgentSessionInputCancel {
         SessionInputParamAgentSessionInputCancel { r#type }
+    }
+}
+
+impl<S: session_input_param_agent_session_input_cancel_builder::State>
+    SessionInputParamAgentSessionInputCancelBuilder<S>
+where
+    S::Type: session_input_param_agent_session_input_cancel_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionInputParamAgentSessionInputCancel {
+        self.build_internal()
     }
 }
 

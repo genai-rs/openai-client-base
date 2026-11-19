@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// VoiceResource : A custom voice that can be used for audio output. Voices created from text prompts are supported only in Live.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = voice_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VoiceResource {
     /// The object type, which is always `audio.voice`.
     #[serde(rename = "object")]
@@ -50,6 +51,21 @@ impl VoiceResource {
             name,
             created_at,
         }
+    }
+}
+
+impl<S: voice_resource_builder::State> VoiceResourceBuilder<S>
+where
+    S::Object: voice_resource_builder::IsSet,
+    S::Id: voice_resource_builder::IsSet,
+    S::Type: voice_resource_builder::IsSet,
+    S::Name: voice_resource_builder::IsSet,
+    S::CreatedAt: voice_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VoiceResource {
+        self.build_internal()
     }
 }
 

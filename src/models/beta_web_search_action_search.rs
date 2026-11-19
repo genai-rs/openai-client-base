@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaWebSearchActionSearch : Action type \"search\" - Performs a web search query.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_web_search_action_search_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaWebSearchActionSearch {
     /// The action type.
     #[serde(rename = "type")]
@@ -37,6 +38,17 @@ impl BetaWebSearchActionSearch {
             queries: None,
             sources: None,
         }
+    }
+}
+
+impl<S: beta_web_search_action_search_builder::State> BetaWebSearchActionSearchBuilder<S>
+where
+    S::Type: beta_web_search_action_search_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaWebSearchActionSearch {
+        self.build_internal()
     }
 }
 

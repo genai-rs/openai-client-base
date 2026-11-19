@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveInitialInputTextContentPartParam : Text supplied in a developer or user message when starting a Live session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_initial_input_text_content_part_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveInitialInputTextContentPartParam {
     /// The text content type. Always `input_text`.  Defaults to `\"input_text\"`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -25,6 +26,18 @@ impl LiveInitialInputTextContentPartParam {
     /// Text supplied in a developer or user message when starting a Live session.
     pub fn new(text: String) -> LiveInitialInputTextContentPartParam {
         LiveInitialInputTextContentPartParam { r#type: None, text }
+    }
+}
+
+impl<S: live_initial_input_text_content_part_param_builder::State>
+    LiveInitialInputTextContentPartParamBuilder<S>
+where
+    S::Text: live_initial_input_text_content_part_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveInitialInputTextContentPartParam {
+        self.build_internal()
     }
 }
 

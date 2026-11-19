@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepDetailsToolCallsFileSearchObjectFileSearch : For now, this is always going to be an empty object.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_details_tool_calls_file_search_object_file_search_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDetailsToolCallsFileSearchObjectFileSearch {
     #[serde(rename = "ranking_options", skip_serializing_if = "Option::is_none")]
     pub ranking_options: Option<models::RunStepDetailsToolCallsFileSearchRankingOptionsObject>,
@@ -28,6 +29,16 @@ impl RunStepDetailsToolCallsFileSearchObjectFileSearch {
             ranking_options: None,
             results: None,
         }
+    }
+}
+
+impl<S: run_step_details_tool_calls_file_search_object_file_search_builder::State>
+    RunStepDetailsToolCallsFileSearchObjectFileSearchBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDetailsToolCallsFileSearchObjectFileSearch {
+        self.build_internal()
     }
 }
 

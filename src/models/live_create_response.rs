@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveCreateResponse : The created Live session identifier and WebRTC answer. Apply transport.sdp as the peer's remote answer and wait for session.started on the data channel before sending commands.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_create_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveCreateResponse {
     #[serde(rename = "session")]
     pub session: models::LiveCreateResponseSession,
@@ -27,6 +28,18 @@ impl LiveCreateResponse {
         transport: models::LiveWebRtcTransport,
     ) -> LiveCreateResponse {
         LiveCreateResponse { session, transport }
+    }
+}
+
+impl<S: live_create_response_builder::State> LiveCreateResponseBuilder<S>
+where
+    S::Session: live_create_response_builder::IsSet,
+    S::Transport: live_create_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveCreateResponse {
+        self.build_internal()
     }
 }
 

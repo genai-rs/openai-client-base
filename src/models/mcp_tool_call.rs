@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// McpToolCall : An invocation of a tool on an MCP server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpToolCall {
     /// The type of the item. Always `mcp_call`.
     #[serde(rename = "type")]
@@ -77,6 +78,21 @@ impl McpToolCall {
             status: None,
             approval_request_id: None,
         }
+    }
+}
+
+impl<S: mcp_tool_call_builder::State> McpToolCallBuilder<S>
+where
+    S::Type: mcp_tool_call_builder::IsSet,
+    S::Id: mcp_tool_call_builder::IsSet,
+    S::ServerLabel: mcp_tool_call_builder::IsSet,
+    S::Name: mcp_tool_call_builder::IsSet,
+    S::Arguments: mcp_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpToolCall {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = list_run_steps_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ListRunStepsResponse {
     #[serde(rename = "object")]
     pub object: String,
@@ -40,6 +41,21 @@ impl ListRunStepsResponse {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: list_run_steps_response_builder::State> ListRunStepsResponseBuilder<S>
+where
+    S::Object: list_run_steps_response_builder::IsSet,
+    S::Data: list_run_steps_response_builder::IsSet,
+    S::FirstId: list_run_steps_response_builder::IsSet,
+    S::LastId: list_run_steps_response_builder::IsSet,
+    S::HasMore: list_run_steps_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ListRunStepsResponse {
+        self.build_internal()
     }
 }
 

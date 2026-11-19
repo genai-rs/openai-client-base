@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaReasoningItem : A description of the chain of thought used by a reasoning model while generating a response. Be sure to include these items in your `input` to the Responses API for subsequent turns of a conversation if you are manually [managing context](https://developers.openai.com/api/docs/guides/conversation-state).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_reasoning_item_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaReasoningItem {
     /// The agent that produced this item.
     #[serde(
@@ -63,6 +64,19 @@ impl BetaReasoningItem {
             content: None,
             status: None,
         }
+    }
+}
+
+impl<S: beta_reasoning_item_builder::State> BetaReasoningItemBuilder<S>
+where
+    S::Type: beta_reasoning_item_builder::IsSet,
+    S::Id: beta_reasoning_item_builder::IsSet,
+    S::Summary: beta_reasoning_item_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaReasoningItem {
+        self.build_internal()
     }
 }
 

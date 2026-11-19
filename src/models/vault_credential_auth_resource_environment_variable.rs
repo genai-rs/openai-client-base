@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// VaultCredentialAuthResourceEnvironmentVariable : Metadata for an HTTP credential used only in OpenAI-hosted environments. Sandbox code receives a placeholder. The proxy substitutes the secret for allowed HTTPS destinations on ports 443 and 8443. The real secret is not available to sandbox code for local computation and is never returned in this resource.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vault_credential_auth_resource_environment_variable_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VaultCredentialAuthResourceEnvironmentVariable {
     /// The type of the object. Always `environment_variable`.  Defaults to `\"environment_variable\"`.
     #[serde(rename = "type")]
@@ -38,6 +39,20 @@ impl VaultCredentialAuthResourceEnvironmentVariable {
             secret_name,
             networking,
         }
+    }
+}
+
+impl<S: vault_credential_auth_resource_environment_variable_builder::State>
+    VaultCredentialAuthResourceEnvironmentVariableBuilder<S>
+where
+    S::Type: vault_credential_auth_resource_environment_variable_builder::IsSet,
+    S::SecretName: vault_credential_auth_resource_environment_variable_builder::IsSet,
+    S::Networking: vault_credential_auth_resource_environment_variable_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VaultCredentialAuthResourceEnvironmentVariable {
+        self.build_internal()
     }
 }
 

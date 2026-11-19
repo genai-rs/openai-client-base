@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationClientEventInputAudioBufferAppend : Send this event to append audio bytes to the translation session input audio buffer.  WebSocket translation sessions accept base64-encoded 24 kHz PCM16 mono little-endian raw audio bytes. Unsupported websocket audio formats return a validation error because lower-quality audio materially degrades translation quality.  Translation consumes 200 ms engine frames. For best realtime behavior, append audio in 200 ms chunks. If a chunk is shorter, the server buffers it until it has enough audio for one frame. If a chunk is longer, the server splits it into 200 ms frames and enqueues them back-to-back.  Keep appending silence while the session is active. If a client stops sending audio and later resumes, model time treats the resumed audio as contiguous with the previous audio rather than as a real-world pause.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_client_event_input_audio_buffer_append_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationClientEventInputAudioBufferAppend {
     /// Optional client-generated ID used to identify this event.
     ///
@@ -37,6 +38,19 @@ impl RealtimeTranslationClientEventInputAudioBufferAppend {
             r#type,
             audio,
         }
+    }
+}
+
+impl<S: realtime_translation_client_event_input_audio_buffer_append_builder::State>
+    RealtimeTranslationClientEventInputAudioBufferAppendBuilder<S>
+where
+    S::Type: realtime_translation_client_event_input_audio_buffer_append_builder::IsSet,
+    S::Audio: realtime_translation_client_event_input_audio_buffer_append_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationClientEventInputAudioBufferAppend {
+        self.build_internal()
     }
 }
 

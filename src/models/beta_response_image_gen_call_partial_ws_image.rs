@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseImageGenCallPartialWsImage : Emitted when a partial image is available during image generation streaming.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_image_gen_call_partial_ws_image_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseImageGenCallPartialWsImage {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -81,6 +82,23 @@ impl BetaResponseImageGenCallPartialWsImage {
             output_format: None,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_image_gen_call_partial_ws_image_builder::State>
+    BetaResponseImageGenCallPartialWsImageBuilder<S>
+where
+    S::Type: beta_response_image_gen_call_partial_ws_image_builder::IsSet,
+    S::OutputIndex: beta_response_image_gen_call_partial_ws_image_builder::IsSet,
+    S::ItemId: beta_response_image_gen_call_partial_ws_image_builder::IsSet,
+    S::SequenceNumber: beta_response_image_gen_call_partial_ws_image_builder::IsSet,
+    S::PartialImageIndex: beta_response_image_gen_call_partial_ws_image_builder::IsSet,
+    S::PartialImageB64: beta_response_image_gen_call_partial_ws_image_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseImageGenCallPartialWsImage {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionModerationError : An error produced while attempting moderation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_moderation_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionModerationError {
     /// The object type, which is always `error`.
     #[serde(rename = "type")]
@@ -32,6 +33,19 @@ impl ChatCompletionModerationError {
             code,
             message,
         }
+    }
+}
+
+impl<S: chat_completion_moderation_error_builder::State> ChatCompletionModerationErrorBuilder<S>
+where
+    S::Type: chat_completion_moderation_error_builder::IsSet,
+    S::Code: chat_completion_moderation_error_builder::IsSet,
+    S::Message: chat_completion_moderation_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionModerationError {
+        self.build_internal()
     }
 }
 

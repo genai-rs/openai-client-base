@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaTypeParam : An action to type in text.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_type_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaTypeParam {
     /// Specifies the event type. For a type action, this property is always set to `type`.  Defaults to `\"type\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl BetaTypeParam {
     /// An action to type in text.
     pub fn new(r#type: Type, text: String) -> BetaTypeParam {
         BetaTypeParam { r#type, text }
+    }
+}
+
+impl<S: beta_type_param_builder::State> BetaTypeParamBuilder<S>
+where
+    S::Type: beta_type_param_builder::IsSet,
+    S::Text: beta_type_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaTypeParam {
+        self.build_internal()
     }
 }
 

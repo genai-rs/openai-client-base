@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreter : The Code Interpreter tool call definition.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_delta_step_details_tool_calls_code_object_code_interpreter_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreter {
     /// The input to the Code Interpreter tool call.
     #[serde(rename = "input", skip_serializing_if = "Option::is_none")]
@@ -30,6 +31,16 @@ impl RunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreter {
             input: None,
             outputs: None,
         }
+    }
+}
+
+impl<S: run_step_delta_step_details_tool_calls_code_object_code_interpreter_builder::State>
+    RunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreterBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreter {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_fine_tuning_checkpoint_permission_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateFineTuningCheckpointPermissionRequest {
     /// The project identifiers to grant access to.
     #[serde(rename = "project_ids")]
@@ -20,6 +21,18 @@ pub struct CreateFineTuningCheckpointPermissionRequest {
 impl CreateFineTuningCheckpointPermissionRequest {
     pub fn new(project_ids: Vec<String>) -> CreateFineTuningCheckpointPermissionRequest {
         CreateFineTuningCheckpointPermissionRequest { project_ids }
+    }
+}
+
+impl<S: create_fine_tuning_checkpoint_permission_request_builder::State>
+    CreateFineTuningCheckpointPermissionRequestBuilder<S>
+where
+    S::ProjectIds: create_fine_tuning_checkpoint_permission_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateFineTuningCheckpointPermissionRequest {
+        self.build_internal()
     }
 }
 

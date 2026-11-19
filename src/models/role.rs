@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// Role : Details about a role that can be assigned through the public Roles API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = role_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Role {
     /// Always `role`.
     #[serde(rename = "object")]
@@ -56,6 +57,22 @@ impl Role {
             resource_type,
             predefined_role,
         }
+    }
+}
+
+impl<S: role_builder::State> RoleBuilder<S>
+where
+    S::Object: role_builder::IsSet,
+    S::Id: role_builder::IsSet,
+    S::Name: role_builder::IsSet,
+    S::Permissions: role_builder::IsSet,
+    S::ResourceType: role_builder::IsSet,
+    S::PredefinedRole: role_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Role {
+        self.build_internal()
     }
 }
 

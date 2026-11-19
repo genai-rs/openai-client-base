@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponsesClientEventResponseCreate : Client event for creating a response over a persistent WebSocket connection. This payload uses the same top-level fields as `POST /v1/responses`, plus WebSocket-only envelope metadata.  Notes: - `stream` is implicit over WebSocket and should not be sent. - `background` is not supported over WebSocket. - `stream_id` is WebSocket-only and is not part of `POST /v1/responses`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_responses_client_event_response_create_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponsesClientEventResponseCreate {
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
@@ -301,6 +302,18 @@ impl BetaResponsesClientEventResponseCreate {
             generate: None,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_responses_client_event_response_create_builder::State>
+    BetaResponsesClientEventResponseCreateBuilder<S>
+where
+    S::Type: beta_responses_client_event_response_create_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponsesClientEventResponseCreate {
+        self.build_internal()
     }
 }
 

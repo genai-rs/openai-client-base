@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseFunctionCallArgumentsWsDelta : Emitted when there is a partial function-call arguments delta.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_function_call_arguments_ws_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseFunctionCallArgumentsWsDelta {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -60,6 +61,22 @@ impl BetaResponseFunctionCallArgumentsWsDelta {
             delta,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_function_call_arguments_ws_delta_builder::State>
+    BetaResponseFunctionCallArgumentsWsDeltaBuilder<S>
+where
+    S::Type: beta_response_function_call_arguments_ws_delta_builder::IsSet,
+    S::ItemId: beta_response_function_call_arguments_ws_delta_builder::IsSet,
+    S::OutputIndex: beta_response_function_call_arguments_ws_delta_builder::IsSet,
+    S::SequenceNumber: beta_response_function_call_arguments_ws_delta_builder::IsSet,
+    S::Delta: beta_response_function_call_arguments_ws_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseFunctionCallArgumentsWsDelta {
+        self.build_internal()
     }
 }
 

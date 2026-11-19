@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// VaultCredentialAuthResourceMcpOauth : Public metadata for an OAuth credential; tokens and client secrets are never returned.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vault_credential_auth_resource_mcp_oauth_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VaultCredentialAuthResourceMcpOauth {
     /// The type of the object. Always `mcp_oauth`.  Defaults to `\"mcp_oauth\"`.
     #[serde(rename = "type")]
@@ -46,6 +47,19 @@ impl VaultCredentialAuthResourceMcpOauth {
             expires_at,
             refresh,
         }
+    }
+}
+
+impl<S: vault_credential_auth_resource_mcp_oauth_builder::State>
+    VaultCredentialAuthResourceMcpOauthBuilder<S>
+where
+    S::Type: vault_credential_auth_resource_mcp_oauth_builder::IsSet,
+    S::McpServerUrl: vault_credential_auth_resource_mcp_oauth_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VaultCredentialAuthResourceMcpOauth {
+        self.build_internal()
     }
 }
 

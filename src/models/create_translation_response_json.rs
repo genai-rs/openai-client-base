@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_translation_response_json_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateTranslationResponseJson {
     #[serde(rename = "text")]
     pub text: String,
@@ -19,6 +20,17 @@ pub struct CreateTranslationResponseJson {
 impl CreateTranslationResponseJson {
     pub fn new(text: String) -> CreateTranslationResponseJson {
         CreateTranslationResponseJson { text }
+    }
+}
+
+impl<S: create_translation_response_json_builder::State> CreateTranslationResponseJsonBuilder<S>
+where
+    S::Text: create_translation_response_json_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateTranslationResponseJson {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = external_storage_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ExternalStorageResponse {
     /// Defaults to `\"organization.external_storage\"`.
     #[serde(rename = "object")]
@@ -49,6 +50,23 @@ impl ExternalStorageResponse {
             status,
             created_at,
         }
+    }
+}
+
+impl<S: external_storage_response_builder::State> ExternalStorageResponseBuilder<S>
+where
+    S::Object: external_storage_response_builder::IsSet,
+    S::Id: external_storage_response_builder::IsSet,
+    S::ProjectId: external_storage_response_builder::IsSet,
+    S::Provider: external_storage_response_builder::IsSet,
+    S::Geography: external_storage_response_builder::IsSet,
+    S::Status: external_storage_response_builder::IsSet,
+    S::CreatedAt: external_storage_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ExternalStorageResponse {
+        self.build_internal()
     }
 }
 

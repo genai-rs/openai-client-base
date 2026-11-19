@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_score_question_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionScoreQuestionParam {
     /// Defaults to `\"score\"`.
     #[serde(rename = "type")]
@@ -37,6 +38,19 @@ impl LiveDecisionScoreQuestionParam {
             instructions,
             levels,
         }
+    }
+}
+
+impl<S: live_decision_score_question_param_builder::State> LiveDecisionScoreQuestionParamBuilder<S>
+where
+    S::Type: live_decision_score_question_param_builder::IsSet,
+    S::Instructions: live_decision_score_question_param_builder::IsSet,
+    S::Levels: live_decision_score_question_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionScoreQuestionParam {
+        self.build_internal()
     }
 }
 

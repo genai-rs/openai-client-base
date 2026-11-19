@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = safety_alert_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SafetyAlertResource {
     #[serde(rename = "id")]
     pub id: String,
@@ -68,6 +69,24 @@ impl SafetyAlertResource {
             reason,
             detailed_explanation: None,
         }
+    }
+}
+
+impl<S: safety_alert_resource_builder::State> SafetyAlertResourceBuilder<S>
+where
+    S::Id: safety_alert_resource_builder::IsSet,
+    S::Object: safety_alert_resource_builder::IsSet,
+    S::CreatedAt: safety_alert_resource_builder::IsSet,
+    S::RequestId: safety_alert_resource_builder::IsSet,
+    S::ResponseId: safety_alert_resource_builder::IsSet,
+    S::Model: safety_alert_resource_builder::IsSet,
+    S::RequestPaused: safety_alert_resource_builder::IsSet,
+    S::ErrorType: safety_alert_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SafetyAlertResource {
+        self.build_internal()
     }
 }
 

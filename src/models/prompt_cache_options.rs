@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// PromptCacheOptions : The prompt-caching options that were applied to the response. Supported for `gpt-5.6` and later models.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = prompt_cache_options_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PromptCacheOptions {
     /// The minimum lifetime applied to each cache breakpoint.
     #[serde(rename = "ttl")]
@@ -37,6 +38,18 @@ impl PromptCacheOptions {
             mode,
             comparison_response_id: None,
         }
+    }
+}
+
+impl<S: prompt_cache_options_builder::State> PromptCacheOptionsBuilder<S>
+where
+    S::Ttl: prompt_cache_options_builder::IsSet,
+    S::Mode: prompt_cache_options_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PromptCacheOptions {
+        self.build_internal()
     }
 }
 

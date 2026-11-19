@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaMultiAgentParam : Configuration for server-hosted multi-agent execution.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_multi_agent_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaMultiAgentParam {
     /// Whether to enable server-hosted multi-agent execution for this response.
     #[serde(rename = "enabled")]
@@ -33,6 +34,17 @@ impl BetaMultiAgentParam {
             enabled,
             max_concurrent_subagents: None,
         }
+    }
+}
+
+impl<S: beta_multi_agent_param_builder::State> BetaMultiAgentParamBuilder<S>
+where
+    S::Enabled: beta_multi_agent_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaMultiAgentParam {
+        self.build_internal()
     }
 }
 

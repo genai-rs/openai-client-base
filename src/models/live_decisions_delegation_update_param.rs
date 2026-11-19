@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decisions_delegation_update_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionsDelegationUpdateParam {
     /// Milliseconds to wait before requesting an automatic spoken acknowledgement for a delegation. The model may still speak before this delay. Any commentary or thinking appended to the session cancels all pending acknowledgements, including those for other delegations. Defaults to 400 for Decisions sessions and 0 (request immediately) for other sessions. Omission in a session update preserves the current value. Updates apply to subsequent delegations.
     ///
@@ -35,6 +36,18 @@ impl LiveDecisionsDelegationUpdateParam {
             r#type,
             decisions: None,
         }
+    }
+}
+
+impl<S: live_decisions_delegation_update_param_builder::State>
+    LiveDecisionsDelegationUpdateParamBuilder<S>
+where
+    S::Type: live_decisions_delegation_update_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionsDelegationUpdateParam {
+        self.build_internal()
     }
 }
 

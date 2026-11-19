@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveTransportDtmfSent : A SIP DTMF keypress successfully sent to the SIP trunk. Delivered only to sideband observers; this is not a client command.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_transport_dtmf_sent_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveTransportDtmfSent {
     /// Defaults to `\"transport.dtmf.sent\"`.
     #[serde(rename = "type")]
@@ -35,6 +36,19 @@ impl LiveTransportDtmfSent {
             event,
             client_event_id: None,
         }
+    }
+}
+
+impl<S: live_transport_dtmf_sent_builder::State> LiveTransportDtmfSentBuilder<S>
+where
+    S::Type: live_transport_dtmf_sent_builder::IsSet,
+    S::EventId: live_transport_dtmf_sent_builder::IsSet,
+    S::Event: live_transport_dtmf_sent_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveTransportDtmfSent {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LogProbProperties : A log probability object.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = log_prob_properties_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LogProbProperties {
     /// The token that was used to generate the log probability.
     #[serde(rename = "token")]
@@ -32,6 +33,19 @@ impl LogProbProperties {
             logprob,
             bytes,
         }
+    }
+}
+
+impl<S: log_prob_properties_builder::State> LogProbPropertiesBuilder<S>
+where
+    S::Token: log_prob_properties_builder::IsSet,
+    S::Logprob: log_prob_properties_builder::IsSet,
+    S::Bytes: log_prob_properties_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LogProbProperties {
+        self.build_internal()
     }
 }
 

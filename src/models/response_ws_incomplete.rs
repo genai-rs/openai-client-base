@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseWsIncomplete : An event that is emitted when a response finishes as incomplete.  Over WebSocket, steering can finish a response with `response.incomplete_details.reason` set to `steered`, followed automatically by a successor `response.created` that commits the queued steering input.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_ws_incomplete_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseWsIncomplete {
     /// The type of the event. Always `response.incomplete`.
     #[serde(rename = "type")]
@@ -40,6 +41,19 @@ impl ResponseWsIncomplete {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_ws_incomplete_builder::State> ResponseWsIncompleteBuilder<S>
+where
+    S::Type: response_ws_incomplete_builder::IsSet,
+    S::Response: response_ws_incomplete_builder::IsSet,
+    S::SequenceNumber: response_ws_incomplete_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseWsIncomplete {
+        self.build_internal()
     }
 }
 

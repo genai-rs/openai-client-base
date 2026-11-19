@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_input_image_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionInputImageParam {
     /// Defaults to `\"input_image\"`.
     #[serde(rename = "type")]
@@ -37,6 +38,18 @@ impl LiveDecisionInputImageParam {
             image_url,
             detail: None,
         }
+    }
+}
+
+impl<S: live_decision_input_image_param_builder::State> LiveDecisionInputImageParamBuilder<S>
+where
+    S::Type: live_decision_input_image_param_builder::IsSet,
+    S::ImageUrl: live_decision_input_image_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionInputImageParam {
+        self.build_internal()
     }
 }
 

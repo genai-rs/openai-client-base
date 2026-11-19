@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ConversationItemList : A list of Conversation items.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = conversation_item_list_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ConversationItemList {
     /// The type of object returned, must be `list`.
     #[serde(rename = "object")]
@@ -47,6 +48,21 @@ impl ConversationItemList {
             first_id,
             last_id,
         }
+    }
+}
+
+impl<S: conversation_item_list_builder::State> ConversationItemListBuilder<S>
+where
+    S::Object: conversation_item_list_builder::IsSet,
+    S::Data: conversation_item_list_builder::IsSet,
+    S::HasMore: conversation_item_list_builder::IsSet,
+    S::FirstId: conversation_item_list_builder::IsSet,
+    S::LastId: conversation_item_list_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ConversationItemList {
+        self.build_internal()
     }
 }
 

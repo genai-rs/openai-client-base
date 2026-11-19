@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = program_output_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProgramOutputItemParam {
     /// The unique ID of this program output item.
     #[serde(rename = "id")]
@@ -48,6 +49,21 @@ impl ProgramOutputItemParam {
             result,
             status,
         }
+    }
+}
+
+impl<S: program_output_item_param_builder::State> ProgramOutputItemParamBuilder<S>
+where
+    S::Id: program_output_item_param_builder::IsSet,
+    S::Type: program_output_item_param_builder::IsSet,
+    S::CallId: program_output_item_param_builder::IsSet,
+    S::Result: program_output_item_param_builder::IsSet,
+    S::Status: program_output_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProgramOutputItemParam {
+        self.build_internal()
     }
 }
 

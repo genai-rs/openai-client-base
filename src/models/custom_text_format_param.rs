@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CustomTextFormatParam : Unconstrained free-form text.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = custom_text_format_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CustomTextFormatParam {
     /// Unconstrained text format. Always `text`.  Defaults to `\"text\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl CustomTextFormatParam {
     /// Unconstrained free-form text.
     pub fn new(r#type: Type) -> CustomTextFormatParam {
         CustomTextFormatParam { r#type }
+    }
+}
+
+impl<S: custom_text_format_param_builder::State> CustomTextFormatParamBuilder<S>
+where
+    S::Type: custom_text_format_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CustomTextFormatParam {
+        self.build_internal()
     }
 }
 

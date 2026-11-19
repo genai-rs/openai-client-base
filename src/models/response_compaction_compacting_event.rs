@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_compaction_compacting_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseCompactionCompactingEvent {
     /// The type of the event, always `response.compaction.compacting`.  Defaults to `\"response.compaction.compacting\"`.
     #[serde(rename = "type")]
@@ -39,6 +40,21 @@ impl ResponseCompactionCompactingEvent {
             output_index,
             item_id,
         }
+    }
+}
+
+impl<S: response_compaction_compacting_event_builder::State>
+    ResponseCompactionCompactingEventBuilder<S>
+where
+    S::Type: response_compaction_compacting_event_builder::IsSet,
+    S::SequenceNumber: response_compaction_compacting_event_builder::IsSet,
+    S::OutputIndex: response_compaction_compacting_event_builder::IsSet,
+    S::ItemId: response_compaction_compacting_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseCompactionCompactingEvent {
+        self.build_internal()
     }
 }
 

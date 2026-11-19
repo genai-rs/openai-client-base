@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ScreenshotParam : A screenshot action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = screenshot_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ScreenshotParam {
     /// Specifies the event type. For a screenshot action, this property is always set to `screenshot`.  Defaults to `\"screenshot\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl ScreenshotParam {
     /// A screenshot action.
     pub fn new(r#type: Type) -> ScreenshotParam {
         ScreenshotParam { r#type }
+    }
+}
+
+impl<S: screenshot_param_builder::State> ScreenshotParamBuilder<S>
+where
+    S::Type: screenshot_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ScreenshotParam {
+        self.build_internal()
     }
 }
 

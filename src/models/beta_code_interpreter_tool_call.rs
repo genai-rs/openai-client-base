@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaCodeInterpreterToolCall : A tool call to run code.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_code_interpreter_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaCodeInterpreterToolCall {
     /// The agent that produced this item.
     #[serde(
@@ -61,6 +62,20 @@ impl BetaCodeInterpreterToolCall {
             code,
             outputs,
         }
+    }
+}
+
+impl<S: beta_code_interpreter_tool_call_builder::State> BetaCodeInterpreterToolCallBuilder<S>
+where
+    S::Type: beta_code_interpreter_tool_call_builder::IsSet,
+    S::Id: beta_code_interpreter_tool_call_builder::IsSet,
+    S::Status: beta_code_interpreter_tool_call_builder::IsSet,
+    S::ContainerId: beta_code_interpreter_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaCodeInterpreterToolCall {
+        self.build_internal()
     }
 }
 

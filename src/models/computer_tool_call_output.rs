@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ComputerToolCallOutput : The output of a computer tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = computer_tool_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ComputerToolCallOutput {
     /// The type of the computer tool call output. Always `computer_call_output`.  Defaults to `\"computer_call_output\"`.
     #[serde(rename = "type")]
@@ -51,6 +52,19 @@ impl ComputerToolCallOutput {
             output,
             status: None,
         }
+    }
+}
+
+impl<S: computer_tool_call_output_builder::State> ComputerToolCallOutputBuilder<S>
+where
+    S::Type: computer_tool_call_output_builder::IsSet,
+    S::CallId: computer_tool_call_output_builder::IsSet,
+    S::Output: computer_tool_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ComputerToolCallOutput {
+        self.build_internal()
     }
 }
 

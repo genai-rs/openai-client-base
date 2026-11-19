@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = deleted_webhook_endpoint_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeletedWebhookEndpointResource {
     /// The ID of the deleted webhook endpoint.
     #[serde(rename = "id")]
@@ -30,6 +31,19 @@ impl DeletedWebhookEndpointResource {
             object,
             deleted,
         }
+    }
+}
+
+impl<S: deleted_webhook_endpoint_resource_builder::State> DeletedWebhookEndpointResourceBuilder<S>
+where
+    S::Id: deleted_webhook_endpoint_resource_builder::IsSet,
+    S::Object: deleted_webhook_endpoint_resource_builder::IsSet,
+    S::Deleted: deleted_webhook_endpoint_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeletedWebhookEndpointResource {
+        self.build_internal()
     }
 }
 

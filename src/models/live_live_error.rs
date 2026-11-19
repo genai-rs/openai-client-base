@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveLiveError : Details of an error encountered by the Live session, including the affected parameter or client command when available.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_live_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveLiveError {
     /// The category of error, such as `invalid_request_error` for an invalid Live client command.
     #[serde(rename = "type")]
@@ -40,6 +41,19 @@ impl LiveLiveError {
             param: None,
             client_event_id: None,
         }
+    }
+}
+
+impl<S: live_live_error_builder::State> LiveLiveErrorBuilder<S>
+where
+    S::Type: live_live_error_builder::IsSet,
+    S::Code: live_live_error_builder::IsSet,
+    S::Message: live_live_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveLiveError {
+        self.build_internal()
     }
 }
 

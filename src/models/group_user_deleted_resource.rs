@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// GroupUserDeletedResource : Confirmation payload returned after removing a user from a group.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = group_user_deleted_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GroupUserDeletedResource {
     /// Always `group.user.deleted`.
     #[serde(rename = "object")]
@@ -25,6 +26,18 @@ impl GroupUserDeletedResource {
     /// Confirmation payload returned after removing a user from a group.
     pub fn new(object: Object, deleted: bool) -> GroupUserDeletedResource {
         GroupUserDeletedResource { object, deleted }
+    }
+}
+
+impl<S: group_user_deleted_resource_builder::State> GroupUserDeletedResourceBuilder<S>
+where
+    S::Object: group_user_deleted_resource_builder::IsSet,
+    S::Deleted: group_user_deleted_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GroupUserDeletedResource {
+        self.build_internal()
     }
 }
 

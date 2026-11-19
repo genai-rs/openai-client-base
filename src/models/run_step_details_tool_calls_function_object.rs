@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_details_tool_calls_function_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDetailsToolCallsFunctionObject {
     /// The ID of the tool call object.
     #[serde(rename = "id")]
@@ -34,6 +35,20 @@ impl RunStepDetailsToolCallsFunctionObject {
             r#type,
             function,
         }
+    }
+}
+
+impl<S: run_step_details_tool_calls_function_object_builder::State>
+    RunStepDetailsToolCallsFunctionObjectBuilder<S>
+where
+    S::Id: run_step_details_tool_calls_function_object_builder::IsSet,
+    S::Type: run_step_details_tool_calls_function_object_builder::IsSet,
+    S::Function: run_step_details_tool_calls_function_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDetailsToolCallsFunctionObject {
+        self.build_internal()
     }
 }
 

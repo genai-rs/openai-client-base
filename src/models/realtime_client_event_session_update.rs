@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeClientEventSessionUpdate : Send this event to update the session’s configuration. The client may send this event at any time to update any field except for `voice` and `model`. `voice` can be updated only if there have been no other audio outputs yet.  When the server receives a `session.update`, it will respond with a `session.updated` event showing the full, effective configuration. Only the fields that are present in the `session.update` are updated. To clear a field like `instructions`, pass an empty string. To clear a field like `tools`, pass an empty array. To clear a field like `turn_detection`, pass `null`.  To turn off input audio noise reduction, send this Realtime event:  ```json {\"type\":\"session.update\",\"session\":{\"type\":\"realtime\",\"audio\":{\"input\":{\"noise_reduction\":null}}}} ```  For a transcription session, use `\"type\":\"transcription\"` inside `session`. Omitting `audio.input.noise_reduction` from an update leaves its current setting unchanged.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_client_event_session_update_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeClientEventSessionUpdate {
     /// Optional client-generated ID used to identify this event. This is an arbitrary string that a client may assign. It will be passed back if there is an error with the event, but the corresponding `session.updated` event will not include it.
     ///
@@ -37,6 +38,19 @@ impl RealtimeClientEventSessionUpdate {
             r#type,
             session,
         }
+    }
+}
+
+impl<S: realtime_client_event_session_update_builder::State>
+    RealtimeClientEventSessionUpdateBuilder<S>
+where
+    S::Type: realtime_client_event_session_update_builder::IsSet,
+    S::Session: realtime_client_event_session_update_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeClientEventSessionUpdate {
+        self.build_internal()
     }
 }
 

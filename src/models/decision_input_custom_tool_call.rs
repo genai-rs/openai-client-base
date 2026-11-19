@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = decision_input_custom_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DecisionInputCustomToolCall {
     /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
@@ -66,6 +67,20 @@ impl DecisionInputCustomToolCall {
             status: None,
             r#type,
         }
+    }
+}
+
+impl<S: decision_input_custom_tool_call_builder::State> DecisionInputCustomToolCallBuilder<S>
+where
+    S::CallId: decision_input_custom_tool_call_builder::IsSet,
+    S::Name: decision_input_custom_tool_call_builder::IsSet,
+    S::Input: decision_input_custom_tool_call_builder::IsSet,
+    S::Type: decision_input_custom_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DecisionInputCustomToolCall {
+        self.build_internal()
     }
 }
 

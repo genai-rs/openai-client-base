@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventConversationItemAdded : Sent by the server when an Item is added to the default Conversation. This can happen in several cases: - When the client sends a `conversation.item.create` event. - When the input audio buffer is committed. In this case the item will be a user message containing the audio from the buffer. - When the model is generating a Response. In this case the `conversation.item.added` event will be sent when the model starts generating a specific Item, and thus it will not yet have any content (and `status` will be `in_progress`).  The event will include the full content of the Item (except when model is generating a Response) except for audio data, which can be retrieved separately with a `conversation.item.retrieve` event if necessary.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_conversation_item_added_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventConversationItemAdded {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -45,6 +46,20 @@ impl RealtimeServerEventConversationItemAdded {
             previous_item_id: None,
             item,
         }
+    }
+}
+
+impl<S: realtime_server_event_conversation_item_added_builder::State>
+    RealtimeServerEventConversationItemAddedBuilder<S>
+where
+    S::EventId: realtime_server_event_conversation_item_added_builder::IsSet,
+    S::Type: realtime_server_event_conversation_item_added_builder::IsSet,
+    S::Item: realtime_server_event_conversation_item_added_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventConversationItemAdded {
+        self.build_internal()
     }
 }
 

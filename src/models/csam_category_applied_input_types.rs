@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = csam_category_applied_input_types_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CsamCategoryAppliedInputTypes {
     /// Validation: `minItems: 1`, `maxItems: 1`.
     #[serde(rename = "likely-csam")]
@@ -29,6 +30,18 @@ impl CsamCategoryAppliedInputTypes {
             likely_csam,
             likely_csam_slash_gen_ai,
         }
+    }
+}
+
+impl<S: csam_category_applied_input_types_builder::State> CsamCategoryAppliedInputTypesBuilder<S>
+where
+    S::LikelyCsam: csam_category_applied_input_types_builder::IsSet,
+    S::LikelyCsamSlashGenAi: csam_category_applied_input_types_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CsamCategoryAppliedInputTypes {
+        self.build_internal()
     }
 }
 

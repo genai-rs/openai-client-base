@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = oci_external_key_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct OciExternalKeyParams {
     /// A friendly name to identify this config
     #[serde(rename = "name")]
@@ -60,6 +61,21 @@ impl OciExternalKeyParams {
             purpose: None,
             key_version_ocid: None,
         }
+    }
+}
+
+impl<S: oci_external_key_params_builder::State> OciExternalKeyParamsBuilder<S>
+where
+    S::Name: oci_external_key_params_builder::IsSet,
+    S::Type: oci_external_key_params_builder::IsSet,
+    S::Region: oci_external_key_params_builder::IsSet,
+    S::VaultOcid: oci_external_key_params_builder::IsSet,
+    S::KeyOcid: oci_external_key_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> OciExternalKeyParams {
+        self.build_internal()
     }
 }
 

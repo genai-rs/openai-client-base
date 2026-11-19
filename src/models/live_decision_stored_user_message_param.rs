@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_stored_user_message_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionStoredUserMessageParam {
     #[serde(rename = "id")]
     pub id: String,
@@ -37,6 +38,20 @@ impl LiveDecisionStoredUserMessageParam {
             role,
             content,
         }
+    }
+}
+
+impl<S: live_decision_stored_user_message_param_builder::State>
+    LiveDecisionStoredUserMessageParamBuilder<S>
+where
+    S::Id: live_decision_stored_user_message_param_builder::IsSet,
+    S::Role: live_decision_stored_user_message_param_builder::IsSet,
+    S::Content: live_decision_stored_user_message_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionStoredUserMessageParam {
+        self.build_internal()
     }
 }
 

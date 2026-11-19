@@ -475,7 +475,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for UpdateSkillDefaultVersionE
 }
 
 /// Create a new skill.
-#[bon::builder]
+#[bon::builder(state_mod = create_skill_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_skill(
     configuration: &configuration::Configuration,
     #[builder(into)] files: models::CreateSkillBodyFiles,
@@ -563,13 +563,26 @@ pub async fn create_skill(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_skill_builder::State> CreateSkillBuilder<'_, '_, S>
+where
+    S::Configuration: create_skill_builder::IsSet,
+    S::Files: create_skill_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::SkillResource, Error<CreateSkillError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new skill.
 ///
 /// Sends the same request as [`create_skill`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SkillResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_skill_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_skill_response(
     configuration: &configuration::Configuration,
     #[builder(into)] files: models::CreateSkillBodyFiles,
@@ -648,10 +661,25 @@ pub async fn create_skill_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_skill_response_builder::State> CreateSkillResponseBuilder<'_, '_, S>
+where
+    S::Configuration: create_skill_response_builder::IsSet,
+    S::Files: create_skill_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SkillResource>, Error<CreateSkillError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new skill.
 ///
 /// Sends the request body as `application/json`; `create_skill` sends it as `multipart/form-data`.
-#[bon::builder]
+#[bon::builder(state_mod = create_skill_json_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_skill_json(
     configuration: &configuration::Configuration,
     create_skill_body: Option<&models::CreateSkillBody>,
@@ -726,6 +754,18 @@ pub async fn create_skill_json(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_skill_json_builder::State> CreateSkillJsonBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_skill_json_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::SkillResource, Error<CreateSkillError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new skill.
 ///
 /// Sends the request body as `application/json`; `create_skill` sends it as `multipart/form-data`.
@@ -734,7 +774,7 @@ pub async fn create_skill_json(
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SkillResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_skill_json_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_skill_json_response(
     configuration: &configuration::Configuration,
     create_skill_body: Option<&models::CreateSkillBody>,
@@ -800,8 +840,22 @@ pub async fn create_skill_json_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_skill_json_response_builder::State> CreateSkillJsonResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_skill_json_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SkillResource>, Error<CreateSkillError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new immutable skill version.
-#[bon::builder]
+#[bon::builder(state_mod = create_skill_version_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_skill_version(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -903,13 +957,29 @@ pub async fn create_skill_version(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_skill_version_builder::State> CreateSkillVersionBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_skill_version_builder::IsSet,
+    S::SkillId: create_skill_version_builder::IsSet,
+    S::Files: create_skill_version_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SkillVersionResource, Error<CreateSkillVersionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new immutable skill version.
 ///
 /// Sends the same request as [`create_skill_version`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SkillVersionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_skill_version_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_skill_version_response(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -1002,10 +1072,28 @@ pub async fn create_skill_version_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_skill_version_response_builder::State>
+    CreateSkillVersionResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_skill_version_response_builder::IsSet,
+    S::SkillId: create_skill_version_response_builder::IsSet,
+    S::Files: create_skill_version_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SkillVersionResource>, Error<CreateSkillVersionError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Create a new immutable skill version.
 ///
 /// Sends the request body as `application/json`; `create_skill_version` sends it as `multipart/form-data`.
-#[bon::builder]
+#[bon::builder(state_mod = create_skill_version_json_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_skill_version_json(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -1089,6 +1177,21 @@ pub async fn create_skill_version_json(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_skill_version_json_builder::State> CreateSkillVersionJsonBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_skill_version_json_builder::IsSet,
+    S::SkillId: create_skill_version_json_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SkillVersionResource, Error<CreateSkillVersionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new immutable skill version.
 ///
 /// Sends the request body as `application/json`; `create_skill_version` sends it as `multipart/form-data`.
@@ -1097,7 +1200,7 @@ pub async fn create_skill_version_json(
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SkillVersionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_skill_version_json_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_skill_version_json_response(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -1172,8 +1275,25 @@ pub async fn create_skill_version_json_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_skill_version_json_response_builder::State>
+    CreateSkillVersionJsonResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_skill_version_json_response_builder::IsSet,
+    S::SkillId: create_skill_version_json_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SkillVersionResource>, Error<CreateSkillVersionError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Delete a skill by its ID.
-#[bon::builder]
+#[bon::builder(state_mod = delete_skill_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_skill(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -1248,13 +1368,26 @@ pub async fn delete_skill(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_skill_builder::State> DeleteSkillBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_skill_builder::IsSet,
+    S::SkillId: delete_skill_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::DeletedSkillResource, Error<DeleteSkillError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete a skill by its ID.
 ///
 /// Sends the same request as [`delete_skill`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeletedSkillResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_skill_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_skill_response(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -1320,8 +1453,23 @@ pub async fn delete_skill_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_skill_response_builder::State> DeleteSkillResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_skill_response_builder::IsSet,
+    S::SkillId: delete_skill_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeletedSkillResource>, Error<DeleteSkillError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete a skill version.
-#[bon::builder]
+#[bon::builder(state_mod = delete_skill_version_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_skill_version(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -1402,13 +1550,29 @@ pub async fn delete_skill_version(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_skill_version_builder::State> DeleteSkillVersionBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_skill_version_builder::IsSet,
+    S::SkillId: delete_skill_version_builder::IsSet,
+    S::Version: delete_skill_version_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeletedSkillVersionResource, Error<DeleteSkillVersionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete a skill version.
 ///
 /// Sends the same request as [`delete_skill_version`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeletedSkillVersionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_skill_version_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_skill_version_response(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -1481,8 +1645,28 @@ pub async fn delete_skill_version_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_skill_version_response_builder::State>
+    DeleteSkillVersionResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_skill_version_response_builder::IsSet,
+    S::SkillId: delete_skill_version_response_builder::IsSet,
+    S::Version: delete_skill_version_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::DeletedSkillVersionResource>,
+        Error<DeleteSkillVersionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Get a skill by its ID.
-#[bon::builder]
+#[bon::builder(state_mod = get_skill_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_skill(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -1557,13 +1741,26 @@ pub async fn get_skill(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_skill_builder::State> GetSkillBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_skill_builder::IsSet,
+    S::SkillId: get_skill_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::SkillResource, Error<GetSkillError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get a skill by its ID.
 ///
 /// Sends the same request as [`get_skill`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SkillResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_skill_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_skill_response(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -1629,8 +1826,23 @@ pub async fn get_skill_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_skill_response_builder::State> GetSkillResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_skill_response_builder::IsSet,
+    S::SkillId: get_skill_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SkillResource>, Error<GetSkillError>> {
+        self.call_internal().await
+    }
+}
+
 /// Download a skill zip bundle by its ID.
-#[bon::builder]
+#[bon::builder(state_mod = get_skill_content_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_skill_content(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -1694,10 +1906,23 @@ pub async fn get_skill_content(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_skill_content_builder::State> GetSkillContentBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_skill_content_builder::IsSet,
+    S::SkillId: get_skill_content_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<timvw_rust_runtime::Response, Error<GetSkillContentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Download a skill zip bundle by its ID.
 ///
 /// Decodes the `application/json` form of the response; `get_skill_content` decodes `application/zip`.
-#[bon::builder]
+#[bon::builder(state_mod = get_skill_content_json_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_skill_content_json(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -1772,6 +1997,19 @@ pub async fn get_skill_content_json(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_skill_content_json_builder::State> GetSkillContentJsonBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_skill_content_json_builder::IsSet,
+    S::SkillId: get_skill_content_json_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<String, Error<GetSkillContentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Download a skill zip bundle by its ID.
 ///
 /// Decodes the `application/json` form of the response; `get_skill_content` decodes `application/zip`.
@@ -1780,7 +2018,7 @@ pub async fn get_skill_content_json(
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `String` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_skill_content_json_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_skill_content_json_response(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -1846,8 +2084,22 @@ pub async fn get_skill_content_json_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_skill_content_json_response_builder::State>
+    GetSkillContentJsonResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_skill_content_json_response_builder::IsSet,
+    S::SkillId: get_skill_content_json_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<String>, Error<GetSkillContentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get a specific skill version.
-#[bon::builder]
+#[bon::builder(state_mod = get_skill_version_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_skill_version(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -1928,13 +2180,27 @@ pub async fn get_skill_version(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_skill_version_builder::State> GetSkillVersionBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_skill_version_builder::IsSet,
+    S::SkillId: get_skill_version_builder::IsSet,
+    S::Version: get_skill_version_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::SkillVersionResource, Error<GetSkillVersionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get a specific skill version.
 ///
 /// Sends the same request as [`get_skill_version`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SkillVersionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_skill_version_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_skill_version_response(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -2006,8 +2272,24 @@ pub async fn get_skill_version_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_skill_version_response_builder::State> GetSkillVersionResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_skill_version_response_builder::IsSet,
+    S::SkillId: get_skill_version_response_builder::IsSet,
+    S::Version: get_skill_version_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SkillVersionResource>, Error<GetSkillVersionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Download a skill version zip bundle.
-#[bon::builder]
+#[bon::builder(state_mod = get_skill_version_content_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_skill_version_content(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -2077,10 +2359,26 @@ pub async fn get_skill_version_content(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_skill_version_content_builder::State> GetSkillVersionContentBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_skill_version_content_builder::IsSet,
+    S::SkillId: get_skill_version_content_builder::IsSet,
+    S::Version: get_skill_version_content_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<timvw_rust_runtime::Response, Error<GetSkillVersionContentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Download a skill version zip bundle.
 ///
 /// Decodes the `application/json` form of the response; `get_skill_version_content` decodes `application/zip`.
-#[bon::builder]
+#[bon::builder(state_mod = get_skill_version_content_json_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_skill_version_content_json(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -2161,6 +2459,21 @@ pub async fn get_skill_version_content_json(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_skill_version_content_json_builder::State>
+    GetSkillVersionContentJsonBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_skill_version_content_json_builder::IsSet,
+    S::SkillId: get_skill_version_content_json_builder::IsSet,
+    S::Version: get_skill_version_content_json_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<String, Error<GetSkillVersionContentError>> {
+        self.call_internal().await
+    }
+}
+
 /// Download a skill version zip bundle.
 ///
 /// Decodes the `application/json` form of the response; `get_skill_version_content` decodes `application/zip`.
@@ -2169,7 +2482,7 @@ pub async fn get_skill_version_content_json(
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `String` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_skill_version_content_json_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_skill_version_content_json_response(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -2241,8 +2554,25 @@ pub async fn get_skill_version_content_json_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_skill_version_content_json_response_builder::State>
+    GetSkillVersionContentJsonResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: get_skill_version_content_json_response_builder::IsSet,
+    S::SkillId: get_skill_version_content_json_response_builder::IsSet,
+    S::Version: get_skill_version_content_json_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<String>, Error<GetSkillVersionContentError>> {
+        self.call_internal().await
+    }
+}
+
 /// List skill versions for a skill.
-#[bon::builder]
+#[bon::builder(state_mod = list_skill_versions_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_skill_versions(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -2335,13 +2665,28 @@ pub async fn list_skill_versions(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_skill_versions_builder::State> ListSkillVersionsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_skill_versions_builder::IsSet,
+    S::SkillId: list_skill_versions_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SkillVersionListResource, Error<ListSkillVersionsError>> {
+        self.call_internal().await
+    }
+}
+
 /// List skill versions for a skill.
 ///
 /// Sends the same request as [`list_skill_versions`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SkillVersionListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_skill_versions_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_skill_versions_response(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -2425,8 +2770,25 @@ pub async fn list_skill_versions_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_skill_versions_response_builder::State>
+    ListSkillVersionsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_skill_versions_response_builder::IsSet,
+    S::SkillId: list_skill_versions_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SkillVersionListResource>, Error<ListSkillVersionsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// List all skills for the current project.
-#[bon::builder]
+#[bon::builder(state_mod = list_skills_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_skills(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -2510,13 +2872,25 @@ pub async fn list_skills(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_skills_builder::State> ListSkillsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_skills_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::SkillListResource, Error<ListSkillsError>> {
+        self.call_internal().await
+    }
+}
+
 /// List all skills for the current project.
 ///
 /// Sends the same request as [`list_skills`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SkillListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_skills_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_skills_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -2591,8 +2965,22 @@ pub async fn list_skills_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_skills_response_builder::State> ListSkillsResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_skills_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SkillListResource>, Error<ListSkillsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Update the default version pointer for a skill.
-#[bon::builder]
+#[bon::builder(state_mod = update_skill_default_version_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_skill_default_version(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -2673,13 +3061,29 @@ pub async fn update_skill_default_version(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_skill_default_version_builder::State>
+    UpdateSkillDefaultVersionBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_skill_default_version_builder::IsSet,
+    S::SkillId: update_skill_default_version_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::SkillResource, Error<UpdateSkillDefaultVersionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Update the default version pointer for a skill.
 ///
 /// Sends the same request as [`update_skill_default_version`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::SkillResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_skill_default_version_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_skill_default_version_response(
     configuration: &configuration::Configuration,
     skill_id: &str,
@@ -2748,5 +3152,22 @@ pub async fn update_skill_default_version_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: update_skill_default_version_response_builder::State>
+    UpdateSkillDefaultVersionResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_skill_default_version_response_builder::IsSet,
+    S::SkillId: update_skill_default_version_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::SkillResource>, Error<UpdateSkillDefaultVersionError>>
+    {
+        self.call_internal().await
     }
 }

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseShellCallOutputContentDeltaStreamingEvent : A streaming event that indicated shell call output was incrementally added.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_shell_call_output_content_delta_streaming_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseShellCallOutputContentDeltaStreamingEvent {
     /// The type of the event, always `response.shell_call_output_content.delta`.  Defaults to `\"response.shell_call_output_content.delta\"`.
     #[serde(rename = "type")]
@@ -54,6 +55,23 @@ impl BetaResponseShellCallOutputContentDeltaStreamingEvent {
             command_index,
             delta,
         }
+    }
+}
+
+impl<S: beta_response_shell_call_output_content_delta_streaming_event_builder::State>
+    BetaResponseShellCallOutputContentDeltaStreamingEventBuilder<S>
+where
+    S::Type: beta_response_shell_call_output_content_delta_streaming_event_builder::IsSet,
+    S::SequenceNumber: beta_response_shell_call_output_content_delta_streaming_event_builder::IsSet,
+    S::ItemId: beta_response_shell_call_output_content_delta_streaming_event_builder::IsSet,
+    S::OutputIndex: beta_response_shell_call_output_content_delta_streaming_event_builder::IsSet,
+    S::CommandIndex: beta_response_shell_call_output_content_delta_streaming_event_builder::IsSet,
+    S::Delta: beta_response_shell_call_output_content_delta_streaming_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseShellCallOutputContentDeltaStreamingEvent {
+        self.build_internal()
     }
 }
 

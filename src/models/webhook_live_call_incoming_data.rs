@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookLiveCallIncomingData : Event data payload.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_live_call_incoming_data_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookLiveCallIncomingData {
     /// The `live_...` ID of the pending SIP session. Pass this value unchanged to Live call controls and sideband connections. The corresponding `realtime.call.incoming` event uses a separate `rtc_...` call ID.
     #[serde(rename = "session_id")]
@@ -35,6 +36,18 @@ impl WebhookLiveCallIncomingData {
             sip_media_security: None,
             sip_headers,
         }
+    }
+}
+
+impl<S: webhook_live_call_incoming_data_builder::State> WebhookLiveCallIncomingDataBuilder<S>
+where
+    S::SessionId: webhook_live_call_incoming_data_builder::IsSet,
+    S::SipHeaders: webhook_live_call_incoming_data_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookLiveCallIncomingData {
+        self.build_internal()
     }
 }
 

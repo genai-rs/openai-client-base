@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranscriptionSessionCreateResponseTurnDetection : Configuration for turn detection. Can be set to `null` to turn off. Server VAD means that the model will detect the start and end of speech based on audio volume and respond at the end of user speech.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_transcription_session_create_response_turn_detection_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranscriptionSessionCreateResponseTurnDetection {
     /// Type of turn detection, only `server_vad` is currently supported.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -39,6 +40,16 @@ impl RealtimeTranscriptionSessionCreateResponseTurnDetection {
             prefix_padding_ms: None,
             silence_duration_ms: None,
         }
+    }
+}
+
+impl<S: realtime_transcription_session_create_response_turn_detection_builder::State>
+    RealtimeTranscriptionSessionCreateResponseTurnDetectionBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranscriptionSessionCreateResponseTurnDetection {
+        self.build_internal()
     }
 }
 

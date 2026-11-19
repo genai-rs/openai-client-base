@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_voice_consent_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateVoiceConsentRequest {
     /// The updated label for this consent recording.
     #[serde(rename = "name")]
@@ -20,6 +21,17 @@ pub struct UpdateVoiceConsentRequest {
 impl UpdateVoiceConsentRequest {
     pub fn new(name: String) -> UpdateVoiceConsentRequest {
         UpdateVoiceConsentRequest { name }
+    }
+}
+
+impl<S: update_voice_consent_request_builder::State> UpdateVoiceConsentRequestBuilder<S>
+where
+    S::Name: update_voice_consent_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateVoiceConsentRequest {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectSpendAlertListResource : Paginated list of project spend alerts.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_spend_alert_list_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectSpendAlertListResource {
     /// Always `list`.
     #[serde(rename = "object")]
@@ -47,6 +48,19 @@ impl ProjectSpendAlertListResource {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: project_spend_alert_list_resource_builder::State> ProjectSpendAlertListResourceBuilder<S>
+where
+    S::Object: project_spend_alert_list_resource_builder::IsSet,
+    S::Data: project_spend_alert_list_resource_builder::IsSet,
+    S::HasMore: project_spend_alert_list_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectSpendAlertListResource {
+        self.build_internal()
     }
 }
 

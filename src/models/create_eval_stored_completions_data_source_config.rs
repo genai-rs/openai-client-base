@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateEvalStoredCompletionsDataSourceConfig : Deprecated in favor of LogsDataSourceConfig.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_eval_stored_completions_data_source_config_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateEvalStoredCompletionsDataSourceConfig {
     /// The type of data source. Always `stored_completions`.  Defaults to `\"stored_completions\"`.
     #[serde(rename = "type")]
@@ -28,6 +29,18 @@ impl CreateEvalStoredCompletionsDataSourceConfig {
             r#type,
             metadata: None,
         }
+    }
+}
+
+impl<S: create_eval_stored_completions_data_source_config_builder::State>
+    CreateEvalStoredCompletionsDataSourceConfigBuilder<S>
+where
+    S::Type: create_eval_stored_completions_data_source_config_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateEvalStoredCompletionsDataSourceConfig {
+        self.build_internal()
     }
 }
 

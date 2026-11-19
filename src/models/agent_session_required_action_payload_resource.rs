@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = agent_session_required_action_payload_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AgentSessionRequiredActionPayloadResource {
     #[serde(rename = "type")]
     pub r#type: models::AgentSessionRequiredActionTypeResource,
@@ -22,6 +23,18 @@ impl AgentSessionRequiredActionPayloadResource {
         r#type: models::AgentSessionRequiredActionTypeResource,
     ) -> AgentSessionRequiredActionPayloadResource {
         AgentSessionRequiredActionPayloadResource { r#type }
+    }
+}
+
+impl<S: agent_session_required_action_payload_resource_builder::State>
+    AgentSessionRequiredActionPayloadResourceBuilder<S>
+where
+    S::Type: agent_session_required_action_payload_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AgentSessionRequiredActionPayloadResource {
+        self.build_internal()
     }
 }
 

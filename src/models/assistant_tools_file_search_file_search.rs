@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AssistantToolsFileSearchFileSearch : Overrides for the file search tool.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = assistant_tools_file_search_file_search_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AssistantToolsFileSearchFileSearch {
     /// The maximum number of results the file search tool should output. The default is 20 for `gpt-4*` models and 5 for `gpt-3.5-turbo`. This number should be between 1 and 50 inclusive.  Note that the file search tool may output fewer than `max_num_results` results. See the [file search tool documentation](https://developers.openai.com/api/docs/guides/tools-file-search#retrieval-customization) for more information.
     ///
@@ -30,6 +31,16 @@ impl AssistantToolsFileSearchFileSearch {
             max_num_results: None,
             ranking_options: None,
         }
+    }
+}
+
+impl<S: assistant_tools_file_search_file_search_builder::State>
+    AssistantToolsFileSearchFileSearchBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AssistantToolsFileSearchFileSearch {
+        self.build_internal()
     }
 }
 

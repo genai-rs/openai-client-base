@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AgentToolConfigParamMcp : Tools provided by a remote MCP server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = agent_tool_config_param_mcp_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AgentToolConfigParamMcp {
     /// The type of the object. Always `mcp`.  Defaults to `\"mcp\"`.
     #[serde(rename = "type")]
@@ -84,6 +85,19 @@ impl AgentToolConfigParamMcp {
             required: None,
             connection_origin: None,
         }
+    }
+}
+
+impl<S: agent_tool_config_param_mcp_builder::State> AgentToolConfigParamMcpBuilder<S>
+where
+    S::Type: agent_tool_config_param_mcp_builder::IsSet,
+    S::ServerLabel: agent_tool_config_param_mcp_builder::IsSet,
+    S::Transport: agent_tool_config_param_mcp_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AgentToolConfigParamMcp {
+        self.build_internal()
     }
 }
 

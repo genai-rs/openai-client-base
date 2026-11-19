@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ReasoningResource : The reasoning configuration used by an agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = reasoning_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ReasoningResource {
     /// The requested reasoning effort, or `null` when the model selects its own default.
     #[serde(rename = "effort", default)]
@@ -29,6 +30,14 @@ impl ReasoningResource {
         summary: Option<models::ReasoningSummaryResource>,
     ) -> ReasoningResource {
         ReasoningResource { effort, summary }
+    }
+}
+
+impl<S: reasoning_resource_builder::State> ReasoningResourceBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ReasoningResource {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationClientEventSessionClose : Gracefully close the realtime translation session. The server flushes pending input audio and emits any remaining translated output before closing the session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_client_event_session_close_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationClientEventSessionClose {
     /// Optional client-generated ID used to identify this event.
     ///
@@ -30,6 +31,18 @@ impl RealtimeTranslationClientEventSessionClose {
             event_id: None,
             r#type,
         }
+    }
+}
+
+impl<S: realtime_translation_client_event_session_close_builder::State>
+    RealtimeTranslationClientEventSessionCloseBuilder<S>
+where
+    S::Type: realtime_translation_client_event_session_close_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationClientEventSessionClose {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_specific_web_search_preview_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSpecificWebSearchPreviewParam {
     /// The tool to call. Always `web_search_preview`.  Defaults to `\"web_search_preview\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,18 @@ pub struct LiveSpecificWebSearchPreviewParam {
 impl LiveSpecificWebSearchPreviewParam {
     pub fn new(r#type: Type) -> LiveSpecificWebSearchPreviewParam {
         LiveSpecificWebSearchPreviewParam { r#type }
+    }
+}
+
+impl<S: live_specific_web_search_preview_param_builder::State>
+    LiveSpecificWebSearchPreviewParamBuilder<S>
+where
+    S::Type: live_specific_web_search_preview_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSpecificWebSearchPreviewParam {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalList : An object representing a list of evals.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_list_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalList {
     /// The type of this object. It is always set to \"list\".  Defaults to `\"list\"`.
     #[serde(rename = "object")]
@@ -47,6 +48,21 @@ impl EvalList {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: eval_list_builder::State> EvalListBuilder<S>
+where
+    S::Object: eval_list_builder::IsSet,
+    S::Data: eval_list_builder::IsSet,
+    S::FirstId: eval_list_builder::IsSet,
+    S::LastId: eval_list_builder::IsSet,
+    S::HasMore: eval_list_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalList {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = static_chunking_strategy_builder, finish_fn(vis = "", name = build_internal))]
 pub struct StaticChunkingStrategy {
     /// The maximum number of tokens in each chunk. The default value is `800`. The minimum value is `100` and the maximum value is `4096`.
     ///
@@ -28,6 +29,18 @@ impl StaticChunkingStrategy {
             max_chunk_size_tokens,
             chunk_overlap_tokens,
         }
+    }
+}
+
+impl<S: static_chunking_strategy_builder::State> StaticChunkingStrategyBuilder<S>
+where
+    S::MaxChunkSizeTokens: static_chunking_strategy_builder::IsSet,
+    S::ChunkOverlapTokens: static_chunking_strategy_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> StaticChunkingStrategy {
+        self.build_internal()
     }
 }
 

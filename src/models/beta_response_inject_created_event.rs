@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseInjectCreatedEvent : Emitted when all injected input items were validated and committed to the active response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_inject_created_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseInjectCreatedEvent {
     /// The event discriminator. Always `response.inject.created`.
     #[serde(rename = "type")]
@@ -40,6 +41,19 @@ impl BetaResponseInjectCreatedEvent {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_inject_created_event_builder::State> BetaResponseInjectCreatedEventBuilder<S>
+where
+    S::Type: beta_response_inject_created_event_builder::IsSet,
+    S::ResponseId: beta_response_inject_created_event_builder::IsSet,
+    S::SequenceNumber: beta_response_inject_created_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseInjectCreatedEvent {
+        self.build_internal()
     }
 }
 

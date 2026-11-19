@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CustomToolCall : A call to a custom tool created by the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = custom_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CustomToolCall {
     /// The type of the custom tool call. Always `custom_tool_call`.
     #[serde(rename = "type")]
@@ -57,6 +58,20 @@ impl CustomToolCall {
             input,
             r#async: None,
         }
+    }
+}
+
+impl<S: custom_tool_call_builder::State> CustomToolCallBuilder<S>
+where
+    S::Type: custom_tool_call_builder::IsSet,
+    S::CallId: custom_tool_call_builder::IsSet,
+    S::Name: custom_tool_call_builder::IsSet,
+    S::Input: custom_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CustomToolCall {
+        self.build_internal()
     }
 }
 

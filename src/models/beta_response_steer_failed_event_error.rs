@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseSteerFailedEventError : Information about why the input could not be committed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_steer_failed_event_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseSteerFailedEventError {
     /// The error type. Always `invalid_request_error`.
     #[serde(rename = "type")]
@@ -36,6 +37,20 @@ impl BetaResponseSteerFailedEventError {
             code,
             message,
         }
+    }
+}
+
+impl<S: beta_response_steer_failed_event_error_builder::State>
+    BetaResponseSteerFailedEventErrorBuilder<S>
+where
+    S::Type: beta_response_steer_failed_event_error_builder::IsSet,
+    S::Code: beta_response_steer_failed_event_error_builder::IsSet,
+    S::Message: beta_response_steer_failed_event_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseSteerFailedEventError {
+        self.build_internal()
     }
 }
 

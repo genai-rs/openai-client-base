@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = delete_eval_run200_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeleteEvalRun200Response {
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
     pub object: Option<String>,
@@ -27,6 +28,14 @@ impl DeleteEvalRun200Response {
             deleted: None,
             run_id: None,
         }
+    }
+}
+
+impl<S: delete_eval_run200_response_builder::State> DeleteEvalRun200ResponseBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeleteEvalRun200Response {
+        self.build_internal()
     }
 }
 

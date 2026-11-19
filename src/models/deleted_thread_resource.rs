@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// DeletedThreadResource : Confirmation payload returned after deleting a thread.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = deleted_thread_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeletedThreadResource {
     /// Identifier of the deleted thread.
     #[serde(rename = "id")]
@@ -32,6 +33,19 @@ impl DeletedThreadResource {
             object,
             deleted,
         }
+    }
+}
+
+impl<S: deleted_thread_resource_builder::State> DeletedThreadResourceBuilder<S>
+where
+    S::Id: deleted_thread_resource_builder::IsSet,
+    S::Object: deleted_thread_resource_builder::IsSet,
+    S::Deleted: deleted_thread_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeletedThreadResource {
+        self.build_internal()
     }
 }
 

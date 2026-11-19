@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseShellCallOutputContentDoneStreamingEvent : A streaming event that indicated shell call output was completed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_shell_call_output_content_done_streaming_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseShellCallOutputContentDoneStreamingEvent {
     /// The type of the event, always `response.shell_call_output_content.done`.  Defaults to `\"response.shell_call_output_content.done\"`.
     #[serde(rename = "type")]
@@ -55,6 +56,23 @@ impl BetaResponseShellCallOutputContentDoneStreamingEvent {
             command_index,
             output,
         }
+    }
+}
+
+impl<S: beta_response_shell_call_output_content_done_streaming_event_builder::State>
+    BetaResponseShellCallOutputContentDoneStreamingEventBuilder<S>
+where
+    S::Type: beta_response_shell_call_output_content_done_streaming_event_builder::IsSet,
+    S::SequenceNumber: beta_response_shell_call_output_content_done_streaming_event_builder::IsSet,
+    S::ItemId: beta_response_shell_call_output_content_done_streaming_event_builder::IsSet,
+    S::OutputIndex: beta_response_shell_call_output_content_done_streaming_event_builder::IsSet,
+    S::CommandIndex: beta_response_shell_call_output_content_done_streaming_event_builder::IsSet,
+    S::Output: beta_response_shell_call_output_content_done_streaming_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseShellCallOutputContentDoneStreamingEvent {
+        self.build_internal()
     }
 }
 

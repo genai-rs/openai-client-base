@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionRequiredActionResourceMcpApprovalRequest : Respond to an MCP tool-call approval request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_required_action_resource_mcp_approval_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionRequiredActionResourceMcpApprovalRequest {
     /// The type of the object. Always `mcp_approval_request`.  Defaults to `\"mcp_approval_request\"`.
     #[serde(rename = "type")]
@@ -45,6 +46,21 @@ impl SessionRequiredActionResourceMcpApprovalRequest {
             request_id,
             request,
         }
+    }
+}
+
+impl<S: session_required_action_resource_mcp_approval_request_builder::State>
+    SessionRequiredActionResourceMcpApprovalRequestBuilder<S>
+where
+    S::Type: session_required_action_resource_mcp_approval_request_builder::IsSet,
+    S::TurnId: session_required_action_resource_mcp_approval_request_builder::IsSet,
+    S::RequestId: session_required_action_resource_mcp_approval_request_builder::IsSet,
+    S::Request: session_required_action_resource_mcp_approval_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionRequiredActionResourceMcpApprovalRequest {
+        self.build_internal()
     }
 }
 

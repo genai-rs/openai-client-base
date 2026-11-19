@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseMcpCallArgumentsWsDelta : Emitted when there is a delta (partial update) to the arguments of an MCP tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_mcp_call_arguments_ws_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseMcpCallArgumentsWsDelta {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -60,6 +61,22 @@ impl BetaResponseMcpCallArgumentsWsDelta {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_mcp_call_arguments_ws_delta_builder::State>
+    BetaResponseMcpCallArgumentsWsDeltaBuilder<S>
+where
+    S::Type: beta_response_mcp_call_arguments_ws_delta_builder::IsSet,
+    S::OutputIndex: beta_response_mcp_call_arguments_ws_delta_builder::IsSet,
+    S::ItemId: beta_response_mcp_call_arguments_ws_delta_builder::IsSet,
+    S::Delta: beta_response_mcp_call_arguments_ws_delta_builder::IsSet,
+    S::SequenceNumber: beta_response_mcp_call_arguments_ws_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseMcpCallArgumentsWsDelta {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateSpendAlertBody : Parameters for creating or updating a spend alert.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_spend_alert_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateSpendAlertBody {
     /// The alert threshold amount, in cents.
     ///
@@ -43,6 +44,20 @@ impl CreateSpendAlertBody {
             interval,
             notification_channel,
         }
+    }
+}
+
+impl<S: create_spend_alert_body_builder::State> CreateSpendAlertBodyBuilder<S>
+where
+    S::ThresholdAmount: create_spend_alert_body_builder::IsSet,
+    S::Currency: create_spend_alert_body_builder::IsSet,
+    S::Interval: create_spend_alert_body_builder::IsSet,
+    S::NotificationChannel: create_spend_alert_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateSpendAlertBody {
+        self.build_internal()
     }
 }
 

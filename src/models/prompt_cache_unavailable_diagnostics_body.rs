@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = prompt_cache_unavailable_diagnostics_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PromptCacheUnavailableDiagnosticsBody {
     /// Defaults to `\"unavailable\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,18 @@ pub struct PromptCacheUnavailableDiagnosticsBody {
 impl PromptCacheUnavailableDiagnosticsBody {
     pub fn new(r#type: Type) -> PromptCacheUnavailableDiagnosticsBody {
         PromptCacheUnavailableDiagnosticsBody { r#type }
+    }
+}
+
+impl<S: prompt_cache_unavailable_diagnostics_body_builder::State>
+    PromptCacheUnavailableDiagnosticsBodyBuilder<S>
+where
+    S::Type: prompt_cache_unavailable_diagnostics_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PromptCacheUnavailableDiagnosticsBody {
+        self.build_internal()
     }
 }
 

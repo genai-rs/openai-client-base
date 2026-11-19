@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_turn_trace_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionTurnTraceResource {
     /// The root turn ID. Use this ID as the pagination anchor.
     ///
@@ -50,6 +51,21 @@ impl SessionTurnTraceResource {
             created_at,
             otlp,
         }
+    }
+}
+
+impl<S: session_turn_trace_resource_builder::State> SessionTurnTraceResourceBuilder<S>
+where
+    S::Id: session_turn_trace_resource_builder::IsSet,
+    S::Object: session_turn_trace_resource_builder::IsSet,
+    S::SessionId: session_turn_trace_resource_builder::IsSet,
+    S::CreatedAt: session_turn_trace_resource_builder::IsSet,
+    S::Otlp: session_turn_trace_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionTurnTraceResource {
+        self.build_internal()
     }
 }
 

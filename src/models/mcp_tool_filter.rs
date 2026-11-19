@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// McpToolFilter : A filter object to specify which tools are allowed.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_tool_filter_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpToolFilter {
     /// List of allowed tool names.
     #[serde(rename = "tool_names", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,14 @@ impl McpToolFilter {
             tool_names: None,
             read_only: None,
         }
+    }
+}
+
+impl<S: mcp_tool_filter_builder::State> McpToolFilterBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpToolFilter {
+        self.build_internal()
     }
 }
 

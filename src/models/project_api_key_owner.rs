@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_api_key_owner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectApiKeyOwner {
     /// `user` or `service_account`
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -29,6 +30,14 @@ impl ProjectApiKeyOwner {
             user: None,
             service_account: None,
         }
+    }
+}
+
+impl<S: project_api_key_owner_builder::State> ProjectApiKeyOwnerBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectApiKeyOwner {
+        self.build_internal()
     }
 }
 

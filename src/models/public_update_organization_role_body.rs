@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// PublicUpdateOrganizationRoleBody : Request payload for updating an existing role.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = public_update_organization_role_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PublicUpdateOrganizationRoleBody {
     /// Updated set of permissions for the role.
     #[serde(
@@ -47,6 +48,16 @@ impl PublicUpdateOrganizationRoleBody {
             description: None,
             role_name: None,
         }
+    }
+}
+
+impl<S: public_update_organization_role_body_builder::State>
+    PublicUpdateOrganizationRoleBodyBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PublicUpdateOrganizationRoleBody {
+        self.build_internal()
     }
 }
 

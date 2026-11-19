@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// InputMessageResource2 : A user message recorded in a session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = input_message_resource2_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InputMessageResource2 {
     /// The type of the input item. Always `message`.  Defaults to `\"message\"`.
     #[serde(rename = "type")]
@@ -39,6 +40,19 @@ impl InputMessageResource2 {
             role,
             content,
         }
+    }
+}
+
+impl<S: input_message_resource2_builder::State> InputMessageResource2Builder<S>
+where
+    S::Type: input_message_resource2_builder::IsSet,
+    S::Role: input_message_resource2_builder::IsSet,
+    S::Content: input_message_resource2_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InputMessageResource2 {
+        self.build_internal()
     }
 }
 

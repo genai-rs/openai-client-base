@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = image_gen_tool_call_moderation_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ImageGenToolCallModerationDetails {
     /// The stage where moderation blocked the image generation call.
     #[serde(rename = "moderation_stage")]
@@ -29,6 +30,19 @@ impl ImageGenToolCallModerationDetails {
             moderation_stage,
             categories,
         }
+    }
+}
+
+impl<S: image_gen_tool_call_moderation_details_builder::State>
+    ImageGenToolCallModerationDetailsBuilder<S>
+where
+    S::ModerationStage: image_gen_tool_call_moderation_details_builder::IsSet,
+    S::Categories: image_gen_tool_call_moderation_details_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ImageGenToolCallModerationDetails {
+        self.build_internal()
     }
 }
 

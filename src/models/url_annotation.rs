@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// UrlAnnotation : Annotation that references a URL.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = url_annotation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UrlAnnotation {
     /// Type discriminator that is always `url` for this annotation.  Defaults to `\"url\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl UrlAnnotation {
     /// Annotation that references a URL.
     pub fn new(r#type: Type, source: models::UrlAnnotationSource) -> UrlAnnotation {
         UrlAnnotation { r#type, source }
+    }
+}
+
+impl<S: url_annotation_builder::State> UrlAnnotationBuilder<S>
+where
+    S::Type: url_annotation_builder::IsSet,
+    S::Source: url_annotation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UrlAnnotation {
+        self.build_internal()
     }
 }
 

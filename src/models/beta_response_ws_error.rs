@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseWsError : Emitted when an error occurs while processing a Responses WebSocket request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_ws_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseWsError {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -49,6 +50,18 @@ impl BetaResponseWsError {
             error,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_ws_error_builder::State> BetaResponseWsErrorBuilder<S>
+where
+    S::Type: beta_response_ws_error_builder::IsSet,
+    S::Error: beta_response_ws_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseWsError {
+        self.build_internal()
     }
 }
 

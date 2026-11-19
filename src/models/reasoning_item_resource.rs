@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ReasoningItemResource : A reasoning item produced by the agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = reasoning_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ReasoningItemResource {
     /// The item type. Always `reasoning`.  Defaults to `\"reasoning\"`.
     #[serde(rename = "type")]
@@ -53,6 +54,20 @@ impl ReasoningItemResource {
             summary,
             status,
         }
+    }
+}
+
+impl<S: reasoning_item_resource_builder::State> ReasoningItemResourceBuilder<S>
+where
+    S::Type: reasoning_item_resource_builder::IsSet,
+    S::Id: reasoning_item_resource_builder::IsSet,
+    S::TurnId: reasoning_item_resource_builder::IsSet,
+    S::Summary: reasoning_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ReasoningItemResource {
+        self.build_internal()
     }
 }
 

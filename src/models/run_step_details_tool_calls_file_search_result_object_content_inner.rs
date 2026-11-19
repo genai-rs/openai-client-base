@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_details_tool_calls_file_search_result_object_content_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDetailsToolCallsFileSearchResultObjectContentInner {
     /// The type of the content.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -26,6 +27,16 @@ impl RunStepDetailsToolCallsFileSearchResultObjectContentInner {
             r#type: None,
             text: None,
         }
+    }
+}
+
+impl<S: run_step_details_tool_calls_file_search_result_object_content_inner_builder::State>
+    RunStepDetailsToolCallsFileSearchResultObjectContentInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDetailsToolCallsFileSearchResultObjectContentInner {
+        self.build_internal()
     }
 }
 

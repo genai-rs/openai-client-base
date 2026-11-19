@@ -60,7 +60,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for CreateModerationErrorHeade
 }
 
 /// Classifies if text and/or image inputs are potentially harmful. Learn more in the [moderation guide](https://developers.openai.com/api/docs/guides/moderation).
-#[bon::builder]
+#[bon::builder(state_mod = create_moderation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_moderation(
     configuration: &configuration::Configuration,
     create_moderation_request: &models::CreateModerationRequest,
@@ -141,13 +141,28 @@ pub async fn create_moderation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_moderation_builder::State> CreateModerationBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_moderation_builder::IsSet,
+    S::CreateModerationRequest: create_moderation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::CreateModeration200Response, Error<CreateModerationError>> {
+        self.call_internal().await
+    }
+}
+
 /// Classifies if text and/or image inputs are potentially harmful. Learn more in the [moderation guide](https://developers.openai.com/api/docs/guides/moderation).
 ///
 /// Sends the same request as [`create_moderation`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::CreateModeration200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_moderation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_moderation_response(
     configuration: &configuration::Configuration,
     create_moderation_request: &models::CreateModerationRequest,
@@ -216,5 +231,21 @@ pub async fn create_moderation_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: create_moderation_response_builder::State> CreateModerationResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_moderation_response_builder::IsSet,
+    S::CreateModerationRequest: create_moderation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::CreateModeration200Response>, Error<CreateModerationError>>
+    {
+        self.call_internal().await
     }
 }

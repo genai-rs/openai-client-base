@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ComputerUseApprovalRequestResultItemResource : A credential-free record of an admitted response, not proof of completion.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = computer_use_approval_request_result_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ComputerUseApprovalRequestResultItemResource {
     /// The stable history item ID.
     ///
@@ -52,6 +53,22 @@ impl ComputerUseApprovalRequestResultItemResource {
             request_id,
             response,
         }
+    }
+}
+
+impl<S: computer_use_approval_request_result_item_resource_builder::State>
+    ComputerUseApprovalRequestResultItemResourceBuilder<S>
+where
+    S::Id: computer_use_approval_request_result_item_resource_builder::IsSet,
+    S::Type: computer_use_approval_request_result_item_resource_builder::IsSet,
+    S::TurnId: computer_use_approval_request_result_item_resource_builder::IsSet,
+    S::RequestId: computer_use_approval_request_result_item_resource_builder::IsSet,
+    S::Response: computer_use_approval_request_result_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ComputerUseApprovalRequestResultItemResource {
+        self.build_internal()
     }
 }
 

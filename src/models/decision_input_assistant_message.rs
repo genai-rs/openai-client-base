@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// DecisionInputAssistantMessage : An assistant message containing output text or refusals.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = decision_input_assistant_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DecisionInputAssistantMessage {
     /// Defaults to `\"assistant\"`.
     #[serde(rename = "role")]
@@ -44,6 +45,18 @@ impl DecisionInputAssistantMessage {
             phase: None,
             r#type: None,
         }
+    }
+}
+
+impl<S: decision_input_assistant_message_builder::State> DecisionInputAssistantMessageBuilder<S>
+where
+    S::Role: decision_input_assistant_message_builder::IsSet,
+    S::Content: decision_input_assistant_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DecisionInputAssistantMessage {
+        self.build_internal()
     }
 }
 

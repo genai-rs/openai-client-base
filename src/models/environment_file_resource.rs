@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EnvironmentFileResource : A live file in an execution environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = environment_file_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EnvironmentFileResource {
     /// The object type. Always `agent.environment.file`.  Defaults to `\"agent.environment.file\"`.
     #[serde(rename = "object")]
@@ -47,6 +48,20 @@ impl EnvironmentFileResource {
             path,
             size_bytes,
         }
+    }
+}
+
+impl<S: environment_file_resource_builder::State> EnvironmentFileResourceBuilder<S>
+where
+    S::Object: environment_file_resource_builder::IsSet,
+    S::EnvironmentId: environment_file_resource_builder::IsSet,
+    S::Path: environment_file_resource_builder::IsSet,
+    S::SizeBytes: environment_file_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EnvironmentFileResource {
+        self.build_internal()
     }
 }
 

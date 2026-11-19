@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_conversation_item_with_reference_content_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeConversationItemWithReferenceContentInner {
     /// The content type (`input_text`, `input_audio`, `item_reference`, `text`).
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -38,6 +39,16 @@ impl RealtimeConversationItemWithReferenceContentInner {
             audio: None,
             transcript: None,
         }
+    }
+}
+
+impl<S: realtime_conversation_item_with_reference_content_inner_builder::State>
+    RealtimeConversationItemWithReferenceContentInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeConversationItemWithReferenceContentInner {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// HostedPluginResourceInline : A plugin installed from an inline ZIP archive.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = hosted_plugin_resource_inline_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HostedPluginResourceInline {
     /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
     #[serde(rename = "type")]
@@ -36,6 +37,19 @@ impl HostedPluginResourceInline {
             name,
             description,
         }
+    }
+}
+
+impl<S: hosted_plugin_resource_inline_builder::State> HostedPluginResourceInlineBuilder<S>
+where
+    S::Type: hosted_plugin_resource_inline_builder::IsSet,
+    S::Name: hosted_plugin_resource_inline_builder::IsSet,
+    S::Description: hosted_plugin_resource_inline_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HostedPluginResourceInline {
+        self.build_internal()
     }
 }
 

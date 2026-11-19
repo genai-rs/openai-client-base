@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogProjectCreatedData : The payload used to create the project.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_project_created_data_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogProjectCreatedData {
     /// The project name.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,14 @@ impl AuditLogProjectCreatedData {
             name: None,
             title: None,
         }
+    }
+}
+
+impl<S: audit_log_project_created_data_builder::State> AuditLogProjectCreatedDataBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogProjectCreatedData {
+        self.build_internal()
     }
 }
 

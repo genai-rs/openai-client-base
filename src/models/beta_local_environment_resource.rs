@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaLocalEnvironmentResource : Represents the use of a local environment to perform shell actions.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_local_environment_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaLocalEnvironmentResource {
     /// The environment type. Always `local`.  Defaults to `\"local\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl BetaLocalEnvironmentResource {
     /// Represents the use of a local environment to perform shell actions.
     pub fn new(r#type: Type) -> BetaLocalEnvironmentResource {
         BetaLocalEnvironmentResource { r#type }
+    }
+}
+
+impl<S: beta_local_environment_resource_builder::State> BetaLocalEnvironmentResourceBuilder<S>
+where
+    S::Type: beta_local_environment_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaLocalEnvironmentResource {
+        self.build_internal()
     }
 }
 

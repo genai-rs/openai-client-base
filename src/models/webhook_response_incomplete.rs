@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookResponseIncomplete : Sent when a background response has been interrupted.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_response_incomplete_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookResponseIncomplete {
     /// The Unix timestamp (in seconds) of when the model response was interrupted.
     #[serde(rename = "created_at", with = "super::unix_time")]
@@ -45,6 +46,20 @@ impl WebhookResponseIncomplete {
             object: None,
             r#type,
         }
+    }
+}
+
+impl<S: webhook_response_incomplete_builder::State> WebhookResponseIncompleteBuilder<S>
+where
+    S::CreatedAt: webhook_response_incomplete_builder::IsSet,
+    S::Id: webhook_response_incomplete_builder::IsSet,
+    S::Data: webhook_response_incomplete_builder::IsSet,
+    S::Type: webhook_response_incomplete_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookResponseIncomplete {
+        self.build_internal()
     }
 }
 

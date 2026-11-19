@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveInputAudioMuted : Acknowledges a session.input_audio.mute command. An independent input mute sends silence to the model and preserves sideband audio reflection. Fixture playback does not emit this event.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_input_audio_muted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveInputAudioMuted {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -32,6 +33,18 @@ impl LiveInputAudioMuted {
             client_event_id: None,
             r#type,
         }
+    }
+}
+
+impl<S: live_input_audio_muted_builder::State> LiveInputAudioMutedBuilder<S>
+where
+    S::EventId: live_input_audio_muted_builder::IsSet,
+    S::Type: live_input_audio_muted_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveInputAudioMuted {
+        self.build_internal()
     }
 }
 

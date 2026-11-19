@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaWebSearchApproximateLocation : The approximate location of the user.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_web_search_approximate_location_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaWebSearchApproximateLocation {
     /// The type of location approximation. Always `approximate`.  Defaults to `\"approximate\"`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -60,6 +61,16 @@ impl BetaWebSearchApproximateLocation {
             city: None,
             timezone: None,
         }
+    }
+}
+
+impl<S: beta_web_search_approximate_location_builder::State>
+    BetaWebSearchApproximateLocationBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaWebSearchApproximateLocation {
+        self.build_internal()
     }
 }
 

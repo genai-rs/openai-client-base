@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// TranscriptTextSegmentEvent : Emitted when a diarized transcription returns a completed segment with speaker information. Only emitted when you [create a transcription](https://developers.openai.com/api/reference/resources/audio/subresources/transcriptions/methods/create) with `stream` set to `true` and `response_format` set to `diarized_json`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = transcript_text_segment_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TranscriptTextSegmentEvent {
     /// The type of the event. Always `transcript.text.segment`.
     #[serde(rename = "type")]
@@ -51,6 +52,22 @@ impl TranscriptTextSegmentEvent {
             text,
             speaker,
         }
+    }
+}
+
+impl<S: transcript_text_segment_event_builder::State> TranscriptTextSegmentEventBuilder<S>
+where
+    S::Type: transcript_text_segment_event_builder::IsSet,
+    S::Id: transcript_text_segment_event_builder::IsSet,
+    S::Start: transcript_text_segment_event_builder::IsSet,
+    S::End: transcript_text_segment_event_builder::IsSet,
+    S::Text: transcript_text_segment_event_builder::IsSet,
+    S::Speaker: transcript_text_segment_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TranscriptTextSegmentEvent {
+        self.build_internal()
     }
 }
 

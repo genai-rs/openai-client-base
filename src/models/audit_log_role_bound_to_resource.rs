@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogRoleBoundToResource : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_role_bound_to_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogRoleBoundToResource {
     /// The ID of the resource the role was bound to. ChatGPT workspace connector resources use `<workspace_id>__<connector_id>`.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -60,6 +61,14 @@ impl AuditLogRoleBoundToResource {
             enabled: None,
             source: None,
         }
+    }
+}
+
+impl<S: audit_log_role_bound_to_resource_builder::State> AuditLogRoleBoundToResourceBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogRoleBoundToResource {
+        self.build_internal()
     }
 }
 

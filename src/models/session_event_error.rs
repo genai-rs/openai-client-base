@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventError : Emitted when a turn or session fails.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventError {
     /// The type of the object. Always `error`.  Defaults to `\"error\"`.
     #[serde(rename = "type")]
@@ -51,6 +52,20 @@ impl SessionEventError {
             error,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_error_builder::State> SessionEventErrorBuilder<S>
+where
+    S::Type: session_event_error_builder::IsSet,
+    S::EventId: session_event_error_builder::IsSet,
+    S::SessionId: session_event_error_builder::IsSet,
+    S::Error: session_event_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventError {
+        self.build_internal()
     }
 }
 

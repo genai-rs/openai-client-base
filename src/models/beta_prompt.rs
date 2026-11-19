@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaPrompt : Reference to a prompt template and its variables. [Learn more](https://developers.openai.com/api/docs/guides/text?api-mode=responses#version-prompts-in-code).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_prompt_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaPrompt {
     /// The unique identifier of the prompt template to use.
     #[serde(rename = "id")]
@@ -44,6 +45,17 @@ impl BetaPrompt {
             version: None,
             variables: None,
         }
+    }
+}
+
+impl<S: beta_prompt_builder::State> BetaPromptBuilder<S>
+where
+    S::Id: beta_prompt_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaPrompt {
+        self.build_internal()
     }
 }
 

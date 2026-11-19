@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// GraderStringCheck : A StringCheckGrader object that performs a string comparison between input and reference using a specified operation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = grader_string_check_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GraderStringCheck {
     /// The object type, which is always `string_check`.
     #[serde(rename = "type")]
@@ -46,6 +47,21 @@ impl GraderStringCheck {
             reference,
             operation,
         }
+    }
+}
+
+impl<S: grader_string_check_builder::State> GraderStringCheckBuilder<S>
+where
+    S::Type: grader_string_check_builder::IsSet,
+    S::Name: grader_string_check_builder::IsSet,
+    S::Input: grader_string_check_builder::IsSet,
+    S::Reference: grader_string_check_builder::IsSet,
+    S::Operation: grader_string_check_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GraderStringCheck {
+        self.build_internal()
     }
 }
 

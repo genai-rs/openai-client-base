@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseQueuedEvent : Emitted when a response is queued and waiting to be processed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_queued_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseQueuedEvent {
     /// The type of the event. Always 'response.queued'.
     #[serde(rename = "type")]
@@ -36,6 +37,19 @@ impl ResponseQueuedEvent {
             response,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_queued_event_builder::State> ResponseQueuedEventBuilder<S>
+where
+    S::Type: response_queued_event_builder::IsSet,
+    S::Response: response_queued_event_builder::IsSet,
+    S::SequenceNumber: response_queued_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseQueuedEvent {
+        self.build_internal()
     }
 }
 

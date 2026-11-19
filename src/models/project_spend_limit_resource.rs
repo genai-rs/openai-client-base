@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectSpendLimitResource : Represents a hard spend limit configured at the project level.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_spend_limit_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectSpendLimitResource {
     /// The object type, which is always `project.spend_limit`.  Defaults to `\"project.spend_limit\"`.
     #[serde(rename = "object")]
@@ -44,6 +45,21 @@ impl ProjectSpendLimitResource {
             interval,
             enforcement,
         }
+    }
+}
+
+impl<S: project_spend_limit_resource_builder::State> ProjectSpendLimitResourceBuilder<S>
+where
+    S::Object: project_spend_limit_resource_builder::IsSet,
+    S::ThresholdAmount: project_spend_limit_resource_builder::IsSet,
+    S::Currency: project_spend_limit_resource_builder::IsSet,
+    S::Interval: project_spend_limit_resource_builder::IsSet,
+    S::Enforcement: project_spend_limit_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectSpendLimitResource {
+        self.build_internal()
     }
 }
 

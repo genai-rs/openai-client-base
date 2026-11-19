@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BrowserAuthenticationFieldValueParam : One user-entered value, including non-password fields such as an email address.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = browser_authentication_field_value_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BrowserAuthenticationFieldValueParam {
     /// The field ID from the required action.
     ///
@@ -29,6 +30,19 @@ impl BrowserAuthenticationFieldValueParam {
     /// One user-entered value, including non-password fields such as an email address.
     pub fn new(field_id: String, value: String) -> BrowserAuthenticationFieldValueParam {
         BrowserAuthenticationFieldValueParam { field_id, value }
+    }
+}
+
+impl<S: browser_authentication_field_value_param_builder::State>
+    BrowserAuthenticationFieldValueParamBuilder<S>
+where
+    S::FieldId: browser_authentication_field_value_param_builder::IsSet,
+    S::Value: browser_authentication_field_value_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BrowserAuthenticationFieldValueParam {
+        self.build_internal()
     }
 }
 

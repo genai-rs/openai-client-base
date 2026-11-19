@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseAudioTranscriptDeltaEvent : Emitted when there is a partial transcript of audio.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_audio_transcript_delta_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseAudioTranscriptDeltaEvent {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -46,6 +47,20 @@ impl BetaResponseAudioTranscriptDeltaEvent {
             delta,
             sequence_number,
         }
+    }
+}
+
+impl<S: beta_response_audio_transcript_delta_event_builder::State>
+    BetaResponseAudioTranscriptDeltaEventBuilder<S>
+where
+    S::Type: beta_response_audio_transcript_delta_event_builder::IsSet,
+    S::Delta: beta_response_audio_transcript_delta_event_builder::IsSet,
+    S::SequenceNumber: beta_response_audio_transcript_delta_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseAudioTranscriptDeltaEvent {
+        self.build_internal()
     }
 }
 

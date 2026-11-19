@@ -191,7 +191,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for RetrieveGroupUserErrorHead
 }
 
 /// Adds a user to a group.
-#[bon::builder]
+#[bon::builder(state_mod = add_group_user_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn add_group_user(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -278,13 +278,27 @@ pub async fn add_group_user(
     }
 }
 
+#[allow(deprecated)]
+impl<S: add_group_user_builder::State> AddGroupUserBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: add_group_user_builder::IsSet,
+    S::GroupId: add_group_user_builder::IsSet,
+    S::CreateGroupUserBody: add_group_user_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::GroupUserAssignment, Error<AddGroupUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Adds a user to a group.
 ///
 /// Sends the same request as [`add_group_user`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::GroupUserAssignment` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = add_group_user_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn add_group_user_response(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -362,8 +376,24 @@ pub async fn add_group_user_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: add_group_user_response_builder::State> AddGroupUserResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: add_group_user_response_builder::IsSet,
+    S::GroupId: add_group_user_response_builder::IsSet,
+    S::CreateGroupUserBody: add_group_user_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::GroupUserAssignment>, Error<AddGroupUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists the users assigned to a group.
-#[bon::builder]
+#[bon::builder(state_mod = list_group_users_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_group_users(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -462,13 +492,26 @@ pub async fn list_group_users(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_group_users_builder::State> ListGroupUsersBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_group_users_builder::IsSet,
+    S::GroupId: list_group_users_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UserListResource, Error<ListGroupUsersError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists the users assigned to a group.
 ///
 /// Sends the same request as [`list_group_users`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UserListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_group_users_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_group_users_response(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -558,8 +601,24 @@ pub async fn list_group_users_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_group_users_response_builder::State>
+    ListGroupUsersResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_group_users_response_builder::IsSet,
+    S::GroupId: list_group_users_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UserListResource>, Error<ListGroupUsersError>> {
+        self.call_internal().await
+    }
+}
+
 /// Removes a user from a group.
-#[bon::builder]
+#[bon::builder(state_mod = remove_group_user_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn remove_group_user(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -646,13 +705,29 @@ pub async fn remove_group_user(
     }
 }
 
+#[allow(deprecated)]
+impl<S: remove_group_user_builder::State> RemoveGroupUserBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: remove_group_user_builder::IsSet,
+    S::GroupId: remove_group_user_builder::IsSet,
+    S::UserId: remove_group_user_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::GroupUserDeletedResource, Error<RemoveGroupUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Removes a user from a group.
 ///
 /// Sends the same request as [`remove_group_user`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::GroupUserDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = remove_group_user_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn remove_group_user_response(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -730,8 +805,25 @@ pub async fn remove_group_user_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: remove_group_user_response_builder::State> RemoveGroupUserResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: remove_group_user_response_builder::IsSet,
+    S::GroupId: remove_group_user_response_builder::IsSet,
+    S::UserId: remove_group_user_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::GroupUserDeletedResource>, Error<RemoveGroupUserError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a user in a group.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_group_user_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_group_user(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -815,13 +907,27 @@ pub async fn retrieve_group_user(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_group_user_builder::State> RetrieveGroupUserBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_group_user_builder::IsSet,
+    S::GroupId: retrieve_group_user_builder::IsSet,
+    S::UserId: retrieve_group_user_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::GroupMemberUser, Error<RetrieveGroupUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a user in a group.
 ///
 /// Sends the same request as [`retrieve_group_user`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::GroupMemberUser` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_group_user_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_group_user_response(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -893,5 +999,22 @@ pub async fn retrieve_group_user_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: retrieve_group_user_response_builder::State>
+    RetrieveGroupUserResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_group_user_response_builder::IsSet,
+    S::GroupId: retrieve_group_user_response_builder::IsSet,
+    S::UserId: retrieve_group_user_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::GroupMemberUser>, Error<RetrieveGroupUserError>> {
+        self.call_internal().await
     }
 }

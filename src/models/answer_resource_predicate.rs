@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = answer_resource_predicate_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AnswerResourcePredicate {
     /// The type of the object. Always `predicate`.  Defaults to `\"predicate\"`.
     #[serde(rename = "type")]
@@ -29,6 +30,18 @@ impl AnswerResourcePredicate {
             name,
             probability,
         }
+    }
+}
+
+impl<S: answer_resource_predicate_builder::State> AnswerResourcePredicateBuilder<S>
+where
+    S::Type: answer_resource_predicate_builder::IsSet,
+    S::Probability: answer_resource_predicate_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AnswerResourcePredicate {
+        self.build_internal()
     }
 }
 

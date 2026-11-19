@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateModerationRequestInputOneOfInnerObject0ImageUrl : Contains either an image URL or a data URL for a base64 encoded image.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_moderation_request_input_one_of_inner_object0_image_url_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateModerationRequestInputOneOfInnerObject0ImageUrl {
     /// Either a URL of the image or the base64 encoded image data.
     #[serde(rename = "url")]
@@ -22,6 +23,18 @@ impl CreateModerationRequestInputOneOfInnerObject0ImageUrl {
     /// Contains either an image URL or a data URL for a base64 encoded image.
     pub fn new(url: String) -> CreateModerationRequestInputOneOfInnerObject0ImageUrl {
         CreateModerationRequestInputOneOfInnerObject0ImageUrl { url }
+    }
+}
+
+impl<S: create_moderation_request_input_one_of_inner_object0_image_url_builder::State>
+    CreateModerationRequestInputOneOfInnerObject0ImageUrlBuilder<S>
+where
+    S::Url: create_moderation_request_input_one_of_inner_object0_image_url_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateModerationRequestInputOneOfInnerObject0ImageUrl {
+        self.build_internal()
     }
 }
 

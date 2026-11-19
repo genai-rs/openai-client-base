@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// VectorStoreObject : A vector store is a collection of processed files can be used by the `file_search` tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vector_store_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VectorStoreObject {
     /// The identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -78,6 +79,23 @@ impl VectorStoreObject {
             last_active_at,
             metadata,
         }
+    }
+}
+
+impl<S: vector_store_object_builder::State> VectorStoreObjectBuilder<S>
+where
+    S::Id: vector_store_object_builder::IsSet,
+    S::Object: vector_store_object_builder::IsSet,
+    S::CreatedAt: vector_store_object_builder::IsSet,
+    S::Name: vector_store_object_builder::IsSet,
+    S::UsageBytes: vector_store_object_builder::IsSet,
+    S::FileCounts: vector_store_object_builder::IsSet,
+    S::Status: vector_store_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VectorStoreObject {
+        self.build_internal()
     }
 }
 

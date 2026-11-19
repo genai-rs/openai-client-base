@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveInputAudioUnmuted : Acknowledges a session.input_audio.unmute command, removing the independent input mute. An active audio fixture still pauses inference until playback finishes. Fixture playback does not emit this event.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_input_audio_unmuted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveInputAudioUnmuted {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -32,6 +33,18 @@ impl LiveInputAudioUnmuted {
             client_event_id: None,
             r#type,
         }
+    }
+}
+
+impl<S: live_input_audio_unmuted_builder::State> LiveInputAudioUnmutedBuilder<S>
+where
+    S::EventId: live_input_audio_unmuted_builder::IsSet,
+    S::Type: live_input_audio_unmuted_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveInputAudioUnmuted {
+        self.build_internal()
     }
 }
 

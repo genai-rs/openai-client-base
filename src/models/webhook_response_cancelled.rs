@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookResponseCancelled : Sent when a background response has been cancelled.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_response_cancelled_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookResponseCancelled {
     /// The Unix timestamp (in seconds) of when the model response was cancelled.
     #[serde(rename = "created_at", with = "super::unix_time")]
@@ -45,6 +46,20 @@ impl WebhookResponseCancelled {
             object: None,
             r#type,
         }
+    }
+}
+
+impl<S: webhook_response_cancelled_builder::State> WebhookResponseCancelledBuilder<S>
+where
+    S::CreatedAt: webhook_response_cancelled_builder::IsSet,
+    S::Id: webhook_response_cancelled_builder::IsSet,
+    S::Data: webhook_response_cancelled_builder::IsSet,
+    S::Type: webhook_response_cancelled_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookResponseCancelled {
+        self.build_internal()
     }
 }
 

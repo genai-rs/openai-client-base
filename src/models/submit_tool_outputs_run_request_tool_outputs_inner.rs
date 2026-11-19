@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = submit_tool_outputs_run_request_tool_outputs_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SubmitToolOutputsRunRequestToolOutputsInner {
     /// The ID of the tool call in the `required_action` object within the run object the output is being submitted for.
     #[serde(rename = "tool_call_id", skip_serializing_if = "Option::is_none")]
@@ -26,6 +27,16 @@ impl SubmitToolOutputsRunRequestToolOutputsInner {
             tool_call_id: None,
             output: None,
         }
+    }
+}
+
+impl<S: submit_tool_outputs_run_request_tool_outputs_inner_builder::State>
+    SubmitToolOutputsRunRequestToolOutputsInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SubmitToolOutputsRunRequestToolOutputsInner {
+        self.build_internal()
     }
 }
 

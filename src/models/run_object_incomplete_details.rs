@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunObjectIncompleteDetails : Details on why the run is incomplete. Will be `null` if the run is not incomplete.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_object_incomplete_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunObjectIncompleteDetails {
     /// The reason why the run is incomplete. This will point to which specific token limit was reached over the course of the run.
     #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl RunObjectIncompleteDetails {
     /// Details on why the run is incomplete. Will be `null` if the run is not incomplete.
     pub fn new() -> RunObjectIncompleteDetails {
         RunObjectIncompleteDetails { reason: None }
+    }
+}
+
+impl<S: run_object_incomplete_details_builder::State> RunObjectIncompleteDetailsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunObjectIncompleteDetails {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateGroupUserBody : Request payload for adding a user to a group.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_group_user_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateGroupUserBody {
     /// Identifier of the user to add to the group.
     #[serde(rename = "user_id")]
@@ -22,6 +23,17 @@ impl CreateGroupUserBody {
     /// Request payload for adding a user to a group.
     pub fn new(user_id: String) -> CreateGroupUserBody {
         CreateGroupUserBody { user_id }
+    }
+}
+
+impl<S: create_group_user_body_builder::State> CreateGroupUserBodyBuilder<S>
+where
+    S::UserId: create_group_user_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateGroupUserBody {
+        self.build_internal()
     }
 }
 

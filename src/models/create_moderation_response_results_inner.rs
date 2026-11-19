@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_moderation_response_results_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateModerationResponseResultsInner {
     /// Whether any of the below categories are flagged.
     #[serde(rename = "flagged")]
@@ -38,6 +39,21 @@ impl CreateModerationResponseResultsInner {
             category_scores,
             category_applied_input_types,
         }
+    }
+}
+
+impl<S: create_moderation_response_results_inner_builder::State>
+    CreateModerationResponseResultsInnerBuilder<S>
+where
+    S::Flagged: create_moderation_response_results_inner_builder::IsSet,
+    S::Categories: create_moderation_response_results_inner_builder::IsSet,
+    S::CategoryScores: create_moderation_response_results_inner_builder::IsSet,
+    S::CategoryAppliedInputTypes: create_moderation_response_results_inner_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateModerationResponseResultsInner {
+        self.build_internal()
     }
 }
 

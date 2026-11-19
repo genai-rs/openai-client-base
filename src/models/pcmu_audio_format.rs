@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// PcmuAudioFormat : The G.711 μ-law format.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = pcmu_audio_format_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PcmuAudioFormat {
     /// The audio format. Always `audio/pcmu`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl PcmuAudioFormat {
     /// The G.711 μ-law format.
     pub fn new() -> PcmuAudioFormat {
         PcmuAudioFormat { r#type: None }
+    }
+}
+
+impl<S: pcmu_audio_format_builder::State> PcmuAudioFormatBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PcmuAudioFormat {
+        self.build_internal()
     }
 }
 

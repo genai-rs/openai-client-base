@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateVaultCredentialAuthParamMcpOauth : An OAuth credential for an HTTPS MCP destination.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_vault_credential_auth_param_mcp_oauth_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateVaultCredentialAuthParamMcpOauth {
     /// The type of the object. Always `mcp_oauth`.  Defaults to `\"mcp_oauth\"`.
     #[serde(rename = "type")]
@@ -61,6 +62,20 @@ impl CreateVaultCredentialAuthParamMcpOauth {
             expires_at: None,
             refresh: None,
         }
+    }
+}
+
+impl<S: create_vault_credential_auth_param_mcp_oauth_builder::State>
+    CreateVaultCredentialAuthParamMcpOauthBuilder<S>
+where
+    S::Type: create_vault_credential_auth_param_mcp_oauth_builder::IsSet,
+    S::McpServerUrl: create_vault_credential_auth_param_mcp_oauth_builder::IsSet,
+    S::AccessToken: create_vault_credential_auth_param_mcp_oauth_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateVaultCredentialAuthParamMcpOauth {
+        self.build_internal()
     }
 }
 

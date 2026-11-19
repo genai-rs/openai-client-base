@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_batch_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateBatchRequest {
     /// The ID of an uploaded file that contains requests for the new batch.  See [upload file](https://developers.openai.com/api/reference/resources/files/methods/create) for how to upload a file.  Your input file must be formatted as a [JSONL file](https://developers.openai.com/api/docs/guides/batch#1-prepare-your-batch-file), and must be uploaded with the purpose `batch`. The file can contain up to 50,000 requests, and can be up to 200 MB in size.
     #[serde(rename = "input_file_id")]
@@ -50,6 +51,19 @@ impl CreateBatchRequest {
             metadata: None,
             output_expires_after: None,
         }
+    }
+}
+
+impl<S: create_batch_request_builder::State> CreateBatchRequestBuilder<S>
+where
+    S::InputFileId: create_batch_request_builder::IsSet,
+    S::Endpoint: create_batch_request_builder::IsSet,
+    S::CompletionWindow: create_batch_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateBatchRequest {
+        self.build_internal()
     }
 }
 

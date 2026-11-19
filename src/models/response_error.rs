@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseError : An error object returned when the model fails to generate a Response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseError {
     /// The original error type, or null if it was not recorded.
     #[serde(
@@ -49,6 +50,18 @@ impl ResponseError {
             message,
             misalignment: None,
         }
+    }
+}
+
+impl<S: response_error_builder::State> ResponseErrorBuilder<S>
+where
+    S::Code: response_error_builder::IsSet,
+    S::Message: response_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseError {
+        self.build_internal()
     }
 }
 

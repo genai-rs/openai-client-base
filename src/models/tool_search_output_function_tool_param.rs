@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = tool_search_output_function_tool_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ToolSearchOutputFunctionToolParam {
     /// The name of the loaded function tool.
     ///
@@ -82,6 +83,19 @@ impl ToolSearchOutputFunctionToolParam {
             defer_loading: None,
             allowed_callers: None,
         }
+    }
+}
+
+impl<S: tool_search_output_function_tool_param_builder::State>
+    ToolSearchOutputFunctionToolParamBuilder<S>
+where
+    S::Name: tool_search_output_function_tool_param_builder::IsSet,
+    S::Type: tool_search_output_function_tool_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ToolSearchOutputFunctionToolParam {
+        self.build_internal()
     }
 }
 

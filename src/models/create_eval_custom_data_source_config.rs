@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateEvalCustomDataSourceConfig : A CustomDataSourceConfig object that defines the schema for the data source used for the evaluation runs. This schema is used to define the shape of the data that will be: - Used to define your testing criteria and - What data is required when creating a run
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_eval_custom_data_source_config_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateEvalCustomDataSourceConfig {
     /// The type of data source. Always `custom`.  Defaults to `\"custom\"`.
     #[serde(rename = "type")]
@@ -38,6 +39,19 @@ impl CreateEvalCustomDataSourceConfig {
             item_schema,
             include_sample_schema: None,
         }
+    }
+}
+
+impl<S: create_eval_custom_data_source_config_builder::State>
+    CreateEvalCustomDataSourceConfigBuilder<S>
+where
+    S::Type: create_eval_custom_data_source_config_builder::IsSet,
+    S::ItemSchema: create_eval_custom_data_source_config_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateEvalCustomDataSourceConfig {
+        self.build_internal()
     }
 }
 

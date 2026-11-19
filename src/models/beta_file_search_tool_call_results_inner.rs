@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_file_search_tool_call_results_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFileSearchToolCallResultsInner {
     /// The unique ID of the file.
     #[serde(rename = "file_id", skip_serializing_if = "Option::is_none")]
@@ -47,6 +48,16 @@ impl BetaFileSearchToolCallResultsInner {
             attributes: None,
             score: None,
         }
+    }
+}
+
+impl<S: beta_file_search_tool_call_results_inner_builder::State>
+    BetaFileSearchToolCallResultsInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFileSearchToolCallResultsInner {
+        self.build_internal()
     }
 }
 

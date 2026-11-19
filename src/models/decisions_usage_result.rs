@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// DecisionsUsageResult : The aggregated Decisions API usage details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = decisions_usage_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DecisionsUsageResult {
     #[serde(
         rename = "api_source",
@@ -225,6 +226,20 @@ impl DecisionsUsageResult {
             batch: None,
             service_tier: None,
         }
+    }
+}
+
+impl<S: decisions_usage_result_builder::State> DecisionsUsageResultBuilder<S>
+where
+    S::Object: decisions_usage_result_builder::IsSet,
+    S::InputTokens: decisions_usage_result_builder::IsSet,
+    S::OutputTokens: decisions_usage_result_builder::IsSet,
+    S::NumModelRequests: decisions_usage_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DecisionsUsageResult {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseToolUsage : Aggregated usage details for billable tools that ran while generating the response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_tool_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseToolUsage {
     #[serde(rename = "image_gen")]
     pub image_gen: models::ImageGenToolUsage,
@@ -30,6 +31,18 @@ impl ResponseToolUsage {
             image_gen,
             web_search,
         }
+    }
+}
+
+impl<S: response_tool_usage_builder::State> ResponseToolUsageBuilder<S>
+where
+    S::ImageGen: response_tool_usage_builder::IsSet,
+    S::WebSearch: response_tool_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseToolUsage {
+        self.build_internal()
     }
 }
 

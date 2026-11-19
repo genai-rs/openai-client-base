@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = decisions_usage_error_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DecisionsUsageErrorResponse {
     #[serde(rename = "error")]
     pub error: models::DecisionsUsageErrorDetails,
@@ -20,6 +21,17 @@ pub struct DecisionsUsageErrorResponse {
 impl DecisionsUsageErrorResponse {
     pub fn new(error: models::DecisionsUsageErrorDetails) -> DecisionsUsageErrorResponse {
         DecisionsUsageErrorResponse { error }
+    }
+}
+
+impl<S: decisions_usage_error_response_builder::State> DecisionsUsageErrorResponseBuilder<S>
+where
+    S::Error: decisions_usage_error_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DecisionsUsageErrorResponse {
+        self.build_internal()
     }
 }
 

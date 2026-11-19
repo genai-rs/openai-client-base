@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vector_store_object_file_counts_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VectorStoreObjectFileCounts {
     /// The number of files that are currently being processed.
     #[serde(rename = "in_progress")]
@@ -44,6 +45,21 @@ impl VectorStoreObjectFileCounts {
             cancelled,
             total,
         }
+    }
+}
+
+impl<S: vector_store_object_file_counts_builder::State> VectorStoreObjectFileCountsBuilder<S>
+where
+    S::InProgress: vector_store_object_file_counts_builder::IsSet,
+    S::Completed: vector_store_object_file_counts_builder::IsSet,
+    S::Failed: vector_store_object_file_counts_builder::IsSet,
+    S::Cancelled: vector_store_object_file_counts_builder::IsSet,
+    S::Total: vector_store_object_file_counts_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VectorStoreObjectFileCounts {
+        self.build_internal()
     }
 }
 

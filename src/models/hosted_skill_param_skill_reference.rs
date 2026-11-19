@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// HostedSkillParamSkillReference : References a skill uploaded through the Skills API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = hosted_skill_param_skill_reference_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HostedSkillParamSkillReference {
     /// The type of the object. Always `skill_reference`.  Defaults to `\"skill_reference\"`.
     #[serde(rename = "type")]
@@ -41,6 +42,18 @@ impl HostedSkillParamSkillReference {
             skill_id,
             version: None,
         }
+    }
+}
+
+impl<S: hosted_skill_param_skill_reference_builder::State> HostedSkillParamSkillReferenceBuilder<S>
+where
+    S::Type: hosted_skill_param_skill_reference_builder::IsSet,
+    S::SkillId: hosted_skill_param_skill_reference_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HostedSkillParamSkillReference {
+        self.build_internal()
     }
 }
 

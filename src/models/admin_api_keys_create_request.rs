@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = admin_api_keys_create_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AdminApiKeysCreateRequest {
     #[serde(rename = "name")]
     pub name: String,
@@ -27,6 +28,17 @@ impl AdminApiKeysCreateRequest {
             name,
             expires_in_seconds: None,
         }
+    }
+}
+
+impl<S: admin_api_keys_create_request_builder::State> AdminApiKeysCreateRequestBuilder<S>
+where
+    S::Name: admin_api_keys_create_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AdminApiKeysCreateRequest {
+        self.build_internal()
     }
 }
 

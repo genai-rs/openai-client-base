@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// Message : A message to or from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Message {
     /// The type of the message. Always set to `message`.  Defaults to `\"message\"`.
     #[serde(rename = "type")]
@@ -53,6 +54,21 @@ impl Message {
             content,
             phase: None,
         }
+    }
+}
+
+impl<S: message_builder::State> MessageBuilder<S>
+where
+    S::Type: message_builder::IsSet,
+    S::Id: message_builder::IsSet,
+    S::Status: message_builder::IsSet,
+    S::Role: message_builder::IsSet,
+    S::Content: message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Message {
+        self.build_internal()
     }
 }
 

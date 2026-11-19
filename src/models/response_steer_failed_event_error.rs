@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseSteerFailedEventError : Information about why the input could not be committed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_steer_failed_event_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseSteerFailedEventError {
     /// The error type. Always `invalid_request_error`.
     #[serde(rename = "type")]
@@ -36,6 +37,19 @@ impl ResponseSteerFailedEventError {
             code,
             message,
         }
+    }
+}
+
+impl<S: response_steer_failed_event_error_builder::State> ResponseSteerFailedEventErrorBuilder<S>
+where
+    S::Type: response_steer_failed_event_error_builder::IsSet,
+    S::Code: response_steer_failed_event_error_builder::IsSet,
+    S::Message: response_steer_failed_event_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseSteerFailedEventError {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeMcpListTools : A Realtime item listing tools available on an MCP server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_mcp_list_tools_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeMcpListTools {
     /// The type of the item. Always `mcp_list_tools`.
     #[serde(rename = "type")]
@@ -41,6 +42,19 @@ impl RealtimeMcpListTools {
             server_label,
             tools,
         }
+    }
+}
+
+impl<S: realtime_mcp_list_tools_builder::State> RealtimeMcpListToolsBuilder<S>
+where
+    S::Type: realtime_mcp_list_tools_builder::IsSet,
+    S::ServerLabel: realtime_mcp_list_tools_builder::IsSet,
+    S::Tools: realtime_mcp_list_tools_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeMcpListTools {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookLiveTransportIncomingData : Event data payload.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_live_transport_incoming_data_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookLiveTransportIncomingData {
     /// The incoming transport type. Always `sip`.
     #[serde(rename = "type")]
@@ -40,6 +41,20 @@ impl WebhookLiveTransportIncomingData {
             sip_media_security: None,
             sip_headers,
         }
+    }
+}
+
+impl<S: webhook_live_transport_incoming_data_builder::State>
+    WebhookLiveTransportIncomingDataBuilder<S>
+where
+    S::Type: webhook_live_transport_incoming_data_builder::IsSet,
+    S::SessionId: webhook_live_transport_incoming_data_builder::IsSet,
+    S::SipHeaders: webhook_live_transport_incoming_data_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookLiveTransportIncomingData {
+        self.build_internal()
     }
 }
 

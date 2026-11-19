@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationClientEventSessionUpdate : Send this event to update the translation session configuration. Translation sessions support updates to `audio.output.language`, `audio.input.transcription`, and `audio.input.noise_reduction`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_client_event_session_update_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationClientEventSessionUpdate {
     /// Optional client-generated ID used to identify this event.
     ///
@@ -37,6 +38,19 @@ impl RealtimeTranslationClientEventSessionUpdate {
             r#type,
             session,
         }
+    }
+}
+
+impl<S: realtime_translation_client_event_session_update_builder::State>
+    RealtimeTranslationClientEventSessionUpdateBuilder<S>
+where
+    S::Type: realtime_translation_client_event_session_update_builder::IsSet,
+    S::Session: realtime_translation_client_event_session_update_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationClientEventSessionUpdate {
+        self.build_internal()
     }
 }
 

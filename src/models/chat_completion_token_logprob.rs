@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_token_logprob_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionTokenLogprob {
     /// The token.
     #[serde(rename = "token")]
@@ -40,6 +41,19 @@ impl ChatCompletionTokenLogprob {
             bytes,
             top_logprobs,
         }
+    }
+}
+
+impl<S: chat_completion_token_logprob_builder::State> ChatCompletionTokenLogprobBuilder<S>
+where
+    S::Token: chat_completion_token_logprob_builder::IsSet,
+    S::Logprob: chat_completion_token_logprob_builder::IsSet,
+    S::TopLogprobs: chat_completion_token_logprob_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionTokenLogprob {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookLiveCallIncoming : Deprecated: use `live.transport.incoming`. Retained for existing subscriptions during migration; new subscriptions to this event are not allowed. Sent when an incoming API SIP session is available for Live acceptance. The same pending session can also emit `realtime.call.incoming`; the first successful Realtime or Live accept endpoint selects the runtime surface.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_live_call_incoming_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookLiveCallIncoming {
     /// The Unix timestamp (in seconds) of when the event was created.
     #[serde(rename = "created_at", with = "super::unix_time")]
@@ -45,6 +46,20 @@ impl WebhookLiveCallIncoming {
             object: None,
             r#type,
         }
+    }
+}
+
+impl<S: webhook_live_call_incoming_builder::State> WebhookLiveCallIncomingBuilder<S>
+where
+    S::CreatedAt: webhook_live_call_incoming_builder::IsSet,
+    S::Id: webhook_live_call_incoming_builder::IsSet,
+    S::Data: webhook_live_call_incoming_builder::IsSet,
+    S::Type: webhook_live_call_incoming_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookLiveCallIncoming {
+        self.build_internal()
     }
 }
 

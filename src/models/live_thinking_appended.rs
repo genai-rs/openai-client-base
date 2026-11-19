@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveThinkingAppended : Returned when a session.thinking.append command is accepted into the Live session timeline. Acknowledges the added reasoning context without guaranteeing any spoken output.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_thinking_appended_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveThinkingAppended {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -40,6 +41,20 @@ impl LiveThinkingAppended {
             end_ms,
             r#type,
         }
+    }
+}
+
+impl<S: live_thinking_appended_builder::State> LiveThinkingAppendedBuilder<S>
+where
+    S::EventId: live_thinking_appended_builder::IsSet,
+    S::StartMs: live_thinking_appended_builder::IsSet,
+    S::EndMs: live_thinking_appended_builder::IsSet,
+    S::Type: live_thinking_appended_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveThinkingAppended {
+        self.build_internal()
     }
 }
 

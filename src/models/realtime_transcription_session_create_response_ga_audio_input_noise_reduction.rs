@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranscriptionSessionCreateResponseGaAudioInputNoiseReduction : Configuration for input audio noise reduction.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_transcription_session_create_response_ga_audio_input_noise_reduction_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranscriptionSessionCreateResponseGaAudioInputNoiseReduction {
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<models::NoiseReductionType>,
@@ -30,6 +31,16 @@ impl RealtimeTranscriptionSessionCreateResponseGaAudioInputNoiseReduction {
             r#type: None,
             strength: None,
         }
+    }
+}
+
+impl<S: realtime_transcription_session_create_response_ga_audio_input_noise_reduction_builder::State> RealtimeTranscriptionSessionCreateResponseGaAudioInputNoiseReductionBuilder<S>
+where
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranscriptionSessionCreateResponseGaAudioInputNoiseReduction {
+        self.build_internal()
     }
 }
 

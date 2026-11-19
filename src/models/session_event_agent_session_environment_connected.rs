@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionEnvironmentConnected : Emitted when a session environment connects.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_environment_connected_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionEnvironmentConnected {
     /// The type of the object. Always `agent.session.environment.connected`.  Defaults to `\"agent.session.environment.connected\"`.
     #[serde(rename = "type")]
@@ -58,6 +59,21 @@ impl SessionEventAgentSessionEnvironmentConnected {
             environment,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_environment_connected_builder::State>
+    SessionEventAgentSessionEnvironmentConnectedBuilder<S>
+where
+    S::Type: session_event_agent_session_environment_connected_builder::IsSet,
+    S::EventId: session_event_agent_session_environment_connected_builder::IsSet,
+    S::SessionId: session_event_agent_session_environment_connected_builder::IsSet,
+    S::Environment: session_event_agent_session_environment_connected_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionEnvironmentConnected {
+        self.build_internal()
     }
 }
 

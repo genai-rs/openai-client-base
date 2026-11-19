@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseCodeInterpreterCallInProgressEvent : Emitted when a code interpreter call is in progress.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_code_interpreter_call_in_progress_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseCodeInterpreterCallInProgressEvent {
     /// The type of the event. Always `response.code_interpreter_call.in_progress`.
     #[serde(rename = "type")]
@@ -41,6 +42,21 @@ impl ResponseCodeInterpreterCallInProgressEvent {
             item_id,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_code_interpreter_call_in_progress_event_builder::State>
+    ResponseCodeInterpreterCallInProgressEventBuilder<S>
+where
+    S::Type: response_code_interpreter_call_in_progress_event_builder::IsSet,
+    S::OutputIndex: response_code_interpreter_call_in_progress_event_builder::IsSet,
+    S::ItemId: response_code_interpreter_call_in_progress_event_builder::IsSet,
+    S::SequenceNumber: response_code_interpreter_call_in_progress_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseCodeInterpreterCallInProgressEvent {
+        self.build_internal()
     }
 }
 

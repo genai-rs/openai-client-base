@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ExperimentalConfigParam : Experimental agent settings. These features may change.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = experimental_config_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ExperimentalConfigParam {
     /// Whether to give the model periodic current-time reminders. Defaults to false.  Defaults to `false`.
     #[serde(rename = "time_awareness", skip_serializing_if = "Option::is_none")]
@@ -24,6 +25,14 @@ impl ExperimentalConfigParam {
         ExperimentalConfigParam {
             time_awareness: None,
         }
+    }
+}
+
+impl<S: experimental_config_param_builder::State> ExperimentalConfigParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ExperimentalConfigParam {
+        self.build_internal()
     }
 }
 

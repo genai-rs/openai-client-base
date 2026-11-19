@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseSteerPendingEventSteer : The steering submission that remains queued.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_steer_pending_event_steer_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseSteerPendingEventSteer {
     /// The ID assigned to the steering submission.
     #[serde(rename = "id")]
@@ -28,6 +29,18 @@ impl ResponseSteerPendingEventSteer {
             id,
             previous_response_id,
         }
+    }
+}
+
+impl<S: response_steer_pending_event_steer_builder::State> ResponseSteerPendingEventSteerBuilder<S>
+where
+    S::Id: response_steer_pending_event_steer_builder::IsSet,
+    S::PreviousResponseId: response_steer_pending_event_steer_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseSteerPendingEventSteer {
+        self.build_internal()
     }
 }
 

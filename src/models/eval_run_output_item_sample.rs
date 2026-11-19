@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalRunOutputItemSample : A sample containing the input and output of the evaluation run.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_run_output_item_sample_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalRunOutputItemSample {
     /// An array of input messages.
     #[serde(rename = "input")]
@@ -70,6 +71,25 @@ impl EvalRunOutputItemSample {
             top_p,
             seed,
         }
+    }
+}
+
+impl<S: eval_run_output_item_sample_builder::State> EvalRunOutputItemSampleBuilder<S>
+where
+    S::Input: eval_run_output_item_sample_builder::IsSet,
+    S::Output: eval_run_output_item_sample_builder::IsSet,
+    S::FinishReason: eval_run_output_item_sample_builder::IsSet,
+    S::Model: eval_run_output_item_sample_builder::IsSet,
+    S::Usage: eval_run_output_item_sample_builder::IsSet,
+    S::Temperature: eval_run_output_item_sample_builder::IsSet,
+    S::MaxCompletionTokens: eval_run_output_item_sample_builder::IsSet,
+    S::TopP: eval_run_output_item_sample_builder::IsSet,
+    S::Seed: eval_run_output_item_sample_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalRunOutputItemSample {
+        self.build_internal()
     }
 }
 

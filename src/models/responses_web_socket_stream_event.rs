@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = responses_web_socket_stream_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponsesWebSocketStreamEvent {
     /// The event type identifier.
     #[serde(rename = "type")]
@@ -159,6 +160,37 @@ impl ResponsesWebSocketStreamEvent {
             input,
             stream_id: None,
         }
+    }
+}
+
+impl<S: responses_web_socket_stream_event_builder::State> ResponsesWebSocketStreamEventBuilder<S>
+where
+    S::Type: responses_web_socket_stream_event_builder::IsSet,
+    S::SequenceNumber: responses_web_socket_stream_event_builder::IsSet,
+    S::Delta: responses_web_socket_stream_event_builder::IsSet,
+    S::OutputIndex: responses_web_socket_stream_event_builder::IsSet,
+    S::ItemId: responses_web_socket_stream_event_builder::IsSet,
+    S::Code: responses_web_socket_stream_event_builder::IsSet,
+    S::Response: responses_web_socket_stream_event_builder::IsSet,
+    S::ContentIndex: responses_web_socket_stream_event_builder::IsSet,
+    S::Part: responses_web_socket_stream_event_builder::IsSet,
+    S::Arguments: responses_web_socket_stream_event_builder::IsSet,
+    S::CommandIndex: responses_web_socket_stream_event_builder::IsSet,
+    S::Command: responses_web_socket_stream_event_builder::IsSet,
+    S::Output: responses_web_socket_stream_event_builder::IsSet,
+    S::Item: responses_web_socket_stream_event_builder::IsSet,
+    S::SummaryIndex: responses_web_socket_stream_event_builder::IsSet,
+    S::Text: responses_web_socket_stream_event_builder::IsSet,
+    S::Refusal: responses_web_socket_stream_event_builder::IsSet,
+    S::PartialImageIndex: responses_web_socket_stream_event_builder::IsSet,
+    S::PartialImageB64: responses_web_socket_stream_event_builder::IsSet,
+    S::AnnotationIndex: responses_web_socket_stream_event_builder::IsSet,
+    S::Input: responses_web_socket_stream_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponsesWebSocketStreamEvent {
+        self.build_internal()
     }
 }
 

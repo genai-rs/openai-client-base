@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaWaitParam : A wait action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_wait_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaWaitParam {
     /// Specifies the event type. For a wait action, this property is always set to `wait`.  Defaults to `\"wait\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl BetaWaitParam {
     /// A wait action.
     pub fn new(r#type: Type) -> BetaWaitParam {
         BetaWaitParam { r#type }
+    }
+}
+
+impl<S: beta_wait_param_builder::State> BetaWaitParamBuilder<S>
+where
+    S::Type: beta_wait_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaWaitParam {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ErrorEvent : Occurs when an [error](https://developers.openai.com/api/docs/guides/error-codes#api-errors) occurs. This can happen due to an internal server error or a timeout.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = error_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ErrorEvent {
     #[serde(rename = "event")]
     pub event: Event,
@@ -24,6 +25,18 @@ impl ErrorEvent {
     /// Occurs when an [error](https://developers.openai.com/api/docs/guides/error-codes#api-errors) occurs. This can happen due to an internal server error or a timeout.
     pub fn new(event: Event, data: models::Error) -> ErrorEvent {
         ErrorEvent { event, data }
+    }
+}
+
+impl<S: error_event_builder::State> ErrorEventBuilder<S>
+where
+    S::Event: error_event_builder::IsSet,
+    S::Data: error_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ErrorEvent {
+        self.build_internal()
     }
 }
 

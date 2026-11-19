@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventResponseMcpCallArgumentsDelta : Returned when MCP tool call arguments are updated during response generation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_response_mcp_call_arguments_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventResponseMcpCallArgumentsDelta {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -60,6 +61,23 @@ impl RealtimeBetaServerEventResponseMcpCallArgumentsDelta {
             delta,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: realtime_beta_server_event_response_mcp_call_arguments_delta_builder::State>
+    RealtimeBetaServerEventResponseMcpCallArgumentsDeltaBuilder<S>
+where
+    S::EventId: realtime_beta_server_event_response_mcp_call_arguments_delta_builder::IsSet,
+    S::Type: realtime_beta_server_event_response_mcp_call_arguments_delta_builder::IsSet,
+    S::ResponseId: realtime_beta_server_event_response_mcp_call_arguments_delta_builder::IsSet,
+    S::ItemId: realtime_beta_server_event_response_mcp_call_arguments_delta_builder::IsSet,
+    S::OutputIndex: realtime_beta_server_event_response_mcp_call_arguments_delta_builder::IsSet,
+    S::Delta: realtime_beta_server_event_response_mcp_call_arguments_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventResponseMcpCallArgumentsDelta {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_hosted_shell_network_policy_allowlist_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveHostedShellNetworkPolicyAllowlistParam {
     /// Allow outbound network access only to specified domains. Always `allowlist`.  Defaults to `\"allowlist\"`.
     #[serde(rename = "type")]
@@ -31,6 +32,19 @@ impl LiveHostedShellNetworkPolicyAllowlistParam {
             r#type,
             allowed_domains,
         }
+    }
+}
+
+impl<S: live_hosted_shell_network_policy_allowlist_param_builder::State>
+    LiveHostedShellNetworkPolicyAllowlistParamBuilder<S>
+where
+    S::Type: live_hosted_shell_network_policy_allowlist_param_builder::IsSet,
+    S::AllowedDomains: live_hosted_shell_network_policy_allowlist_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveHostedShellNetworkPolicyAllowlistParam {
+        self.build_internal()
     }
 }
 

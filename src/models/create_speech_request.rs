@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_speech_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateSpeechRequest {
     /// One of the available [TTS models](https://developers.openai.com/api/docs/guides/text-to-speech): `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, or `gpt-4o-mini-tts-2025-12-15`.
     #[serde(rename = "model")]
@@ -52,6 +53,19 @@ impl CreateSpeechRequest {
             speed: None,
             stream_format: None,
         }
+    }
+}
+
+impl<S: create_speech_request_builder::State> CreateSpeechRequestBuilder<S>
+where
+    S::Model: create_speech_request_builder::IsSet,
+    S::Input: create_speech_request_builder::IsSet,
+    S::Voice: create_speech_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateSpeechRequest {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = invite_delete_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InviteDeleteResponse {
     /// The object type, which is always `organization.invite.deleted`
     #[serde(rename = "object")]
@@ -28,6 +29,19 @@ impl InviteDeleteResponse {
             id,
             deleted,
         }
+    }
+}
+
+impl<S: invite_delete_response_builder::State> InviteDeleteResponseBuilder<S>
+where
+    S::Object: invite_delete_response_builder::IsSet,
+    S::Id: invite_delete_response_builder::IsSet,
+    S::Deleted: invite_delete_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InviteDeleteResponse {
+        self.build_internal()
     }
 }
 

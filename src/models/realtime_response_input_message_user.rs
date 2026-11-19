@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_response_input_message_user_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeResponseInputMessageUser {
     /// An optional client ID. The value `root` is reserved.
     ///
@@ -53,6 +54,20 @@ impl RealtimeResponseInputMessageUser {
             role,
             content,
         }
+    }
+}
+
+impl<S: realtime_response_input_message_user_builder::State>
+    RealtimeResponseInputMessageUserBuilder<S>
+where
+    S::Type: realtime_response_input_message_user_builder::IsSet,
+    S::Role: realtime_response_input_message_user_builder::IsSet,
+    S::Content: realtime_response_input_message_user_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeResponseInputMessageUser {
+        self.build_internal()
     }
 }
 

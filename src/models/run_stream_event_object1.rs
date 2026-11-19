@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStreamEventObject1 : Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) moves to a `queued` status.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_stream_event_object1_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStreamEventObject1 {
     #[serde(rename = "event")]
     pub event: Event,
@@ -24,6 +25,18 @@ impl RunStreamEventObject1 {
     /// Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) moves to a `queued` status.
     pub fn new(event: Event, data: models::RunObject) -> RunStreamEventObject1 {
         RunStreamEventObject1 { event, data }
+    }
+}
+
+impl<S: run_stream_event_object1_builder::State> RunStreamEventObject1Builder<S>
+where
+    S::Event: run_stream_event_object1_builder::IsSet,
+    S::Data: run_stream_event_object1_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStreamEventObject1 {
+        self.build_internal()
     }
 }
 

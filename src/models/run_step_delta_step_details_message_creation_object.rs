@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepDeltaStepDetailsMessageCreationObject : Details of the message creation by the run step.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_delta_step_details_message_creation_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDeltaStepDetailsMessageCreationObject {
     /// Always `message_creation`.
     #[serde(rename = "type")]
@@ -29,6 +30,18 @@ impl RunStepDeltaStepDetailsMessageCreationObject {
             r#type,
             message_creation: None,
         }
+    }
+}
+
+impl<S: run_step_delta_step_details_message_creation_object_builder::State>
+    RunStepDeltaStepDetailsMessageCreationObjectBuilder<S>
+where
+    S::Type: run_step_delta_step_details_message_creation_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDeltaStepDetailsMessageCreationObject {
+        self.build_internal()
     }
 }
 

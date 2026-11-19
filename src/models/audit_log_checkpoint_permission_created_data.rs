@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogCheckpointPermissionCreatedData : The payload used to create the checkpoint permission.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_checkpoint_permission_created_data_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogCheckpointPermissionCreatedData {
     /// The ID of the project that the checkpoint permission was created for.
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
@@ -31,6 +32,16 @@ impl AuditLogCheckpointPermissionCreatedData {
             project_id: None,
             fine_tuned_model_checkpoint: None,
         }
+    }
+}
+
+impl<S: audit_log_checkpoint_permission_created_data_builder::State>
+    AuditLogCheckpointPermissionCreatedDataBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogCheckpointPermissionCreatedData {
+        self.build_internal()
     }
 }
 

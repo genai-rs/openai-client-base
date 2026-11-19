@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// OutputTokensDetailsResource2 : A breakdown of output token usage for a session or turn.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = output_tokens_details_resource2_builder, finish_fn(vis = "", name = build_internal))]
 pub struct OutputTokensDetailsResource2 {
     /// The number of output tokens used for reasoning.
     #[serde(rename = "reasoning_tokens")]
@@ -22,6 +23,17 @@ impl OutputTokensDetailsResource2 {
     /// A breakdown of output token usage for a session or turn.
     pub fn new(reasoning_tokens: i64) -> OutputTokensDetailsResource2 {
         OutputTokensDetailsResource2 { reasoning_tokens }
+    }
+}
+
+impl<S: output_tokens_details_resource2_builder::State> OutputTokensDetailsResource2Builder<S>
+where
+    S::ReasoningTokens: output_tokens_details_resource2_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> OutputTokensDetailsResource2 {
+        self.build_internal()
     }
 }
 

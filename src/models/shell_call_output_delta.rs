@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ShellCallOutputDelta : A delta of stdout/stderr emitted while a shell call was running.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = shell_call_output_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ShellCallOutputDelta {
     /// The stdout delta that was emitted.
     #[serde(rename = "stdout", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,14 @@ impl ShellCallOutputDelta {
             stdout: None,
             stderr: None,
         }
+    }
+}
+
+impl<S: shell_call_output_delta_builder::State> ShellCallOutputDeltaBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ShellCallOutputDelta {
+        self.build_internal()
     }
 }
 

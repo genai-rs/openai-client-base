@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_function_tool_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFunctionToolParam {
     /// Validation: `minLength: 1`, `maxLength: 128`, `pattern: ^[a-zA-Z0-9_-]+$`.
     #[serde(rename = "name")]
@@ -80,6 +81,18 @@ impl BetaFunctionToolParam {
             defer_loading: None,
             allowed_callers: None,
         }
+    }
+}
+
+impl<S: beta_function_tool_param_builder::State> BetaFunctionToolParamBuilder<S>
+where
+    S::Name: beta_function_tool_param_builder::IsSet,
+    S::Type: beta_function_tool_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFunctionToolParam {
+        self.build_internal()
     }
 }
 

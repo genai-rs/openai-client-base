@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_content_text_object_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageContentTextObjectText {
     /// The data that makes up the text.
     #[serde(rename = "value")]
@@ -26,6 +27,18 @@ impl MessageContentTextObjectText {
         annotations: Vec<models::MessageContentTextObjectTextAnnotationsInner>,
     ) -> MessageContentTextObjectText {
         MessageContentTextObjectText { value, annotations }
+    }
+}
+
+impl<S: message_content_text_object_text_builder::State> MessageContentTextObjectTextBuilder<S>
+where
+    S::Value: message_content_text_object_text_builder::IsSet,
+    S::Annotations: message_content_text_object_text_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageContentTextObjectText {
+        self.build_internal()
     }
 }
 

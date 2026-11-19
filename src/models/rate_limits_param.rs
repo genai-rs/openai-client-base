@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RateLimitsParam : Controls request rate limits for the session.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = rate_limits_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RateLimitsParam {
     /// Maximum number of requests allowed per minute for the session. Defaults to 10.
     ///
@@ -29,6 +30,14 @@ impl RateLimitsParam {
         RateLimitsParam {
             max_requests_per_1_minute: None,
         }
+    }
+}
+
+impl<S: rate_limits_param_builder::State> RateLimitsParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RateLimitsParam {
+        self.build_internal()
     }
 }
 

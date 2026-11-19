@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AutomationEnvironmentResourceOpenaiHosted : Hosted environment selection with confidential setup commands and variables omitted.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_environment_resource_openai_hosted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationEnvironmentResourceOpenaiHosted {
     /// The type of the object. Always `openai_hosted`.  Defaults to `\"openai_hosted\"`.
     #[serde(rename = "type")]
@@ -89,6 +90,18 @@ impl AutomationEnvironmentResourceOpenaiHosted {
             plugins,
             files,
         }
+    }
+}
+
+impl<S: automation_environment_resource_openai_hosted_builder::State>
+    AutomationEnvironmentResourceOpenaiHostedBuilder<S>
+where
+    S::Type: automation_environment_resource_openai_hosted_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationEnvironmentResourceOpenaiHosted {
+        self.build_internal()
     }
 }
 

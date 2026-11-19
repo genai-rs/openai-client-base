@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// HostedTemplateSkillResourceInline : Safe metadata for an inline skill archive.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = hosted_template_skill_resource_inline_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HostedTemplateSkillResourceInline {
     /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
     #[serde(rename = "type")]
@@ -40,6 +41,20 @@ impl HostedTemplateSkillResourceInline {
             name,
             description,
         }
+    }
+}
+
+impl<S: hosted_template_skill_resource_inline_builder::State>
+    HostedTemplateSkillResourceInlineBuilder<S>
+where
+    S::Type: hosted_template_skill_resource_inline_builder::IsSet,
+    S::Name: hosted_template_skill_resource_inline_builder::IsSet,
+    S::Description: hosted_template_skill_resource_inline_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HostedTemplateSkillResourceInline {
+        self.build_internal()
     }
 }
 

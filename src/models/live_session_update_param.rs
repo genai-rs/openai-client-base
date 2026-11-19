@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSessionUpdateParam : Update the delegation settings or transcript triggers of an active Live session. The server acknowledges accepted changes with `session.updated`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_update_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionUpdateParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
     ///
@@ -39,6 +40,18 @@ impl LiveSessionUpdateParam {
             r#type,
             session,
         }
+    }
+}
+
+impl<S: live_session_update_param_builder::State> LiveSessionUpdateParamBuilder<S>
+where
+    S::Type: live_session_update_param_builder::IsSet,
+    S::Session: live_session_update_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionUpdateParam {
+        self.build_internal()
     }
 }
 

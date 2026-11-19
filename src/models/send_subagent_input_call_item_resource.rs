@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SendSubagentInputCallItemResource : A request to send input to another agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = send_subagent_input_call_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SendSubagentInputCallItemResource {
     /// The item type. Always `send_subagent_input_call`.  Defaults to `\"send_subagent_input_call\"`.
     #[serde(rename = "type")]
@@ -66,6 +67,24 @@ impl SendSubagentInputCallItemResource {
             recipient_agent_id,
             content,
         }
+    }
+}
+
+impl<S: send_subagent_input_call_item_resource_builder::State>
+    SendSubagentInputCallItemResourceBuilder<S>
+where
+    S::Type: send_subagent_input_call_item_resource_builder::IsSet,
+    S::Id: send_subagent_input_call_item_resource_builder::IsSet,
+    S::TurnId: send_subagent_input_call_item_resource_builder::IsSet,
+    S::Status: send_subagent_input_call_item_resource_builder::IsSet,
+    S::SenderAgentId: send_subagent_input_call_item_resource_builder::IsSet,
+    S::RecipientAgentId: send_subagent_input_call_item_resource_builder::IsSet,
+    S::Content: send_subagent_input_call_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SendSubagentInputCallItemResource {
+        self.build_internal()
     }
 }
 

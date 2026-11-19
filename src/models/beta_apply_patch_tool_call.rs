@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaApplyPatchToolCall : A tool call that applies file diffs by creating, deleting, or updating files.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_apply_patch_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaApplyPatchToolCall {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
@@ -60,6 +61,21 @@ impl BetaApplyPatchToolCall {
             operation,
             created_by: None,
         }
+    }
+}
+
+impl<S: beta_apply_patch_tool_call_builder::State> BetaApplyPatchToolCallBuilder<S>
+where
+    S::Type: beta_apply_patch_tool_call_builder::IsSet,
+    S::Id: beta_apply_patch_tool_call_builder::IsSet,
+    S::CallId: beta_apply_patch_tool_call_builder::IsSet,
+    S::Status: beta_apply_patch_tool_call_builder::IsSet,
+    S::Operation: beta_apply_patch_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaApplyPatchToolCall {
+        self.build_internal()
     }
 }
 

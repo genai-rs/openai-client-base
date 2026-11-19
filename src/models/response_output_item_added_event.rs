@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseOutputItemAddedEvent : Emitted when a new output item is added.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_output_item_added_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseOutputItemAddedEvent {
     /// The type of the event. Always `response.output_item.added`.
     #[serde(rename = "type")]
@@ -41,6 +42,20 @@ impl ResponseOutputItemAddedEvent {
             sequence_number,
             item,
         }
+    }
+}
+
+impl<S: response_output_item_added_event_builder::State> ResponseOutputItemAddedEventBuilder<S>
+where
+    S::Type: response_output_item_added_event_builder::IsSet,
+    S::OutputIndex: response_output_item_added_event_builder::IsSet,
+    S::SequenceNumber: response_output_item_added_event_builder::IsSet,
+    S::Item: response_output_item_added_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseOutputItemAddedEvent {
+        self.build_internal()
     }
 }
 

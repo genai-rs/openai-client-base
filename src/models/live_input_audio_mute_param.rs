@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveInputAudioMuteParam : Mute audio input to the Live model without closing the session. The server acknowledges with `session.input_audio.muted`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_input_audio_mute_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveInputAudioMuteParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
     ///
@@ -35,6 +36,17 @@ impl LiveInputAudioMuteParam {
             event_id: None,
             r#type,
         }
+    }
+}
+
+impl<S: live_input_audio_mute_param_builder::State> LiveInputAudioMuteParamBuilder<S>
+where
+    S::Type: live_input_audio_mute_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveInputAudioMuteParam {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseCompletedEvent : Emitted when the model response is complete.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_completed_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseCompletedEvent {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -45,6 +46,19 @@ impl BetaResponseCompletedEvent {
             response,
             sequence_number,
         }
+    }
+}
+
+impl<S: beta_response_completed_event_builder::State> BetaResponseCompletedEventBuilder<S>
+where
+    S::Type: beta_response_completed_event_builder::IsSet,
+    S::Response: beta_response_completed_event_builder::IsSet,
+    S::SequenceNumber: beta_response_completed_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseCompletedEvent {
+        self.build_internal()
     }
 }
 

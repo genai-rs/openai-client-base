@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_response_input_image_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeResponseInputImage {
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -36,6 +37,18 @@ impl RealtimeResponseInputImage {
             image_url,
             detail: None,
         }
+    }
+}
+
+impl<S: realtime_response_input_image_builder::State> RealtimeResponseInputImageBuilder<S>
+where
+    S::Type: realtime_response_input_image_builder::IsSet,
+    S::ImageUrl: realtime_response_input_image_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeResponseInputImage {
+        self.build_internal()
     }
 }
 

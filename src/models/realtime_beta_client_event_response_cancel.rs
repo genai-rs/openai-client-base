@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaClientEventResponseCancel : Send this event to cancel an in-progress response. The server will respond  with a `response.done` event with a status of `response.status=cancelled`. If  there is no response to cancel, the server will respond with an error.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_client_event_response_cancel_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaClientEventResponseCancel {
     /// Optional client-generated ID used to identify this event.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
@@ -32,6 +33,18 @@ impl RealtimeBetaClientEventResponseCancel {
             r#type,
             response_id: None,
         }
+    }
+}
+
+impl<S: realtime_beta_client_event_response_cancel_builder::State>
+    RealtimeBetaClientEventResponseCancelBuilder<S>
+where
+    S::Type: realtime_beta_client_event_response_cancel_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaClientEventResponseCancel {
+        self.build_internal()
     }
 }
 

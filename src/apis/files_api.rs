@@ -65,7 +65,7 @@ pub enum RetrieveFileError {
 }
 
 /// Upload a file that can be used across various endpoints. Individual files can be up to 512 MB, and each project can store up to 2.5 TB of files in total. There is no organization-wide storage limit. Uploads to this endpoint are rate-limited to 1,000 requests per minute per authenticated user.  - The Assistants API supports files up to 2 million tokens and of specific   file types. See the [Assistants Tools guide](https://developers.openai.com/api/docs/guides/tools) for   details. - The Fine-tuning API only supports `.jsonl` files. The input also has   certain required formats for fine-tuning   [chat](https://developers.openai.com/api/docs/guides/supervised-fine-tuning#formatting-your-data) or   [completions](https://developers.openai.com/api/docs/guides/supervised-fine-tuning#formatting-your-data) models. - The Batch API only supports `.jsonl` files up to 200 MB in size. The input   also has a specific required   [format](https://developers.openai.com/api/docs/guides/batch#1-prepare-your-batch-file). - For Retrieval or `file_search` ingestion, upload files here first. If   you need to attach multiple uploaded files to the same vector store, use   [`/vector_stores/{vector_store_id}/file_batches`](https://developers.openai.com/api/reference/resources/vector_stores/subresources/file_batches/methods/create)   instead of attaching them one by one. Vector store attachment has separate   limits from file upload, including 2,000 attached files per minute per   organization.  Please [contact us](https://help.openai.com/) if you need to increase these storage limits.
-#[bon::builder]
+#[bon::builder(state_mod = create_file_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_file(
     configuration: &configuration::Configuration,
     #[builder(into)] file: timvw_rust_runtime::Upload,
@@ -157,13 +157,27 @@ pub async fn create_file(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_file_builder::State> CreateFileBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_file_builder::IsSet,
+    S::File: create_file_builder::IsSet,
+    S::Purpose: create_file_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::OpenAiFile, Error<CreateFileError>> {
+        self.call_internal().await
+    }
+}
+
 /// Upload a file that can be used across various endpoints. Individual files can be up to 512 MB, and each project can store up to 2.5 TB of files in total. There is no organization-wide storage limit. Uploads to this endpoint are rate-limited to 1,000 requests per minute per authenticated user.  - The Assistants API supports files up to 2 million tokens and of specific   file types. See the [Assistants Tools guide](https://developers.openai.com/api/docs/guides/tools) for   details. - The Fine-tuning API only supports `.jsonl` files. The input also has   certain required formats for fine-tuning   [chat](https://developers.openai.com/api/docs/guides/supervised-fine-tuning#formatting-your-data) or   [completions](https://developers.openai.com/api/docs/guides/supervised-fine-tuning#formatting-your-data) models. - The Batch API only supports `.jsonl` files up to 200 MB in size. The input   also has a specific required   [format](https://developers.openai.com/api/docs/guides/batch#1-prepare-your-batch-file). - For Retrieval or `file_search` ingestion, upload files here first. If   you need to attach multiple uploaded files to the same vector store, use   [`/vector_stores/{vector_store_id}/file_batches`](https://developers.openai.com/api/reference/resources/vector_stores/subresources/file_batches/methods/create)   instead of attaching them one by one. Vector store attachment has separate   limits from file upload, including 2,000 attached files per minute per   organization.  Please [contact us](https://help.openai.com/) if you need to increase these storage limits.
 ///
 /// Sends the same request as [`create_file`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OpenAiFile` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_file_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_file_response(
     configuration: &configuration::Configuration,
     #[builder(into)] file: timvw_rust_runtime::Upload,
@@ -246,8 +260,24 @@ pub async fn create_file_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_file_response_builder::State> CreateFileResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_file_response_builder::IsSet,
+    S::File: create_file_response_builder::IsSet,
+    S::Purpose: create_file_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::OpenAiFile>, Error<CreateFileError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete a file and remove it from all vector stores.
-#[bon::builder]
+#[bon::builder(state_mod = delete_file_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_file(
     configuration: &configuration::Configuration,
     file_id: &str,
@@ -322,13 +352,26 @@ pub async fn delete_file(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_file_builder::State> DeleteFileBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_file_builder::IsSet,
+    S::FileId: delete_file_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::DeleteFileResponse, Error<DeleteFileError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete a file and remove it from all vector stores.
 ///
 /// Sends the same request as [`delete_file`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeleteFileResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_file_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_file_response(
     configuration: &configuration::Configuration,
     file_id: &str,
@@ -394,8 +437,23 @@ pub async fn delete_file_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_file_response_builder::State> DeleteFileResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_file_response_builder::IsSet,
+    S::FileId: delete_file_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeleteFileResponse>, Error<DeleteFileError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a response containing the contents of the specified file.
-#[bon::builder]
+#[bon::builder(state_mod = download_file_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn download_file(
     configuration: &configuration::Configuration,
     file_id: &str,
@@ -465,8 +523,21 @@ pub async fn download_file(
     }
 }
 
+#[allow(deprecated)]
+impl<S: download_file_builder::State> DownloadFileBuilder<'_, '_, '_, S>
+where
+    S::Configuration: download_file_builder::IsSet,
+    S::FileId: download_file_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<timvw_rust_runtime::Response, Error<DownloadFileError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of files.
-#[bon::builder]
+#[bon::builder(state_mod = list_files_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_files(
     configuration: &configuration::Configuration,
     purpose: Option<&str>,
@@ -558,13 +629,25 @@ pub async fn list_files(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_files_builder::State> ListFilesBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_files_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ListFilesResponse, Error<ListFilesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns a list of files.
 ///
 /// Sends the same request as [`list_files`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListFilesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_files_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_files_response(
     configuration: &configuration::Configuration,
     purpose: Option<&str>,
@@ -647,8 +730,22 @@ pub async fn list_files_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_files_response_builder::State> ListFilesResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_files_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ListFilesResponse>, Error<ListFilesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns information about a specific file.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_file_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_file(
     configuration: &configuration::Configuration,
     file_id: &str,
@@ -723,13 +820,26 @@ pub async fn retrieve_file(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_file_builder::State> RetrieveFileBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_file_builder::IsSet,
+    S::FileId: retrieve_file_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::OpenAiFile, Error<RetrieveFileError>> {
+        self.call_internal().await
+    }
+}
+
 /// Returns information about a specific file.
 ///
 /// Sends the same request as [`retrieve_file`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OpenAiFile` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_file_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_file_response(
     configuration: &configuration::Configuration,
     file_id: &str,
@@ -792,5 +902,20 @@ pub async fn retrieve_file_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: retrieve_file_response_builder::State> RetrieveFileResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_file_response_builder::IsSet,
+    S::FileId: retrieve_file_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::OpenAiFile>, Error<RetrieveFileError>> {
+        self.call_internal().await
     }
 }

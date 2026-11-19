@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogIpAllowlistConfigDeactivated : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_ip_allowlist_config_deactivated_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogIpAllowlistConfigDeactivated {
     /// The configurations that were deactivated.
     #[serde(rename = "configs", skip_serializing_if = "Option::is_none")]
@@ -23,6 +24,16 @@ impl AuditLogIpAllowlistConfigDeactivated {
     /// The details for events with this `type`.
     pub fn new() -> AuditLogIpAllowlistConfigDeactivated {
         AuditLogIpAllowlistConfigDeactivated { configs: None }
+    }
+}
+
+impl<S: audit_log_ip_allowlist_config_deactivated_builder::State>
+    AuditLogIpAllowlistConfigDeactivatedBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogIpAllowlistConfigDeactivated {
+        self.build_internal()
     }
 }
 

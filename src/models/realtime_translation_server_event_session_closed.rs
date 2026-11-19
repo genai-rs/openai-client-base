@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationServerEventSessionClosed : Returned when a realtime translation session is closed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_server_event_session_closed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationServerEventSessionClosed {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -25,6 +26,19 @@ impl RealtimeTranslationServerEventSessionClosed {
     /// Returned when a realtime translation session is closed.
     pub fn new(event_id: String, r#type: Type) -> RealtimeTranslationServerEventSessionClosed {
         RealtimeTranslationServerEventSessionClosed { event_id, r#type }
+    }
+}
+
+impl<S: realtime_translation_server_event_session_closed_builder::State>
+    RealtimeTranslationServerEventSessionClosedBuilder<S>
+where
+    S::EventId: realtime_translation_server_event_session_closed_builder::IsSet,
+    S::Type: realtime_translation_server_event_session_closed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationServerEventSessionClosed {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaTextContent : A text content.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_text_content_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaTextContent {
     /// Defaults to `\"text\"`.
     #[serde(rename = "type")]
@@ -24,6 +25,18 @@ impl BetaTextContent {
     /// A text content.
     pub fn new(r#type: Type, text: String) -> BetaTextContent {
         BetaTextContent { r#type, text }
+    }
+}
+
+impl<S: beta_text_content_builder::State> BetaTextContentBuilder<S>
+where
+    S::Type: beta_text_content_builder::IsSet,
+    S::Text: beta_text_content_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaTextContent {
+        self.build_internal()
     }
 }
 

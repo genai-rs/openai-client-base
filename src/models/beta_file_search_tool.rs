@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaFileSearchTool : A tool that searches for relevant content from uploaded files. Learn more about the [file search tool](https://developers.openai.com/api/docs/guides/tools-file-search).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_file_search_tool_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFileSearchTool {
     /// The type of the file search tool. Always `file_search`.  Defaults to `\"file_search\"`.
     #[serde(rename = "type")]
@@ -44,6 +45,18 @@ impl BetaFileSearchTool {
             ranking_options: None,
             filters: None,
         }
+    }
+}
+
+impl<S: beta_file_search_tool_builder::State> BetaFileSearchToolBuilder<S>
+where
+    S::Type: beta_file_search_tool_builder::IsSet,
+    S::VectorStoreIds: beta_file_search_tool_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFileSearchTool {
+        self.build_internal()
     }
 }
 

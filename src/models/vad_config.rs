@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vad_config_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VadConfig {
     /// Must be set to `server_vad` to enable manual chunking using server side VAD.
     #[serde(rename = "type")]
@@ -37,6 +38,17 @@ impl VadConfig {
             silence_duration_ms: None,
             threshold: None,
         }
+    }
+}
+
+impl<S: vad_config_builder::State> VadConfigBuilder<S>
+where
+    S::Type: vad_config_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VadConfig {
+        self.build_internal()
     }
 }
 

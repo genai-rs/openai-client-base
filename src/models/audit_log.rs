@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLog : A log of a user action or configuration change within this organization.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLog {
     /// The ID of this log.
     #[serde(rename = "id")]
@@ -313,6 +314,19 @@ impl AuditLog {
             certificates_activated: None,
             certificates_deactivated: None,
         }
+    }
+}
+
+impl<S: audit_log_builder::State> AuditLogBuilder<S>
+where
+    S::Id: audit_log_builder::IsSet,
+    S::Type: audit_log_builder::IsSet,
+    S::EffectiveAt: audit_log_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLog {
+        self.build_internal()
     }
 }
 

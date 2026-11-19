@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaFunctionShellCallItemParam : A tool representing a request to execute one or more shell commands.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_function_shell_call_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFunctionShellCallItemParam {
     #[serde(
         rename = "agent",
@@ -79,6 +80,19 @@ impl BetaFunctionShellCallItemParam {
             status: None,
             environment: None,
         }
+    }
+}
+
+impl<S: beta_function_shell_call_item_param_builder::State> BetaFunctionShellCallItemParamBuilder<S>
+where
+    S::CallId: beta_function_shell_call_item_param_builder::IsSet,
+    S::Type: beta_function_shell_call_item_param_builder::IsSet,
+    S::Action: beta_function_shell_call_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFunctionShellCallItemParam {
+        self.build_internal()
     }
 }
 

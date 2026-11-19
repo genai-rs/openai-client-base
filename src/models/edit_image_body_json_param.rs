@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// EditImageBodyJsonParam : JSON request body for image edits.  Use `images` (array of `ImageRefParam`) instead of multipart `image` uploads. You can reference images via external URLs, data URLs, or uploaded file IDs. JSON edits support GPT image models.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = edit_image_body_json_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EditImageBodyJsonParam {
     /// Number of frames for GIF output. Accepts integers from 2 through 16. Defaults to 9 when omitted. Only supported with output_format=gif. The requested size must satisfy the selected model's GIF size limits. GIF output does not support streaming, partial images, masks, or custom output compression. Requires access to the GIF preview for the selected model.
     ///
@@ -192,6 +193,18 @@ impl EditImageBodyJsonParam {
             stream: None,
             partial_images: None,
         }
+    }
+}
+
+impl<S: edit_image_body_json_param_builder::State> EditImageBodyJsonParamBuilder<S>
+where
+    S::Images: edit_image_body_json_param_builder::IsSet,
+    S::Prompt: edit_image_body_json_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EditImageBodyJsonParam {
+        self.build_internal()
     }
 }
 

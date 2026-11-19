@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaInputAudio : An audio input to the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_input_audio_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaInputAudio {
     /// The type of the input item. Always `input_audio`.
     #[serde(rename = "type")]
@@ -28,6 +29,18 @@ impl BetaInputAudio {
             r#type,
             input_audio,
         }
+    }
+}
+
+impl<S: beta_input_audio_builder::State> BetaInputAudioBuilder<S>
+where
+    S::Type: beta_input_audio_builder::IsSet,
+    S::InputAudio: beta_input_audio_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaInputAudio {
+        self.build_internal()
     }
 }
 

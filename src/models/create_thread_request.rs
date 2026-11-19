@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateThreadRequest : Options to create a new thread. If no thread is provided when running a request, an empty thread will be created.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_thread_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateThreadRequest {
     /// A list of [messages](https://developers.openai.com/api/docs/assistants/migration) to start the thread with.
     #[serde(rename = "messages", skip_serializing_if = "Option::is_none")]
@@ -42,6 +43,14 @@ impl CreateThreadRequest {
             tool_resources: None,
             metadata: None,
         }
+    }
+}
+
+impl<S: create_thread_request_builder::State> CreateThreadRequestBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateThreadRequest {
+        self.build_internal()
     }
 }
 

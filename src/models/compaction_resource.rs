@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CompactionResource : The effective settings for compacting the agent's context.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = compaction_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CompactionResource {
     /// Whether context is compacted in the background. Defaults to false.
     #[serde(rename = "async")]
@@ -22,6 +23,17 @@ impl CompactionResource {
     /// The effective settings for compacting the agent's context.
     pub fn new(r#async: bool) -> CompactionResource {
         CompactionResource { r#async }
+    }
+}
+
+impl<S: compaction_resource_builder::State> CompactionResourceBuilder<S>
+where
+    S::Async: compaction_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CompactionResource {
+        self.build_internal()
     }
 }
 

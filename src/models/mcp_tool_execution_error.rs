@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_tool_execution_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpToolExecutionError {
     /// Defaults to `\"mcp_tool_execution_error\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ pub struct McpToolExecutionError {
 impl McpToolExecutionError {
     pub fn new(r#type: Type, content: Option<serde_json::Value>) -> McpToolExecutionError {
         McpToolExecutionError { r#type, content }
+    }
+}
+
+impl<S: mcp_tool_execution_error_builder::State> McpToolExecutionErrorBuilder<S>
+where
+    S::Type: mcp_tool_execution_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpToolExecutionError {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectApiKey : Represents an individual API key in a project.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_api_key_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectApiKey {
     /// The object type, which is always `organization.project.api_key`
     #[serde(rename = "object")]
@@ -70,6 +71,23 @@ impl ProjectApiKey {
             owner_project_access,
             owner,
         }
+    }
+}
+
+impl<S: project_api_key_builder::State> ProjectApiKeyBuilder<S>
+where
+    S::Object: project_api_key_builder::IsSet,
+    S::RedactedValue: project_api_key_builder::IsSet,
+    S::Name: project_api_key_builder::IsSet,
+    S::CreatedAt: project_api_key_builder::IsSet,
+    S::Id: project_api_key_builder::IsSet,
+    S::OwnerProjectAccess: project_api_key_builder::IsSet,
+    S::Owner: project_api_key_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectApiKey {
+        self.build_internal()
     }
 }
 

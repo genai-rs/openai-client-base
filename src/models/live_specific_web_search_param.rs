@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_specific_web_search_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSpecificWebSearchParam {
     /// The tool to call. Always `web_search`.  Defaults to `\"web_search\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,17 @@ pub struct LiveSpecificWebSearchParam {
 impl LiveSpecificWebSearchParam {
     pub fn new(r#type: Type) -> LiveSpecificWebSearchParam {
         LiveSpecificWebSearchParam { r#type }
+    }
+}
+
+impl<S: live_specific_web_search_param_builder::State> LiveSpecificWebSearchParamBuilder<S>
+where
+    S::Type: live_specific_web_search_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSpecificWebSearchParam {
+        self.build_internal()
     }
 }
 

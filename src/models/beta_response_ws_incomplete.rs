@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseWsIncomplete : An event that is emitted when a response finishes as incomplete.  Over WebSocket, steering can finish a response with `response.incomplete_details.reason` set to `steered`, followed automatically by a successor `response.created` that commits the queued steering input.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_ws_incomplete_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseWsIncomplete {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -49,6 +50,19 @@ impl BetaResponseWsIncomplete {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_ws_incomplete_builder::State> BetaResponseWsIncompleteBuilder<S>
+where
+    S::Type: beta_response_ws_incomplete_builder::IsSet,
+    S::Response: beta_response_ws_incomplete_builder::IsSet,
+    S::SequenceNumber: beta_response_ws_incomplete_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseWsIncomplete {
+        self.build_internal()
     }
 }
 

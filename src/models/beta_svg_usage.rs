@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_svg_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaSvgUsage {
     #[serde(rename = "model")]
     pub model: String,
@@ -39,6 +40,21 @@ impl BetaSvgUsage {
             total_tokens,
             reasoning_tokens,
         }
+    }
+}
+
+impl<S: beta_svg_usage_builder::State> BetaSvgUsageBuilder<S>
+where
+    S::Model: beta_svg_usage_builder::IsSet,
+    S::InputTokens: beta_svg_usage_builder::IsSet,
+    S::OutputTokens: beta_svg_usage_builder::IsSet,
+    S::TotalTokens: beta_svg_usage_builder::IsSet,
+    S::ReasoningTokens: beta_svg_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaSvgUsage {
+        self.build_internal()
     }
 }
 

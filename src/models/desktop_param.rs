@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// DesktopParam : Desktop configuration for an OpenAI-hosted environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = desktop_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DesktopParam {
     /// Whether to provision the desktop and its browser proxy.
     #[serde(rename = "enabled")]
@@ -22,6 +23,17 @@ impl DesktopParam {
     /// Desktop configuration for an OpenAI-hosted environment.
     pub fn new(enabled: bool) -> DesktopParam {
         DesktopParam { enabled }
+    }
+}
+
+impl<S: desktop_param_builder::State> DesktopParamBuilder<S>
+where
+    S::Enabled: desktop_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DesktopParam {
+        self.build_internal()
     }
 }
 

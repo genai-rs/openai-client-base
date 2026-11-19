@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveDecisionCreateParam : Evaluate the configured questions using the current conversation and Decision inputs. Reusing an event_id is rejected for the lifetime of the session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_create_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionCreateParam {
     /// Validation: `minLength: 1`, `maxLength: 256`.
     #[serde(rename = "event_id")]
@@ -25,6 +26,18 @@ impl LiveDecisionCreateParam {
     /// Evaluate the configured questions using the current conversation and Decision inputs. Reusing an event_id is rejected for the lifetime of the session.
     pub fn new(event_id: String, r#type: Type) -> LiveDecisionCreateParam {
         LiveDecisionCreateParam { event_id, r#type }
+    }
+}
+
+impl<S: live_decision_create_param_builder::State> LiveDecisionCreateParamBuilder<S>
+where
+    S::EventId: live_decision_create_param_builder::IsSet,
+    S::Type: live_decision_create_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionCreateParam {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// TranscriptTextUsageDuration : Usage statistics for models billed by audio input duration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = transcript_text_usage_duration_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TranscriptTextUsageDuration {
     /// The type of the usage object. Always `duration` for this variant.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl TranscriptTextUsageDuration {
     /// Usage statistics for models billed by audio input duration.
     pub fn new(r#type: Type, seconds: f64) -> TranscriptTextUsageDuration {
         TranscriptTextUsageDuration { r#type, seconds }
+    }
+}
+
+impl<S: transcript_text_usage_duration_builder::State> TranscriptTextUsageDurationBuilder<S>
+where
+    S::Type: transcript_text_usage_duration_builder::IsSet,
+    S::Seconds: transcript_text_usage_duration_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TranscriptTextUsageDuration {
+        self.build_internal()
     }
 }
 

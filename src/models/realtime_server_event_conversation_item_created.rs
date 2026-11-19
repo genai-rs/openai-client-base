@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventConversationItemCreated : Returned when a conversation item is created. There are several scenarios that produce this event:   - The server is generating a Response, which if successful will produce     either one or two Items, which will be of type `message`     (role `assistant`) or type `function_call`.   - The input audio buffer has been committed, either by the client or the     server (in `server_vad` mode). The server will take the content of the     input audio buffer and add it to a new user message Item.   - The client has sent a `conversation.item.create` event to add a new Item     to the Conversation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_conversation_item_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventConversationItemCreated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -45,6 +46,20 @@ impl RealtimeServerEventConversationItemCreated {
             previous_item_id: None,
             item,
         }
+    }
+}
+
+impl<S: realtime_server_event_conversation_item_created_builder::State>
+    RealtimeServerEventConversationItemCreatedBuilder<S>
+where
+    S::EventId: realtime_server_event_conversation_item_created_builder::IsSet,
+    S::Type: realtime_server_event_conversation_item_created_builder::IsSet,
+    S::Item: realtime_server_event_conversation_item_created_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventConversationItemCreated {
+        self.build_internal()
     }
 }
 

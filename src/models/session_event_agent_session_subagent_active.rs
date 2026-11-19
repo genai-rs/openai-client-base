@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionSubagentActive : Emitted when a closed subagent successfully resumes.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_subagent_active_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionSubagentActive {
     /// The type of the object. Always `agent.session.subagent.active`.  Defaults to `\"agent.session.subagent.active\"`.
     #[serde(rename = "type")]
@@ -44,6 +45,20 @@ impl SessionEventAgentSessionSubagentActive {
             subagent,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_subagent_active_builder::State>
+    SessionEventAgentSessionSubagentActiveBuilder<S>
+where
+    S::Type: session_event_agent_session_subagent_active_builder::IsSet,
+    S::EventId: session_event_agent_session_subagent_active_builder::IsSet,
+    S::Subagent: session_event_agent_session_subagent_active_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionSubagentActive {
+        self.build_internal()
     }
 }
 

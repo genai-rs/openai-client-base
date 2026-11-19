@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_image_generation_tool_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveImageGenerationToolInputParam {
     /// Defaults to `\"image_generation\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,18 @@ pub struct LiveImageGenerationToolInputParam {
 impl LiveImageGenerationToolInputParam {
     pub fn new(r#type: Type) -> LiveImageGenerationToolInputParam {
         LiveImageGenerationToolInputParam { r#type }
+    }
+}
+
+impl<S: live_image_generation_tool_input_param_builder::State>
+    LiveImageGenerationToolInputParamBuilder<S>
+where
+    S::Type: live_image_generation_tool_input_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveImageGenerationToolInputParam {
+        self.build_internal()
     }
 }
 

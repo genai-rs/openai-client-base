@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FineTuneMethod : The method used for fine-tuning.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tune_method_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuneMethod {
     /// The type of method. Is either `supervised`, `dpo`, or `reinforcement`.
     #[serde(rename = "type")]
@@ -34,6 +35,17 @@ impl FineTuneMethod {
             dpo: None,
             reinforcement: None,
         }
+    }
+}
+
+impl<S: fine_tune_method_builder::State> FineTuneMethodBuilder<S>
+where
+    S::Type: fine_tune_method_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuneMethod {
+        self.build_internal()
     }
 }
 

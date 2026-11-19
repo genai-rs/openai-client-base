@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ToolChoiceTypes : Indicates that the model should use a built-in tool to generate a response. [Learn more about built-in tools](https://developers.openai.com/api/docs/guides/tools).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = tool_choice_types_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ToolChoiceTypes {
     /// The type of hosted tool the model should to use. Learn more about [built-in tools](https://developers.openai.com/api/docs/guides/tools).  Allowed values are: - `file_search` - `web_search_preview` - `computer` - `computer_use_preview` - `computer_use` - `code_interpreter` - `image_generation`
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl ToolChoiceTypes {
     /// Indicates that the model should use a built-in tool to generate a response. [Learn more about built-in tools](https://developers.openai.com/api/docs/guides/tools).
     pub fn new(r#type: Type) -> ToolChoiceTypes {
         ToolChoiceTypes { r#type }
+    }
+}
+
+impl<S: tool_choice_types_builder::State> ToolChoiceTypesBuilder<S>
+where
+    S::Type: tool_choice_types_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ToolChoiceTypes {
+        self.build_internal()
     }
 }
 

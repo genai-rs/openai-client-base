@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = public_update_endpoint_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PublicUpdateEndpointBody {
     /// A new human-readable name for the webhook endpoint.
     ///
@@ -37,6 +38,14 @@ impl PublicUpdateEndpointBody {
             url: None,
             event_types: None,
         }
+    }
+}
+
+impl<S: public_update_endpoint_body_builder::State> PublicUpdateEndpointBodyBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PublicUpdateEndpointBody {
+        self.build_internal()
     }
 }
 

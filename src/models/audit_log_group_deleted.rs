@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogGroupDeleted : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_group_deleted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogGroupDeleted {
     /// The ID of the group.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl AuditLogGroupDeleted {
     /// The details for events with this `type`.
     pub fn new() -> AuditLogGroupDeleted {
         AuditLogGroupDeleted { id: None }
+    }
+}
+
+impl<S: audit_log_group_deleted_builder::State> AuditLogGroupDeletedBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogGroupDeleted {
+        self.build_internal()
     }
 }
 

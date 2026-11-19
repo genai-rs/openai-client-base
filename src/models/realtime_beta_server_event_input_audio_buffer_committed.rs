@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventInputAudioBufferCommitted : Returned when an input audio buffer is committed, either by the client or automatically in server VAD mode. The `item_id` property is the ID of the user message item that will be created, thus a `conversation.item.created` event will also be sent to the client.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_input_audio_buffer_committed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventInputAudioBufferCommitted {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -45,6 +46,20 @@ impl RealtimeBetaServerEventInputAudioBufferCommitted {
             previous_item_id: None,
             item_id,
         }
+    }
+}
+
+impl<S: realtime_beta_server_event_input_audio_buffer_committed_builder::State>
+    RealtimeBetaServerEventInputAudioBufferCommittedBuilder<S>
+where
+    S::EventId: realtime_beta_server_event_input_audio_buffer_committed_builder::IsSet,
+    S::Type: realtime_beta_server_event_input_audio_buffer_committed_builder::IsSet,
+    S::ItemId: realtime_beta_server_event_input_audio_buffer_committed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventInputAudioBufferCommitted {
+        self.build_internal()
     }
 }
 

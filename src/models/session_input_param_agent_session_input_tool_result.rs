@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionInputParamAgentSessionInputToolResult : Submits the result of a function call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_input_param_agent_session_input_tool_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionInputParamAgentSessionInputToolResult {
     /// The type of the object. Always `agent.session.input.tool_result`.  Defaults to `\"agent.session.input.tool_result\"`.
     #[serde(rename = "type")]
@@ -66,6 +67,21 @@ impl SessionInputParamAgentSessionInputToolResult {
             output: None,
             error: None,
         }
+    }
+}
+
+impl<S: session_input_param_agent_session_input_tool_result_builder::State>
+    SessionInputParamAgentSessionInputToolResultBuilder<S>
+where
+    S::Type: session_input_param_agent_session_input_tool_result_builder::IsSet,
+    S::TurnId: session_input_param_agent_session_input_tool_result_builder::IsSet,
+    S::CallId: session_input_param_agent_session_input_tool_result_builder::IsSet,
+    S::Success: session_input_param_agent_session_input_tool_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionInputParamAgentSessionInputToolResult {
+        self.build_internal()
     }
 }
 

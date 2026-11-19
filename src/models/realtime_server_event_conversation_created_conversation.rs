@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventConversationCreatedConversation : The conversation resource.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_conversation_created_conversation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventConversationCreatedConversation {
     /// The unique ID of the conversation.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,16 @@ impl RealtimeServerEventConversationCreatedConversation {
             id: None,
             object: None,
         }
+    }
+}
+
+impl<S: realtime_server_event_conversation_created_conversation_builder::State>
+    RealtimeServerEventConversationCreatedConversationBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventConversationCreatedConversation {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseReasoningSummaryPartDoneEventPart : The completed summary part.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_reasoning_summary_part_done_event_part_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseReasoningSummaryPartDoneEventPart {
     /// The type of the summary part. Always `summary_text`.
     #[serde(rename = "type")]
@@ -25,6 +26,19 @@ impl BetaResponseReasoningSummaryPartDoneEventPart {
     /// The completed summary part.
     pub fn new(r#type: Type, text: String) -> BetaResponseReasoningSummaryPartDoneEventPart {
         BetaResponseReasoningSummaryPartDoneEventPart { r#type, text }
+    }
+}
+
+impl<S: beta_response_reasoning_summary_part_done_event_part_builder::State>
+    BetaResponseReasoningSummaryPartDoneEventPartBuilder<S>
+where
+    S::Type: beta_response_reasoning_summary_part_done_event_part_builder::IsSet,
+    S::Text: beta_response_reasoning_summary_part_done_event_part_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseReasoningSummaryPartDoneEventPart {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectSpendAlert : Represents a spend alert configured at the project level.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_spend_alert_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectSpendAlert {
     /// The identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -51,6 +52,22 @@ impl ProjectSpendAlert {
             interval,
             notification_channel,
         }
+    }
+}
+
+impl<S: project_spend_alert_builder::State> ProjectSpendAlertBuilder<S>
+where
+    S::Id: project_spend_alert_builder::IsSet,
+    S::Object: project_spend_alert_builder::IsSet,
+    S::ThresholdAmount: project_spend_alert_builder::IsSet,
+    S::Currency: project_spend_alert_builder::IsSet,
+    S::Interval: project_spend_alert_builder::IsSet,
+    S::NotificationChannel: project_spend_alert_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectSpendAlert {
+        self.build_internal()
     }
 }
 

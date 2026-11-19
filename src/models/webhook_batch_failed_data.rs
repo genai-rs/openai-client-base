@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookBatchFailedData : Event data payload.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_batch_failed_data_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookBatchFailedData {
     /// The unique ID of the batch API request.
     #[serde(rename = "id")]
@@ -22,6 +23,17 @@ impl WebhookBatchFailedData {
     /// Event data payload.
     pub fn new(id: String) -> WebhookBatchFailedData {
         WebhookBatchFailedData { id }
+    }
+}
+
+impl<S: webhook_batch_failed_data_builder::State> WebhookBatchFailedDataBuilder<S>
+where
+    S::Id: webhook_batch_failed_data_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookBatchFailedData {
+        self.build_internal()
     }
 }
 

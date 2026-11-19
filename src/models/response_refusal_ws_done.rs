@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseRefusalWsDone : Emitted when refusal text is finalized.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_refusal_ws_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseRefusalWsDone {
     /// The type of the event. Always `response.refusal.done`.
     #[serde(rename = "type")]
@@ -55,6 +56,22 @@ impl ResponseRefusalWsDone {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_refusal_ws_done_builder::State> ResponseRefusalWsDoneBuilder<S>
+where
+    S::Type: response_refusal_ws_done_builder::IsSet,
+    S::ItemId: response_refusal_ws_done_builder::IsSet,
+    S::OutputIndex: response_refusal_ws_done_builder::IsSet,
+    S::ContentIndex: response_refusal_ws_done_builder::IsSet,
+    S::Refusal: response_refusal_ws_done_builder::IsSet,
+    S::SequenceNumber: response_refusal_ws_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseRefusalWsDone {
+        self.build_internal()
     }
 }
 

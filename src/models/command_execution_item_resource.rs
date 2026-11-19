@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CommandExecutionItemResource : A command execution produced by the agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = command_execution_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CommandExecutionItemResource {
     /// The item type. Always `command_execution`.  Defaults to `\"command_execution\"`.
     #[serde(rename = "type")]
@@ -76,6 +77,21 @@ impl CommandExecutionItemResource {
             exit_code,
             duration_ms,
         }
+    }
+}
+
+impl<S: command_execution_item_resource_builder::State> CommandExecutionItemResourceBuilder<S>
+where
+    S::Type: command_execution_item_resource_builder::IsSet,
+    S::Id: command_execution_item_resource_builder::IsSet,
+    S::TurnId: command_execution_item_resource_builder::IsSet,
+    S::Command: command_execution_item_resource_builder::IsSet,
+    S::Status: command_execution_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CommandExecutionItemResource {
+        self.build_internal()
     }
 }
 

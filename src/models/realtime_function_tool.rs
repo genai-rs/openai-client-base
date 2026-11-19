@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_function_tool_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeFunctionTool {
     /// The type of the tool, i.e. `function`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -34,6 +35,14 @@ impl RealtimeFunctionTool {
             description: None,
             parameters: None,
         }
+    }
+}
+
+impl<S: realtime_function_tool_builder::State> RealtimeFunctionToolBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeFunctionTool {
+        self.build_internal()
     }
 }
 

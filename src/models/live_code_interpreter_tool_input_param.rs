@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_code_interpreter_tool_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveCodeInterpreterToolInputParam {
     /// Defaults to `\"code_interpreter\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,18 @@ pub struct LiveCodeInterpreterToolInputParam {
 impl LiveCodeInterpreterToolInputParam {
     pub fn new(r#type: Type) -> LiveCodeInterpreterToolInputParam {
         LiveCodeInterpreterToolInputParam { r#type }
+    }
+}
+
+impl<S: live_code_interpreter_tool_input_param_builder::State>
+    LiveCodeInterpreterToolInputParamBuilder<S>
+where
+    S::Type: live_code_interpreter_tool_input_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveCodeInterpreterToolInputParam {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AgentToolResourceAutomations : Lets the agent manage its own scheduled wakeups.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = agent_tool_resource_automations_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AgentToolResourceAutomations {
     /// The type of the object. Always `automations`.  Defaults to `\"automations\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl AgentToolResourceAutomations {
     /// Lets the agent manage its own scheduled wakeups.
     pub fn new(r#type: Type) -> AgentToolResourceAutomations {
         AgentToolResourceAutomations { r#type }
+    }
+}
+
+impl<S: agent_tool_resource_automations_builder::State> AgentToolResourceAutomationsBuilder<S>
+where
+    S::Type: agent_tool_resource_automations_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AgentToolResourceAutomations {
+        self.build_internal()
     }
 }
 

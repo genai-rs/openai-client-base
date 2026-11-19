@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepDetailsToolCallsCodeOutputLogsObject : Text output from the Code Interpreter tool call as part of a run step.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_details_tool_calls_code_output_logs_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDetailsToolCallsCodeOutputLogsObject {
     /// Always `logs`.
     #[serde(rename = "type")]
@@ -25,6 +26,19 @@ impl RunStepDetailsToolCallsCodeOutputLogsObject {
     /// Text output from the Code Interpreter tool call as part of a run step.
     pub fn new(r#type: Type, logs: String) -> RunStepDetailsToolCallsCodeOutputLogsObject {
         RunStepDetailsToolCallsCodeOutputLogsObject { r#type, logs }
+    }
+}
+
+impl<S: run_step_details_tool_calls_code_output_logs_object_builder::State>
+    RunStepDetailsToolCallsCodeOutputLogsObjectBuilder<S>
+where
+    S::Type: run_step_details_tool_calls_code_output_logs_object_builder::IsSet,
+    S::Logs: run_step_details_tool_calls_code_output_logs_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDetailsToolCallsCodeOutputLogsObject {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseMcpCallArgumentsWsDone : Emitted when the arguments for an MCP tool call are finalized.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_mcp_call_arguments_ws_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseMcpCallArgumentsWsDone {
     /// The type of the event. Always 'response.mcp_call_arguments.done'.
     #[serde(rename = "type")]
@@ -50,6 +51,21 @@ impl ResponseMcpCallArgumentsWsDone {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_mcp_call_arguments_ws_done_builder::State> ResponseMcpCallArgumentsWsDoneBuilder<S>
+where
+    S::Type: response_mcp_call_arguments_ws_done_builder::IsSet,
+    S::OutputIndex: response_mcp_call_arguments_ws_done_builder::IsSet,
+    S::ItemId: response_mcp_call_arguments_ws_done_builder::IsSet,
+    S::Arguments: response_mcp_call_arguments_ws_done_builder::IsSet,
+    S::SequenceNumber: response_mcp_call_arguments_ws_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseMcpCallArgumentsWsDone {
+        self.build_internal()
     }
 }
 

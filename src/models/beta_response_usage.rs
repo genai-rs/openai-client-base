@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseUsage : Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseUsage {
     /// The number of input tokens.
     #[serde(rename = "input_tokens")]
@@ -45,6 +46,21 @@ impl BetaResponseUsage {
             output_tokens_details,
             total_tokens,
         }
+    }
+}
+
+impl<S: beta_response_usage_builder::State> BetaResponseUsageBuilder<S>
+where
+    S::InputTokens: beta_response_usage_builder::IsSet,
+    S::InputTokensDetails: beta_response_usage_builder::IsSet,
+    S::OutputTokens: beta_response_usage_builder::IsSet,
+    S::OutputTokensDetails: beta_response_usage_builder::IsSet,
+    S::TotalTokens: beta_response_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseUsage {
+        self.build_internal()
     }
 }
 

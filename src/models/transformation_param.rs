@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = transformation_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TransformationParam {
     /// Validation: `minLength: 1`, `maxLength: 256`.
     #[serde(rename = "attribute")]
@@ -26,6 +27,18 @@ impl TransformationParam {
             attribute,
             expression,
         }
+    }
+}
+
+impl<S: transformation_param_builder::State> TransformationParamBuilder<S>
+where
+    S::Attribute: transformation_param_builder::IsSet,
+    S::Expression: transformation_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TransformationParam {
+        self.build_internal()
     }
 }
 

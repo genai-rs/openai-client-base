@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventConversationItemTruncated : Returned when an earlier assistant audio message item is truncated by the  client with a `conversation.item.truncate` event. This event is used to  synchronize the server's understanding of the audio with the client's playback.  This action will truncate the audio and remove the server-side text transcript  to ensure there is no text in the context that hasn't been heard by the user.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_conversation_item_truncated_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventConversationItemTruncated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -46,6 +47,22 @@ impl RealtimeServerEventConversationItemTruncated {
             content_index,
             audio_end_ms,
         }
+    }
+}
+
+impl<S: realtime_server_event_conversation_item_truncated_builder::State>
+    RealtimeServerEventConversationItemTruncatedBuilder<S>
+where
+    S::EventId: realtime_server_event_conversation_item_truncated_builder::IsSet,
+    S::Type: realtime_server_event_conversation_item_truncated_builder::IsSet,
+    S::ItemId: realtime_server_event_conversation_item_truncated_builder::IsSet,
+    S::ContentIndex: realtime_server_event_conversation_item_truncated_builder::IsSet,
+    S::AudioEndMs: realtime_server_event_conversation_item_truncated_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventConversationItemTruncated {
+        self.build_internal()
     }
 }
 

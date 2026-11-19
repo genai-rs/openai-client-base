@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseSteerFailedEvent : Emitted when steering input is rejected or cannot be committed to a successor response. Returns the original, uncommitted input so the client can carry it into `response.create` when appropriate. Invalid input must be corrected before retrying.  Failures after acceptance include the same steering ID. Failures before an ID is allocated omit `steer.id`. A lost connection or missing acknowledgement leaves the outcome unknown; it is not proof that the input was rejected.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_steer_failed_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseSteerFailedEvent {
     /// The event discriminator. Always `response.steer.failed`.
     #[serde(rename = "type")]
@@ -44,6 +45,20 @@ impl BetaResponseSteerFailedEvent {
             error,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_steer_failed_event_builder::State> BetaResponseSteerFailedEventBuilder<S>
+where
+    S::Type: beta_response_steer_failed_event_builder::IsSet,
+    S::SequenceNumber: beta_response_steer_failed_event_builder::IsSet,
+    S::Steer: beta_response_steer_failed_event_builder::IsSet,
+    S::Error: beta_response_steer_failed_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseSteerFailedEvent {
+        self.build_internal()
     }
 }
 

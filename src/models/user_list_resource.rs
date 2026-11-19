@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// UserListResource : Paginated list of user objects returned when inspecting group membership.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = user_list_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UserListResource {
     /// Always `list`.
     #[serde(rename = "object")]
@@ -42,6 +43,19 @@ impl UserListResource {
             has_more,
             next,
         }
+    }
+}
+
+impl<S: user_list_resource_builder::State> UserListResourceBuilder<S>
+where
+    S::Object: user_list_resource_builder::IsSet,
+    S::Data: user_list_resource_builder::IsSet,
+    S::HasMore: user_list_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UserListResource {
+        self.build_internal()
     }
 }
 

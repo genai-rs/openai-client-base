@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateEvalJsonlRunDataSource : A JsonlRunDataSource object with that specifies a JSONL file that matches the eval  
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_eval_jsonl_run_data_source_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateEvalJsonlRunDataSource {
     /// The type of data source. Always `jsonl`.  Defaults to `\"jsonl\"`.
     #[serde(rename = "type")]
@@ -28,6 +29,18 @@ impl CreateEvalJsonlRunDataSource {
         source: models::CreateEvalJsonlRunDataSourceSource,
     ) -> CreateEvalJsonlRunDataSource {
         CreateEvalJsonlRunDataSource { r#type, source }
+    }
+}
+
+impl<S: create_eval_jsonl_run_data_source_builder::State> CreateEvalJsonlRunDataSourceBuilder<S>
+where
+    S::Type: create_eval_jsonl_run_data_source_builder::IsSet,
+    S::Source: create_eval_jsonl_run_data_source_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateEvalJsonlRunDataSource {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FineTuneReinforcementHyperparameters : The hyperparameters used for the reinforcement fine-tuning job.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tune_reinforcement_hyperparameters_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuneReinforcementHyperparameters {
     #[serde(rename = "batch_size", skip_serializing_if = "Option::is_none")]
     pub batch_size: Option<models::FineTuneReinforcementHyperparametersBatchSize>,
@@ -47,6 +48,16 @@ impl FineTuneReinforcementHyperparameters {
             eval_interval: None,
             eval_samples: None,
         }
+    }
+}
+
+impl<S: fine_tune_reinforcement_hyperparameters_builder::State>
+    FineTuneReinforcementHyperparametersBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuneReinforcementHyperparameters {
+        self.build_internal()
     }
 }
 

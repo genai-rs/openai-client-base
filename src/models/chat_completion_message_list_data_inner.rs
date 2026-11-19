@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_message_list_data_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionMessageListDataInner {
     #[serde(rename = "id")]
     pub id: String,
@@ -44,6 +45,19 @@ impl ChatCompletionMessageListDataInner {
             content_parts,
             name: None,
         }
+    }
+}
+
+impl<S: chat_completion_message_list_data_inner_builder::State>
+    ChatCompletionMessageListDataInnerBuilder<S>
+where
+    S::Id: chat_completion_message_list_data_inner_builder::IsSet,
+    S::Role: chat_completion_message_list_data_inner_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionMessageListDataInner {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaFunctionToolCall : A tool call to run a function. See the [function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_function_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFunctionToolCall {
     /// The agent that produced this item.
     #[serde(
@@ -75,6 +76,20 @@ impl BetaFunctionToolCall {
             status: None,
             r#async: None,
         }
+    }
+}
+
+impl<S: beta_function_tool_call_builder::State> BetaFunctionToolCallBuilder<S>
+where
+    S::Type: beta_function_tool_call_builder::IsSet,
+    S::CallId: beta_function_tool_call_builder::IsSet,
+    S::Name: beta_function_tool_call_builder::IsSet,
+    S::Arguments: beta_function_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFunctionToolCall {
+        self.build_internal()
     }
 }
 

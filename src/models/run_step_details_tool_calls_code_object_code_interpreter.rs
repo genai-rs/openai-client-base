@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepDetailsToolCallsCodeObjectCodeInterpreter : The Code Interpreter tool call definition.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_details_tool_calls_code_object_code_interpreter_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDetailsToolCallsCodeObjectCodeInterpreter {
     /// The input to the Code Interpreter tool call.
     #[serde(rename = "input")]
@@ -29,6 +30,19 @@ impl RunStepDetailsToolCallsCodeObjectCodeInterpreter {
         outputs: Vec<models::RunStepDetailsToolCallsCodeObjectCodeInterpreterOutputsInner>,
     ) -> RunStepDetailsToolCallsCodeObjectCodeInterpreter {
         RunStepDetailsToolCallsCodeObjectCodeInterpreter { input, outputs }
+    }
+}
+
+impl<S: run_step_details_tool_calls_code_object_code_interpreter_builder::State>
+    RunStepDetailsToolCallsCodeObjectCodeInterpreterBuilder<S>
+where
+    S::Input: run_step_details_tool_calls_code_object_code_interpreter_builder::IsSet,
+    S::Outputs: run_step_details_tool_calls_code_object_code_interpreter_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDetailsToolCallsCodeObjectCodeInterpreter {
+        self.build_internal()
     }
 }
 

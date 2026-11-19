@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseFunctionCallArgumentsWsDelta : Emitted when there is a partial function-call arguments delta.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_function_call_arguments_ws_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseFunctionCallArgumentsWsDelta {
     /// The type of the event. Always `response.function_call_arguments.delta`.
     #[serde(rename = "type")]
@@ -50,6 +51,22 @@ impl ResponseFunctionCallArgumentsWsDelta {
             delta,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_function_call_arguments_ws_delta_builder::State>
+    ResponseFunctionCallArgumentsWsDeltaBuilder<S>
+where
+    S::Type: response_function_call_arguments_ws_delta_builder::IsSet,
+    S::ItemId: response_function_call_arguments_ws_delta_builder::IsSet,
+    S::OutputIndex: response_function_call_arguments_ws_delta_builder::IsSet,
+    S::SequenceNumber: response_function_call_arguments_ws_delta_builder::IsSet,
+    S::Delta: response_function_call_arguments_ws_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseFunctionCallArgumentsWsDelta {
+        self.build_internal()
     }
 }
 

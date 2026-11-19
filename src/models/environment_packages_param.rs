@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EnvironmentPackagesParam : Packages to install in an OpenAI-hosted environment.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = environment_packages_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EnvironmentPackagesParam {
     /// Python packages to install. Defaults to an empty list.
     ///
@@ -53,6 +54,14 @@ impl EnvironmentPackagesParam {
             system: None,
             npm: None,
         }
+    }
+}
+
+impl<S: environment_packages_param_builder::State> EnvironmentPackagesParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EnvironmentPackagesParam {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// DragPoint : An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = drag_point_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DragPoint {
     /// The x-coordinate.
     #[serde(rename = "x")]
@@ -25,6 +26,18 @@ impl DragPoint {
     /// An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.
     pub fn new(x: i64, y: i64) -> DragPoint {
         DragPoint { x, y }
+    }
+}
+
+impl<S: drag_point_builder::State> DragPointBuilder<S>
+where
+    S::X: drag_point_builder::IsSet,
+    S::Y: drag_point_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DragPoint {
+        self.build_internal()
     }
 }
 

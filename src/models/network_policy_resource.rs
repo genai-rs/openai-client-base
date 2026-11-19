@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// NetworkPolicyResource : Network access for an OpenAI-hosted environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = network_policy_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct NetworkPolicyResource {
     #[serde(rename = "access")]
     pub access: models::NetworkAccessResource,
@@ -33,6 +34,18 @@ impl NetworkPolicyResource {
             access,
             allowed_domains,
         }
+    }
+}
+
+impl<S: network_policy_resource_builder::State> NetworkPolicyResourceBuilder<S>
+where
+    S::Access: network_policy_resource_builder::IsSet,
+    S::AllowedDomains: network_policy_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> NetworkPolicyResource {
+        self.build_internal()
     }
 }
 

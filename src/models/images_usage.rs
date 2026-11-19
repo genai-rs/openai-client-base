@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ImagesUsage : For the GPT image models only, the token usage information for the image generation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = images_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ImagesUsage {
     /// The total number of tokens (images and text) used for the image generation.
     #[serde(rename = "total_tokens")]
@@ -41,6 +42,20 @@ impl ImagesUsage {
             output_tokens,
             input_tokens_details,
         }
+    }
+}
+
+impl<S: images_usage_builder::State> ImagesUsageBuilder<S>
+where
+    S::TotalTokens: images_usage_builder::IsSet,
+    S::InputTokens: images_usage_builder::IsSet,
+    S::OutputTokens: images_usage_builder::IsSet,
+    S::InputTokensDetails: images_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ImagesUsage {
+        self.build_internal()
     }
 }
 

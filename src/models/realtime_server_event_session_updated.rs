@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventSessionUpdated : Returned when a session is updated with a `session.update` event, unless there is an error.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_session_updated_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventSessionUpdated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeServerEventSessionUpdated {
             r#type,
             session,
         }
+    }
+}
+
+impl<S: realtime_server_event_session_updated_builder::State>
+    RealtimeServerEventSessionUpdatedBuilder<S>
+where
+    S::EventId: realtime_server_event_session_updated_builder::IsSet,
+    S::Type: realtime_server_event_session_updated_builder::IsSet,
+    S::Session: realtime_server_event_session_updated_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventSessionUpdated {
+        self.build_internal()
     }
 }
 

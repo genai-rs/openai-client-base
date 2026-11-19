@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RotateMcpOauthTokenEndpointAuthParamClientSecretBasic : Updates credentials sent using HTTP Basic authentication.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = rotate_mcp_oauth_token_endpoint_auth_param_client_secret_basic_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RotateMcpOauthTokenEndpointAuthParamClientSecretBasic {
     /// The type of the object. Always `client_secret_basic`.  Defaults to `\"client_secret_basic\"`.
     #[serde(rename = "type")]
@@ -35,6 +36,18 @@ impl RotateMcpOauthTokenEndpointAuthParamClientSecretBasic {
             r#type,
             client_secret: None,
         }
+    }
+}
+
+impl<S: rotate_mcp_oauth_token_endpoint_auth_param_client_secret_basic_builder::State>
+    RotateMcpOauthTokenEndpointAuthParamClientSecretBasicBuilder<S>
+where
+    S::Type: rotate_mcp_oauth_token_endpoint_auth_param_client_secret_basic_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RotateMcpOauthTokenEndpointAuthParamClientSecretBasic {
+        self.build_internal()
     }
 }
 

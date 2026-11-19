@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalLogsDataSourceConfig : A LogsDataSourceConfig which specifies the metadata property of your logs query. This is usually metadata like `usecase=chatbot` or `prompt-version=v2`, etc. The schema returned by this data source config is used to defined what variables are available in your evals. `item` and `sample` are both defined when using this data source config.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_logs_data_source_config_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalLogsDataSourceConfig {
     /// The type of data source. Always `logs`.  Defaults to `\"logs\"`.
     #[serde(rename = "type")]
@@ -40,6 +41,18 @@ impl EvalLogsDataSourceConfig {
             metadata: None,
             schema,
         }
+    }
+}
+
+impl<S: eval_logs_data_source_config_builder::State> EvalLogsDataSourceConfigBuilder<S>
+where
+    S::Type: eval_logs_data_source_config_builder::IsSet,
+    S::Schema: eval_logs_data_source_config_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalLogsDataSourceConfig {
+        self.build_internal()
     }
 }
 

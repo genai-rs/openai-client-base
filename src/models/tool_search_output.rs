@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = tool_search_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ToolSearchOutput {
     /// The type of the item. Always `tool_search_output`.  Defaults to `\"tool_search_output\"`.
     #[serde(rename = "type")]
@@ -52,6 +53,21 @@ impl ToolSearchOutput {
             status,
             created_by: None,
         }
+    }
+}
+
+impl<S: tool_search_output_builder::State> ToolSearchOutputBuilder<S>
+where
+    S::Type: tool_search_output_builder::IsSet,
+    S::Id: tool_search_output_builder::IsSet,
+    S::Execution: tool_search_output_builder::IsSet,
+    S::Tools: tool_search_output_builder::IsSet,
+    S::Status: tool_search_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ToolSearchOutput {
+        self.build_internal()
     }
 }
 

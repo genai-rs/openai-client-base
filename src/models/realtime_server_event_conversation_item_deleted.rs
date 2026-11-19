@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventConversationItemDeleted : Returned when an item in the conversation is deleted by the client with a  `conversation.item.delete` event. This event is used to synchronize the  server's understanding of the conversation history with the client's view.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_conversation_item_deleted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventConversationItemDeleted {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeServerEventConversationItemDeleted {
             r#type,
             item_id,
         }
+    }
+}
+
+impl<S: realtime_server_event_conversation_item_deleted_builder::State>
+    RealtimeServerEventConversationItemDeletedBuilder<S>
+where
+    S::EventId: realtime_server_event_conversation_item_deleted_builder::IsSet,
+    S::Type: realtime_server_event_conversation_item_deleted_builder::IsSet,
+    S::ItemId: realtime_server_event_conversation_item_deleted_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventConversationItemDeleted {
+        self.build_internal()
     }
 }
 

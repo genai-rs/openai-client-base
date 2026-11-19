@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// UpdateAutomationParams : Updates configuration; timing fields must match the stored automation type.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_automation_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateAutomationParams {
     /// Validation: `minLength: 1`, `maxLength: 256`.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -50,6 +51,14 @@ impl UpdateAutomationParams {
             timezone: None,
             run_at: None,
         }
+    }
+}
+
+impl<S: update_automation_params_builder::State> UpdateAutomationParamsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateAutomationParams {
+        self.build_internal()
     }
 }
 

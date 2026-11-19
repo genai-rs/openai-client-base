@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionEnvironmentPending : Emitted while a session environment is being prepared.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_environment_pending_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionEnvironmentPending {
     /// The type of the object. Always `agent.session.environment.pending`.  Defaults to `\"agent.session.environment.pending\"`.
     #[serde(rename = "type")]
@@ -58,6 +59,21 @@ impl SessionEventAgentSessionEnvironmentPending {
             environment,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_environment_pending_builder::State>
+    SessionEventAgentSessionEnvironmentPendingBuilder<S>
+where
+    S::Type: session_event_agent_session_environment_pending_builder::IsSet,
+    S::EventId: session_event_agent_session_environment_pending_builder::IsSet,
+    S::SessionId: session_event_agent_session_environment_pending_builder::IsSet,
+    S::Environment: session_event_agent_session_environment_pending_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionEnvironmentPending {
+        self.build_internal()
     }
 }
 

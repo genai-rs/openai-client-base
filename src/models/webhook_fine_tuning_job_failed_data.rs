@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookFineTuningJobFailedData : Event data payload.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_fine_tuning_job_failed_data_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookFineTuningJobFailedData {
     /// The unique ID of the fine-tuning job.
     #[serde(rename = "id")]
@@ -22,6 +23,17 @@ impl WebhookFineTuningJobFailedData {
     /// Event data payload.
     pub fn new(id: String) -> WebhookFineTuningJobFailedData {
         WebhookFineTuningJobFailedData { id }
+    }
+}
+
+impl<S: webhook_fine_tuning_job_failed_data_builder::State> WebhookFineTuningJobFailedDataBuilder<S>
+where
+    S::Id: webhook_fine_tuning_job_failed_data_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookFineTuningJobFailedData {
+        self.build_internal()
     }
 }
 

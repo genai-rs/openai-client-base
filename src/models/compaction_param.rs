@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CompactionParam : Settings for compacting the agent's context.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = compaction_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CompactionParam {
     /// Whether to compact context in the background. Omission or null defaults to false. Set to true to enable background compaction. Background compaction may increase token usage.
     #[serde(
@@ -27,6 +28,14 @@ impl CompactionParam {
     /// Settings for compacting the agent's context.
     pub fn new() -> CompactionParam {
         CompactionParam { r#async: None }
+    }
+}
+
+impl<S: compaction_param_builder::State> CompactionParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CompactionParam {
+        self.build_internal()
     }
 }
 

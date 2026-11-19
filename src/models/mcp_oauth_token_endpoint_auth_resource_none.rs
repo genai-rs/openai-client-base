@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// McpOauthTokenEndpointAuthResourceNone : Sends the client ID without a client secret.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_oauth_token_endpoint_auth_resource_none_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpOauthTokenEndpointAuthResourceNone {
     /// The type of the object. Always `none`.  Defaults to `\"none\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,18 @@ impl McpOauthTokenEndpointAuthResourceNone {
     /// Sends the client ID without a client secret.
     pub fn new(r#type: Type) -> McpOauthTokenEndpointAuthResourceNone {
         McpOauthTokenEndpointAuthResourceNone { r#type }
+    }
+}
+
+impl<S: mcp_oauth_token_endpoint_auth_resource_none_builder::State>
+    McpOauthTokenEndpointAuthResourceNoneBuilder<S>
+where
+    S::Type: mcp_oauth_token_endpoint_auth_resource_none_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpOauthTokenEndpointAuthResourceNone {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_completed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionCompleted {
     /// Defaults to `\"decision.completed\"`.
     #[serde(rename = "type")]
@@ -23,6 +24,18 @@ pub struct LiveDecisionCompleted {
 impl LiveDecisionCompleted {
     pub fn new(r#type: Type, decision: models::DecisionResponse) -> LiveDecisionCompleted {
         LiveDecisionCompleted { r#type, decision }
+    }
+}
+
+impl<S: live_decision_completed_builder::State> LiveDecisionCompletedBuilder<S>
+where
+    S::Type: live_decision_completed_builder::IsSet,
+    S::Decision: live_decision_completed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionCompleted {
+        self.build_internal()
     }
 }
 

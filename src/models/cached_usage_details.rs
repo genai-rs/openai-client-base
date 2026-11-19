@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = cached_usage_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CachedUsageDetails {
     #[serde(rename = "cached_text_tokens")]
     pub cached_text_tokens: i64,
@@ -24,6 +25,18 @@ impl CachedUsageDetails {
             cached_text_tokens,
             cached_image_tokens,
         }
+    }
+}
+
+impl<S: cached_usage_details_builder::State> CachedUsageDetailsBuilder<S>
+where
+    S::CachedTextTokens: cached_usage_details_builder::IsSet,
+    S::CachedImageTokens: cached_usage_details_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CachedUsageDetails {
+        self.build_internal()
     }
 }
 

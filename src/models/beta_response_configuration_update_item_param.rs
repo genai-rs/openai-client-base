@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseConfigurationUpdateItemParam : An update to the conversation's response configuration. Supply reasoning, text, or both. Each setting stays in effect until a later update replaces it.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_configuration_update_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseConfigurationUpdateItemParam {
     #[serde(
         rename = "agent",
@@ -48,6 +49,18 @@ impl BetaResponseConfigurationUpdateItemParam {
             reasoning: None,
             text: None,
         }
+    }
+}
+
+impl<S: beta_response_configuration_update_item_param_builder::State>
+    BetaResponseConfigurationUpdateItemParamBuilder<S>
+where
+    S::Type: beta_response_configuration_update_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseConfigurationUpdateItemParam {
+        self.build_internal()
     }
 }
 

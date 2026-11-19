@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = program_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProgramOutput {
     /// The type of the item. Always `program_output`.  Defaults to `\"program_output\"`.
     #[serde(rename = "type")]
@@ -44,6 +45,21 @@ impl ProgramOutput {
             result,
             status,
         }
+    }
+}
+
+impl<S: program_output_builder::State> ProgramOutputBuilder<S>
+where
+    S::Type: program_output_builder::IsSet,
+    S::Id: program_output_builder::IsSet,
+    S::CallId: program_output_builder::IsSet,
+    S::Result: program_output_builder::IsSet,
+    S::Status: program_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProgramOutput {
+        self.build_internal()
     }
 }
 

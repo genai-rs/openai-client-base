@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_message_list_data_inner_content_parts_inner_image_url_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionMessageListDataInnerContentPartsInnerImageUrl {
     #[serde(rename = "url")]
     pub url: String,
@@ -26,6 +27,18 @@ pub struct ChatCompletionMessageListDataInnerContentPartsInnerImageUrl {
 impl ChatCompletionMessageListDataInnerContentPartsInnerImageUrl {
     pub fn new(url: String) -> ChatCompletionMessageListDataInnerContentPartsInnerImageUrl {
         ChatCompletionMessageListDataInnerContentPartsInnerImageUrl { url, detail: None }
+    }
+}
+
+impl<S: chat_completion_message_list_data_inner_content_parts_inner_image_url_builder::State>
+    ChatCompletionMessageListDataInnerContentPartsInnerImageUrlBuilder<S>
+where
+    S::Url: chat_completion_message_list_data_inner_content_parts_inner_image_url_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionMessageListDataInnerContentPartsInnerImageUrl {
+        self.build_internal()
     }
 }
 

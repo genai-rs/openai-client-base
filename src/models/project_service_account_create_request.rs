@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_service_account_create_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectServiceAccountCreateRequest {
     /// The name of the service account being created.
     #[serde(rename = "name")]
@@ -42,6 +43,18 @@ impl ProjectServiceAccountCreateRequest {
             create_service_account_only: None,
             expires_in_seconds: None,
         }
+    }
+}
+
+impl<S: project_service_account_create_request_builder::State>
+    ProjectServiceAccountCreateRequestBuilder<S>
+where
+    S::Name: project_service_account_create_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectServiceAccountCreateRequest {
+        self.build_internal()
     }
 }
 

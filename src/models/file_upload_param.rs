@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// FileUploadParam : Controls whether users can upload files.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = file_upload_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FileUploadParam {
     /// Enable uploads for this session. Defaults to false.
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
@@ -36,6 +37,14 @@ impl FileUploadParam {
             max_file_size: None,
             max_files: None,
         }
+    }
+}
+
+impl<S: file_upload_param_builder::State> FileUploadParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FileUploadParam {
+        self.build_internal()
     }
 }
 

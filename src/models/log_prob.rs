@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LogProb : The log probability of a token.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = log_prob_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LogProb {
     #[serde(rename = "token")]
     pub token: String,
@@ -38,6 +39,20 @@ impl LogProb {
             bytes,
             top_logprobs,
         }
+    }
+}
+
+impl<S: log_prob_builder::State> LogProbBuilder<S>
+where
+    S::Token: log_prob_builder::IsSet,
+    S::Logprob: log_prob_builder::IsSet,
+    S::Bytes: log_prob_builder::IsSet,
+    S::TopLogprobs: log_prob_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LogProb {
+        self.build_internal()
     }
 }
 

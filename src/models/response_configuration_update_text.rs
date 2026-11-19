@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseConfigurationUpdateText : The text output configuration for subsequent responses.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_configuration_update_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseConfigurationUpdateText {
     #[serde(rename = "format")]
     pub format: models::ResponseConfigurationUpdateTextFormat,
@@ -24,6 +25,17 @@ impl ResponseConfigurationUpdateText {
         format: models::ResponseConfigurationUpdateTextFormat,
     ) -> ResponseConfigurationUpdateText {
         ResponseConfigurationUpdateText { format }
+    }
+}
+
+impl<S: response_configuration_update_text_builder::State> ResponseConfigurationUpdateTextBuilder<S>
+where
+    S::Format: response_configuration_update_text_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseConfigurationUpdateText {
+        self.build_internal()
     }
 }
 

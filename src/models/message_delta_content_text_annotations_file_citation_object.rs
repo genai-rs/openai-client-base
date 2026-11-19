@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageDeltaContentTextAnnotationsFileCitationObject : A citation within the message that points to a specific quote from a specific File associated with the assistant or the message. Generated when the assistant uses the \"file_search\" tool to search files.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_delta_content_text_annotations_file_citation_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageDeltaContentTextAnnotationsFileCitationObject {
     /// The index of the annotation in the text content part.
     #[serde(rename = "index")]
@@ -45,6 +46,19 @@ impl MessageDeltaContentTextAnnotationsFileCitationObject {
             start_index: None,
             end_index: None,
         }
+    }
+}
+
+impl<S: message_delta_content_text_annotations_file_citation_object_builder::State>
+    MessageDeltaContentTextAnnotationsFileCitationObjectBuilder<S>
+where
+    S::Index: message_delta_content_text_annotations_file_citation_object_builder::IsSet,
+    S::Type: message_delta_content_text_annotations_file_citation_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageDeltaContentTextAnnotationsFileCitationObject {
+        self.build_internal()
     }
 }
 

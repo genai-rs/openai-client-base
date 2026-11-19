@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogActorApiKey : The API Key used to perform the audit logged action.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_actor_api_key_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogActorApiKey {
     /// The tracking id of the API key.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -35,6 +36,14 @@ impl AuditLogActorApiKey {
             user: None,
             service_account: None,
         }
+    }
+}
+
+impl<S: audit_log_actor_api_key_builder::State> AuditLogActorApiKeyBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogActorApiKey {
+        self.build_internal()
     }
 }
 

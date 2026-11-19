@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UserMessageInputText : Text block that a user contributed to the thread.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = user_message_input_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UserMessageInputText {
     /// Type discriminator that is always `input_text`.  Defaults to `\"input_text\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl UserMessageInputText {
     /// Text block that a user contributed to the thread.
     pub fn new(r#type: Type, text: String) -> UserMessageInputText {
         UserMessageInputText { r#type, text }
+    }
+}
+
+impl<S: user_message_input_text_builder::State> UserMessageInputTextBuilder<S>
+where
+    S::Type: user_message_input_text_builder::IsSet,
+    S::Text: user_message_input_text_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UserMessageInputText {
+        self.build_internal()
     }
 }
 

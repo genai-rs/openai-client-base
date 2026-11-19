@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_namespace_tool_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveNamespaceToolInputParam {
     /// Defaults to `\"namespace\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,17 @@ pub struct LiveNamespaceToolInputParam {
 impl LiveNamespaceToolInputParam {
     pub fn new(r#type: Type) -> LiveNamespaceToolInputParam {
         LiveNamespaceToolInputParam { r#type }
+    }
+}
+
+impl<S: live_namespace_tool_input_param_builder::State> LiveNamespaceToolInputParamBuilder<S>
+where
+    S::Type: live_namespace_tool_input_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveNamespaceToolInputParam {
+        self.build_internal()
     }
 }
 

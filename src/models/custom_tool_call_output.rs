@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CustomToolCallOutput : The output of a custom tool call from your code, being sent back to the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = custom_tool_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CustomToolCallOutput {
     /// The type of the custom tool call output. Always `custom_tool_call_output`.
     #[serde(rename = "type")]
@@ -48,6 +49,19 @@ impl CustomToolCallOutput {
             caller: None,
             output,
         }
+    }
+}
+
+impl<S: custom_tool_call_output_builder::State> CustomToolCallOutputBuilder<S>
+where
+    S::Type: custom_tool_call_output_builder::IsSet,
+    S::CallId: custom_tool_call_output_builder::IsSet,
+    S::Output: custom_tool_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CustomToolCallOutput {
+        self.build_internal()
     }
 }
 

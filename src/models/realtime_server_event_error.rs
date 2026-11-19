@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventError : Returned when an error occurs, which could be a client problem or a server problem. Most errors are recoverable and the session will stay open, we recommend to implementers to monitor and log error messages by default.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventError {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,19 @@ impl RealtimeServerEventError {
             r#type,
             error,
         }
+    }
+}
+
+impl<S: realtime_server_event_error_builder::State> RealtimeServerEventErrorBuilder<S>
+where
+    S::EventId: realtime_server_event_error_builder::IsSet,
+    S::Type: realtime_server_event_error_builder::IsSet,
+    S::Error: realtime_server_event_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventError {
+        self.build_internal()
     }
 }
 

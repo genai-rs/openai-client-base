@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalRunOutputItem : A schema representing an evaluation run output item.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_run_output_item_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalRunOutputItem {
     /// The type of the object. Always \"eval.run.output_item\".  Defaults to `\"eval.run.output_item\"`.
     #[serde(rename = "object")]
@@ -71,6 +72,26 @@ impl EvalRunOutputItem {
             results,
             sample,
         }
+    }
+}
+
+impl<S: eval_run_output_item_builder::State> EvalRunOutputItemBuilder<S>
+where
+    S::Object: eval_run_output_item_builder::IsSet,
+    S::Id: eval_run_output_item_builder::IsSet,
+    S::RunId: eval_run_output_item_builder::IsSet,
+    S::EvalId: eval_run_output_item_builder::IsSet,
+    S::CreatedAt: eval_run_output_item_builder::IsSet,
+    S::Status: eval_run_output_item_builder::IsSet,
+    S::DatasourceItemId: eval_run_output_item_builder::IsSet,
+    S::DatasourceItem: eval_run_output_item_builder::IsSet,
+    S::Results: eval_run_output_item_builder::IsSet,
+    S::Sample: eval_run_output_item_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalRunOutputItem {
+        self.build_internal()
     }
 }
 

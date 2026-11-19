@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = public_rotate_secret_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PublicRotateSecretBody {
     /// Whether to keep the previous signing secret valid for 24 hours after rotation. Defaults to false, which invalidates the previous secret immediately.
     #[serde(
@@ -25,6 +26,14 @@ impl PublicRotateSecretBody {
         PublicRotateSecretBody {
             keep_old_secret_active_for_24_hours: None,
         }
+    }
+}
+
+impl<S: public_rotate_secret_body_builder::State> PublicRotateSecretBodyBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PublicRotateSecretBody {
+        self.build_internal()
     }
 }
 

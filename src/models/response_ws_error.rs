@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseWsError : Emitted when an error occurs while processing a Responses WebSocket request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_ws_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseWsError {
     /// The type of the event. Always `error`.
     #[serde(rename = "type")]
@@ -40,6 +41,18 @@ impl ResponseWsError {
             error,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_ws_error_builder::State> ResponseWsErrorBuilder<S>
+where
+    S::Type: response_ws_error_builder::IsSet,
+    S::Error: response_ws_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseWsError {
+        self.build_internal()
     }
 }
 

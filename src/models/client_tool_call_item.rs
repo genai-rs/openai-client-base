@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ClientToolCallItem : Record of a client side tool invocation initiated by the assistant.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = client_tool_call_item_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ClientToolCallItem {
     /// Identifier of the thread item.
     #[serde(rename = "id")]
@@ -71,6 +72,25 @@ impl ClientToolCallItem {
             arguments,
             output,
         }
+    }
+}
+
+impl<S: client_tool_call_item_builder::State> ClientToolCallItemBuilder<S>
+where
+    S::Id: client_tool_call_item_builder::IsSet,
+    S::Object: client_tool_call_item_builder::IsSet,
+    S::CreatedAt: client_tool_call_item_builder::IsSet,
+    S::ThreadId: client_tool_call_item_builder::IsSet,
+    S::Type: client_tool_call_item_builder::IsSet,
+    S::Status: client_tool_call_item_builder::IsSet,
+    S::CallId: client_tool_call_item_builder::IsSet,
+    S::Name: client_tool_call_item_builder::IsSet,
+    S::Arguments: client_tool_call_item_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ClientToolCallItem {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatSessionChatkitConfiguration : ChatKit configuration for the session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_session_chatkit_configuration_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatSessionChatkitConfiguration {
     #[serde(rename = "automatic_thread_titling")]
     pub automatic_thread_titling: models::ChatSessionAutomaticThreadTitling,
@@ -34,6 +35,19 @@ impl ChatSessionChatkitConfiguration {
             file_upload,
             history,
         }
+    }
+}
+
+impl<S: chat_session_chatkit_configuration_builder::State> ChatSessionChatkitConfigurationBuilder<S>
+where
+    S::AutomaticThreadTitling: chat_session_chatkit_configuration_builder::IsSet,
+    S::FileUpload: chat_session_chatkit_configuration_builder::IsSet,
+    S::History: chat_session_chatkit_configuration_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatSessionChatkitConfiguration {
+        self.build_internal()
     }
 }
 

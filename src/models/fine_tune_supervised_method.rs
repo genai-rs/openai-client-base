@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FineTuneSupervisedMethod : Configuration for the supervised fine-tuning method.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tune_supervised_method_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuneSupervisedMethod {
     #[serde(rename = "hyperparameters", skip_serializing_if = "Option::is_none")]
     pub hyperparameters: Option<models::FineTuneSupervisedHyperparameters>,
@@ -24,6 +25,14 @@ impl FineTuneSupervisedMethod {
         FineTuneSupervisedMethod {
             hyperparameters: None,
         }
+    }
+}
+
+impl<S: fine_tune_supervised_method_builder::State> FineTuneSupervisedMethodBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuneSupervisedMethod {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseAudioDeltaEvent : Emitted when there is a partial audio response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_audio_delta_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseAudioDeltaEvent {
     /// The type of the event. Always `response.audio.delta`.
     #[serde(rename = "type")]
@@ -32,6 +33,19 @@ impl ResponseAudioDeltaEvent {
             sequence_number,
             delta,
         }
+    }
+}
+
+impl<S: response_audio_delta_event_builder::State> ResponseAudioDeltaEventBuilder<S>
+where
+    S::Type: response_audio_delta_event_builder::IsSet,
+    S::SequenceNumber: response_audio_delta_event_builder::IsSet,
+    S::Delta: response_audio_delta_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseAudioDeltaEvent {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaDoubleClickAction : A double click action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_double_click_action_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaDoubleClickAction {
     /// Specifies the event type. For a double click action, this property is always set to `double_click`.  Defaults to `\"double_click\"`.
     #[serde(rename = "type")]
@@ -31,6 +32,19 @@ impl BetaDoubleClickAction {
     /// A double click action.
     pub fn new(r#type: Type, x: i64, y: i64, keys: Option<Vec<String>>) -> BetaDoubleClickAction {
         BetaDoubleClickAction { r#type, x, y, keys }
+    }
+}
+
+impl<S: beta_double_click_action_builder::State> BetaDoubleClickActionBuilder<S>
+where
+    S::Type: beta_double_click_action_builder::IsSet,
+    S::X: beta_double_click_action_builder::IsSet,
+    S::Y: beta_double_click_action_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaDoubleClickAction {
+        self.build_internal()
     }
 }
 

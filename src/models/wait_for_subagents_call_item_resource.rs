@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WaitForSubagentsCallItemResource : A request to wait for one or more subagents.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = wait_for_subagents_call_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WaitForSubagentsCallItemResource {
     /// The item type. Always `wait_for_subagents_call`.  Defaults to `\"wait_for_subagents_call\"`.
     #[serde(rename = "type")]
@@ -59,6 +60,23 @@ impl WaitForSubagentsCallItemResource {
             sender_agent_id,
             recipient_agent_ids,
         }
+    }
+}
+
+impl<S: wait_for_subagents_call_item_resource_builder::State>
+    WaitForSubagentsCallItemResourceBuilder<S>
+where
+    S::Type: wait_for_subagents_call_item_resource_builder::IsSet,
+    S::Id: wait_for_subagents_call_item_resource_builder::IsSet,
+    S::TurnId: wait_for_subagents_call_item_resource_builder::IsSet,
+    S::Status: wait_for_subagents_call_item_resource_builder::IsSet,
+    S::SenderAgentId: wait_for_subagents_call_item_resource_builder::IsSet,
+    S::RecipientAgentIds: wait_for_subagents_call_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WaitForSubagentsCallItemResource {
+        self.build_internal()
     }
 }
 

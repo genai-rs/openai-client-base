@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseCodeInterpreterCallWsCompleted : Emitted when the code interpreter call is completed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_code_interpreter_call_ws_completed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseCodeInterpreterCallWsCompleted {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -55,6 +56,21 @@ impl BetaResponseCodeInterpreterCallWsCompleted {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_code_interpreter_call_ws_completed_builder::State>
+    BetaResponseCodeInterpreterCallWsCompletedBuilder<S>
+where
+    S::Type: beta_response_code_interpreter_call_ws_completed_builder::IsSet,
+    S::OutputIndex: beta_response_code_interpreter_call_ws_completed_builder::IsSet,
+    S::ItemId: beta_response_code_interpreter_call_ws_completed_builder::IsSet,
+    S::SequenceNumber: beta_response_code_interpreter_call_ws_completed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseCodeInterpreterCallWsCompleted {
+        self.build_internal()
     }
 }
 

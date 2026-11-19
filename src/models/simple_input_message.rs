@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = simple_input_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SimpleInputMessage {
     /// The role of the message (e.g. \"system\", \"assistant\", \"user\").
     #[serde(rename = "role")]
@@ -23,6 +24,18 @@ pub struct SimpleInputMessage {
 impl SimpleInputMessage {
     pub fn new(role: String, content: String) -> SimpleInputMessage {
         SimpleInputMessage { role, content }
+    }
+}
+
+impl<S: simple_input_message_builder::State> SimpleInputMessageBuilder<S>
+where
+    S::Role: simple_input_message_builder::IsSet,
+    S::Content: simple_input_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SimpleInputMessage {
+        self.build_internal()
     }
 }
 

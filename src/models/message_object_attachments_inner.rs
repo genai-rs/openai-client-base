@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_object_attachments_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageObjectAttachmentsInner {
     /// The ID of the file to attach to the message.
     #[serde(rename = "file_id", skip_serializing_if = "Option::is_none")]
@@ -27,6 +28,14 @@ impl MessageObjectAttachmentsInner {
             file_id: None,
             tools: None,
         }
+    }
+}
+
+impl<S: message_object_attachments_inner_builder::State> MessageObjectAttachmentsInnerBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageObjectAttachmentsInner {
+        self.build_internal()
     }
 }
 

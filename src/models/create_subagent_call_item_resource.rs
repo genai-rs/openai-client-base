@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateSubagentCallItemResource : A request to spawn a subagent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_subagent_call_item_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateSubagentCallItemResource {
     /// The item type. Always `create_subagent_call`.  Defaults to `\"create_subagent_call\"`.
     #[serde(rename = "type")]
@@ -73,6 +74,22 @@ impl CreateSubagentCallItemResource {
             model,
             reasoning_effort,
         }
+    }
+}
+
+impl<S: create_subagent_call_item_resource_builder::State> CreateSubagentCallItemResourceBuilder<S>
+where
+    S::Type: create_subagent_call_item_resource_builder::IsSet,
+    S::Id: create_subagent_call_item_resource_builder::IsSet,
+    S::TurnId: create_subagent_call_item_resource_builder::IsSet,
+    S::Status: create_subagent_call_item_resource_builder::IsSet,
+    S::AgentId: create_subagent_call_item_resource_builder::IsSet,
+    S::Content: create_subagent_call_item_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateSubagentCallItemResource {
+        self.build_internal()
     }
 }
 

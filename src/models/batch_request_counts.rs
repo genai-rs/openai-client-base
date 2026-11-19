@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BatchRequestCounts : The request counts for different statuses within the batch.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = batch_request_counts_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BatchRequestCounts {
     /// Total number of requests in the batch.
     #[serde(rename = "total")]
@@ -32,6 +33,19 @@ impl BatchRequestCounts {
             completed,
             failed,
         }
+    }
+}
+
+impl<S: batch_request_counts_builder::State> BatchRequestCountsBuilder<S>
+where
+    S::Total: batch_request_counts_builder::IsSet,
+    S::Completed: batch_request_counts_builder::IsSet,
+    S::Failed: batch_request_counts_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BatchRequestCounts {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalRunOutputItemSampleInputInner : An input message.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_run_output_item_sample_input_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalRunOutputItemSampleInputInner {
     /// The role of the message sender (e.g., system, user, developer).
     #[serde(rename = "role")]
@@ -25,6 +26,19 @@ impl EvalRunOutputItemSampleInputInner {
     /// An input message.
     pub fn new(role: String, content: String) -> EvalRunOutputItemSampleInputInner {
         EvalRunOutputItemSampleInputInner { role, content }
+    }
+}
+
+impl<S: eval_run_output_item_sample_input_inner_builder::State>
+    EvalRunOutputItemSampleInputInnerBuilder<S>
+where
+    S::Role: eval_run_output_item_sample_input_inner_builder::IsSet,
+    S::Content: eval_run_output_item_sample_input_inner_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalRunOutputItemSampleInputInner {
+        self.build_internal()
     }
 }
 

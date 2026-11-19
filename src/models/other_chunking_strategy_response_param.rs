@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// OtherChunkingStrategyResponseParam : This is returned when the chunking strategy is unknown. Typically, this is because the file was indexed before the `chunking_strategy` concept was introduced in the API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = other_chunking_strategy_response_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct OtherChunkingStrategyResponseParam {
     /// Always `other`.
     #[serde(rename = "type")]
@@ -22,6 +23,18 @@ impl OtherChunkingStrategyResponseParam {
     /// This is returned when the chunking strategy is unknown. Typically, this is because the file was indexed before the `chunking_strategy` concept was introduced in the API.
     pub fn new(r#type: Type) -> OtherChunkingStrategyResponseParam {
         OtherChunkingStrategyResponseParam { r#type }
+    }
+}
+
+impl<S: other_chunking_strategy_response_param_builder::State>
+    OtherChunkingStrategyResponseParamBuilder<S>
+where
+    S::Type: other_chunking_strategy_response_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> OtherChunkingStrategyResponseParam {
+        self.build_internal()
     }
 }
 

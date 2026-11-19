@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseOutputTextAnnotationWsAdded : Emitted when an annotation is added to output text content.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_output_text_annotation_ws_added_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseOutputTextAnnotationWsAdded {
     /// The type of the event. Always 'response.output_text.annotation.added'.
     #[serde(rename = "type")]
@@ -61,6 +62,23 @@ impl ResponseOutputTextAnnotationWsAdded {
             annotation,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_output_text_annotation_ws_added_builder::State>
+    ResponseOutputTextAnnotationWsAddedBuilder<S>
+where
+    S::Type: response_output_text_annotation_ws_added_builder::IsSet,
+    S::ItemId: response_output_text_annotation_ws_added_builder::IsSet,
+    S::OutputIndex: response_output_text_annotation_ws_added_builder::IsSet,
+    S::ContentIndex: response_output_text_annotation_ws_added_builder::IsSet,
+    S::AnnotationIndex: response_output_text_annotation_ws_added_builder::IsSet,
+    S::SequenceNumber: response_output_text_annotation_ws_added_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseOutputTextAnnotationWsAdded {
+        self.build_internal()
     }
 }
 

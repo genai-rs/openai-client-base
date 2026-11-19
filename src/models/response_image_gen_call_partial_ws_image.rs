@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseImageGenCallPartialWsImage : Emitted when a partial image is available during image generation streaming.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_image_gen_call_partial_ws_image_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseImageGenCallPartialWsImage {
     /// The type of the event. Always 'response.image_generation_call.partial_image'.
     #[serde(rename = "type")]
@@ -71,6 +72,23 @@ impl ResponseImageGenCallPartialWsImage {
             output_format: None,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_image_gen_call_partial_ws_image_builder::State>
+    ResponseImageGenCallPartialWsImageBuilder<S>
+where
+    S::Type: response_image_gen_call_partial_ws_image_builder::IsSet,
+    S::OutputIndex: response_image_gen_call_partial_ws_image_builder::IsSet,
+    S::ItemId: response_image_gen_call_partial_ws_image_builder::IsSet,
+    S::SequenceNumber: response_image_gen_call_partial_ws_image_builder::IsSet,
+    S::PartialImageIndex: response_image_gen_call_partial_ws_image_builder::IsSet,
+    S::PartialImageB64: response_image_gen_call_partial_ws_image_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseImageGenCallPartialWsImage {
+        self.build_internal()
     }
 }
 

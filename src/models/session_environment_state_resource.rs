@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEnvironmentStateResource : The current state of a session environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_environment_state_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEnvironmentStateResource {
     /// The public ID of the environment.
     ///
@@ -45,6 +46,19 @@ impl SessionEnvironmentStateResource {
             status,
             error,
         }
+    }
+}
+
+impl<S: session_environment_state_resource_builder::State> SessionEnvironmentStateResourceBuilder<S>
+where
+    S::Id: session_environment_state_resource_builder::IsSet,
+    S::Type: session_environment_state_resource_builder::IsSet,
+    S::Status: session_environment_state_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEnvironmentStateResource {
+        self.build_internal()
     }
 }
 

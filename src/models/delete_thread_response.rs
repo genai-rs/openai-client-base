@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = delete_thread_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeleteThreadResponse {
     #[serde(rename = "id")]
     pub id: String,
@@ -27,6 +28,19 @@ impl DeleteThreadResponse {
             deleted,
             object,
         }
+    }
+}
+
+impl<S: delete_thread_response_builder::State> DeleteThreadResponseBuilder<S>
+where
+    S::Id: delete_thread_response_builder::IsSet,
+    S::Deleted: delete_thread_response_builder::IsSet,
+    S::Object: delete_thread_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeleteThreadResponse {
+        self.build_internal()
     }
 }
 

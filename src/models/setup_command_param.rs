@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SetupCommandParam : A confidential setup command executed before the hosted agent starts.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = setup_command_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SetupCommandParam {
     /// The shell command to execute.
     ///
@@ -34,6 +35,17 @@ impl SetupCommandParam {
     /// A confidential setup command executed before the hosted agent starts.
     pub fn new(command: String) -> SetupCommandParam {
         SetupCommandParam { command, cwd: None }
+    }
+}
+
+impl<S: setup_command_param_builder::State> SetupCommandParamBuilder<S>
+where
+    S::Command: setup_command_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SetupCommandParam {
+        self.build_internal()
     }
 }
 

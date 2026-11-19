@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_endpoint_list_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookEndpointListResource {
     /// The object type, which is always list.  Defaults to `\"list\"`.
     #[serde(rename = "object")]
@@ -45,6 +46,19 @@ impl WebhookEndpointListResource {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: webhook_endpoint_list_resource_builder::State> WebhookEndpointListResourceBuilder<S>
+where
+    S::Object: webhook_endpoint_list_resource_builder::IsSet,
+    S::Data: webhook_endpoint_list_resource_builder::IsSet,
+    S::HasMore: webhook_endpoint_list_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookEndpointListResource {
+        self.build_internal()
     }
 }
 

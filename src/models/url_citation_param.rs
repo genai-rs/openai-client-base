@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = url_citation_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UrlCitationParam {
     /// The citation type. Always `url_citation`.  Defaults to `\"url_citation\"`.
     #[serde(rename = "type")]
@@ -48,6 +49,21 @@ impl UrlCitationParam {
             url,
             title,
         }
+    }
+}
+
+impl<S: url_citation_param_builder::State> UrlCitationParamBuilder<S>
+where
+    S::Type: url_citation_param_builder::IsSet,
+    S::StartIndex: url_citation_param_builder::IsSet,
+    S::EndIndex: url_citation_param_builder::IsSet,
+    S::Url: url_citation_param_builder::IsSet,
+    S::Title: url_citation_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UrlCitationParam {
+        self.build_internal()
     }
 }
 

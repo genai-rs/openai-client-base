@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ToolSearchOutputNamespaceToolParam : Groups function/custom tools under a shared namespace.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = tool_search_output_namespace_tool_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ToolSearchOutputNamespaceToolParam {
     /// The type of the tool. Always `namespace`.  Defaults to `\"namespace\"`.
     #[serde(rename = "type")]
@@ -46,6 +47,21 @@ impl ToolSearchOutputNamespaceToolParam {
             description,
             tools,
         }
+    }
+}
+
+impl<S: tool_search_output_namespace_tool_param_builder::State>
+    ToolSearchOutputNamespaceToolParamBuilder<S>
+where
+    S::Type: tool_search_output_namespace_tool_param_builder::IsSet,
+    S::Name: tool_search_output_namespace_tool_param_builder::IsSet,
+    S::Description: tool_search_output_namespace_tool_param_builder::IsSet,
+    S::Tools: tool_search_output_namespace_tool_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ToolSearchOutputNamespaceToolParam {
+        self.build_internal()
     }
 }
 

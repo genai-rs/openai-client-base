@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebSearchUserLocation : Approximate location parameters for the search.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = web_search_user_location_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebSearchUserLocation {
     /// The type of location approximation. Always `approximate`.
     #[serde(rename = "type")]
@@ -28,6 +29,18 @@ impl WebSearchUserLocation {
             r#type,
             approximate,
         }
+    }
+}
+
+impl<S: web_search_user_location_builder::State> WebSearchUserLocationBuilder<S>
+where
+    S::Type: web_search_user_location_builder::IsSet,
+    S::Approximate: web_search_user_location_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebSearchUserLocation {
+        self.build_internal()
     }
 }
 

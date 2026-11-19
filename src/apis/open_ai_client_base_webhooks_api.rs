@@ -233,7 +233,7 @@ pub enum SafetyWarningIssuedPostError {
 }
 
 /// Sent when an agent environment expires and can no longer resume from a snapshot.
-#[bon::builder]
+#[bon::builder(state_mod = agent_environment_expired_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn agent_environment_expired_post(
     configuration: &configuration::Configuration,
     webhook_agent_environment_expired: Option<&models::WebhookAgentEnvironmentExpired>,
@@ -283,8 +283,21 @@ pub async fn agent_environment_expired_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: agent_environment_expired_post_builder::State>
+    AgentEnvironmentExpiredPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: agent_environment_expired_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<AgentEnvironmentExpiredPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when setup fails for a prewarmed OpenAI-hosted environment before it is attached to a session.
-#[bon::builder]
+#[bon::builder(state_mod = agent_environment_failed_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn agent_environment_failed_post(
     configuration: &configuration::Configuration,
     webhook_agent_environment_failed: Option<&models::WebhookAgentEnvironmentFailed>,
@@ -334,8 +347,21 @@ pub async fn agent_environment_failed_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: agent_environment_failed_post_builder::State>
+    AgentEnvironmentFailedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: agent_environment_failed_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<AgentEnvironmentFailedPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a prewarmed OpenAI-hosted environment finishes setup before being attached to a session.
-#[bon::builder]
+#[bon::builder(state_mod = agent_environment_ready_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn agent_environment_ready_post(
     configuration: &configuration::Configuration,
     webhook_agent_environment_ready: Option<&models::WebhookAgentEnvironmentReady>,
@@ -385,8 +411,20 @@ pub async fn agent_environment_ready_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: agent_environment_ready_post_builder::State> AgentEnvironmentReadyPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: agent_environment_ready_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<AgentEnvironmentReadyPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when an agent environment is suspended and can resume from a snapshot.
-#[bon::builder]
+#[bon::builder(state_mod = agent_environment_suspended_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn agent_environment_suspended_post(
     configuration: &configuration::Configuration,
     webhook_agent_environment_suspended: Option<&models::WebhookAgentEnvironmentSuspended>,
@@ -436,8 +474,21 @@ pub async fn agent_environment_suspended_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: agent_environment_suspended_post_builder::State>
+    AgentEnvironmentSuspendedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: agent_environment_suspended_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<AgentEnvironmentSuspendedPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when an agent session requires an action. Retrieve the session for action details.
-#[bon::builder]
+#[bon::builder(state_mod = agent_session_action_required_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn agent_session_action_required_post(
     configuration: &configuration::Configuration,
     webhook_agent_session_action_required: Option<&models::WebhookAgentSessionActionRequired>,
@@ -487,8 +538,21 @@ pub async fn agent_session_action_required_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: agent_session_action_required_post_builder::State>
+    AgentSessionActionRequiredPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: agent_session_action_required_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<AgentSessionActionRequiredPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when an agent session is created.
-#[bon::builder]
+#[bon::builder(state_mod = agent_session_created_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn agent_session_created_post(
     configuration: &configuration::Configuration,
     webhook_agent_session_created: Option<&models::WebhookAgentSessionCreated>,
@@ -538,8 +602,20 @@ pub async fn agent_session_created_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: agent_session_created_post_builder::State> AgentSessionCreatedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: agent_session_created_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<AgentSessionCreatedPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when an agent session fails.
-#[bon::builder]
+#[bon::builder(state_mod = agent_session_failed_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn agent_session_failed_post(
     configuration: &configuration::Configuration,
     webhook_agent_session_failed: Option<&models::WebhookAgentSessionFailed>,
@@ -589,8 +665,20 @@ pub async fn agent_session_failed_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: agent_session_failed_post_builder::State> AgentSessionFailedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: agent_session_failed_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<AgentSessionFailedPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when an agent session becomes idle.
-#[bon::builder]
+#[bon::builder(state_mod = agent_session_idle_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn agent_session_idle_post(
     configuration: &configuration::Configuration,
     webhook_agent_session_idle: Option<&models::WebhookAgentSessionIdle>,
@@ -640,8 +728,20 @@ pub async fn agent_session_idle_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: agent_session_idle_post_builder::State> AgentSessionIdlePostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: agent_session_idle_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<AgentSessionIdlePostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when an agent session enters the in-progress state.
-#[bon::builder]
+#[bon::builder(state_mod = agent_session_in_progress_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn agent_session_in_progress_post(
     configuration: &configuration::Configuration,
     webhook_agent_session_in_progress: Option<&models::WebhookAgentSessionInProgress>,
@@ -691,8 +791,21 @@ pub async fn agent_session_in_progress_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: agent_session_in_progress_post_builder::State>
+    AgentSessionInProgressPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: agent_session_in_progress_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<AgentSessionInProgressPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a batch has been cancelled.
-#[bon::builder]
+#[bon::builder(state_mod = batch_cancelled_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn batch_cancelled_post(
     configuration: &configuration::Configuration,
     webhook_batch_cancelled: Option<&models::WebhookBatchCancelled>,
@@ -742,8 +855,20 @@ pub async fn batch_cancelled_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: batch_cancelled_post_builder::State> BatchCancelledPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: batch_cancelled_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<BatchCancelledPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a batch has completed processing.
-#[bon::builder]
+#[bon::builder(state_mod = batch_completed_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn batch_completed_post(
     configuration: &configuration::Configuration,
     webhook_batch_completed: Option<&models::WebhookBatchCompleted>,
@@ -793,8 +918,20 @@ pub async fn batch_completed_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: batch_completed_post_builder::State> BatchCompletedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: batch_completed_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<BatchCompletedPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a batch has expired before completion.
-#[bon::builder]
+#[bon::builder(state_mod = batch_expired_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn batch_expired_post(
     configuration: &configuration::Configuration,
     webhook_batch_expired: Option<&models::WebhookBatchExpired>,
@@ -844,8 +981,20 @@ pub async fn batch_expired_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: batch_expired_post_builder::State> BatchExpiredPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: batch_expired_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<BatchExpiredPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a batch has failed.
-#[bon::builder]
+#[bon::builder(state_mod = batch_failed_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn batch_failed_post(
     configuration: &configuration::Configuration,
     webhook_batch_failed: Option<&models::WebhookBatchFailed>,
@@ -895,8 +1044,20 @@ pub async fn batch_failed_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: batch_failed_post_builder::State> BatchFailedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: batch_failed_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<BatchFailedPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when an eval run has been canceled.
-#[bon::builder]
+#[bon::builder(state_mod = eval_run_canceled_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn eval_run_canceled_post(
     configuration: &configuration::Configuration,
     webhook_eval_run_canceled: Option<&models::WebhookEvalRunCanceled>,
@@ -946,8 +1107,20 @@ pub async fn eval_run_canceled_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: eval_run_canceled_post_builder::State> EvalRunCanceledPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: eval_run_canceled_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<EvalRunCanceledPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when an eval run has failed.
-#[bon::builder]
+#[bon::builder(state_mod = eval_run_failed_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn eval_run_failed_post(
     configuration: &configuration::Configuration,
     webhook_eval_run_failed: Option<&models::WebhookEvalRunFailed>,
@@ -997,8 +1170,20 @@ pub async fn eval_run_failed_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: eval_run_failed_post_builder::State> EvalRunFailedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: eval_run_failed_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<EvalRunFailedPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when an eval run has succeeded.
-#[bon::builder]
+#[bon::builder(state_mod = eval_run_succeeded_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn eval_run_succeeded_post(
     configuration: &configuration::Configuration,
     webhook_eval_run_succeeded: Option<&models::WebhookEvalRunSucceeded>,
@@ -1048,8 +1233,20 @@ pub async fn eval_run_succeeded_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: eval_run_succeeded_post_builder::State> EvalRunSucceededPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: eval_run_succeeded_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<EvalRunSucceededPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a fine-tuning job has been cancelled.
-#[bon::builder]
+#[bon::builder(state_mod = fine_tuning_job_cancelled_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn fine_tuning_job_cancelled_post(
     configuration: &configuration::Configuration,
     webhook_fine_tuning_job_cancelled: Option<&models::WebhookFineTuningJobCancelled>,
@@ -1099,8 +1296,21 @@ pub async fn fine_tuning_job_cancelled_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: fine_tuning_job_cancelled_post_builder::State>
+    FineTuningJobCancelledPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: fine_tuning_job_cancelled_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<FineTuningJobCancelledPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a fine-tuning job has failed.
-#[bon::builder]
+#[bon::builder(state_mod = fine_tuning_job_failed_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn fine_tuning_job_failed_post(
     configuration: &configuration::Configuration,
     webhook_fine_tuning_job_failed: Option<&models::WebhookFineTuningJobFailed>,
@@ -1150,8 +1360,20 @@ pub async fn fine_tuning_job_failed_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: fine_tuning_job_failed_post_builder::State> FineTuningJobFailedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: fine_tuning_job_failed_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<FineTuningJobFailedPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a fine-tuning job has succeeded.
-#[bon::builder]
+#[bon::builder(state_mod = fine_tuning_job_succeeded_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn fine_tuning_job_succeeded_post(
     configuration: &configuration::Configuration,
     webhook_fine_tuning_job_succeeded: Option<&models::WebhookFineTuningJobSucceeded>,
@@ -1201,9 +1423,22 @@ pub async fn fine_tuning_job_succeeded_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: fine_tuning_job_succeeded_post_builder::State>
+    FineTuningJobSucceededPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: fine_tuning_job_succeeded_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<FineTuningJobSucceededPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deprecated: use `live.transport.incoming`. Retained only for existing subscriptions. Sent when an incoming API SIP session is available for Live acceptance.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = live_call_incoming_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn live_call_incoming_post(
     configuration: &configuration::Configuration,
     webhook_live_call_incoming: Option<&models::WebhookLiveCallIncoming>,
@@ -1253,8 +1488,20 @@ pub async fn live_call_incoming_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: live_call_incoming_post_builder::State> LiveCallIncomingPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: live_call_incoming_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<LiveCallIncomingPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a direct Live WebRTC session is created or an Instant Connect session activates.
-#[bon::builder]
+#[bon::builder(state_mod = live_transport_connected_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn live_transport_connected_post(
     configuration: &configuration::Configuration,
     webhook_live_transport_connected: &models::WebhookLiveTransportConnected,
@@ -1304,8 +1551,22 @@ pub async fn live_transport_connected_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: live_transport_connected_post_builder::State>
+    LiveTransportConnectedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: live_transport_connected_post_builder::IsSet,
+    S::WebhookLiveTransportConnected: live_transport_connected_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<LiveTransportConnectedPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when an incoming API SIP session is available for Live acceptance.
-#[bon::builder]
+#[bon::builder(state_mod = live_transport_incoming_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn live_transport_incoming_post(
     configuration: &configuration::Configuration,
     webhook_live_transport_incoming: Option<&models::WebhookLiveTransportIncoming>,
@@ -1355,8 +1616,20 @@ pub async fn live_transport_incoming_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: live_transport_incoming_post_builder::State> LiveTransportIncomingPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: live_transport_incoming_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<LiveTransportIncomingPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when an incoming API SIP session is available for Realtime acceptance.
-#[bon::builder]
+#[bon::builder(state_mod = realtime_call_incoming_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn realtime_call_incoming_post(
     configuration: &configuration::Configuration,
     webhook_realtime_call_incoming: Option<&models::WebhookRealtimeCallIncoming>,
@@ -1406,8 +1679,20 @@ pub async fn realtime_call_incoming_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: realtime_call_incoming_post_builder::State> RealtimeCallIncomingPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: realtime_call_incoming_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<RealtimeCallIncomingPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a background response has been cancelled.
-#[bon::builder]
+#[bon::builder(state_mod = response_cancelled_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn response_cancelled_post(
     configuration: &configuration::Configuration,
     webhook_response_cancelled: Option<&models::WebhookResponseCancelled>,
@@ -1457,8 +1742,20 @@ pub async fn response_cancelled_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: response_cancelled_post_builder::State> ResponseCancelledPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: response_cancelled_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<ResponseCancelledPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a background response has completed successfully.
-#[bon::builder]
+#[bon::builder(state_mod = response_completed_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn response_completed_post(
     configuration: &configuration::Configuration,
     webhook_response_completed: Option<&models::WebhookResponseCompleted>,
@@ -1508,8 +1805,20 @@ pub async fn response_completed_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: response_completed_post_builder::State> ResponseCompletedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: response_completed_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<ResponseCompletedPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a background response has failed.
-#[bon::builder]
+#[bon::builder(state_mod = response_failed_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn response_failed_post(
     configuration: &configuration::Configuration,
     webhook_response_failed: Option<&models::WebhookResponseFailed>,
@@ -1559,8 +1868,20 @@ pub async fn response_failed_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: response_failed_post_builder::State> ResponseFailedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: response_failed_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<ResponseFailedPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a background response is incomplete.
-#[bon::builder]
+#[bon::builder(state_mod = response_incomplete_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn response_incomplete_post(
     configuration: &configuration::Configuration,
     webhook_response_incomplete: Option<&models::WebhookResponseIncomplete>,
@@ -1610,8 +1931,20 @@ pub async fn response_incomplete_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: response_incomplete_post_builder::State> ResponseIncompletePostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: response_incomplete_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<ResponseIncompletePostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when an approved safety alert is available for an API project. Retrieve the alert with a project API key granted `api.safety.alerts.read`.
-#[bon::builder]
+#[bon::builder(state_mod = safety_alert_created_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn safety_alert_created_post(
     configuration: &configuration::Configuration,
     webhook_safety_alert_created: Option<&models::WebhookSafetyAlertCreated>,
@@ -1661,8 +1994,20 @@ pub async fn safety_alert_created_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: safety_alert_created_post_builder::State> SafetyAlertCreatedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: safety_alert_created_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<SafetyAlertCreatedPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a deactivation is issued for a safety identifier in your organization. Retrieve the case details with `GET /v1/safety/cases/{id}` using `data.id`.
-#[bon::builder]
+#[bon::builder(state_mod = safety_deactivation_issued_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn safety_deactivation_issued_post(
     configuration: &configuration::Configuration,
     webhook_safety_deactivation_issued: Option<&models::WebhookSafetyDeactivationIssued>,
@@ -1712,8 +2057,21 @@ pub async fn safety_deactivation_issued_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: safety_deactivation_issued_post_builder::State>
+    SafetyDeactivationIssuedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: safety_deactivation_issued_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<SafetyDeactivationIssuedPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when an approved safety alert is available for an enterprise workspace. Retrieve the alert from `https://api.chatgpt.com/v1/safety/alerts/{id}` with an administrator API key for the workspace's backing organization granted `chatgpt.enterprise.safety_alerts.read`.
-#[bon::builder]
+#[bon::builder(state_mod = safety_org_alert_created_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn safety_org_alert_created_post(
     configuration: &configuration::Configuration,
     webhook_safety_org_alert_created: Option<&models::WebhookSafetyOrgAlertCreated>,
@@ -1763,8 +2121,21 @@ pub async fn safety_org_alert_created_post(
     }
 }
 
+#[allow(deprecated)]
+impl<S: safety_org_alert_created_post_builder::State>
+    SafetyOrgAlertCreatedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: safety_org_alert_created_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<SafetyOrgAlertCreatedPostError>> {
+        self.call_internal().await
+    }
+}
+
 /// Sent when a warning is issued for a safety identifier in your organization. Retrieve the case details with `GET /v1/safety/cases/{id}` using `data.id`.
-#[bon::builder]
+#[bon::builder(state_mod = safety_warning_issued_post_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn safety_warning_issued_post(
     configuration: &configuration::Configuration,
     webhook_safety_warning_issued: Option<&models::WebhookSafetyWarningIssued>,
@@ -1811,5 +2182,17 @@ pub async fn safety_warning_issued_post(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: safety_warning_issued_post_builder::State> SafetyWarningIssuedPostBuilder<'_, '_, '_, S>
+where
+    S::Configuration: safety_warning_issued_post_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<SafetyWarningIssuedPostError>> {
+        self.call_internal().await
     }
 }

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookRealtimeCallIncomingDataSipHeadersInner : A header from the SIP Invite.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_realtime_call_incoming_data_sip_headers_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookRealtimeCallIncomingDataSipHeadersInner {
     /// Name of the SIP Header.
     #[serde(rename = "name")]
@@ -25,6 +26,19 @@ impl WebhookRealtimeCallIncomingDataSipHeadersInner {
     /// A header from the SIP Invite.
     pub fn new(name: String, value: String) -> WebhookRealtimeCallIncomingDataSipHeadersInner {
         WebhookRealtimeCallIncomingDataSipHeadersInner { name, value }
+    }
+}
+
+impl<S: webhook_realtime_call_incoming_data_sip_headers_inner_builder::State>
+    WebhookRealtimeCallIncomingDataSipHeadersInnerBuilder<S>
+where
+    S::Name: webhook_realtime_call_incoming_data_sip_headers_inner_builder::IsSet,
+    S::Value: webhook_realtime_call_incoming_data_sip_headers_inner_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookRealtimeCallIncomingDataSipHeadersInner {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = misalignment_error_details_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MisalignmentErrorDetailsResource {
     /// An opaque target for explicitly continuing this review, or null when unavailable.
     ///
@@ -43,6 +44,16 @@ impl MisalignmentErrorDetailsResource {
             detailed_explanation: None,
             steer: None,
         }
+    }
+}
+
+impl<S: misalignment_error_details_resource_builder::State>
+    MisalignmentErrorDetailsResourceBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MisalignmentErrorDetailsResource {
+        self.build_internal()
     }
 }
 

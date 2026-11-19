@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionTurnCancelled : Emitted when a turn is cancelled.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_turn_cancelled_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionTurnCancelled {
     /// The type of the object. Always `agent.session.turn.cancelled`.  Defaults to `\"agent.session.turn.cancelled\"`.
     #[serde(rename = "type")]
@@ -63,6 +64,22 @@ impl SessionEventAgentSessionTurnCancelled {
             usage,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_turn_cancelled_builder::State>
+    SessionEventAgentSessionTurnCancelledBuilder<S>
+where
+    S::Type: session_event_agent_session_turn_cancelled_builder::IsSet,
+    S::EventId: session_event_agent_session_turn_cancelled_builder::IsSet,
+    S::SessionId: session_event_agent_session_turn_cancelled_builder::IsSet,
+    S::TurnId: session_event_agent_session_turn_cancelled_builder::IsSet,
+    S::Turn: session_event_agent_session_turn_cancelled_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionTurnCancelled {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ContainerReferenceResource : Represents a container created with /v1/containers.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = container_reference_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ContainerReferenceResource {
     /// The environment type. Always `container_reference`.  Defaults to `\"container_reference\"`.
     #[serde(rename = "type")]
@@ -27,6 +28,18 @@ impl ContainerReferenceResource {
             r#type,
             container_id,
         }
+    }
+}
+
+impl<S: container_reference_resource_builder::State> ContainerReferenceResourceBuilder<S>
+where
+    S::Type: container_reference_resource_builder::IsSet,
+    S::ContainerId: container_reference_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ContainerReferenceResource {
+        self.build_internal()
     }
 }
 

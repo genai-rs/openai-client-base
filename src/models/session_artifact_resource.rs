@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionArtifactResource : An immutable file published by a completed hosted session turn.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_artifact_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionArtifactResource {
     /// The immutable artifact ID.
     ///
@@ -73,6 +74,24 @@ impl SessionArtifactResource {
             size_bytes,
             created_at,
         }
+    }
+}
+
+impl<S: session_artifact_resource_builder::State> SessionArtifactResourceBuilder<S>
+where
+    S::Id: session_artifact_resource_builder::IsSet,
+    S::Object: session_artifact_resource_builder::IsSet,
+    S::SessionId: session_artifact_resource_builder::IsSet,
+    S::EnvironmentId: session_artifact_resource_builder::IsSet,
+    S::TurnId: session_artifact_resource_builder::IsSet,
+    S::Path: session_artifact_resource_builder::IsSet,
+    S::SizeBytes: session_artifact_resource_builder::IsSet,
+    S::CreatedAt: session_artifact_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionArtifactResource {
+        self.build_internal()
     }
 }
 

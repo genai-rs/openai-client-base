@@ -156,7 +156,7 @@ pub enum UpdateVaultError {
 }
 
 /// Creates a vault for the current project. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
-#[bon::builder]
+#[bon::builder(state_mod = create_vault_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_vault(
     configuration: &configuration::Configuration,
     create_vault_params: Option<&models::CreateVaultParams>,
@@ -243,13 +243,25 @@ pub async fn create_vault(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_vault_builder::State> CreateVaultBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_vault_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VaultResource, Error<CreateVaultError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a vault for the current project. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 ///
 /// Sends the same request as [`create_vault`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VaultResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_vault_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_vault_response(
     configuration: &configuration::Configuration,
     create_vault_params: Option<&models::CreateVaultParams>,
@@ -327,8 +339,22 @@ pub async fn create_vault_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_vault_response_builder::State> CreateVaultResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_vault_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VaultResource>, Error<CreateVaultError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a vault credential. Secret values are write-only and are never returned. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
-#[bon::builder]
+#[bon::builder(state_mod = create_vault_credential_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_vault_credential(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -421,13 +447,28 @@ pub async fn create_vault_credential(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_vault_credential_builder::State> CreateVaultCredentialBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_vault_credential_builder::IsSet,
+    S::VaultId: create_vault_credential_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VaultCredentialResource, Error<CreateVaultCredentialError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a vault credential. Secret values are write-only and are never returned. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 ///
 /// Sends the same request as [`create_vault_credential`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VaultCredentialResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_vault_credential_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_vault_credential_response(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -512,8 +553,27 @@ pub async fn create_vault_credential_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_vault_credential_response_builder::State>
+    CreateVaultCredentialResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_vault_credential_response_builder::IsSet,
+    S::VaultId: create_vault_credential_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::VaultCredentialResource>,
+        Error<CreateVaultCredentialError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a vault and all its credentials. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
-#[bon::builder]
+#[bon::builder(state_mod = delete_vault_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_vault(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -603,13 +663,26 @@ pub async fn delete_vault(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_vault_builder::State> DeleteVaultBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_vault_builder::IsSet,
+    S::VaultId: delete_vault_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::DeletedVaultResource, Error<DeleteVaultError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a vault and all its credentials. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 ///
 /// Sends the same request as [`delete_vault`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeletedVaultResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_vault_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_vault_response(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -690,8 +763,23 @@ pub async fn delete_vault_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_vault_response_builder::State> DeleteVaultResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_vault_response_builder::IsSet,
+    S::VaultId: delete_vault_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeletedVaultResource>, Error<DeleteVaultError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a vault credential. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
-#[bon::builder]
+#[bon::builder(state_mod = delete_vault_credential_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_vault_credential(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -784,13 +872,29 @@ pub async fn delete_vault_credential(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_vault_credential_builder::State> DeleteVaultCredentialBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_vault_credential_builder::IsSet,
+    S::VaultId: delete_vault_credential_builder::IsSet,
+    S::CredentialId: delete_vault_credential_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeletedVaultCredentialResource, Error<DeleteVaultCredentialError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a vault credential. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 ///
 /// Sends the same request as [`delete_vault_credential`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeletedVaultCredentialResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_vault_credential_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_vault_credential_response(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -877,8 +981,28 @@ pub async fn delete_vault_credential_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_vault_credential_response_builder::State>
+    DeleteVaultCredentialResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_vault_credential_response_builder::IsSet,
+    S::VaultId: delete_vault_credential_response_builder::IsSet,
+    S::CredentialId: delete_vault_credential_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::DeletedVaultCredentialResource>,
+        Error<DeleteVaultCredentialError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists a vault's credentials using ID-based pagination without returning secret values. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
-#[bon::builder]
+#[bon::builder(state_mod = list_vault_credentials_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_vault_credentials(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -997,13 +1121,28 @@ pub async fn list_vault_credentials(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_vault_credentials_builder::State> ListVaultCredentialsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_vault_credentials_builder::IsSet,
+    S::VaultId: list_vault_credentials_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VaultCredentialListResource, Error<ListVaultCredentialsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists a vault's credentials using ID-based pagination without returning secret values. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 ///
 /// Sends the same request as [`list_vault_credentials`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VaultCredentialListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_vault_credentials_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_vault_credentials_response(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -1114,8 +1253,27 @@ pub async fn list_vault_credentials_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_vault_credentials_response_builder::State>
+    ListVaultCredentialsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_vault_credentials_response_builder::IsSet,
+    S::VaultId: list_vault_credentials_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::VaultCredentialListResource>,
+        Error<ListVaultCredentialsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists vaults using ID-based pagination. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
-#[bon::builder]
+#[bon::builder(state_mod = list_vaults_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_vaults(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -1228,13 +1386,25 @@ pub async fn list_vaults(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_vaults_builder::State> ListVaultsBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_vaults_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VaultListResource, Error<ListVaultsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists vaults using ID-based pagination. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 ///
 /// Sends the same request as [`list_vaults`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VaultListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_vaults_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_vaults_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -1338,8 +1508,22 @@ pub async fn list_vaults_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_vaults_response_builder::State> ListVaultsResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_vaults_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VaultListResource>, Error<ListVaultsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a vault by its ID. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_vault_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_vault(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -1429,13 +1613,26 @@ pub async fn retrieve_vault(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_vault_builder::State> RetrieveVaultBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_vault_builder::IsSet,
+    S::VaultId: retrieve_vault_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VaultResource, Error<RetrieveVaultError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a vault by its ID. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 ///
 /// Sends the same request as [`retrieve_vault`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VaultResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_vault_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_vault_response(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -1516,8 +1713,23 @@ pub async fn retrieve_vault_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_vault_response_builder::State> RetrieveVaultResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_vault_response_builder::IsSet,
+    S::VaultId: retrieve_vault_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VaultResource>, Error<RetrieveVaultError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves vault credential metadata without returning secret values. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_vault_credential_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_vault_credential(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -1610,13 +1822,29 @@ pub async fn retrieve_vault_credential(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_vault_credential_builder::State> RetrieveVaultCredentialBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_vault_credential_builder::IsSet,
+    S::VaultId: retrieve_vault_credential_builder::IsSet,
+    S::CredentialId: retrieve_vault_credential_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VaultCredentialResource, Error<RetrieveVaultCredentialError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves vault credential metadata without returning secret values. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 ///
 /// Sends the same request as [`retrieve_vault_credential`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VaultCredentialResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_vault_credential_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_vault_credential_response(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -1701,8 +1929,28 @@ pub async fn retrieve_vault_credential_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_vault_credential_response_builder::State>
+    RetrieveVaultCredentialResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_vault_credential_response_builder::IsSet,
+    S::VaultId: retrieve_vault_credential_response_builder::IsSet,
+    S::CredentialId: retrieve_vault_credential_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::VaultCredentialResource>,
+        Error<RetrieveVaultCredentialError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Updates credential metadata or rotates its write-only secret. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
-#[bon::builder]
+#[bon::builder(state_mod = rotate_vault_credential_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn rotate_vault_credential(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -1798,13 +2046,30 @@ pub async fn rotate_vault_credential(
     }
 }
 
+#[allow(deprecated)]
+impl<S: rotate_vault_credential_builder::State> RotateVaultCredentialBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: rotate_vault_credential_builder::IsSet,
+    S::VaultId: rotate_vault_credential_builder::IsSet,
+    S::CredentialId: rotate_vault_credential_builder::IsSet,
+    S::RotateVaultCredentialParams: rotate_vault_credential_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::VaultCredentialResource, Error<RotateVaultCredentialError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates credential metadata or rotates its write-only secret. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 ///
 /// Sends the same request as [`rotate_vault_credential`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VaultCredentialResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = rotate_vault_credential_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn rotate_vault_credential_response(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -1892,8 +2157,29 @@ pub async fn rotate_vault_credential_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: rotate_vault_credential_response_builder::State>
+    RotateVaultCredentialResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: rotate_vault_credential_response_builder::IsSet,
+    S::VaultId: rotate_vault_credential_response_builder::IsSet,
+    S::CredentialId: rotate_vault_credential_response_builder::IsSet,
+    S::RotateVaultCredentialParams: rotate_vault_credential_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::VaultCredentialResource>,
+        Error<RotateVaultCredentialError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Updates the name or metadata of an active vault. Omitted fields remain unchanged. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
-#[bon::builder]
+#[bon::builder(state_mod = update_vault_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_vault(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -1986,13 +2272,27 @@ pub async fn update_vault(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_vault_builder::State> UpdateVaultBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_vault_builder::IsSet,
+    S::VaultId: update_vault_builder::IsSet,
+    S::UpdateVaultParams: update_vault_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::VaultResource, Error<UpdateVaultError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates the name or metadata of an active vault. Omitted fields remain unchanged. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 ///
 /// Sends the same request as [`update_vault`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::VaultResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_vault_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_vault_response(
     configuration: &configuration::Configuration,
     vault_id: &str,
@@ -2073,5 +2373,21 @@ pub async fn update_vault_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: update_vault_response_builder::State> UpdateVaultResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_vault_response_builder::IsSet,
+    S::VaultId: update_vault_response_builder::IsSet,
+    S::UpdateVaultParams: update_vault_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::VaultResource>, Error<UpdateVaultError>> {
+        self.call_internal().await
     }
 }

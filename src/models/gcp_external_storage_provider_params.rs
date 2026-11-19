@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = gcp_external_storage_provider_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GcpExternalStorageProviderParams {
     /// Defaults to `\"gcp\"`.
     #[serde(rename = "type")]
@@ -40,6 +41,22 @@ impl GcpExternalStorageProviderParams {
             workload_identity_pool_id,
             workload_identity_provider_id,
         }
+    }
+}
+
+impl<S: gcp_external_storage_provider_params_builder::State>
+    GcpExternalStorageProviderParamsBuilder<S>
+where
+    S::Type: gcp_external_storage_provider_params_builder::IsSet,
+    S::Bucket: gcp_external_storage_provider_params_builder::IsSet,
+    S::WorkloadIdentityProjectNumber: gcp_external_storage_provider_params_builder::IsSet,
+    S::WorkloadIdentityPoolId: gcp_external_storage_provider_params_builder::IsSet,
+    S::WorkloadIdentityProviderId: gcp_external_storage_provider_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GcpExternalStorageProviderParams {
+        self.build_internal()
     }
 }
 

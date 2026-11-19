@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateCompletionResponse : Represents a completion response from the API. Note: both the streamed and non-streamed response objects share the same shape (unlike the chat endpoint).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_completion_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateCompletionResponse {
     /// A unique identifier for the completion.
     #[serde(rename = "id")]
@@ -54,6 +55,21 @@ impl CreateCompletionResponse {
             object,
             usage: None,
         }
+    }
+}
+
+impl<S: create_completion_response_builder::State> CreateCompletionResponseBuilder<S>
+where
+    S::Id: create_completion_response_builder::IsSet,
+    S::Choices: create_completion_response_builder::IsSet,
+    S::Created: create_completion_response_builder::IsSet,
+    S::Model: create_completion_response_builder::IsSet,
+    S::Object: create_completion_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateCompletionResponse {
+        self.build_internal()
     }
 }
 

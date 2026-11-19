@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseConfigurationUpdateItemParam : An update to the conversation's response configuration. Supply reasoning, text, or both. Each setting stays in effect until a later update replaces it.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_configuration_update_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseConfigurationUpdateItemParam {
     /// The unique ID of the configuration update item.
     #[serde(
@@ -40,6 +41,18 @@ impl ResponseConfigurationUpdateItemParam {
             reasoning: None,
             text: None,
         }
+    }
+}
+
+impl<S: response_configuration_update_item_param_builder::State>
+    ResponseConfigurationUpdateItemParamBuilder<S>
+where
+    S::Type: response_configuration_update_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseConfigurationUpdateItemParam {
+        self.build_internal()
     }
 }
 

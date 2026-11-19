@@ -58,7 +58,7 @@ pub enum RetrieveUserError {
 }
 
 /// Deletes a user from the organization.
-#[bon::builder]
+#[bon::builder(state_mod = delete_user_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_user(
     configuration: &configuration::Configuration,
     user_id: &str,
@@ -139,13 +139,26 @@ pub async fn delete_user(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_user_builder::State> DeleteUserBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_user_builder::IsSet,
+    S::UserId: delete_user_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UserDeleteResponse, Error<DeleteUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a user from the organization.
 ///
 /// Sends the same request as [`delete_user`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UserDeleteResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_user_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_user_response(
     configuration: &configuration::Configuration,
     user_id: &str,
@@ -217,8 +230,23 @@ pub async fn delete_user_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_user_response_builder::State> DeleteUserResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_user_response_builder::IsSet,
+    S::UserId: delete_user_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UserDeleteResponse>, Error<DeleteUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists all of the users in the organization.
-#[bon::builder]
+#[bon::builder(state_mod = list_users_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_users(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -308,13 +336,25 @@ pub async fn list_users(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_users_builder::State> ListUsersBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_users_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UserListResponse, Error<ListUsersError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists all of the users in the organization.
 ///
 /// Sends the same request as [`list_users`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UserListResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_users_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_users_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -395,8 +435,22 @@ pub async fn list_users_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_users_response_builder::State> ListUsersResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: list_users_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UserListResponse>, Error<ListUsersError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies a user's role in the organization.
-#[bon::builder]
+#[bon::builder(state_mod = modify_user_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_user(
     configuration: &configuration::Configuration,
     user_id: &str,
@@ -480,13 +534,27 @@ pub async fn modify_user(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_user_builder::State> ModifyUserBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: modify_user_builder::IsSet,
+    S::UserId: modify_user_builder::IsSet,
+    S::UserRoleUpdateRequest: modify_user_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::User, Error<ModifyUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modifies a user's role in the organization.
 ///
 /// Sends the same request as [`modify_user`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::User` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = modify_user_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_user_response(
     configuration: &configuration::Configuration,
     user_id: &str,
@@ -561,8 +629,22 @@ pub async fn modify_user_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_user_response_builder::State> ModifyUserResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: modify_user_response_builder::IsSet,
+    S::UserId: modify_user_response_builder::IsSet,
+    S::UserRoleUpdateRequest: modify_user_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<models::User>, Error<ModifyUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a user by their identifier.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_user_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_user(
     configuration: &configuration::Configuration,
     user_id: &str,
@@ -640,13 +722,26 @@ pub async fn retrieve_user(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_user_builder::State> RetrieveUserBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_user_builder::IsSet,
+    S::UserId: retrieve_user_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::User, Error<RetrieveUserError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a user by their identifier.
 ///
 /// Sends the same request as [`retrieve_user`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::User` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_user_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_user_response(
     configuration: &configuration::Configuration,
     user_id: &str,
@@ -712,5 +807,18 @@ pub async fn retrieve_user_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: retrieve_user_response_builder::State> RetrieveUserResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_user_response_builder::IsSet,
+    S::UserId: retrieve_user_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<models::User>, Error<RetrieveUserError>> {
+        self.call_internal().await
     }
 }

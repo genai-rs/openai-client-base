@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalCustomDataSourceConfig : A CustomDataSourceConfig which specifies the schema of your `item` and optionally `sample` namespaces. The response schema defines the shape of the data that will be: - Used to define your testing criteria and - What data is required when creating a run
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_custom_data_source_config_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalCustomDataSourceConfig {
     /// The type of data source. Always `custom`.  Defaults to `\"custom\"`.
     #[serde(rename = "type")]
@@ -28,6 +29,18 @@ impl EvalCustomDataSourceConfig {
         schema: std::collections::HashMap<String, serde_json::Value>,
     ) -> EvalCustomDataSourceConfig {
         EvalCustomDataSourceConfig { r#type, schema }
+    }
+}
+
+impl<S: eval_custom_data_source_config_builder::State> EvalCustomDataSourceConfigBuilder<S>
+where
+    S::Type: eval_custom_data_source_config_builder::IsSet,
+    S::Schema: eval_custom_data_source_config_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalCustomDataSourceConfig {
+        self.build_internal()
     }
 }
 

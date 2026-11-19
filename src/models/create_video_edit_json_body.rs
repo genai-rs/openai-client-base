@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateVideoEditJsonBody : JSON parameters for editing an existing generated video.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_video_edit_json_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateVideoEditJsonBody {
     #[serde(rename = "video")]
     pub video: models::VideoReferenceInputParam,
@@ -27,6 +28,18 @@ impl CreateVideoEditJsonBody {
     /// JSON parameters for editing an existing generated video.
     pub fn new(video: models::VideoReferenceInputParam, prompt: String) -> CreateVideoEditJsonBody {
         CreateVideoEditJsonBody { video, prompt }
+    }
+}
+
+impl<S: create_video_edit_json_body_builder::State> CreateVideoEditJsonBodyBuilder<S>
+where
+    S::Video: create_video_edit_json_body_builder::IsSet,
+    S::Prompt: create_video_edit_json_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateVideoEditJsonBody {
+        self.build_internal()
     }
 }
 

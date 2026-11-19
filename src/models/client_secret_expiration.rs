@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ClientSecretExpiration : Configuration for the client secret expiration. Expiration refers to the time after which a client secret will no longer be valid for creating sessions. The session itself may continue after that time once started. A secret can be used to create multiple sessions until it expires.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = client_secret_expiration_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ClientSecretExpiration {
     /// The anchor point for the client secret expiration, meaning that `seconds` will be added to the `created_at` time of the client secret to produce an expiration timestamp. Only `created_at` is currently supported.  Defaults to `\"created_at\"`.
     #[serde(rename = "anchor", skip_serializing_if = "Option::is_none")]
@@ -30,6 +31,14 @@ impl ClientSecretExpiration {
             anchor: None,
             seconds: None,
         }
+    }
+}
+
+impl<S: client_secret_expiration_builder::State> ClientSecretExpirationBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ClientSecretExpiration {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateFineTuningJobRequestHyperparameters : The hyperparameters used for the fine-tuning job. This value is now deprecated in favor of `method`, and should be passed in under the `method` parameter.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_fine_tuning_job_request_hyperparameters_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateFineTuningJobRequestHyperparameters {
     #[serde(rename = "batch_size", skip_serializing_if = "Option::is_none")]
     pub batch_size: Option<models::CreateFineTuningJobRequestHyperparametersBatchSize>,
@@ -34,6 +35,16 @@ impl CreateFineTuningJobRequestHyperparameters {
             learning_rate_multiplier: None,
             n_epochs: None,
         }
+    }
+}
+
+impl<S: create_fine_tuning_job_request_hyperparameters_builder::State>
+    CreateFineTuningJobRequestHyperparametersBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateFineTuningJobRequestHyperparameters {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_platform_workload_identity_provider_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreatePlatformWorkloadIdentityProviderBody {
     /// Validation: `minLength: 1`.
     #[serde(rename = "name")]
@@ -56,6 +57,21 @@ impl CreatePlatformWorkloadIdentityProviderBody {
             attribute_transformations: None,
             enabled: None,
         }
+    }
+}
+
+impl<S: create_platform_workload_identity_provider_body_builder::State>
+    CreatePlatformWorkloadIdentityProviderBodyBuilder<S>
+where
+    S::Name: create_platform_workload_identity_provider_body_builder::IsSet,
+    S::Type: create_platform_workload_identity_provider_body_builder::IsSet,
+    S::Issuer: create_platform_workload_identity_provider_body_builder::IsSet,
+    S::Audience: create_platform_workload_identity_provider_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreatePlatformWorkloadIdentityProviderBody {
+        self.build_internal()
     }
 }
 

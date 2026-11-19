@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ItemReferenceParam : An internal identifier for an item to reference.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = item_reference_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ItemReferenceParam {
     /// The type of item to reference. Always `item_reference`.
     #[serde(
@@ -30,6 +31,17 @@ impl ItemReferenceParam {
     /// An internal identifier for an item to reference.
     pub fn new(id: String) -> ItemReferenceParam {
         ItemReferenceParam { r#type: None, id }
+    }
+}
+
+impl<S: item_reference_param_builder::State> ItemReferenceParamBuilder<S>
+where
+    S::Id: item_reference_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ItemReferenceParam {
+        self.build_internal()
     }
 }
 

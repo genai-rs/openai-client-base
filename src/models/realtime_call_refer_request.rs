@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeCallReferRequest : Parameters required to transfer a SIP call to a new destination using the Realtime API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_call_refer_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeCallReferRequest {
     /// URI that should appear in the SIP Refer-To header. Supports values like `tel:+14155550123` or `sip:agent@example.com`.
     #[serde(rename = "target_uri")]
@@ -22,6 +23,17 @@ impl RealtimeCallReferRequest {
     /// Parameters required to transfer a SIP call to a new destination using the Realtime API.
     pub fn new(target_uri: String) -> RealtimeCallReferRequest {
         RealtimeCallReferRequest { target_uri }
+    }
+}
+
+impl<S: realtime_call_refer_request_builder::State> RealtimeCallReferRequestBuilder<S>
+where
+    S::TargetUri: realtime_call_refer_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeCallReferRequest {
+        self.build_internal()
     }
 }
 

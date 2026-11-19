@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vector_store_search_result_content_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VectorStoreSearchResultContentObject {
     /// The type of content.
     #[serde(rename = "type")]
@@ -23,6 +24,19 @@ pub struct VectorStoreSearchResultContentObject {
 impl VectorStoreSearchResultContentObject {
     pub fn new(r#type: Type, text: String) -> VectorStoreSearchResultContentObject {
         VectorStoreSearchResultContentObject { r#type, text }
+    }
+}
+
+impl<S: vector_store_search_result_content_object_builder::State>
+    VectorStoreSearchResultContentObjectBuilder<S>
+where
+    S::Type: vector_store_search_result_content_object_builder::IsSet,
+    S::Text: vector_store_search_result_content_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VectorStoreSearchResultContentObject {
+        self.build_internal()
     }
 }
 

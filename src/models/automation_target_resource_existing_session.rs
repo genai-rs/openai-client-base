@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_target_resource_existing_session_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationTargetResourceExistingSession {
     /// The type of the object. Always `existing_session`.  Defaults to `\"existing_session\"`.
     #[serde(rename = "type")]
@@ -38,6 +39,20 @@ impl AutomationTargetResourceExistingSession {
             session_id,
             instructions,
         }
+    }
+}
+
+impl<S: automation_target_resource_existing_session_builder::State>
+    AutomationTargetResourceExistingSessionBuilder<S>
+where
+    S::Type: automation_target_resource_existing_session_builder::IsSet,
+    S::SessionId: automation_target_resource_existing_session_builder::IsSet,
+    S::Instructions: automation_target_resource_existing_session_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationTargetResourceExistingSession {
+        self.build_internal()
     }
 }
 

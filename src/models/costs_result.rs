@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CostsResult : The aggregated costs details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = costs_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CostsResult {
     /// When grouped by `api_source`, `agents_api` identifies attributed Agents API activity and `unlabeled` includes all records without published source attribution, including historical and unknown origins. Unlabeled does not imply direct API usage. Without source grouping, this field is null.
     #[serde(
@@ -89,6 +90,17 @@ impl CostsResult {
             quantity: None,
             quantity_unit: None,
         }
+    }
+}
+
+impl<S: costs_result_builder::State> CostsResultBuilder<S>
+where
+    S::Object: costs_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CostsResult {
+        self.build_internal()
     }
 }
 

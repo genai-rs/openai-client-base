@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaImageGenTool : A tool that generates images using the GPT image models.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_image_gen_tool_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaImageGenTool {
     /// The type of the image generation tool. Always `image_generation`.
     #[serde(rename = "type")]
@@ -93,6 +94,17 @@ impl BetaImageGenTool {
             partial_images: None,
             action: None,
         }
+    }
+}
+
+impl<S: beta_image_gen_tool_builder::State> BetaImageGenToolBuilder<S>
+where
+    S::Type: beta_image_gen_tool_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaImageGenTool {
+        self.build_internal()
     }
 }
 

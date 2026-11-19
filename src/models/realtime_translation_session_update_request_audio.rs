@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationSessionUpdateRequestAudio : Configuration for translation input and output audio.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_translation_session_update_request_audio_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranslationSessionUpdateRequestAudio {
     #[serde(rename = "input", skip_serializing_if = "Option::is_none")]
     pub input: Option<models::RealtimeTranslationSessionUpdateRequestAudioInput>,
@@ -27,6 +28,16 @@ impl RealtimeTranslationSessionUpdateRequestAudio {
             input: None,
             output: None,
         }
+    }
+}
+
+impl<S: realtime_translation_session_update_request_audio_builder::State>
+    RealtimeTranslationSessionUpdateRequestAudioBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranslationSessionUpdateRequestAudio {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// GraderMulti : A MultiGrader object combines the output of multiple graders to produce a single score.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = grader_multi_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GraderMulti {
     /// The object type, which is always `multi`.  Defaults to `\"multi\"`.
     #[serde(rename = "type")]
@@ -42,6 +43,20 @@ impl GraderMulti {
             graders,
             calculate_output,
         }
+    }
+}
+
+impl<S: grader_multi_builder::State> GraderMultiBuilder<S>
+where
+    S::Type: grader_multi_builder::IsSet,
+    S::Name: grader_multi_builder::IsSet,
+    S::Graders: grader_multi_builder::IsSet,
+    S::CalculateOutput: grader_multi_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GraderMulti {
+        self.build_internal()
     }
 }
 

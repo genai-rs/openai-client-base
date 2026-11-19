@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionFailed : Emitted when a session fails.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_failed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionFailed {
     /// The type of the object. Always `agent.session.failed`.  Defaults to `\"agent.session.failed\"`.
     #[serde(rename = "type")]
@@ -44,6 +45,19 @@ impl SessionEventAgentSessionFailed {
             session,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_failed_builder::State> SessionEventAgentSessionFailedBuilder<S>
+where
+    S::Type: session_event_agent_session_failed_builder::IsSet,
+    S::EventId: session_event_agent_session_failed_builder::IsSet,
+    S::Session: session_event_agent_session_failed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionFailed {
+        self.build_internal()
     }
 }
 

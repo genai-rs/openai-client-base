@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionFunctionCallOption : Specifying a particular function via `{\"name\": \"my_function\"}` forces the model to call that function.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_function_call_option_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionFunctionCallOption {
     /// The name of the function to call.
     #[serde(rename = "name")]
@@ -22,6 +23,18 @@ impl ChatCompletionFunctionCallOption {
     /// Specifying a particular function via `{\"name\": \"my_function\"}` forces the model to call that function.
     pub fn new(name: String) -> ChatCompletionFunctionCallOption {
         ChatCompletionFunctionCallOption { name }
+    }
+}
+
+impl<S: chat_completion_function_call_option_builder::State>
+    ChatCompletionFunctionCallOptionBuilder<S>
+where
+    S::Name: chat_completion_function_call_option_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionFunctionCallOption {
+        self.build_internal()
     }
 }
 

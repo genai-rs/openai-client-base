@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventResponseOutputItemDone : Returned when an Item is done streaming. Also emitted when a Response is  interrupted, incomplete, or cancelled.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_response_output_item_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventResponseOutputItemDone {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -46,6 +47,22 @@ impl RealtimeServerEventResponseOutputItemDone {
             output_index,
             item,
         }
+    }
+}
+
+impl<S: realtime_server_event_response_output_item_done_builder::State>
+    RealtimeServerEventResponseOutputItemDoneBuilder<S>
+where
+    S::EventId: realtime_server_event_response_output_item_done_builder::IsSet,
+    S::Type: realtime_server_event_response_output_item_done_builder::IsSet,
+    S::ResponseId: realtime_server_event_response_output_item_done_builder::IsSet,
+    S::OutputIndex: realtime_server_event_response_output_item_done_builder::IsSet,
+    S::Item: realtime_server_event_response_output_item_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventResponseOutputItemDone {
+        self.build_internal()
     }
 }
 

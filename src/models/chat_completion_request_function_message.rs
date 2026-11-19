@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_request_function_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionRequestFunctionMessage {
     /// The role of the messages author, in this case `function`.
     #[serde(rename = "role")]
@@ -34,6 +35,19 @@ impl ChatCompletionRequestFunctionMessage {
             content,
             name,
         }
+    }
+}
+
+impl<S: chat_completion_request_function_message_builder::State>
+    ChatCompletionRequestFunctionMessageBuilder<S>
+where
+    S::Role: chat_completion_request_function_message_builder::IsSet,
+    S::Name: chat_completion_request_function_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionRequestFunctionMessage {
+        self.build_internal()
     }
 }
 

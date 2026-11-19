@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateThreadRequestToolResources : A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_thread_request_tool_resources_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateThreadRequestToolResources {
     #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
     pub code_interpreter: Option<models::CreateThreadRequestToolResourcesCodeInterpreter>,
@@ -27,6 +28,16 @@ impl CreateThreadRequestToolResources {
             code_interpreter: None,
             file_search: None,
         }
+    }
+}
+
+impl<S: create_thread_request_tool_resources_builder::State>
+    CreateThreadRequestToolResourcesBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateThreadRequestToolResources {
+        self.build_internal()
     }
 }
 

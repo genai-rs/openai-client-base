@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageDeltaContentImageUrlObject : References an image URL in the content of a message.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_delta_content_image_url_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageDeltaContentImageUrlObject {
     /// The index of the content part in the message.
     #[serde(rename = "index")]
@@ -32,6 +33,19 @@ impl MessageDeltaContentImageUrlObject {
             r#type,
             image_url: None,
         }
+    }
+}
+
+impl<S: message_delta_content_image_url_object_builder::State>
+    MessageDeltaContentImageUrlObjectBuilder<S>
+where
+    S::Index: message_delta_content_image_url_object_builder::IsSet,
+    S::Type: message_delta_content_image_url_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageDeltaContentImageUrlObject {
+        self.build_internal()
     }
 }
 

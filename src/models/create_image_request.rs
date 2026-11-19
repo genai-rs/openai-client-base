@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_image_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateImageRequest {
     /// Number of frames for GIF output. Accepts integers from 2 through 16. Defaults to 9 when omitted. Only supported with output_format=gif. The requested size must satisfy the selected model's GIF size limits. GIF output does not support streaming, partial images, masks, or custom output compression. Requires access to the GIF preview for the selected model.
     ///
@@ -181,6 +182,18 @@ impl CreateImageRequest {
             safety_identifier: None,
             user: None,
         }
+    }
+}
+
+impl<S: create_image_request_builder::State> CreateImageRequestBuilder<S>
+where
+    S::Prompt: create_image_request_builder::IsSet,
+    S::Model: create_image_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateImageRequest {
+        self.build_internal()
     }
 }
 

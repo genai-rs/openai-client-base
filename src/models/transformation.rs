@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = transformation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Transformation {
     #[serde(rename = "attribute")]
     pub attribute: String,
@@ -24,6 +25,18 @@ impl Transformation {
             attribute,
             expression,
         }
+    }
+}
+
+impl<S: transformation_builder::State> TransformationBuilder<S>
+where
+    S::Attribute: transformation_builder::IsSet,
+    S::Expression: transformation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Transformation {
+        self.build_internal()
     }
 }
 

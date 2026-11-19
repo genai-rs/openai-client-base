@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventOutputAudioBufferStarted : **WebRTC/SIP Only:** Emitted when the server begins streaming audio to the client. This event is emitted after an audio content part has been added (`response.content_part.added`) to the response. [Learn more](https://developers.openai.com/api/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_output_audio_buffer_started_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventOutputAudioBufferStarted {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeServerEventOutputAudioBufferStarted {
             r#type,
             response_id,
         }
+    }
+}
+
+impl<S: realtime_server_event_output_audio_buffer_started_builder::State>
+    RealtimeServerEventOutputAudioBufferStartedBuilder<S>
+where
+    S::EventId: realtime_server_event_output_audio_buffer_started_builder::IsSet,
+    S::Type: realtime_server_event_output_audio_buffer_started_builder::IsSet,
+    S::ResponseId: realtime_server_event_output_audio_buffer_started_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventOutputAudioBufferStarted {
+        self.build_internal()
     }
 }
 

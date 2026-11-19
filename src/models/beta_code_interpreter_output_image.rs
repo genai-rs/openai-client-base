@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaCodeInterpreterOutputImage : The image output from the code interpreter.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_code_interpreter_output_image_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaCodeInterpreterOutputImage {
     /// The type of the output. Always `image`.  Defaults to `\"image\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl BetaCodeInterpreterOutputImage {
     /// The image output from the code interpreter.
     pub fn new(r#type: Type, url: String) -> BetaCodeInterpreterOutputImage {
         BetaCodeInterpreterOutputImage { r#type, url }
+    }
+}
+
+impl<S: beta_code_interpreter_output_image_builder::State> BetaCodeInterpreterOutputImageBuilder<S>
+where
+    S::Type: beta_code_interpreter_output_image_builder::IsSet,
+    S::Url: beta_code_interpreter_output_image_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaCodeInterpreterOutputImage {
+        self.build_internal()
     }
 }
 

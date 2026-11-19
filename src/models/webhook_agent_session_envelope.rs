@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_agent_session_envelope_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookAgentSessionEnvelope {
     /// The unique ID of the event.
     #[serde(rename = "id")]
@@ -34,6 +35,19 @@ impl WebhookAgentSessionEnvelope {
             object,
             created_at,
         }
+    }
+}
+
+impl<S: webhook_agent_session_envelope_builder::State> WebhookAgentSessionEnvelopeBuilder<S>
+where
+    S::Id: webhook_agent_session_envelope_builder::IsSet,
+    S::Object: webhook_agent_session_envelope_builder::IsSet,
+    S::CreatedAt: webhook_agent_session_envelope_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookAgentSessionEnvelope {
+        self.build_internal()
     }
 }
 

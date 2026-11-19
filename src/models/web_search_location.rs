@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebSearchLocation : Approximate location parameters for the search.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = web_search_location_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebSearchLocation {
     /// The two-letter  [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user, e.g. `US`.
     #[serde(rename = "country", skip_serializing_if = "Option::is_none")]
@@ -36,6 +37,14 @@ impl WebSearchLocation {
             city: None,
             timezone: None,
         }
+    }
+}
+
+impl<S: web_search_location_builder::State> WebSearchLocationBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebSearchLocation {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeSessionCreateRequestTracingTracingConfiguration : Granular configuration for tracing.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_session_create_request_tracing_tracing_configuration_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeSessionCreateRequestTracingTracingConfiguration {
     /// The name of the workflow to attach to this trace. This is used to name the trace in the traces dashboard.
     #[serde(rename = "workflow_name", skip_serializing_if = "Option::is_none")]
@@ -32,6 +33,16 @@ impl RealtimeSessionCreateRequestTracingTracingConfiguration {
             group_id: None,
             metadata: None,
         }
+    }
+}
+
+impl<S: realtime_session_create_request_tracing_tracing_configuration_builder::State>
+    RealtimeSessionCreateRequestTracingTracingConfigurationBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeSessionCreateRequestTracingTracingConfiguration {
+        self.build_internal()
     }
 }
 

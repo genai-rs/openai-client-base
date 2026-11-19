@@ -23,7 +23,7 @@ pub enum CreateDecisionError {
 }
 
 /// Use this endpoint to quickly answer classification or scoring questions about some input. You can ask multiple questions in one request.
-#[bon::builder]
+#[bon::builder(state_mod = create_decision_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_decision(
     configuration: &configuration::Configuration,
     decision_request: &models::DecisionRequest,
@@ -84,13 +84,26 @@ pub async fn create_decision(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_decision_builder::State> CreateDecisionBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_decision_builder::IsSet,
+    S::DecisionRequest: create_decision_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::DecisionResponse, Error<CreateDecisionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Use this endpoint to quickly answer classification or scoring questions about some input. You can ask multiple questions in one request.
 ///
 /// Sends the same request as [`create_decision`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DecisionResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_decision_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_decision_response(
     configuration: &configuration::Configuration,
     decision_request: &models::DecisionRequest,
@@ -139,5 +152,20 @@ pub async fn create_decision_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: create_decision_response_builder::State> CreateDecisionResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_decision_response_builder::IsSet,
+    S::DecisionRequest: create_decision_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DecisionResponse>, Error<CreateDecisionError>> {
+        self.call_internal().await
     }
 }

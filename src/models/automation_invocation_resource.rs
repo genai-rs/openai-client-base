@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AutomationInvocationResource : One attempted delivery by an automation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_invocation_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationInvocationResource {
     /// The invocation ID.
     ///
@@ -76,6 +77,22 @@ impl AutomationInvocationResource {
             skip_reason,
             error,
         }
+    }
+}
+
+impl<S: automation_invocation_resource_builder::State> AutomationInvocationResourceBuilder<S>
+where
+    S::Id: automation_invocation_resource_builder::IsSet,
+    S::Object: automation_invocation_resource_builder::IsSet,
+    S::AutomationId: automation_invocation_resource_builder::IsSet,
+    S::CreatedAt: automation_invocation_resource_builder::IsSet,
+    S::Source: automation_invocation_resource_builder::IsSet,
+    S::Status: automation_invocation_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationInvocationResource {
+        self.build_internal()
     }
 }
 

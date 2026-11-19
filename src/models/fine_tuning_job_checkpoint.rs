@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FineTuningJobCheckpoint : The `fine_tuning.job.checkpoint` object represents a model checkpoint for a fine-tuning job that is ready to use.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tuning_job_checkpoint_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuningJobCheckpoint {
     /// The checkpoint identifier, which can be referenced in the API endpoints.
     #[serde(rename = "id")]
@@ -56,6 +57,23 @@ impl FineTuningJobCheckpoint {
             fine_tuning_job_id,
             object,
         }
+    }
+}
+
+impl<S: fine_tuning_job_checkpoint_builder::State> FineTuningJobCheckpointBuilder<S>
+where
+    S::Id: fine_tuning_job_checkpoint_builder::IsSet,
+    S::CreatedAt: fine_tuning_job_checkpoint_builder::IsSet,
+    S::FineTunedModelCheckpoint: fine_tuning_job_checkpoint_builder::IsSet,
+    S::StepNumber: fine_tuning_job_checkpoint_builder::IsSet,
+    S::Metrics: fine_tuning_job_checkpoint_builder::IsSet,
+    S::FineTuningJobId: fine_tuning_job_checkpoint_builder::IsSet,
+    S::Object: fine_tuning_job_checkpoint_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuningJobCheckpoint {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_delta_content_image_file_object_image_file_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageDeltaContentImageFileObjectImageFile {
     /// The [File](https://developers.openai.com/api/reference/resources/files) ID of the image in the message content. Set `purpose=\"vision\"` when uploading the File if you need to later display the file content.
     #[serde(rename = "file_id", skip_serializing_if = "Option::is_none")]
@@ -26,6 +27,16 @@ impl MessageDeltaContentImageFileObjectImageFile {
             file_id: None,
             detail: None,
         }
+    }
+}
+
+impl<S: message_delta_content_image_file_object_image_file_builder::State>
+    MessageDeltaContentImageFileObjectImageFileBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageDeltaContentImageFileObjectImageFile {
+        self.build_internal()
     }
 }
 

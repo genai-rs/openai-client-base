@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = skill_list_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SkillListResource {
     /// The type of object returned, must be `list`.  Defaults to `\"list\"`.
     #[serde(rename = "object")]
@@ -45,6 +46,19 @@ impl SkillListResource {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: skill_list_resource_builder::State> SkillListResourceBuilder<S>
+where
+    S::Object: skill_list_resource_builder::IsSet,
+    S::Data: skill_list_resource_builder::IsSet,
+    S::HasMore: skill_list_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SkillListResource {
+        self.build_internal()
     }
 }
 

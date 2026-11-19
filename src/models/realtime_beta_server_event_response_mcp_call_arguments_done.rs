@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventResponseMcpCallArgumentsDone : Returned when MCP tool call arguments are finalized during response generation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_response_mcp_call_arguments_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventResponseMcpCallArgumentsDone {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -51,6 +52,23 @@ impl RealtimeBetaServerEventResponseMcpCallArgumentsDone {
             output_index,
             arguments,
         }
+    }
+}
+
+impl<S: realtime_beta_server_event_response_mcp_call_arguments_done_builder::State>
+    RealtimeBetaServerEventResponseMcpCallArgumentsDoneBuilder<S>
+where
+    S::EventId: realtime_beta_server_event_response_mcp_call_arguments_done_builder::IsSet,
+    S::Type: realtime_beta_server_event_response_mcp_call_arguments_done_builder::IsSet,
+    S::ResponseId: realtime_beta_server_event_response_mcp_call_arguments_done_builder::IsSet,
+    S::ItemId: realtime_beta_server_event_response_mcp_call_arguments_done_builder::IsSet,
+    S::OutputIndex: realtime_beta_server_event_response_mcp_call_arguments_done_builder::IsSet,
+    S::Arguments: realtime_beta_server_event_response_mcp_call_arguments_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventResponseMcpCallArgumentsDone {
+        self.build_internal()
     }
 }
 

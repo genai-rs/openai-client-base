@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_request_tool_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionRequestToolMessage {
     /// The role of the messages author, in this case `tool`.
     #[serde(rename = "role")]
@@ -34,6 +35,20 @@ impl ChatCompletionRequestToolMessage {
             content,
             tool_call_id,
         }
+    }
+}
+
+impl<S: chat_completion_request_tool_message_builder::State>
+    ChatCompletionRequestToolMessageBuilder<S>
+where
+    S::Role: chat_completion_request_tool_message_builder::IsSet,
+    S::Content: chat_completion_request_tool_message_builder::IsSet,
+    S::ToolCallId: chat_completion_request_tool_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionRequestToolMessage {
+        self.build_internal()
     }
 }
 

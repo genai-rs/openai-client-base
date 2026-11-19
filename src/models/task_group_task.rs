@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// TaskGroupTask : Task entry that appears within a TaskGroup.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = task_group_task_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TaskGroupTask {
     #[serde(rename = "type")]
     pub r#type: models::TaskType,
@@ -36,6 +37,17 @@ impl TaskGroupTask {
             heading,
             summary,
         }
+    }
+}
+
+impl<S: task_group_task_builder::State> TaskGroupTaskBuilder<S>
+where
+    S::Type: task_group_task_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TaskGroupTask {
+        self.build_internal()
     }
 }
 

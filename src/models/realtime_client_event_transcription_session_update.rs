@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeClientEventTranscriptionSessionUpdate : Send this event to update a transcription session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_client_event_transcription_session_update_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeClientEventTranscriptionSessionUpdate {
     /// Optional client-generated ID used to identify this event.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
@@ -35,6 +36,19 @@ impl RealtimeClientEventTranscriptionSessionUpdate {
             r#type,
             session,
         }
+    }
+}
+
+impl<S: realtime_client_event_transcription_session_update_builder::State>
+    RealtimeClientEventTranscriptionSessionUpdateBuilder<S>
+where
+    S::Type: realtime_client_event_transcription_session_update_builder::IsSet,
+    S::Session: realtime_client_event_transcription_session_update_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeClientEventTranscriptionSessionUpdate {
+        self.build_internal()
     }
 }
 

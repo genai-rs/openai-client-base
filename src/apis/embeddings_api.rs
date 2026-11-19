@@ -61,7 +61,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for CreateEmbeddingErrorHeader
 }
 
 /// Creates an embedding vector representing the input text.
-#[bon::builder]
+#[bon::builder(state_mod = create_embedding_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_embedding(
     configuration: &configuration::Configuration,
     create_embedding_request: &models::CreateEmbeddingRequest,
@@ -143,13 +143,28 @@ pub async fn create_embedding(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_embedding_builder::State> CreateEmbeddingBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_embedding_builder::IsSet,
+    S::CreateEmbeddingRequest: create_embedding_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::CreateEmbeddingResponse, Error<CreateEmbeddingError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates an embedding vector representing the input text.
 ///
 /// Sends the same request as [`create_embedding`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::CreateEmbeddingResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_embedding_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_embedding_response(
     configuration: &configuration::Configuration,
     create_embedding_request: &models::CreateEmbeddingRequest,
@@ -219,5 +234,21 @@ pub async fn create_embedding_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: create_embedding_response_builder::State> CreateEmbeddingResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_embedding_response_builder::IsSet,
+    S::CreateEmbeddingRequest: create_embedding_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::CreateEmbeddingResponse>, Error<CreateEmbeddingError>>
+    {
+        self.call_internal().await
     }
 }

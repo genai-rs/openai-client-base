@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// MultiAgentConfigCurrentParam : Explicit configuration for creating and coordinating subagents.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = multi_agent_config_current_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MultiAgentConfigCurrentParam {
     /// Whether subagent tools are enabled.
     #[serde(rename = "enabled")]
@@ -33,6 +34,17 @@ impl MultiAgentConfigCurrentParam {
             enabled,
             max_concurrent_subagents: None,
         }
+    }
+}
+
+impl<S: multi_agent_config_current_param_builder::State> MultiAgentConfigCurrentParamBuilder<S>
+where
+    S::Enabled: multi_agent_config_current_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MultiAgentConfigCurrentParam {
+        self.build_internal()
     }
 }
 

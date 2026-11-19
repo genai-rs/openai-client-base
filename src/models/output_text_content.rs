@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// OutputTextContent : A text output from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = output_text_content_builder, finish_fn(vis = "", name = build_internal))]
 pub struct OutputTextContent {
     /// The type of the output text. Always `output_text`.  Defaults to `\"output_text\"`.
     #[serde(rename = "type")]
@@ -40,6 +41,19 @@ impl OutputTextContent {
             annotations,
             logprobs: None,
         }
+    }
+}
+
+impl<S: output_text_content_builder::State> OutputTextContentBuilder<S>
+where
+    S::Type: output_text_content_builder::IsSet,
+    S::Text: output_text_content_builder::IsSet,
+    S::Annotations: output_text_content_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> OutputTextContent {
+        self.build_internal()
     }
 }
 

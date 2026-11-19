@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// DeletedRoleAssignmentResource : Confirmation payload returned after unassigning a role.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = deleted_role_assignment_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeletedRoleAssignmentResource {
     /// Identifier for the deleted assignment, such as `group.role.deleted` or `user.role.deleted`.
     #[serde(rename = "object")]
@@ -25,6 +26,18 @@ impl DeletedRoleAssignmentResource {
     /// Confirmation payload returned after unassigning a role.
     pub fn new(object: String, deleted: bool) -> DeletedRoleAssignmentResource {
         DeletedRoleAssignmentResource { object, deleted }
+    }
+}
+
+impl<S: deleted_role_assignment_resource_builder::State> DeletedRoleAssignmentResourceBuilder<S>
+where
+    S::Object: deleted_role_assignment_resource_builder::IsSet,
+    S::Deleted: deleted_role_assignment_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeletedRoleAssignmentResource {
+        self.build_internal()
     }
 }
 

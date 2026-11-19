@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CustomToolProperties : Properties of the custom tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = custom_tool_properties_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CustomToolProperties {
     /// The name of the custom tool, used to identify it in tool calls.
     #[serde(rename = "name")]
@@ -32,6 +33,17 @@ impl CustomToolProperties {
             description: None,
             format: None,
         }
+    }
+}
+
+impl<S: custom_tool_properties_builder::State> CustomToolPropertiesBuilder<S>
+where
+    S::Name: custom_tool_properties_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CustomToolProperties {
+        self.build_internal()
     }
 }
 

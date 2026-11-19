@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveCommentaryAppended : Returned when a session.commentary.append command is accepted into the Live session timeline. Acknowledges the added commentary without guaranteeing exact wording or completed audio playback.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_commentary_appended_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveCommentaryAppended {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -45,6 +46,20 @@ impl LiveCommentaryAppended {
             end_ms,
             r#type,
         }
+    }
+}
+
+impl<S: live_commentary_appended_builder::State> LiveCommentaryAppendedBuilder<S>
+where
+    S::EventId: live_commentary_appended_builder::IsSet,
+    S::StartMs: live_commentary_appended_builder::IsSet,
+    S::EndMs: live_commentary_appended_builder::IsSet,
+    S::Type: live_commentary_appended_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveCommentaryAppended {
+        self.build_internal()
     }
 }
 

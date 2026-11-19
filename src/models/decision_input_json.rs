@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// DecisionInputJson : A JSON object or an array of objects rendered as text. Nested values may be any JSON value. Limited to 32 container levels, 10,000 values, and 256 KiB of compact UTF-8 JSON.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = decision_input_json_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DecisionInputJson {
     /// Defaults to `\"input_json\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl DecisionInputJson {
     /// A JSON object or an array of objects rendered as text. Nested values may be any JSON value. Limited to 32 container levels, 10,000 values, and 256 KiB of compact UTF-8 JSON.
     pub fn new(r#type: Type, data: models::DecisionInputJsonData) -> DecisionInputJson {
         DecisionInputJson { r#type, data }
+    }
+}
+
+impl<S: decision_input_json_builder::State> DecisionInputJsonBuilder<S>
+where
+    S::Type: decision_input_json_builder::IsSet,
+    S::Data: decision_input_json_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DecisionInputJson {
+        self.build_internal()
     }
 }
 

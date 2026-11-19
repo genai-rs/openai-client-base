@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = public_test_endpoint_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PublicTestEndpointBody {
     #[serde(rename = "event_type")]
     pub event_type: models::ProjectEventTypeEnum,
@@ -20,6 +21,17 @@ pub struct PublicTestEndpointBody {
 impl PublicTestEndpointBody {
     pub fn new(event_type: models::ProjectEventTypeEnum) -> PublicTestEndpointBody {
         PublicTestEndpointBody { event_type }
+    }
+}
+
+impl<S: public_test_endpoint_body_builder::State> PublicTestEndpointBodyBuilder<S>
+where
+    S::EventType: public_test_endpoint_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PublicTestEndpointBody {
+        self.build_internal()
     }
 }
 

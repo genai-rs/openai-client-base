@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageDeltaContentImageFileObject : References an image [File](https://developers.openai.com/api/reference/resources/files) in the content of a message.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_delta_content_image_file_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageDeltaContentImageFileObject {
     /// The index of the content part in the message.
     #[serde(rename = "index")]
@@ -32,6 +33,19 @@ impl MessageDeltaContentImageFileObject {
             r#type,
             image_file: None,
         }
+    }
+}
+
+impl<S: message_delta_content_image_file_object_builder::State>
+    MessageDeltaContentImageFileObjectBuilder<S>
+where
+    S::Index: message_delta_content_image_file_object_builder::IsSet,
+    S::Type: message_delta_content_image_file_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageDeltaContentImageFileObject {
+        self.build_internal()
     }
 }
 

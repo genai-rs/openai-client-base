@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseToolUsage : Aggregated usage details for billable tools that ran while generating the response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_tool_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseToolUsage {
     #[serde(rename = "image_gen")]
     pub image_gen: models::BetaImageGenToolUsage,
@@ -30,6 +31,18 @@ impl BetaResponseToolUsage {
             image_gen,
             web_search,
         }
+    }
+}
+
+impl<S: beta_response_tool_usage_builder::State> BetaResponseToolUsageBuilder<S>
+where
+    S::ImageGen: beta_response_tool_usage_builder::IsSet,
+    S::WebSearch: beta_response_tool_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseToolUsage {
+        self.build_internal()
     }
 }
 

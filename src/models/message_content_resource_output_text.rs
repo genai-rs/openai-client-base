@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageContentResourceOutputText : Text produced by the assistant.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_content_resource_output_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageContentResourceOutputText {
     /// The type of the object. Always `output_text`.  Defaults to `\"output_text\"`.
     #[serde(rename = "type")]
@@ -27,6 +28,19 @@ impl MessageContentResourceOutputText {
     /// Text produced by the assistant.
     pub fn new(r#type: Type, text: String) -> MessageContentResourceOutputText {
         MessageContentResourceOutputText { r#type, text }
+    }
+}
+
+impl<S: message_content_resource_output_text_builder::State>
+    MessageContentResourceOutputTextBuilder<S>
+where
+    S::Type: message_content_resource_output_text_builder::IsSet,
+    S::Text: message_content_resource_output_text_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageContentResourceOutputText {
+        self.build_internal()
     }
 }
 

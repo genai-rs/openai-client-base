@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalStoredCompletionsSource : A StoredCompletionsRunDataSource configuration describing a set of filters
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_stored_completions_source_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalStoredCompletionsSource {
     /// The type of source. Always `stored_completions`.  Defaults to `\"stored_completions\"`.
     #[serde(rename = "type")]
@@ -64,6 +65,17 @@ impl EvalStoredCompletionsSource {
             created_before: None,
             limit: None,
         }
+    }
+}
+
+impl<S: eval_stored_completions_source_builder::State> EvalStoredCompletionsSourceBuilder<S>
+where
+    S::Type: eval_stored_completions_source_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalStoredCompletionsSource {
+        self.build_internal()
     }
 }
 

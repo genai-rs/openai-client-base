@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaResponseUsageOutputTokenDetails : Details about the output tokens used in the Response.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_response_usage_output_token_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaResponseUsageOutputTokenDetails {
     /// The number of text tokens used in the Response.
     #[serde(rename = "text_tokens", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,16 @@ impl RealtimeBetaResponseUsageOutputTokenDetails {
             text_tokens: None,
             audio_tokens: None,
         }
+    }
+}
+
+impl<S: realtime_beta_response_usage_output_token_details_builder::State>
+    RealtimeBetaResponseUsageOutputTokenDetailsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaResponseUsageOutputTokenDetails {
+        self.build_internal()
     }
 }
 

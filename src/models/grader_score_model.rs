@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// GraderScoreModel : A ScoreModelGrader object that uses a model to assign a score to the input.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = grader_score_model_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GraderScoreModel {
     /// The object type, which is always `score_model`.
     #[serde(rename = "type")]
@@ -49,6 +50,20 @@ impl GraderScoreModel {
             input,
             range: None,
         }
+    }
+}
+
+impl<S: grader_score_model_builder::State> GraderScoreModelBuilder<S>
+where
+    S::Type: grader_score_model_builder::IsSet,
+    S::Name: grader_score_model_builder::IsSet,
+    S::Model: grader_score_model_builder::IsSet,
+    S::Input: grader_score_model_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GraderScoreModel {
+        self.build_internal()
     }
 }
 

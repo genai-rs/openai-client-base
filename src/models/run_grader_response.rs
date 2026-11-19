@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_grader_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunGraderResponse {
     #[serde(rename = "reward")]
     pub reward: f64,
@@ -36,6 +37,20 @@ impl RunGraderResponse {
             sub_rewards,
             model_grader_token_usage_per_model,
         }
+    }
+}
+
+impl<S: run_grader_response_builder::State> RunGraderResponseBuilder<S>
+where
+    S::Reward: run_grader_response_builder::IsSet,
+    S::Metadata: run_grader_response_builder::IsSet,
+    S::SubRewards: run_grader_response_builder::IsSet,
+    S::ModelGraderTokenUsagePerModel: run_grader_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunGraderResponse {
+        self.build_internal()
     }
 }
 

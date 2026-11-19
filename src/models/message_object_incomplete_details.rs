@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageObjectIncompleteDetails : On an incomplete message, details about why the message is incomplete.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_object_incomplete_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageObjectIncompleteDetails {
     /// The reason the message is incomplete.
     #[serde(rename = "reason")]
@@ -22,6 +23,17 @@ impl MessageObjectIncompleteDetails {
     /// On an incomplete message, details about why the message is incomplete.
     pub fn new(reason: Reason) -> MessageObjectIncompleteDetails {
         MessageObjectIncompleteDetails { reason }
+    }
+}
+
+impl<S: message_object_incomplete_details_builder::State> MessageObjectIncompleteDetailsBuilder<S>
+where
+    S::Reason: message_object_incomplete_details_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageObjectIncompleteDetails {
+        self.build_internal()
     }
 }
 

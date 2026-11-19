@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveCallReferRequest : Parameters used to transfer a Live SIP call to another destination.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_call_refer_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveCallReferRequest {
     /// URI that should appear in the SIP Refer-To header. Supports values like `tel:+14155550123` or `sip:agent@example.com`.
     #[serde(rename = "target_uri")]
@@ -22,6 +23,17 @@ impl LiveCallReferRequest {
     /// Parameters used to transfer a Live SIP call to another destination.
     pub fn new(target_uri: String) -> LiveCallReferRequest {
         LiveCallReferRequest { target_uri }
+    }
+}
+
+impl<S: live_call_refer_request_builder::State> LiveCallReferRequestBuilder<S>
+where
+    S::TargetUri: live_call_refer_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveCallReferRequest {
+        self.build_internal()
     }
 }
 

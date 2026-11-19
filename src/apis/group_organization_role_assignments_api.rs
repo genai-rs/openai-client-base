@@ -188,7 +188,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for UnassignGroupRoleErrorHead
 }
 
 /// Assigns an organization role to a group within the organization.
-#[bon::builder]
+#[bon::builder(state_mod = assign_group_role_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn assign_group_role(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -273,13 +273,27 @@ pub async fn assign_group_role(
     }
 }
 
+#[allow(deprecated)]
+impl<S: assign_group_role_builder::State> AssignGroupRoleBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: assign_group_role_builder::IsSet,
+    S::GroupId: assign_group_role_builder::IsSet,
+    S::PublicAssignOrganizationGroupRoleBody: assign_group_role_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::GroupRoleAssignment, Error<AssignGroupRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Assigns an organization role to a group within the organization.
 ///
 /// Sends the same request as [`assign_group_role`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::GroupRoleAssignment` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = assign_group_role_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn assign_group_role_response(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -355,8 +369,24 @@ pub async fn assign_group_role_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: assign_group_role_response_builder::State> AssignGroupRoleResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: assign_group_role_response_builder::IsSet,
+    S::GroupId: assign_group_role_response_builder::IsSet,
+    S::PublicAssignOrganizationGroupRoleBody: assign_group_role_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::GroupRoleAssignment>, Error<AssignGroupRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists the organization roles assigned to a group within the organization.
-#[bon::builder]
+#[bon::builder(state_mod = list_group_role_assignments_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_group_role_assignments(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -452,13 +482,29 @@ pub async fn list_group_role_assignments(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_group_role_assignments_builder::State>
+    ListGroupRoleAssignmentsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_group_role_assignments_builder::IsSet,
+    S::GroupId: list_group_role_assignments_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::RoleListResource, Error<ListGroupRoleAssignmentsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists the organization roles assigned to a group within the organization.
 ///
 /// Sends the same request as [`list_group_role_assignments`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RoleListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_group_role_assignments_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_group_role_assignments_response(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -545,8 +591,25 @@ pub async fn list_group_role_assignments_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_group_role_assignments_response_builder::State>
+    ListGroupRoleAssignmentsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_group_role_assignments_response_builder::IsSet,
+    S::GroupId: list_group_role_assignments_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::RoleListResource>, Error<ListGroupRoleAssignmentsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an organization role assigned to a group.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_group_role_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_group_role(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -630,13 +693,27 @@ pub async fn retrieve_group_role(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_group_role_builder::State> RetrieveGroupRoleBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_group_role_builder::IsSet,
+    S::GroupId: retrieve_group_role_builder::IsSet,
+    S::RoleId: retrieve_group_role_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::AssignedRoleDetails, Error<RetrieveGroupRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an organization role assigned to a group.
 ///
 /// Sends the same request as [`retrieve_group_role`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::AssignedRoleDetails` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_group_role_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_group_role_response(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -711,8 +788,26 @@ pub async fn retrieve_group_role_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_group_role_response_builder::State>
+    RetrieveGroupRoleResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_group_role_response_builder::IsSet,
+    S::GroupId: retrieve_group_role_response_builder::IsSet,
+    S::RoleId: retrieve_group_role_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::AssignedRoleDetails>, Error<RetrieveGroupRoleError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Unassigns an organization role from a group within the organization.
-#[bon::builder]
+#[bon::builder(state_mod = unassign_group_role_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn unassign_group_role(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -796,13 +891,29 @@ pub async fn unassign_group_role(
     }
 }
 
+#[allow(deprecated)]
+impl<S: unassign_group_role_builder::State> UnassignGroupRoleBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: unassign_group_role_builder::IsSet,
+    S::GroupId: unassign_group_role_builder::IsSet,
+    S::RoleId: unassign_group_role_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeletedRoleAssignmentResource, Error<UnassignGroupRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Unassigns an organization role from a group within the organization.
 ///
 /// Sends the same request as [`unassign_group_role`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeletedRoleAssignmentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = unassign_group_role_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn unassign_group_role_response(
     configuration: &configuration::Configuration,
     group_id: &str,
@@ -875,5 +986,25 @@ pub async fn unassign_group_role_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: unassign_group_role_response_builder::State>
+    UnassignGroupRoleResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: unassign_group_role_response_builder::IsSet,
+    S::GroupId: unassign_group_role_response_builder::IsSet,
+    S::RoleId: unassign_group_role_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::DeletedRoleAssignmentResource>,
+        Error<UnassignGroupRoleError>,
+    > {
+        self.call_internal().await
     }
 }

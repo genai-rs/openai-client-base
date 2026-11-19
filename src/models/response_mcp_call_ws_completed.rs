@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseMcpCallWsCompleted : Emitted when an MCP  tool call has completed successfully.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_mcp_call_ws_completed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseMcpCallWsCompleted {
     /// The type of the event. Always 'response.mcp_call.completed'.
     #[serde(rename = "type")]
@@ -45,6 +46,20 @@ impl ResponseMcpCallWsCompleted {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_mcp_call_ws_completed_builder::State> ResponseMcpCallWsCompletedBuilder<S>
+where
+    S::Type: response_mcp_call_ws_completed_builder::IsSet,
+    S::ItemId: response_mcp_call_ws_completed_builder::IsSet,
+    S::OutputIndex: response_mcp_call_ws_completed_builder::IsSet,
+    S::SequenceNumber: response_mcp_call_ws_completed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseMcpCallWsCompleted {
+        self.build_internal()
     }
 }
 

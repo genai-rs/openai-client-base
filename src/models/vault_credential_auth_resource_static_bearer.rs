@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// VaultCredentialAuthResourceStaticBearer : Metadata for a bearer-token credential, without automatic OAuth refresh.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vault_credential_auth_resource_static_bearer_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VaultCredentialAuthResourceStaticBearer {
     /// The type of the object. Always `static_bearer`.  Defaults to `\"static_bearer\"`.
     #[serde(rename = "type")]
@@ -30,6 +31,19 @@ impl VaultCredentialAuthResourceStaticBearer {
             r#type,
             mcp_server_url,
         }
+    }
+}
+
+impl<S: vault_credential_auth_resource_static_bearer_builder::State>
+    VaultCredentialAuthResourceStaticBearerBuilder<S>
+where
+    S::Type: vault_credential_auth_resource_static_bearer_builder::IsSet,
+    S::McpServerUrl: vault_credential_auth_resource_static_bearer_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VaultCredentialAuthResourceStaticBearer {
+        self.build_internal()
     }
 }
 

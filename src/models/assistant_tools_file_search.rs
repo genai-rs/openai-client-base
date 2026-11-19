@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = assistant_tools_file_search_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AssistantToolsFileSearch {
     /// The type of tool being defined: `file_search`
     #[serde(rename = "type")]
@@ -26,6 +27,17 @@ impl AssistantToolsFileSearch {
             r#type,
             file_search: None,
         }
+    }
+}
+
+impl<S: assistant_tools_file_search_builder::State> AssistantToolsFileSearchBuilder<S>
+where
+    S::Type: assistant_tools_file_search_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AssistantToolsFileSearch {
+        self.build_internal()
     }
 }
 

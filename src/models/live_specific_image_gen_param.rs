@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_specific_image_gen_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSpecificImageGenParam {
     /// The tool to call. Always `image_generation`.  Defaults to `\"image_generation\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,17 @@ pub struct LiveSpecificImageGenParam {
 impl LiveSpecificImageGenParam {
     pub fn new(r#type: Type) -> LiveSpecificImageGenParam {
         LiveSpecificImageGenParam { r#type }
+    }
+}
+
+impl<S: live_specific_image_gen_param_builder::State> LiveSpecificImageGenParamBuilder<S>
+where
+    S::Type: live_specific_image_gen_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSpecificImageGenParam {
+        self.build_internal()
     }
 }
 

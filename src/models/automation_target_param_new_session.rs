@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AutomationTargetParamNewSession : Create a session for each invocation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_target_param_new_session_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationTargetParamNewSession {
     /// The type of the object. Always `new_session`.  Defaults to `\"new_session\"`.
     #[serde(rename = "type")]
@@ -69,6 +70,20 @@ impl AutomationTargetParamNewSession {
             vault_ids: None,
             metadata: None,
         }
+    }
+}
+
+impl<S: automation_target_param_new_session_builder::State>
+    AutomationTargetParamNewSessionBuilder<S>
+where
+    S::Type: automation_target_param_new_session_builder::IsSet,
+    S::Environment: automation_target_param_new_session_builder::IsSet,
+    S::Input: automation_target_param_new_session_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationTargetParamNewSession {
+        self.build_internal()
     }
 }
 

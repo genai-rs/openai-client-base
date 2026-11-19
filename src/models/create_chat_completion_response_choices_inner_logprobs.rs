@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateChatCompletionResponseChoicesInnerLogprobs : Log probability information for the choice.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_chat_completion_response_choices_inner_logprobs_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateChatCompletionResponseChoicesInnerLogprobs {
     /// A list of message content tokens with log probability information.
     #[serde(rename = "content", default)]
@@ -29,6 +30,16 @@ impl CreateChatCompletionResponseChoicesInnerLogprobs {
         refusal: Option<Vec<models::ChatCompletionTokenLogprob>>,
     ) -> CreateChatCompletionResponseChoicesInnerLogprobs {
         CreateChatCompletionResponseChoicesInnerLogprobs { content, refusal }
+    }
+}
+
+impl<S: create_chat_completion_response_choices_inner_logprobs_builder::State>
+    CreateChatCompletionResponseChoicesInnerLogprobsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateChatCompletionResponseChoicesInnerLogprobs {
+        self.build_internal()
     }
 }
 

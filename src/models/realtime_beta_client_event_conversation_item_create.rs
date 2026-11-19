@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaClientEventConversationItemCreate : Add a new Item to the Conversation's context, including messages, function  calls, and function call responses. This event can be used both to populate a  \"history\" of the conversation and to add new items mid-stream, but has the  current limitation that it cannot populate assistant audio messages.  If successful, the server will respond with a `conversation.item.created`  event, otherwise an `error` event will be sent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_client_event_conversation_item_create_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaClientEventConversationItemCreate {
     /// Optional client-generated ID used to identify this event.
     ///
@@ -41,6 +42,19 @@ impl RealtimeBetaClientEventConversationItemCreate {
             previous_item_id: None,
             item,
         }
+    }
+}
+
+impl<S: realtime_beta_client_event_conversation_item_create_builder::State>
+    RealtimeBetaClientEventConversationItemCreateBuilder<S>
+where
+    S::Type: realtime_beta_client_event_conversation_item_create_builder::IsSet,
+    S::Item: realtime_beta_client_event_conversation_item_create_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaClientEventConversationItemCreate {
+        self.build_internal()
     }
 }
 

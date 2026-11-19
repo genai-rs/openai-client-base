@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaFunctionShellCallOutputTimeoutOutcomeParam : Indicates that the shell call exceeded its configured time limit.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_function_shell_call_output_timeout_outcome_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFunctionShellCallOutputTimeoutOutcomeParam {
     /// The outcome type. Always `timeout`.  Defaults to `\"timeout\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,18 @@ impl BetaFunctionShellCallOutputTimeoutOutcomeParam {
     /// Indicates that the shell call exceeded its configured time limit.
     pub fn new(r#type: Type) -> BetaFunctionShellCallOutputTimeoutOutcomeParam {
         BetaFunctionShellCallOutputTimeoutOutcomeParam { r#type }
+    }
+}
+
+impl<S: beta_function_shell_call_output_timeout_outcome_param_builder::State>
+    BetaFunctionShellCallOutputTimeoutOutcomeParamBuilder<S>
+where
+    S::Type: beta_function_shell_call_output_timeout_outcome_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFunctionShellCallOutputTimeoutOutcomeParam {
+        self.build_internal()
     }
 }
 

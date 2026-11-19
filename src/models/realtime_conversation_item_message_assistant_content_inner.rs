@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_conversation_item_message_assistant_content_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeConversationItemMessageAssistantContentInner {
     /// The content type, `output_text` or `output_audio` depending on the session `output_modalities` configuration.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -34,6 +35,16 @@ impl RealtimeConversationItemMessageAssistantContentInner {
             audio: None,
             transcript: None,
         }
+    }
+}
+
+impl<S: realtime_conversation_item_message_assistant_content_inner_builder::State>
+    RealtimeConversationItemMessageAssistantContentInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeConversationItemMessageAssistantContentInner {
+        self.build_internal()
     }
 }
 

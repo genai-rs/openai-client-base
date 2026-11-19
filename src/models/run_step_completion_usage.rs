@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepCompletionUsage : Usage statistics related to the run step. This value will be `null` while the run step's status is `in_progress`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_completion_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepCompletionUsage {
     /// Number of completion tokens used over the course of the run step.
     #[serde(rename = "completion_tokens")]
@@ -36,6 +37,19 @@ impl RunStepCompletionUsage {
             prompt_tokens,
             total_tokens,
         }
+    }
+}
+
+impl<S: run_step_completion_usage_builder::State> RunStepCompletionUsageBuilder<S>
+where
+    S::CompletionTokens: run_step_completion_usage_builder::IsSet,
+    S::PromptTokens: run_step_completion_usage_builder::IsSet,
+    S::TotalTokens: run_step_completion_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepCompletionUsage {
+        self.build_internal()
     }
 }
 

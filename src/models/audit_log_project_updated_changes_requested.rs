@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogProjectUpdatedChangesRequested : The payload used to update the project.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_project_updated_changes_requested_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogProjectUpdatedChangesRequested {
     /// The title of the project as seen on the dashboard.
     #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,16 @@ impl AuditLogProjectUpdatedChangesRequested {
     /// The payload used to update the project.
     pub fn new() -> AuditLogProjectUpdatedChangesRequested {
         AuditLogProjectUpdatedChangesRequested { title: None }
+    }
+}
+
+impl<S: audit_log_project_updated_changes_requested_builder::State>
+    AuditLogProjectUpdatedChangesRequestedBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogProjectUpdatedChangesRequested {
+        self.build_internal()
     }
 }
 

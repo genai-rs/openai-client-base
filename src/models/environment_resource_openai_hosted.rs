@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// EnvironmentResourceOpenaiHosted : An environment hosted by OpenAI.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = environment_resource_openai_hosted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EnvironmentResourceOpenaiHosted {
     /// The type of the object. Always `openai_hosted`.  Defaults to `\"openai_hosted\"`.
     #[serde(rename = "type")]
@@ -83,6 +84,25 @@ impl EnvironmentResourceOpenaiHosted {
             plugins,
             files,
         }
+    }
+}
+
+impl<S: environment_resource_openai_hosted_builder::State> EnvironmentResourceOpenaiHostedBuilder<S>
+where
+    S::Type: environment_resource_openai_hosted_builder::IsSet,
+    S::Id: environment_resource_openai_hosted_builder::IsSet,
+    S::Packages: environment_resource_openai_hosted_builder::IsSet,
+    S::Network: environment_resource_openai_hosted_builder::IsSet,
+    S::Desktop: environment_resource_openai_hosted_builder::IsSet,
+    S::CapabilityDirectories: environment_resource_openai_hosted_builder::IsSet,
+    S::Skills: environment_resource_openai_hosted_builder::IsSet,
+    S::Plugins: environment_resource_openai_hosted_builder::IsSet,
+    S::Files: environment_resource_openai_hosted_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EnvironmentResourceOpenaiHosted {
+        self.build_internal()
     }
 }
 

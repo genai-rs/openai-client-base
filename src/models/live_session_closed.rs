@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSessionClosed : Returned after the Live session finishes finalizing, with the close reason, final session snapshot, and cumulative audio usage. A connection closing without this event does not confirm successful finalization.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_closed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionClosed {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -48,6 +49,21 @@ impl LiveSessionClosed {
             session,
             usage,
         }
+    }
+}
+
+impl<S: live_session_closed_builder::State> LiveSessionClosedBuilder<S>
+where
+    S::EventId: live_session_closed_builder::IsSet,
+    S::Type: live_session_closed_builder::IsSet,
+    S::Reason: live_session_closed_builder::IsSet,
+    S::Session: live_session_closed_builder::IsSet,
+    S::Usage: live_session_closed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionClosed {
+        self.build_internal()
     }
 }
 

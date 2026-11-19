@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogExternalKeyRemoved : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_external_key_removed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogExternalKeyRemoved {
     /// The ID of the external key configuration.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl AuditLogExternalKeyRemoved {
     /// The details for events with this `type`.
     pub fn new() -> AuditLogExternalKeyRemoved {
         AuditLogExternalKeyRemoved { id: None }
+    }
+}
+
+impl<S: audit_log_external_key_removed_builder::State> AuditLogExternalKeyRemovedBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogExternalKeyRemoved {
+        self.build_internal()
     }
 }
 

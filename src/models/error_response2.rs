@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ErrorResponse2 : An API error response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = error_response2_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ErrorResponse2 {
     #[serde(rename = "error")]
     pub error: models::ErrorBodyResource,
@@ -22,6 +23,17 @@ impl ErrorResponse2 {
     /// An API error response.
     pub fn new(error: models::ErrorBodyResource) -> ErrorResponse2 {
         ErrorResponse2 { error }
+    }
+}
+
+impl<S: error_response2_builder::State> ErrorResponse2Builder<S>
+where
+    S::Error: error_response2_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ErrorResponse2 {
+        self.build_internal()
     }
 }
 

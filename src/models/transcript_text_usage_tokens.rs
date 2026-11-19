@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// TranscriptTextUsageTokens : Usage statistics for models billed by token usage.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = transcript_text_usage_tokens_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TranscriptTextUsageTokens {
     /// The type of the usage object. Always `tokens` for this variant.
     #[serde(rename = "type")]
@@ -48,6 +49,20 @@ impl TranscriptTextUsageTokens {
             output_tokens,
             total_tokens,
         }
+    }
+}
+
+impl<S: transcript_text_usage_tokens_builder::State> TranscriptTextUsageTokensBuilder<S>
+where
+    S::Type: transcript_text_usage_tokens_builder::IsSet,
+    S::InputTokens: transcript_text_usage_tokens_builder::IsSet,
+    S::OutputTokens: transcript_text_usage_tokens_builder::IsSet,
+    S::TotalTokens: transcript_text_usage_tokens_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TranscriptTextUsageTokens {
+        self.build_internal()
     }
 }
 

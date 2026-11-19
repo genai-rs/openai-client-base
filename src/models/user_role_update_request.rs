@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = user_role_update_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UserRoleUpdateRequest {
     /// `owner` or `reader`
     #[serde(
@@ -54,6 +55,14 @@ impl UserRoleUpdateRequest {
             technical_level: None,
             developer_persona: None,
         }
+    }
+}
+
+impl<S: user_role_update_request_builder::State> UserRoleUpdateRequestBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UserRoleUpdateRequest {
+        self.build_internal()
     }
 }
 

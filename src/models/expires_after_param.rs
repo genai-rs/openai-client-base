@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ExpiresAfterParam : Controls when the session expires relative to an anchor timestamp.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = expires_after_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ExpiresAfterParam {
     /// Base timestamp used to calculate expiration. Currently fixed to `created_at`.  Defaults to `\"created_at\"`.
     #[serde(rename = "anchor")]
@@ -27,6 +28,18 @@ impl ExpiresAfterParam {
     /// Controls when the session expires relative to an anchor timestamp.
     pub fn new(anchor: Anchor, seconds: i64) -> ExpiresAfterParam {
         ExpiresAfterParam { anchor, seconds }
+    }
+}
+
+impl<S: expires_after_param_builder::State> ExpiresAfterParamBuilder<S>
+where
+    S::Anchor: expires_after_param_builder::IsSet,
+    S::Seconds: expires_after_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ExpiresAfterParam {
+        self.build_internal()
     }
 }
 

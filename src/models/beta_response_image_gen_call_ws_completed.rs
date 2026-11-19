@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseImageGenCallWsCompleted : Emitted when an image generation tool call has completed and the final image is available.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_image_gen_call_ws_completed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseImageGenCallWsCompleted {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -55,6 +56,21 @@ impl BetaResponseImageGenCallWsCompleted {
             item_id,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_image_gen_call_ws_completed_builder::State>
+    BetaResponseImageGenCallWsCompletedBuilder<S>
+where
+    S::Type: beta_response_image_gen_call_ws_completed_builder::IsSet,
+    S::OutputIndex: beta_response_image_gen_call_ws_completed_builder::IsSet,
+    S::SequenceNumber: beta_response_image_gen_call_ws_completed_builder::IsSet,
+    S::ItemId: beta_response_image_gen_call_ws_completed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseImageGenCallWsCompleted {
+        self.build_internal()
     }
 }
 

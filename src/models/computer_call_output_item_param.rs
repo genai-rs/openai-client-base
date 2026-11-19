@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ComputerCallOutputItemParam : The output of a computer tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = computer_call_output_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ComputerCallOutputItemParam {
     /// The ID of the computer tool call output.
     #[serde(
@@ -64,6 +65,19 @@ impl ComputerCallOutputItemParam {
             acknowledged_safety_checks: None,
             status: None,
         }
+    }
+}
+
+impl<S: computer_call_output_item_param_builder::State> ComputerCallOutputItemParamBuilder<S>
+where
+    S::CallId: computer_call_output_item_param_builder::IsSet,
+    S::Type: computer_call_output_item_param_builder::IsSet,
+    S::Output: computer_call_output_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ComputerCallOutputItemParam {
+        self.build_internal()
     }
 }
 

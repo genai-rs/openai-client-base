@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = model_response_properties_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ModelResponseProperties {
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
@@ -98,6 +99,14 @@ impl ModelResponseProperties {
             prompt_cache_key: None,
             prompt_cache_retention: None,
         }
+    }
+}
+
+impl<S: model_response_properties_builder::State> ModelResponsePropertiesBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ModelResponseProperties {
+        self.build_internal()
     }
 }
 

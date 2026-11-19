@@ -14,6 +14,7 @@ use serde_repr::{Deserialize_repr, Serialize_repr};
 
 /// LiveSessionAudioFormatPcmParam : Raw, mono 16-bit little-endian PCM audio for a Live WebSocket connection.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_audio_format_pcm_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionAudioFormatPcmParam {
     /// The audio encoding. Always `audio/pcm`.  Defaults to `\"audio/pcm\"`.
     #[serde(rename = "type")]
@@ -29,6 +30,18 @@ impl LiveSessionAudioFormatPcmParam {
     /// Raw, mono 16-bit little-endian PCM audio for a Live WebSocket connection.
     pub fn new(r#type: Type, rate: Rate) -> LiveSessionAudioFormatPcmParam {
         LiveSessionAudioFormatPcmParam { r#type, rate }
+    }
+}
+
+impl<S: live_session_audio_format_pcm_param_builder::State> LiveSessionAudioFormatPcmParamBuilder<S>
+where
+    S::Type: live_session_audio_format_pcm_param_builder::IsSet,
+    S::Rate: live_session_audio_format_pcm_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionAudioFormatPcmParam {
+        self.build_internal()
     }
 }
 

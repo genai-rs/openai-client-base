@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BrowserAuthenticationFieldResource : A control in a registered browser-login form.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = browser_authentication_field_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BrowserAuthenticationFieldResource {
     /// The field ID to submit as field_id in a fields entry.
     ///
@@ -47,6 +48,21 @@ impl BrowserAuthenticationFieldResource {
             r#type,
             required,
         }
+    }
+}
+
+impl<S: browser_authentication_field_resource_builder::State>
+    BrowserAuthenticationFieldResourceBuilder<S>
+where
+    S::Id: browser_authentication_field_resource_builder::IsSet,
+    S::Label: browser_authentication_field_resource_builder::IsSet,
+    S::Type: browser_authentication_field_resource_builder::IsSet,
+    S::Required: browser_authentication_field_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BrowserAuthenticationFieldResource {
+        self.build_internal()
     }
 }
 

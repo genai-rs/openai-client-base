@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseStreamOptions : Options for streaming responses. Only set this when you set `stream: true`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_stream_options_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseStreamOptions {
     /// When true, stream obfuscation will be enabled. Stream obfuscation adds random characters to an `obfuscation` field on streaming delta events to normalize payload sizes as a mitigation to certain side-channel attacks. These obfuscation fields are included by default, but add a small amount of overhead to the data stream. You can set `include_obfuscation` to false to optimize for bandwidth if you trust the network links between your application and the OpenAI API.
     #[serde(
@@ -27,6 +28,14 @@ impl ResponseStreamOptions {
         ResponseStreamOptions {
             include_obfuscation: None,
         }
+    }
+}
+
+impl<S: response_stream_options_builder::State> ResponseStreamOptionsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseStreamOptions {
+        self.build_internal()
     }
 }
 

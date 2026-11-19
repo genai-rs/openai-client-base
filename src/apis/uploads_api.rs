@@ -60,7 +60,7 @@ pub enum CreateUploadError {
 }
 
 /// Adds a [Part](https://developers.openai.com/api/reference/resources/uploads/subresources/parts) to an [Upload](https://developers.openai.com/api/reference/resources/uploads) object. A Part represents a chunk of bytes from the file you are trying to upload.  Each Part can be at most 64 MB, and you can add Parts until you hit the Upload maximum of 8 GB.  It is possible to add multiple Parts in parallel. You can decide the intended order of the Parts when you [complete the Upload](https://developers.openai.com/api/reference/resources/uploads/methods/complete).
-#[bon::builder]
+#[bon::builder(state_mod = add_upload_part_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn add_upload_part(
     configuration: &configuration::Configuration,
     upload_id: &str,
@@ -151,13 +151,27 @@ pub async fn add_upload_part(
     }
 }
 
+#[allow(deprecated)]
+impl<S: add_upload_part_builder::State> AddUploadPartBuilder<'_, '_, '_, S>
+where
+    S::Configuration: add_upload_part_builder::IsSet,
+    S::UploadId: add_upload_part_builder::IsSet,
+    S::Data: add_upload_part_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UploadPart, Error<AddUploadPartError>> {
+        self.call_internal().await
+    }
+}
+
 /// Adds a [Part](https://developers.openai.com/api/reference/resources/uploads/subresources/parts) to an [Upload](https://developers.openai.com/api/reference/resources/uploads) object. A Part represents a chunk of bytes from the file you are trying to upload.  Each Part can be at most 64 MB, and you can add Parts until you hit the Upload maximum of 8 GB.  It is possible to add multiple Parts in parallel. You can decide the intended order of the Parts when you [complete the Upload](https://developers.openai.com/api/reference/resources/uploads/methods/complete).
 ///
 /// Sends the same request as [`add_upload_part`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UploadPart` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = add_upload_part_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn add_upload_part_response(
     configuration: &configuration::Configuration,
     upload_id: &str,
@@ -239,8 +253,24 @@ pub async fn add_upload_part_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: add_upload_part_response_builder::State> AddUploadPartResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: add_upload_part_response_builder::IsSet,
+    S::UploadId: add_upload_part_response_builder::IsSet,
+    S::Data: add_upload_part_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UploadPart>, Error<AddUploadPartError>> {
+        self.call_internal().await
+    }
+}
+
 /// Cancels the Upload. No Parts may be added after an Upload is cancelled.  Returns the Upload object with status `cancelled`.
-#[bon::builder]
+#[bon::builder(state_mod = cancel_upload_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_upload(
     configuration: &configuration::Configuration,
     upload_id: &str,
@@ -321,13 +351,26 @@ pub async fn cancel_upload(
     }
 }
 
+#[allow(deprecated)]
+impl<S: cancel_upload_builder::State> CancelUploadBuilder<'_, '_, '_, S>
+where
+    S::Configuration: cancel_upload_builder::IsSet,
+    S::UploadId: cancel_upload_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Upload, Error<CancelUploadError>> {
+        self.call_internal().await
+    }
+}
+
 /// Cancels the Upload. No Parts may be added after an Upload is cancelled.  Returns the Upload object with status `cancelled`.
 ///
 /// Sends the same request as [`cancel_upload`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Upload` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = cancel_upload_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn cancel_upload_response(
     configuration: &configuration::Configuration,
     upload_id: &str,
@@ -399,8 +442,23 @@ pub async fn cancel_upload_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: cancel_upload_response_builder::State> CancelUploadResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: cancel_upload_response_builder::IsSet,
+    S::UploadId: cancel_upload_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Upload>, Error<CancelUploadError>> {
+        self.call_internal().await
+    }
+}
+
 /// Completes the [Upload](https://developers.openai.com/api/reference/resources/uploads).  Within the returned Upload object, there is a nested [File](https://developers.openai.com/api/reference/resources/files) object that is ready to use in the rest of the platform.  You can specify the order of the Parts by passing in an ordered list of the Part IDs.  The number of bytes uploaded upon completion must match the number of bytes initially specified when creating the Upload object. No Parts may be added after an Upload is completed. Returns the Upload object with status `completed`, including an additional `file` property containing the created usable File object.
-#[bon::builder]
+#[bon::builder(state_mod = complete_upload_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn complete_upload(
     configuration: &configuration::Configuration,
     upload_id: &str,
@@ -487,13 +545,27 @@ pub async fn complete_upload(
     }
 }
 
+#[allow(deprecated)]
+impl<S: complete_upload_builder::State> CompleteUploadBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: complete_upload_builder::IsSet,
+    S::UploadId: complete_upload_builder::IsSet,
+    S::CompleteUploadRequest: complete_upload_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Upload, Error<CompleteUploadError>> {
+        self.call_internal().await
+    }
+}
+
 /// Completes the [Upload](https://developers.openai.com/api/reference/resources/uploads).  Within the returned Upload object, there is a nested [File](https://developers.openai.com/api/reference/resources/files) object that is ready to use in the rest of the platform.  You can specify the order of the Parts by passing in an ordered list of the Part IDs.  The number of bytes uploaded upon completion must match the number of bytes initially specified when creating the Upload object. No Parts may be added after an Upload is completed. Returns the Upload object with status `completed`, including an additional `file` property containing the created usable File object.
 ///
 /// Sends the same request as [`complete_upload`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Upload` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = complete_upload_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn complete_upload_response(
     configuration: &configuration::Configuration,
     upload_id: &str,
@@ -571,8 +643,24 @@ pub async fn complete_upload_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: complete_upload_response_builder::State> CompleteUploadResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: complete_upload_response_builder::IsSet,
+    S::UploadId: complete_upload_response_builder::IsSet,
+    S::CompleteUploadRequest: complete_upload_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Upload>, Error<CompleteUploadError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates an intermediate [Upload](https://developers.openai.com/api/reference/resources/uploads) object that you can add [Parts](https://developers.openai.com/api/reference/resources/uploads/subresources/parts) to. Currently, an Upload can accept at most 8 GB in total and expires after an hour after you create it.  Once you complete the Upload, we will create a [File](https://developers.openai.com/api/reference/resources/files) object that contains all the parts you uploaded. This File is usable in the rest of our platform as a regular File object.  For certain `purpose` values, the correct `mime_type` must be specified. Please refer to documentation for the [supported MIME types for your use case](https://developers.openai.com/api/docs/guides/tools-file-search#supported-files).  For guidance on the proper filename extensions for each purpose, please follow the documentation on [creating a File](https://developers.openai.com/api/reference/resources/files/methods/create).  Returns the Upload object with status `pending`.
-#[bon::builder]
+#[bon::builder(state_mod = create_upload_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_upload(
     configuration: &configuration::Configuration,
     create_upload_request: &models::CreateUploadRequest,
@@ -644,13 +732,26 @@ pub async fn create_upload(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_upload_builder::State> CreateUploadBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_upload_builder::IsSet,
+    S::CreateUploadRequest: create_upload_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Upload, Error<CreateUploadError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates an intermediate [Upload](https://developers.openai.com/api/reference/resources/uploads) object that you can add [Parts](https://developers.openai.com/api/reference/resources/uploads/subresources/parts) to. Currently, an Upload can accept at most 8 GB in total and expires after an hour after you create it.  Once you complete the Upload, we will create a [File](https://developers.openai.com/api/reference/resources/files) object that contains all the parts you uploaded. This File is usable in the rest of our platform as a regular File object.  For certain `purpose` values, the correct `mime_type` must be specified. Please refer to documentation for the [supported MIME types for your use case](https://developers.openai.com/api/docs/guides/tools-file-search#supported-files).  For guidance on the proper filename extensions for each purpose, please follow the documentation on [creating a File](https://developers.openai.com/api/reference/resources/files/methods/create).  Returns the Upload object with status `pending`.
 ///
 /// Sends the same request as [`create_upload`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Upload` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_upload_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_upload_response(
     configuration: &configuration::Configuration,
     create_upload_request: &models::CreateUploadRequest,
@@ -710,5 +811,20 @@ pub async fn create_upload_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: create_upload_response_builder::State> CreateUploadResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_upload_response_builder::IsSet,
+    S::CreateUploadRequest: create_upload_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Upload>, Error<CreateUploadError>> {
+        self.call_internal().await
     }
 }

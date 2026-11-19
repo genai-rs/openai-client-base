@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_create_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectCreateRequest {
     /// The friendly name of the project, this name appears in reports.
     #[serde(rename = "name")]
@@ -50,6 +51,17 @@ impl ProjectCreateRequest {
             residency: None,
             external_key_id: None,
         }
+    }
+}
+
+impl<S: project_create_request_builder::State> ProjectCreateRequestBuilder<S>
+where
+    S::Name: project_create_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectCreateRequest {
+        self.build_internal()
     }
 }
 

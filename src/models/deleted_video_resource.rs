@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// DeletedVideoResource : Confirmation payload returned after deleting a video.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = deleted_video_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeletedVideoResource {
     /// The object type that signals the deletion response.  Defaults to `\"video.deleted\"`.
     #[serde(rename = "object")]
@@ -32,6 +33,19 @@ impl DeletedVideoResource {
             deleted,
             id,
         }
+    }
+}
+
+impl<S: deleted_video_resource_builder::State> DeletedVideoResourceBuilder<S>
+where
+    S::Object: deleted_video_resource_builder::IsSet,
+    S::Deleted: deleted_video_resource_builder::IsSet,
+    S::Id: deleted_video_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeletedVideoResource {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateModerationResponseResultsInnerCategoryAppliedInputTypes : A list of the categories along with the input type(s) that the score applies to.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_moderation_response_results_inner_category_applied_input_types_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateModerationResponseResultsInnerCategoryAppliedInputTypes {
     /// The applied input type(s) for the category 'hate'.
     #[serde(rename = "hate")]
@@ -86,6 +87,41 @@ impl CreateModerationResponseResultsInnerCategoryAppliedInputTypes {
             violence,
             violence_slash_graphic,
         }
+    }
+}
+
+impl<S: create_moderation_response_results_inner_category_applied_input_types_builder::State>
+    CreateModerationResponseResultsInnerCategoryAppliedInputTypesBuilder<S>
+where
+    S::Hate: create_moderation_response_results_inner_category_applied_input_types_builder::IsSet,
+    S::HateSlashThreatening:
+        create_moderation_response_results_inner_category_applied_input_types_builder::IsSet,
+    S::Harassment:
+        create_moderation_response_results_inner_category_applied_input_types_builder::IsSet,
+    S::HarassmentSlashThreatening:
+        create_moderation_response_results_inner_category_applied_input_types_builder::IsSet,
+    S::Illicit:
+        create_moderation_response_results_inner_category_applied_input_types_builder::IsSet,
+    S::IllicitSlashViolent:
+        create_moderation_response_results_inner_category_applied_input_types_builder::IsSet,
+    S::SelfHarm:
+        create_moderation_response_results_inner_category_applied_input_types_builder::IsSet,
+    S::SelfHarmSlashIntent:
+        create_moderation_response_results_inner_category_applied_input_types_builder::IsSet,
+    S::SelfHarmSlashInstructions:
+        create_moderation_response_results_inner_category_applied_input_types_builder::IsSet,
+    S::Sexual: create_moderation_response_results_inner_category_applied_input_types_builder::IsSet,
+    S::SexualSlashMinors:
+        create_moderation_response_results_inner_category_applied_input_types_builder::IsSet,
+    S::Violence:
+        create_moderation_response_results_inner_category_applied_input_types_builder::IsSet,
+    S::ViolenceSlashGraphic:
+        create_moderation_response_results_inner_category_applied_input_types_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateModerationResponseResultsInnerCategoryAppliedInputTypes {
+        self.build_internal()
     }
 }
 

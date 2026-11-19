@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_container_network_policy_domain_secret_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaContainerNetworkPolicyDomainSecretParam {
     /// The domain associated with the secret.
     ///
@@ -40,6 +41,20 @@ impl BetaContainerNetworkPolicyDomainSecretParam {
             name,
             value,
         }
+    }
+}
+
+impl<S: beta_container_network_policy_domain_secret_param_builder::State>
+    BetaContainerNetworkPolicyDomainSecretParamBuilder<S>
+where
+    S::Domain: beta_container_network_policy_domain_secret_param_builder::IsSet,
+    S::Name: beta_container_network_policy_domain_secret_param_builder::IsSet,
+    S::Value: beta_container_network_policy_domain_secret_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaContainerNetworkPolicyDomainSecretParam {
+        self.build_internal()
     }
 }
 

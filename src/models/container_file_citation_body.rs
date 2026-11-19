@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ContainerFileCitationBody : A citation for a container file used to generate a model response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = container_file_citation_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ContainerFileCitationBody {
     /// The type of the container file citation. Always `container_file_citation`.  Defaults to `\"container_file_citation\"`.
     #[serde(rename = "type")]
@@ -51,6 +52,22 @@ impl ContainerFileCitationBody {
             end_index,
             filename,
         }
+    }
+}
+
+impl<S: container_file_citation_body_builder::State> ContainerFileCitationBodyBuilder<S>
+where
+    S::Type: container_file_citation_body_builder::IsSet,
+    S::ContainerId: container_file_citation_body_builder::IsSet,
+    S::FileId: container_file_citation_body_builder::IsSet,
+    S::StartIndex: container_file_citation_body_builder::IsSet,
+    S::EndIndex: container_file_citation_body_builder::IsSet,
+    S::Filename: container_file_citation_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ContainerFileCitationBody {
+        self.build_internal()
     }
 }
 

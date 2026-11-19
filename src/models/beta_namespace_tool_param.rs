@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaNamespaceToolParam : Groups function/custom tools under a shared namespace.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_namespace_tool_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaNamespaceToolParam {
     /// The type of the tool. Always `namespace`.  Defaults to `\"namespace\"`.
     #[serde(rename = "type")]
@@ -46,6 +47,20 @@ impl BetaNamespaceToolParam {
             description,
             tools,
         }
+    }
+}
+
+impl<S: beta_namespace_tool_param_builder::State> BetaNamespaceToolParamBuilder<S>
+where
+    S::Type: beta_namespace_tool_param_builder::IsSet,
+    S::Name: beta_namespace_tool_param_builder::IsSet,
+    S::Description: beta_namespace_tool_param_builder::IsSet,
+    S::Tools: beta_namespace_tool_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaNamespaceToolParam {
+        self.build_internal()
     }
 }
 

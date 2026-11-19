@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSessionCreateResponseTransportObject1 : The SIP transport. Trunk credentials and SDP are not returned.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_create_response_transport_object1_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionCreateResponseTransportObject1 {
     /// The transport used for the Live session. Always `sip`.
     #[serde(rename = "type")]
@@ -22,6 +23,18 @@ impl LiveSessionCreateResponseTransportObject1 {
     /// The SIP transport. Trunk credentials and SDP are not returned.
     pub fn new(r#type: Type) -> LiveSessionCreateResponseTransportObject1 {
         LiveSessionCreateResponseTransportObject1 { r#type }
+    }
+}
+
+impl<S: live_session_create_response_transport_object1_builder::State>
+    LiveSessionCreateResponseTransportObject1Builder<S>
+where
+    S::Type: live_session_create_response_transport_object1_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionCreateResponseTransportObject1 {
+        self.build_internal()
     }
 }
 

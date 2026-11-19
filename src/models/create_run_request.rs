@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_run_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateRunRequest {
     /// The ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) to use to execute this run.
     #[serde(rename = "assistant_id")]
@@ -154,6 +155,17 @@ impl CreateRunRequest {
             parallel_tool_calls: None,
             response_format: None,
         }
+    }
+}
+
+impl<S: create_run_request_builder::State> CreateRunRequestBuilder<S>
+where
+    S::AssistantId: create_run_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateRunRequest {
+        self.build_internal()
     }
 }
 

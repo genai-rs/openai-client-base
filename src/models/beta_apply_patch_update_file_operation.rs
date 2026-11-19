@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaApplyPatchUpdateFileOperation : Instruction describing how to update a file via the apply_patch tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_apply_patch_update_file_operation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaApplyPatchUpdateFileOperation {
     /// Update an existing file with the provided diff.  Defaults to `\"update_file\"`.
     #[serde(rename = "type")]
@@ -28,6 +29,20 @@ impl BetaApplyPatchUpdateFileOperation {
     /// Instruction describing how to update a file via the apply_patch tool.
     pub fn new(r#type: Type, path: String, diff: String) -> BetaApplyPatchUpdateFileOperation {
         BetaApplyPatchUpdateFileOperation { r#type, path, diff }
+    }
+}
+
+impl<S: beta_apply_patch_update_file_operation_builder::State>
+    BetaApplyPatchUpdateFileOperationBuilder<S>
+where
+    S::Type: beta_apply_patch_update_file_operation_builder::IsSet,
+    S::Path: beta_apply_patch_update_file_operation_builder::IsSet,
+    S::Diff: beta_apply_patch_update_file_operation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaApplyPatchUpdateFileOperation {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// Prompt : Reference to a prompt template and its variables. [Learn more](https://developers.openai.com/api/docs/guides/text?api-mode=responses#version-prompts-in-code).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = prompt_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Prompt {
     /// The unique identifier of the prompt template to use.
     #[serde(rename = "id")]
@@ -44,6 +45,17 @@ impl Prompt {
             version: None,
             variables: None,
         }
+    }
+}
+
+impl<S: prompt_builder::State> PromptBuilder<S>
+where
+    S::Id: prompt_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Prompt {
+        self.build_internal()
     }
 }
 

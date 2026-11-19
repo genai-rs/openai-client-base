@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaBackgroundOptionsParam : Options for background execution.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_background_options_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaBackgroundOptionsParam {
     #[serde(rename = "completion_window", skip_serializing_if = "Option::is_none")]
     pub completion_window: Option<models::BetaBackgroundCompletionWindowEnum>,
@@ -28,6 +29,14 @@ impl BetaBackgroundOptionsParam {
             completion_window: None,
             continuation_id: None,
         }
+    }
+}
+
+impl<S: beta_background_options_param_builder::State> BetaBackgroundOptionsParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaBackgroundOptionsParam {
+        self.build_internal()
     }
 }
 

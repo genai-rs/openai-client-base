@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookBatchFailed : Sent when a batch API request has failed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_batch_failed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookBatchFailed {
     /// The Unix timestamp (in seconds) of when the batch API request failed.
     #[serde(rename = "created_at", with = "super::unix_time")]
@@ -45,6 +46,20 @@ impl WebhookBatchFailed {
             object: None,
             r#type,
         }
+    }
+}
+
+impl<S: webhook_batch_failed_builder::State> WebhookBatchFailedBuilder<S>
+where
+    S::CreatedAt: webhook_batch_failed_builder::IsSet,
+    S::Id: webhook_batch_failed_builder::IsSet,
+    S::Data: webhook_batch_failed_builder::IsSet,
+    S::Type: webhook_batch_failed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookBatchFailed {
+        self.build_internal()
     }
 }
 

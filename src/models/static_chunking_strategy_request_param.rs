@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// StaticChunkingStrategyRequestParam : Customize your own chunking strategy by setting chunk size and chunk overlap.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = static_chunking_strategy_request_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct StaticChunkingStrategyRequestParam {
     /// Always `static`.
     #[serde(rename = "type")]
@@ -28,6 +29,19 @@ impl StaticChunkingStrategyRequestParam {
         r#static: models::StaticChunkingStrategy,
     ) -> StaticChunkingStrategyRequestParam {
         StaticChunkingStrategyRequestParam { r#type, r#static }
+    }
+}
+
+impl<S: static_chunking_strategy_request_param_builder::State>
+    StaticChunkingStrategyRequestParamBuilder<S>
+where
+    S::Type: static_chunking_strategy_request_param_builder::IsSet,
+    S::Static: static_chunking_strategy_request_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> StaticChunkingStrategyRequestParam {
+        self.build_internal()
     }
 }
 

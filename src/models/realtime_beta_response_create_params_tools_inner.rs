@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_response_create_params_tools_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaResponseCreateParamsToolsInner {
     /// The type of the tool, i.e. `function`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -34,6 +35,16 @@ impl RealtimeBetaResponseCreateParamsToolsInner {
             description: None,
             parameters: None,
         }
+    }
+}
+
+impl<S: realtime_beta_response_create_params_tools_inner_builder::State>
+    RealtimeBetaResponseCreateParamsToolsInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaResponseCreateParamsToolsInner {
+        self.build_internal()
     }
 }
 

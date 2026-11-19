@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeSessionCreateRequestGa : Realtime session object configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_session_create_request_ga_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeSessionCreateRequestGa {
     /// The type of session to create. Always `realtime` for the Realtime API.
     #[serde(rename = "type")]
@@ -83,6 +84,17 @@ impl RealtimeSessionCreateRequestGa {
             truncation: None,
             prompt: None,
         }
+    }
+}
+
+impl<S: realtime_session_create_request_ga_builder::State> RealtimeSessionCreateRequestGaBuilder<S>
+where
+    S::Type: realtime_session_create_request_ga_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeSessionCreateRequestGa {
+        self.build_internal()
     }
 }
 

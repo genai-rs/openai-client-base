@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseCodeInterpreterCallInterpretingEvent : Emitted when the code interpreter is actively interpreting the code snippet.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_code_interpreter_call_interpreting_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseCodeInterpreterCallInterpretingEvent {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -51,6 +52,21 @@ impl BetaResponseCodeInterpreterCallInterpretingEvent {
             item_id,
             sequence_number,
         }
+    }
+}
+
+impl<S: beta_response_code_interpreter_call_interpreting_event_builder::State>
+    BetaResponseCodeInterpreterCallInterpretingEventBuilder<S>
+where
+    S::Type: beta_response_code_interpreter_call_interpreting_event_builder::IsSet,
+    S::OutputIndex: beta_response_code_interpreter_call_interpreting_event_builder::IsSet,
+    S::ItemId: beta_response_code_interpreter_call_interpreting_event_builder::IsSet,
+    S::SequenceNumber: beta_response_code_interpreter_call_interpreting_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseCodeInterpreterCallInterpretingEvent {
+        self.build_internal()
     }
 }
 

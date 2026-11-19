@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RequiredMcpApprovalResponse : Supply `approve` using the MCP approval response input schema. An optional `reason` can be supplied when denying the request. The original approval request identifies the tool and server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = required_mcp_approval_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RequiredMcpApprovalResponse {
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -26,6 +27,18 @@ impl RequiredMcpApprovalResponse {
             r#type,
             approval_request_id,
         }
+    }
+}
+
+impl<S: required_mcp_approval_response_builder::State> RequiredMcpApprovalResponseBuilder<S>
+where
+    S::Type: required_mcp_approval_response_builder::IsSet,
+    S::ApprovalRequestId: required_mcp_approval_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RequiredMcpApprovalResponse {
+        self.build_internal()
     }
 }
 

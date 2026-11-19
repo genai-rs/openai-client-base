@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// Error2 : An error that occurred while generating the response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = error2_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Error2 {
     /// A machine-readable error code that was returned.
     #[serde(rename = "code")]
@@ -54,6 +55,18 @@ impl Error2 {
             headers: None,
             misalignment: None,
         }
+    }
+}
+
+impl<S: error2_builder::State> Error2Builder<S>
+where
+    S::Code: error2_builder::IsSet,
+    S::Message: error2_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Error2 {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseUsage : Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseUsage {
     /// The number of input tokens.
     #[serde(rename = "input_tokens")]
@@ -45,6 +46,21 @@ impl ResponseUsage {
             output_tokens_details,
             total_tokens,
         }
+    }
+}
+
+impl<S: response_usage_builder::State> ResponseUsageBuilder<S>
+where
+    S::InputTokens: response_usage_builder::IsSet,
+    S::InputTokensDetails: response_usage_builder::IsSet,
+    S::OutputTokens: response_usage_builder::IsSet,
+    S::OutputTokensDetails: response_usage_builder::IsSet,
+    S::TotalTokens: response_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseUsage {
+        self.build_internal()
     }
 }
 

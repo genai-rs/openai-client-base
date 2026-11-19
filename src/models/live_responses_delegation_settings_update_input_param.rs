@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveResponsesDelegationSettingsUpdateInputParam : Updates to the Responses backend of an existing Live session. Omitted settings retain their current values.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_responses_delegation_settings_update_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveResponsesDelegationSettingsUpdateInputParam {
     /// The Responses backend model to use for subsequent delegated requests. Omit to keep the current backend model.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
@@ -85,6 +86,16 @@ impl LiveResponsesDelegationSettingsUpdateInputParam {
             tool_choice: None,
             parallel_tool_calls: None,
         }
+    }
+}
+
+impl<S: live_responses_delegation_settings_update_input_param_builder::State>
+    LiveResponsesDelegationSettingsUpdateInputParamBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveResponsesDelegationSettingsUpdateInputParam {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_container_auto_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaContainerAutoParam {
     /// Automatically creates a container for this request  Defaults to `\"container_auto\"`.
     #[serde(rename = "type")]
@@ -46,6 +47,17 @@ impl BetaContainerAutoParam {
             network_policy: None,
             skills: None,
         }
+    }
+}
+
+impl<S: beta_container_auto_param_builder::State> BetaContainerAutoParamBuilder<S>
+where
+    S::Type: beta_container_auto_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaContainerAutoParam {
+        self.build_internal()
     }
 }
 

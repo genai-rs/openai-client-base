@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeResponseCreateParams : Create a new Realtime response with these parameters
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_response_create_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeResponseCreateParams {
     /// The set of modalities the model used to respond, currently the only possible values are `[\\\"audio\\\"]`, `[\\\"text\\\"]`. Audio output always include a text transcript. Setting the output to mode `text` will disable audio output from the model.
     #[serde(rename = "output_modalities", skip_serializing_if = "Option::is_none")]
@@ -76,6 +77,14 @@ impl RealtimeResponseCreateParams {
             prompt: None,
             input: None,
         }
+    }
+}
+
+impl<S: realtime_response_create_params_builder::State> RealtimeResponseCreateParamsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeResponseCreateParams {
+        self.build_internal()
     }
 }
 

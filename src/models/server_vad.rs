@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ServerVad : Server-side voice activity detection (VAD) which flips on when user speech is detected and off after a period of silence.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = server_vad_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ServerVad {
     /// Type of turn detection, `server_vad` to turn on simple Server VAD.  Defaults to `\"server_vad\"`.
     #[serde(rename = "type")]
@@ -58,6 +59,17 @@ impl ServerVad {
             interrupt_response: None,
             idle_timeout_ms: None,
         }
+    }
+}
+
+impl<S: server_vad_builder::State> ServerVadBuilder<S>
+where
+    S::Type: server_vad_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ServerVad {
+        self.build_internal()
     }
 }
 

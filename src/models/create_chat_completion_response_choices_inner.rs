@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_chat_completion_response_choices_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateChatCompletionResponseChoicesInner {
     /// The reason the model stopped generating tokens. This will be `stop` if the model hit a natural stop point or a provided stop sequence, `length` if the maximum number of tokens specified in the request was reached, `content_filter` if content was omitted due to a flag from our content filters, `tool_calls` if the model called a tool, or `function_call` (deprecated) if the model called a function. Read the [Model Spec](https://model-spec.openai.com/2025-12-18.html) for more.
     #[serde(rename = "finish_reason")]
@@ -38,6 +39,20 @@ impl CreateChatCompletionResponseChoicesInner {
             message,
             logprobs,
         }
+    }
+}
+
+impl<S: create_chat_completion_response_choices_inner_builder::State>
+    CreateChatCompletionResponseChoicesInnerBuilder<S>
+where
+    S::FinishReason: create_chat_completion_response_choices_inner_builder::IsSet,
+    S::Index: create_chat_completion_response_choices_inner_builder::IsSet,
+    S::Message: create_chat_completion_response_choices_inner_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateChatCompletionResponseChoicesInner {
+        self.build_internal()
     }
 }
 

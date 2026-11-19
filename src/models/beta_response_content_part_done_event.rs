@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseContentPartDoneEvent : Emitted when a content part is done.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_content_part_done_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseContentPartDoneEvent {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -60,6 +61,23 @@ impl BetaResponseContentPartDoneEvent {
             sequence_number,
             part,
         }
+    }
+}
+
+impl<S: beta_response_content_part_done_event_builder::State>
+    BetaResponseContentPartDoneEventBuilder<S>
+where
+    S::Type: beta_response_content_part_done_event_builder::IsSet,
+    S::ItemId: beta_response_content_part_done_event_builder::IsSet,
+    S::OutputIndex: beta_response_content_part_done_event_builder::IsSet,
+    S::ContentIndex: beta_response_content_part_done_event_builder::IsSet,
+    S::SequenceNumber: beta_response_content_part_done_event_builder::IsSet,
+    S::Part: beta_response_content_part_done_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseContentPartDoneEvent {
+        self.build_internal()
     }
 }
 

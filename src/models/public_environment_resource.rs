@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// PublicEnvironmentResource : Safe metadata for a first-class execution environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = public_environment_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PublicEnvironmentResource {
     #[serde(rename = "type")]
     pub r#type: models::EnvironmentTypeResource,
@@ -63,6 +64,23 @@ impl PublicEnvironmentResource {
             skills,
             plugins,
         }
+    }
+}
+
+impl<S: public_environment_resource_builder::State> PublicEnvironmentResourceBuilder<S>
+where
+    S::Type: public_environment_resource_builder::IsSet,
+    S::Id: public_environment_resource_builder::IsSet,
+    S::Object: public_environment_resource_builder::IsSet,
+    S::Status: public_environment_resource_builder::IsSet,
+    S::Files: public_environment_resource_builder::IsSet,
+    S::Skills: public_environment_resource_builder::IsSet,
+    S::Plugins: public_environment_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PublicEnvironmentResource {
+        self.build_internal()
     }
 }
 

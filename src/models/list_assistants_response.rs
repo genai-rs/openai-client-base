@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = list_assistants_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ListAssistantsResponse {
     #[serde(rename = "object")]
     pub object: String,
@@ -40,6 +41,21 @@ impl ListAssistantsResponse {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: list_assistants_response_builder::State> ListAssistantsResponseBuilder<S>
+where
+    S::Object: list_assistants_response_builder::IsSet,
+    S::Data: list_assistants_response_builder::IsSet,
+    S::FirstId: list_assistants_response_builder::IsSet,
+    S::LastId: list_assistants_response_builder::IsSet,
+    S::HasMore: list_assistants_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ListAssistantsResponse {
+        self.build_internal()
     }
 }
 

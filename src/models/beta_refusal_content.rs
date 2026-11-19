@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaRefusalContent : A refusal from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_refusal_content_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaRefusalContent {
     /// The type of the refusal. Always `refusal`.  Defaults to `\"refusal\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl BetaRefusalContent {
     /// A refusal from the model.
     pub fn new(r#type: Type, refusal: String) -> BetaRefusalContent {
         BetaRefusalContent { r#type, refusal }
+    }
+}
+
+impl<S: beta_refusal_content_builder::State> BetaRefusalContentBuilder<S>
+where
+    S::Type: beta_refusal_content_builder::IsSet,
+    S::Refusal: beta_refusal_content_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaRefusalContent {
+        self.build_internal()
     }
 }
 

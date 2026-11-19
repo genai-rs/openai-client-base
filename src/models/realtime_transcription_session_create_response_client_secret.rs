@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranscriptionSessionCreateResponseClientSecret : Ephemeral key returned by the API. Only present when the session is created on the server via REST API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_transcription_session_create_response_client_secret_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranscriptionSessionCreateResponseClientSecret {
     /// Ephemeral key usable in client environments to authenticate connections to the Realtime API. Use this in client-side environments rather than a standard API token, which should only be used server-side.
     #[serde(rename = "value")]
@@ -28,6 +29,19 @@ impl RealtimeTranscriptionSessionCreateResponseClientSecret {
         expires_at: jiff::Timestamp,
     ) -> RealtimeTranscriptionSessionCreateResponseClientSecret {
         RealtimeTranscriptionSessionCreateResponseClientSecret { value, expires_at }
+    }
+}
+
+impl<S: realtime_transcription_session_create_response_client_secret_builder::State>
+    RealtimeTranscriptionSessionCreateResponseClientSecretBuilder<S>
+where
+    S::Value: realtime_transcription_session_create_response_client_secret_builder::IsSet,
+    S::ExpiresAt: realtime_transcription_session_create_response_client_secret_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranscriptionSessionCreateResponseClientSecret {
+        self.build_internal()
     }
 }
 

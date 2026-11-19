@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_allowed_tools_choice_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveAllowedToolsChoiceParam {
     /// The tool choice type. Always `allowed_tools`.  Defaults to `\"allowed_tools\"`.
     #[serde(rename = "type")]
@@ -40,6 +41,18 @@ impl LiveAllowedToolsChoiceParam {
             tools,
             mode: None,
         }
+    }
+}
+
+impl<S: live_allowed_tools_choice_param_builder::State> LiveAllowedToolsChoiceParamBuilder<S>
+where
+    S::Type: live_allowed_tools_choice_param_builder::IsSet,
+    S::Tools: live_allowed_tools_choice_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveAllowedToolsChoiceParam {
+        self.build_internal()
     }
 }
 

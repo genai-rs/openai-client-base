@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatMessage {
     /// The role of the message (e.g. \"system\", \"assistant\", \"user\").
     #[serde(rename = "role")]
@@ -23,6 +24,18 @@ pub struct ChatMessage {
 impl ChatMessage {
     pub fn new(role: String, content: String) -> ChatMessage {
         ChatMessage { role, content }
+    }
+}
+
+impl<S: chat_message_builder::State> ChatMessageBuilder<S>
+where
+    S::Role: chat_message_builder::IsSet,
+    S::Content: chat_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatMessage {
+        self.build_internal()
     }
 }
 

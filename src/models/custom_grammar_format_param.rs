@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CustomGrammarFormatParam : A grammar defined by the user.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = custom_grammar_format_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CustomGrammarFormatParam {
     /// Grammar format. Always `grammar`.  Defaults to `\"grammar\"`.
     #[serde(rename = "type")]
@@ -36,6 +37,19 @@ impl CustomGrammarFormatParam {
             syntax,
             definition,
         }
+    }
+}
+
+impl<S: custom_grammar_format_param_builder::State> CustomGrammarFormatParamBuilder<S>
+where
+    S::Type: custom_grammar_format_param_builder::IsSet,
+    S::Syntax: custom_grammar_format_param_builder::IsSet,
+    S::Definition: custom_grammar_format_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CustomGrammarFormatParam {
+        self.build_internal()
     }
 }
 

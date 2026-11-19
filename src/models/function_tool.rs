@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FunctionTool : Defines a function in your own code the model can choose to call. Learn more about [function calling](https://developers.openai.com/api/docs/guides/function-calling).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = function_tool_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FunctionTool {
     /// The type of the function tool. Always `function`.  Defaults to `\"function\"`.
     #[serde(rename = "type")]
@@ -76,6 +77,18 @@ impl FunctionTool {
             defer_loading: None,
             allowed_callers: None,
         }
+    }
+}
+
+impl<S: function_tool_builder::State> FunctionToolBuilder<S>
+where
+    S::Type: function_tool_builder::IsSet,
+    S::Name: function_tool_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FunctionTool {
+        self.build_internal()
     }
 }
 

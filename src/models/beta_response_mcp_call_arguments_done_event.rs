@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseMcpCallArgumentsDoneEvent : Emitted when the arguments for an MCP tool call are finalized.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_mcp_call_arguments_done_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseMcpCallArgumentsDoneEvent {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -56,6 +57,22 @@ impl BetaResponseMcpCallArgumentsDoneEvent {
             arguments,
             sequence_number,
         }
+    }
+}
+
+impl<S: beta_response_mcp_call_arguments_done_event_builder::State>
+    BetaResponseMcpCallArgumentsDoneEventBuilder<S>
+where
+    S::Type: beta_response_mcp_call_arguments_done_event_builder::IsSet,
+    S::OutputIndex: beta_response_mcp_call_arguments_done_event_builder::IsSet,
+    S::ItemId: beta_response_mcp_call_arguments_done_event_builder::IsSet,
+    S::Arguments: beta_response_mcp_call_arguments_done_event_builder::IsSet,
+    S::SequenceNumber: beta_response_mcp_call_arguments_done_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseMcpCallArgumentsDoneEvent {
+        self.build_internal()
     }
 }
 

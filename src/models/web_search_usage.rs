@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebSearchUsage : Usage details for web search requests that ran while generating the response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = web_search_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebSearchUsage {
     /// The number of billable web search requests issued.
     #[serde(rename = "num_requests")]
@@ -22,6 +23,17 @@ impl WebSearchUsage {
     /// Usage details for web search requests that ran while generating the response.
     pub fn new(num_requests: i64) -> WebSearchUsage {
         WebSearchUsage { num_requests }
+    }
+}
+
+impl<S: web_search_usage_builder::State> WebSearchUsageBuilder<S>
+where
+    S::NumRequests: web_search_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebSearchUsage {
+        self.build_internal()
     }
 }
 

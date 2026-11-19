@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FineTuningJob : The `fine_tuning.job` object represents a fine-tuning job that has been created through the API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tuning_job_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuningJob {
     /// The object identifier, which can be referenced in the API endpoints.
     #[serde(rename = "id")]
@@ -136,6 +137,24 @@ impl FineTuningJob {
             method: None,
             metadata: None,
         }
+    }
+}
+
+impl<S: fine_tuning_job_builder::State> FineTuningJobBuilder<S>
+where
+    S::Id: fine_tuning_job_builder::IsSet,
+    S::CreatedAt: fine_tuning_job_builder::IsSet,
+    S::Model: fine_tuning_job_builder::IsSet,
+    S::Object: fine_tuning_job_builder::IsSet,
+    S::OrganizationId: fine_tuning_job_builder::IsSet,
+    S::ResultFiles: fine_tuning_job_builder::IsSet,
+    S::Status: fine_tuning_job_builder::IsSet,
+    S::TrainingFile: fine_tuning_job_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuningJob {
+        self.build_internal()
     }
 }
 

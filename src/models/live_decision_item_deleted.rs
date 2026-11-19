@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveDecisionItemDeleted : An input item was removed from future decisions.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_item_deleted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionItemDeleted {
     /// The unique ID of the Live server event.
     #[serde(rename = "event_id")]
@@ -35,6 +36,19 @@ impl LiveDecisionItemDeleted {
             r#type,
             item_id,
         }
+    }
+}
+
+impl<S: live_decision_item_deleted_builder::State> LiveDecisionItemDeletedBuilder<S>
+where
+    S::EventId: live_decision_item_deleted_builder::IsSet,
+    S::Type: live_decision_item_deleted_builder::IsSet,
+    S::ItemId: live_decision_item_deleted_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionItemDeleted {
+        self.build_internal()
     }
 }
 

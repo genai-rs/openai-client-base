@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// VectorStoreFileContentResponse : Represents the parsed content of a vector store file.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vector_store_file_content_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VectorStoreFileContentResponse {
     /// The object type, which is always `vector_store.file_content.page`
     #[serde(rename = "object")]
@@ -42,6 +43,19 @@ impl VectorStoreFileContentResponse {
             has_more,
             next_page,
         }
+    }
+}
+
+impl<S: vector_store_file_content_response_builder::State> VectorStoreFileContentResponseBuilder<S>
+where
+    S::Object: vector_store_file_content_response_builder::IsSet,
+    S::Data: vector_store_file_content_response_builder::IsSet,
+    S::HasMore: vector_store_file_content_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VectorStoreFileContentResponse {
+        self.build_internal()
     }
 }
 

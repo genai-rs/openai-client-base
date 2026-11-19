@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_run_per_testing_criteria_results_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalRunPerTestingCriteriaResultsInner {
     /// A description of the testing criteria.
     #[serde(rename = "testing_criteria")]
@@ -34,6 +35,20 @@ impl EvalRunPerTestingCriteriaResultsInner {
             passed,
             failed,
         }
+    }
+}
+
+impl<S: eval_run_per_testing_criteria_results_inner_builder::State>
+    EvalRunPerTestingCriteriaResultsInnerBuilder<S>
+where
+    S::TestingCriteria: eval_run_per_testing_criteria_results_inner_builder::IsSet,
+    S::Passed: eval_run_per_testing_criteria_results_inner_builder::IsSet,
+    S::Failed: eval_run_per_testing_criteria_results_inner_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalRunPerTestingCriteriaResultsInner {
+        self.build_internal()
     }
 }
 

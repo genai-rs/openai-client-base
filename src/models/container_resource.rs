@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = container_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ContainerResource {
     /// Unique identifier for the container.
     #[serde(rename = "id")]
@@ -64,6 +65,21 @@ impl ContainerResource {
             memory_limit: None,
             network_policy: None,
         }
+    }
+}
+
+impl<S: container_resource_builder::State> ContainerResourceBuilder<S>
+where
+    S::Id: container_resource_builder::IsSet,
+    S::Object: container_resource_builder::IsSet,
+    S::Name: container_resource_builder::IsSet,
+    S::CreatedAt: container_resource_builder::IsSet,
+    S::Status: container_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ContainerResource {
+        self.build_internal()
     }
 }
 

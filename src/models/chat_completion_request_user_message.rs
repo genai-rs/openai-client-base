@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionRequestUserMessage : Messages sent by an end user, containing prompts or additional context information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_request_user_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionRequestUserMessage {
     #[serde(rename = "content")]
     pub content: models::ChatCompletionRequestUserMessageContent,
@@ -35,6 +36,19 @@ impl ChatCompletionRequestUserMessage {
             role,
             name: None,
         }
+    }
+}
+
+impl<S: chat_completion_request_user_message_builder::State>
+    ChatCompletionRequestUserMessageBuilder<S>
+where
+    S::Content: chat_completion_request_user_message_builder::IsSet,
+    S::Role: chat_completion_request_user_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionRequestUserMessage {
+        self.build_internal()
     }
 }
 

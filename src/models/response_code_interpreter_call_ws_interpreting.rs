@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseCodeInterpreterCallWsInterpreting : Emitted when the code interpreter is actively interpreting the code snippet.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_code_interpreter_call_ws_interpreting_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseCodeInterpreterCallWsInterpreting {
     /// The type of the event. Always `response.code_interpreter_call.interpreting`.
     #[serde(rename = "type")]
@@ -45,6 +46,21 @@ impl ResponseCodeInterpreterCallWsInterpreting {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_code_interpreter_call_ws_interpreting_builder::State>
+    ResponseCodeInterpreterCallWsInterpretingBuilder<S>
+where
+    S::Type: response_code_interpreter_call_ws_interpreting_builder::IsSet,
+    S::OutputIndex: response_code_interpreter_call_ws_interpreting_builder::IsSet,
+    S::ItemId: response_code_interpreter_call_ws_interpreting_builder::IsSet,
+    S::SequenceNumber: response_code_interpreter_call_ws_interpreting_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseCodeInterpreterCallWsInterpreting {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseReasoningSummaryPartAddedEvent : Emitted when a new reasoning summary part is added.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_reasoning_summary_part_added_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseReasoningSummaryPartAddedEvent {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -60,6 +61,23 @@ impl BetaResponseReasoningSummaryPartAddedEvent {
             sequence_number,
             part,
         }
+    }
+}
+
+impl<S: beta_response_reasoning_summary_part_added_event_builder::State>
+    BetaResponseReasoningSummaryPartAddedEventBuilder<S>
+where
+    S::Type: beta_response_reasoning_summary_part_added_event_builder::IsSet,
+    S::ItemId: beta_response_reasoning_summary_part_added_event_builder::IsSet,
+    S::OutputIndex: beta_response_reasoning_summary_part_added_event_builder::IsSet,
+    S::SummaryIndex: beta_response_reasoning_summary_part_added_event_builder::IsSet,
+    S::SequenceNumber: beta_response_reasoning_summary_part_added_event_builder::IsSet,
+    S::Part: beta_response_reasoning_summary_part_added_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseReasoningSummaryPartAddedEvent {
+        self.build_internal()
     }
 }
 

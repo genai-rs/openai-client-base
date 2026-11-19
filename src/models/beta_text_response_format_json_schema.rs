@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaTextResponseFormatJsonSchema : JSON Schema response format. Used to generate structured JSON responses. Learn more about [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_text_response_format_json_schema_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaTextResponseFormatJsonSchema {
     /// The type of response format being defined. Always `json_schema`.
     #[serde(rename = "type")]
@@ -49,6 +50,20 @@ impl BetaTextResponseFormatJsonSchema {
             schema,
             strict: None,
         }
+    }
+}
+
+impl<S: beta_text_response_format_json_schema_builder::State>
+    BetaTextResponseFormatJsonSchemaBuilder<S>
+where
+    S::Type: beta_text_response_format_json_schema_builder::IsSet,
+    S::Name: beta_text_response_format_json_schema_builder::IsSet,
+    S::Schema: beta_text_response_format_json_schema_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaTextResponseFormatJsonSchema {
+        self.build_internal()
     }
 }
 

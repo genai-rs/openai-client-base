@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = organization_project_certificate_certificate_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct OrganizationProjectCertificateCertificateDetails {
     /// The Unix timestamp (in seconds) of when the certificate becomes valid.
     #[serde(
@@ -36,6 +37,16 @@ impl OrganizationProjectCertificateCertificateDetails {
             valid_at: None,
             expires_at: None,
         }
+    }
+}
+
+impl<S: organization_project_certificate_certificate_details_builder::State>
+    OrganizationProjectCertificateCertificateDetailsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> OrganizationProjectCertificateCertificateDetails {
+        self.build_internal()
     }
 }
 

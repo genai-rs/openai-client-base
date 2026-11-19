@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UsageEmbeddingsResult : The aggregated embeddings usage details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = usage_embeddings_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UsageEmbeddingsResult {
     #[serde(rename = "object")]
     pub object: Object,
@@ -66,6 +67,19 @@ impl UsageEmbeddingsResult {
             api_key_id: None,
             model: None,
         }
+    }
+}
+
+impl<S: usage_embeddings_result_builder::State> UsageEmbeddingsResultBuilder<S>
+where
+    S::Object: usage_embeddings_result_builder::IsSet,
+    S::InputTokens: usage_embeddings_result_builder::IsSet,
+    S::NumModelRequests: usage_embeddings_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UsageEmbeddingsResult {
+        self.build_internal()
     }
 }
 

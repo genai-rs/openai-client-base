@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventConversationItemInputAudioTranscriptionSegment : Returned when an input audio transcription segment is identified for an item.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_conversation_item_input_audio_transcription_segment_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventConversationItemInputAudioTranscriptionSegment {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -66,6 +67,25 @@ impl RealtimeBetaServerEventConversationItemInputAudioTranscriptionSegment {
             start,
             end,
         }
+    }
+}
+
+impl<S: realtime_beta_server_event_conversation_item_input_audio_transcription_segment_builder::State> RealtimeBetaServerEventConversationItemInputAudioTranscriptionSegmentBuilder<S>
+where
+    S::EventId: realtime_beta_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::Type: realtime_beta_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::ItemId: realtime_beta_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::ContentIndex: realtime_beta_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::Text: realtime_beta_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::Id: realtime_beta_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::Speaker: realtime_beta_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::Start: realtime_beta_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::End: realtime_beta_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventConversationItemInputAudioTranscriptionSegment {
+        self.build_internal()
     }
 }
 

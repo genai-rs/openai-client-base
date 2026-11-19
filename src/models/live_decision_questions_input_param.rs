@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveDecisionQuestionsInputParam : Questions evaluated using the current transcript and the session's shared Decision items.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_questions_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionQuestionsInputParam {
     /// Native Decision API questions evaluated together, in order.
     ///
@@ -25,6 +26,18 @@ impl LiveDecisionQuestionsInputParam {
     /// Questions evaluated using the current transcript and the session's shared Decision items.
     pub fn new(questions: Vec<models::LiveDecisionQuestion>) -> LiveDecisionQuestionsInputParam {
         LiveDecisionQuestionsInputParam { questions }
+    }
+}
+
+impl<S: live_decision_questions_input_param_builder::State>
+    LiveDecisionQuestionsInputParamBuilder<S>
+where
+    S::Questions: live_decision_questions_input_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionQuestionsInputParam {
+        self.build_internal()
     }
 }
 

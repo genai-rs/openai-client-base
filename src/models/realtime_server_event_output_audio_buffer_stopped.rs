@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventOutputAudioBufferStopped : **WebRTC/SIP Only:** Emitted when the output audio buffer has been completely drained on the server, and no more audio is forthcoming. This event is emitted after the full response data has been sent to the client (`response.done`). [Learn more](https://developers.openai.com/api/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_output_audio_buffer_stopped_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventOutputAudioBufferStopped {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeServerEventOutputAudioBufferStopped {
             r#type,
             response_id,
         }
+    }
+}
+
+impl<S: realtime_server_event_output_audio_buffer_stopped_builder::State>
+    RealtimeServerEventOutputAudioBufferStoppedBuilder<S>
+where
+    S::EventId: realtime_server_event_output_audio_buffer_stopped_builder::IsSet,
+    S::Type: realtime_server_event_output_audio_buffer_stopped_builder::IsSet,
+    S::ResponseId: realtime_server_event_output_audio_buffer_stopped_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventOutputAudioBufferStopped {
+        self.build_internal()
     }
 }
 

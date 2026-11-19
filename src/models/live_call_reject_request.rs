@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveCallRejectRequest : Parameters used to reject an incoming Live SIP call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_call_reject_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveCallRejectRequest {
     /// SIP rejection status sent to the caller. This field is required.
     ///
@@ -24,6 +25,17 @@ impl LiveCallRejectRequest {
     /// Parameters used to reject an incoming Live SIP call.
     pub fn new(status_code: i64) -> LiveCallRejectRequest {
         LiveCallRejectRequest { status_code }
+    }
+}
+
+impl<S: live_call_reject_request_builder::State> LiveCallRejectRequestBuilder<S>
+where
+    S::StatusCode: live_call_reject_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveCallRejectRequest {
+        self.build_internal()
     }
 }
 

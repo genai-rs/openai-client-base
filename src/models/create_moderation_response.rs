@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateModerationResponse : Represents if a given text input is potentially harmful.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_moderation_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateModerationResponse {
     /// The unique identifier for the moderation request.
     #[serde(rename = "id")]
@@ -33,6 +34,19 @@ impl CreateModerationResponse {
         results: Vec<models::CreateModerationResponseResultsInner>,
     ) -> CreateModerationResponse {
         CreateModerationResponse { id, model, results }
+    }
+}
+
+impl<S: create_moderation_response_builder::State> CreateModerationResponseBuilder<S>
+where
+    S::Id: create_moderation_response_builder::IsSet,
+    S::Model: create_moderation_response_builder::IsSet,
+    S::Results: create_moderation_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateModerationResponse {
+        self.build_internal()
     }
 }
 

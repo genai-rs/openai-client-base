@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseTextWsDelta : Emitted when there is an additional text delta.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_text_ws_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseTextWsDelta {
     /// The type of the event. Always `response.output_text.delta`.
     #[serde(rename = "type")]
@@ -60,6 +61,22 @@ impl ResponseTextWsDelta {
             logprobs: None,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_text_ws_delta_builder::State> ResponseTextWsDeltaBuilder<S>
+where
+    S::Type: response_text_ws_delta_builder::IsSet,
+    S::ItemId: response_text_ws_delta_builder::IsSet,
+    S::OutputIndex: response_text_ws_delta_builder::IsSet,
+    S::ContentIndex: response_text_ws_delta_builder::IsSet,
+    S::Delta: response_text_ws_delta_builder::IsSet,
+    S::SequenceNumber: response_text_ws_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseTextWsDelta {
+        self.build_internal()
     }
 }
 

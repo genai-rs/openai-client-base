@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ApplyPatchUpdateFileOperationParam : Instruction for updating an existing file via the apply_patch tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = apply_patch_update_file_operation_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ApplyPatchUpdateFileOperationParam {
     /// The operation type. Always `update_file`.  Defaults to `\"update_file\"`.
     #[serde(rename = "type")]
@@ -32,6 +33,20 @@ impl ApplyPatchUpdateFileOperationParam {
     /// Instruction for updating an existing file via the apply_patch tool.
     pub fn new(r#type: Type, path: String, diff: String) -> ApplyPatchUpdateFileOperationParam {
         ApplyPatchUpdateFileOperationParam { r#type, path, diff }
+    }
+}
+
+impl<S: apply_patch_update_file_operation_param_builder::State>
+    ApplyPatchUpdateFileOperationParamBuilder<S>
+where
+    S::Type: apply_patch_update_file_operation_param_builder::IsSet,
+    S::Path: apply_patch_update_file_operation_param_builder::IsSet,
+    S::Diff: apply_patch_update_file_operation_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ApplyPatchUpdateFileOperationParam {
+        self.build_internal()
     }
 }
 

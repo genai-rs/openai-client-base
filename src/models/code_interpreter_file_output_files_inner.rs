@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = code_interpreter_file_output_files_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CodeInterpreterFileOutputFilesInner {
     /// The MIME type of the file.
     #[serde(rename = "mime_type")]
@@ -23,6 +24,19 @@ pub struct CodeInterpreterFileOutputFilesInner {
 impl CodeInterpreterFileOutputFilesInner {
     pub fn new(mime_type: String, file_id: String) -> CodeInterpreterFileOutputFilesInner {
         CodeInterpreterFileOutputFilesInner { mime_type, file_id }
+    }
+}
+
+impl<S: code_interpreter_file_output_files_inner_builder::State>
+    CodeInterpreterFileOutputFilesInnerBuilder<S>
+where
+    S::MimeType: code_interpreter_file_output_files_inner_builder::IsSet,
+    S::FileId: code_interpreter_file_output_files_inner_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CodeInterpreterFileOutputFilesInner {
+        self.build_internal()
     }
 }
 

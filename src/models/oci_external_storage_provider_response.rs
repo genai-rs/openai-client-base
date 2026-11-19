@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = oci_external_storage_provider_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct OciExternalStorageProviderResponse {
     /// Defaults to `\"oci\"`.
     #[serde(rename = "type")]
@@ -36,6 +37,21 @@ impl OciExternalStorageProviderResponse {
             region,
             bucket,
         }
+    }
+}
+
+impl<S: oci_external_storage_provider_response_builder::State>
+    OciExternalStorageProviderResponseBuilder<S>
+where
+    S::Type: oci_external_storage_provider_response_builder::IsSet,
+    S::TenancyOcid: oci_external_storage_provider_response_builder::IsSet,
+    S::Region: oci_external_storage_provider_response_builder::IsSet,
+    S::Bucket: oci_external_storage_provider_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> OciExternalStorageProviderResponse {
+        self.build_internal()
     }
 }
 

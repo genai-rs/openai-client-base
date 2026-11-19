@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ContainerResourceExpiresAfter : The container will expire after this time period. The anchor is the reference point for the expiration. The minutes is the number of minutes after the anchor before the container expires.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = container_resource_expires_after_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ContainerResourceExpiresAfter {
     /// The reference point for the expiration.
     #[serde(rename = "anchor", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,14 @@ impl ContainerResourceExpiresAfter {
             anchor: None,
             minutes: None,
         }
+    }
+}
+
+impl<S: container_resource_expires_after_builder::State> ContainerResourceExpiresAfterBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ContainerResourceExpiresAfter {
+        self.build_internal()
     }
 }
 

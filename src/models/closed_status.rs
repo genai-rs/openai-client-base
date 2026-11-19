@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ClosedStatus : Indicates that a thread has been closed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = closed_status_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ClosedStatus {
     /// Status discriminator that is always `closed`.  Defaults to `\"closed\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,17 @@ impl ClosedStatus {
     /// Indicates that a thread has been closed.
     pub fn new(r#type: Type, reason: Option<String>) -> ClosedStatus {
         ClosedStatus { r#type, reason }
+    }
+}
+
+impl<S: closed_status_builder::State> ClosedStatusBuilder<S>
+where
+    S::Type: closed_status_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ClosedStatus {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FineTuneReinforcementMethod : Configuration for the reinforcement fine-tuning method.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tune_reinforcement_method_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuneReinforcementMethod {
     #[serde(rename = "grader")]
     pub grader: models::FineTuneReinforcementMethodGrader,
@@ -27,6 +28,17 @@ impl FineTuneReinforcementMethod {
             grader,
             hyperparameters: None,
         }
+    }
+}
+
+impl<S: fine_tune_reinforcement_method_builder::State> FineTuneReinforcementMethodBuilder<S>
+where
+    S::Grader: fine_tune_reinforcement_method_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuneReinforcementMethod {
+        self.build_internal()
     }
 }
 

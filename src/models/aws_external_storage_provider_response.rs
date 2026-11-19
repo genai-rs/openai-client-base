@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = aws_external_storage_provider_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AwsExternalStorageProviderResponse {
     /// Defaults to `\"aws\"`.
     #[serde(rename = "type")]
@@ -44,6 +45,23 @@ impl AwsExternalStorageProviderResponse {
             role_arn,
             external_id,
         }
+    }
+}
+
+impl<S: aws_external_storage_provider_response_builder::State>
+    AwsExternalStorageProviderResponseBuilder<S>
+where
+    S::Type: aws_external_storage_provider_response_builder::IsSet,
+    S::AccountId: aws_external_storage_provider_response_builder::IsSet,
+    S::Region: aws_external_storage_provider_response_builder::IsSet,
+    S::Bucket: aws_external_storage_provider_response_builder::IsSet,
+    S::RoleArn: aws_external_storage_provider_response_builder::IsSet,
+    S::ExternalId: aws_external_storage_provider_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AwsExternalStorageProviderResponse {
+        self.build_internal()
     }
 }
 

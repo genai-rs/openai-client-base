@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// NetworkPolicyParam : Network access for an OpenAI-hosted environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = network_policy_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct NetworkPolicyParam {
     #[serde(rename = "access")]
     pub access: models::NetworkAccessParam,
@@ -46,6 +47,17 @@ impl NetworkPolicyParam {
             allowed_domains: None,
             blocked_domains: None,
         }
+    }
+}
+
+impl<S: network_policy_param_builder::State> NetworkPolicyParamBuilder<S>
+where
+    S::Access: network_policy_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> NetworkPolicyParam {
+        self.build_internal()
     }
 }
 

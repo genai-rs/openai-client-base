@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// OutputTextResource : A text content part produced by the agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = output_text_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct OutputTextResource {
     /// The content type. Always `output_text`.  Defaults to `\"output_text\"`.
     #[serde(rename = "type")]
@@ -27,6 +28,18 @@ impl OutputTextResource {
     /// A text content part produced by the agent.
     pub fn new(r#type: Type, text: String) -> OutputTextResource {
         OutputTextResource { r#type, text }
+    }
+}
+
+impl<S: output_text_resource_builder::State> OutputTextResourceBuilder<S>
+where
+    S::Type: output_text_resource_builder::IsSet,
+    S::Text: output_text_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> OutputTextResource {
+        self.build_internal()
     }
 }
 

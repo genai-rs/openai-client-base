@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = container_file_list_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ContainerFileListResource {
     /// The type of object returned, must be 'list'.
     #[serde(rename = "object")]
@@ -45,6 +46,21 @@ impl ContainerFileListResource {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: container_file_list_resource_builder::State> ContainerFileListResourceBuilder<S>
+where
+    S::Object: container_file_list_resource_builder::IsSet,
+    S::Data: container_file_list_resource_builder::IsSet,
+    S::FirstId: container_file_list_resource_builder::IsSet,
+    S::LastId: container_file_list_resource_builder::IsSet,
+    S::HasMore: container_file_list_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ContainerFileListResource {
+        self.build_internal()
     }
 }
 

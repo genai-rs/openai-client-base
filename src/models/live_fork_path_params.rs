@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveForkPathParams : Identifies the stored Live session whose conversation and configuration are used to create a fork.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_fork_path_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveForkPathParams {
     /// The ID of the stored Live session to fork.
     #[serde(rename = "session_id")]
@@ -22,6 +23,17 @@ impl LiveForkPathParams {
     /// Identifies the stored Live session whose conversation and configuration are used to create a fork.
     pub fn new(session_id: String) -> LiveForkPathParams {
         LiveForkPathParams { session_id }
+    }
+}
+
+impl<S: live_fork_path_params_builder::State> LiveForkPathParamsBuilder<S>
+where
+    S::SessionId: live_fork_path_params_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveForkPathParams {
+        self.build_internal()
     }
 }
 

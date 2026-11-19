@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseImageGenCallCompletedEvent : Emitted when an image generation tool call has completed and the final image is available.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_image_gen_call_completed_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseImageGenCallCompletedEvent {
     /// The type of the event. Always 'response.image_generation_call.completed'.
     #[serde(rename = "type")]
@@ -41,6 +42,21 @@ impl ResponseImageGenCallCompletedEvent {
             sequence_number,
             item_id,
         }
+    }
+}
+
+impl<S: response_image_gen_call_completed_event_builder::State>
+    ResponseImageGenCallCompletedEventBuilder<S>
+where
+    S::Type: response_image_gen_call_completed_event_builder::IsSet,
+    S::OutputIndex: response_image_gen_call_completed_event_builder::IsSet,
+    S::SequenceNumber: response_image_gen_call_completed_event_builder::IsSet,
+    S::ItemId: response_image_gen_call_completed_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseImageGenCallCompletedEvent {
+        self.build_internal()
     }
 }
 

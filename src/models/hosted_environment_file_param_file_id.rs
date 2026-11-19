@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// HostedEnvironmentFileParamFileId : A file previously uploaded through the OpenAI Files API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = hosted_environment_file_param_file_id_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HostedEnvironmentFileParamFileId {
     /// The type of the object. Always `file_id`.  Defaults to `\"file_id\"`.
     #[serde(rename = "type")]
@@ -36,6 +37,20 @@ impl HostedEnvironmentFileParamFileId {
             file_id,
             path,
         }
+    }
+}
+
+impl<S: hosted_environment_file_param_file_id_builder::State>
+    HostedEnvironmentFileParamFileIdBuilder<S>
+where
+    S::Type: hosted_environment_file_param_file_id_builder::IsSet,
+    S::FileId: hosted_environment_file_param_file_id_builder::IsSet,
+    S::Path: hosted_environment_file_param_file_id_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HostedEnvironmentFileParamFileId {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// FunctionShellActionParam : Commands and limits describing how to run the shell tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = function_shell_action_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FunctionShellActionParam {
     /// Ordered shell commands for the execution environment to run.
     #[serde(rename = "commands")]
@@ -42,6 +43,17 @@ impl FunctionShellActionParam {
             timeout_ms: None,
             max_output_length: None,
         }
+    }
+}
+
+impl<S: function_shell_action_param_builder::State> FunctionShellActionParamBuilder<S>
+where
+    S::Commands: function_shell_action_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FunctionShellActionParam {
+        self.build_internal()
     }
 }
 

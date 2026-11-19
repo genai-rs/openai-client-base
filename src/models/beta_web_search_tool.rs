@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaWebSearchTool : Search the Internet for sources related to the prompt. Learn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_web_search_tool_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaWebSearchTool {
     /// The type of the web search tool. One of `web_search` or `web_search_2025_08_26`.  Defaults to `\"web_search\"`.
     #[serde(rename = "type")]
@@ -55,6 +56,17 @@ impl BetaWebSearchTool {
             user_location: None,
             search_context_size: None,
         }
+    }
+}
+
+impl<S: beta_web_search_tool_builder::State> BetaWebSearchToolBuilder<S>
+where
+    S::Type: beta_web_search_tool_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaWebSearchTool {
+        self.build_internal()
     }
 }
 

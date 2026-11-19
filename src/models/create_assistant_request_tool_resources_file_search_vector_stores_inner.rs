@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_assistant_request_tool_resources_file_search_vector_stores_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateAssistantRequestToolResourcesFileSearchVectorStoresInner {
     /// A list of [file](https://developers.openai.com/api/reference/resources/files) IDs to add to the vector store. For vector stores created before Nov 2025, there can be a maximum of 10,000 files in a vector store. For vector stores created starting in Nov 2025, the limit is 100,000,000 files.
     ///
@@ -39,6 +40,16 @@ impl CreateAssistantRequestToolResourcesFileSearchVectorStoresInner {
             chunking_strategy: None,
             metadata: None,
         }
+    }
+}
+
+impl<S: create_assistant_request_tool_resources_file_search_vector_stores_inner_builder::State>
+    CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateAssistantRequestToolResourcesFileSearchVectorStoresInner {
+        self.build_internal()
     }
 }
 

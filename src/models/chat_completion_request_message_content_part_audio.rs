@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionRequestMessageContentPartAudio : Learn about [audio inputs](https://developers.openai.com/api/docs/guides/audio).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_request_message_content_part_audio_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionRequestMessageContentPartAudio {
     /// The type of the content part. Always `input_audio`.
     #[serde(rename = "type")]
@@ -37,6 +38,19 @@ impl ChatCompletionRequestMessageContentPartAudio {
             input_audio,
             prompt_cache_breakpoint: None,
         }
+    }
+}
+
+impl<S: chat_completion_request_message_content_part_audio_builder::State>
+    ChatCompletionRequestMessageContentPartAudioBuilder<S>
+where
+    S::Type: chat_completion_request_message_content_part_audio_builder::IsSet,
+    S::InputAudio: chat_completion_request_message_content_part_audio_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionRequestMessageContentPartAudio {
+        self.build_internal()
     }
 }
 

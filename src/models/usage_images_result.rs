@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UsageImagesResult : The aggregated images usage details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = usage_images_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UsageImagesResult {
     #[serde(rename = "object")]
     pub object: Object,
@@ -80,6 +81,19 @@ impl UsageImagesResult {
             api_key_id: None,
             model: None,
         }
+    }
+}
+
+impl<S: usage_images_result_builder::State> UsageImagesResultBuilder<S>
+where
+    S::Object: usage_images_result_builder::IsSet,
+    S::Images: usage_images_result_builder::IsSet,
+    S::NumModelRequests: usage_images_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UsageImagesResult {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// QuestionParamChoice : Choose from the supplied options based on the input.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = question_param_choice_builder, finish_fn(vis = "", name = build_internal))]
 pub struct QuestionParamChoice {
     /// The type of the object. Always `choice`.  Defaults to `\"choice\"`.
     #[serde(rename = "type")]
@@ -42,6 +43,19 @@ impl QuestionParamChoice {
             instructions,
             choices,
         }
+    }
+}
+
+impl<S: question_param_choice_builder::State> QuestionParamChoiceBuilder<S>
+where
+    S::Type: question_param_choice_builder::IsSet,
+    S::Instructions: question_param_choice_builder::IsSet,
+    S::Choices: question_param_choice_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> QuestionParamChoice {
+        self.build_internal()
     }
 }
 

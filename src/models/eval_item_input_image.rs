@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalItemInputImage : An image input block used within EvalItem content arrays.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_item_input_image_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalItemInputImage {
     /// The type of the image input. Always `input_image`.
     #[serde(rename = "type")]
@@ -32,6 +33,18 @@ impl EvalItemInputImage {
             image_url,
             detail: None,
         }
+    }
+}
+
+impl<S: eval_item_input_image_builder::State> EvalItemInputImageBuilder<S>
+where
+    S::Type: eval_item_input_image_builder::IsSet,
+    S::ImageUrl: eval_item_input_image_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalItemInputImage {
+        self.build_internal()
     }
 }
 

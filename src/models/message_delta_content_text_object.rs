@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageDeltaContentTextObject : The text content that is part of a message.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_delta_content_text_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageDeltaContentTextObject {
     /// The index of the content part in the message.
     #[serde(rename = "index")]
@@ -32,6 +33,18 @@ impl MessageDeltaContentTextObject {
             r#type,
             text: None,
         }
+    }
+}
+
+impl<S: message_delta_content_text_object_builder::State> MessageDeltaContentTextObjectBuilder<S>
+where
+    S::Index: message_delta_content_text_object_builder::IsSet,
+    S::Type: message_delta_content_text_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageDeltaContentTextObject {
+        self.build_internal()
     }
 }
 

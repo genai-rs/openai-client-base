@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UpdateVaultParams : Fields to replace on an active vault.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_vault_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateVaultParams {
     /// Replaces all metadata. Omit to leave unchanged, or pass {} to clear it. Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters.
     ///
@@ -37,6 +38,14 @@ impl UpdateVaultParams {
             metadata: None,
             name: None,
         }
+    }
+}
+
+impl<S: update_vault_params_builder::State> UpdateVaultParamsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateVaultParams {
+        self.build_internal()
     }
 }
 

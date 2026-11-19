@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseFormatJsonObject : JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_format_json_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseFormatJsonObject {
     /// The type of response format being defined. Always `json_object`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl BetaResponseFormatJsonObject {
     /// JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
     pub fn new(r#type: Type) -> BetaResponseFormatJsonObject {
         BetaResponseFormatJsonObject { r#type }
+    }
+}
+
+impl<S: beta_response_format_json_object_builder::State> BetaResponseFormatJsonObjectBuilder<S>
+where
+    S::Type: beta_response_format_json_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseFormatJsonObject {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BatchUsage : Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used. Only populated on batches created after September 7, 2025.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = batch_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BatchUsage {
     /// The number of input tokens.
     #[serde(rename = "input_tokens")]
@@ -45,6 +46,21 @@ impl BatchUsage {
             output_tokens_details,
             total_tokens,
         }
+    }
+}
+
+impl<S: batch_usage_builder::State> BatchUsageBuilder<S>
+where
+    S::InputTokens: batch_usage_builder::IsSet,
+    S::InputTokensDetails: batch_usage_builder::IsSet,
+    S::OutputTokens: batch_usage_builder::IsSet,
+    S::OutputTokensDetails: batch_usage_builder::IsSet,
+    S::TotalTokens: batch_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BatchUsage {
+        self.build_internal()
     }
 }
 

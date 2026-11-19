@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_container_network_policy_disabled_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaContainerNetworkPolicyDisabledParam {
     /// Disable outbound network access. Always `disabled`.  Defaults to `\"disabled\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,18 @@ pub struct BetaContainerNetworkPolicyDisabledParam {
 impl BetaContainerNetworkPolicyDisabledParam {
     pub fn new(r#type: Type) -> BetaContainerNetworkPolicyDisabledParam {
         BetaContainerNetworkPolicyDisabledParam { r#type }
+    }
+}
+
+impl<S: beta_container_network_policy_disabled_param_builder::State>
+    BetaContainerNetworkPolicyDisabledParamBuilder<S>
+where
+    S::Type: beta_container_network_policy_disabled_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaContainerNetworkPolicyDisabledParam {
+        self.build_internal()
     }
 }
 

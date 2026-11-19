@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_message_tool_call_chunk_function_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionMessageToolCallChunkFunction {
     /// The name of the function to call.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -26,6 +27,16 @@ impl ChatCompletionMessageToolCallChunkFunction {
             name: None,
             arguments: None,
         }
+    }
+}
+
+impl<S: chat_completion_message_tool_call_chunk_function_builder::State>
+    ChatCompletionMessageToolCallChunkFunctionBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionMessageToolCallChunkFunction {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventConversationItemInputAudioTranscriptionFailed : Returned when input audio transcription is configured, and a transcription  request for a user message failed. These events are separate from other  `error` events so that the client can identify the related Item.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_conversation_item_input_audio_transcription_failed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventConversationItemInputAudioTranscriptionFailed {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -46,6 +47,28 @@ impl RealtimeServerEventConversationItemInputAudioTranscriptionFailed {
             content_index,
             error,
         }
+    }
+}
+
+impl<
+        S: realtime_server_event_conversation_item_input_audio_transcription_failed_builder::State,
+    > RealtimeServerEventConversationItemInputAudioTranscriptionFailedBuilder<S>
+where
+    S::EventId:
+        realtime_server_event_conversation_item_input_audio_transcription_failed_builder::IsSet,
+    S::Type:
+        realtime_server_event_conversation_item_input_audio_transcription_failed_builder::IsSet,
+    S::ItemId:
+        realtime_server_event_conversation_item_input_audio_transcription_failed_builder::IsSet,
+    S::ContentIndex:
+        realtime_server_event_conversation_item_input_audio_transcription_failed_builder::IsSet,
+    S::Error:
+        realtime_server_event_conversation_item_input_audio_transcription_failed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventConversationItemInputAudioTranscriptionFailed {
+        self.build_internal()
     }
 }
 

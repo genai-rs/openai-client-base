@@ -5,6 +5,10 @@ version. Each one has a migration note in [`migration/`](../migration), next to 
 (`api-diff-<from>-to-<to>.json`, written by `scripts/check_public_api.sh`). The [CHANGELOG](../CHANGELOG.md) lists
 every release.
 
+- **0.36.2** (timvw-rust 0.40.0, runtime 0.4): no change to calls. The builders' `build()` and `call()` are the
+  generator's, bounded by the required members instead of bon's `IsComplete`, which made rustdoc try every builder's
+  blanket impl on every type: the docs now build in about a minute, where they took more than 40 minutes and docs.rs
+  never built them. See [`api-diff-0.36.1-to-0.36.2.md`](../migration/api-diff-0.36.1-to-0.36.2.md).
 - **0.36.1** (timvw-rust 0.39.0, runtime 0.4): no API change. A field the spec marks required and nullable (373 of
   them, such as `choices[].logprobs` of a chat completion, which `gpt-5-mini` leaves out) decodes as `None` when the
   body leaves it out, as it does `null`, instead of failing the whole body; `None` is still sent as `null`. A

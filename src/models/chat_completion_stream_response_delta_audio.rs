@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionStreamResponseDeltaAudio : A partial audio response. Audio chunks may carry an ID, base64 data, or transcript text; the final audio update contains only its expiry timestamp.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_stream_response_delta_audio_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionStreamResponseDeltaAudio {
     /// Unique identifier for this audio response.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -41,6 +42,16 @@ impl ChatCompletionStreamResponseDeltaAudio {
             data: None,
             transcript: None,
         }
+    }
+}
+
+impl<S: chat_completion_stream_response_delta_audio_builder::State>
+    ChatCompletionStreamResponseDeltaAudioBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionStreamResponseDeltaAudio {
+        self.build_internal()
     }
 }
 

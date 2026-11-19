@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogApiKeyCreatedData : The payload used to create the API key.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_api_key_created_data_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogApiKeyCreatedData {
     /// A list of scopes allowed for the API key, e.g. `[\"api.model.request\"]`
     #[serde(rename = "scopes", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl AuditLogApiKeyCreatedData {
     /// The payload used to create the API key.
     pub fn new() -> AuditLogApiKeyCreatedData {
         AuditLogApiKeyCreatedData { scopes: None }
+    }
+}
+
+impl<S: audit_log_api_key_created_data_builder::State> AuditLogApiKeyCreatedDataBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogApiKeyCreatedData {
+        self.build_internal()
     }
 }
 

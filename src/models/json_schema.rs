@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// JsonSchema : Structured Outputs configuration options, including a JSON Schema.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = json_schema_builder, finish_fn(vis = "", name = build_internal))]
 pub struct JsonSchema {
     /// A description of what the response format is for, used by the model to determine how to respond in the format.
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
@@ -41,6 +42,17 @@ impl JsonSchema {
             schema: None,
             strict: None,
         }
+    }
+}
+
+impl<S: json_schema_builder::State> JsonSchemaBuilder<S>
+where
+    S::Name: json_schema_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> JsonSchema {
+        self.build_internal()
     }
 }
 

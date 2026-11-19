@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AssistantObject : Represents an `assistant` that can call the model and use tools.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = assistant_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AssistantObject {
     /// The identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -113,6 +114,21 @@ impl AssistantObject {
             top_p: None,
             response_format: None,
         }
+    }
+}
+
+impl<S: assistant_object_builder::State> AssistantObjectBuilder<S>
+where
+    S::Id: assistant_object_builder::IsSet,
+    S::Object: assistant_object_builder::IsSet,
+    S::CreatedAt: assistant_object_builder::IsSet,
+    S::Model: assistant_object_builder::IsSet,
+    S::Tools: assistant_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AssistantObject {
+        self.build_internal()
     }
 }
 

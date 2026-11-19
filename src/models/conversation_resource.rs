@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = conversation_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ConversationResource {
     /// The unique ID of the conversation.
     #[serde(rename = "id")]
@@ -39,6 +40,20 @@ impl ConversationResource {
             metadata,
             created_at,
         }
+    }
+}
+
+impl<S: conversation_resource_builder::State> ConversationResourceBuilder<S>
+where
+    S::Id: conversation_resource_builder::IsSet,
+    S::Object: conversation_resource_builder::IsSet,
+    S::Metadata: conversation_resource_builder::IsSet,
+    S::CreatedAt: conversation_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ConversationResource {
+        self.build_internal()
     }
 }
 

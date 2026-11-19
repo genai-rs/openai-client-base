@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RequiredComputerToolCallOutput : Supply `output` using the computer tool call output input schema, including any required `acknowledged_safety_checks`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = required_computer_tool_call_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RequiredComputerToolCallOutput {
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -23,6 +24,18 @@ impl RequiredComputerToolCallOutput {
     /// Supply `output` using the computer tool call output input schema, including any required `acknowledged_safety_checks`.
     pub fn new(r#type: Type, call_id: String) -> RequiredComputerToolCallOutput {
         RequiredComputerToolCallOutput { r#type, call_id }
+    }
+}
+
+impl<S: required_computer_tool_call_output_builder::State> RequiredComputerToolCallOutputBuilder<S>
+where
+    S::Type: required_computer_tool_call_output_builder::IsSet,
+    S::CallId: required_computer_tool_call_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RequiredComputerToolCallOutput {
+        self.build_internal()
     }
 }
 

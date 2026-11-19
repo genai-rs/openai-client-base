@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LocalShellExecAction : Execute a shell command on the server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = local_shell_exec_action_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LocalShellExecAction {
     /// The type of the local shell action. Always `exec`.  Defaults to `\"exec\"`.
     #[serde(rename = "type")]
@@ -63,6 +64,19 @@ impl LocalShellExecAction {
             env,
             user: None,
         }
+    }
+}
+
+impl<S: local_shell_exec_action_builder::State> LocalShellExecActionBuilder<S>
+where
+    S::Type: local_shell_exec_action_builder::IsSet,
+    S::Command: local_shell_exec_action_builder::IsSet,
+    S::Env: local_shell_exec_action_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LocalShellExecAction {
+        self.build_internal()
     }
 }
 

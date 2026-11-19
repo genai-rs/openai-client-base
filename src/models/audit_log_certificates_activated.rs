@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogCertificatesActivated : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_certificates_activated_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogCertificatesActivated {
     #[serde(rename = "certificates", skip_serializing_if = "Option::is_none")]
     pub certificates: Option<Vec<models::AuditLogCertificatesActivatedCertificatesInner>>,
@@ -22,6 +23,14 @@ impl AuditLogCertificatesActivated {
     /// The details for events with this `type`.
     pub fn new() -> AuditLogCertificatesActivated {
         AuditLogCertificatesActivated { certificates: None }
+    }
+}
+
+impl<S: audit_log_certificates_activated_builder::State> AuditLogCertificatesActivatedBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogCertificatesActivated {
+        self.build_internal()
     }
 }
 

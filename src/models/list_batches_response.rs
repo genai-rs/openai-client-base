@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = list_batches_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ListBatchesResponse {
     #[serde(rename = "data")]
     pub data: Vec<models::Batch>,
@@ -34,6 +35,19 @@ impl ListBatchesResponse {
             has_more,
             object,
         }
+    }
+}
+
+impl<S: list_batches_response_builder::State> ListBatchesResponseBuilder<S>
+where
+    S::Data: list_batches_response_builder::IsSet,
+    S::HasMore: list_batches_response_builder::IsSet,
+    S::Object: list_batches_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ListBatchesResponse {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_message_list_data_inner_content_parts_inner_input_audio_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionMessageListDataInnerContentPartsInnerInputAudio {
     #[serde(rename = "data")]
     pub data: String,
@@ -24,6 +25,20 @@ impl ChatCompletionMessageListDataInnerContentPartsInnerInputAudio {
         format: String,
     ) -> ChatCompletionMessageListDataInnerContentPartsInnerInputAudio {
         ChatCompletionMessageListDataInnerContentPartsInnerInputAudio { data, format }
+    }
+}
+
+impl<S: chat_completion_message_list_data_inner_content_parts_inner_input_audio_builder::State>
+    ChatCompletionMessageListDataInnerContentPartsInnerInputAudioBuilder<S>
+where
+    S::Data: chat_completion_message_list_data_inner_content_parts_inner_input_audio_builder::IsSet,
+    S::Format:
+        chat_completion_message_list_data_inner_content_parts_inner_input_audio_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionMessageListDataInnerContentPartsInnerInputAudio {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaResponseStatusDetailsError : A description of the error that caused the response to fail,  populated when the `status` is `failed`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_response_status_details_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaResponseStatusDetailsError {
     /// The type of error.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -32,6 +33,16 @@ impl RealtimeBetaResponseStatusDetailsError {
             code: None,
             message: None,
         }
+    }
+}
+
+impl<S: realtime_beta_response_status_details_error_builder::State>
+    RealtimeBetaResponseStatusDetailsErrorBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaResponseStatusDetailsError {
+        self.build_internal()
     }
 }
 

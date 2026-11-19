@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionNamedToolChoice : Specifies a tool the model should use. Use to force the model to call a specific function.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_named_tool_choice_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionNamedToolChoice {
     /// For function calling, the type is always `function`.
     #[serde(rename = "type")]
@@ -28,6 +29,18 @@ impl ChatCompletionNamedToolChoice {
         function: models::ChatCompletionNamedToolChoiceFunction,
     ) -> ChatCompletionNamedToolChoice {
         ChatCompletionNamedToolChoice { r#type, function }
+    }
+}
+
+impl<S: chat_completion_named_tool_choice_builder::State> ChatCompletionNamedToolChoiceBuilder<S>
+where
+    S::Type: chat_completion_named_tool_choice_builder::IsSet,
+    S::Function: chat_completion_named_tool_choice_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionNamedToolChoice {
+        self.build_internal()
     }
 }
 

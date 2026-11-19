@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatkitWorkflowTracing : Controls diagnostic tracing during the session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chatkit_workflow_tracing_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatkitWorkflowTracing {
     /// Indicates whether tracing is enabled.
     #[serde(rename = "enabled")]
@@ -22,6 +23,17 @@ impl ChatkitWorkflowTracing {
     /// Controls diagnostic tracing during the session.
     pub fn new(enabled: bool) -> ChatkitWorkflowTracing {
         ChatkitWorkflowTracing { enabled }
+    }
+}
+
+impl<S: chatkit_workflow_tracing_builder::State> ChatkitWorkflowTracingBuilder<S>
+where
+    S::Enabled: chatkit_workflow_tracing_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatkitWorkflowTracing {
+        self.build_internal()
     }
 }
 

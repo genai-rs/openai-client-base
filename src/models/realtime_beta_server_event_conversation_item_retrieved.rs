@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventConversationItemRetrieved : Returned when a conversation item is retrieved with `conversation.item.retrieve`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_server_event_conversation_item_retrieved_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaServerEventConversationItemRetrieved {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeBetaServerEventConversationItemRetrieved {
             r#type,
             item,
         }
+    }
+}
+
+impl<S: realtime_beta_server_event_conversation_item_retrieved_builder::State>
+    RealtimeBetaServerEventConversationItemRetrievedBuilder<S>
+where
+    S::EventId: realtime_beta_server_event_conversation_item_retrieved_builder::IsSet,
+    S::Type: realtime_beta_server_event_conversation_item_retrieved_builder::IsSet,
+    S::Item: realtime_beta_server_event_conversation_item_retrieved_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaServerEventConversationItemRetrieved {
+        self.build_internal()
     }
 }
 

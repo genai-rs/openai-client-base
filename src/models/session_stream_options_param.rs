@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionStreamOptionsParam : Options for a Managed Agents session event stream.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_stream_options_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionStreamOptionsParam {
     /// Whether to include obfuscation padding in events on this connection. Defaults to `true`.
     #[serde(
@@ -27,6 +28,14 @@ impl SessionStreamOptionsParam {
         SessionStreamOptionsParam {
             include_obfuscation: None,
         }
+    }
+}
+
+impl<S: session_stream_options_param_builder::State> SessionStreamOptionsParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionStreamOptionsParam {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CustomToolChatCompletions : A custom tool that processes input using a specified format.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = custom_tool_chat_completions_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CustomToolChatCompletions {
     /// The type of the custom tool. Always `custom`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl CustomToolChatCompletions {
     /// A custom tool that processes input using a specified format.
     pub fn new(r#type: Type, custom: models::CustomToolProperties) -> CustomToolChatCompletions {
         CustomToolChatCompletions { r#type, custom }
+    }
+}
+
+impl<S: custom_tool_chat_completions_builder::State> CustomToolChatCompletionsBuilder<S>
+where
+    S::Type: custom_tool_chat_completions_builder::IsSet,
+    S::Custom: custom_tool_chat_completions_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CustomToolChatCompletions {
+        self.build_internal()
     }
 }
 

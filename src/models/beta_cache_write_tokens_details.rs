@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_cache_write_tokens_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaCacheWriteTokensDetails {
     /// The number of input tokens written with 30-minute retention.
     #[serde(rename = "ttl_30m_tokens")]
@@ -26,6 +27,18 @@ impl BetaCacheWriteTokensDetails {
             ttl_30m_tokens,
             ttl_12h_tokens,
         }
+    }
+}
+
+impl<S: beta_cache_write_tokens_details_builder::State> BetaCacheWriteTokensDetailsBuilder<S>
+where
+    S::Ttl30mTokens: beta_cache_write_tokens_details_builder::IsSet,
+    S::Ttl12hTokens: beta_cache_write_tokens_details_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaCacheWriteTokensDetails {
+        self.build_internal()
     }
 }
 

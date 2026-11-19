@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_custom_tool_call_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaCustomToolCallResource {
     /// The agent that produced this item.
     #[serde(
@@ -78,6 +79,22 @@ impl BetaCustomToolCallResource {
             status,
             created_by: None,
         }
+    }
+}
+
+impl<S: beta_custom_tool_call_resource_builder::State> BetaCustomToolCallResourceBuilder<S>
+where
+    S::Type: beta_custom_tool_call_resource_builder::IsSet,
+    S::Id: beta_custom_tool_call_resource_builder::IsSet,
+    S::CallId: beta_custom_tool_call_resource_builder::IsSet,
+    S::Name: beta_custom_tool_call_resource_builder::IsSet,
+    S::Input: beta_custom_tool_call_resource_builder::IsSet,
+    S::Status: beta_custom_tool_call_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaCustomToolCallResource {
+        self.build_internal()
     }
 }
 

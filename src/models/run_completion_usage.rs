@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunCompletionUsage : Usage statistics related to the run. This value will be `null` if the run is not in a terminal state (i.e. `in_progress`, `queued`, etc.).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_completion_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunCompletionUsage {
     /// Number of completion tokens used over the course of the run.
     #[serde(rename = "completion_tokens")]
@@ -36,6 +37,19 @@ impl RunCompletionUsage {
             prompt_tokens,
             total_tokens,
         }
+    }
+}
+
+impl<S: run_completion_usage_builder::State> RunCompletionUsageBuilder<S>
+where
+    S::CompletionTokens: run_completion_usage_builder::IsSet,
+    S::PromptTokens: run_completion_usage_builder::IsSet,
+    S::TotalTokens: run_completion_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunCompletionUsage {
+        self.build_internal()
     }
 }
 

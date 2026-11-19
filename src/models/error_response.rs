@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = error_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ErrorResponse {
     #[serde(rename = "error")]
     pub error: models::Error,
@@ -20,6 +21,17 @@ pub struct ErrorResponse {
 impl ErrorResponse {
     pub fn new(error: models::Error) -> ErrorResponse {
         ErrorResponse { error }
+    }
+}
+
+impl<S: error_response_builder::State> ErrorResponseBuilder<S>
+where
+    S::Error: error_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ErrorResponse {
+        self.build_internal()
     }
 }
 

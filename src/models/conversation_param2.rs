@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ConversationParam2 : The conversation that this response belongs to.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = conversation_param2_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ConversationParam2 {
     /// The unique ID of the conversation.
     #[serde(rename = "id")]
@@ -22,6 +23,17 @@ impl ConversationParam2 {
     /// The conversation that this response belongs to.
     pub fn new(id: String) -> ConversationParam2 {
         ConversationParam2 { id }
+    }
+}
+
+impl<S: conversation_param2_builder::State> ConversationParam2Builder<S>
+where
+    S::Id: conversation_param2_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ConversationParam2 {
+        self.build_internal()
     }
 }
 

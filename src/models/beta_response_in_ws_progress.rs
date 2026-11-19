@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseInWsProgress : Emitted when the response is in progress.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_in_ws_progress_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseInWsProgress {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -49,6 +50,19 @@ impl BetaResponseInWsProgress {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_in_ws_progress_builder::State> BetaResponseInWsProgressBuilder<S>
+where
+    S::Type: beta_response_in_ws_progress_builder::IsSet,
+    S::Response: beta_response_in_ws_progress_builder::IsSet,
+    S::SequenceNumber: beta_response_in_ws_progress_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseInWsProgress {
+        self.build_internal()
     }
 }
 

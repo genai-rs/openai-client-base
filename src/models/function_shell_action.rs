@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// FunctionShellAction : Execute a shell command.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = function_shell_action_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FunctionShellAction {
     #[serde(rename = "commands")]
     pub commands: Vec<String>,
@@ -35,6 +36,17 @@ impl FunctionShellAction {
             timeout_ms,
             max_output_length,
         }
+    }
+}
+
+impl<S: function_shell_action_builder::State> FunctionShellActionBuilder<S>
+where
+    S::Commands: function_shell_action_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FunctionShellAction {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseWebSearchCallCompletedEvent : Emitted when a web search call is completed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_web_search_call_completed_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseWebSearchCallCompletedEvent {
     /// The type of the event. Always `response.web_search_call.completed`.
     #[serde(rename = "type")]
@@ -41,6 +42,21 @@ impl ResponseWebSearchCallCompletedEvent {
             item_id,
             sequence_number,
         }
+    }
+}
+
+impl<S: response_web_search_call_completed_event_builder::State>
+    ResponseWebSearchCallCompletedEventBuilder<S>
+where
+    S::Type: response_web_search_call_completed_event_builder::IsSet,
+    S::OutputIndex: response_web_search_call_completed_event_builder::IsSet,
+    S::ItemId: response_web_search_call_completed_event_builder::IsSet,
+    S::SequenceNumber: response_web_search_call_completed_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseWebSearchCallCompletedEvent {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// VaultCredentialNetworkingResourceLimited : Allows substitution only for the listed hosts. The environment network policy must also allow these hosts.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vault_credential_networking_resource_limited_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VaultCredentialNetworkingResourceLimited {
     /// The type of the object. Always `limited`.  Defaults to `\"limited\"`.
     #[serde(rename = "type")]
@@ -33,6 +34,19 @@ impl VaultCredentialNetworkingResourceLimited {
             r#type,
             allowed_hosts,
         }
+    }
+}
+
+impl<S: vault_credential_networking_resource_limited_builder::State>
+    VaultCredentialNetworkingResourceLimitedBuilder<S>
+where
+    S::Type: vault_credential_networking_resource_limited_builder::IsSet,
+    S::AllowedHosts: vault_credential_networking_resource_limited_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VaultCredentialNetworkingResourceLimited {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vector_store_search_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VectorStoreSearchRequest {
     #[serde(rename = "query")]
     pub query: models::VectorStoreSearchRequestQuery,
@@ -38,6 +39,17 @@ impl VectorStoreSearchRequest {
             filters: None,
             ranking_options: None,
         }
+    }
+}
+
+impl<S: vector_store_search_request_builder::State> VectorStoreSearchRequestBuilder<S>
+where
+    S::Query: vector_store_search_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VectorStoreSearchRequest {
+        self.build_internal()
     }
 }
 

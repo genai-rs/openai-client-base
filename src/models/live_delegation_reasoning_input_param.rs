@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveDelegationReasoningInputParam : Reasoning options for Responses requests made on behalf of the Live session.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_delegation_reasoning_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDelegationReasoningInputParam {
     #[serde(
         rename = "effort",
@@ -37,6 +38,16 @@ impl LiveDelegationReasoningInputParam {
             effort: None,
             summary: None,
         }
+    }
+}
+
+impl<S: live_delegation_reasoning_input_param_builder::State>
+    LiveDelegationReasoningInputParamBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDelegationReasoningInputParam {
+        self.build_internal()
     }
 }
 

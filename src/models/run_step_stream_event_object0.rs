@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepStreamEventObject0 : Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) is created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_stream_event_object0_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepStreamEventObject0 {
     #[serde(rename = "event")]
     pub event: Event,
@@ -24,6 +25,18 @@ impl RunStepStreamEventObject0 {
     /// Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) is created.
     pub fn new(event: Event, data: models::RunStepObject) -> RunStepStreamEventObject0 {
         RunStepStreamEventObject0 { event, data }
+    }
+}
+
+impl<S: run_step_stream_event_object0_builder::State> RunStepStreamEventObject0Builder<S>
+where
+    S::Event: run_step_stream_event_object0_builder::IsSet,
+    S::Data: run_step_stream_event_object0_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepStreamEventObject0 {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateTranscriptionResponseJson : Represents a transcription response returned by model, based on the provided input.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_transcription_response_json_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateTranscriptionResponseJson {
     /// The transcribed text.
     #[serde(rename = "text")]
@@ -36,6 +37,17 @@ impl CreateTranscriptionResponseJson {
             logprobs: None,
             usage: None,
         }
+    }
+}
+
+impl<S: create_transcription_response_json_builder::State> CreateTranscriptionResponseJsonBuilder<S>
+where
+    S::Text: create_transcription_response_json_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateTranscriptionResponseJson {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CompletionUsage : Usage statistics for the completion request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = completion_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CompletionUsage {
     /// Number of tokens in the generated completion.  Defaults to `0`.
     #[serde(rename = "completion_tokens")]
@@ -45,6 +46,19 @@ impl CompletionUsage {
             completion_tokens_details: None,
             prompt_tokens_details: None,
         }
+    }
+}
+
+impl<S: completion_usage_builder::State> CompletionUsageBuilder<S>
+where
+    S::CompletionTokens: completion_usage_builder::IsSet,
+    S::PromptTokens: completion_usage_builder::IsSet,
+    S::TotalTokens: completion_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CompletionUsage {
+        self.build_internal()
     }
 }
 

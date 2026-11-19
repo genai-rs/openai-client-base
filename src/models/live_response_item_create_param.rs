@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveResponseItemCreateParam : Add an input item to the Live session’s Responses backend. Requires Responses delegation; use `response.create` to request a response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_response_item_create_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveResponseItemCreateParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
     ///
@@ -39,6 +40,18 @@ impl LiveResponseItemCreateParam {
             r#type,
             item,
         }
+    }
+}
+
+impl<S: live_response_item_create_param_builder::State> LiveResponseItemCreateParamBuilder<S>
+where
+    S::Type: live_response_item_create_param_builder::IsSet,
+    S::Item: live_response_item_create_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveResponseItemCreateParam {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// McpApprovalResponseParam : The user's decision for a pending MCP tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = mcp_approval_response_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct McpApprovalResponseParam {
     /// The type of the object. Always `mcp_tool_call`.  Defaults to `\"mcp_tool_call\"`.
     #[serde(rename = "type")]
@@ -28,6 +29,18 @@ impl McpApprovalResponseParam {
         decision: models::McpApprovalDecisionParam,
     ) -> McpApprovalResponseParam {
         McpApprovalResponseParam { r#type, decision }
+    }
+}
+
+impl<S: mcp_approval_response_param_builder::State> McpApprovalResponseParamBuilder<S>
+where
+    S::Type: mcp_approval_response_param_builder::IsSet,
+    S::Decision: mcp_approval_response_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> McpApprovalResponseParam {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// OutputAudio : An audio output from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = output_audio_builder, finish_fn(vis = "", name = build_internal))]
 pub struct OutputAudio {
     /// The type of the output audio. Always `output_audio`.
     #[serde(rename = "type")]
@@ -32,6 +33,19 @@ impl OutputAudio {
             data,
             transcript,
         }
+    }
+}
+
+impl<S: output_audio_builder::State> OutputAudioBuilder<S>
+where
+    S::Type: output_audio_builder::IsSet,
+    S::Data: output_audio_builder::IsSet,
+    S::Transcript: output_audio_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> OutputAudio {
+        self.build_internal()
     }
 }
 

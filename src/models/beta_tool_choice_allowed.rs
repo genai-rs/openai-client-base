@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaToolChoiceAllowed : Constrains the tools available to the model to a pre-defined set.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_tool_choice_allowed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaToolChoiceAllowed {
     /// Allowed tool configuration type. Always `allowed_tools`.
     #[serde(rename = "type")]
@@ -36,6 +37,19 @@ impl BetaToolChoiceAllowed {
             mode,
             tools,
         }
+    }
+}
+
+impl<S: beta_tool_choice_allowed_builder::State> BetaToolChoiceAllowedBuilder<S>
+where
+    S::Type: beta_tool_choice_allowed_builder::IsSet,
+    S::Mode: beta_tool_choice_allowed_builder::IsSet,
+    S::Tools: beta_tool_choice_allowed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaToolChoiceAllowed {
+        self.build_internal()
     }
 }
 

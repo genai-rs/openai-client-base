@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UploadPart : The upload Part represents a chunk of bytes we can add to an Upload object.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = upload_part_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UploadPart {
     /// The upload Part unique identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -41,6 +42,20 @@ impl UploadPart {
             upload_id,
             object,
         }
+    }
+}
+
+impl<S: upload_part_builder::State> UploadPartBuilder<S>
+where
+    S::Id: upload_part_builder::IsSet,
+    S::CreatedAt: upload_part_builder::IsSet,
+    S::UploadId: upload_part_builder::IsSet,
+    S::Object: upload_part_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UploadPart {
+        self.build_internal()
     }
 }
 

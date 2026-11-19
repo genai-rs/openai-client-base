@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UsageCodeInterpreterSessionsResult : The aggregated code interpreter sessions usage details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = usage_code_interpreter_sessions_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UsageCodeInterpreterSessionsResult {
     #[serde(rename = "object")]
     pub object: Object,
@@ -36,6 +37,19 @@ impl UsageCodeInterpreterSessionsResult {
             num_sessions,
             project_id: None,
         }
+    }
+}
+
+impl<S: usage_code_interpreter_sessions_result_builder::State>
+    UsageCodeInterpreterSessionsResultBuilder<S>
+where
+    S::Object: usage_code_interpreter_sessions_result_builder::IsSet,
+    S::NumSessions: usage_code_interpreter_sessions_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UsageCodeInterpreterSessionsResult {
+        self.build_internal()
     }
 }
 

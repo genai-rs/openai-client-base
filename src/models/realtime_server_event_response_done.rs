@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventResponseDone : Returned when a Response is done streaming. Always emitted, no matter the  final state. The Response object included in the `response.done` event will  include all output Items in the Response but will omit the raw audio data.  Clients should check the `status` field of the Response to determine if it was successful (`completed`) or if there was another outcome: `cancelled`, `failed`, or `incomplete`.  A response will contain all output items that were generated during the response, excluding any audio content.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_response_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventResponseDone {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -36,6 +37,20 @@ impl RealtimeServerEventResponseDone {
             r#type,
             response,
         }
+    }
+}
+
+impl<S: realtime_server_event_response_done_builder::State>
+    RealtimeServerEventResponseDoneBuilder<S>
+where
+    S::EventId: realtime_server_event_response_done_builder::IsSet,
+    S::Type: realtime_server_event_response_done_builder::IsSet,
+    S::Response: realtime_server_event_response_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventResponseDone {
+        self.build_internal()
     }
 }
 

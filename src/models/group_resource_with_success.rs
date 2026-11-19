@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// GroupResourceWithSuccess : Response returned after updating a group.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = group_resource_with_success_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GroupResourceWithSuccess {
     /// Identifier for the group.
     #[serde(rename = "id")]
@@ -41,6 +42,20 @@ impl GroupResourceWithSuccess {
             created_at,
             is_scim_managed,
         }
+    }
+}
+
+impl<S: group_resource_with_success_builder::State> GroupResourceWithSuccessBuilder<S>
+where
+    S::Id: group_resource_with_success_builder::IsSet,
+    S::Name: group_resource_with_success_builder::IsSet,
+    S::CreatedAt: group_resource_with_success_builder::IsSet,
+    S::IsScimManaged: group_resource_with_success_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GroupResourceWithSuccess {
+        self.build_internal()
     }
 }
 

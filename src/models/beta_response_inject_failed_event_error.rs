@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseInjectFailedEventError : Information about why the input was not committed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_inject_failed_event_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseInjectFailedEventError {
     /// A machine-readable error code.
     #[serde(rename = "code")]
@@ -25,6 +26,19 @@ impl BetaResponseInjectFailedEventError {
     /// Information about why the input was not committed.
     pub fn new(code: Code, message: String) -> BetaResponseInjectFailedEventError {
         BetaResponseInjectFailedEventError { code, message }
+    }
+}
+
+impl<S: beta_response_inject_failed_event_error_builder::State>
+    BetaResponseInjectFailedEventErrorBuilder<S>
+where
+    S::Code: beta_response_inject_failed_event_error_builder::IsSet,
+    S::Message: beta_response_inject_failed_event_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseInjectFailedEventError {
+        self.build_internal()
     }
 }
 

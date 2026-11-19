@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// Embedding : Represents an embedding vector returned by embedding endpoint.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = embedding_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Embedding {
     /// The index of the embedding in the list of embeddings.
     #[serde(rename = "index")]
@@ -32,6 +33,19 @@ impl Embedding {
             embedding,
             object,
         }
+    }
+}
+
+impl<S: embedding_builder::State> EmbeddingBuilder<S>
+where
+    S::Index: embedding_builder::IsSet,
+    S::Embedding: embedding_builder::IsSet,
+    S::Object: embedding_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Embedding {
+        self.build_internal()
     }
 }
 

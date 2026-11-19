@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = automation_invocation_source_resource_automation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AutomationInvocationSourceResourceAutomation {
     /// The type of the object. Always `automation`.  Defaults to `\"automation\"`.
     #[serde(rename = "type")]
@@ -26,6 +27,19 @@ impl AutomationInvocationSourceResourceAutomation {
         automation: models::AutomationResource,
     ) -> AutomationInvocationSourceResourceAutomation {
         AutomationInvocationSourceResourceAutomation { r#type, automation }
+    }
+}
+
+impl<S: automation_invocation_source_resource_automation_builder::State>
+    AutomationInvocationSourceResourceAutomationBuilder<S>
+where
+    S::Type: automation_invocation_source_resource_automation_builder::IsSet,
+    S::Automation: automation_invocation_source_resource_automation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AutomationInvocationSourceResourceAutomation {
+        self.build_internal()
     }
 }
 

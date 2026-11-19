@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionMessageCustomToolCallCustom : The custom tool that the model called.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_message_custom_tool_call_custom_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionMessageCustomToolCallCustom {
     /// The name of the custom tool to call.
     #[serde(rename = "name")]
@@ -25,6 +26,19 @@ impl ChatCompletionMessageCustomToolCallCustom {
     /// The custom tool that the model called.
     pub fn new(name: String, input: String) -> ChatCompletionMessageCustomToolCallCustom {
         ChatCompletionMessageCustomToolCallCustom { name, input }
+    }
+}
+
+impl<S: chat_completion_message_custom_tool_call_custom_builder::State>
+    ChatCompletionMessageCustomToolCallCustomBuilder<S>
+where
+    S::Name: chat_completion_message_custom_tool_call_custom_builder::IsSet,
+    S::Input: chat_completion_message_custom_tool_call_custom_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionMessageCustomToolCallCustom {
+        self.build_internal()
     }
 }
 

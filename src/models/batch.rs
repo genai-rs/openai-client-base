@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = batch_builder, finish_fn(vis = "", name = build_internal))]
 pub struct Batch {
     #[serde(rename = "id")]
     pub id: String,
@@ -171,6 +172,23 @@ impl Batch {
             usage: None,
             metadata: None,
         }
+    }
+}
+
+impl<S: batch_builder::State> BatchBuilder<S>
+where
+    S::Id: batch_builder::IsSet,
+    S::Object: batch_builder::IsSet,
+    S::Endpoint: batch_builder::IsSet,
+    S::InputFileId: batch_builder::IsSet,
+    S::CompletionWindow: batch_builder::IsSet,
+    S::Status: batch_builder::IsSet,
+    S::CreatedAt: batch_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> Batch {
+        self.build_internal()
     }
 }
 

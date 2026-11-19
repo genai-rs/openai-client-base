@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebSearchLocationParam : Approximate user location used to localize web search results.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = web_search_location_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebSearchLocationParam {
     /// The two-letter ISO country code, such as `US`.
     ///
@@ -64,6 +65,14 @@ impl WebSearchLocationParam {
             city: None,
             timezone: None,
         }
+    }
+}
+
+impl<S: web_search_location_param_builder::State> WebSearchLocationParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebSearchLocationParam {
+        self.build_internal()
     }
 }
 

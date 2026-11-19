@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_function_call_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionFunctionCallParam {
     /// The local Decision item ID.
     #[serde(
@@ -70,6 +71,20 @@ impl LiveDecisionFunctionCallParam {
             namespace: None,
             arguments,
         }
+    }
+}
+
+impl<S: live_decision_function_call_param_builder::State> LiveDecisionFunctionCallParamBuilder<S>
+where
+    S::CallId: live_decision_function_call_param_builder::IsSet,
+    S::Type: live_decision_function_call_param_builder::IsSet,
+    S::Name: live_decision_function_call_param_builder::IsSet,
+    S::Arguments: live_decision_function_call_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionFunctionCallParam {
+        self.build_internal()
     }
 }
 

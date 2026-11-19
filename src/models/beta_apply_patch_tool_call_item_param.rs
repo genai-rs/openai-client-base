@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaApplyPatchToolCallItemParam : A tool call representing a request to create, delete, or update files using diff patches.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_apply_patch_tool_call_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaApplyPatchToolCallItemParam {
     #[serde(
         rename = "agent",
@@ -67,6 +68,21 @@ impl BetaApplyPatchToolCallItemParam {
             status,
             operation,
         }
+    }
+}
+
+impl<S: beta_apply_patch_tool_call_item_param_builder::State>
+    BetaApplyPatchToolCallItemParamBuilder<S>
+where
+    S::Type: beta_apply_patch_tool_call_item_param_builder::IsSet,
+    S::CallId: beta_apply_patch_tool_call_item_param_builder::IsSet,
+    S::Status: beta_apply_patch_tool_call_item_param_builder::IsSet,
+    S::Operation: beta_apply_patch_tool_call_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaApplyPatchToolCallItemParam {
+        self.build_internal()
     }
 }
 

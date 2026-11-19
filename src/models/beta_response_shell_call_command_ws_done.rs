@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseShellCallCommandWsDone : A streaming event that indicated a shell command was completed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_shell_call_command_ws_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseShellCallCommandWsDone {
     /// The type of the event, always `response.shell_call_command.done`.  Defaults to `\"response.shell_call_command.done\"`.
     #[serde(rename = "type")]
@@ -54,6 +55,22 @@ impl BetaResponseShellCallCommandWsDone {
             command,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_shell_call_command_ws_done_builder::State>
+    BetaResponseShellCallCommandWsDoneBuilder<S>
+where
+    S::Type: beta_response_shell_call_command_ws_done_builder::IsSet,
+    S::SequenceNumber: beta_response_shell_call_command_ws_done_builder::IsSet,
+    S::OutputIndex: beta_response_shell_call_command_ws_done_builder::IsSet,
+    S::CommandIndex: beta_response_shell_call_command_ws_done_builder::IsSet,
+    S::Command: beta_response_shell_call_command_ws_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseShellCallCommandWsDone {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaContainerReferenceResource : Represents a container created with /v1/containers.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_container_reference_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaContainerReferenceResource {
     /// The environment type. Always `container_reference`.  Defaults to `\"container_reference\"`.
     #[serde(rename = "type")]
@@ -27,6 +28,18 @@ impl BetaContainerReferenceResource {
             r#type,
             container_id,
         }
+    }
+}
+
+impl<S: beta_container_reference_resource_builder::State> BetaContainerReferenceResourceBuilder<S>
+where
+    S::Type: beta_container_reference_resource_builder::IsSet,
+    S::ContainerId: beta_container_reference_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaContainerReferenceResource {
+        self.build_internal()
     }
 }
 

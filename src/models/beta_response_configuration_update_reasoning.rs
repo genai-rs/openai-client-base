@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseConfigurationUpdateReasoning : The reasoning configuration applied by this update.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_configuration_update_reasoning_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseConfigurationUpdateReasoning {
     #[serde(
         rename = "effort",
@@ -27,6 +28,16 @@ impl BetaResponseConfigurationUpdateReasoning {
     /// The reasoning configuration applied by this update.
     pub fn new() -> BetaResponseConfigurationUpdateReasoning {
         BetaResponseConfigurationUpdateReasoning { effort: None }
+    }
+}
+
+impl<S: beta_response_configuration_update_reasoning_builder::State>
+    BetaResponseConfigurationUpdateReasoningBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseConfigurationUpdateReasoning {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaInlineSkillSourceParam : Inline skill payload
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_inline_skill_source_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaInlineSkillSourceParam {
     /// The type of the inline skill source. Must be `base64`.  Defaults to `\"base64\"`.
     #[serde(rename = "type")]
@@ -34,6 +35,19 @@ impl BetaInlineSkillSourceParam {
             media_type,
             data,
         }
+    }
+}
+
+impl<S: beta_inline_skill_source_param_builder::State> BetaInlineSkillSourceParamBuilder<S>
+where
+    S::Type: beta_inline_skill_source_param_builder::IsSet,
+    S::MediaType: beta_inline_skill_source_param_builder::IsSet,
+    S::Data: beta_inline_skill_source_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaInlineSkillSourceParam {
+        self.build_internal()
     }
 }
 

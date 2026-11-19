@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseImageGenCallWsGenerating : Emitted when an image generation tool call is actively generating an image (intermediate state).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_image_gen_call_ws_generating_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseImageGenCallWsGenerating {
     /// The type of the event. Always 'response.image_generation_call.generating'.
     #[serde(rename = "type")]
@@ -45,6 +46,21 @@ impl ResponseImageGenCallWsGenerating {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_image_gen_call_ws_generating_builder::State>
+    ResponseImageGenCallWsGeneratingBuilder<S>
+where
+    S::Type: response_image_gen_call_ws_generating_builder::IsSet,
+    S::OutputIndex: response_image_gen_call_ws_generating_builder::IsSet,
+    S::ItemId: response_image_gen_call_ws_generating_builder::IsSet,
+    S::SequenceNumber: response_image_gen_call_ws_generating_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseImageGenCallWsGenerating {
+        self.build_internal()
     }
 }
 

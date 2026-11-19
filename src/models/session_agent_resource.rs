@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionAgentResource : The effective agent configuration for a session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_agent_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionAgentResource {
     /// The ID of the agent.
     ///
@@ -79,6 +80,23 @@ impl SessionAgentResource {
             compaction: None,
             experimental: None,
         }
+    }
+}
+
+impl<S: session_agent_resource_builder::State> SessionAgentResourceBuilder<S>
+where
+    S::Id: session_agent_resource_builder::IsSet,
+    S::Model: session_agent_resource_builder::IsSet,
+    S::Reasoning: session_agent_resource_builder::IsSet,
+    S::Text: session_agent_resource_builder::IsSet,
+    S::ServiceTier: session_agent_resource_builder::IsSet,
+    S::Tools: session_agent_resource_builder::IsSet,
+    S::MultiAgent: session_agent_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionAgentResource {
+        self.build_internal()
     }
 }
 

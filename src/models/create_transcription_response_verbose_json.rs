@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateTranscriptionResponseVerboseJson : Represents a verbose json transcription response returned by model, based on the provided input.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_transcription_response_verbose_json_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateTranscriptionResponseVerboseJson {
     /// The language of the input audio.
     #[serde(rename = "language")]
@@ -48,6 +49,20 @@ impl CreateTranscriptionResponseVerboseJson {
             segments: None,
             usage: None,
         }
+    }
+}
+
+impl<S: create_transcription_response_verbose_json_builder::State>
+    CreateTranscriptionResponseVerboseJsonBuilder<S>
+where
+    S::Language: create_transcription_response_verbose_json_builder::IsSet,
+    S::Duration: create_transcription_response_verbose_json_builder::IsSet,
+    S::Text: create_transcription_response_verbose_json_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateTranscriptionResponseVerboseJson {
+        self.build_internal()
     }
 }
 

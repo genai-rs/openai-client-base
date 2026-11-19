@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// WebhookAgentSessionCreated : Sent when an agent session is created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = webhook_agent_session_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct WebhookAgentSessionCreated {
     /// The unique ID of the event.
     #[serde(rename = "id")]
@@ -46,6 +47,21 @@ impl WebhookAgentSessionCreated {
             r#type,
             data,
         }
+    }
+}
+
+impl<S: webhook_agent_session_created_builder::State> WebhookAgentSessionCreatedBuilder<S>
+where
+    S::Id: webhook_agent_session_created_builder::IsSet,
+    S::Object: webhook_agent_session_created_builder::IsSet,
+    S::CreatedAt: webhook_agent_session_created_builder::IsSet,
+    S::Type: webhook_agent_session_created_builder::IsSet,
+    S::Data: webhook_agent_session_created_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> WebhookAgentSessionCreated {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaCodeInterpreterTool : A tool that runs Python code to help generate a response to a prompt.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_code_interpreter_tool_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaCodeInterpreterTool {
     /// The type of the code interpreter tool. Always `code_interpreter`.
     #[serde(rename = "type")]
@@ -42,6 +43,18 @@ impl BetaCodeInterpreterTool {
             container,
             allowed_callers: None,
         }
+    }
+}
+
+impl<S: beta_code_interpreter_tool_builder::State> BetaCodeInterpreterToolBuilder<S>
+where
+    S::Type: beta_code_interpreter_tool_builder::IsSet,
+    S::Container: beta_code_interpreter_tool_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaCodeInterpreterTool {
+        self.build_internal()
     }
 }
 

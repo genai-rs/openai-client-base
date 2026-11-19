@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaClickParam : A click action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_click_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaClickParam {
     /// Specifies the event type. For a click action, this property is always `click`.  Defaults to `\"click\"`.
     #[serde(rename = "type")]
@@ -50,6 +51,20 @@ impl BetaClickParam {
             y,
             keys: None,
         }
+    }
+}
+
+impl<S: beta_click_param_builder::State> BetaClickParamBuilder<S>
+where
+    S::Type: beta_click_param_builder::IsSet,
+    S::Button: beta_click_param_builder::IsSet,
+    S::X: beta_click_param_builder::IsSet,
+    S::Y: beta_click_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaClickParam {
+        self.build_internal()
     }
 }
 

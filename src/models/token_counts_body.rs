@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = token_counts_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct TokenCountsBody {
     /// ID of the model to use
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
@@ -105,6 +106,14 @@ impl TokenCountsBody {
             tool_choice: None,
             parallel_tool_calls: None,
         }
+    }
+}
+
+impl<S: token_counts_body_builder::State> TokenCountsBodyBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> TokenCountsBody {
+        self.build_internal()
     }
 }
 

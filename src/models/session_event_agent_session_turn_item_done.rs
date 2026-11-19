@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionTurnItemDone : Emitted when an output item is complete.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_turn_item_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionTurnItemDone {
     /// The type of the object. Always `agent.session.turn.item.done`.  Defaults to `\"agent.session.turn.item.done\"`.
     #[serde(rename = "type")]
@@ -65,6 +66,22 @@ impl SessionEventAgentSessionTurnItemDone {
             item,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_turn_item_done_builder::State>
+    SessionEventAgentSessionTurnItemDoneBuilder<S>
+where
+    S::Type: session_event_agent_session_turn_item_done_builder::IsSet,
+    S::EventId: session_event_agent_session_turn_item_done_builder::IsSet,
+    S::SessionId: session_event_agent_session_turn_item_done_builder::IsSet,
+    S::OutputIndex: session_event_agent_session_turn_item_done_builder::IsSet,
+    S::Item: session_event_agent_session_turn_item_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionTurnItemDone {
+        self.build_internal()
     }
 }
 

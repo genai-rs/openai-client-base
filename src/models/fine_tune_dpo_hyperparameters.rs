@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// FineTuneDpoHyperparameters : The hyperparameters used for the DPO fine-tuning job.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = fine_tune_dpo_hyperparameters_builder, finish_fn(vis = "", name = build_internal))]
 pub struct FineTuneDpoHyperparameters {
     #[serde(rename = "beta", skip_serializing_if = "Option::is_none")]
     pub beta: Option<models::FineTuneDpoHyperparametersBeta>,
@@ -36,6 +37,14 @@ impl FineTuneDpoHyperparameters {
             learning_rate_multiplier: None,
             n_epochs: None,
         }
+    }
+}
+
+impl<S: fine_tune_dpo_hyperparameters_builder::State> FineTuneDpoHyperparametersBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> FineTuneDpoHyperparameters {
+        self.build_internal()
     }
 }
 

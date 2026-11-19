@@ -450,7 +450,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for UploadCertificateErrorHead
 }
 
 /// Activate certificates at the organization level.  You can atomically and idempotently activate up to 10 certificates at a time.
-#[bon::builder]
+#[bon::builder(state_mod = activate_organization_certificates_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn activate_organization_certificates(
     configuration: &configuration::Configuration,
     toggle_certificates_request: &models::ToggleCertificatesRequest,
@@ -537,13 +537,32 @@ pub async fn activate_organization_certificates(
     }
 }
 
+#[allow(deprecated)]
+impl<S: activate_organization_certificates_builder::State>
+    ActivateOrganizationCertificatesBuilder<'_, '_, '_, S>
+where
+    S::Configuration: activate_organization_certificates_builder::IsSet,
+    S::ToggleCertificatesRequest: activate_organization_certificates_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::OrganizationCertificateActivationResponse,
+        Error<ActivateOrganizationCertificatesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Activate certificates at the organization level.  You can atomically and idempotently activate up to 10 certificates at a time.
 ///
 /// Sends the same request as [`activate_organization_certificates`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OrganizationCertificateActivationResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = activate_organization_certificates_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn activate_organization_certificates_response(
     configuration: &configuration::Configuration,
     toggle_certificates_request: &models::ToggleCertificatesRequest,
@@ -621,8 +640,27 @@ pub async fn activate_organization_certificates_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: activate_organization_certificates_response_builder::State>
+    ActivateOrganizationCertificatesResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: activate_organization_certificates_response_builder::IsSet,
+    S::ToggleCertificatesRequest: activate_organization_certificates_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::OrganizationCertificateActivationResponse>,
+        Error<ActivateOrganizationCertificatesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Activate certificates at the project level.  You can atomically and idempotently activate up to 10 certificates at a time.
-#[bon::builder]
+#[bon::builder(state_mod = activate_project_certificates_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn activate_project_certificates(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -712,13 +750,33 @@ pub async fn activate_project_certificates(
     }
 }
 
+#[allow(deprecated)]
+impl<S: activate_project_certificates_builder::State>
+    ActivateProjectCertificatesBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: activate_project_certificates_builder::IsSet,
+    S::ProjectId: activate_project_certificates_builder::IsSet,
+    S::ToggleCertificatesRequest: activate_project_certificates_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::OrganizationProjectCertificateActivationResponse,
+        Error<ActivateProjectCertificatesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Activate certificates at the project level.  You can atomically and idempotently activate up to 10 certificates at a time.
 ///
 /// Sends the same request as [`activate_project_certificates`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OrganizationProjectCertificateActivationResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = activate_project_certificates_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn activate_project_certificates_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -799,8 +857,28 @@ pub async fn activate_project_certificates_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: activate_project_certificates_response_builder::State>
+    ActivateProjectCertificatesResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: activate_project_certificates_response_builder::IsSet,
+    S::ProjectId: activate_project_certificates_response_builder::IsSet,
+    S::ToggleCertificatesRequest: activate_project_certificates_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::OrganizationProjectCertificateActivationResponse>,
+        Error<ActivateProjectCertificatesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deactivate certificates at the organization level.  You can atomically and idempotently deactivate up to 10 certificates at a time.
-#[bon::builder]
+#[bon::builder(state_mod = deactivate_organization_certificates_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn deactivate_organization_certificates(
     configuration: &configuration::Configuration,
     toggle_certificates_request: &models::ToggleCertificatesRequest,
@@ -887,13 +965,32 @@ pub async fn deactivate_organization_certificates(
     }
 }
 
+#[allow(deprecated)]
+impl<S: deactivate_organization_certificates_builder::State>
+    DeactivateOrganizationCertificatesBuilder<'_, '_, '_, S>
+where
+    S::Configuration: deactivate_organization_certificates_builder::IsSet,
+    S::ToggleCertificatesRequest: deactivate_organization_certificates_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::OrganizationCertificateDeactivationResponse,
+        Error<DeactivateOrganizationCertificatesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deactivate certificates at the organization level.  You can atomically and idempotently deactivate up to 10 certificates at a time.
 ///
 /// Sends the same request as [`deactivate_organization_certificates`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OrganizationCertificateDeactivationResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = deactivate_organization_certificates_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn deactivate_organization_certificates_response(
     configuration: &configuration::Configuration,
     toggle_certificates_request: &models::ToggleCertificatesRequest,
@@ -971,8 +1068,27 @@ pub async fn deactivate_organization_certificates_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: deactivate_organization_certificates_response_builder::State>
+    DeactivateOrganizationCertificatesResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: deactivate_organization_certificates_response_builder::IsSet,
+    S::ToggleCertificatesRequest: deactivate_organization_certificates_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::OrganizationCertificateDeactivationResponse>,
+        Error<DeactivateOrganizationCertificatesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deactivate certificates at the project level. You can atomically and  idempotently deactivate up to 10 certificates at a time.
-#[bon::builder]
+#[bon::builder(state_mod = deactivate_project_certificates_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn deactivate_project_certificates(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1062,13 +1178,33 @@ pub async fn deactivate_project_certificates(
     }
 }
 
+#[allow(deprecated)]
+impl<S: deactivate_project_certificates_builder::State>
+    DeactivateProjectCertificatesBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: deactivate_project_certificates_builder::IsSet,
+    S::ProjectId: deactivate_project_certificates_builder::IsSet,
+    S::ToggleCertificatesRequest: deactivate_project_certificates_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::OrganizationProjectCertificateDeactivationResponse,
+        Error<DeactivateProjectCertificatesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deactivate certificates at the project level. You can atomically and  idempotently deactivate up to 10 certificates at a time.
 ///
 /// Sends the same request as [`deactivate_project_certificates`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OrganizationProjectCertificateDeactivationResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = deactivate_project_certificates_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn deactivate_project_certificates_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1149,8 +1285,28 @@ pub async fn deactivate_project_certificates_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: deactivate_project_certificates_response_builder::State>
+    DeactivateProjectCertificatesResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: deactivate_project_certificates_response_builder::IsSet,
+    S::ProjectId: deactivate_project_certificates_response_builder::IsSet,
+    S::ToggleCertificatesRequest: deactivate_project_certificates_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::OrganizationProjectCertificateDeactivationResponse>,
+        Error<DeactivateProjectCertificatesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Delete a certificate from the organization.  The certificate must be inactive for the organization and all projects.
-#[bon::builder]
+#[bon::builder(state_mod = delete_certificate_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_certificate(
     configuration: &configuration::Configuration,
     certificate_id: &str,
@@ -1231,13 +1387,28 @@ pub async fn delete_certificate(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_certificate_builder::State> DeleteCertificateBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_certificate_builder::IsSet,
+    S::CertificateId: delete_certificate_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::DeleteCertificateResponse, Error<DeleteCertificateError>> {
+        self.call_internal().await
+    }
+}
+
 /// Delete a certificate from the organization.  The certificate must be inactive for the organization and all projects.
 ///
 /// Sends the same request as [`delete_certificate`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::DeleteCertificateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_certificate_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_certificate_response(
     configuration: &configuration::Configuration,
     certificate_id: &str,
@@ -1309,8 +1480,24 @@ pub async fn delete_certificate_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_certificate_response_builder::State> DeleteCertificateResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_certificate_response_builder::IsSet,
+    S::CertificateId: delete_certificate_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::DeleteCertificateResponse>, Error<DeleteCertificateError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Get a certificate that has been uploaded to the organization.  You can get a certificate regardless of whether it is active or not.
-#[bon::builder]
+#[bon::builder(state_mod = get_certificate_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_certificate(
     configuration: &configuration::Configuration,
     certificate_id: &str,
@@ -1399,13 +1586,26 @@ pub async fn get_certificate(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_certificate_builder::State> GetCertificateBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_certificate_builder::IsSet,
+    S::CertificateId: get_certificate_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Certificate, Error<GetCertificateError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get a certificate that has been uploaded to the organization.  You can get a certificate regardless of whether it is active or not.
 ///
 /// Sends the same request as [`get_certificate`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Certificate` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = get_certificate_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn get_certificate_response(
     configuration: &configuration::Configuration,
     certificate_id: &str,
@@ -1485,8 +1685,23 @@ pub async fn get_certificate_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: get_certificate_response_builder::State> GetCertificateResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: get_certificate_response_builder::IsSet,
+    S::CertificateId: get_certificate_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Certificate>, Error<GetCertificateError>> {
+        self.call_internal().await
+    }
+}
+
 /// List uploaded certificates for this organization.
-#[bon::builder]
+#[bon::builder(state_mod = list_organization_certificates_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_organization_certificates(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -1573,13 +1788,28 @@ pub async fn list_organization_certificates(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_organization_certificates_builder::State>
+    ListOrganizationCertificatesBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_organization_certificates_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ListCertificatesResponse, Error<ListOrganizationCertificatesError>> {
+        self.call_internal().await
+    }
+}
+
 /// List uploaded certificates for this organization.
 ///
 /// Sends the same request as [`list_organization_certificates`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListCertificatesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_organization_certificates_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_organization_certificates_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -1660,8 +1890,26 @@ pub async fn list_organization_certificates_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_organization_certificates_response_builder::State>
+    ListOrganizationCertificatesResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_organization_certificates_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ListCertificatesResponse>,
+        Error<ListOrganizationCertificatesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// List certificates for this project.
-#[bon::builder]
+#[bon::builder(state_mod = list_project_certificates_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_certificates(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1754,13 +2002,29 @@ pub async fn list_project_certificates(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_certificates_builder::State>
+    ListProjectCertificatesBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_certificates_builder::IsSet,
+    S::ProjectId: list_project_certificates_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ListProjectCertificatesResponse, Error<ListProjectCertificatesError>> {
+        self.call_internal().await
+    }
+}
+
 /// List certificates for this project.
 ///
 /// Sends the same request as [`list_project_certificates`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ListProjectCertificatesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_project_certificates_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_certificates_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1847,8 +2111,27 @@ pub async fn list_project_certificates_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_certificates_response_builder::State>
+    ListProjectCertificatesResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_certificates_response_builder::IsSet,
+    S::ProjectId: list_project_certificates_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ListProjectCertificatesResponse>,
+        Error<ListProjectCertificatesError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Modify a certificate. Note that only the name can be modified.
-#[bon::builder]
+#[bon::builder(state_mod = modify_certificate_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_certificate(
     configuration: &configuration::Configuration,
     certificate_id: &str,
@@ -1935,13 +2218,27 @@ pub async fn modify_certificate(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_certificate_builder::State> ModifyCertificateBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: modify_certificate_builder::IsSet,
+    S::CertificateId: modify_certificate_builder::IsSet,
+    S::ModifyCertificateRequest: modify_certificate_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Certificate, Error<ModifyCertificateError>> {
+        self.call_internal().await
+    }
+}
+
 /// Modify a certificate. Note that only the name can be modified.
 ///
 /// Sends the same request as [`modify_certificate`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Certificate` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = modify_certificate_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn modify_certificate_response(
     configuration: &configuration::Configuration,
     certificate_id: &str,
@@ -2019,8 +2316,25 @@ pub async fn modify_certificate_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: modify_certificate_response_builder::State>
+    ModifyCertificateResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: modify_certificate_response_builder::IsSet,
+    S::CertificateId: modify_certificate_response_builder::IsSet,
+    S::ModifyCertificateRequest: modify_certificate_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Certificate>, Error<ModifyCertificateError>> {
+        self.call_internal().await
+    }
+}
+
 /// Upload a certificate to the organization. This does **not** automatically activate the certificate.  Organizations can upload up to 50 certificates.
-#[bon::builder]
+#[bon::builder(state_mod = upload_certificate_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn upload_certificate(
     configuration: &configuration::Configuration,
     upload_certificate_request: &models::UploadCertificateRequest,
@@ -2095,13 +2409,26 @@ pub async fn upload_certificate(
     }
 }
 
+#[allow(deprecated)]
+impl<S: upload_certificate_builder::State> UploadCertificateBuilder<'_, '_, '_, S>
+where
+    S::Configuration: upload_certificate_builder::IsSet,
+    S::UploadCertificateRequest: upload_certificate_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Certificate, Error<UploadCertificateError>> {
+        self.call_internal().await
+    }
+}
+
 /// Upload a certificate to the organization. This does **not** automatically activate the certificate.  Organizations can upload up to 50 certificates.
 ///
 /// Sends the same request as [`upload_certificate`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Certificate` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = upload_certificate_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn upload_certificate_response(
     configuration: &configuration::Configuration,
     upload_certificate_request: &models::UploadCertificateRequest,
@@ -2164,5 +2491,20 @@ pub async fn upload_certificate_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: upload_certificate_response_builder::State> UploadCertificateResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: upload_certificate_response_builder::IsSet,
+    S::UploadCertificateRequest: upload_certificate_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Certificate>, Error<UploadCertificateError>> {
+        self.call_internal().await
     }
 }

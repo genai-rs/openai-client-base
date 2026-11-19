@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = ranking_options_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RankingOptions {
     #[serde(rename = "ranker", skip_serializing_if = "Option::is_none")]
     pub ranker: Option<models::RankerVersionType>,
@@ -29,6 +30,14 @@ impl RankingOptions {
             score_threshold: None,
             hybrid_search: None,
         }
+    }
+}
+
+impl<S: ranking_options_builder::State> RankingOptionsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RankingOptions {
+        self.build_internal()
     }
 }
 

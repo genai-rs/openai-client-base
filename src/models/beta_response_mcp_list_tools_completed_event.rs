@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseMcpListToolsCompletedEvent : Emitted when the list of available MCP tools has been successfully retrieved.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_mcp_list_tools_completed_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseMcpListToolsCompletedEvent {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -51,6 +52,21 @@ impl BetaResponseMcpListToolsCompletedEvent {
             output_index,
             sequence_number,
         }
+    }
+}
+
+impl<S: beta_response_mcp_list_tools_completed_event_builder::State>
+    BetaResponseMcpListToolsCompletedEventBuilder<S>
+where
+    S::Type: beta_response_mcp_list_tools_completed_event_builder::IsSet,
+    S::ItemId: beta_response_mcp_list_tools_completed_event_builder::IsSet,
+    S::OutputIndex: beta_response_mcp_list_tools_completed_event_builder::IsSet,
+    S::SequenceNumber: beta_response_mcp_list_tools_completed_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseMcpListToolsCompletedEvent {
+        self.build_internal()
     }
 }
 

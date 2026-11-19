@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseWebSearchCallSearchingEvent : Emitted when a web search call is executing.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_web_search_call_searching_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseWebSearchCallSearchingEvent {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -51,6 +52,21 @@ impl BetaResponseWebSearchCallSearchingEvent {
             item_id,
             sequence_number,
         }
+    }
+}
+
+impl<S: beta_response_web_search_call_searching_event_builder::State>
+    BetaResponseWebSearchCallSearchingEventBuilder<S>
+where
+    S::Type: beta_response_web_search_call_searching_event_builder::IsSet,
+    S::OutputIndex: beta_response_web_search_call_searching_event_builder::IsSet,
+    S::ItemId: beta_response_web_search_call_searching_event_builder::IsSet,
+    S::SequenceNumber: beta_response_web_search_call_searching_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseWebSearchCallSearchingEvent {
+        self.build_internal()
     }
 }
 

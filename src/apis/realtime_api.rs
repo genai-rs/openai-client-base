@@ -123,7 +123,7 @@ pub enum RejectRealtimeCallError {
 }
 
 /// Accept an incoming SIP call and configure the realtime session that will handle it.
-#[bon::builder]
+#[bon::builder(state_mod = accept_realtime_call_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn accept_realtime_call(
     configuration: &configuration::Configuration,
     call_id: &str,
@@ -191,13 +191,27 @@ pub async fn accept_realtime_call(
     }
 }
 
+#[allow(deprecated)]
+impl<S: accept_realtime_call_builder::State> AcceptRealtimeCallBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: accept_realtime_call_builder::IsSet,
+    S::CallId: accept_realtime_call_builder::IsSet,
+    S::RealtimeSessionCreateRequestGa: accept_realtime_call_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<AcceptRealtimeCallError>> {
+        self.call_internal().await
+    }
+}
+
 /// Accept an incoming SIP call and configure the realtime session that will handle it.
 ///
 /// Sends the same request as [`accept_realtime_call`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = accept_realtime_call_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn accept_realtime_call_response(
     configuration: &configuration::Configuration,
     call_id: &str,
@@ -267,8 +281,23 @@ pub async fn accept_realtime_call_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: accept_realtime_call_response_builder::State>
+    AcceptRealtimeCallResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: accept_realtime_call_response_builder::IsSet,
+    S::CallId: accept_realtime_call_response_builder::IsSet,
+    S::RealtimeSessionCreateRequestGa: accept_realtime_call_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<()>, Error<AcceptRealtimeCallError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new Realtime API call over WebRTC and receive the SDP answer needed to complete the peer connection.
-#[bon::builder]
+#[bon::builder(state_mod = create_realtime_call_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_realtime_call(
     configuration: &configuration::Configuration,
     sdp: &str,
@@ -346,6 +375,19 @@ pub async fn create_realtime_call(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_realtime_call_builder::State> CreateRealtimeCallBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_realtime_call_builder::IsSet,
+    S::Sdp: create_realtime_call_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<String, Error<CreateRealtimeCallError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new Realtime API call over WebRTC and receive the SDP answer needed to complete the peer connection.
 ///
 /// Sends the same request as [`create_realtime_call`] and fails the same way, error status included, but returns the
@@ -353,7 +395,7 @@ pub async fn create_realtime_call(
 /// `String` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 /// The headers the spec declares are typed: `typed_headers::<CreateRealtimeCallResponseHeaders>()` ([`CreateRealtimeCallResponseHeaders`]).
-#[bon::builder]
+#[bon::builder(state_mod = create_realtime_call_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_realtime_call_response(
     configuration: &configuration::Configuration,
     sdp: &str,
@@ -422,10 +464,24 @@ pub async fn create_realtime_call_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_realtime_call_response_builder::State>
+    CreateRealtimeCallResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_realtime_call_response_builder::IsSet,
+    S::Sdp: create_realtime_call_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<String>, Error<CreateRealtimeCallError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new Realtime API call over WebRTC and receive the SDP answer needed to complete the peer connection.
 ///
 /// Sends the request body as `application/sdp`; `create_realtime_call` sends it as `multipart/form-data`.
-#[bon::builder]
+#[bon::builder(state_mod = create_realtime_call_sdp_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_realtime_call_sdp(
     configuration: &configuration::Configuration,
     body: &str,
@@ -488,6 +544,19 @@ pub async fn create_realtime_call_sdp(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_realtime_call_sdp_builder::State> CreateRealtimeCallSdpBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_realtime_call_sdp_builder::IsSet,
+    S::Body: create_realtime_call_sdp_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<String, Error<CreateRealtimeCallError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a new Realtime API call over WebRTC and receive the SDP answer needed to complete the peer connection.
 ///
 /// Sends the request body as `application/sdp`; `create_realtime_call` sends it as `multipart/form-data`.
@@ -497,7 +566,7 @@ pub async fn create_realtime_call_sdp(
 /// `String` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 /// The headers the spec declares are typed: `typed_headers::<CreateRealtimeCallResponseHeaders>()` ([`CreateRealtimeCallResponseHeaders`]).
-#[bon::builder]
+#[bon::builder(state_mod = create_realtime_call_sdp_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_realtime_call_sdp_response(
     configuration: &configuration::Configuration,
     body: &str,
@@ -551,8 +620,22 @@ pub async fn create_realtime_call_sdp_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_realtime_call_sdp_response_builder::State>
+    CreateRealtimeCallSdpResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_realtime_call_sdp_response_builder::IsSet,
+    S::Body: create_realtime_call_sdp_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<String>, Error<CreateRealtimeCallError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create a Realtime client secret with an associated session configuration.  Client secrets are short-lived tokens that can be passed to a client app, such as a web frontend or mobile client, which grants access to the Realtime API without leaking your main API key. You can configure a custom TTL for each client secret.  You can also attach session configuration options to the client secret, which will be applied to any sessions created using that client secret, but these can also be overridden by the client connection.  [Learn more about authentication with client secrets over WebRTC](https://developers.openai.com/api/docs/guides/realtime-webrtc).  Returns the created client secret and the effective session object. The client secret is a string that looks like `ek_1234`.
-#[bon::builder]
+#[bon::builder(state_mod = create_realtime_client_secret_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_realtime_client_secret(
     configuration: &configuration::Configuration,
     realtime_create_client_secret_request: &models::RealtimeCreateClientSecretRequest,
@@ -627,13 +710,30 @@ pub async fn create_realtime_client_secret(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_realtime_client_secret_builder::State>
+    CreateRealtimeClientSecretBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_realtime_client_secret_builder::IsSet,
+    S::RealtimeCreateClientSecretRequest: create_realtime_client_secret_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::RealtimeCreateClientSecretResponse, Error<CreateRealtimeClientSecretError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Create a Realtime client secret with an associated session configuration.  Client secrets are short-lived tokens that can be passed to a client app, such as a web frontend or mobile client, which grants access to the Realtime API without leaking your main API key. You can configure a custom TTL for each client secret.  You can also attach session configuration options to the client secret, which will be applied to any sessions created using that client secret, but these can also be overridden by the client connection.  [Learn more about authentication with client secrets over WebRTC](https://developers.openai.com/api/docs/guides/realtime-webrtc).  Returns the created client secret and the effective session object. The client secret is a string that looks like `ek_1234`.
 ///
 /// Sends the same request as [`create_realtime_client_secret`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RealtimeCreateClientSecretResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_realtime_client_secret_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_realtime_client_secret_response(
     configuration: &configuration::Configuration,
     realtime_create_client_secret_request: &models::RealtimeCreateClientSecretRequest,
@@ -702,8 +802,27 @@ pub async fn create_realtime_client_secret_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_realtime_client_secret_response_builder::State>
+    CreateRealtimeClientSecretResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_realtime_client_secret_response_builder::IsSet,
+    S::RealtimeCreateClientSecretRequest: create_realtime_client_secret_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::RealtimeCreateClientSecretResponse>,
+        Error<CreateRealtimeClientSecretError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Create an ephemeral API token for use in client-side applications with the Realtime API. Can be configured with the same session parameters as the `session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API.  Returns the created Realtime session object, plus an ephemeral key.
-#[bon::builder]
+#[bon::builder(state_mod = create_realtime_session_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_realtime_session(
     configuration: &configuration::Configuration,
     realtime_session_create_request: &models::RealtimeSessionCreateRequest,
@@ -764,13 +883,28 @@ pub async fn create_realtime_session(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_realtime_session_builder::State> CreateRealtimeSessionBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_realtime_session_builder::IsSet,
+    S::RealtimeSessionCreateRequest: create_realtime_session_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::RealtimeSessionCreateResponse, Error<CreateRealtimeSessionError>> {
+        self.call_internal().await
+    }
+}
+
 /// Create an ephemeral API token for use in client-side applications with the Realtime API. Can be configured with the same session parameters as the `session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API.  Returns the created Realtime session object, plus an ephemeral key.
 ///
 /// Sends the same request as [`create_realtime_session`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RealtimeSessionCreateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_realtime_session_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_realtime_session_response(
     configuration: &configuration::Configuration,
     realtime_session_create_request: &models::RealtimeSessionCreateRequest,
@@ -825,8 +959,27 @@ pub async fn create_realtime_session_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_realtime_session_response_builder::State>
+    CreateRealtimeSessionResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_realtime_session_response_builder::IsSet,
+    S::RealtimeSessionCreateRequest: create_realtime_session_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::RealtimeSessionCreateResponse>,
+        Error<CreateRealtimeSessionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Create an ephemeral API token for use in client-side applications with the Realtime API specifically for realtime transcriptions.  Can be configured with the same session parameters as the `transcription_session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API.  Returns the created Realtime transcription session object, plus an ephemeral key.
-#[bon::builder]
+#[bon::builder(state_mod = create_realtime_transcription_session_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_realtime_transcription_session(
     configuration: &configuration::Configuration,
     realtime_transcription_session_create_request: &models::RealtimeTranscriptionSessionCreateRequest,
@@ -895,13 +1048,33 @@ pub async fn create_realtime_transcription_session(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_realtime_transcription_session_builder::State>
+    CreateRealtimeTranscriptionSessionBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_realtime_transcription_session_builder::IsSet,
+    S::RealtimeTranscriptionSessionCreateRequest:
+        create_realtime_transcription_session_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::RealtimeTranscriptionSessionCreateResponse,
+        Error<CreateRealtimeTranscriptionSessionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Create an ephemeral API token for use in client-side applications with the Realtime API specifically for realtime transcriptions.  Can be configured with the same session parameters as the `transcription_session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API.  Returns the created Realtime transcription session object, plus an ephemeral key.
 ///
 /// Sends the same request as [`create_realtime_transcription_session`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RealtimeTranscriptionSessionCreateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_realtime_transcription_session_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_realtime_transcription_session_response(
     configuration: &configuration::Configuration,
     realtime_transcription_session_create_request: &models::RealtimeTranscriptionSessionCreateRequest,
@@ -961,8 +1134,28 @@ pub async fn create_realtime_transcription_session_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_realtime_transcription_session_response_builder::State>
+    CreateRealtimeTranscriptionSessionResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_realtime_transcription_session_response_builder::IsSet,
+    S::RealtimeTranscriptionSessionCreateRequest:
+        create_realtime_transcription_session_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::RealtimeTranscriptionSessionCreateResponse>,
+        Error<CreateRealtimeTranscriptionSessionError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Create a Realtime translation client secret with an associated translation session configuration.  Client secrets are short-lived tokens that can be passed to a client app, such as a web frontend or mobile client, which grants access to the Realtime Translation API without leaking your main API key. You can configure a custom TTL for each client secret.  Returns the created client secret and the effective translation session object. The client secret is a string that looks like `ek_1234`.
-#[bon::builder]
+#[bon::builder(state_mod = create_realtime_translation_client_secret_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_realtime_translation_client_secret(
     configuration: &configuration::Configuration,
     realtime_translation_client_secret_create_request: &models::RealtimeTranslationClientSecretCreateRequest,
@@ -1044,13 +1237,33 @@ pub async fn create_realtime_translation_client_secret(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_realtime_translation_client_secret_builder::State>
+    CreateRealtimeTranslationClientSecretBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_realtime_translation_client_secret_builder::IsSet,
+    S::RealtimeTranslationClientSecretCreateRequest:
+        create_realtime_translation_client_secret_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::RealtimeTranslationClientSecretCreateResponse,
+        Error<CreateRealtimeTranslationClientSecretError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Create a Realtime translation client secret with an associated translation session configuration.  Client secrets are short-lived tokens that can be passed to a client app, such as a web frontend or mobile client, which grants access to the Realtime Translation API without leaking your main API key. You can configure a custom TTL for each client secret.  Returns the created client secret and the effective translation session object. The client secret is a string that looks like `ek_1234`.
 ///
 /// Sends the same request as [`create_realtime_translation_client_secret`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RealtimeTranslationClientSecretCreateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_realtime_translation_client_secret_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_realtime_translation_client_secret_response(
     configuration: &configuration::Configuration,
     realtime_translation_client_secret_create_request: &models::RealtimeTranslationClientSecretCreateRequest,
@@ -1123,8 +1336,28 @@ pub async fn create_realtime_translation_client_secret_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_realtime_translation_client_secret_response_builder::State>
+    CreateRealtimeTranslationClientSecretResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_realtime_translation_client_secret_response_builder::IsSet,
+    S::RealtimeTranslationClientSecretCreateRequest:
+        create_realtime_translation_client_secret_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::RealtimeTranslationClientSecretCreateResponse>,
+        Error<CreateRealtimeTranslationClientSecretError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// End an active Realtime API call, whether it was initiated over SIP or WebRTC.
-#[bon::builder]
+#[bon::builder(state_mod = hangup_realtime_call_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn hangup_realtime_call(
     configuration: &configuration::Configuration,
     call_id: &str,
@@ -1185,13 +1418,26 @@ pub async fn hangup_realtime_call(
     }
 }
 
+#[allow(deprecated)]
+impl<S: hangup_realtime_call_builder::State> HangupRealtimeCallBuilder<'_, '_, '_, S>
+where
+    S::Configuration: hangup_realtime_call_builder::IsSet,
+    S::CallId: hangup_realtime_call_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<HangupRealtimeCallError>> {
+        self.call_internal().await
+    }
+}
+
 /// End an active Realtime API call, whether it was initiated over SIP or WebRTC.
 ///
 /// Sends the same request as [`hangup_realtime_call`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = hangup_realtime_call_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn hangup_realtime_call_response(
     configuration: &configuration::Configuration,
     call_id: &str,
@@ -1254,8 +1500,22 @@ pub async fn hangup_realtime_call_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: hangup_realtime_call_response_builder::State>
+    HangupRealtimeCallResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: hangup_realtime_call_response_builder::IsSet,
+    S::CallId: hangup_realtime_call_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<()>, Error<HangupRealtimeCallError>> {
+        self.call_internal().await
+    }
+}
+
 /// Transfer an active SIP call to a new destination using the SIP REFER verb.
-#[bon::builder]
+#[bon::builder(state_mod = refer_realtime_call_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn refer_realtime_call(
     configuration: &configuration::Configuration,
     call_id: &str,
@@ -1320,13 +1580,27 @@ pub async fn refer_realtime_call(
     }
 }
 
+#[allow(deprecated)]
+impl<S: refer_realtime_call_builder::State> ReferRealtimeCallBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: refer_realtime_call_builder::IsSet,
+    S::CallId: refer_realtime_call_builder::IsSet,
+    S::RealtimeCallReferRequest: refer_realtime_call_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<ReferRealtimeCallError>> {
+        self.call_internal().await
+    }
+}
+
 /// Transfer an active SIP call to a new destination using the SIP REFER verb.
 ///
 /// Sends the same request as [`refer_realtime_call`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = refer_realtime_call_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn refer_realtime_call_response(
     configuration: &configuration::Configuration,
     call_id: &str,
@@ -1393,8 +1667,23 @@ pub async fn refer_realtime_call_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: refer_realtime_call_response_builder::State>
+    ReferRealtimeCallResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: refer_realtime_call_response_builder::IsSet,
+    S::CallId: refer_realtime_call_response_builder::IsSet,
+    S::RealtimeCallReferRequest: refer_realtime_call_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<()>, Error<ReferRealtimeCallError>> {
+        self.call_internal().await
+    }
+}
+
 /// Decline an incoming SIP call by returning a SIP status code to the caller.
-#[bon::builder]
+#[bon::builder(state_mod = reject_realtime_call_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn reject_realtime_call(
     configuration: &configuration::Configuration,
     call_id: &str,
@@ -1462,13 +1751,26 @@ pub async fn reject_realtime_call(
     }
 }
 
+#[allow(deprecated)]
+impl<S: reject_realtime_call_builder::State> RejectRealtimeCallBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: reject_realtime_call_builder::IsSet,
+    S::CallId: reject_realtime_call_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<(), Error<RejectRealtimeCallError>> {
+        self.call_internal().await
+    }
+}
+
 /// Decline an incoming SIP call by returning a SIP status code to the caller.
 ///
 /// Sends the same request as [`reject_realtime_call`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = reject_realtime_call_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn reject_realtime_call_response(
     configuration: &configuration::Configuration,
     call_id: &str,
@@ -1535,5 +1837,19 @@ pub async fn reject_realtime_call_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: reject_realtime_call_response_builder::State>
+    RejectRealtimeCallResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: reject_realtime_call_response_builder::IsSet,
+    S::CallId: reject_realtime_call_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<()>, Error<RejectRealtimeCallError>> {
+        self.call_internal().await
     }
 }

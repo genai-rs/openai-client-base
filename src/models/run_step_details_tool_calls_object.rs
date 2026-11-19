@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepDetailsToolCallsObject : Details of the tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_details_tool_calls_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDetailsToolCallsObject {
     /// Always `tool_calls`.
     #[serde(rename = "type")]
@@ -29,6 +30,18 @@ impl RunStepDetailsToolCallsObject {
         tool_calls: Vec<models::RunStepDetailsToolCallsObjectToolCallsInner>,
     ) -> RunStepDetailsToolCallsObject {
         RunStepDetailsToolCallsObject { r#type, tool_calls }
+    }
+}
+
+impl<S: run_step_details_tool_calls_object_builder::State> RunStepDetailsToolCallsObjectBuilder<S>
+where
+    S::Type: run_step_details_tool_calls_object_builder::IsSet,
+    S::ToolCalls: run_step_details_tool_calls_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDetailsToolCallsObject {
+        self.build_internal()
     }
 }
 

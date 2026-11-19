@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_platform_workload_identity_federation_rule_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdatePlatformWorkloadIdentityFederationRuleBody {
     #[serde(
         rename = "name",
@@ -49,6 +50,16 @@ impl UpdatePlatformWorkloadIdentityFederationRuleBody {
             permissions: None,
             enabled: None,
         }
+    }
+}
+
+impl<S: update_platform_workload_identity_federation_rule_body_builder::State>
+    UpdatePlatformWorkloadIdentityFederationRuleBodyBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdatePlatformWorkloadIdentityFederationRuleBody {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventConversationItemDone : Returned when a conversation item is finalized.  The event will include the full content of the Item except for audio data, which can be retrieved separately with a `conversation.item.retrieve` event if needed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_conversation_item_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventConversationItemDone {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -45,6 +46,20 @@ impl RealtimeServerEventConversationItemDone {
             previous_item_id: None,
             item,
         }
+    }
+}
+
+impl<S: realtime_server_event_conversation_item_done_builder::State>
+    RealtimeServerEventConversationItemDoneBuilder<S>
+where
+    S::EventId: realtime_server_event_conversation_item_done_builder::IsSet,
+    S::Type: realtime_server_event_conversation_item_done_builder::IsSet,
+    S::Item: realtime_server_event_conversation_item_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventConversationItemDone {
+        self.build_internal()
     }
 }
 

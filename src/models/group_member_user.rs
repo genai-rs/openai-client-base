@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// GroupMemberUser : Details about a user returned from an organization group membership lookup.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = group_member_user_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GroupMemberUser {
     /// Identifier for the user.
     #[serde(rename = "id")]
@@ -51,6 +52,19 @@ impl GroupMemberUser {
             is_service_account,
             user_type,
         }
+    }
+}
+
+impl<S: group_member_user_builder::State> GroupMemberUserBuilder<S>
+where
+    S::Id: group_member_user_builder::IsSet,
+    S::Name: group_member_user_builder::IsSet,
+    S::UserType: group_member_user_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GroupMemberUser {
+        self.build_internal()
     }
 }
 

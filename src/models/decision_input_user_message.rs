@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// DecisionInputUserMessage : A user message containing input text, images, or JSON.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = decision_input_user_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DecisionInputUserMessage {
     /// Defaults to `\"user\"`.
     #[serde(rename = "role")]
@@ -32,6 +33,18 @@ impl DecisionInputUserMessage {
             content,
             r#type: None,
         }
+    }
+}
+
+impl<S: decision_input_user_message_builder::State> DecisionInputUserMessageBuilder<S>
+where
+    S::Role: decision_input_user_message_builder::IsSet,
+    S::Content: decision_input_user_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DecisionInputUserMessage {
+        self.build_internal()
     }
 }
 

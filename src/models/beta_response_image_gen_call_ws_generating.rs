@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseImageGenCallWsGenerating : Emitted when an image generation tool call is actively generating an image (intermediate state).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_image_gen_call_ws_generating_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseImageGenCallWsGenerating {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -55,6 +56,21 @@ impl BetaResponseImageGenCallWsGenerating {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_image_gen_call_ws_generating_builder::State>
+    BetaResponseImageGenCallWsGeneratingBuilder<S>
+where
+    S::Type: beta_response_image_gen_call_ws_generating_builder::IsSet,
+    S::OutputIndex: beta_response_image_gen_call_ws_generating_builder::IsSet,
+    S::ItemId: beta_response_image_gen_call_ws_generating_builder::IsSet,
+    S::SequenceNumber: beta_response_image_gen_call_ws_generating_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseImageGenCallWsGenerating {
+        self.build_internal()
     }
 }
 

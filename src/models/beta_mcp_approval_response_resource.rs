@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaMcpApprovalResponseResource : A response to an MCP approval request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_mcp_approval_response_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaMcpApprovalResponseResource {
     /// The agent that produced this item.
     #[serde(
@@ -60,6 +61,21 @@ impl BetaMcpApprovalResponseResource {
             approve,
             reason: None,
         }
+    }
+}
+
+impl<S: beta_mcp_approval_response_resource_builder::State>
+    BetaMcpApprovalResponseResourceBuilder<S>
+where
+    S::Type: beta_mcp_approval_response_resource_builder::IsSet,
+    S::Id: beta_mcp_approval_response_resource_builder::IsSet,
+    S::ApprovalRequestId: beta_mcp_approval_response_resource_builder::IsSet,
+    S::Approve: beta_mcp_approval_response_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaMcpApprovalResponseResource {
+        self.build_internal()
     }
 }
 

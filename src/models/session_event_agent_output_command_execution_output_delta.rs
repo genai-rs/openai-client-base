@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentOutputCommandExecutionOutputDelta : Emitted when command execution produces an output delta.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_output_command_execution_output_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentOutputCommandExecutionOutputDelta {
     /// The type of the object. Always `agent.output.command_execution_output.delta`.  Defaults to `\"agent.output.command_execution_output.delta\"`.
     #[serde(rename = "type")]
@@ -74,6 +75,23 @@ impl SessionEventAgentOutputCommandExecutionOutputDelta {
             delta,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_output_command_execution_output_delta_builder::State>
+    SessionEventAgentOutputCommandExecutionOutputDeltaBuilder<S>
+where
+    S::Type: session_event_agent_output_command_execution_output_delta_builder::IsSet,
+    S::EventId: session_event_agent_output_command_execution_output_delta_builder::IsSet,
+    S::SessionId: session_event_agent_output_command_execution_output_delta_builder::IsSet,
+    S::ItemId: session_event_agent_output_command_execution_output_delta_builder::IsSet,
+    S::OutputIndex: session_event_agent_output_command_execution_output_delta_builder::IsSet,
+    S::Delta: session_event_agent_output_command_execution_output_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentOutputCommandExecutionOutputDelta {
+        self.build_internal()
     }
 }
 

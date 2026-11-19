@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaLocalShellExecAction : Execute a shell command on the server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_local_shell_exec_action_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaLocalShellExecAction {
     /// The type of the local shell action. Always `exec`.  Defaults to `\"exec\"`.
     #[serde(rename = "type")]
@@ -63,6 +64,19 @@ impl BetaLocalShellExecAction {
             env,
             user: None,
         }
+    }
+}
+
+impl<S: beta_local_shell_exec_action_builder::State> BetaLocalShellExecActionBuilder<S>
+where
+    S::Type: beta_local_shell_exec_action_builder::IsSet,
+    S::Command: beta_local_shell_exec_action_builder::IsSet,
+    S::Env: beta_local_shell_exec_action_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaLocalShellExecAction {
+        self.build_internal()
     }
 }
 

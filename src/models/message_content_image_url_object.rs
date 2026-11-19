@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// MessageContentImageUrlObject : References an image URL in the content of a message.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_content_image_url_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageContentImageUrlObject {
     /// The type of the content part.
     #[serde(rename = "type")]
@@ -28,6 +29,18 @@ impl MessageContentImageUrlObject {
         image_url: models::MessageContentImageUrlObjectImageUrl,
     ) -> MessageContentImageUrlObject {
         MessageContentImageUrlObject { r#type, image_url }
+    }
+}
+
+impl<S: message_content_image_url_object_builder::State> MessageContentImageUrlObjectBuilder<S>
+where
+    S::Type: message_content_image_url_object_builder::IsSet,
+    S::ImageUrl: message_content_image_url_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageContentImageUrlObject {
+        self.build_internal()
     }
 }
 

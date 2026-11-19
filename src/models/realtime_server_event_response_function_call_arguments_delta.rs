@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventResponseFunctionCallArgumentsDelta : Returned when the model-generated function call arguments are updated.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_response_function_call_arguments_delta_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventResponseFunctionCallArgumentsDelta {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -56,6 +57,24 @@ impl RealtimeServerEventResponseFunctionCallArgumentsDelta {
             call_id,
             delta,
         }
+    }
+}
+
+impl<S: realtime_server_event_response_function_call_arguments_delta_builder::State>
+    RealtimeServerEventResponseFunctionCallArgumentsDeltaBuilder<S>
+where
+    S::EventId: realtime_server_event_response_function_call_arguments_delta_builder::IsSet,
+    S::Type: realtime_server_event_response_function_call_arguments_delta_builder::IsSet,
+    S::ResponseId: realtime_server_event_response_function_call_arguments_delta_builder::IsSet,
+    S::ItemId: realtime_server_event_response_function_call_arguments_delta_builder::IsSet,
+    S::OutputIndex: realtime_server_event_response_function_call_arguments_delta_builder::IsSet,
+    S::CallId: realtime_server_event_response_function_call_arguments_delta_builder::IsSet,
+    S::Delta: realtime_server_event_response_function_call_arguments_delta_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventResponseFunctionCallArgumentsDelta {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = list_vector_store_files_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ListVectorStoreFilesResponse {
     #[serde(rename = "object")]
     pub object: String,
@@ -40,6 +41,21 @@ impl ListVectorStoreFilesResponse {
             last_id,
             has_more,
         }
+    }
+}
+
+impl<S: list_vector_store_files_response_builder::State> ListVectorStoreFilesResponseBuilder<S>
+where
+    S::Object: list_vector_store_files_response_builder::IsSet,
+    S::Data: list_vector_store_files_response_builder::IsSet,
+    S::FirstId: list_vector_store_files_response_builder::IsSet,
+    S::LastId: list_vector_store_files_response_builder::IsSet,
+    S::HasMore: list_vector_store_files_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ListVectorStoreFilesResponse {
+        self.build_internal()
     }
 }
 

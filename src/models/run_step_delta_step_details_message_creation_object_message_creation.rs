@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_delta_step_details_message_creation_object_message_creation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDeltaStepDetailsMessageCreationObjectMessageCreation {
     /// The ID of the message that was created by this run step.
     #[serde(rename = "message_id", skip_serializing_if = "Option::is_none")]
@@ -20,6 +21,16 @@ pub struct RunStepDeltaStepDetailsMessageCreationObjectMessageCreation {
 impl RunStepDeltaStepDetailsMessageCreationObjectMessageCreation {
     pub fn new() -> RunStepDeltaStepDetailsMessageCreationObjectMessageCreation {
         RunStepDeltaStepDetailsMessageCreationObjectMessageCreation { message_id: None }
+    }
+}
+
+impl<S: run_step_delta_step_details_message_creation_object_message_creation_builder::State>
+    RunStepDeltaStepDetailsMessageCreationObjectMessageCreationBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDeltaStepDetailsMessageCreationObjectMessageCreation {
+        self.build_internal()
     }
 }
 

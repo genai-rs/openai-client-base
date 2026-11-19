@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = agent_session_created_payload_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AgentSessionCreatedPayloadResource {
     /// The ID of the session.
     ///
@@ -40,6 +41,19 @@ impl AgentSessionCreatedPayloadResource {
             environment_type,
             connect: None,
         }
+    }
+}
+
+impl<S: agent_session_created_payload_resource_builder::State>
+    AgentSessionCreatedPayloadResourceBuilder<S>
+where
+    S::Id: agent_session_created_payload_resource_builder::IsSet,
+    S::EnvironmentType: agent_session_created_payload_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AgentSessionCreatedPayloadResource {
+        self.build_internal()
     }
 }
 

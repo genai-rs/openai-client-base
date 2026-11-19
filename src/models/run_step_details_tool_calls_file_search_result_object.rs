@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepDetailsToolCallsFileSearchResultObject : A result instance of the file search.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_step_details_tool_calls_file_search_result_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunStepDetailsToolCallsFileSearchResultObject {
     /// The ID of the file that result was found in.
     #[serde(rename = "file_id")]
@@ -43,6 +44,20 @@ impl RunStepDetailsToolCallsFileSearchResultObject {
             score,
             content: None,
         }
+    }
+}
+
+impl<S: run_step_details_tool_calls_file_search_result_object_builder::State>
+    RunStepDetailsToolCallsFileSearchResultObjectBuilder<S>
+where
+    S::FileId: run_step_details_tool_calls_file_search_result_object_builder::IsSet,
+    S::FileName: run_step_details_tool_calls_file_search_result_object_builder::IsSet,
+    S::Score: run_step_details_tool_calls_file_search_result_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunStepDetailsToolCallsFileSearchResultObject {
+        self.build_internal()
     }
 }
 

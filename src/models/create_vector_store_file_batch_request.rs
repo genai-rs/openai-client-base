@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_vector_store_file_batch_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateVectorStoreFileBatchRequest {
     /// A list of [File](https://developers.openai.com/api/reference/resources/files) IDs that the vector store should use. Useful for tools like `file_search` that can access files. If `attributes` or `chunking_strategy` are provided, they will be applied to all files in the batch. The maximum batch size is 2000 files. This endpoint is recommended for multi-file ingestion and helps reduce per-vector-store write request pressure. Mutually exclusive with `files`.
     ///
@@ -46,6 +47,16 @@ impl CreateVectorStoreFileBatchRequest {
             chunking_strategy: None,
             attributes: None,
         }
+    }
+}
+
+impl<S: create_vector_store_file_batch_request_builder::State>
+    CreateVectorStoreFileBatchRequestBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateVectorStoreFileBatchRequest {
+        self.build_internal()
     }
 }
 

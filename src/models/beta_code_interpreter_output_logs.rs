@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaCodeInterpreterOutputLogs : The logs output from the code interpreter.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_code_interpreter_output_logs_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaCodeInterpreterOutputLogs {
     /// The type of the output. Always `logs`.  Defaults to `\"logs\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl BetaCodeInterpreterOutputLogs {
     /// The logs output from the code interpreter.
     pub fn new(r#type: Type, logs: String) -> BetaCodeInterpreterOutputLogs {
         BetaCodeInterpreterOutputLogs { r#type, logs }
+    }
+}
+
+impl<S: beta_code_interpreter_output_logs_builder::State> BetaCodeInterpreterOutputLogsBuilder<S>
+where
+    S::Type: beta_code_interpreter_output_logs_builder::IsSet,
+    S::Logs: beta_code_interpreter_output_logs_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaCodeInterpreterOutputLogs {
+        self.build_internal()
     }
 }
 

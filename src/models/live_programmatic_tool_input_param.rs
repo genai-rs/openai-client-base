@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_programmatic_tool_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveProgrammaticToolInputParam {
     /// Defaults to `\"programmatic_tool_calling\"`.
     #[serde(rename = "type")]
@@ -20,6 +21,17 @@ pub struct LiveProgrammaticToolInputParam {
 impl LiveProgrammaticToolInputParam {
     pub fn new(r#type: Type) -> LiveProgrammaticToolInputParam {
         LiveProgrammaticToolInputParam { r#type }
+    }
+}
+
+impl<S: live_programmatic_tool_input_param_builder::State> LiveProgrammaticToolInputParamBuilder<S>
+where
+    S::Type: live_programmatic_tool_input_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveProgrammaticToolInputParam {
+        self.build_internal()
     }
 }
 

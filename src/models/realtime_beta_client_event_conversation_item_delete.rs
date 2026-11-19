@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaClientEventConversationItemDelete : Send this event when you want to remove any item from the conversation  history. The server will respond with a `conversation.item.deleted` event,  unless the item does not exist in the conversation history, in which case the  server will respond with an error.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_client_event_conversation_item_delete_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaClientEventConversationItemDelete {
     /// Optional client-generated ID used to identify this event.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
@@ -32,6 +33,19 @@ impl RealtimeBetaClientEventConversationItemDelete {
             r#type,
             item_id,
         }
+    }
+}
+
+impl<S: realtime_beta_client_event_conversation_item_delete_builder::State>
+    RealtimeBetaClientEventConversationItemDeleteBuilder<S>
+where
+    S::Type: realtime_beta_client_event_conversation_item_delete_builder::IsSet,
+    S::ItemId: realtime_beta_client_event_conversation_item_delete_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaClientEventConversationItemDelete {
+        self.build_internal()
     }
 }
 

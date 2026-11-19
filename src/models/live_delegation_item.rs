@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveDelegationItem : Metadata for work delegated by the Live model to your application, Responses, or Decisions.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_delegation_item_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDelegationItem {
     /// The unique ID of the delegation. Use this as delegation_id when replying to client-owned work or correlating backend events.
     #[serde(rename = "id")]
@@ -40,6 +41,19 @@ impl LiveDelegationItem {
             target,
             response_id: None,
         }
+    }
+}
+
+impl<S: live_delegation_item_builder::State> LiveDelegationItemBuilder<S>
+where
+    S::Id: live_delegation_item_builder::IsSet,
+    S::Type: live_delegation_item_builder::IsSet,
+    S::Target: live_delegation_item_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDelegationItem {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectGroup : Details about a group's membership in a project.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_group_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectGroup {
     /// Always `project.group`.
     #[serde(rename = "object")]
@@ -51,6 +52,22 @@ impl ProjectGroup {
             group_type,
             created_at,
         }
+    }
+}
+
+impl<S: project_group_builder::State> ProjectGroupBuilder<S>
+where
+    S::Object: project_group_builder::IsSet,
+    S::ProjectId: project_group_builder::IsSet,
+    S::GroupId: project_group_builder::IsSet,
+    S::GroupName: project_group_builder::IsSet,
+    S::GroupType: project_group_builder::IsSet,
+    S::CreatedAt: project_group_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectGroup {
+        self.build_internal()
     }
 }
 

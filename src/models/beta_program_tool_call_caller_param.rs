@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_program_tool_call_caller_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaProgramToolCallCallerParam {
     /// The caller type. Always `program`.  Defaults to `\"program\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ pub struct BetaProgramToolCallCallerParam {
 impl BetaProgramToolCallCallerParam {
     pub fn new(r#type: Type, caller_id: String) -> BetaProgramToolCallCallerParam {
         BetaProgramToolCallCallerParam { r#type, caller_id }
+    }
+}
+
+impl<S: beta_program_tool_call_caller_param_builder::State> BetaProgramToolCallCallerParamBuilder<S>
+where
+    S::Type: beta_program_tool_call_caller_param_builder::IsSet,
+    S::CallerId: beta_program_tool_call_caller_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaProgramToolCallCallerParam {
+        self.build_internal()
     }
 }
 

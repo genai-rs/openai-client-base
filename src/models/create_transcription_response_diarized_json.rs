@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateTranscriptionResponseDiarizedJson : Represents a diarized transcription response returned by the model, including the combined transcript and speaker-segment annotations.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_transcription_response_diarized_json_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateTranscriptionResponseDiarizedJson {
     /// The type of task that was run. Always `transcribe`.
     #[serde(rename = "task")]
@@ -45,6 +46,21 @@ impl CreateTranscriptionResponseDiarizedJson {
             segments,
             usage: None,
         }
+    }
+}
+
+impl<S: create_transcription_response_diarized_json_builder::State>
+    CreateTranscriptionResponseDiarizedJsonBuilder<S>
+where
+    S::Task: create_transcription_response_diarized_json_builder::IsSet,
+    S::Duration: create_transcription_response_diarized_json_builder::IsSet,
+    S::Text: create_transcription_response_diarized_json_builder::IsSet,
+    S::Segments: create_transcription_response_diarized_json_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateTranscriptionResponseDiarizedJson {
+        self.build_internal()
     }
 }
 

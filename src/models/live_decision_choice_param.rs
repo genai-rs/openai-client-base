@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_decision_choice_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveDecisionChoiceParam {
     #[serde(rename = "value")]
     pub value: models::LiveDecisionChoiceParamValue,
@@ -25,6 +26,17 @@ impl LiveDecisionChoiceParam {
             value,
             description: None,
         }
+    }
+}
+
+impl<S: live_decision_choice_param_builder::State> LiveDecisionChoiceParamBuilder<S>
+where
+    S::Value: live_decision_choice_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveDecisionChoiceParam {
+        self.build_internal()
     }
 }
 

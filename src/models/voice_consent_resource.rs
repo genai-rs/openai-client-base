@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// VoiceConsentResource : A consent recording used to authorize creation of a custom voice.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = voice_consent_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VoiceConsentResource {
     /// The object type, which is always `audio.voice_consent`.
     #[serde(rename = "object")]
@@ -46,6 +47,21 @@ impl VoiceConsentResource {
             language,
             created_at,
         }
+    }
+}
+
+impl<S: voice_consent_resource_builder::State> VoiceConsentResourceBuilder<S>
+where
+    S::Object: voice_consent_resource_builder::IsSet,
+    S::Id: voice_consent_resource_builder::IsSet,
+    S::Name: voice_consent_resource_builder::IsSet,
+    S::Language: voice_consent_resource_builder::IsSet,
+    S::CreatedAt: voice_consent_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VoiceConsentResource {
+        self.build_internal()
     }
 }
 

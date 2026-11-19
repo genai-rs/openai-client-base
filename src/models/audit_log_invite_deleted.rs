@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogInviteDeleted : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_invite_deleted_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogInviteDeleted {
     /// The ID of the invite.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl AuditLogInviteDeleted {
     /// The details for events with this `type`.
     pub fn new() -> AuditLogInviteDeleted {
         AuditLogInviteDeleted { id: None }
+    }
+}
+
+impl<S: audit_log_invite_deleted_builder::State> AuditLogInviteDeletedBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogInviteDeleted {
+        self.build_internal()
     }
 }
 

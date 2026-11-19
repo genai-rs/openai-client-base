@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeTranscriptionSessionCreateRequest : Realtime transcription session object configuration.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_transcription_session_create_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeTranscriptionSessionCreateRequest {
     #[serde(rename = "turn_detection", skip_serializing_if = "Option::is_none")]
     pub turn_detection: Option<models::RealtimeTranscriptionSessionCreateRequestTurnDetection>,
@@ -45,6 +46,16 @@ impl RealtimeTranscriptionSessionCreateRequest {
             input_audio_transcription: None,
             include: None,
         }
+    }
+}
+
+impl<S: realtime_transcription_session_create_request_builder::State>
+    RealtimeTranscriptionSessionCreateRequestBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeTranscriptionSessionCreateRequest {
+        self.build_internal()
     }
 }
 

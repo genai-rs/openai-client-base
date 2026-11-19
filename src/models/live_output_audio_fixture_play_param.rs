@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveOutputAudioFixturePlayParam : Play one complete audio fixture through the session output. Send this event over the primary WebSocket or a server sideband. Audio must be raw mono PCM16 little-endian at 24 kHz, regardless of the session audio format, and at most 30 seconds. The entire payload is validated before model speech is interrupted and input is muted. Only one fixture can be active. fixture.playing acknowledges acceptance and fixture.played reports server mixer drain. These notifications are not exact transport-media boundaries. Input arriving during playback is dropped and not replayed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_output_audio_fixture_play_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveOutputAudioFixturePlayParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
     ///
@@ -41,6 +42,19 @@ impl LiveOutputAudioFixturePlayParam {
             r#type,
             audio,
         }
+    }
+}
+
+impl<S: live_output_audio_fixture_play_param_builder::State>
+    LiveOutputAudioFixturePlayParamBuilder<S>
+where
+    S::Type: live_output_audio_fixture_play_param_builder::IsSet,
+    S::Audio: live_output_audio_fixture_play_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveOutputAudioFixturePlayParam {
+        self.build_internal()
     }
 }
 

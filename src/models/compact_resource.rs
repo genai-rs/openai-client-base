@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = compact_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CompactResource {
     #[serde(rename = "image", skip_serializing_if = "Option::is_none")]
     pub image: Option<models::ResolvedImageOptions>,
@@ -47,6 +48,21 @@ impl CompactResource {
             created_at,
             usage,
         }
+    }
+}
+
+impl<S: compact_resource_builder::State> CompactResourceBuilder<S>
+where
+    S::Id: compact_resource_builder::IsSet,
+    S::Object: compact_resource_builder::IsSet,
+    S::Output: compact_resource_builder::IsSet,
+    S::CreatedAt: compact_resource_builder::IsSet,
+    S::Usage: compact_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CompactResource {
+        self.build_internal()
     }
 }
 

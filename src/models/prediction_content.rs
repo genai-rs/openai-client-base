@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// PredictionContent : Static predicted output content, such as the content of a text file that is being regenerated.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = prediction_content_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PredictionContent {
     /// The type of the predicted content you want to provide. This type is currently always `content`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl PredictionContent {
     /// Static predicted output content, such as the content of a text file that is being regenerated.
     pub fn new(r#type: Type, content: models::PredictionContentContent) -> PredictionContent {
         PredictionContent { r#type, content }
+    }
+}
+
+impl<S: prediction_content_builder::State> PredictionContentBuilder<S>
+where
+    S::Type: prediction_content_builder::IsSet,
+    S::Content: prediction_content_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PredictionContent {
+        self.build_internal()
     }
 }
 

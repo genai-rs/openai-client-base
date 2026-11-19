@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaWebSearchUsage : Usage details for web search requests that ran while generating the response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_web_search_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaWebSearchUsage {
     /// The number of billable web search requests issued.
     #[serde(rename = "num_requests")]
@@ -22,6 +23,17 @@ impl BetaWebSearchUsage {
     /// Usage details for web search requests that ran while generating the response.
     pub fn new(num_requests: i64) -> BetaWebSearchUsage {
         BetaWebSearchUsage { num_requests }
+    }
+}
+
+impl<S: beta_web_search_usage_builder::State> BetaWebSearchUsageBuilder<S>
+where
+    S::NumRequests: beta_web_search_usage_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaWebSearchUsage {
+        self.build_internal()
     }
 }
 

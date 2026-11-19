@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseWebSearchCallInWsProgress : Emitted when a web search call is initiated.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_web_search_call_in_ws_progress_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseWebSearchCallInWsProgress {
     /// The agent that owns this multi-agent streaming event.
     #[serde(
@@ -55,6 +56,21 @@ impl BetaResponseWebSearchCallInWsProgress {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: beta_response_web_search_call_in_ws_progress_builder::State>
+    BetaResponseWebSearchCallInWsProgressBuilder<S>
+where
+    S::Type: beta_response_web_search_call_in_ws_progress_builder::IsSet,
+    S::OutputIndex: beta_response_web_search_call_in_ws_progress_builder::IsSet,
+    S::ItemId: beta_response_web_search_call_in_ws_progress_builder::IsSet,
+    S::SequenceNumber: beta_response_web_search_call_in_ws_progress_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseWebSearchCallInWsProgress {
+        self.build_internal()
     }
 }
 

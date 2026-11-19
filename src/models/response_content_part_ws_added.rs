@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseContentPartWsAdded : Emitted when a new content part is added.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_content_part_ws_added_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseContentPartWsAdded {
     /// The type of the event. Always `response.content_part.added`.
     #[serde(rename = "type")]
@@ -55,6 +56,22 @@ impl ResponseContentPartWsAdded {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_content_part_ws_added_builder::State> ResponseContentPartWsAddedBuilder<S>
+where
+    S::Type: response_content_part_ws_added_builder::IsSet,
+    S::ItemId: response_content_part_ws_added_builder::IsSet,
+    S::OutputIndex: response_content_part_ws_added_builder::IsSet,
+    S::ContentIndex: response_content_part_ws_added_builder::IsSet,
+    S::Part: response_content_part_ws_added_builder::IsSet,
+    S::SequenceNumber: response_content_part_ws_added_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseContentPartWsAdded {
+        self.build_internal()
     }
 }
 

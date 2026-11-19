@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateVaultParams : Parameters for creating a vault to store credentials used by agent tools.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_vault_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateVaultParams {
     /// The name is trimmed before storage. It must contain 1 to 256 UTF-8 bytes after trimming.
     ///
@@ -37,6 +38,14 @@ impl CreateVaultParams {
             name: None,
             metadata: None,
         }
+    }
+}
+
+impl<S: create_vault_params_builder::State> CreateVaultParamsBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateVaultParams {
+        self.build_internal()
     }
 }
 

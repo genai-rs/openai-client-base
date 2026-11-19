@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectRateLimit : Represents a project rate limit config.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_rate_limit_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectRateLimit {
     /// The object type, which is always `project.rate_limit`
     #[serde(rename = "object")]
@@ -74,6 +75,21 @@ impl ProjectRateLimit {
             max_requests_per_1_day: None,
             batch_1_day_max_input_tokens: None,
         }
+    }
+}
+
+impl<S: project_rate_limit_builder::State> ProjectRateLimitBuilder<S>
+where
+    S::Object: project_rate_limit_builder::IsSet,
+    S::Id: project_rate_limit_builder::IsSet,
+    S::Model: project_rate_limit_builder::IsSet,
+    S::MaxRequestsPer1Minute: project_rate_limit_builder::IsSet,
+    S::MaxTokensPer1Minute: project_rate_limit_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectRateLimit {
+        self.build_internal()
     }
 }
 

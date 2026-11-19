@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunToolCallObjectFunction : The function definition.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_tool_call_object_function_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunToolCallObjectFunction {
     /// The name of the function.
     #[serde(rename = "name")]
@@ -25,6 +26,18 @@ impl RunToolCallObjectFunction {
     /// The function definition.
     pub fn new(name: String, arguments: String) -> RunToolCallObjectFunction {
         RunToolCallObjectFunction { name, arguments }
+    }
+}
+
+impl<S: run_tool_call_object_function_builder::State> RunToolCallObjectFunctionBuilder<S>
+where
+    S::Name: run_tool_call_object_function_builder::IsSet,
+    S::Arguments: run_tool_call_object_function_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunToolCallObjectFunction {
+        self.build_internal()
     }
 }
 

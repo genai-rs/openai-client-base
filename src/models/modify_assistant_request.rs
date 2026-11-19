@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = modify_assistant_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ModifyAssistantRequest {
     /// ID of the model to use. You can use the [List models](https://developers.openai.com/api/reference/resources/models/methods/list) API to see all of your available models, or see our [Model overview](https://developers.openai.com/api/docs/models) for descriptions of them.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
@@ -117,6 +118,14 @@ impl ModifyAssistantRequest {
             top_p: None,
             response_format: None,
         }
+    }
+}
+
+impl<S: modify_assistant_request_builder::State> ModifyAssistantRequestBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ModifyAssistantRequest {
+        self.build_internal()
     }
 }
 

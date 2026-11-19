@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// HostedPluginResource : A plugin installed in an OpenAI-hosted environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = hosted_plugin_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HostedPluginResource {
     /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
     #[serde(rename = "type")]
@@ -36,6 +37,19 @@ impl HostedPluginResource {
             name,
             description,
         }
+    }
+}
+
+impl<S: hosted_plugin_resource_builder::State> HostedPluginResourceBuilder<S>
+where
+    S::Type: hosted_plugin_resource_builder::IsSet,
+    S::Name: hosted_plugin_resource_builder::IsSet,
+    S::Description: hosted_plugin_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HostedPluginResource {
+        self.build_internal()
     }
 }
 

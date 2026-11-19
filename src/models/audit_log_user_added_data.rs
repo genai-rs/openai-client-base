@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogUserAddedData : The payload used to add the user to the project.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_user_added_data_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogUserAddedData {
     /// The role of the user. Is either `owner` or `member`.
     #[serde(rename = "role", skip_serializing_if = "Option::is_none")]
@@ -22,6 +23,14 @@ impl AuditLogUserAddedData {
     /// The payload used to add the user to the project.
     pub fn new() -> AuditLogUserAddedData {
         AuditLogUserAddedData { role: None }
+    }
+}
+
+impl<S: audit_log_user_added_data_builder::State> AuditLogUserAddedDataBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogUserAddedData {
+        self.build_internal()
     }
 }
 

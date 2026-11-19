@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = restricted_permissions_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RestrictedPermissionsParam {
     /// Defaults to `\"restricted\"`.
     #[serde(rename = "type")]
@@ -23,6 +24,18 @@ pub struct RestrictedPermissionsParam {
 impl RestrictedPermissionsParam {
     pub fn new(r#type: Type, scopes: Vec<String>) -> RestrictedPermissionsParam {
         RestrictedPermissionsParam { r#type, scopes }
+    }
+}
+
+impl<S: restricted_permissions_param_builder::State> RestrictedPermissionsParamBuilder<S>
+where
+    S::Type: restricted_permissions_param_builder::IsSet,
+    S::Scopes: restricted_permissions_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RestrictedPermissionsParam {
+        self.build_internal()
     }
 }
 

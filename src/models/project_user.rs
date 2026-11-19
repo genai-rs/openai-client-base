@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectUser : Represents an individual user in a project.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_user_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectUser {
     /// The object type, which is always `organization.project.user`
     #[serde(rename = "object")]
@@ -54,6 +55,20 @@ impl ProjectUser {
             role,
             added_at,
         }
+    }
+}
+
+impl<S: project_user_builder::State> ProjectUserBuilder<S>
+where
+    S::Object: project_user_builder::IsSet,
+    S::Id: project_user_builder::IsSet,
+    S::Role: project_user_builder::IsSet,
+    S::AddedAt: project_user_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectUser {
+        self.build_internal()
     }
 }
 

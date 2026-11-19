@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SpendLimitEnforcement : The current enforcement state of a hard spend limit.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = spend_limit_enforcement_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SpendLimitEnforcement {
     #[serde(rename = "status")]
     pub status: models::SpendLimitEnforcementStatus,
@@ -22,6 +23,17 @@ impl SpendLimitEnforcement {
     /// The current enforcement state of a hard spend limit.
     pub fn new(status: models::SpendLimitEnforcementStatus) -> SpendLimitEnforcement {
         SpendLimitEnforcement { status }
+    }
+}
+
+impl<S: spend_limit_enforcement_builder::State> SpendLimitEnforcementBuilder<S>
+where
+    S::Status: spend_limit_enforcement_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SpendLimitEnforcement {
+        self.build_internal()
     }
 }
 

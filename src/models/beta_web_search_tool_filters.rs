@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaWebSearchToolFilters : Filters for the search.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_web_search_tool_filters_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaWebSearchToolFilters {
     /// Allowed domains for the search. If not provided, all domains are allowed. Subdomains of the provided domains are allowed as well.  Example: `[\"pubmed.ncbi.nlm.nih.gov\"]`
     #[serde(
@@ -29,6 +30,14 @@ impl BetaWebSearchToolFilters {
         BetaWebSearchToolFilters {
             allowed_domains: None,
         }
+    }
+}
+
+impl<S: beta_web_search_tool_filters_builder::State> BetaWebSearchToolFiltersBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaWebSearchToolFilters {
+        self.build_internal()
     }
 }
 

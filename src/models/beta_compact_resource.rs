@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_compact_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaCompactResource {
     #[serde(rename = "image", skip_serializing_if = "Option::is_none")]
     pub image: Option<models::BetaResolvedImageOptions>,
@@ -47,6 +48,21 @@ impl BetaCompactResource {
             created_at,
             usage,
         }
+    }
+}
+
+impl<S: beta_compact_resource_builder::State> BetaCompactResourceBuilder<S>
+where
+    S::Id: beta_compact_resource_builder::IsSet,
+    S::Object: beta_compact_resource_builder::IsSet,
+    S::Output: beta_compact_resource_builder::IsSet,
+    S::CreatedAt: beta_compact_resource_builder::IsSet,
+    S::Usage: beta_compact_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaCompactResource {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaModerationConfigParam : The moderation policy for the response input.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_moderation_config_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaModerationConfigParam {
     #[serde(rename = "mode")]
     pub mode: models::BetaModerationMode,
@@ -22,6 +23,17 @@ impl BetaModerationConfigParam {
     /// The moderation policy for the response input.
     pub fn new(mode: models::BetaModerationMode) -> BetaModerationConfigParam {
         BetaModerationConfigParam { mode }
+    }
+}
+
+impl<S: beta_moderation_config_param_builder::State> BetaModerationConfigParamBuilder<S>
+where
+    S::Mode: beta_moderation_config_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaModerationConfigParam {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_content_text_annotations_file_path_object_file_path_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageContentTextAnnotationsFilePathObjectFilePath {
     /// The ID of the file that was generated.
     #[serde(rename = "file_id")]
@@ -20,6 +21,18 @@ pub struct MessageContentTextAnnotationsFilePathObjectFilePath {
 impl MessageContentTextAnnotationsFilePathObjectFilePath {
     pub fn new(file_id: String) -> MessageContentTextAnnotationsFilePathObjectFilePath {
         MessageContentTextAnnotationsFilePathObjectFilePath { file_id }
+    }
+}
+
+impl<S: message_content_text_annotations_file_path_object_file_path_builder::State>
+    MessageContentTextAnnotationsFilePathObjectFilePathBuilder<S>
+where
+    S::FileId: message_content_text_annotations_file_path_object_file_path_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageContentTextAnnotationsFilePathObjectFilePath {
+        self.build_internal()
     }
 }
 

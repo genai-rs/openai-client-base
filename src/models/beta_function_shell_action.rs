@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaFunctionShellAction : Execute a shell command.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_function_shell_action_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFunctionShellAction {
     #[serde(rename = "commands")]
     pub commands: Vec<String>,
@@ -35,6 +36,17 @@ impl BetaFunctionShellAction {
             timeout_ms,
             max_output_length,
         }
+    }
+}
+
+impl<S: beta_function_shell_action_builder::State> BetaFunctionShellActionBuilder<S>
+where
+    S::Commands: beta_function_shell_action_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFunctionShellAction {
+        self.build_internal()
     }
 }
 

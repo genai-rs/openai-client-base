@@ -166,7 +166,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for CreateImageVariationErrorH
 }
 
 /// Creates an image given a prompt using a GPT Image model. [Learn more](https://developers.openai.com/api/docs/guides/images-vision).
-#[bon::builder]
+#[bon::builder(state_mod = create_image_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_image(
     configuration: &configuration::Configuration,
     create_image_request: &models::CreateImageRequest,
@@ -250,13 +250,26 @@ pub async fn create_image(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_image_builder::State> CreateImageBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_image_builder::IsSet,
+    S::CreateImageRequest: create_image_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ImagesResponse, Error<CreateImageError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates an image given a prompt using a GPT Image model. [Learn more](https://developers.openai.com/api/docs/guides/images-vision).
 ///
 /// Sends the same request as [`create_image`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ImagesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_image_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_image_response(
     configuration: &configuration::Configuration,
     create_image_request: &models::CreateImageRequest,
@@ -331,8 +344,23 @@ pub async fn create_image_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_image_response_builder::State> CreateImageResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_image_response_builder::IsSet,
+    S::CreateImageRequest: create_image_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ImagesResponse>, Error<CreateImageError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
-#[bon::builder]
+#[bon::builder(state_mod = create_image_edit_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_image_edit(
     configuration: &configuration::Configuration,
     #[builder(into)] image: timvw_rust_runtime::Upload,
@@ -525,13 +553,29 @@ pub async fn create_image_edit(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_image_edit_builder::State>
+    CreateImageEditBuilder<'_, '_, '_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_image_edit_builder::IsSet,
+    S::Image: create_image_edit_builder::IsSet,
+    S::Prompt: create_image_edit_builder::IsSet,
+    S::Model: create_image_edit_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ImagesResponse, Error<CreateImageEditError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
 ///
 /// Sends the same request as [`create_image_edit`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ImagesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_image_edit_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_image_edit_response(
     configuration: &configuration::Configuration,
     #[builder(into)] image: timvw_rust_runtime::Upload,
@@ -715,10 +759,28 @@ pub async fn create_image_edit_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_image_edit_response_builder::State>
+    CreateImageEditResponseBuilder<'_, '_, '_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_image_edit_response_builder::IsSet,
+    S::Image: create_image_edit_response_builder::IsSet,
+    S::Prompt: create_image_edit_response_builder::IsSet,
+    S::Model: create_image_edit_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ImagesResponse>, Error<CreateImageEditError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
 ///
 /// Sends the request body as `application/json`; `create_image_edit` sends it as `multipart/form-data`.
-#[bon::builder]
+#[bon::builder(state_mod = create_image_edit_json_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_image_edit_json(
     configuration: &configuration::Configuration,
     edit_image_body_json_param: &models::EditImageBodyJsonParam,
@@ -802,6 +864,19 @@ pub async fn create_image_edit_json(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_image_edit_json_builder::State> CreateImageEditJsonBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_image_edit_json_builder::IsSet,
+    S::EditImageBodyJsonParam: create_image_edit_json_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ImagesResponse, Error<CreateImageEditError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
 ///
 /// Sends the request body as `application/json`; `create_image_edit` sends it as `multipart/form-data`.
@@ -810,7 +885,7 @@ pub async fn create_image_edit_json(
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ImagesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_image_edit_json_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_image_edit_json_response(
     configuration: &configuration::Configuration,
     edit_image_body_json_param: &models::EditImageBodyJsonParam,
@@ -885,12 +960,28 @@ pub async fn create_image_edit_json_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_image_edit_json_response_builder::State>
+    CreateImageEditJsonResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_image_edit_json_response_builder::IsSet,
+    S::EditImageBodyJsonParam: create_image_edit_json_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ImagesResponse>, Error<CreateImageEditError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
 ///
 /// Sends the request body as `application/json`; `create_image_edit` sends it as `multipart/form-data`.
 ///
 /// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::ImageEditStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
-#[bon::builder]
+#[bon::builder(state_mod = create_image_edit_json_stream_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_image_edit_json_stream(
     configuration: &configuration::Configuration,
     edit_image_body_json_param: &models::EditImageBodyJsonParam,
@@ -973,10 +1064,29 @@ pub async fn create_image_edit_json_stream(
     Ok(super::sse::EventStream::from_response(resp))
 }
 
+#[allow(deprecated)]
+impl<S: create_image_edit_json_stream_builder::State>
+    CreateImageEditJsonStreamBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_image_edit_json_stream_builder::IsSet,
+    S::EditImageBodyJsonParam: create_image_edit_json_stream_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::sse::EventStream<models::ImageEditStreamEvent, CreateImageEditError>,
+        Error<CreateImageEditError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
 ///
 /// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::ImageEditStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
-#[bon::builder]
+#[bon::builder(state_mod = create_image_edit_stream_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_image_edit_stream(
     configuration: &configuration::Configuration,
     #[builder(into)] image: timvw_rust_runtime::Upload,
@@ -1168,10 +1278,31 @@ pub async fn create_image_edit_stream(
     Ok(super::sse::EventStream::from_response(resp))
 }
 
+#[allow(deprecated)]
+impl<S: create_image_edit_stream_builder::State>
+    CreateImageEditStreamBuilder<'_, '_, '_, '_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_image_edit_stream_builder::IsSet,
+    S::Image: create_image_edit_stream_builder::IsSet,
+    S::Prompt: create_image_edit_stream_builder::IsSet,
+    S::Model: create_image_edit_stream_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::sse::EventStream<models::ImageEditStreamEvent, CreateImageEditError>,
+        Error<CreateImageEditError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Creates an image given a prompt using a GPT Image model. [Learn more](https://developers.openai.com/api/docs/guides/images-vision).
 ///
 /// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::ImageGenStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
-#[bon::builder]
+#[bon::builder(state_mod = create_image_stream_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_image_stream(
     configuration: &configuration::Configuration,
     create_image_request: &models::CreateImageRequest,
@@ -1254,9 +1385,27 @@ pub async fn create_image_stream(
     Ok(super::sse::EventStream::from_response(resp))
 }
 
+#[allow(deprecated)]
+impl<S: create_image_stream_builder::State> CreateImageStreamBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_image_stream_builder::IsSet,
+    S::CreateImageRequest: create_image_stream_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::sse::EventStream<models::ImageGenStreamEvent, CreateImageError>,
+        Error<CreateImageError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// This endpoint is retired and no longer available. Use the image edits endpoint with a GPT Image model and a prompt to create a variation of an image. The request and response schemas below describe the legacy contract.
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_image_variation_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_image_variation(
     configuration: &configuration::Configuration,
     #[builder(into)] image: timvw_rust_runtime::Upload,
@@ -1366,6 +1515,20 @@ pub async fn create_image_variation(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_image_variation_builder::State>
+    CreateImageVariationBuilder<'_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_image_variation_builder::IsSet,
+    S::Image: create_image_variation_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::ImagesResponse, Error<CreateImageVariationError>> {
+        self.call_internal().await
+    }
+}
+
 /// This endpoint is retired and no longer available. Use the image edits endpoint with a GPT Image model and a prompt to create a variation of an image. The request and response schemas below describe the legacy contract.
 ///
 /// Sends the same request as [`create_image_variation`] and fails the same way, error status included, but returns the
@@ -1373,7 +1536,7 @@ pub async fn create_image_variation(
 /// `models::ImagesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
 #[deprecated]
-#[bon::builder]
+#[bon::builder(state_mod = create_image_variation_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_image_variation_response(
     configuration: &configuration::Configuration,
     #[builder(into)] image: timvw_rust_runtime::Upload,
@@ -1471,5 +1634,21 @@ pub async fn create_image_variation_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: create_image_variation_response_builder::State>
+    CreateImageVariationResponseBuilder<'_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: create_image_variation_response_builder::IsSet,
+    S::Image: create_image_variation_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ImagesResponse>, Error<CreateImageVariationError>> {
+        self.call_internal().await
     }
 }

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveInputAudioUnmuteParam : Resume audio input to a Live model after muting it. The server acknowledges with `session.input_audio.unmuted`. An active audio fixture still pauses inference until playback finishes.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_input_audio_unmute_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveInputAudioUnmuteParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
     ///
@@ -35,6 +36,17 @@ impl LiveInputAudioUnmuteParam {
             event_id: None,
             r#type,
         }
+    }
+}
+
+impl<S: live_input_audio_unmute_param_builder::State> LiveInputAudioUnmuteParamBuilder<S>
+where
+    S::Type: live_input_audio_unmute_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveInputAudioUnmuteParam {
+        self.build_internal()
     }
 }
 

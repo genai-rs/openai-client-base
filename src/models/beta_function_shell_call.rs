@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaFunctionShellCall : A tool call that executes one or more shell commands in a managed environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_function_shell_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaFunctionShellCall {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
@@ -64,6 +65,21 @@ impl BetaFunctionShellCall {
             environment,
             created_by: None,
         }
+    }
+}
+
+impl<S: beta_function_shell_call_builder::State> BetaFunctionShellCallBuilder<S>
+where
+    S::Type: beta_function_shell_call_builder::IsSet,
+    S::Id: beta_function_shell_call_builder::IsSet,
+    S::CallId: beta_function_shell_call_builder::IsSet,
+    S::Action: beta_function_shell_call_builder::IsSet,
+    S::Status: beta_function_shell_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaFunctionShellCall {
+        self.build_internal()
     }
 }
 

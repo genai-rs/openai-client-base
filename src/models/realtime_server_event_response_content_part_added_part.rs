@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventResponseContentPartAddedPart : The content part that was added.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_response_content_part_added_part_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventResponseContentPartAddedPart {
     /// The content type (\"text\", \"audio\").
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
@@ -36,6 +37,16 @@ impl RealtimeServerEventResponseContentPartAddedPart {
             audio: None,
             transcript: None,
         }
+    }
+}
+
+impl<S: realtime_server_event_response_content_part_added_part_builder::State>
+    RealtimeServerEventResponseContentPartAddedPartBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventResponseContentPartAddedPart {
+        self.build_internal()
     }
 }
 

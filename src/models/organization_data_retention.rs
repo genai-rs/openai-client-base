@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// OrganizationDataRetention : Represents the organization's data retention control setting.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = organization_data_retention_builder, finish_fn(vis = "", name = build_internal))]
 pub struct OrganizationDataRetention {
     /// The object type, which is always `organization.data_retention`.
     #[serde(rename = "object")]
@@ -25,6 +26,18 @@ impl OrganizationDataRetention {
     /// Represents the organization's data retention control setting.
     pub fn new(object: Object, r#type: Type) -> OrganizationDataRetention {
         OrganizationDataRetention { object, r#type }
+    }
+}
+
+impl<S: organization_data_retention_builder::State> OrganizationDataRetentionBuilder<S>
+where
+    S::Object: organization_data_retention_builder::IsSet,
+    S::Type: organization_data_retention_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> OrganizationDataRetention {
+        self.build_internal()
     }
 }
 

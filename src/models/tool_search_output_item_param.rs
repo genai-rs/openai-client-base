@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = tool_search_output_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ToolSearchOutputItemParam {
     /// The unique ID of this tool search output.
     #[serde(
@@ -61,6 +62,18 @@ impl ToolSearchOutputItemParam {
             tools,
             status: None,
         }
+    }
+}
+
+impl<S: tool_search_output_item_param_builder::State> ToolSearchOutputItemParamBuilder<S>
+where
+    S::Type: tool_search_output_item_param_builder::IsSet,
+    S::Tools: tool_search_output_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ToolSearchOutputItemParam {
+        self.build_internal()
     }
 }
 

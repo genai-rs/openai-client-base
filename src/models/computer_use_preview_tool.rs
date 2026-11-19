@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ComputerUsePreviewTool : A tool that controls a virtual computer. Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = computer_use_preview_tool_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ComputerUsePreviewTool {
     /// The type of the computer use tool. Always `computer_use_preview`.  Defaults to `\"computer_use_preview\"`.
     #[serde(rename = "type")]
@@ -41,6 +42,20 @@ impl ComputerUsePreviewTool {
             display_width,
             display_height,
         }
+    }
+}
+
+impl<S: computer_use_preview_tool_builder::State> ComputerUsePreviewToolBuilder<S>
+where
+    S::Type: computer_use_preview_tool_builder::IsSet,
+    S::Environment: computer_use_preview_tool_builder::IsSet,
+    S::DisplayWidth: computer_use_preview_tool_builder::IsSet,
+    S::DisplayHeight: computer_use_preview_tool_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ComputerUsePreviewTool {
+        self.build_internal()
     }
 }
 

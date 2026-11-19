@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = invite_list_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InviteListResponse {
     /// The object type, which is always `list`
     #[serde(rename = "object")]
@@ -48,6 +49,19 @@ impl InviteListResponse {
             last_id: None,
             has_more,
         }
+    }
+}
+
+impl<S: invite_list_response_builder::State> InviteListResponseBuilder<S>
+where
+    S::Object: invite_list_response_builder::IsSet,
+    S::Data: invite_list_response_builder::IsSet,
+    S::HasMore: invite_list_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InviteListResponse {
+        self.build_internal()
     }
 }
 

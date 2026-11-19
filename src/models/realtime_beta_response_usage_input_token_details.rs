@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaResponseUsageInputTokenDetails : Details about the input tokens used in the Response.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_response_usage_input_token_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaResponseUsageInputTokenDetails {
     /// The number of cached tokens used as input for the Response.
     #[serde(rename = "cached_tokens", skip_serializing_if = "Option::is_none")]
@@ -44,6 +45,16 @@ impl RealtimeBetaResponseUsageInputTokenDetails {
             audio_tokens: None,
             cached_tokens_details: None,
         }
+    }
+}
+
+impl<S: realtime_beta_response_usage_input_token_details_builder::State>
+    RealtimeBetaResponseUsageInputTokenDetailsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaResponseUsageInputTokenDetails {
+        self.build_internal()
     }
 }
 

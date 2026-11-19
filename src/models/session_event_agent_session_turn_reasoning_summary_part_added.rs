@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionTurnReasoningSummaryPartAdded : Emitted when a reasoning summary content part is added.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_turn_reasoning_summary_part_added_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionTurnReasoningSummaryPartAdded {
     /// The type of the object. Always `agent.session.turn.reasoning_summary_part.added`.  Defaults to `\"agent.session.turn.reasoning_summary_part.added\"`.
     #[serde(rename = "type")]
@@ -79,6 +80,24 @@ impl SessionEventAgentSessionTurnReasoningSummaryPartAdded {
             part,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_turn_reasoning_summary_part_added_builder::State>
+    SessionEventAgentSessionTurnReasoningSummaryPartAddedBuilder<S>
+where
+    S::Type: session_event_agent_session_turn_reasoning_summary_part_added_builder::IsSet,
+    S::EventId: session_event_agent_session_turn_reasoning_summary_part_added_builder::IsSet,
+    S::SessionId: session_event_agent_session_turn_reasoning_summary_part_added_builder::IsSet,
+    S::ItemId: session_event_agent_session_turn_reasoning_summary_part_added_builder::IsSet,
+    S::OutputIndex: session_event_agent_session_turn_reasoning_summary_part_added_builder::IsSet,
+    S::SummaryIndex: session_event_agent_session_turn_reasoning_summary_part_added_builder::IsSet,
+    S::Part: session_event_agent_session_turn_reasoning_summary_part_added_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionTurnReasoningSummaryPartAdded {
+        self.build_internal()
     }
 }
 

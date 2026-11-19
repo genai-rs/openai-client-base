@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// GroupListResource : Paginated list of organization groups.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = group_list_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct GroupListResource {
     /// Always `list`.
     #[serde(rename = "object")]
@@ -42,6 +43,19 @@ impl GroupListResource {
             has_more,
             next,
         }
+    }
+}
+
+impl<S: group_list_resource_builder::State> GroupListResourceBuilder<S>
+where
+    S::Object: group_list_resource_builder::IsSet,
+    S::Data: group_list_resource_builder::IsSet,
+    S::HasMore: group_list_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> GroupListResource {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RunObject : Represents an execution run on a [thread](https://developers.openai.com/api/docs/assistants/migration).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = run_object_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RunObject {
     /// The identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -164,6 +165,26 @@ impl RunObject {
             parallel_tool_calls,
             response_format,
         }
+    }
+}
+
+impl<S: run_object_builder::State> RunObjectBuilder<S>
+where
+    S::Id: run_object_builder::IsSet,
+    S::Object: run_object_builder::IsSet,
+    S::CreatedAt: run_object_builder::IsSet,
+    S::ThreadId: run_object_builder::IsSet,
+    S::AssistantId: run_object_builder::IsSet,
+    S::Status: run_object_builder::IsSet,
+    S::Model: run_object_builder::IsSet,
+    S::Instructions: run_object_builder::IsSet,
+    S::Tools: run_object_builder::IsSet,
+    S::ParallelToolCalls: run_object_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RunObject {
+        self.build_internal()
     }
 }
 

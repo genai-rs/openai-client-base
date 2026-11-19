@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeCreateClientSecretRequest : Create a session and client secret for the Realtime API. The request can specify either a realtime or a transcription session configuration. [Learn more about the Realtime API](https://developers.openai.com/api/docs/guides/realtime).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_create_client_secret_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeCreateClientSecretRequest {
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
     pub expires_after: Option<models::ClientSecretExpiration>,
@@ -27,6 +28,16 @@ impl RealtimeCreateClientSecretRequest {
             expires_after: None,
             session: None,
         }
+    }
+}
+
+impl<S: realtime_create_client_secret_request_builder::State>
+    RealtimeCreateClientSecretRequestBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeCreateClientSecretRequest {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateModerationRequestInputOneOfInnerObject0 : An object describing an image to classify.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_moderation_request_input_one_of_inner_object0_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateModerationRequestInputOneOfInnerObject0 {
     /// Always `image_url`.
     #[serde(rename = "type")]
@@ -28,6 +29,19 @@ impl CreateModerationRequestInputOneOfInnerObject0 {
         image_url: models::CreateModerationRequestInputOneOfInnerObject0ImageUrl,
     ) -> CreateModerationRequestInputOneOfInnerObject0 {
         CreateModerationRequestInputOneOfInnerObject0 { r#type, image_url }
+    }
+}
+
+impl<S: create_moderation_request_input_one_of_inner_object0_builder::State>
+    CreateModerationRequestInputOneOfInnerObject0Builder<S>
+where
+    S::Type: create_moderation_request_input_one_of_inner_object0_builder::IsSet,
+    S::ImageUrl: create_moderation_request_input_one_of_inner_object0_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateModerationRequestInputOneOfInnerObject0 {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateContainerBodyExpiresAfter : Container expiration time in seconds relative to the 'anchor' time.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_container_body_expires_after_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateContainerBodyExpiresAfter {
     /// Time anchor for the expiration time. Currently only 'last_active_at' is supported.
     #[serde(rename = "anchor")]
@@ -24,6 +25,19 @@ impl CreateContainerBodyExpiresAfter {
     /// Container expiration time in seconds relative to the 'anchor' time.
     pub fn new(anchor: Anchor, minutes: i64) -> CreateContainerBodyExpiresAfter {
         CreateContainerBodyExpiresAfter { anchor, minutes }
+    }
+}
+
+impl<S: create_container_body_expires_after_builder::State>
+    CreateContainerBodyExpiresAfterBuilder<S>
+where
+    S::Anchor: create_container_body_expires_after_builder::IsSet,
+    S::Minutes: create_container_body_expires_after_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateContainerBodyExpiresAfter {
+        self.build_internal()
     }
 }
 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = decision_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DecisionResponse {
     /// The model used.
     ///
@@ -38,6 +39,19 @@ impl DecisionResponse {
             answers,
             usage,
         }
+    }
+}
+
+impl<S: decision_response_builder::State> DecisionResponseBuilder<S>
+where
+    S::Model: decision_response_builder::IsSet,
+    S::Answers: decision_response_builder::IsSet,
+    S::Usage: decision_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DecisionResponse {
+        self.build_internal()
     }
 }
 

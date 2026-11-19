@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveInputAudioAppend : Input audio received from the primary transport and reflected to a Live sideband connection before model-input muting.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_input_audio_append_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveInputAudioAppend {
     /// The event type, always `session.input_audio.append`.  Defaults to `\"session.input_audio.append\"`.
     #[serde(rename = "type")]
@@ -25,6 +26,18 @@ impl LiveInputAudioAppend {
     /// Input audio received from the primary transport and reflected to a Live sideband connection before model-input muting.
     pub fn new(r#type: Type, audio: String) -> LiveInputAudioAppend {
         LiveInputAudioAppend { r#type, audio }
+    }
+}
+
+impl<S: live_input_audio_append_builder::State> LiveInputAudioAppendBuilder<S>
+where
+    S::Type: live_input_audio_append_builder::IsSet,
+    S::Audio: live_input_audio_append_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveInputAudioAppend {
+        self.build_internal()
     }
 }
 

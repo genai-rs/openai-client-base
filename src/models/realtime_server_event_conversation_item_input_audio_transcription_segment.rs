@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventConversationItemInputAudioTranscriptionSegment : Returned when an input audio transcription segment is identified for an item.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_conversation_item_input_audio_transcription_segment_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventConversationItemInputAudioTranscriptionSegment {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
@@ -66,6 +67,35 @@ impl RealtimeServerEventConversationItemInputAudioTranscriptionSegment {
             start,
             end,
         }
+    }
+}
+
+impl<
+        S: realtime_server_event_conversation_item_input_audio_transcription_segment_builder::State,
+    > RealtimeServerEventConversationItemInputAudioTranscriptionSegmentBuilder<S>
+where
+    S::EventId:
+        realtime_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::Type:
+        realtime_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::ItemId:
+        realtime_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::ContentIndex:
+        realtime_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::Text:
+        realtime_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::Id: realtime_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::Speaker:
+        realtime_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::Start:
+        realtime_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+    S::End:
+        realtime_server_event_conversation_item_input_audio_transcription_segment_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventConversationItemInputAudioTranscriptionSegment {
+        self.build_internal()
     }
 }
 

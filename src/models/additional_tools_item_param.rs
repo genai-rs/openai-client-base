@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = additional_tools_item_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AdditionalToolsItemParam {
     /// The unique ID of this additional tools item.
     #[serde(
@@ -40,6 +41,19 @@ impl AdditionalToolsItemParam {
             role,
             tools,
         }
+    }
+}
+
+impl<S: additional_tools_item_param_builder::State> AdditionalToolsItemParamBuilder<S>
+where
+    S::Type: additional_tools_item_param_builder::IsSet,
+    S::Role: additional_tools_item_param_builder::IsSet,
+    S::Tools: additional_tools_item_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AdditionalToolsItemParam {
+        self.build_internal()
     }
 }
 

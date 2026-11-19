@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_assistant_request_tool_resources_file_search_vector_stores_inner_chunking_strategy_static_chunking_strategy_static_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyStaticChunkingStrategyStatic
 {
     /// The maximum number of tokens in each chunk. The default value is `800`. The minimum value is `100` and the maximum value is `4096`.
@@ -29,6 +30,18 @@ impl CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrat
             max_chunk_size_tokens,
             chunk_overlap_tokens,
         }
+    }
+}
+
+impl<S: create_assistant_request_tool_resources_file_search_vector_stores_inner_chunking_strategy_static_chunking_strategy_static_builder::State> CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyStaticChunkingStrategyStaticBuilder<S>
+where
+    S::MaxChunkSizeTokens: create_assistant_request_tool_resources_file_search_vector_stores_inner_chunking_strategy_static_chunking_strategy_static_builder::IsSet,
+    S::ChunkOverlapTokens: create_assistant_request_tool_resources_file_search_vector_stores_inner_chunking_strategy_static_chunking_strategy_static_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyStaticChunkingStrategyStatic {
+        self.build_internal()
     }
 }
 

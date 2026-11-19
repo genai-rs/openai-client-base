@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaErrorPayload : An error payload that was emitted for a streaming error event.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_error_payload_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaErrorPayload {
     /// The error type that was emitted.
     #[serde(rename = "type")]
@@ -49,6 +50,18 @@ impl BetaErrorPayload {
             headers: None,
             misalignment: None,
         }
+    }
+}
+
+impl<S: beta_error_payload_builder::State> BetaErrorPayloadBuilder<S>
+where
+    S::Type: beta_error_payload_builder::IsSet,
+    S::Message: beta_error_payload_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaErrorPayload {
+        self.build_internal()
     }
 }
 

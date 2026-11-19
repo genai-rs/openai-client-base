@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeSessionCreateRequestClientSecret : Ephemeral key returned by the API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_session_create_request_client_secret_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeSessionCreateRequestClientSecret {
     /// Ephemeral key usable in client environments to authenticate connections to the Realtime API. Use this in client-side environments rather than a standard API token, which should only be used server-side.
     #[serde(rename = "value")]
@@ -28,6 +29,19 @@ impl RealtimeSessionCreateRequestClientSecret {
         expires_at: jiff::Timestamp,
     ) -> RealtimeSessionCreateRequestClientSecret {
         RealtimeSessionCreateRequestClientSecret { value, expires_at }
+    }
+}
+
+impl<S: realtime_session_create_request_client_secret_builder::State>
+    RealtimeSessionCreateRequestClientSecretBuilder<S>
+where
+    S::Value: realtime_session_create_request_client_secret_builder::IsSet,
+    S::ExpiresAt: realtime_session_create_request_client_secret_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeSessionCreateRequestClientSecret {
+        self.build_internal()
     }
 }
 

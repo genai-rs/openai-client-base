@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SpecificFunctionShellParam : Forces the model to call the shell tool when a tool call is required.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = specific_function_shell_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SpecificFunctionShellParam {
     /// The tool to call. Always `shell`.  Defaults to `\"shell\"`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl SpecificFunctionShellParam {
     /// Forces the model to call the shell tool when a tool call is required.
     pub fn new(r#type: Type) -> SpecificFunctionShellParam {
         SpecificFunctionShellParam { r#type }
+    }
+}
+
+impl<S: specific_function_shell_param_builder::State> SpecificFunctionShellParamBuilder<S>
+where
+    S::Type: specific_function_shell_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SpecificFunctionShellParam {
+        self.build_internal()
     }
 }
 

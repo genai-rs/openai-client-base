@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveResponsesDelegationParam : Delegate tasks to a Responses model managed by the Live session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_responses_delegation_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveResponsesDelegationParam {
     /// Milliseconds to wait before requesting an automatic spoken acknowledgement for a delegation. The model may still speak before this delay. Any commentary or thinking appended to the session cancels all pending acknowledgements, including those for other delegations. Defaults to 400 for Decisions sessions and 0 (request immediately) for other sessions. Omission in a session update preserves the current value. Updates apply to subsequent delegations.
     ///
@@ -40,6 +41,18 @@ impl LiveResponsesDelegationParam {
             r#type,
             responses,
         }
+    }
+}
+
+impl<S: live_responses_delegation_param_builder::State> LiveResponsesDelegationParamBuilder<S>
+where
+    S::Type: live_responses_delegation_param_builder::IsSet,
+    S::Responses: live_responses_delegation_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveResponsesDelegationParam {
+        self.build_internal()
     }
 }
 

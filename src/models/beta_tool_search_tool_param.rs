@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaToolSearchToolParam : Hosted or BYOT tool search configuration for deferred tools.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_tool_search_tool_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaToolSearchToolParam {
     /// The type of the tool. Always `tool_search`.  Defaults to `\"tool_search\"`.
     #[serde(rename = "type")]
@@ -45,6 +46,17 @@ impl BetaToolSearchToolParam {
             description: None,
             parameters: None,
         }
+    }
+}
+
+impl<S: beta_tool_search_tool_param_builder::State> BetaToolSearchToolParamBuilder<S>
+where
+    S::Type: beta_tool_search_tool_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaToolSearchToolParam {
+        self.build_internal()
     }
 }
 

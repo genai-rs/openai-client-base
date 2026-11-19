@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_image_gen_tool_call_moderation_details_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaImageGenToolCallModerationDetails {
     /// The stage where moderation blocked the image generation call.
     #[serde(rename = "moderation_stage")]
@@ -29,6 +30,19 @@ impl BetaImageGenToolCallModerationDetails {
             moderation_stage,
             categories,
         }
+    }
+}
+
+impl<S: beta_image_gen_tool_call_moderation_details_builder::State>
+    BetaImageGenToolCallModerationDetailsBuilder<S>
+where
+    S::ModerationStage: beta_image_gen_tool_call_moderation_details_builder::IsSet,
+    S::Categories: beta_image_gen_tool_call_moderation_details_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaImageGenToolCallModerationDetails {
+        self.build_internal()
     }
 }
 

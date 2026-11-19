@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UsageAudioTranscriptionsResult : The aggregated audio transcriptions usage details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = usage_audio_transcriptions_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UsageAudioTranscriptionsResult {
     #[serde(rename = "object")]
     pub object: Object,
@@ -66,6 +67,19 @@ impl UsageAudioTranscriptionsResult {
             api_key_id: None,
             model: None,
         }
+    }
+}
+
+impl<S: usage_audio_transcriptions_result_builder::State> UsageAudioTranscriptionsResultBuilder<S>
+where
+    S::Object: usage_audio_transcriptions_result_builder::IsSet,
+    S::Seconds: usage_audio_transcriptions_result_builder::IsSet,
+    S::NumModelRequests: usage_audio_transcriptions_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UsageAudioTranscriptionsResult {
+        self.build_internal()
     }
 }
 

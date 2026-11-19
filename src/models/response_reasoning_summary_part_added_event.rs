@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseReasoningSummaryPartAddedEvent : Emitted when a new reasoning summary part is added.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_reasoning_summary_part_added_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseReasoningSummaryPartAddedEvent {
     /// The type of the event. Always `response.reasoning_summary_part.added`.
     #[serde(rename = "type")]
@@ -51,6 +52,23 @@ impl ResponseReasoningSummaryPartAddedEvent {
             sequence_number,
             part,
         }
+    }
+}
+
+impl<S: response_reasoning_summary_part_added_event_builder::State>
+    ResponseReasoningSummaryPartAddedEventBuilder<S>
+where
+    S::Type: response_reasoning_summary_part_added_event_builder::IsSet,
+    S::ItemId: response_reasoning_summary_part_added_event_builder::IsSet,
+    S::OutputIndex: response_reasoning_summary_part_added_event_builder::IsSet,
+    S::SummaryIndex: response_reasoning_summary_part_added_event_builder::IsSet,
+    S::SequenceNumber: response_reasoning_summary_part_added_event_builder::IsSet,
+    S::Part: response_reasoning_summary_part_added_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseReasoningSummaryPartAddedEvent {
+        self.build_internal()
     }
 }
 

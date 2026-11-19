@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = delete_fine_tuning_checkpoint_permission_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct DeleteFineTuningCheckpointPermissionResponse {
     /// The ID of the fine-tuned model checkpoint permission that was deleted.
     #[serde(rename = "id")]
@@ -34,6 +35,20 @@ impl DeleteFineTuningCheckpointPermissionResponse {
             object,
             deleted,
         }
+    }
+}
+
+impl<S: delete_fine_tuning_checkpoint_permission_response_builder::State>
+    DeleteFineTuningCheckpointPermissionResponseBuilder<S>
+where
+    S::Id: delete_fine_tuning_checkpoint_permission_response_builder::IsSet,
+    S::Object: delete_fine_tuning_checkpoint_permission_response_builder::IsSet,
+    S::Deleted: delete_fine_tuning_checkpoint_permission_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> DeleteFineTuningCheckpointPermissionResponse {
+        self.build_internal()
     }
 }
 

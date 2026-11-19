@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_eval_request_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateEvalRequest {
     /// The name of the evaluation.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -42,6 +43,18 @@ impl CreateEvalRequest {
             data_source_config,
             testing_criteria,
         }
+    }
+}
+
+impl<S: create_eval_request_builder::State> CreateEvalRequestBuilder<S>
+where
+    S::DataSourceConfig: create_eval_request_builder::IsSet,
+    S::TestingCriteria: create_eval_request_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateEvalRequest {
+        self.build_internal()
     }
 }
 

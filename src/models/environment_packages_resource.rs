@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EnvironmentPackagesResource : Packages installed in an OpenAI-hosted environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = environment_packages_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EnvironmentPackagesResource {
     /// Python packages installed in the environment.
     ///
@@ -42,6 +43,19 @@ impl EnvironmentPackagesResource {
             system,
             npm,
         }
+    }
+}
+
+impl<S: environment_packages_resource_builder::State> EnvironmentPackagesResourceBuilder<S>
+where
+    S::Python: environment_packages_resource_builder::IsSet,
+    S::System: environment_packages_resource_builder::IsSet,
+    S::Npm: environment_packages_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EnvironmentPackagesResource {
+        self.build_internal()
     }
 }
 

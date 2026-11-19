@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateMcpOauthTokenEndpointAuthParamClientSecretBasic : Sends the client ID and secret using HTTP Basic authentication.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_mcp_oauth_token_endpoint_auth_param_client_secret_basic_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateMcpOauthTokenEndpointAuthParamClientSecretBasic {
     /// The type of the object. Always `client_secret_basic`.  Defaults to `\"client_secret_basic\"`.
     #[serde(rename = "type")]
@@ -33,6 +34,19 @@ impl CreateMcpOauthTokenEndpointAuthParamClientSecretBasic {
             r#type,
             client_secret,
         }
+    }
+}
+
+impl<S: create_mcp_oauth_token_endpoint_auth_param_client_secret_basic_builder::State>
+    CreateMcpOauthTokenEndpointAuthParamClientSecretBasicBuilder<S>
+where
+    S::Type: create_mcp_oauth_token_endpoint_auth_param_client_secret_basic_builder::IsSet,
+    S::ClientSecret: create_mcp_oauth_token_endpoint_auth_param_client_secret_basic_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateMcpOauthTokenEndpointAuthParamClientSecretBasic {
+        self.build_internal()
     }
 }
 

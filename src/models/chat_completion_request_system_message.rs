@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionRequestSystemMessage : Developer-provided instructions that the model should follow, regardless of messages sent by the user. With o1 models and newer, use `developer` messages for this purpose instead.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = chat_completion_request_system_message_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ChatCompletionRequestSystemMessage {
     #[serde(rename = "content")]
     pub content: models::ChatCompletionRequestSystemMessageContent,
@@ -35,6 +36,19 @@ impl ChatCompletionRequestSystemMessage {
             role,
             name: None,
         }
+    }
+}
+
+impl<S: chat_completion_request_system_message_builder::State>
+    ChatCompletionRequestSystemMessageBuilder<S>
+where
+    S::Content: chat_completion_request_system_message_builder::IsSet,
+    S::Role: chat_completion_request_system_message_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ChatCompletionRequestSystemMessage {
+        self.build_internal()
     }
 }
 

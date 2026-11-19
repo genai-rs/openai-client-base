@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ToolChoiceAllowed : Constrains the tools available to the model to a pre-defined set.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = tool_choice_allowed_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ToolChoiceAllowed {
     /// Allowed tool configuration type. Always `allowed_tools`.
     #[serde(rename = "type")]
@@ -36,6 +37,19 @@ impl ToolChoiceAllowed {
             mode,
             tools,
         }
+    }
+}
+
+impl<S: tool_choice_allowed_builder::State> ToolChoiceAllowedBuilder<S>
+where
+    S::Type: tool_choice_allowed_builder::IsSet,
+    S::Mode: tool_choice_allowed_builder::IsSet,
+    S::Tools: tool_choice_allowed_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ToolChoiceAllowed {
+        self.build_internal()
     }
 }
 

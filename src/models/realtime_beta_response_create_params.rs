@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaResponseCreateParams : Create a new Realtime response with these parameters
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_beta_response_create_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeBetaResponseCreateParams {
     /// The set of modalities the model can respond with. To disable audio, set this to [\"text\"].
     #[serde(rename = "modalities", skip_serializing_if = "Option::is_none")]
@@ -77,6 +78,16 @@ impl RealtimeBetaResponseCreateParams {
             prompt: None,
             input: None,
         }
+    }
+}
+
+impl<S: realtime_beta_response_create_params_builder::State>
+    RealtimeBetaResponseCreateParamsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeBetaResponseCreateParams {
+        self.build_internal()
     }
 }
 

@@ -113,7 +113,7 @@ pub enum UpdateProjectSpendAlertError {
 }
 
 /// Creates an organization spend alert.
-#[bon::builder]
+#[bon::builder(state_mod = create_organization_spend_alert_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_organization_spend_alert(
     configuration: &configuration::Configuration,
     create_spend_alert_body: &models::CreateSpendAlertBody,
@@ -185,13 +185,29 @@ pub async fn create_organization_spend_alert(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_organization_spend_alert_builder::State>
+    CreateOrganizationSpendAlertBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_organization_spend_alert_builder::IsSet,
+    S::CreateSpendAlertBody: create_organization_spend_alert_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::OrganizationSpendAlert, Error<CreateOrganizationSpendAlertError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates an organization spend alert.
 ///
 /// Sends the same request as [`create_organization_spend_alert`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OrganizationSpendAlert` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_organization_spend_alert_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_organization_spend_alert_response(
     configuration: &configuration::Configuration,
     create_spend_alert_body: &models::CreateSpendAlertBody,
@@ -257,8 +273,27 @@ pub async fn create_organization_spend_alert_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_organization_spend_alert_response_builder::State>
+    CreateOrganizationSpendAlertResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_organization_spend_alert_response_builder::IsSet,
+    S::CreateSpendAlertBody: create_organization_spend_alert_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::OrganizationSpendAlert>,
+        Error<CreateOrganizationSpendAlertError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Creates a project spend alert.
-#[bon::builder]
+#[bon::builder(state_mod = create_project_spend_alert_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_project_spend_alert(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -339,13 +374,29 @@ pub async fn create_project_spend_alert(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_project_spend_alert_builder::State> CreateProjectSpendAlertBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_project_spend_alert_builder::IsSet,
+    S::ProjectId: create_project_spend_alert_builder::IsSet,
+    S::CreateSpendAlertBody: create_project_spend_alert_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectSpendAlert, Error<CreateProjectSpendAlertError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a project spend alert.
 ///
 /// Sends the same request as [`create_project_spend_alert`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectSpendAlert` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_project_spend_alert_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_project_spend_alert_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -417,8 +468,26 @@ pub async fn create_project_spend_alert_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_project_spend_alert_response_builder::State>
+    CreateProjectSpendAlertResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_project_spend_alert_response_builder::IsSet,
+    S::ProjectId: create_project_spend_alert_response_builder::IsSet,
+    S::CreateSpendAlertBody: create_project_spend_alert_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectSpendAlert>, Error<CreateProjectSpendAlertError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Deletes an organization spend alert.
-#[bon::builder]
+#[bon::builder(state_mod = delete_organization_spend_alert_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_organization_spend_alert(
     configuration: &configuration::Configuration,
     alert_id: &str,
@@ -494,13 +563,32 @@ pub async fn delete_organization_spend_alert(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_organization_spend_alert_builder::State>
+    DeleteOrganizationSpendAlertBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_organization_spend_alert_builder::IsSet,
+    S::AlertId: delete_organization_spend_alert_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        models::OrganizationSpendAlertDeletedResource,
+        Error<DeleteOrganizationSpendAlertError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deletes an organization spend alert.
 ///
 /// Sends the same request as [`delete_organization_spend_alert`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OrganizationSpendAlertDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_organization_spend_alert_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_organization_spend_alert_response(
     configuration: &configuration::Configuration,
     alert_id: &str,
@@ -569,8 +657,27 @@ pub async fn delete_organization_spend_alert_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_organization_spend_alert_response_builder::State>
+    DeleteOrganizationSpendAlertResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_organization_spend_alert_response_builder::IsSet,
+    S::AlertId: delete_organization_spend_alert_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::OrganizationSpendAlertDeletedResource>,
+        Error<DeleteOrganizationSpendAlertError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a project spend alert.
-#[bon::builder]
+#[bon::builder(state_mod = delete_project_spend_alert_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_project_spend_alert(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -651,13 +758,29 @@ pub async fn delete_project_spend_alert(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_project_spend_alert_builder::State> DeleteProjectSpendAlertBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_project_spend_alert_builder::IsSet,
+    S::ProjectId: delete_project_spend_alert_builder::IsSet,
+    S::AlertId: delete_project_spend_alert_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectSpendAlertDeletedResource, Error<DeleteProjectSpendAlertError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a project spend alert.
 ///
 /// Sends the same request as [`delete_project_spend_alert`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectSpendAlertDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_project_spend_alert_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_project_spend_alert_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -732,8 +855,28 @@ pub async fn delete_project_spend_alert_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_project_spend_alert_response_builder::State>
+    DeleteProjectSpendAlertResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_project_spend_alert_response_builder::IsSet,
+    S::ProjectId: delete_project_spend_alert_response_builder::IsSet,
+    S::AlertId: delete_project_spend_alert_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectSpendAlertDeletedResource>,
+        Error<DeleteProjectSpendAlertError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists organization spend alerts.
-#[bon::builder]
+#[bon::builder(state_mod = list_organization_spend_alerts_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_organization_spend_alerts(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -825,13 +968,29 @@ pub async fn list_organization_spend_alerts(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_organization_spend_alerts_builder::State>
+    ListOrganizationSpendAlertsBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_organization_spend_alerts_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::OrganizationSpendAlertListResource, Error<ListOrganizationSpendAlertsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Lists organization spend alerts.
 ///
 /// Sends the same request as [`list_organization_spend_alerts`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OrganizationSpendAlertListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_organization_spend_alerts_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_organization_spend_alerts_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -917,8 +1076,26 @@ pub async fn list_organization_spend_alerts_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_organization_spend_alerts_response_builder::State>
+    ListOrganizationSpendAlertsResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_organization_spend_alerts_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::OrganizationSpendAlertListResource>,
+        Error<ListOrganizationSpendAlertsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Lists project spend alerts.
-#[bon::builder]
+#[bon::builder(state_mod = list_project_spend_alerts_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_spend_alerts(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1016,13 +1193,29 @@ pub async fn list_project_spend_alerts(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_spend_alerts_builder::State>
+    ListProjectSpendAlertsBuilder<'_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_spend_alerts_builder::IsSet,
+    S::ProjectId: list_project_spend_alerts_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectSpendAlertListResource, Error<ListProjectSpendAlertsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists project spend alerts.
 ///
 /// Sends the same request as [`list_project_spend_alerts`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectSpendAlertListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_project_spend_alerts_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_spend_alerts_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1114,8 +1307,27 @@ pub async fn list_project_spend_alerts_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_spend_alerts_response_builder::State>
+    ListProjectSpendAlertsResponseBuilder<'_, '_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_spend_alerts_response_builder::IsSet,
+    S::ProjectId: list_project_spend_alerts_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::ProjectSpendAlertListResource>,
+        Error<ListProjectSpendAlertsError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an organization spend alert.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_organization_spend_alert_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_organization_spend_alert(
     configuration: &configuration::Configuration,
     alert_id: &str,
@@ -1190,13 +1402,29 @@ pub async fn retrieve_organization_spend_alert(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_organization_spend_alert_builder::State>
+    RetrieveOrganizationSpendAlertBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_organization_spend_alert_builder::IsSet,
+    S::AlertId: retrieve_organization_spend_alert_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::OrganizationSpendAlert, Error<RetrieveOrganizationSpendAlertError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an organization spend alert.
 ///
 /// Sends the same request as [`retrieve_organization_spend_alert`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OrganizationSpendAlert` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_organization_spend_alert_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_organization_spend_alert_response(
     configuration: &configuration::Configuration,
     alert_id: &str,
@@ -1265,8 +1493,27 @@ pub async fn retrieve_organization_spend_alert_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_organization_spend_alert_response_builder::State>
+    RetrieveOrganizationSpendAlertResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_organization_spend_alert_response_builder::IsSet,
+    S::AlertId: retrieve_organization_spend_alert_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::OrganizationSpendAlert>,
+        Error<RetrieveOrganizationSpendAlertError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a project spend alert.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_spend_alert_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_spend_alert(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1347,13 +1594,30 @@ pub async fn retrieve_project_spend_alert(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_spend_alert_builder::State>
+    RetrieveProjectSpendAlertBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_spend_alert_builder::IsSet,
+    S::ProjectId: retrieve_project_spend_alert_builder::IsSet,
+    S::AlertId: retrieve_project_spend_alert_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectSpendAlert, Error<RetrieveProjectSpendAlertError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a project spend alert.
 ///
 /// Sends the same request as [`retrieve_project_spend_alert`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectSpendAlert` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_spend_alert_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_spend_alert_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1425,8 +1689,26 @@ pub async fn retrieve_project_spend_alert_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_spend_alert_response_builder::State>
+    RetrieveProjectSpendAlertResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_spend_alert_response_builder::IsSet,
+    S::ProjectId: retrieve_project_spend_alert_response_builder::IsSet,
+    S::AlertId: retrieve_project_spend_alert_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectSpendAlert>, Error<RetrieveProjectSpendAlertError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Updates an organization spend alert.
-#[bon::builder]
+#[bon::builder(state_mod = update_organization_spend_alert_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_organization_spend_alert(
     configuration: &configuration::Configuration,
     alert_id: &str,
@@ -1507,13 +1789,30 @@ pub async fn update_organization_spend_alert(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_organization_spend_alert_builder::State>
+    UpdateOrganizationSpendAlertBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_organization_spend_alert_builder::IsSet,
+    S::AlertId: update_organization_spend_alert_builder::IsSet,
+    S::CreateSpendAlertBody: update_organization_spend_alert_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::OrganizationSpendAlert, Error<UpdateOrganizationSpendAlertError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates an organization spend alert.
 ///
 /// Sends the same request as [`update_organization_spend_alert`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::OrganizationSpendAlert` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_organization_spend_alert_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_organization_spend_alert_response(
     configuration: &configuration::Configuration,
     alert_id: &str,
@@ -1588,8 +1887,28 @@ pub async fn update_organization_spend_alert_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_organization_spend_alert_response_builder::State>
+    UpdateOrganizationSpendAlertResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_organization_spend_alert_response_builder::IsSet,
+    S::AlertId: update_organization_spend_alert_response_builder::IsSet,
+    S::CreateSpendAlertBody: update_organization_spend_alert_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<
+        super::ApiResponse<models::OrganizationSpendAlert>,
+        Error<UpdateOrganizationSpendAlertError>,
+    > {
+        self.call_internal().await
+    }
+}
+
 /// Updates a project spend alert.
-#[bon::builder]
+#[bon::builder(state_mod = update_project_spend_alert_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_spend_alert(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1673,13 +1992,31 @@ pub async fn update_project_spend_alert(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_project_spend_alert_builder::State>
+    UpdateProjectSpendAlertBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_spend_alert_builder::IsSet,
+    S::ProjectId: update_project_spend_alert_builder::IsSet,
+    S::AlertId: update_project_spend_alert_builder::IsSet,
+    S::CreateSpendAlertBody: update_project_spend_alert_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::ProjectSpendAlert, Error<UpdateProjectSpendAlertError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates a project spend alert.
 ///
 /// Sends the same request as [`update_project_spend_alert`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::ProjectSpendAlert` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_project_spend_alert_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_spend_alert_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1751,5 +2088,24 @@ pub async fn update_project_spend_alert_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: update_project_spend_alert_response_builder::State>
+    UpdateProjectSpendAlertResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_spend_alert_response_builder::IsSet,
+    S::ProjectId: update_project_spend_alert_response_builder::IsSet,
+    S::AlertId: update_project_spend_alert_response_builder::IsSet,
+    S::CreateSpendAlertBody: update_project_spend_alert_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::ProjectSpendAlert>, Error<UpdateProjectSpendAlertError>>
+    {
+        self.call_internal().await
     }
 }

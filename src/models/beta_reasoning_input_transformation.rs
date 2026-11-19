@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_reasoning_input_transformation_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaReasoningInputTransformation {
     /// Defaults to `\"reasoning\"`.
     #[serde(rename = "type")]
@@ -39,6 +40,21 @@ impl BetaReasoningInputTransformation {
             action,
             reason,
         }
+    }
+}
+
+impl<S: beta_reasoning_input_transformation_builder::State>
+    BetaReasoningInputTransformationBuilder<S>
+where
+    S::Type: beta_reasoning_input_transformation_builder::IsSet,
+    S::Id: beta_reasoning_input_transformation_builder::IsSet,
+    S::Action: beta_reasoning_input_transformation_builder::IsSet,
+    S::Reason: beta_reasoning_input_transformation_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaReasoningInputTransformation {
+        self.build_internal()
     }
 }
 

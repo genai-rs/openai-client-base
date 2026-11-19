@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// SessionEventAgentSessionTurnOutputTextDone : Emitted when an output text content part is complete.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = session_event_agent_session_turn_output_text_done_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionEventAgentSessionTurnOutputTextDone {
     /// The type of the object. Always `agent.session.turn.output_text.done`.  Defaults to `\"agent.session.turn.output_text.done\"`.
     #[serde(rename = "type")]
@@ -81,6 +82,24 @@ impl SessionEventAgentSessionTurnOutputTextDone {
             text,
             obfuscation: None,
         }
+    }
+}
+
+impl<S: session_event_agent_session_turn_output_text_done_builder::State>
+    SessionEventAgentSessionTurnOutputTextDoneBuilder<S>
+where
+    S::Type: session_event_agent_session_turn_output_text_done_builder::IsSet,
+    S::EventId: session_event_agent_session_turn_output_text_done_builder::IsSet,
+    S::SessionId: session_event_agent_session_turn_output_text_done_builder::IsSet,
+    S::ItemId: session_event_agent_session_turn_output_text_done_builder::IsSet,
+    S::OutputIndex: session_event_agent_session_turn_output_text_done_builder::IsSet,
+    S::ContentIndex: session_event_agent_session_turn_output_text_done_builder::IsSet,
+    S::Text: session_event_agent_session_turn_output_text_done_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> SessionEventAgentSessionTurnOutputTextDone {
+        self.build_internal()
     }
 }
 

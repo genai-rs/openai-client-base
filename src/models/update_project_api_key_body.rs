@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_project_api_key_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateProjectApiKeyBody {
     /// Number of seconds from this request until the API key expires. Must comply with the organization and project expiry policies. Expired keys cannot be updated. Retrying resets the expiry relative to the new request. Omit to keep the current expiration.
     ///
@@ -28,6 +29,14 @@ impl UpdateProjectApiKeyBody {
             expires_in_seconds: None,
             scopes: None,
         }
+    }
+}
+
+impl<S: update_project_api_key_body_builder::State> UpdateProjectApiKeyBodyBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateProjectApiKeyBody {
+        self.build_internal()
     }
 }
 

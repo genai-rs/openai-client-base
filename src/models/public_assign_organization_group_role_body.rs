@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// PublicAssignOrganizationGroupRoleBody : Request payload for assigning a role to a group or user.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = public_assign_organization_group_role_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PublicAssignOrganizationGroupRoleBody {
     /// Identifier of the role to assign.
     #[serde(rename = "role_id")]
@@ -22,6 +23,18 @@ impl PublicAssignOrganizationGroupRoleBody {
     /// Request payload for assigning a role to a group or user.
     pub fn new(role_id: String) -> PublicAssignOrganizationGroupRoleBody {
         PublicAssignOrganizationGroupRoleBody { role_id }
+    }
+}
+
+impl<S: public_assign_organization_group_role_body_builder::State>
+    PublicAssignOrganizationGroupRoleBodyBuilder<S>
+where
+    S::RoleId: public_assign_organization_group_role_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PublicAssignOrganizationGroupRoleBody {
+        self.build_internal()
     }
 }
 

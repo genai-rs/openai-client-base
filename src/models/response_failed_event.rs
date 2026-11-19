@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseFailedEvent : An event that is emitted when a response fails.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_failed_event_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseFailedEvent {
     /// The type of the event. Always `response.failed`.
     #[serde(rename = "type")]
@@ -36,6 +37,19 @@ impl ResponseFailedEvent {
             sequence_number,
             response,
         }
+    }
+}
+
+impl<S: response_failed_event_builder::State> ResponseFailedEventBuilder<S>
+where
+    S::Type: response_failed_event_builder::IsSet,
+    S::SequenceNumber: response_failed_event_builder::IsSet,
+    S::Response: response_failed_event_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseFailedEvent {
+        self.build_internal()
     }
 }
 

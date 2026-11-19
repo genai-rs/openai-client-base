@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeMcpToolCall : A Realtime item representing an invocation of a tool on an MCP server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_mcp_tool_call_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeMcpToolCall {
     /// The type of the item. Always `mcp_call`.
     #[serde(rename = "type")]
@@ -73,6 +74,21 @@ impl RealtimeMcpToolCall {
             output: None,
             error: None,
         }
+    }
+}
+
+impl<S: realtime_mcp_tool_call_builder::State> RealtimeMcpToolCallBuilder<S>
+where
+    S::Type: realtime_mcp_tool_call_builder::IsSet,
+    S::Id: realtime_mcp_tool_call_builder::IsSet,
+    S::ServerLabel: realtime_mcp_tool_call_builder::IsSet,
+    S::Name: realtime_mcp_tool_call_builder::IsSet,
+    S::Arguments: realtime_mcp_tool_call_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeMcpToolCall {
+        self.build_internal()
     }
 }
 

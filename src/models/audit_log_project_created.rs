@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// AuditLogProjectCreated : The details for events with this `type`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = audit_log_project_created_builder, finish_fn(vis = "", name = build_internal))]
 pub struct AuditLogProjectCreated {
     /// The project ID.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -28,6 +29,14 @@ impl AuditLogProjectCreated {
             id: None,
             data: None,
         }
+    }
+}
+
+impl<S: audit_log_project_created_builder::State> AuditLogProjectCreatedBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> AuditLogProjectCreated {
+        self.build_internal()
     }
 }
 

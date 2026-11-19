@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeResponse : The response resource.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeResponse {
     /// The unique ID of the response, will look like `resp_1234`.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -66,6 +67,14 @@ impl RealtimeResponse {
             output_modalities: None,
             max_output_tokens: None,
         }
+    }
+}
+
+impl<S: realtime_response_builder::State> RealtimeResponseBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeResponse {
+        self.build_internal()
     }
 }
 

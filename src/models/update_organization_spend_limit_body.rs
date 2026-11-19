@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UpdateOrganizationSpendLimitBody : Parameters for the hard spend limit you want to create or replace.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_organization_spend_limit_body_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateOrganizationSpendLimitBody {
     /// The hard spend limit amount, in cents.
     ///
@@ -38,6 +39,20 @@ impl UpdateOrganizationSpendLimitBody {
             currency,
             interval,
         }
+    }
+}
+
+impl<S: update_organization_spend_limit_body_builder::State>
+    UpdateOrganizationSpendLimitBodyBuilder<S>
+where
+    S::ThresholdAmount: update_organization_spend_limit_body_builder::IsSet,
+    S::Currency: update_organization_spend_limit_body_builder::IsSet,
+    S::Interval: update_organization_spend_limit_body_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateOrganizationSpendLimitBody {
+        self.build_internal()
     }
 }
 

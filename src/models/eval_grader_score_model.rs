@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_grader_score_model_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalGraderScoreModel {
     /// The object type, which is always `score_model`.
     #[serde(rename = "type")]
@@ -51,6 +52,20 @@ impl EvalGraderScoreModel {
             range: None,
             pass_threshold: None,
         }
+    }
+}
+
+impl<S: eval_grader_score_model_builder::State> EvalGraderScoreModelBuilder<S>
+where
+    S::Type: eval_grader_score_model_builder::IsSet,
+    S::Name: eval_grader_score_model_builder::IsSet,
+    S::Model: eval_grader_score_model_builder::IsSet,
+    S::Input: eval_grader_score_model_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalGraderScoreModel {
+        self.build_internal()
     }
 }
 

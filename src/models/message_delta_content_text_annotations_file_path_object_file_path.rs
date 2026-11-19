@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = message_delta_content_text_annotations_file_path_object_file_path_builder, finish_fn(vis = "", name = build_internal))]
 pub struct MessageDeltaContentTextAnnotationsFilePathObjectFilePath {
     /// The ID of the file that was generated.
     #[serde(rename = "file_id", skip_serializing_if = "Option::is_none")]
@@ -20,6 +21,16 @@ pub struct MessageDeltaContentTextAnnotationsFilePathObjectFilePath {
 impl MessageDeltaContentTextAnnotationsFilePathObjectFilePath {
     pub fn new() -> MessageDeltaContentTextAnnotationsFilePathObjectFilePath {
         MessageDeltaContentTextAnnotationsFilePathObjectFilePath { file_id: None }
+    }
+}
+
+impl<S: message_delta_content_text_annotations_file_path_object_file_path_builder::State>
+    MessageDeltaContentTextAnnotationsFilePathObjectFilePathBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> MessageDeltaContentTextAnnotationsFilePathObjectFilePath {
+        self.build_internal()
     }
 }
 

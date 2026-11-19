@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = permission_error_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct PermissionErrorResponse {
     #[serde(rename = "error")]
     pub error: models::PermissionErrorResponseError,
@@ -20,6 +21,17 @@ pub struct PermissionErrorResponse {
 impl PermissionErrorResponse {
     pub fn new(error: models::PermissionErrorResponseError) -> PermissionErrorResponse {
         PermissionErrorResponse { error }
+    }
+}
+
+impl<S: permission_error_response_builder::State> PermissionErrorResponseBuilder<S>
+where
+    S::Error: permission_error_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> PermissionErrorResponse {
+        self.build_internal()
     }
 }
 

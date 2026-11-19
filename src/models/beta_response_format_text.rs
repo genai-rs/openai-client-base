@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaResponseFormatText : Default response format. Used to generate text responses.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_response_format_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaResponseFormatText {
     /// The type of response format being defined. Always `text`.
     #[serde(rename = "type")]
@@ -22,6 +23,17 @@ impl BetaResponseFormatText {
     /// Default response format. Used to generate text responses.
     pub fn new(r#type: Type) -> BetaResponseFormatText {
         BetaResponseFormatText { r#type }
+    }
+}
+
+impl<S: beta_response_format_text_builder::State> BetaResponseFormatTextBuilder<S>
+where
+    S::Type: beta_response_format_text_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaResponseFormatText {
+        self.build_internal()
     }
 }
 

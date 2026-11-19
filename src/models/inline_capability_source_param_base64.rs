@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// InlineCapabilitySourceParamBase64 : Provides ZIP bytes encoded with standard base64.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = inline_capability_source_param_base64_builder, finish_fn(vis = "", name = build_internal))]
 pub struct InlineCapabilitySourceParamBase64 {
     /// The type of the object. Always `base64`.  Defaults to `\"base64\"`.
     #[serde(rename = "type")]
@@ -38,6 +39,20 @@ impl InlineCapabilitySourceParamBase64 {
             media_type,
             data,
         }
+    }
+}
+
+impl<S: inline_capability_source_param_base64_builder::State>
+    InlineCapabilitySourceParamBase64Builder<S>
+where
+    S::Type: inline_capability_source_param_base64_builder::IsSet,
+    S::MediaType: inline_capability_source_param_base64_builder::IsSet,
+    S::Data: inline_capability_source_param_base64_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> InlineCapabilitySourceParamBase64 {
+        self.build_internal()
     }
 }
 

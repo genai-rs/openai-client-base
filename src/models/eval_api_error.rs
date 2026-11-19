@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalApiError : An object representing an error response from the Eval API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_api_error_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalApiError {
     /// The error code.
     #[serde(rename = "code")]
@@ -25,6 +26,18 @@ impl EvalApiError {
     /// An object representing an error response from the Eval API.
     pub fn new(code: String, message: String) -> EvalApiError {
         EvalApiError { code, message }
+    }
+}
+
+impl<S: eval_api_error_builder::State> EvalApiErrorBuilder<S>
+where
+    S::Code: eval_api_error_builder::IsSet,
+    S::Message: eval_api_error_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalApiError {
+        self.build_internal()
     }
 }
 

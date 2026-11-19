@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// UpdateSessionAgentParam : Agent settings that can change after session creation.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = update_session_agent_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateSessionAgentParam {
     /// Replaces the session tools. Functions and MCP servers change on the next model call. Built-in tools change by the next turn. Omit to keep the current tools, or pass null or an empty array to clear them.
     ///
@@ -50,6 +51,14 @@ impl UpdateSessionAgentParam {
             reasoning: None,
             service_tier: None,
         }
+    }
+}
+
+impl<S: update_session_agent_param_builder::State> UpdateSessionAgentParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UpdateSessionAgentParam {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// EvalResponsesSource : A EvalResponsesSource object describing a run data source configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_responses_source_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalResponsesSource {
     /// The type of run data source. Always `responses`.
     #[serde(rename = "type")]
@@ -113,6 +114,17 @@ impl EvalResponsesSource {
             users: None,
             tools: None,
         }
+    }
+}
+
+impl<S: eval_responses_source_builder::State> EvalResponsesSourceBuilder<S>
+where
+    S::Type: eval_responses_source_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalResponsesSource {
+        self.build_internal()
     }
 }
 

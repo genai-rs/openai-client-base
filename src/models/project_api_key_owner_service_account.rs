@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ProjectApiKeyOwnerServiceAccount : The service account that owns a project API key.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = project_api_key_owner_service_account_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ProjectApiKeyOwnerServiceAccount {
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
@@ -41,6 +42,21 @@ impl ProjectApiKeyOwnerServiceAccount {
             created_at,
             role,
         }
+    }
+}
+
+impl<S: project_api_key_owner_service_account_builder::State>
+    ProjectApiKeyOwnerServiceAccountBuilder<S>
+where
+    S::Id: project_api_key_owner_service_account_builder::IsSet,
+    S::Name: project_api_key_owner_service_account_builder::IsSet,
+    S::CreatedAt: project_api_key_owner_service_account_builder::IsSet,
+    S::Role: project_api_key_owner_service_account_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ProjectApiKeyOwnerServiceAccount {
+        self.build_internal()
     }
 }
 

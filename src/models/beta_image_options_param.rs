@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaImageOptionsParam : Request level image options.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_image_options_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaImageOptionsParam {
     #[serde(
         rename = "context_compression",
@@ -27,6 +28,14 @@ impl BetaImageOptionsParam {
         BetaImageOptionsParam {
             context_compression: None,
         }
+    }
+}
+
+impl<S: beta_image_options_param_builder::State> BetaImageOptionsParamBuilder<S> {
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaImageOptionsParam {
+        self.build_internal()
     }
 }
 

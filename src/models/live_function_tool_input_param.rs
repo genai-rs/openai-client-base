@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveFunctionToolInputParam : A function tool available to the Responses backend when the Live model delegates a task.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_function_tool_input_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveFunctionToolInputParam {
     /// The tool type. Always `function`.  Defaults to `\"function\"`.
     #[serde(rename = "type")]
@@ -55,6 +56,18 @@ impl LiveFunctionToolInputParam {
             parameters: None,
             strict: None,
         }
+    }
+}
+
+impl<S: live_function_tool_input_param_builder::State> LiveFunctionToolInputParamBuilder<S>
+where
+    S::Type: live_function_tool_input_param_builder::IsSet,
+    S::Name: live_function_tool_input_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveFunctionToolInputParam {
+        self.build_internal()
     }
 }
 

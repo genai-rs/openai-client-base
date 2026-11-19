@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = usage_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UsageResponse {
     #[serde(rename = "object")]
     pub object: Object,
@@ -36,6 +37,19 @@ impl UsageResponse {
             has_more,
             next_page,
         }
+    }
+}
+
+impl<S: usage_response_builder::State> UsageResponseBuilder<S>
+where
+    S::Object: usage_response_builder::IsSet,
+    S::Data: usage_response_builder::IsSet,
+    S::HasMore: usage_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UsageResponse {
+        self.build_internal()
     }
 }
 

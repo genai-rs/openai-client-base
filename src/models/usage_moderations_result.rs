@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// UsageModerationsResult : The aggregated moderations usage details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = usage_moderations_result_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UsageModerationsResult {
     #[serde(rename = "object")]
     pub object: Object,
@@ -66,6 +67,19 @@ impl UsageModerationsResult {
             api_key_id: None,
             model: None,
         }
+    }
+}
+
+impl<S: usage_moderations_result_builder::State> UsageModerationsResultBuilder<S>
+where
+    S::Object: usage_moderations_result_builder::IsSet,
+    S::InputTokens: usage_moderations_result_builder::IsSet,
+    S::NumModelRequests: usage_moderations_result_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> UsageModerationsResult {
+        self.build_internal()
     }
 }
 

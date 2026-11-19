@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// HostedSkillParamInline : Supplies a skill ZIP directly in the session request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = hosted_skill_param_inline_builder, finish_fn(vis = "", name = build_internal))]
 pub struct HostedSkillParamInline {
     /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
     #[serde(rename = "type")]
@@ -45,6 +46,20 @@ impl HostedSkillParamInline {
             description,
             source,
         }
+    }
+}
+
+impl<S: hosted_skill_param_inline_builder::State> HostedSkillParamInlineBuilder<S>
+where
+    S::Type: hosted_skill_param_inline_builder::IsSet,
+    S::Name: hosted_skill_param_inline_builder::IsSet,
+    S::Description: hosted_skill_param_inline_builder::IsSet,
+    S::Source: hosted_skill_param_inline_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> HostedSkillParamInline {
+        self.build_internal()
     }
 }
 

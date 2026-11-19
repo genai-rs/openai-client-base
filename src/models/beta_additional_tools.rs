@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_additional_tools_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaAdditionalTools {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
@@ -42,6 +43,20 @@ impl BetaAdditionalTools {
             role,
             tools,
         }
+    }
+}
+
+impl<S: beta_additional_tools_builder::State> BetaAdditionalToolsBuilder<S>
+where
+    S::Type: beta_additional_tools_builder::IsSet,
+    S::Id: beta_additional_tools_builder::IsSet,
+    S::Role: beta_additional_tools_builder::IsSet,
+    S::Tools: beta_additional_tools_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaAdditionalTools {
+        self.build_internal()
     }
 }
 

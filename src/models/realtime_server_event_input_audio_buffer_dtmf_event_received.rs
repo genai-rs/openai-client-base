@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeServerEventInputAudioBufferDtmfEventReceived : **SIP Only:** Returned when an DTMF event is received. A DTMF event is a message that represents a telephone keypad press (0–9, *, #, A–D). The `event` property is the keypad that the user press. The `received_at` is the UTC Unix Timestamp that the server received the event.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = realtime_server_event_input_audio_buffer_dtmf_event_received_builder, finish_fn(vis = "", name = build_internal))]
 pub struct RealtimeServerEventInputAudioBufferDtmfEventReceived {
     /// The event type, must be `input_audio_buffer.dtmf_event_received`.
     #[serde(rename = "type")]
@@ -36,6 +37,20 @@ impl RealtimeServerEventInputAudioBufferDtmfEventReceived {
             event,
             received_at,
         }
+    }
+}
+
+impl<S: realtime_server_event_input_audio_buffer_dtmf_event_received_builder::State>
+    RealtimeServerEventInputAudioBufferDtmfEventReceivedBuilder<S>
+where
+    S::Type: realtime_server_event_input_audio_buffer_dtmf_event_received_builder::IsSet,
+    S::Event: realtime_server_event_input_audio_buffer_dtmf_event_received_builder::IsSet,
+    S::ReceivedAt: realtime_server_event_input_audio_buffer_dtmf_event_received_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> RealtimeServerEventInputAudioBufferDtmfEventReceived {
+        self.build_internal()
     }
 }
 

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// LiveSessionCreateResponse : The created Live session and its transport. WebRTC creation returns 201 Created with an SDP answer. Outbound SIP creation returns 201 Created after initialization, before the callee necessarily answers, without SDP or trunk credentials.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = live_session_create_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionCreateResponse {
     #[serde(rename = "session")]
     pub session: models::Session,
@@ -27,6 +28,18 @@ impl LiveSessionCreateResponse {
         transport: models::LiveSessionCreateResponseTransport,
     ) -> LiveSessionCreateResponse {
         LiveSessionCreateResponse { session, transport }
+    }
+}
+
+impl<S: live_session_create_response_builder::State> LiveSessionCreateResponseBuilder<S>
+where
+    S::Session: live_session_create_response_builder::IsSet,
+    S::Transport: live_session_create_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> LiveSessionCreateResponse {
+        self.build_internal()
     }
 }
 

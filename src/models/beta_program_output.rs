@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_program_output_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaProgramOutput {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
@@ -47,6 +48,21 @@ impl BetaProgramOutput {
             result,
             status,
         }
+    }
+}
+
+impl<S: beta_program_output_builder::State> BetaProgramOutputBuilder<S>
+where
+    S::Type: beta_program_output_builder::IsSet,
+    S::Id: beta_program_output_builder::IsSet,
+    S::CallId: beta_program_output_builder::IsSet,
+    S::Result: beta_program_output_builder::IsSet,
+    S::Status: beta_program_output_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaProgramOutput {
+        self.build_internal()
     }
 }
 

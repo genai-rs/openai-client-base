@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ScrollParam : A scroll action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = scroll_param_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ScrollParam {
     /// Specifies the event type. For a scroll action, this property is always set to `scroll`.  Defaults to `\"scroll\"`.
     #[serde(rename = "type")]
@@ -49,6 +50,21 @@ impl ScrollParam {
             scroll_y,
             keys: None,
         }
+    }
+}
+
+impl<S: scroll_param_builder::State> ScrollParamBuilder<S>
+where
+    S::Type: scroll_param_builder::IsSet,
+    S::X: scroll_param_builder::IsSet,
+    S::Y: scroll_param_builder::IsSet,
+    S::ScrollX: scroll_param_builder::IsSet,
+    S::ScrollY: scroll_param_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ScrollParam {
+        self.build_internal()
     }
 }
 

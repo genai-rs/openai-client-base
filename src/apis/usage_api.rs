@@ -478,7 +478,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for UsageWebSearchCallsErrorHe
 }
 
 /// Get audio speeches usage details for the organization.
-#[bon::builder]
+#[bon::builder(state_mod = usage_audio_speeches_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_audio_speeches(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -616,13 +616,26 @@ pub async fn usage_audio_speeches(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_audio_speeches_builder::State> UsageAudioSpeechesBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_audio_speeches_builder::IsSet,
+    S::StartTime: usage_audio_speeches_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UsageResponse, Error<UsageAudioSpeechesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get audio speeches usage details for the organization.
 ///
 /// Sends the same request as [`usage_audio_speeches`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = usage_audio_speeches_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_audio_speeches_response(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -751,8 +764,24 @@ pub async fn usage_audio_speeches_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_audio_speeches_response_builder::State>
+    UsageAudioSpeechesResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_audio_speeches_response_builder::IsSet,
+    S::StartTime: usage_audio_speeches_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageAudioSpeechesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get audio transcriptions usage details for the organization.
-#[bon::builder]
+#[bon::builder(state_mod = usage_audio_transcriptions_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_audio_transcriptions(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -890,13 +919,27 @@ pub async fn usage_audio_transcriptions(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_audio_transcriptions_builder::State>
+    UsageAudioTranscriptionsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_audio_transcriptions_builder::IsSet,
+    S::StartTime: usage_audio_transcriptions_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UsageResponse, Error<UsageAudioTranscriptionsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get audio transcriptions usage details for the organization.
 ///
 /// Sends the same request as [`usage_audio_transcriptions`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = usage_audio_transcriptions_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_audio_transcriptions_response(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -1025,8 +1068,25 @@ pub async fn usage_audio_transcriptions_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_audio_transcriptions_response_builder::State>
+    UsageAudioTranscriptionsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_audio_transcriptions_response_builder::IsSet,
+    S::StartTime: usage_audio_transcriptions_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageAudioTranscriptionsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Get code interpreter sessions usage details for the organization.
-#[bon::builder]
+#[bon::builder(state_mod = usage_code_interpreter_sessions_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_code_interpreter_sessions(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -1140,13 +1200,29 @@ pub async fn usage_code_interpreter_sessions(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_code_interpreter_sessions_builder::State>
+    UsageCodeInterpreterSessionsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_code_interpreter_sessions_builder::IsSet,
+    S::StartTime: usage_code_interpreter_sessions_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::UsageResponse, Error<UsageCodeInterpreterSessionsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get code interpreter sessions usage details for the organization.
 ///
 /// Sends the same request as [`usage_code_interpreter_sessions`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = usage_code_interpreter_sessions_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_code_interpreter_sessions_response(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -1251,8 +1327,25 @@ pub async fn usage_code_interpreter_sessions_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_code_interpreter_sessions_response_builder::State>
+    UsageCodeInterpreterSessionsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_code_interpreter_sessions_response_builder::IsSet,
+    S::StartTime: usage_code_interpreter_sessions_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageCodeInterpreterSessionsError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Get completions usage details for the organization.
-#[bon::builder]
+#[bon::builder(state_mod = usage_completions_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_completions(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -1392,13 +1485,26 @@ pub async fn usage_completions(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_completions_builder::State> UsageCompletionsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_completions_builder::IsSet,
+    S::StartTime: usage_completions_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UsageResponse, Error<UsageCompletionsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get completions usage details for the organization.
 ///
 /// Sends the same request as [`usage_completions`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = usage_completions_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_completions_response(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -1529,8 +1635,24 @@ pub async fn usage_completions_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_completions_response_builder::State>
+    UsageCompletionsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_completions_response_builder::IsSet,
+    S::StartTime: usage_completions_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageCompletionsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get costs details for the organization.
-#[bon::builder]
+#[bon::builder(state_mod = usage_costs_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_costs(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -1657,13 +1779,26 @@ pub async fn usage_costs(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_costs_builder::State> UsageCostsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_costs_builder::IsSet,
+    S::StartTime: usage_costs_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UsageResponse, Error<UsageCostsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get costs details for the organization.
 ///
 /// Sends the same request as [`usage_costs`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = usage_costs_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_costs_response(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -1781,8 +1916,23 @@ pub async fn usage_costs_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_costs_response_builder::State> UsageCostsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_costs_response_builder::IsSet,
+    S::StartTime: usage_costs_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageCostsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get embeddings usage details for the organization.
-#[bon::builder]
+#[bon::builder(state_mod = usage_embeddings_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_embeddings(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -1917,13 +2067,26 @@ pub async fn usage_embeddings(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_embeddings_builder::State> UsageEmbeddingsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_embeddings_builder::IsSet,
+    S::StartTime: usage_embeddings_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UsageResponse, Error<UsageEmbeddingsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get embeddings usage details for the organization.
 ///
 /// Sends the same request as [`usage_embeddings`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = usage_embeddings_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_embeddings_response(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -2049,8 +2212,23 @@ pub async fn usage_embeddings_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_embeddings_response_builder::State> UsageEmbeddingsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_embeddings_response_builder::IsSet,
+    S::StartTime: usage_embeddings_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageEmbeddingsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get file search calls usage details for the organization.
-#[bon::builder]
+#[bon::builder(state_mod = usage_file_search_calls_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_file_search_calls(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -2188,13 +2366,26 @@ pub async fn usage_file_search_calls(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_file_search_calls_builder::State> UsageFileSearchCallsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_file_search_calls_builder::IsSet,
+    S::StartTime: usage_file_search_calls_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UsageResponse, Error<UsageFileSearchCallsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get file search calls usage details for the organization.
 ///
 /// Sends the same request as [`usage_file_search_calls`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = usage_file_search_calls_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_file_search_calls_response(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -2323,8 +2514,24 @@ pub async fn usage_file_search_calls_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_file_search_calls_response_builder::State>
+    UsageFileSearchCallsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_file_search_calls_response_builder::IsSet,
+    S::StartTime: usage_file_search_calls_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageFileSearchCallsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get images usage details for the organization.
-#[bon::builder]
+#[bon::builder(state_mod = usage_images_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_images(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -2475,13 +2682,26 @@ pub async fn usage_images(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_images_builder::State> UsageImagesBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_images_builder::IsSet,
+    S::StartTime: usage_images_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UsageResponse, Error<UsageImagesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get images usage details for the organization.
 ///
 /// Sends the same request as [`usage_images`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = usage_images_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_images_response(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -2623,8 +2843,23 @@ pub async fn usage_images_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_images_response_builder::State> UsageImagesResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_images_response_builder::IsSet,
+    S::StartTime: usage_images_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageImagesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get moderations usage details for the organization.
-#[bon::builder]
+#[bon::builder(state_mod = usage_moderations_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_moderations(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -2759,13 +2994,26 @@ pub async fn usage_moderations(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_moderations_builder::State> UsageModerationsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_moderations_builder::IsSet,
+    S::StartTime: usage_moderations_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UsageResponse, Error<UsageModerationsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get moderations usage details for the organization.
 ///
 /// Sends the same request as [`usage_moderations`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = usage_moderations_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_moderations_response(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -2891,8 +3139,24 @@ pub async fn usage_moderations_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_moderations_response_builder::State>
+    UsageModerationsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_moderations_response_builder::IsSet,
+    S::StartTime: usage_moderations_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageModerationsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get vector stores usage details for the organization.
-#[bon::builder]
+#[bon::builder(state_mod = usage_vector_stores_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_vector_stores(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -3006,13 +3270,26 @@ pub async fn usage_vector_stores(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_vector_stores_builder::State> UsageVectorStoresBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_vector_stores_builder::IsSet,
+    S::StartTime: usage_vector_stores_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UsageResponse, Error<UsageVectorStoresError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get vector stores usage details for the organization.
 ///
 /// Sends the same request as [`usage_vector_stores`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = usage_vector_stores_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_vector_stores_response(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -3117,8 +3394,24 @@ pub async fn usage_vector_stores_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_vector_stores_response_builder::State>
+    UsageVectorStoresResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_vector_stores_response_builder::IsSet,
+    S::StartTime: usage_vector_stores_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageVectorStoresError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get web search calls usage details for the organization.
-#[bon::builder]
+#[bon::builder(state_mod = usage_web_search_calls_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_web_search_calls(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -3264,13 +3557,26 @@ pub async fn usage_web_search_calls(
     }
 }
 
+#[allow(deprecated)]
+impl<S: usage_web_search_calls_builder::State> UsageWebSearchCallsBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_web_search_calls_builder::IsSet,
+    S::StartTime: usage_web_search_calls_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::UsageResponse, Error<UsageWebSearchCallsError>> {
+        self.call_internal().await
+    }
+}
+
 /// Get web search calls usage details for the organization.
 ///
 /// Sends the same request as [`usage_web_search_calls`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::UsageResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = usage_web_search_calls_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn usage_web_search_calls_response(
     configuration: &configuration::Configuration,
     start_time: i64,
@@ -3404,5 +3710,21 @@ pub async fn usage_web_search_calls_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: usage_web_search_calls_response_builder::State>
+    UsageWebSearchCallsResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: usage_web_search_calls_response_builder::IsSet,
+    S::StartTime: usage_web_search_calls_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::UsageResponse>, Error<UsageWebSearchCallsError>> {
+        self.call_internal().await
     }
 }

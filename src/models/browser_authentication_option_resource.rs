@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// BrowserAuthenticationOptionResource : A sign-in method and the fields that belong to it.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = browser_authentication_option_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BrowserAuthenticationOptionResource {
     /// The option ID to submit as selected_option.
     ///
@@ -42,6 +43,20 @@ impl BrowserAuthenticationOptionResource {
             label,
             field_ids,
         }
+    }
+}
+
+impl<S: browser_authentication_option_resource_builder::State>
+    BrowserAuthenticationOptionResourceBuilder<S>
+where
+    S::Id: browser_authentication_option_resource_builder::IsSet,
+    S::Label: browser_authentication_option_resource_builder::IsSet,
+    S::FieldIds: browser_authentication_option_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BrowserAuthenticationOptionResource {
+        self.build_internal()
     }
 }
 

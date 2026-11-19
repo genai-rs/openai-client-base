@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// VaultCredentialResource : Metadata for a stored credential. Secret values are never returned.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = vault_credential_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct VaultCredentialResource {
     /// The ID of the credential.
     ///
@@ -69,6 +70,24 @@ impl VaultCredentialResource {
             created_at,
             updated_at,
         }
+    }
+}
+
+impl<S: vault_credential_resource_builder::State> VaultCredentialResourceBuilder<S>
+where
+    S::Id: vault_credential_resource_builder::IsSet,
+    S::Object: vault_credential_resource_builder::IsSet,
+    S::VaultId: vault_credential_resource_builder::IsSet,
+    S::Name: vault_credential_resource_builder::IsSet,
+    S::Auth: vault_credential_resource_builder::IsSet,
+    S::Metadata: vault_credential_resource_builder::IsSet,
+    S::CreatedAt: vault_credential_resource_builder::IsSet,
+    S::UpdatedAt: vault_credential_resource_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> VaultCredentialResource {
+        self.build_internal()
     }
 }
 

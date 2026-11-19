@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseOutputText : Assistant response text accompanied by optional annotations.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_output_text_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseOutputText {
     /// Type discriminator that is always `output_text`.  Defaults to `\"output_text\"`.
     #[serde(rename = "type")]
@@ -37,6 +38,19 @@ impl ResponseOutputText {
             text,
             annotations,
         }
+    }
+}
+
+impl<S: response_output_text_builder::State> ResponseOutputTextBuilder<S>
+where
+    S::Type: response_output_text_builder::IsSet,
+    S::Text: response_output_text_builder::IsSet,
+    S::Annotations: response_output_text_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseOutputText {
+        self.build_internal()
     }
 }
 

@@ -444,7 +444,7 @@ impl From<&timvw_rust_runtime::header::HeaderMap> for UpdateRoleErrorHeaders {
 }
 
 /// Creates a custom role for a project.
-#[bon::builder]
+#[bon::builder(state_mod = create_project_role_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_project_role(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -528,13 +528,27 @@ pub async fn create_project_role(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_project_role_builder::State> CreateProjectRoleBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_project_role_builder::IsSet,
+    S::ProjectId: create_project_role_builder::IsSet,
+    S::PublicCreateOrganizationRoleBody: create_project_role_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Role, Error<CreateProjectRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a custom role for a project.
 ///
 /// Sends the same request as [`create_project_role`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Role` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_project_role_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_project_role_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -609,8 +623,25 @@ pub async fn create_project_role_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_project_role_response_builder::State>
+    CreateProjectRoleResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: create_project_role_response_builder::IsSet,
+    S::ProjectId: create_project_role_response_builder::IsSet,
+    S::PublicCreateOrganizationRoleBody: create_project_role_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Role>, Error<CreateProjectRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a custom role for the organization.
-#[bon::builder]
+#[bon::builder(state_mod = create_role_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_role(
     configuration: &configuration::Configuration,
     public_create_organization_role_body: &models::PublicCreateOrganizationRoleBody,
@@ -688,13 +719,26 @@ pub async fn create_role(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_role_builder::State> CreateRoleBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_role_builder::IsSet,
+    S::PublicCreateOrganizationRoleBody: create_role_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Role, Error<CreateRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Creates a custom role for the organization.
 ///
 /// Sends the same request as [`create_role`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Role` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = create_role_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn create_role_response(
     configuration: &configuration::Configuration,
     public_create_organization_role_body: &models::PublicCreateOrganizationRoleBody,
@@ -763,8 +807,21 @@ pub async fn create_role_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: create_role_response_builder::State> CreateRoleResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: create_role_response_builder::IsSet,
+    S::PublicCreateOrganizationRoleBody: create_role_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<models::Role>, Error<CreateRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a custom role from a project.
-#[bon::builder]
+#[bon::builder(state_mod = delete_project_role_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_project_role(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -848,13 +905,27 @@ pub async fn delete_project_role(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_project_role_builder::State> DeleteProjectRoleBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_project_role_builder::IsSet,
+    S::ProjectId: delete_project_role_builder::IsSet,
+    S::RoleId: delete_project_role_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::RoleDeletedResource, Error<DeleteProjectRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a custom role from a project.
 ///
 /// Sends the same request as [`delete_project_role`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RoleDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_project_role_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_project_role_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -929,8 +1000,26 @@ pub async fn delete_project_role_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_project_role_response_builder::State>
+    DeleteProjectRoleResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: delete_project_role_response_builder::IsSet,
+    S::ProjectId: delete_project_role_response_builder::IsSet,
+    S::RoleId: delete_project_role_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::RoleDeletedResource>, Error<DeleteProjectRoleError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a custom role from the organization.
-#[bon::builder]
+#[bon::builder(state_mod = delete_role_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_role(
     configuration: &configuration::Configuration,
     role_id: &str,
@@ -1011,13 +1100,26 @@ pub async fn delete_role(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_role_builder::State> DeleteRoleBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_role_builder::IsSet,
+    S::RoleId: delete_role_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::RoleDeletedResource, Error<DeleteRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Deletes a custom role from the organization.
 ///
 /// Sends the same request as [`delete_role`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::RoleDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = delete_role_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn delete_role_response(
     configuration: &configuration::Configuration,
     role_id: &str,
@@ -1089,8 +1191,23 @@ pub async fn delete_role_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: delete_role_response_builder::State> DeleteRoleResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: delete_role_response_builder::IsSet,
+    S::RoleId: delete_role_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::RoleDeletedResource>, Error<DeleteRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists the roles configured for a project.
-#[bon::builder]
+#[bon::builder(state_mod = list_project_roles_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_roles(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1186,13 +1303,28 @@ pub async fn list_project_roles(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_roles_builder::State> ListProjectRolesBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_roles_builder::IsSet,
+    S::ProjectId: list_project_roles_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<models::PublicRoleListResource, Error<ListProjectRolesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists the roles configured for a project.
 ///
 /// Sends the same request as [`list_project_roles`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PublicRoleListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_project_roles_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_project_roles_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1279,8 +1411,25 @@ pub async fn list_project_roles_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_project_roles_response_builder::State>
+    ListProjectRolesResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: list_project_roles_response_builder::IsSet,
+    S::ProjectId: list_project_roles_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::PublicRoleListResource>, Error<ListProjectRolesError>>
+    {
+        self.call_internal().await
+    }
+}
+
 /// Lists the roles configured for the organization.
-#[bon::builder]
+#[bon::builder(state_mod = list_roles_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_roles(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -1370,13 +1519,25 @@ pub async fn list_roles(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_roles_builder::State> ListRolesBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_roles_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::PublicRoleListResource, Error<ListRolesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Lists the roles configured for the organization.
 ///
 /// Sends the same request as [`list_roles`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::PublicRoleListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = list_roles_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_roles_response(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
@@ -1457,8 +1618,22 @@ pub async fn list_roles_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: list_roles_response_builder::State> ListRolesResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: list_roles_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::PublicRoleListResource>, Error<ListRolesError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a project role.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_role_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_role(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1539,13 +1714,27 @@ pub async fn retrieve_project_role(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_role_builder::State> RetrieveProjectRoleBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_role_builder::IsSet,
+    S::ProjectId: retrieve_project_role_builder::IsSet,
+    S::RoleId: retrieve_project_role_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Role, Error<RetrieveProjectRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves a project role.
 ///
 /// Sends the same request as [`retrieve_project_role`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Role` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_project_role_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_project_role_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1617,8 +1806,25 @@ pub async fn retrieve_project_role_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_project_role_response_builder::State>
+    RetrieveProjectRoleResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: retrieve_project_role_response_builder::IsSet,
+    S::ProjectId: retrieve_project_role_response_builder::IsSet,
+    S::RoleId: retrieve_project_role_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Role>, Error<RetrieveProjectRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an organization role.
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_role_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_role(
     configuration: &configuration::Configuration,
     role_id: &str,
@@ -1696,13 +1902,26 @@ pub async fn retrieve_role(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_role_builder::State> RetrieveRoleBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_role_builder::IsSet,
+    S::RoleId: retrieve_role_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Role, Error<RetrieveRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Retrieves an organization role.
 ///
 /// Sends the same request as [`retrieve_role`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Role` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = retrieve_role_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn retrieve_role_response(
     configuration: &configuration::Configuration,
     role_id: &str,
@@ -1771,8 +1990,21 @@ pub async fn retrieve_role_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: retrieve_role_response_builder::State> RetrieveRoleResponseBuilder<'_, '_, '_, S>
+where
+    S::Configuration: retrieve_role_response_builder::IsSet,
+    S::RoleId: retrieve_role_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<models::Role>, Error<RetrieveRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates an existing project role.
-#[bon::builder]
+#[bon::builder(state_mod = update_project_role_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_role(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1859,13 +2091,28 @@ pub async fn update_project_role(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_project_role_builder::State> UpdateProjectRoleBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_role_builder::IsSet,
+    S::ProjectId: update_project_role_builder::IsSet,
+    S::RoleId: update_project_role_builder::IsSet,
+    S::PublicUpdateOrganizationRoleBody: update_project_role_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Role, Error<UpdateProjectRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates an existing project role.
 ///
 /// Sends the same request as [`update_project_role`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Role` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_project_role_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_project_role_response(
     configuration: &configuration::Configuration,
     project_id: &str,
@@ -1943,8 +2190,26 @@ pub async fn update_project_role_response(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_project_role_response_builder::State>
+    UpdateProjectRoleResponseBuilder<'_, '_, '_, '_, '_, S>
+where
+    S::Configuration: update_project_role_response_builder::IsSet,
+    S::ProjectId: update_project_role_response_builder::IsSet,
+    S::RoleId: update_project_role_response_builder::IsSet,
+    S::PublicUpdateOrganizationRoleBody: update_project_role_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(
+        self,
+    ) -> Result<super::ApiResponse<models::Role>, Error<UpdateProjectRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates an existing organization role.
-#[bon::builder]
+#[bon::builder(state_mod = update_role_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_role(
     configuration: &configuration::Configuration,
     role_id: &str,
@@ -2028,13 +2293,27 @@ pub async fn update_role(
     }
 }
 
+#[allow(deprecated)]
+impl<S: update_role_builder::State> UpdateRoleBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_role_builder::IsSet,
+    S::RoleId: update_role_builder::IsSet,
+    S::PublicUpdateOrganizationRoleBody: update_role_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<models::Role, Error<UpdateRoleError>> {
+        self.call_internal().await
+    }
+}
+
 /// Updates an existing organization role.
 ///
 /// Sends the same request as [`update_role`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
 /// `models::Role` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
 /// as text (`text()`).
-#[bon::builder]
+#[bon::builder(state_mod = update_role_response_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn update_role_response(
     configuration: &configuration::Configuration,
     role_id: &str,
@@ -2106,5 +2385,19 @@ pub async fn update_role_response(
             entity,
             headers,
         })))
+    }
+}
+
+#[allow(deprecated)]
+impl<S: update_role_response_builder::State> UpdateRoleResponseBuilder<'_, '_, '_, '_, S>
+where
+    S::Configuration: update_role_response_builder::IsSet,
+    S::RoleId: update_role_response_builder::IsSet,
+    S::PublicUpdateOrganizationRoleBody: update_role_response_builder::IsSet,
+{
+    /// Finishes building and performs the requested action.
+    #[inline(always)]
+    pub async fn call(self) -> Result<super::ApiResponse<models::Role>, Error<UpdateRoleError>> {
+        self.call_internal().await
     }
 }

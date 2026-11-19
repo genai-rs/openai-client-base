@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// BetaComputerScreenshotContent : A screenshot of a computer.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = beta_computer_screenshot_content_builder, finish_fn(vis = "", name = build_internal))]
 pub struct BetaComputerScreenshotContent {
     /// Specifies the event type. For a computer screenshot, this property is always set to `computer_screenshot`.  Defaults to `\"computer_screenshot\"`.
     #[serde(rename = "type")]
@@ -47,6 +48,18 @@ impl BetaComputerScreenshotContent {
             detail,
             prompt_cache_breakpoint: None,
         }
+    }
+}
+
+impl<S: beta_computer_screenshot_content_builder::State> BetaComputerScreenshotContentBuilder<S>
+where
+    S::Type: beta_computer_screenshot_content_builder::IsSet,
+    S::Detail: beta_computer_screenshot_content_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> BetaComputerScreenshotContent {
+        self.build_internal()
     }
 }
 

@@ -11,6 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = eval_jsonl_file_content_source_content_inner_builder, finish_fn(vis = "", name = build_internal))]
 pub struct EvalJsonlFileContentSourceContentInner {
     #[serde(rename = "item")]
     pub item: std::collections::HashMap<String, serde_json::Value>,
@@ -23,6 +24,18 @@ impl EvalJsonlFileContentSourceContentInner {
         item: std::collections::HashMap<String, serde_json::Value>,
     ) -> EvalJsonlFileContentSourceContentInner {
         EvalJsonlFileContentSourceContentInner { item, sample: None }
+    }
+}
+
+impl<S: eval_jsonl_file_content_source_content_inner_builder::State>
+    EvalJsonlFileContentSourceContentInnerBuilder<S>
+where
+    S::Item: eval_jsonl_file_content_source_content_inner_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> EvalJsonlFileContentSourceContentInner {
+        self.build_internal()
     }
 }
 

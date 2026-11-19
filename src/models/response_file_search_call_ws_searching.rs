@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseFileSearchCallWsSearching : Emitted when a file search is currently searching.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = response_file_search_call_ws_searching_builder, finish_fn(vis = "", name = build_internal))]
 pub struct ResponseFileSearchCallWsSearching {
     /// The type of the event. Always `response.file_search_call.searching`.
     #[serde(rename = "type")]
@@ -45,6 +46,21 @@ impl ResponseFileSearchCallWsSearching {
             sequence_number,
             stream_id: None,
         }
+    }
+}
+
+impl<S: response_file_search_call_ws_searching_builder::State>
+    ResponseFileSearchCallWsSearchingBuilder<S>
+where
+    S::Type: response_file_search_call_ws_searching_builder::IsSet,
+    S::OutputIndex: response_file_search_call_ws_searching_builder::IsSet,
+    S::ItemId: response_file_search_call_ws_searching_builder::IsSet,
+    S::SequenceNumber: response_file_search_call_ws_searching_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> ResponseFileSearchCallWsSearching {
+        self.build_internal()
     }
 }
 

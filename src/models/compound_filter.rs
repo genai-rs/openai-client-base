@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CompoundFilter : Combine multiple filters using `and` or `or`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = compound_filter_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CompoundFilter {
     /// Type of operation: `and` or `or`.
     #[serde(rename = "type")]
@@ -26,6 +27,18 @@ impl CompoundFilter {
     /// Combine multiple filters using `and` or `or`.
     pub fn new(r#type: Type, filters: Vec<models::CompoundFilterFiltersInner>) -> CompoundFilter {
         CompoundFilter { r#type, filters }
+    }
+}
+
+impl<S: compound_filter_builder::State> CompoundFilterBuilder<S>
+where
+    S::Type: compound_filter_builder::IsSet,
+    S::Filters: compound_filter_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CompoundFilter {
+        self.build_internal()
     }
 }
 

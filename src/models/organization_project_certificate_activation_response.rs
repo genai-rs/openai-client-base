@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = organization_project_certificate_activation_response_builder, finish_fn(vis = "", name = build_internal))]
 pub struct OrganizationProjectCertificateActivationResponse {
     /// The project certificate activation result type.
     #[serde(rename = "object")]
@@ -26,6 +27,19 @@ impl OrganizationProjectCertificateActivationResponse {
         data: Vec<models::OrganizationProjectCertificate>,
     ) -> OrganizationProjectCertificateActivationResponse {
         OrganizationProjectCertificateActivationResponse { object, data }
+    }
+}
+
+impl<S: organization_project_certificate_activation_response_builder::State>
+    OrganizationProjectCertificateActivationResponseBuilder<S>
+where
+    S::Object: organization_project_certificate_activation_response_builder::IsSet,
+    S::Data: organization_project_certificate_activation_response_builder::IsSet,
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> OrganizationProjectCertificateActivationResponse {
+        self.build_internal()
     }
 }
 

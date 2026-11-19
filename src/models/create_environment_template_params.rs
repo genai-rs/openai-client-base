@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 /// CreateEnvironmentTemplateParams : Parameters for creating a reusable, project-scoped OpenAI-hosted environment template.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[builder(state_mod = create_environment_template_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct CreateEnvironmentTemplateParams {
     /// Packages to install in the environment. Defaults to empty package lists.
     #[serde(
@@ -125,6 +126,16 @@ impl CreateEnvironmentTemplateParams {
             files: None,
             name: None,
         }
+    }
+}
+
+impl<S: create_environment_template_params_builder::State>
+    CreateEnvironmentTemplateParamsBuilder<S>
+{
+    /// Finish building and return the requested object
+    #[inline(always)]
+    pub fn build(self) -> CreateEnvironmentTemplateParams {
+        self.build_internal()
     }
 }
 
