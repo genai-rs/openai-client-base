@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.36.0](https://github.com/genai-rs/openai-client-base/compare/v0.35.0...v0.36.0) - 2026-11-19
+
+### Added
+
+- [**breaking**] moderations answer with the classification or the CSAM result
+
+### Other
+
+- update generated client from latest OpenAPI spec
+- stop running CI on label events
+
 ## [0.35.0](https://github.com/genai-rs/openai-client-base/compare/v0.34.4...v0.35.0) - 2026-11-18
 
 ### Added
