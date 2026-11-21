@@ -857,6 +857,10 @@ pub mod live_session_create_params_delegation;
 #[cfg(feature = "types")]
 pub use self::live_session_create_params_delegation::LiveSessionCreateParamsDelegation;
 #[cfg(feature = "types")]
+pub mod live_session_paused;
+#[cfg(feature = "types")]
+pub use self::live_session_paused::LiveSessionPaused;
+#[cfg(feature = "types")]
 pub mod live_session_resource_param;
 #[cfg(feature = "types")]
 pub use self::live_session_resource_param::LiveSessionResourceParam;
@@ -864,6 +868,10 @@ pub use self::live_session_resource_param::LiveSessionResourceParam;
 pub mod live_session_resource_param_delegation;
 #[cfg(feature = "types")]
 pub use self::live_session_resource_param_delegation::LiveSessionResourceParamDelegation;
+#[cfg(feature = "types")]
+pub mod live_session_resumed;
+#[cfg(feature = "types")]
+pub use self::live_session_resumed::LiveSessionResumed;
 #[cfg(feature = "types")]
 pub mod live_session_start_event;
 #[cfg(feature = "types")]

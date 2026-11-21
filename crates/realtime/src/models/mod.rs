@@ -555,6 +555,10 @@ pub mod live_specific_web_search_preview_param;
 #[cfg(feature = "live-types")]
 pub use self::live_specific_web_search_preview_param::LiveSpecificWebSearchPreviewParam;
 #[cfg(feature = "live-types")]
+pub mod live_speech_wake_policy_param;
+#[cfg(feature = "live-types")]
+pub use self::live_speech_wake_policy_param::LiveSpeechWakePolicyParam;
+#[cfg(feature = "live-types")]
 pub mod live_text_verbosity;
 #[cfg(feature = "live-types")]
 pub use self::live_text_verbosity::LiveTextVerbosity;

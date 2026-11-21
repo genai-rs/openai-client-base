@@ -18,6 +18,8 @@ use serde::{Deserialize, Serialize};
 pub enum LiveServerEvent2 {
     LiveSessionStarted(models::LiveSessionStarted),
     LiveSessionUpdated(models::LiveSessionUpdated),
+    LiveSessionResumed(models::LiveSessionResumed),
+    LiveSessionPaused(models::LiveSessionPaused),
     LiveInputAudioMuted(models::LiveInputAudioMuted),
     LiveInputAudioUnmuted(models::LiveInputAudioUnmuted),
     LiveOutputAudioFixturePlaying(models::LiveOutputAudioFixturePlaying),
@@ -68,6 +70,12 @@ impl LiveServerEvent2 {
             }
             Tag::Value("session.updated") => {
                 dispatch::decode(value, UNION, "LiveSessionUpdated").map(Self::LiveSessionUpdated)
+            }
+            Tag::Value("session.resumed") => {
+                dispatch::decode(value, UNION, "LiveSessionResumed").map(Self::LiveSessionResumed)
+            }
+            Tag::Value("session.paused") => {
+                dispatch::decode(value, UNION, "LiveSessionPaused").map(Self::LiveSessionPaused)
             }
             Tag::Value("session.input_audio.muted") => {
                 dispatch::decode(value, UNION, "LiveInputAudioMuted").map(Self::LiveInputAudioMuted)
@@ -177,6 +185,14 @@ impl std::fmt::Display for LiveServerEvent2 {
                 Err(_) => Err(std::fmt::Error),
             },
             Self::LiveSessionUpdated(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSessionResumed(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSessionPaused(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },

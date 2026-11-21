@@ -911,6 +911,14 @@ pub mod session_artifact_resource;
 #[cfg(feature = "agents-types")]
 pub use self::session_artifact_resource::SessionArtifactResource;
 #[cfg(feature = "agents-types")]
+pub mod session_budget_control_params;
+#[cfg(feature = "agents-types")]
+pub use self::session_budget_control_params::SessionBudgetControlParams;
+#[cfg(feature = "agents-types")]
+pub mod session_budget_control_resource;
+#[cfg(feature = "agents-types")]
+pub use self::session_budget_control_resource::SessionBudgetControlResource;
+#[cfg(feature = "agents-types")]
 pub mod session_environment_error_resource;
 #[cfg(feature = "agents-types")]
 pub use self::session_environment_error_resource::SessionEnvironmentErrorResource;
@@ -934,6 +942,10 @@ pub use self::session_event::SessionEvent;
 pub mod session_event_agent_output_command_execution_output_delta;
 #[cfg(feature = "agents-types")]
 pub use self::session_event_agent_output_command_execution_output_delta::SessionEventAgentOutputCommandExecutionOutputDelta;
+#[cfg(feature = "agents-types")]
+pub mod session_event_agent_session_budget_reached;
+#[cfg(feature = "agents-types")]
+pub use self::session_event_agent_session_budget_reached::SessionEventAgentSessionBudgetReached;
 #[cfg(feature = "agents-types")]
 pub mod session_event_agent_session_created;
 #[cfg(feature = "agents-types")]

@@ -27,6 +27,8 @@ pub struct ProjectSpendLimitResource {
     pub interval: models::SpendLimitInterval,
     #[serde(rename = "enforcement")]
     pub enforcement: models::SpendLimitEnforcement,
+    #[serde(rename = "notification_channel")]
+    pub notification_channel: models::EmailNotificationChannel,
 }
 
 impl ProjectSpendLimitResource {
@@ -37,6 +39,7 @@ impl ProjectSpendLimitResource {
         currency: models::SpendLimitCurrency,
         interval: models::SpendLimitInterval,
         enforcement: models::SpendLimitEnforcement,
+        notification_channel: models::EmailNotificationChannel,
     ) -> ProjectSpendLimitResource {
         ProjectSpendLimitResource {
             object,
@@ -44,6 +47,7 @@ impl ProjectSpendLimitResource {
             currency,
             interval,
             enforcement,
+            notification_channel,
         }
     }
 }
@@ -55,6 +59,7 @@ where
     S::Currency: project_spend_limit_resource_builder::IsSet,
     S::Interval: project_spend_limit_resource_builder::IsSet,
     S::Enforcement: project_spend_limit_resource_builder::IsSet,
+    S::NotificationChannel: project_spend_limit_resource_builder::IsSet,
 {
     /// Finish building and return the requested object
     #[inline(always)]

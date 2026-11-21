@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **environment** | [**models::EnvironmentParam**](EnvironmentParam.md) |  | 
 **review** | Option<[**models::SessionReviewParam**](SessionReviewParam.md)> |  | [optional]
+**spend_control** | Option<[**models::SessionBudgetControlParams**](SessionBudgetControlParams.md)> | Optional spending limit in USD cents. Omission or null creates an unlimited session. | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters. Omission or null defaults to an empty map. | [optional]
 **agent** | Option<[**models::SessionAgentConfigParam**](SessionAgentConfigParam.md)> |  | [optional]
 **agent_id** | Option<**String**> | The ID of a saved reusable agent. Omit `agent` to use its configuration unchanged. | [optional]

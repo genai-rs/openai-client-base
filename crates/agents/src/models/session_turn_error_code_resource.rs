@@ -18,6 +18,8 @@ pub enum SessionTurnErrorCodeResource {
     ContextLengthExceeded,
     #[serde(rename = "max_output_tokens")]
     MaxOutputTokens,
+    #[serde(rename = "session_budget_exceeded")]
+    SessionBudgetExceeded,
     #[serde(rename = "usage_limit_exceeded")]
     UsageLimitExceeded,
     #[serde(rename = "api_key_spend_limit_exceeded")]
@@ -42,6 +44,8 @@ pub enum SessionTurnErrorCodeResource {
     CyberPolicy,
     #[serde(rename = "misalignment_policy_violation")]
     MisalignmentPolicyViolation,
+    #[serde(rename = "audio_input_unavailable")]
+    AudioInputUnavailable,
     #[serde(rename = "connection_failed")]
     ConnectionFailed,
     #[serde(rename = "server_error")]
@@ -73,6 +77,7 @@ impl std::fmt::Display for SessionTurnErrorCodeResource {
         match self {
             Self::ContextLengthExceeded => write!(f, "context_length_exceeded"),
             Self::MaxOutputTokens => write!(f, "max_output_tokens"),
+            Self::SessionBudgetExceeded => write!(f, "session_budget_exceeded"),
             Self::UsageLimitExceeded => write!(f, "usage_limit_exceeded"),
             Self::ApiKeySpendLimitExceeded => write!(f, "api_key_spend_limit_exceeded"),
             Self::ProjectSpendLimitExceeded => write!(f, "project_spend_limit_exceeded"),
@@ -85,6 +90,7 @@ impl std::fmt::Display for SessionTurnErrorCodeResource {
             Self::ServerOverloaded => write!(f, "server_overloaded"),
             Self::CyberPolicy => write!(f, "cyber_policy"),
             Self::MisalignmentPolicyViolation => write!(f, "misalignment_policy_violation"),
+            Self::AudioInputUnavailable => write!(f, "audio_input_unavailable"),
             Self::ConnectionFailed => write!(f, "connection_failed"),
             Self::ServerError => write!(f, "server_error"),
             Self::AuthenticationError => write!(f, "authentication_error"),
@@ -116,6 +122,7 @@ impl ::std::str::FromStr for SessionTurnErrorCodeResource {
         match value {
             "context_length_exceeded" => Ok(Self::ContextLengthExceeded),
             "max_output_tokens" => Ok(Self::MaxOutputTokens),
+            "session_budget_exceeded" => Ok(Self::SessionBudgetExceeded),
             "usage_limit_exceeded" => Ok(Self::UsageLimitExceeded),
             "api_key_spend_limit_exceeded" => Ok(Self::ApiKeySpendLimitExceeded),
             "project_spend_limit_exceeded" => Ok(Self::ProjectSpendLimitExceeded),
@@ -128,6 +135,7 @@ impl ::std::str::FromStr for SessionTurnErrorCodeResource {
             "server_overloaded" => Ok(Self::ServerOverloaded),
             "cyber_policy" => Ok(Self::CyberPolicy),
             "misalignment_policy_violation" => Ok(Self::MisalignmentPolicyViolation),
+            "audio_input_unavailable" => Ok(Self::AudioInputUnavailable),
             "connection_failed" => Ok(Self::ConnectionFailed),
             "server_error" => Ok(Self::ServerError),
             "authentication_error" => Ok(Self::AuthenticationError),

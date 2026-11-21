@@ -42,7 +42,7 @@ pub struct EditImageBodyJsonParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub complexity: Option<Option<models::Complexity>>,
-    /// The GPT image model to use for image editing, including `gpt-image-2`, its dated snapshot `gpt-image-2-2026-04-21`, `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, `gpt-image-2.5-flare-2026-09-08`, `gpt-image-2.6-sunburst`, and `gpt-image-2.6-flare`. Defaults to `gpt-image-2.5-sunburst`.  `gpt-image-1` was shut down on October 23, 2026. Use `gpt-image-2.5-sunburst` or `gpt-image-2.5-flare` instead.  Defaults to `\"gpt-image-2.5-sunburst\"`.
+    /// The GPT image model to use for image editing, including `gpt-image-2`, its dated snapshot `gpt-image-2-2026-04-21`, `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, `gpt-image-2.5-flare-2026-09-08`, `gpt-image-2.6-sunburst`, and `gpt-image-2.6-flare`. Defaults to `gpt-image-2.6-sunburst`.  `gpt-image-1` was shut down on October 23, 2026. Use `gpt-image-2.5-sunburst` or `gpt-image-2.5-flare` instead.  Defaults to `\"gpt-image-2.6-sunburst\"`.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// Input image references to edit. For GPT image models, you can provide up to 16 images.

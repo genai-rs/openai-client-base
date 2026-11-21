@@ -6453,14 +6453,14 @@
             {
               "title": "Create a WebRTC session",
               "request": {
-                "curl": "curl https://api.openai.com/v1/live/sessions \\\n  -H \"Authorization: Bearer $OPENAI_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"session\":{\"model\":\"gpt-live-1\",\"instructions\":\"Be concise. Ask for clarification when needed.\"},\"transport\":{\"type\":\"webrtc\",\"sdp\":\"<SDP offer>\"}}'"
+                "curl": "curl https://api.openai.com/v1/live/sessions \\\n  -H \"Authorization: Bearer $OPENAI_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"session\":{\"model\":\"gpt-live-1.1\",\"instructions\":\"Be concise. Ask for clarification when needed.\"},\"transport\":{\"type\":\"webrtc\",\"sdp\":\"<SDP offer>\"}}'"
               },
               "response": "{\"session\":{\"id\":\"live_123\"},\"transport\":{\"type\":\"webrtc\",\"sdp\":\"<SDP answer>\"}}"
             },
             {
               "title": "Place an outbound SIP call",
               "request": {
-                "curl": "# Export SIP_USERNAME and SIP_PASSWORD in your environment first.\njq -n '{\n    \"session\": {\n      \"model\": \"gpt-live-1\",\n      \"instructions\": \"Help the user schedule an appointment.\",\n      \"audio\": { \"output\": { \"voice\": \"marin\" } },\n      \"delegation\": { \"type\": \"client\" }\n    },\n    \"transport\": {\n      \"type\": \"sip\",\n      \"destination\": \"+14155550123\",\n      \"trunk\": {\n        \"provider_url\": \"sips:sip.example.com:5061\",\n        \"auth\": {\n          \"type\": \"digest\",\n          \"username\": env.SIP_USERNAME,\n          \"password\": env.SIP_PASSWORD\n        },\n        \"caller_number\": \"+14155550100\"\n      }\n    }\n  }' | curl https://api.openai.com/v1/live/sessions \\\n    -H \"Authorization: Bearer $OPENAI_API_KEY\" \\\n    -H \"Content-Type: application/json\" \\\n    --data-binary @-"
+                "curl": "# Export SIP_USERNAME and SIP_PASSWORD in your environment first.\njq -n '{\n    \"session\": {\n      \"model\": \"gpt-live-1.1\",\n      \"instructions\": \"Help the user schedule an appointment.\",\n      \"audio\": { \"output\": { \"voice\": \"marin\" } },\n      \"delegation\": { \"type\": \"client\" }\n    },\n    \"transport\": {\n      \"type\": \"sip\",\n      \"destination\": \"+14155550123\",\n      \"trunk\": {\n        \"provider_url\": \"sips:sip.example.com:5061\",\n        \"auth\": {\n          \"type\": \"digest\",\n          \"username\": env.SIP_USERNAME,\n          \"password\": env.SIP_PASSWORD\n        },\n        \"caller_number\": \"+14155550100\"\n      }\n    }\n  }' | curl https://api.openai.com/v1/live/sessions \\\n    -H \"Authorization: Bearer $OPENAI_API_KEY\" \\\n    -H \"Content-Type: application/json\" \\\n    --data-binary @-"
               },
               "response": "{\"session\":{\"id\":\"live_123\"},\"transport\":{\"type\":\"sip\"}}"
             }
@@ -7417,11 +7417,8 @@
                     },
                     "object": {
                       "type": "string",
-                      "enum": [
-                        "organization.admin_api_key.deleted"
-                      ],
-                      "example": "organization.admin_api_key.deleted",
-                      "x-stainless-const": true
+                      "const": "organization.admin_api_key.deleted",
+                      "example": "organization.admin_api_key.deleted"
                     },
                     "deleted": {
                       "type": "boolean",
@@ -33070,7 +33067,7 @@
       "get": {
         "operationId": "listAgentSessionTraces",
         "summary": "List agent session traces",
-        "description": "Lists published root-turn traces as OTLP JSON, ordered by turn creation time and ID. Unpublished traces are skipped. Each page returns data available when read; it does not wait for late traces. Trace reads and the JSON response are limited to 16 MiB per request. If the limit is exceeded, request fewer traces.",
+        "description": "Lists published root-turn traces as OTLP JSON, ordered by turn creation time and ID. Unpublished traces are skipped. Each page returns data available when read; it does not wait for late traces. Pages may contain fewer traces than requested to fit the 16 MiB response limit. When `has_more` is true, pass `last_id` as `after` to continue. If the first trace exceeds 16 MiB before conversion or cannot fit on a page by itself, the API returns a `trace_too_large` error.",
         "tags": [
           "Agents"
         ],
@@ -36673,11 +36670,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.admin_api_key"
-            ],
-            "description": "The object type, which is always `organization.admin_api_key`",
-            "x-stainless-const": true
+            "const": "organization.admin_api_key",
+            "description": "The object type, which is always `organization.admin_api_key`"
           },
           "id": {
             "type": "string",
@@ -36809,11 +36803,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "list"
-            ],
-            "example": "list",
-            "x-stainless-const": true
+            "const": "list",
+            "example": "list"
           },
           "data": {
             "type": "array",
@@ -41874,10 +41865,7 @@
           "object": {
             "type": "string",
             "description": "The type of object returned, must be `list`.",
-            "enum": [
-              "list"
-            ],
-            "x-stainless-const": true
+            "const": "list"
           },
           "data": {
             "type": "array",
@@ -43103,7 +43091,7 @@
             "maximum": 128,
             "default": 1,
             "example": 1,
-            "description": "How many completions to generate for each prompt. Omit `n` to generate one completion per prompt. Newer models reject an explicit `n`, even `n=1`.\n\n**Note:** Because this parameter generates many completions, it can quickly consume your token quota. Use carefully and ensure that you have reasonable settings for `max_tokens` and `stop`.\n"
+            "description": "How many completions to generate for each prompt. Omit `n` to generate one completion per prompt.\n\n**Note:** Because this parameter generates many completions, it can quickly consume your token quota. Use carefully and ensure that you have reasonable settings for `max_tokens` and `stop`.\n"
           },
           "presence_penalty": {
             "type": [
@@ -43279,10 +43267,7 @@
           "object": {
             "type": "string",
             "description": "The object type, which is always \"text_completion\"",
-            "enum": [
-              "text_completion"
-            ],
-            "x-stainless-const": true
+            "const": "text_completion"
           },
           "usage": {
             "$ref": "#/components/schemas/CompletionUsage"
@@ -46562,12 +46547,9 @@
                 "anyOf": [
                   {
                     "type": "string",
-                    "enum": [
-                      "auto"
-                    ],
+                    "const": "auto",
                     "default": "auto",
-                    "description": "Automatically set chunking parameters based on the audio. Must be set to `\"auto\"`.\n",
-                    "x-stainless-const": true
+                    "description": "Automatically set chunking parameters based on the audio. Must be set to `\"auto\"`.\n"
                   },
                   {
                     "$ref": "#/components/schemas/VadConfig"
@@ -47452,10 +47434,7 @@
           "object": {
             "type": "string",
             "description": "The object type, must be `certificate.deleted`.",
-            "enum": [
-              "certificate.deleted"
-            ],
-            "x-stainless-const": true
+            "const": "certificate.deleted"
           },
           "id": {
             "type": "string",
@@ -47773,9 +47752,8 @@
               }
             ],
             "x-oaiTypeLabel": "string",
-            "default": "gpt-image-2.5-sunburst",
-            "example": "gpt-image-2.5-sunburst",
-            "description": "The GPT image model to use for image editing, including `gpt-image-2`, its dated\nsnapshot `gpt-image-2-2026-04-21`, `gpt-image-2.5-sunburst`,\n`gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`,\n`gpt-image-2.5-flare-2026-09-08`, `gpt-image-2.6-sunburst`, and `gpt-image-2.6-flare`.\nDefaults to `gpt-image-2.5-sunburst`.\n\n`gpt-image-1` was shut down on October 23, 2026. Use\n`gpt-image-2.5-sunburst` or `gpt-image-2.5-flare` instead.\n"
+            "default": "gpt-image-2.6-sunburst",
+            "description": "The GPT image model to use for image editing, including `gpt-image-2`, its dated\nsnapshot `gpt-image-2-2026-04-21`, `gpt-image-2.5-sunburst`,\n`gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`,\n`gpt-image-2.5-flare-2026-09-08`, `gpt-image-2.6-sunburst`, and `gpt-image-2.6-flare`.\nDefaults to `gpt-image-2.6-sunburst`.\n\n`gpt-image-1` was shut down on October 23, 2026. Use\n`gpt-image-2.5-sunburst` or `gpt-image-2.5-flare` instead.\n"
           },
           "images": {
             "type": "array",
@@ -52777,10 +52755,7 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "list"
-            ],
-            "x-stainless-const": true
+            "const": "list"
           },
           "data": {
             "type": "array",
@@ -52887,10 +52862,7 @@
           },
           "object": {
             "type": "string",
-            "enum": [
-              "list"
-            ],
-            "x-stainless-const": true
+            "const": "list"
           }
         },
         "required": [
@@ -53155,10 +53127,7 @@
           },
           "object": {
             "type": "string",
-            "enum": [
-              "list"
-            ],
-            "x-stainless-const": true
+            "const": "list"
           }
         },
         "required": [
@@ -53349,11 +53318,8 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "live"
-            ],
+            "const": "live",
             "default": "live",
-            "x-stainless-const": true,
             "description": "The session type. Always `live`."
           }
         },
@@ -53630,6 +53596,12 @@
           },
           "client": {
             "$ref": "#/components/schemas/LiveClientConfigParam"
+          },
+          "wake_policy": {
+            "$ref": "#/components/schemas/LiveSpeechWakePolicyParam"
+          },
+          "idle_timeout_s": {
+            "$ref": "#/components/schemas/idle_timeout_s"
           }
         },
         "required": [
@@ -53660,10 +53632,7 @@
           "type": {
             "type": "string",
             "description": "The transport used for the Live session. Always `sip`.",
-            "enum": [
-              "sip"
-            ],
-            "x-stainless-const": true
+            "const": "sip"
           },
           "destination": {
             "type": "string",
@@ -53798,10 +53767,7 @@
                   "type": {
                     "type": "string",
                     "description": "The transport used for the Live session. Always `sip`.",
-                    "enum": [
-                      "sip"
-                    ],
-                    "x-stainless-const": true
+                    "const": "sip"
                   }
                 },
                 "required": [
@@ -53921,6 +53887,12 @@
             "$ref": "#/components/schemas/LiveSessionUpdated"
           },
           {
+            "$ref": "#/components/schemas/LiveSessionResumed"
+          },
+          {
+            "$ref": "#/components/schemas/LiveSessionPaused"
+          },
+          {
             "$ref": "#/components/schemas/LiveInputAudioMuted"
           },
           {
@@ -53983,10 +53955,7 @@
           "type": {
             "type": "string",
             "description": "The transport used for the Live session. Always `webrtc`.",
-            "enum": [
-              "webrtc"
-            ],
-            "x-stainless-const": true
+            "const": "webrtc"
           },
           "sdp": {
             "type": "string",
@@ -55563,7 +55532,7 @@
       },
       "ModelIdsLive": {
         "description": "The Live model. Required in the session configuration for every transport; do not pass it as a URL query parameter.",
-        "example": "gpt-live-1",
+        "example": "gpt-live-1.1",
         "anyOf": [
           {
             "type": "string",
@@ -55572,7 +55541,8 @@
           {
             "type": "string",
             "enum": [
-              "gpt-live-1"
+              "gpt-live-1",
+              "gpt-live-1.1"
             ]
           }
         ]
@@ -56411,11 +56381,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.certificate"
-            ],
-            "description": "The object type, which is always `organization.certificate`.",
-            "x-stainless-const": true
+            "const": "organization.certificate",
+            "description": "The object type, which is always `organization.certificate`."
           },
           "id": {
             "type": "string",
@@ -56471,11 +56438,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.certificate.activation"
-            ],
-            "description": "The organization certificate activation result type.",
-            "x-stainless-const": true
+            "const": "organization.certificate.activation",
+            "description": "The organization certificate activation result type."
           },
           "data": {
             "type": "array",
@@ -56494,11 +56458,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.certificate.deactivation"
-            ],
-            "description": "The organization certificate deactivation result type.",
-            "x-stainless-const": true
+            "const": "organization.certificate.deactivation",
+            "description": "The organization certificate deactivation result type."
           },
           "data": {
             "type": "array",
@@ -56518,11 +56479,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.data_retention"
-            ],
-            "description": "The object type, which is always `organization.data_retention`.",
-            "x-stainless-const": true
+            "const": "organization.data_retention",
+            "description": "The object type, which is always `organization.data_retention`."
           },
           "type": {
             "type": "string",
@@ -56550,11 +56508,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.project.certificate"
-            ],
-            "description": "The object type, which is always `organization.project.certificate`.",
-            "x-stainless-const": true
+            "const": "organization.project.certificate",
+            "description": "The object type, which is always `organization.project.certificate`."
           },
           "id": {
             "type": "string",
@@ -56610,11 +56565,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.project.certificate.activation"
-            ],
-            "description": "The project certificate activation result type.",
-            "x-stainless-const": true
+            "const": "organization.project.certificate.activation",
+            "description": "The project certificate activation result type."
           },
           "data": {
             "type": "array",
@@ -56633,11 +56585,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.project.certificate.deactivation"
-            ],
-            "description": "The project certificate deactivation result type.",
-            "x-stainless-const": true
+            "const": "organization.project.certificate.deactivation",
+            "description": "The project certificate deactivation result type."
           },
           "data": {
             "type": "array",
@@ -56661,11 +56610,8 @@
           },
           "object": {
             "type": "string",
-            "enum": [
-              "organization.spend_alert"
-            ],
-            "description": "The object type, which is always `organization.spend_alert`.",
-            "x-stainless-const": true
+            "const": "organization.spend_alert",
+            "description": "The object type, which is always `organization.spend_alert`."
           },
           "threshold_amount": {
             "type": "integer",
@@ -56712,11 +56658,8 @@
           },
           "object": {
             "type": "string",
-            "enum": [
-              "organization.spend_alert.deleted"
-            ],
-            "description": "Always `organization.spend_alert.deleted`.",
-            "x-stainless-const": true
+            "const": "organization.spend_alert.deleted",
+            "description": "Always `organization.spend_alert.deleted`."
           },
           "deleted": {
             "type": "boolean",
@@ -56735,11 +56678,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "list"
-            ],
-            "description": "Always `list`.",
-            "x-stainless-const": true
+            "const": "list",
+            "description": "Always `list`."
           },
           "data": {
             "type": "array",
@@ -57086,11 +57026,8 @@
           },
           "object": {
             "type": "string",
-            "enum": [
-              "organization.project"
-            ],
-            "description": "The object type, which is always `organization.project`",
-            "x-stainless-const": true
+            "const": "organization.project",
+            "description": "The object type, which is always `organization.project`"
           },
           "name": {
             "anyOf": [
@@ -57163,11 +57100,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.project.api_key"
-            ],
-            "description": "The object type, which is always `organization.project.api_key`",
-            "x-stainless-const": true
+            "const": "organization.project.api_key",
+            "description": "The object type, which is always `organization.project.api_key`"
           },
           "redacted_value": {
             "type": "string",
@@ -57258,10 +57192,7 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.project.api_key.deleted"
-            ],
-            "x-stainless-const": true
+            "const": "organization.project.api_key.deleted"
           },
           "id": {
             "type": "string"
@@ -57281,10 +57212,7 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "list"
-            ],
-            "x-stainless-const": true
+            "const": "list"
           },
           "data": {
             "type": "array",
@@ -57437,11 +57365,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "project.data_retention"
-            ],
-            "description": "The object type, which is always `project.data_retention`.",
-            "x-stainless-const": true
+            "const": "project.data_retention",
+            "description": "The object type, which is always `project.data_retention`."
           },
           "type": {
             "type": "string",
@@ -57471,11 +57396,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "project.group"
-            ],
-            "description": "Always `project.group`.",
-            "x-stainless-const": true
+            "const": "project.group",
+            "description": "Always `project.group`."
           },
           "project_id": {
             "type": "string",
@@ -57522,11 +57444,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "project.group.deleted"
-            ],
-            "description": "Always `project.group.deleted`.",
-            "x-stainless-const": true
+            "const": "project.group.deleted",
+            "description": "Always `project.group.deleted`."
           },
           "deleted": {
             "type": "boolean",
@@ -57548,11 +57467,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "list"
-            ],
-            "description": "Always `list`.",
-            "x-stainless-const": true
+            "const": "list",
+            "description": "Always `list`."
           },
           "data": {
             "type": "array",
@@ -57685,10 +57601,7 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "list"
-            ],
-            "x-stainless-const": true
+            "const": "list"
           },
           "data": {
             "type": "array",
@@ -57732,11 +57645,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "project.model_permissions"
-            ],
-            "description": "The object type, which is always `project.model_permissions`.",
-            "x-stainless-const": true
+            "const": "project.model_permissions",
+            "description": "The object type, which is always `project.model_permissions`."
           },
           "mode": {
             "type": "string",
@@ -57770,11 +57680,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "project.model_permissions.deleted"
-            ],
-            "description": "The object type, which is always `project.model_permissions.deleted`.",
-            "x-stainless-const": true
+            "const": "project.model_permissions.deleted",
+            "description": "The object type, which is always `project.model_permissions.deleted`."
           },
           "deleted": {
             "type": "boolean",
@@ -57820,11 +57727,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "project.rate_limit"
-            ],
-            "description": "The object type, which is always `project.rate_limit`",
-            "x-stainless-const": true
+            "const": "project.rate_limit",
+            "description": "The object type, which is always `project.rate_limit`"
           },
           "id": {
             "type": "string",
@@ -57876,10 +57780,7 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "list"
-            ],
-            "x-stainless-const": true
+            "const": "list"
           },
           "data": {
             "type": "array",
@@ -57952,11 +57853,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.project.service_account"
-            ],
-            "description": "The object type, which is always `organization.project.service_account`",
-            "x-stainless-const": true
+            "const": "organization.project.service_account",
+            "description": "The object type, which is always `organization.project.service_account`"
           },
           "id": {
             "type": "string",
@@ -57998,11 +57896,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.project.service_account.api_key"
-            ],
-            "description": "The object type, which is always `organization.project.service_account.api_key`",
-            "x-stainless-const": true
+            "const": "organization.project.service_account.api_key",
+            "description": "The object type, which is always `organization.project.service_account.api_key`"
           },
           "value": {
             "type": "string"
@@ -58079,10 +57974,7 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.project.service_account"
-            ],
-            "x-stainless-const": true
+            "const": "organization.project.service_account"
           },
           "id": {
             "type": "string"
@@ -58127,10 +58019,7 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.project.service_account.deleted"
-            ],
-            "x-stainless-const": true
+            "const": "organization.project.service_account.deleted"
           },
           "id": {
             "type": "string"
@@ -58150,10 +58039,7 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "list"
-            ],
-            "x-stainless-const": true
+            "const": "list"
           },
           "data": {
             "type": "array",
@@ -58201,11 +58087,8 @@
           },
           "object": {
             "type": "string",
-            "enum": [
-              "project.spend_alert"
-            ],
-            "description": "The object type, which is always `project.spend_alert`.",
-            "x-stainless-const": true
+            "const": "project.spend_alert",
+            "description": "The object type, which is always `project.spend_alert`."
           },
           "threshold_amount": {
             "type": "integer",
@@ -58252,11 +58135,8 @@
           },
           "object": {
             "type": "string",
-            "enum": [
-              "project.spend_alert.deleted"
-            ],
-            "description": "Always `project.spend_alert.deleted`.",
-            "x-stainless-const": true
+            "const": "project.spend_alert.deleted",
+            "description": "Always `project.spend_alert.deleted`."
           },
           "deleted": {
             "type": "boolean",
@@ -58275,11 +58155,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "list"
-            ],
-            "description": "Always `list`.",
-            "x-stainless-const": true
+            "const": "list",
+            "description": "Always `list`."
           },
           "data": {
             "type": "array",
@@ -58368,11 +58245,8 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.project.user"
-            ],
-            "description": "The object type, which is always `organization.project.user`",
-            "x-stainless-const": true
+            "const": "organization.project.user",
+            "description": "The object type, which is always `organization.project.user`"
           },
           "id": {
             "type": "string",
@@ -58460,10 +58334,7 @@
         "properties": {
           "object": {
             "type": "string",
-            "enum": [
-              "organization.project.user.deleted"
-            ],
-            "x-stainless-const": true
+            "const": "organization.project.user.deleted"
           },
           "id": {
             "type": "string"
@@ -74729,10 +74600,7 @@
           "type": {
             "type": "string",
             "description": "The type of the event. Always `speech.audio.delta`.\n",
-            "enum": [
-              "speech.audio.delta"
-            ],
-            "x-stainless-const": true
+            "const": "speech.audio.delta"
           },
           "audio": {
             "type": "string",
@@ -74756,10 +74624,7 @@
           "type": {
             "type": "string",
             "description": "The type of the event. Always `speech.audio.done`.\n",
-            "enum": [
-              "speech.audio.done"
-            ],
-            "x-stainless-const": true
+            "const": "speech.audio.done"
           },
           "usage": {
             "type": "object",
@@ -74801,11 +74666,8 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": [
-              "email"
-            ],
-            "description": "The notification channel type. Currently only `email` is supported.",
-            "x-stainless-const": true
+            "const": "email",
+            "description": "The notification channel type. Currently only `email` is supported."
           },
           "recipients": {
             "type": "array",
@@ -75683,11 +75545,8 @@
         "oneOf": [
           {
             "type": "string",
-            "enum": [
-              "auto"
-            ],
-            "description": "Automatically set chunking parameters based on the audio. Must be set to `\"auto\"`.\n",
-            "x-stainless-const": true
+            "const": "auto",
+            "description": "Automatically set chunking parameters based on the audio. Must be set to `\"auto\"`.\n"
           },
           {
             "$ref": "#/components/schemas/VadConfig"
@@ -88442,6 +88301,34 @@
           "data_channel"
         ]
       },
+      "LiveSpeechWakePolicyParam": {
+        "description": "Starts inference when microphone speech is detected.",
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "The wake policy type, always `speech`.",
+            "default": "speech",
+            "x-stainless-const": true,
+            "type": "string",
+            "enum": [
+              "speech"
+            ]
+          },
+          "vad_threshold": {
+            "description": "The speech detection threshold for the first wake and each later wake, from 0 to 1 inclusive. Defaults to 0.5. Higher values require stronger evidence of speech. This setting is independent of active turn detection.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "idle_timeout_s": {
+        "description": "Whole seconds of inactivity after which a Live WebRTC session with a speech wake policy pauses inference. The connection and conversation history are retained. Omit to keep inference active after the first wake until the session ends.",
+        "type": "integer",
+        "minimum": 5,
+        "maximum": 60
+      },
       "session": {
         "type": "object",
         "description": "The newly created Live session. Use its ID for session controls and sideband connections.",
@@ -92045,6 +91932,39 @@
         ],
         "description": "The current enforcement state of a hard spend limit."
       },
+      "EmailNotificationChannel": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "email"
+            ],
+            "default": "email",
+            "x-stainless-const": true
+          },
+          "recipients": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "subject_prefix": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "recipients"
+        ]
+      },
       "OrganizationSpendLimitResource": {
         "properties": {
           "object": {
@@ -92071,6 +91991,10 @@
           "enforcement": {
             "$ref": "#/components/schemas/SpendLimitEnforcement",
             "description": "The current enforcement state of the hard spend limit."
+          },
+          "notification_channel": {
+            "$ref": "#/components/schemas/EmailNotificationChannel",
+            "description": "Email notifications sent when the hard spend limit is reached."
           }
         },
         "type": "object",
@@ -92079,9 +92003,45 @@
           "threshold_amount",
           "currency",
           "interval",
-          "enforcement"
+          "enforcement",
+          "notification_channel"
         ],
         "description": "Represents a hard spend limit configured at the organization level."
+      },
+      "SpendLimitEmailNotificationChannelParams": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "email"
+            ],
+            "default": "email",
+            "x-stainless-const": true
+          },
+          "recipients": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "description": "Additional email recipients. Omit to keep them unchanged; send [] to clear them."
+          },
+          "subject_prefix": {
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "Email subject prefix. Omit to keep it unchanged; send null or an empty string to clear it."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "description": "Configure email notifications when the spend limit is reached. Leave this out to keep the current settings, or send null to reset to owner-only notifications."
       },
       "UpdateOrganizationSpendLimitBody": {
         "properties": {
@@ -92103,6 +92063,17 @@
               "month"
             ],
             "description": "The time interval for evaluating spend against the threshold. Currently, only `month` is supported."
+          },
+          "notification_channel": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SpendLimitEmailNotificationChannelParams",
+                "description": "Configure email notifications when the spend limit is reached. Leave this out to keep the current settings, or send null to reset to owner-only notifications."
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -92162,6 +92133,10 @@
           "enforcement": {
             "$ref": "#/components/schemas/SpendLimitEnforcement",
             "description": "The current enforcement state of the hard spend limit."
+          },
+          "notification_channel": {
+            "$ref": "#/components/schemas/EmailNotificationChannel",
+            "description": "Email notifications sent when the hard spend limit is reached."
           }
         },
         "type": "object",
@@ -92170,7 +92145,8 @@
           "threshold_amount",
           "currency",
           "interval",
-          "enforcement"
+          "enforcement",
+          "notification_channel"
         ],
         "description": "Represents a hard spend limit configured at the project level."
       },
@@ -92194,6 +92170,17 @@
               "month"
             ],
             "description": "The time interval for evaluating spend against the threshold. Currently, only `month` is supported."
+          },
+          "notification_channel": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SpendLimitEmailNotificationChannelParams",
+                "description": "Configure email notifications when the spend limit is reached. Leave this out to keep the current settings, or send null to reset to owner-only notifications."
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -103820,6 +103807,7 @@
         "enum": [
           "context_length_exceeded",
           "max_output_tokens",
+          "session_budget_exceeded",
           "usage_limit_exceeded",
           "api_key_spend_limit_exceeded",
           "project_spend_limit_exceeded",
@@ -103832,6 +103820,7 @@
           "server_overloaded",
           "cyber_policy",
           "misalignment_policy_violation",
+          "audio_input_unavailable",
           "connection_failed",
           "server_error",
           "authentication_error",
@@ -103846,6 +103835,7 @@
         "x-enumDescriptions": [
           "The request exceeds the model's context window.",
           "The model reached its output token limit before finishing the response.",
+          "The session has reached its usage budget.",
           "The organization has reached a usage, plan, or billing limit.",
           "The API key has reached its enforced spend limit.",
           "The project has reached its enforced spend limit.",
@@ -103858,6 +103848,7 @@
           "The model service is temporarily overloaded.",
           "The request was rejected by a safety policy.",
           "The request was blocked by the safety systems.",
+          "Audio input is unavailable for the organization.",
           "The request could not connect to the model service.",
           "The model service encountered an unexpected error.",
           "The API credentials are invalid or lack the required access.",
@@ -105918,19 +105909,50 @@
         ],
         "description": "The configured action review mode."
       },
+      "SessionBudgetControlResource": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "format": "int64",
+            "minimum": 1,
+            "maximum": 4503599627370495,
+            "description": "The configured positive limit in USD cents, or null when unlimited."
+          },
+          "consumed": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "Best-effort recorded spend floored to whole USD cents, or null when unavailable."
+          }
+        },
+        "required": [
+          "limit",
+          "consumed"
+        ],
+        "additionalProperties": false,
+        "description": "Session-wide spending limit and best-effort consumption, including unlimited sessions."
+      },
       "SessionStatusResource": {
         "type": "string",
         "enum": [
           "idle",
           "in_progress",
           "requires_action",
-          "failed"
+          "failed",
+          "budget_reached"
         ],
         "x-enumDescriptions": [
           "The session has no turn in progress and is ready for input. A hosted environment may still be provisioning.",
           "The session is processing a turn.",
           "The session is waiting for one or more required actions.",
-          "The session failed."
+          "The session failed.",
+          "The session is paused because its spending limit was reached."
         ],
         "description": "The current status of a session."
       },
@@ -106560,6 +106582,10 @@
             "$ref": "#/components/schemas/SessionReviewResource",
             "description": "Review applied to eligible actions in this session. Omitted when review is none and automatic review is not enabled. Omission means none."
           },
+          "spend_control": {
+            "$ref": "#/components/schemas/SessionBudgetControlResource",
+            "description": "Spending limit and best-effort consumption, in USD cents. The limit is null for an unlimited session. Consumption is null when unavailable."
+          },
           "metadata": {
             "type": "object",
             "additionalProperties": {
@@ -106649,6 +106675,7 @@
           }
         },
         "required": [
+          "spend_control",
           "metadata",
           "id",
           "object",
@@ -106729,6 +106756,26 @@
         ],
         "description": "Review applied to eligible actions in a session."
       },
+      "SessionBudgetControlParams": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "format": "int64",
+            "minimum": 1,
+            "maximum": 4503599627370495,
+            "description": "Positive USD cents, or null to remove the limit."
+          }
+        },
+        "required": [
+          "limit"
+        ],
+        "additionalProperties": false,
+        "description": "Sets the session-wide limit without changing recorded spend."
+      },
       "CreateSessionInputParam": {
         "oneOf": [
           {
@@ -106788,6 +106835,17 @@
           "review": {
             "$ref": "#/components/schemas/SessionReviewParam",
             "description": "Action review mode. Omit to use none."
+          },
+          "spend_control": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SessionBudgetControlParams"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional spending limit in USD cents. Omission or null creates an unlimited session."
           },
           "metadata": {
             "type": [
@@ -107956,6 +108014,41 @@
         "additionalProperties": false,
         "description": "Emitted when a session becomes idle."
       },
+      "SessionEventAgentSessionBudgetReached": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "agent.session.budget_reached"
+            ],
+            "default": "agent.session.budget_reached",
+            "x-stainless-const": true,
+            "description": "The type of the object. Always `agent.session.budget_reached`."
+          },
+          "event_id": {
+            "type": "string",
+            "minLength": 0,
+            "description": "The unique ID of the event."
+          },
+          "session": {
+            "$ref": "#/components/schemas/SessionResource",
+            "description": "The paused session."
+          },
+          "obfuscation": {
+            "type": "string",
+            "minLength": 0,
+            "description": "Random alphanumeric padding. Present when stream obfuscation is enabled."
+          }
+        },
+        "required": [
+          "type",
+          "event_id",
+          "session"
+        ],
+        "additionalProperties": false,
+        "description": "Emitted when a session pauses because its spending limit was reached."
+      },
       "SessionEventAgentSessionInProgress": {
         "type": "object",
         "properties": {
@@ -108981,6 +109074,9 @@
             "$ref": "#/components/schemas/SessionEventAgentSessionIdle"
           },
           {
+            "$ref": "#/components/schemas/SessionEventAgentSessionBudgetReached"
+          },
+          {
             "$ref": "#/components/schemas/SessionEventAgentSessionInProgress"
           },
           {
@@ -109058,6 +109154,7 @@
             "agent.session.turn.cancelled": "#/components/schemas/SessionEventAgentSessionTurnCancelled",
             "agent.session.turn.item.added": "#/components/schemas/SessionEventAgentSessionTurnItemAdded",
             "agent.session.idle": "#/components/schemas/SessionEventAgentSessionIdle",
+            "agent.session.budget_reached": "#/components/schemas/SessionEventAgentSessionBudgetReached",
             "agent.session.in_progress": "#/components/schemas/SessionEventAgentSessionInProgress",
             "agent.session.requires_action": "#/components/schemas/SessionEventAgentSessionRequiresAction",
             "agent.session.failed": "#/components/schemas/SessionEventAgentSessionFailed",
@@ -109091,6 +109188,7 @@
           "agent.session.turn.cancelled",
           "agent.session.turn.item.added",
           "agent.session.idle",
+          "agent.session.budget_reached",
           "agent.session.in_progress",
           "agent.session.requires_action",
           "agent.session.failed",
@@ -109202,6 +109300,17 @@
           "review": {
             "$ref": "#/components/schemas/SessionReviewParam",
             "description": "Default action review for new root turns. Existing turns and their subagents keep their review mode."
+          },
+          "spend_control": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SessionBudgetControlParams"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Omit to retain the limit; null or a null limit removes it without resetting spend."
           },
           "agent": {
             "$ref": "#/components/schemas/UpdateSessionAgentParam",
@@ -112074,7 +112183,7 @@
           "type": "session.start",
           "event_id": "evt_start_001",
           "session": {
-            "model": "gpt-live-1",
+            "model": "gpt-live-1.1",
             "instructions": "Help the caller plan a restaurant reservation. Confirm details before booking.",
             "audio": {
               "format": {
@@ -112127,7 +112236,7 @@
             "type": "session.start",
             "event_id": "evt_start_001",
             "session": {
-              "model": "gpt-live-1",
+              "model": "gpt-live-1.1",
               "instructions": "Help the caller plan a restaurant reservation. Confirm details before booking.",
               "audio": {
                 "format": {
@@ -113817,7 +113926,7 @@
           "client_event_id": "evt_start_001",
           "session": {
             "id": "live_abc123",
-            "model": "gpt-live-1",
+            "model": "gpt-live-1.1",
             "status": "active",
             "expires_at": 1788555600,
             "instructions": "Help the caller plan a restaurant reservation. Confirm details before booking.",
@@ -113871,7 +113980,7 @@
             "client_event_id": "evt_start_001",
             "session": {
               "id": "live_abc123",
-              "model": "gpt-live-1",
+              "model": "gpt-live-1.1",
               "status": "active",
               "expires_at": 1788555600,
               "instructions": "Help the caller plan a restaurant reservation. Confirm details before booking.",
@@ -113900,7 +114009,7 @@
           "client_event_id": "evt_update_001",
           "session": {
             "id": "live_def456",
-            "model": "gpt-live-1",
+            "model": "gpt-live-1.1",
             "status": "active",
             "expires_at": 1788555600,
             "instructions": "Help the caller plan a restaurant reservation. Confirm details before booking.",
@@ -113960,7 +114069,7 @@
             "client_event_id": "evt_update_001",
             "session": {
               "id": "live_def456",
-              "model": "gpt-live-1",
+              "model": "gpt-live-1.1",
               "status": "active",
               "expires_at": 1788555600,
               "instructions": "Help the caller plan a restaurant reservation. Confirm details before booking.",
@@ -113984,6 +114093,78 @@
                 }
               }
             }
+          }
+        }
+      },
+      "LiveSessionResumed": {
+        "description": "Sent when speech wakes inference and it is ready for audio in a Live WebRTC session. This occurs on the first wake and after each later wake. Delivered to the sideband and, when permitted by its event settings, the data channel.",
+        "example": {
+          "type": "session.resumed",
+          "event_id": "evt_resumed_001"
+        },
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "description": "The unique ID of the Live server event.",
+            "type": "string"
+          },
+          "client_event_id": {
+            "description": "The event_id of the client command associated with this server event, when supplied.",
+            "type": "string"
+          },
+          "type": {
+            "default": "session.resumed",
+            "x-stainless-const": true,
+            "type": "string",
+            "enum": [
+              "session.resumed"
+            ]
+          }
+        },
+        "required": [
+          "event_id",
+          "type"
+        ],
+        "x-oaiMeta": {
+          "example": {
+            "type": "session.resumed",
+            "event_id": "evt_resumed_001"
+          }
+        }
+      },
+      "LiveSessionPaused": {
+        "description": "Sent when the idle timeout pauses inference in a Live WebRTC session. The WebRTC connection, sideband, and session ID persist. Delivered to the sideband and, when permitted by its event settings, the data channel.",
+        "example": {
+          "type": "session.paused",
+          "event_id": "evt_paused_001"
+        },
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "description": "The unique ID of the Live server event.",
+            "type": "string"
+          },
+          "client_event_id": {
+            "description": "The event_id of the client command associated with this server event, when supplied.",
+            "type": "string"
+          },
+          "type": {
+            "default": "session.paused",
+            "x-stainless-const": true,
+            "type": "string",
+            "enum": [
+              "session.paused"
+            ]
+          }
+        },
+        "required": [
+          "event_id",
+          "type"
+        ],
+        "x-oaiMeta": {
+          "example": {
+            "type": "session.paused",
+            "event_id": "evt_paused_001"
           }
         }
       },
@@ -115486,12 +115667,20 @@
         }
       },
       "LiveSessionUsage": {
-        "description": "Cumulative audio duration for a Live session. Values are totals for the session, not increments to sum across usage events.",
+        "description": "Cumulative billable duration for a Live session. Eligible WebRTC sessions also report the active and paused breakdown. Do not sum values across usage events.",
         "type": "object",
         "properties": {
           "seconds": {
-            "description": "The cumulative Live audio duration in seconds. Do not sum this value across usage events.",
-            "type": "number"
+            "description": "The cumulative billable duration in whole seconds. When present, the active and paused breakdown adds up to this total.",
+            "type": "integer"
+          },
+          "active_seconds": {
+            "description": "The remaining billable seconds attributed to active audio and any unused prepaid duration.",
+            "type": "integer"
+          },
+          "paused_seconds": {
+            "description": "Billable time attributed to paused inference at the configured rate, rounded down to whole seconds.",
+            "type": "integer"
           }
         },
         "required": [
@@ -115517,7 +115706,7 @@
           "type": "session.usage.updated",
           "event_id": "evt_usage_001",
           "usage": {
-            "seconds": 32.5
+            "seconds": 32
           },
           "context_window": {
             "usage_ratio": 0.12
@@ -115561,7 +115750,7 @@
             "type": "session.usage.updated",
             "event_id": "evt_usage_001",
             "usage": {
-              "seconds": 32.5
+              "seconds": 32
             },
             "context_window": {
               "usage_ratio": 0.12
@@ -115578,7 +115767,7 @@
           "reason": "close_requested",
           "session": {
             "id": "live_abc123",
-            "model": "gpt-live-1",
+            "model": "gpt-live-1.1",
             "status": "active",
             "expires_at": 1788555600,
             "instructions": "Help the caller plan a restaurant reservation. Confirm details before booking.",
@@ -115597,7 +115786,7 @@
             }
           },
           "usage": {
-            "seconds": 45.8
+            "seconds": 45
           }
         },
         "type": "object",
@@ -115687,7 +115876,7 @@
             "reason": "close_requested",
             "session": {
               "id": "live_abc123",
-              "model": "gpt-live-1",
+              "model": "gpt-live-1.1",
               "status": "active",
               "expires_at": 1788555600,
               "instructions": "Help the caller plan a restaurant reservation. Confirm details before booking.",
@@ -115706,7 +115895,7 @@
               }
             },
             "usage": {
-              "seconds": 45.8
+              "seconds": 45
             }
           }
         }
@@ -116103,6 +116292,12 @@
           },
           {
             "$ref": "#/components/schemas/LiveSessionUpdated"
+          },
+          {
+            "$ref": "#/components/schemas/LiveSessionResumed"
+          },
+          {
+            "$ref": "#/components/schemas/LiveSessionPaused"
           },
           {
             "$ref": "#/components/schemas/LiveInputAudioMuted"
