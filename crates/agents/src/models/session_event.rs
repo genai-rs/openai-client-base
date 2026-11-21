@@ -32,6 +32,7 @@ pub enum SessionEvent {
     AgentSessionTurnCancelled(models::SessionEventAgentSessionTurnCancelled),
     AgentSessionTurnItemAdded(models::SessionEventAgentSessionTurnItemAdded),
     AgentSessionIdle(models::SessionEventAgentSessionIdle),
+    AgentSessionBudgetReached(models::SessionEventAgentSessionBudgetReached),
     AgentSessionInProgress(models::SessionEventAgentSessionInProgress),
     AgentSessionRequiresAction(models::SessionEventAgentSessionRequiresAction),
     AgentSessionFailed(models::SessionEventAgentSessionFailed),
@@ -131,6 +132,10 @@ impl SessionEvent {
             }
             Tag::Value("agent.session.idle") => {
                 dispatch::decode(value, UNION, "AgentSessionIdle").map(Self::AgentSessionIdle)
+            }
+            Tag::Value("agent.session.budget_reached") => {
+                dispatch::decode(value, UNION, "AgentSessionBudgetReached")
+                    .map(Self::AgentSessionBudgetReached)
             }
             Tag::Value("agent.session.in_progress") => {
                 dispatch::decode(value, UNION, "AgentSessionInProgress")
@@ -275,6 +280,10 @@ impl std::fmt::Display for SessionEvent {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            Self::AgentSessionBudgetReached(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
             Self::AgentSessionInProgress(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
@@ -413,6 +422,9 @@ impl crate::models::validation::Validate for SessionEvent {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }
             Self::AgentSessionIdle(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionBudgetReached(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }
             Self::AgentSessionInProgress(value) => {
