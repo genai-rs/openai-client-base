@@ -2096,9 +2096,9 @@ dependencies = [
 
 [[package]]
 name = "timvw-rust-runtime"
-version = "0.4.1"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ff895788b262e0587de17ba09223b952e402f242d9d520c6be4c2ef406872bc0"
+checksum = "b9db8e3b7e64c56350fff9fd38c523776778fa744a404ee760d9a570e8db17a0"
 dependencies = [
  "base64 0.23.1",
  "bytes",
