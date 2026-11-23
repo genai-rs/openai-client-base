@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.37.1](https://github.com/genai-rs/openai-client-base/compare/v0.37.0...v0.37.1) - 2026-11-23
+
+### Other
+
+- *(deps)* Update Rust crate serde_with to ^3.25.0
+- *(deps)* Update pre-1.0 Rust updates
+- *(deps)* Update rust patch updates
+
 ## [0.37.0](https://github.com/genai-rs/openai-client-base/compare/v0.36.2...v0.37.0) - 2026-11-19
 
 ### Added
