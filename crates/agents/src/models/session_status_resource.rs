@@ -22,6 +22,8 @@ pub enum SessionStatusResource {
     RequiresAction,
     #[serde(rename = "failed")]
     Failed,
+    #[serde(rename = "budget_reached")]
+    BudgetReached,
 
     /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
     #[serde(rename = "unknown", other)]
@@ -35,6 +37,7 @@ impl std::fmt::Display for SessionStatusResource {
             Self::InProgress => write!(f, "in_progress"),
             Self::RequiresAction => write!(f, "requires_action"),
             Self::Failed => write!(f, "failed"),
+            Self::BudgetReached => write!(f, "budget_reached"),
             Self::Unknown => write!(f, "unknown"),
         }
     }
@@ -58,6 +61,7 @@ impl ::std::str::FromStr for SessionStatusResource {
             "in_progress" => Ok(Self::InProgress),
             "requires_action" => Ok(Self::RequiresAction),
             "failed" => Ok(Self::Failed),
+            "budget_reached" => Ok(Self::BudgetReached),
             _ => Err(crate::models::ParseEnumError::new(
                 "SessionStatusResource",
                 value,

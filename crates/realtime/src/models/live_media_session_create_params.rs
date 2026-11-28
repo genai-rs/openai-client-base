@@ -59,6 +59,13 @@ pub struct LiveMediaSessionCreateParams {
     pub input: Option<Vec<models::LiveInitialItem>>,
     #[serde(rename = "client", skip_serializing_if = "Option::is_none")]
     pub client: Option<models::LiveClientConfigParam>,
+    #[serde(rename = "wake_policy", skip_serializing_if = "Option::is_none")]
+    pub wake_policy: Option<models::LiveSpeechWakePolicyParam>,
+    /// Whole seconds of inactivity after which a Live WebRTC or SIP session with a speech wake policy pauses inference. The connection and conversation history are retained. Omit to keep inference active after the first wake until the session ends.
+    ///
+    /// Validation: `minimum: 5`, `maximum: 60`.
+    #[serde(rename = "idle_timeout_s", skip_serializing_if = "Option::is_none")]
+    pub idle_timeout_s: Option<i64>,
 }
 
 impl LiveMediaSessionCreateParams {
@@ -74,6 +81,8 @@ impl LiveMediaSessionCreateParams {
             store: None,
             input: None,
             client: None,
+            wake_policy: None,
+            idle_timeout_s: None,
         }
     }
 }
@@ -147,5 +156,9 @@ impl crate::models::validation::Validate for LiveMediaSessionCreateParams {
             &path.field("client"),
             errors,
         );
+        if let Some(value0) = &self.idle_timeout_s {
+            crate::models::validation::minimum(*value0, 5, &path.field("idle_timeout_s"), errors);
+            crate::models::validation::maximum(*value0, 60, &path.field("idle_timeout_s"), errors);
+        }
     }
 }

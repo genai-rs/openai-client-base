@@ -41,7 +41,7 @@ pub struct RealtimeBetaResponseCreateParams {
     pub max_output_tokens: Option<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>,
     #[serde(rename = "conversation", skip_serializing_if = "Option::is_none")]
     pub conversation: Option<models::RealtimeBetaResponseCreateParamsConversation>,
-    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
+    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
         rename = "metadata",
         default,

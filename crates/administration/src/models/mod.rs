@@ -523,6 +523,10 @@ pub mod discovery_verification_param;
 #[cfg(feature = "administration-types")]
 pub use self::discovery_verification_param::DiscoveryVerificationParam;
 #[cfg(feature = "administration-types")]
+pub mod email_notification_channel;
+#[cfg(feature = "administration-types")]
+pub use self::email_notification_channel::EmailNotificationChannel;
+#[cfg(feature = "administration-types")]
 pub mod external_key_purpose;
 #[cfg(feature = "administration-types")]
 pub use self::external_key_purpose::ExternalKeyPurpose;
@@ -1034,6 +1038,10 @@ pub use self::spend_limit_currency::SpendLimitCurrency;
 pub mod spend_limit_currency_text_variant_enum;
 #[cfg(feature = "administration-types")]
 pub use self::spend_limit_currency_text_variant_enum::SpendLimitCurrencyTextVariantEnum;
+#[cfg(feature = "administration-types")]
+pub mod spend_limit_email_notification_channel_params;
+#[cfg(feature = "administration-types")]
+pub use self::spend_limit_email_notification_channel_params::SpendLimitEmailNotificationChannelParams;
 #[cfg(feature = "administration-types")]
 pub mod spend_limit_enforcement;
 #[cfg(feature = "administration-types")]

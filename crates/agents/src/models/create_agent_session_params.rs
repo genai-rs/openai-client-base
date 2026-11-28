@@ -19,6 +19,14 @@ pub struct CreateAgentSessionParams {
     pub environment: models::EnvironmentParam,
     #[serde(rename = "review", skip_serializing_if = "Option::is_none")]
     pub review: Option<models::SessionReviewParam>,
+    /// Optional spending limit in USD cents. Omission or null creates an unlimited session.
+    #[serde(
+        rename = "spend_control",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub spend_control: Option<Option<models::SessionBudgetControlParams>>,
     /// Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters. Omission or null defaults to an empty map.
     ///
     /// Validation: `minProperties: 0`, `maxProperties: 16`; each value: `minLength: 0`, `maxLength: 512`.
@@ -54,6 +62,8 @@ pub struct CreateAgentSessionParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub input: Option<Option<models::CreateSessionInputParam>>,
+    #[serde(rename = "access_programs", skip_serializing_if = "Option::is_none")]
+    pub access_programs: Option<models::AccessProgramsParam2>,
     /// Default prompt cache lifetime for turns in this session. Omit to use the model default.
     #[serde(
         rename = "prompt_cache_options",
@@ -75,11 +85,13 @@ impl CreateAgentSessionParams {
         CreateAgentSessionParams {
             environment,
             review: None,
+            spend_control: None,
             metadata: None,
             agent: None,
             agent_id: None,
             vault_ids: None,
             input: None,
+            access_programs: None,
             prompt_cache_options: None,
             stream: None,
             stream_options: None,
@@ -107,6 +119,11 @@ impl crate::models::validation::Validate for CreateAgentSessionParams {
         crate::models::validation::Validate::validate_into(
             &self.environment,
             &path.field("environment"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.spend_control,
+            &path.field("spend_control"),
             errors,
         );
         if let Some(Some(value0)) = &self.metadata {

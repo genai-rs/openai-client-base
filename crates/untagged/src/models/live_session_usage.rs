@@ -10,19 +10,29 @@
 
 use serde::{Deserialize, Serialize};
 
-/// LiveSessionUsage : Cumulative audio duration for a Live session. Values are totals for the session, not increments to sum across usage events.
+/// LiveSessionUsage : Cumulative billable duration for a Live session. Eligible WebRTC sessions also report the active and paused breakdown. Do not sum values across usage events.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 #[builder(state_mod = live_session_usage_builder, finish_fn(vis = "", name = build_internal))]
 pub struct LiveSessionUsage {
-    /// The cumulative Live audio duration in seconds. Do not sum this value across usage events.
+    /// The cumulative billable duration in whole seconds. When present, the active and paused breakdown adds up to this total.
     #[serde(rename = "seconds")]
-    pub seconds: f64,
+    pub seconds: i64,
+    /// The remaining billable seconds attributed to active audio and any unused prepaid duration.
+    #[serde(rename = "active_seconds", skip_serializing_if = "Option::is_none")]
+    pub active_seconds: Option<i64>,
+    /// Billable time attributed to paused inference at the configured rate, rounded down to whole seconds.
+    #[serde(rename = "paused_seconds", skip_serializing_if = "Option::is_none")]
+    pub paused_seconds: Option<i64>,
 }
 
 impl LiveSessionUsage {
-    /// Cumulative audio duration for a Live session. Values are totals for the session, not increments to sum across usage events.
-    pub fn new(seconds: f64) -> LiveSessionUsage {
-        LiveSessionUsage { seconds }
+    /// Cumulative billable duration for a Live session. Eligible WebRTC sessions also report the active and paused breakdown. Do not sum values across usage events.
+    pub fn new(seconds: i64) -> LiveSessionUsage {
+        LiveSessionUsage {
+            seconds,
+            active_seconds: None,
+            paused_seconds: None,
+        }
     }
 }
 

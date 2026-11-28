@@ -54,7 +54,7 @@ pub struct AssistantObject {
         skip_serializing_if = "Option::is_none"
     )]
     pub tool_resources: Option<Option<models::AssistantObjectToolResources>>,
-    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
+    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", default)]
     pub metadata: Option<std::collections::HashMap<String, String>>,
     /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
