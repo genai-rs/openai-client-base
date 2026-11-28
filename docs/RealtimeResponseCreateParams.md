@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **reasoning** | Option<[**models::RealtimeReasoning**](RealtimeReasoning.md)> |  | [optional]
 **max_output_tokens** | Option<[**models::RealtimeResponseCreateParamsMaxOutputTokens**](RealtimeResponseCreateParamsMaxOutputTokens.md)> |  | [optional]
 **conversation** | Option<**String**> |  | [optional]
-**metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | [optional]
+**metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | [optional]
 **prompt** | Option<[**models::Prompt**](Prompt.md)> |  | [optional]
 **input** | Option<[**Vec<models::RealtimeResponseInputItem>**](RealtimeResponseInputItem.md)> | Input items to include in the prompt for the model. Using this field creates a new context for this Response instead of using the default conversation. An empty array `[]` will clear the context for this Response. Note that this can include references to items that previously appeared in the session using their id.  | [optional]
 

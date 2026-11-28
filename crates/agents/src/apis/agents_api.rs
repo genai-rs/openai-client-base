@@ -24,6 +24,7 @@ pub enum CreateAgentError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -38,6 +39,7 @@ pub enum CreateAgentAutomationError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -52,6 +54,7 @@ pub enum CreateAgentAutomationInvocationError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -95,6 +98,7 @@ pub enum CreateAgentEnvironmentTemplateError {
     Status401(models::ErrorResponse2),
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -124,6 +128,7 @@ pub enum CreateAgentSessionEventsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -138,6 +143,7 @@ pub enum DeleteAgentError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -152,6 +158,7 @@ pub enum DeleteAgentAutomationError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -166,6 +173,7 @@ pub enum DeleteAgentEnvironmentTemplateError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -180,6 +188,7 @@ pub enum DeleteAgentSessionError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -194,6 +203,7 @@ pub enum DeleteAgentSessionArtifactError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -208,6 +218,7 @@ pub enum GetAgentAutomationError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -222,6 +233,7 @@ pub enum GetAgentAutomationInvocationError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -236,6 +248,7 @@ pub enum ListAgentAutomationInvocationsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status501(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
@@ -251,6 +264,7 @@ pub enum ListAgentAutomationsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status501(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
@@ -266,6 +280,7 @@ pub enum ListAgentEnvironmentFilesError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -279,6 +294,7 @@ pub enum ListAgentEnvironmentTemplatesError {
     Status401(models::ErrorResponse2),
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -293,6 +309,7 @@ pub enum ListAgentEnvironmentsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -307,6 +324,7 @@ pub enum ListAgentSessionArtifactsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -321,6 +339,7 @@ pub enum ListAgentSessionEventsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -335,6 +354,7 @@ pub enum ListAgentSessionItemsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -349,6 +369,7 @@ pub enum ListAgentSessionSubagentItemsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -363,6 +384,7 @@ pub enum ListAgentSessionSubagentTurnItemsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -377,6 +399,7 @@ pub enum ListAgentSessionSubagentTurnsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -391,6 +414,7 @@ pub enum ListAgentSessionSubagentsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -405,6 +429,7 @@ pub enum ListAgentSessionTracesError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -419,6 +444,7 @@ pub enum ListAgentSessionTurnItemsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -433,6 +459,7 @@ pub enum ListAgentSessionTurnsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -447,6 +474,7 @@ pub enum ListAgentSessionsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -461,6 +489,7 @@ pub enum ListAgentsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -475,6 +504,7 @@ pub enum PauseAgentAutomationError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -489,6 +519,7 @@ pub enum ResumeAgentAutomationError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -503,6 +534,7 @@ pub enum RetrieveAgentError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -517,6 +549,7 @@ pub enum RetrieveAgentEnvironmentError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -530,6 +563,7 @@ pub enum RetrieveAgentEnvironmentTemplateError {
     Status401(models::ErrorResponse2),
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -544,6 +578,7 @@ pub enum RetrieveAgentSessionError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -558,6 +593,7 @@ pub enum RetrieveAgentSessionArtifactError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -572,6 +608,7 @@ pub enum RetrieveAgentSessionArtifactContentError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -586,6 +623,7 @@ pub enum RetrieveAgentSessionSubagentError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -600,6 +638,7 @@ pub enum RetrieveAgentSessionSubagentTurnError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -614,6 +653,7 @@ pub enum RetrieveAgentSessionTurnError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -628,6 +668,7 @@ pub enum UpdateAgentError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -642,6 +683,7 @@ pub enum UpdateAgentAutomationError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -656,6 +698,7 @@ pub enum UpdateAgentEnvironmentTemplateError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -670,6 +713,7 @@ pub enum UpdateAgentSessionError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -741,6 +785,9 @@ pub async fn create_agent(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentError::Status500),
@@ -837,6 +884,9 @@ pub async fn create_agent_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentError::Status500),
@@ -939,6 +989,9 @@ pub async fn create_agent_automation(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentAutomationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentAutomationError::Status500),
@@ -1038,6 +1091,9 @@ pub async fn create_agent_automation_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentAutomationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentAutomationError::Status500),
@@ -1146,6 +1202,9 @@ pub async fn create_agent_automation_invocation(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentAutomationInvocationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentAutomationInvocationError::Status500),
@@ -1253,6 +1312,9 @@ pub async fn create_agent_automation_invocation_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentAutomationInvocationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentAutomationInvocationError::Status500),
@@ -1808,6 +1870,9 @@ pub async fn create_agent_environment_template(
             404 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentEnvironmentTemplateError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentTemplateError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentEnvironmentTemplateError::Status500),
@@ -1908,6 +1973,9 @@ pub async fn create_agent_environment_template_response(
             404 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentEnvironmentTemplateError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentTemplateError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentEnvironmentTemplateError::Status500),
@@ -2219,6 +2287,9 @@ pub async fn create_agent_session_events(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentSessionEventsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionEventsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentSessionEventsError::Status500),
@@ -2328,6 +2399,9 @@ pub async fn create_agent_session_events_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentSessionEventsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionEventsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentSessionEventsError::Status500),
@@ -2544,6 +2618,9 @@ pub async fn delete_agent(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentError::Status500),
@@ -2644,6 +2721,9 @@ pub async fn delete_agent_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentError::Status500),
@@ -2750,6 +2830,9 @@ pub async fn delete_agent_automation(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentAutomationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentAutomationError::Status500),
@@ -2853,6 +2936,9 @@ pub async fn delete_agent_automation_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentAutomationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentAutomationError::Status500),
@@ -2964,6 +3050,9 @@ pub async fn delete_agent_environment_template(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentEnvironmentTemplateError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentEnvironmentTemplateError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentEnvironmentTemplateError::Status500),
@@ -3073,6 +3162,9 @@ pub async fn delete_agent_environment_template_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentEnvironmentTemplateError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentEnvironmentTemplateError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentEnvironmentTemplateError::Status500),
@@ -3183,6 +3275,9 @@ pub async fn delete_agent_session(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentSessionError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentSessionError::Status500),
@@ -3285,6 +3380,9 @@ pub async fn delete_agent_session_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentSessionError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentSessionError::Status500),
@@ -3396,6 +3494,9 @@ pub async fn delete_agent_session_artifact(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentSessionArtifactError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionArtifactError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentSessionArtifactError::Status500),
@@ -3507,6 +3608,9 @@ pub async fn delete_agent_session_artifact_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentSessionArtifactError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionArtifactError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentSessionArtifactError::Status500),
@@ -3618,6 +3722,9 @@ pub async fn get_agent_automation(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(GetAgentAutomationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(GetAgentAutomationError::Status500),
@@ -3718,6 +3825,9 @@ pub async fn get_agent_automation_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(GetAgentAutomationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(GetAgentAutomationError::Status500),
@@ -3829,6 +3939,9 @@ pub async fn get_agent_automation_invocation(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(GetAgentAutomationInvocationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(GetAgentAutomationInvocationError::Status500),
@@ -3940,6 +4053,9 @@ pub async fn get_agent_automation_invocation_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(GetAgentAutomationInvocationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(GetAgentAutomationInvocationError::Status500),
@@ -4069,6 +4185,9 @@ pub async fn list_agent_automation_invocations(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentAutomationInvocationsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentAutomationInvocationsError::Status500),
@@ -4196,6 +4315,9 @@ pub async fn list_agent_automation_invocations_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentAutomationInvocationsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentAutomationInvocationsError::Status500),
@@ -4323,6 +4445,9 @@ pub async fn list_agent_automations(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentAutomationsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentAutomationsError::Status500),
@@ -4444,6 +4569,9 @@ pub async fn list_agent_automations_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentAutomationsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentAutomationsError::Status500),
@@ -4576,6 +4704,9 @@ pub async fn list_agent_environment_files(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentEnvironmentFilesError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentFilesError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentEnvironmentFilesError::Status500),
@@ -4702,6 +4833,9 @@ pub async fn list_agent_environment_files_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentEnvironmentFilesError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentFilesError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentEnvironmentFilesError::Status500),
@@ -4818,6 +4952,9 @@ pub async fn list_agent_environment_templates(
             404 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentEnvironmentTemplatesError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentTemplatesError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentEnvironmentTemplatesError::Status500),
@@ -4930,6 +5067,9 @@ pub async fn list_agent_environment_templates_response(
             404 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentEnvironmentTemplatesError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentTemplatesError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentEnvironmentTemplatesError::Status500),
@@ -5053,6 +5193,9 @@ pub async fn list_agent_environments(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentEnvironmentsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentEnvironmentsError::Status500),
@@ -5171,6 +5314,9 @@ pub async fn list_agent_environments_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentEnvironmentsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentEnvironmentsError::Status500),
@@ -5300,6 +5446,9 @@ pub async fn list_agent_session_artifacts(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionArtifactsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionArtifactsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionArtifactsError::Status500),
@@ -5426,6 +5575,9 @@ pub async fn list_agent_session_artifacts_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionArtifactsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionArtifactsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionArtifactsError::Status500),
@@ -5533,6 +5685,9 @@ pub async fn list_agent_session_events(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionEventsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionEventsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionEventsError::Status500),
@@ -5666,6 +5821,9 @@ pub async fn list_agent_session_items(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionItemsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionItemsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionItemsError::Status500),
@@ -5784,6 +5942,9 @@ pub async fn list_agent_session_items_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionItemsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionItemsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionItemsError::Status500),
@@ -5912,6 +6073,9 @@ pub async fn list_agent_session_subagent_items(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentItemsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentItemsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentItemsError::Status500),
@@ -6037,6 +6201,9 @@ pub async fn list_agent_session_subagent_items_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentItemsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentItemsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentItemsError::Status500),
@@ -6169,6 +6336,9 @@ pub async fn list_agent_session_subagent_turn_items(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentTurnItemsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnItemsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentTurnItemsError::Status500),
@@ -6299,6 +6469,9 @@ pub async fn list_agent_session_subagent_turn_items_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentTurnItemsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnItemsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentTurnItemsError::Status500),
@@ -6429,6 +6602,9 @@ pub async fn list_agent_session_subagent_turns(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentTurnsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentTurnsError::Status500),
@@ -6554,6 +6730,9 @@ pub async fn list_agent_session_subagent_turns_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentTurnsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentTurnsError::Status500),
@@ -6680,6 +6859,9 @@ pub async fn list_agent_session_subagents(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentsError::Status500),
@@ -6802,6 +6984,9 @@ pub async fn list_agent_session_subagents_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionSubagentsError::Status500),
@@ -6843,7 +7028,7 @@ where
     }
 }
 
-/// Lists published root-turn traces as OTLP JSON, ordered by turn creation time and ID. Unpublished traces are skipped. Each page returns data available when read; it does not wait for late traces. Trace reads and the JSON response are limited to 16 MiB per request. If the limit is exceeded, request fewer traces.
+/// Lists published root-turn traces as OTLP JSON, ordered by turn creation time and ID. Unpublished traces are skipped. Each page returns data available when read; it does not wait for late traces. Pages may contain fewer traces than requested to fit the 16 MiB response limit. When `has_more` is true, pass `last_id` as `after` to continue. If the first trace exceeds 16 MiB before conversion or cannot fit on a page by itself, the API returns a `trace_too_large` error.
 #[bon::builder(state_mod = list_agent_session_traces_builder, finish_fn(vis = "", name = call_internal))]
 pub async fn list_agent_session_traces(
     configuration: &configuration::Configuration,
@@ -6927,6 +7112,9 @@ pub async fn list_agent_session_traces(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionTracesError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTracesError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionTracesError::Status500),
@@ -6964,7 +7152,7 @@ where
     }
 }
 
-/// Lists published root-turn traces as OTLP JSON, ordered by turn creation time and ID. Unpublished traces are skipped. Each page returns data available when read; it does not wait for late traces. Trace reads and the JSON response are limited to 16 MiB per request. If the limit is exceeded, request fewer traces.
+/// Lists published root-turn traces as OTLP JSON, ordered by turn creation time and ID. Unpublished traces are skipped. Each page returns data available when read; it does not wait for late traces. Pages may contain fewer traces than requested to fit the 16 MiB response limit. When `has_more` is true, pass `last_id` as `after` to continue. If the first trace exceeds 16 MiB before conversion or cannot fit on a page by itself, the API returns a `trace_too_large` error.
 ///
 /// Sends the same request as [`list_agent_session_traces`] and fails the same way, error status included, but returns the
 /// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
@@ -7045,6 +7233,9 @@ pub async fn list_agent_session_traces_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionTracesError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTracesError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionTracesError::Status500),
@@ -7173,6 +7364,9 @@ pub async fn list_agent_session_turn_items(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionTurnItemsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnItemsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionTurnItemsError::Status500),
@@ -7298,6 +7492,9 @@ pub async fn list_agent_session_turn_items_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionTurnItemsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnItemsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionTurnItemsError::Status500),
@@ -7424,6 +7621,9 @@ pub async fn list_agent_session_turns(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionTurnsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionTurnsError::Status500),
@@ -7542,6 +7742,9 @@ pub async fn list_agent_session_turns_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionTurnsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionTurnsError::Status500),
@@ -7674,6 +7877,9 @@ pub async fn list_agent_sessions(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionsError::Status500),
@@ -7795,6 +8001,9 @@ pub async fn list_agent_sessions_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentSessionsError::Status500),
@@ -7911,6 +8120,9 @@ pub async fn list_agents(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentsError::Status500),
@@ -8019,6 +8231,9 @@ pub async fn list_agents_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentsError::Status500),
@@ -8124,6 +8339,9 @@ pub async fn pause_agent_automation(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(PauseAgentAutomationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(PauseAgentAutomationError::Status500),
@@ -8226,6 +8444,9 @@ pub async fn pause_agent_automation_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(PauseAgentAutomationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(PauseAgentAutomationError::Status500),
@@ -8334,6 +8555,9 @@ pub async fn resume_agent_automation(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ResumeAgentAutomationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ResumeAgentAutomationError::Status500),
@@ -8436,6 +8660,9 @@ pub async fn resume_agent_automation_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ResumeAgentAutomationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ResumeAgentAutomationError::Status500),
@@ -8544,6 +8771,9 @@ pub async fn retrieve_agent(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentError::Status500),
@@ -8644,6 +8874,9 @@ pub async fn retrieve_agent_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentError::Status500),
@@ -8750,6 +8983,9 @@ pub async fn retrieve_agent_environment(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentEnvironmentError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentEnvironmentError::Status500),
@@ -8855,6 +9091,9 @@ pub async fn retrieve_agent_environment_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentEnvironmentError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentEnvironmentError::Status500),
@@ -8962,6 +9201,9 @@ pub async fn retrieve_agent_environment_template(
             404 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentEnvironmentTemplateError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentTemplateError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentEnvironmentTemplateError::Status500),
@@ -9066,6 +9308,9 @@ pub async fn retrieve_agent_environment_template_response(
             404 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentEnvironmentTemplateError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentTemplateError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentEnvironmentTemplateError::Status500),
@@ -9176,6 +9421,9 @@ pub async fn retrieve_agent_session(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionError::Status500),
@@ -9276,6 +9524,9 @@ pub async fn retrieve_agent_session_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionError::Status500),
@@ -9386,6 +9637,9 @@ pub async fn retrieve_agent_session_artifact(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionArtifactError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionArtifactError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionArtifactError::Status500),
@@ -9496,6 +9750,9 @@ pub async fn retrieve_agent_session_artifact_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionArtifactError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionArtifactError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionArtifactError::Status500),
@@ -9599,6 +9856,9 @@ pub async fn retrieve_agent_session_artifact_content(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionArtifactContentError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionArtifactContentError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionArtifactContentError::Status500),
@@ -9710,6 +9970,9 @@ pub async fn retrieve_agent_session_subagent(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionSubagentError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionSubagentError::Status500),
@@ -9818,6 +10081,9 @@ pub async fn retrieve_agent_session_subagent_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionSubagentError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionSubagentError::Status500),
@@ -9935,6 +10201,9 @@ pub async fn retrieve_agent_session_subagent_turn(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionSubagentTurnError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentTurnError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionSubagentTurnError::Status500),
@@ -10047,6 +10316,9 @@ pub async fn retrieve_agent_session_subagent_turn_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionSubagentTurnError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentTurnError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionSubagentTurnError::Status500),
@@ -10162,6 +10434,9 @@ pub async fn retrieve_agent_session_turn(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionTurnError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionTurnError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionTurnError::Status500),
@@ -10267,6 +10542,9 @@ pub async fn retrieve_agent_session_turn_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionTurnError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionTurnError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveAgentSessionTurnError::Status500),
@@ -10379,6 +10657,9 @@ pub async fn update_agent(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentError::Status500),
@@ -10482,6 +10763,9 @@ pub async fn update_agent_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentError::Status500),
@@ -10591,6 +10875,9 @@ pub async fn update_agent_automation(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentAutomationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentAutomationError::Status500),
@@ -10697,6 +10984,9 @@ pub async fn update_agent_automation_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentAutomationError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentAutomationError::Status500),
@@ -10809,6 +11099,9 @@ pub async fn update_agent_environment_template(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentEnvironmentTemplateError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentEnvironmentTemplateError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentEnvironmentTemplateError::Status500),
@@ -10919,6 +11212,9 @@ pub async fn update_agent_environment_template_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentEnvironmentTemplateError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentEnvironmentTemplateError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentEnvironmentTemplateError::Status500),
@@ -11032,6 +11328,9 @@ pub async fn update_agent_session(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentSessionError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentSessionError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentSessionError::Status500),
@@ -11135,6 +11434,9 @@ pub async fn update_agent_session_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentSessionError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentSessionError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateAgentSessionError::Status500),

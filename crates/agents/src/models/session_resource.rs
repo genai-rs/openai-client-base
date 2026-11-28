@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 #[builder(state_mod = session_resource_builder, finish_fn(vis = "", name = build_internal))]
 pub struct SessionResource {
+    #[serde(rename = "access_programs", skip_serializing_if = "Option::is_none")]
+    pub access_programs: Option<models::AccessProgramsResource>,
     /// Default prompt cache lifetime for turns in this session, when configured.
     #[serde(
         rename = "prompt_cache_options",
@@ -25,6 +27,8 @@ pub struct SessionResource {
     pub prompt_cache_options: Option<Option<models::PromptCacheOptionsResource>>,
     #[serde(rename = "review", skip_serializing_if = "Option::is_none")]
     pub review: Option<models::SessionReviewResource>,
+    #[serde(rename = "spend_control")]
+    pub spend_control: models::SessionBudgetControlResource,
     /// Custom string key-value pairs attached to the session.
     ///
     /// Validation: `minProperties: 0`; each value: `minLength: 0`.
@@ -73,6 +77,7 @@ pub struct SessionResource {
 impl SessionResource {
     /// A Managed Agents session.
     pub fn new(
+        spend_control: models::SessionBudgetControlResource,
         metadata: std::collections::HashMap<String, String>,
         id: String,
         object: Object,
@@ -87,8 +92,10 @@ impl SessionResource {
         usage: Option<models::TokenUsageResource>,
     ) -> SessionResource {
         SessionResource {
+            access_programs: None,
             prompt_cache_options: None,
             review: None,
+            spend_control,
             metadata,
             id,
             object,
@@ -107,6 +114,7 @@ impl SessionResource {
 
 impl<S: session_resource_builder::State> SessionResourceBuilder<S>
 where
+    S::SpendControl: session_resource_builder::IsSet,
     S::Metadata: session_resource_builder::IsSet,
     S::Id: session_resource_builder::IsSet,
     S::Object: session_resource_builder::IsSet,
@@ -131,6 +139,11 @@ impl crate::models::validation::Validate for SessionResource {
         path: &crate::models::validation::Path<'_>,
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
+        crate::models::validation::Validate::validate_into(
+            &self.spend_control,
+            &path.field("spend_control"),
+            errors,
+        );
         crate::models::validation::properties(
             self.metadata.len(),
             Some(0),

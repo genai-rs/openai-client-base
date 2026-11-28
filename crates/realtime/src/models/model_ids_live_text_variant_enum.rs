@@ -14,12 +14,15 @@ use serde::{Deserialize, Serialize};
 pub enum ModelIdsLiveTextVariantEnum {
     #[serde(rename = "gpt-live-1")]
     GptLive1,
+    #[serde(rename = "gpt-live-1.1")]
+    GptLive11,
 }
 
 impl std::fmt::Display for ModelIdsLiveTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
             Self::GptLive1 => write!(f, "gpt-live-1"),
+            Self::GptLive11 => write!(f, "gpt-live-1.1"),
         }
     }
 }
@@ -39,6 +42,7 @@ impl ::std::str::FromStr for ModelIdsLiveTextVariantEnum {
     fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
         match value {
             "gpt-live-1" => Ok(Self::GptLive1),
+            "gpt-live-1.1" => Ok(Self::GptLive11),
             _ => Err(crate::models::ParseEnumError::new(
                 "ModelIdsLiveTextVariantEnum",
                 value,

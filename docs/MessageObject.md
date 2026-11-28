@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **assistant_id** | Option<**String**> | If applicable, the ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) that authored this message. | 
 **run_id** | Option<**String**> | The ID of the [run](https://developers.openai.com/api/docs/assistants/migration) associated with the creation of this message. Value is `null` when messages are created manually using the create message or create thread endpoints. | 
 **attachments** | Option<[**Vec<models::MessageObjectAttachmentsInner>**](MessageObjectAttachmentsInner.md)> | A list of files attached to the message, and the tools they were added to. | 
-**metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | 
+**metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

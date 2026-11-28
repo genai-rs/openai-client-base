@@ -24,6 +24,7 @@ pub enum CreateVaultError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -38,6 +39,7 @@ pub enum CreateVaultCredentialError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -52,6 +54,7 @@ pub enum DeleteVaultError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -66,6 +69,7 @@ pub enum DeleteVaultCredentialError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -80,6 +84,7 @@ pub enum ListVaultCredentialsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -94,6 +99,7 @@ pub enum ListVaultsError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -108,6 +114,7 @@ pub enum RetrieveVaultError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -122,6 +129,7 @@ pub enum RetrieveVaultCredentialError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -136,6 +144,7 @@ pub enum RotateVaultCredentialError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -150,6 +159,7 @@ pub enum UpdateVaultError {
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -221,6 +231,9 @@ pub async fn create_vault(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateVaultError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateVaultError::Status500),
@@ -317,6 +330,9 @@ pub async fn create_vault_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateVaultError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateVaultError::Status500),
@@ -425,6 +441,9 @@ pub async fn create_vault_credential(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateVaultCredentialError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultCredentialError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateVaultCredentialError::Status500),
@@ -531,6 +550,9 @@ pub async fn create_vault_credential_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateVaultCredentialError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVaultCredentialError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateVaultCredentialError::Status500),
@@ -641,6 +663,9 @@ pub async fn delete_vault(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteVaultError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteVaultError::Status500),
@@ -741,6 +766,9 @@ pub async fn delete_vault_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteVaultError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteVaultError::Status500),
@@ -850,6 +878,9 @@ pub async fn delete_vault_credential(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteVaultCredentialError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultCredentialError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteVaultCredentialError::Status500),
@@ -959,6 +990,9 @@ pub async fn delete_vault_credential_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteVaultCredentialError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVaultCredentialError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(DeleteVaultCredentialError::Status500),
@@ -1099,6 +1133,9 @@ pub async fn list_vault_credentials(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListVaultCredentialsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultCredentialsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListVaultCredentialsError::Status500),
@@ -1231,6 +1268,9 @@ pub async fn list_vault_credentials_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListVaultCredentialsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultCredentialsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListVaultCredentialsError::Status500),
@@ -1364,6 +1404,9 @@ pub async fn list_vaults(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListVaultsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListVaultsError::Status500),
@@ -1486,6 +1529,9 @@ pub async fn list_vaults_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(ListVaultsError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVaultsError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(ListVaultsError::Status500),
@@ -1591,6 +1637,9 @@ pub async fn retrieve_vault(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveVaultError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveVaultError::Status500),
@@ -1691,6 +1740,9 @@ pub async fn retrieve_vault_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveVaultError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveVaultError::Status500),
@@ -1800,6 +1852,9 @@ pub async fn retrieve_vault_credential(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveVaultCredentialError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultCredentialError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveVaultCredentialError::Status500),
@@ -1907,6 +1962,9 @@ pub async fn retrieve_vault_credential_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveVaultCredentialError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVaultCredentialError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RetrieveVaultCredentialError::Status500),
@@ -2024,6 +2082,9 @@ pub async fn rotate_vault_credential(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RotateVaultCredentialError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RotateVaultCredentialError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RotateVaultCredentialError::Status500),
@@ -2135,6 +2196,9 @@ pub async fn rotate_vault_credential_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(RotateVaultCredentialError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RotateVaultCredentialError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(RotateVaultCredentialError::Status500),
@@ -2250,6 +2314,9 @@ pub async fn update_vault(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateVaultError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVaultError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateVaultError::Status500),
@@ -2354,6 +2421,9 @@ pub async fn update_vault_response(
             409 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateVaultError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVaultError::Status429),
             500 => serde_json::from_str(&content)
                 .ok()
                 .map(UpdateVaultError::Status500),

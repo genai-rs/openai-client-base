@@ -22,12 +22,23 @@ pub struct BetaCompactResource {
     /// The object type. Always `response.compaction`.  Defaults to `\"response.compaction\"`.
     #[serde(rename = "object")]
     pub object: Object,
+    /// A stable identifier that was used for safety monitoring and abuse detection.
+    #[serde(
+        rename = "safety_identifier",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub safety_identifier: Option<Option<String>>,
     /// The compacted list of output items.
     #[serde(rename = "output")]
     pub output: Vec<models::BetaItemField>,
     /// Unix timestamp (in seconds) when the compacted conversation was created.
     #[serde(rename = "created_at", with = "super::unix_time")]
     pub created_at: jiff::Timestamp,
+    /// The service tier used for compaction, when reported.
+    #[serde(rename = "service_tier", skip_serializing_if = "Option::is_none")]
+    pub service_tier: Option<String>,
     #[serde(rename = "usage")]
     pub usage: models::BetaResponseUsage,
 }
@@ -44,8 +55,10 @@ impl BetaCompactResource {
             image: None,
             id,
             object,
+            safety_identifier: None,
             output,
             created_at,
+            service_tier: None,
             usage,
         }
     }

@@ -15,6 +15,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 #[builder(state_mod = update_agent_session_params_builder, finish_fn(vis = "", name = build_internal))]
 pub struct UpdateAgentSessionParams {
+    /// Cyber program for subsequent turns. Send null to restore the model default.
+    #[serde(
+        rename = "access_programs",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub access_programs: Option<Option<models::AccessProgramsUpdateParam>>,
     /// Default prompt cache lifetime for future turns. Send null to clear the session default.
     #[serde(
         rename = "prompt_cache_options",
@@ -35,6 +43,14 @@ pub struct UpdateAgentSessionParams {
     pub vault_ids: Option<Option<Vec<String>>>,
     #[serde(rename = "review", skip_serializing_if = "Option::is_none")]
     pub review: Option<models::SessionReviewParam>,
+    /// Omit to retain the limit; null or a null limit removes it without resetting spend.
+    #[serde(
+        rename = "spend_control",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub spend_control: Option<Option<models::SessionBudgetControlParams>>,
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::UpdateSessionAgentParam>,
     /// Replaces all metadata. Omit to leave unchanged, or pass null or {} to clear it. Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters.
@@ -53,9 +69,11 @@ impl UpdateAgentSessionParams {
     /// Fields to update on an existing session.
     pub fn new() -> UpdateAgentSessionParams {
         UpdateAgentSessionParams {
+            access_programs: None,
             prompt_cache_options: None,
             vault_ids: None,
             review: None,
+            spend_control: None,
             agent: None,
             metadata: None,
         }
@@ -94,6 +112,11 @@ impl crate::models::validation::Validate for UpdateAgentSessionParams {
                 );
             }
         }
+        crate::models::validation::Validate::validate_into(
+            &self.spend_control,
+            &path.field("spend_control"),
+            errors,
+        );
         crate::models::validation::Validate::validate_into(
             &self.agent,
             &path.field("agent"),

@@ -40,6 +40,16 @@ pub struct BetaCompactResponseMethodPublicBody {
         skip_serializing_if = "Option::is_none"
     )]
     pub instructions: Option<Option<String>>,
+    /// A stable identifier used for safety monitoring and abuse detection.
+    ///
+    /// Validation: `maxLength: 128`.
+    #[serde(
+        rename = "safety_identifier",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub safety_identifier: Option<Option<String>>,
     #[serde(rename = "image", skip_serializing_if = "Option::is_none")]
     pub image: Option<models::BetaImageOptionsParam>,
     /// A key to use when reading from or writing to the prompt cache.
@@ -82,6 +92,7 @@ impl BetaCompactResponseMethodPublicBody {
             input: None,
             previous_response_id: None,
             instructions: None,
+            safety_identifier: None,
             image: None,
             prompt_cache_key: None,
             prompt_cache_retention: None,
@@ -114,6 +125,15 @@ impl crate::models::validation::Validate for BetaCompactResponseMethodPublicBody
             &path.field("input"),
             errors,
         );
+        if let Some(Some(value0)) = &self.safety_identifier {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(128),
+                &path.field("safety_identifier"),
+                errors,
+            );
+        }
         if let Some(Some(value0)) = &self.prompt_cache_key {
             crate::models::validation::length(
                 value0,
